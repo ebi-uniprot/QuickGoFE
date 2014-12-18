@@ -1,0 +1,217 @@
+
+<div id="statisticsMainContent" class="mainContent grid_10" style="display: none">
+	<ul class="action-buttons-grouped decorated" id="resultActionStatsButtons">
+		<li id="downloadStatsItem"><a id="download-stats-button" title="Download statistics" class="icon icon-functional button tooltipped" data-icon="=">Download</a>
+		</li>				
+	</ul>
+	<!-- Download menu -->
+	<%@include file="/templates/downloadStats.jsp"%>
+	<div id="loading-stats-div">
+	        <h4 style="text-align:center;vertical-align:middle;">
+			<img src="<%= request.getContextPath() %>/images/ajax-loader.gif" alt="Loading...">  Calculating statistics...
+		</h4>
+	</div>	
+
+	<div id="statisticsTabs">
+
+		<ul>
+			<li><a href="#statsSummary">Summary</a></li>
+			<li><a href="#statsGOID">GO ID</a></li>
+			<li><a href="#statsAspect">Aspect</a></li>
+			<li><a href="#statsEvidence">Evidence</a></li>
+			<li><a href="#statsReference">Reference</a></li>
+			<li><a href="#statsTaxon">Taxon</a></li>
+			<li><a href="#statsAssignedBy">Assigned By</a></li>
+
+		</ul>
+
+		<div id="statsSummary">
+			Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation set that you have selected; if you perform any filtering or ID mapping 				operations, the statistics displayed will alter accordingly.
+			You can find full details of the datasets that comprise the full annotation set <a target="_blank" href=<c:url value="/"/>dataset>here</a>.
+			<table style="width:30%">
+				<tr><td><strong>Number of annotations</strong></td><td>${totalNumberAnnotations}</td></tr>
+				<tr><td><strong>Number of distinct proteins</strong></td><td>${totalNumberProteins}</td></tr>
+			</table>
+		</div>
+		<div id="statsGOID">
+			<div class="grid_5">
+				<h4>Count of Annotations per GO Identifier</h4>
+				<table id="annotationsByGOID" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>Name</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="annByGOID" items="${statsBean.annotationsPerGOID}">
+							<tr><td><strong>GO:${annByGOID.code}</strong></td><td>${annByGOID.name}</td><td>${annByGOID.percentage}</td><td>${annByGOID.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>
+			<div class="grid_5">
+				<h4>Count of Proteins per GO Identifier</h4>
+				<table id="proteinsByGOID" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>Name</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="protByGOID" items="${statsBean.proteinsPerGOID}">
+							<tr><td><strong>GO:${protByGOID.code}</strong></td><td>${protByGOID.name}</td><td>${protByGOID.percentage}</td><td>${protByGOID.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>
+		</div>
+		<div id="statsAspect">
+			<div class="grid_5">
+				<h4>Count of Annotations per Aspect</h4>
+				<table id="annotationsByAspect" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="annByAspect" items="${statsBean.annotationsPerAspect}">
+							<tr><td><strong>${annByAspect.code}</strong></td><td>${annByAspect.percentage}</td><td>${annByAspect.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>
+			<div class="grid_5">
+				<h4>Count of Proteins per Aspect</h4>
+				<table id="proteinsByAspect" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="protByAspect" items="${statsBean.proteinsPerAspect}">
+							<tr><td><strong>${protByAspect.code}</strong></td><td>${protByAspect.percentage}</td><td>${protByAspect.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>
+		</div>
+		<div id="statsEvidence">
+			<div class="grid_5">
+				<h4>Count of Annotations per Evidence</h4>
+				<table id="annotationsByEvidence" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>Name</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="annByEvidence" items="${statsBean.annotationsPerEvidence}">
+							<tr><td><strong>${annByEvidence.code}</strong></td><td>${annByEvidence.name}</td><td>${annByEvidence.percentage}</td><td>${annByEvidence.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>
+			<div class="grid_5">
+				<h4>Count of Proteins per Evidence</h4>
+				<table id="proteinsByEvidence" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>Name</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="protByEvidence" items="${statsBean.proteinsPerEvidence}">
+							<tr><td><strong>${protByEvidence.code}</strong></td><td>${protByEvidence.name}</td><td>${protByEvidence.percentage}</td><td>${protByEvidence.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>			
+		</div>
+		<div id="statsReference">
+			<div class="grid_5">
+				<h4>Count of Annotations per Reference</h4>
+				<table id="annotationsByReference" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="annByReference" items="${statsBean.annotationsPerReference}">
+							<tr><td><strong>${annByReference.code}</strong></td><td>${annByReference.percentage}</td><td>${annByReference.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>
+			<div class="grid_5">
+				<h4>Count of Proteins per Reference</h4>
+				<table id="proteinsByReference" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="protByReference" items="${statsBean.proteinsPerReference}">
+							<tr><td><strong>${protByReference.code}</strong></td><td>${protByReference.percentage}</td><td>${protByReference.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>
+		</div>
+		<div id="statsTaxon">
+			<div class="grid_5">
+				<h4>Count of Annotations per Taxon</h4>
+				<table id="annotationsByTaxon" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>Name</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="annByTaxon" items="${statsBean.annotationsPerTaxon}">
+							<tr><td><strong>${annByTaxon.code}</strong></td><td>${annByTaxon.name}</td><td>${annByTaxon.percentage}</td><td>${annByTaxon.count}</td></tr>
+						</c:forEach>
+				</table>				
+			</div>
+			<div class="grid_5">
+				<h4>Count of Proteins per Taxon</h4>
+				<table id="proteinsByTaxon" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>Name</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="protByTaxon" items="${statsBean.proteinsPerTaxon}">
+							<tr><td><strong>${protByTaxon.code}</strong></td><td>${protByTaxon.name}</td><td>${protByTaxon.percentage}</td><td>${protByTaxon.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>
+		</div>
+		<div id="statsAssignedBy">
+			<div class="grid_5">
+				<h4>Count of Annotations per Assigned By</h4>
+				<table id="annotationsByAssignedBy" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="annByAssignedBy" items="${statsBean.annotationsPerAssignedBy}">
+							<tr><td><strong>${annByAssignedBy.code}</strong></td><td>${annByAssignedBy.percentage}</td><td>${annByAssignedBy.count}</td></tr>
+						</c:forEach>
+				</table>	
+			
+			</div>
+			<div class="grid_5">
+				<h4>Count of Proteins per Assigned By</h4>
+				<table id="proteinsByAssignedBy" class="two-colours" style="font-size: 90%;">	
+						<tr>
+							<th>Code</th>
+							<th>%</th>
+							<th>Count</th>
+						</tr>
+						<c:forEach var="protByAssignedBy" items="${statsBean.proteinsPerAssignedBy}">
+							<tr><td><strong>${protByAssignedBy.code}</strong></td><td>${protByAssignedBy.percentage}</td><td>${protByAssignedBy.count}</td></tr>
+						</c:forEach>
+				</table>
+			</div>	
+		</div>		
+	</div>
+	<script>
+		// Tabs
+		$("#statisticsTabs").tabs();
+	</script>
+
+</div>

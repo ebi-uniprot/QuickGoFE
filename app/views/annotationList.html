@@ -1,10 +1,8 @@
 <body>
 	<div id="content" class="container_12">
-		<!--Header -->
-		<!--<%@include file="/templates/header.jsp"%>-->
 
 		<div class="sidebar grid_2">
-			<h2 class="page-title">Results <img id="loading-image" src="<%= request.getContextPath() %>/images/ajax-loader.gif" alt="Loading..." height="42" width="42" /></h2>
+			<h2 class="page-title">Results <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." height="42" width="42" /></h2>
 		</div>
 		<div class="mainContent grid_8">
 			<p></p>
@@ -22,8 +20,10 @@
 		<div class="clearfix"></div>
 		<!-- Sidebar -->
 		<!--<%@include file="/templates/annotation-sidebar.jsp"%>-->
+        <div ng-include src="'views/annotation-sidebar.html'"></div>
 		<!-- Statistics panel -->
 		<!--<%@include file="statistics.jsp"%>-->
+        <div ng-include src="'views/statistics.html'"></div>
 		<!-- Main Content -->
 		<div id="annotationsMainContent" class="mainContent grid_10">
 			<ul class="action-buttons-grouped decorated" id="resultActionButtons">
@@ -33,8 +33,11 @@
 						class="icon icon-functional button tooltipped" data-icon="=">Download</a>
 				</li>
 			</ul>
-			<!-- Download menu -->
+
+      <!-- Download menu -->
 			<!--<%@include file="/templates/download.jsp"%>-->
+      <div ng-include src="'views/download.html'"></div>
+
 			<span class="status">
 				<div class="pagination light-theme simple-pagination" id="light-pagination"></div></span>
 			<span class="status">
@@ -67,7 +70,10 @@
 											<!--<c:set var="display" value="" />-->
 										<!--</c:if>-->
 									<!--</c:forEach>-->
-									<th class="${annotationColumn.name}" style="${display}">${annotationColumn.description}</th>
+									<!--<th class="${annotationColumn.name}" style="${display}">${annotationColumn.description}</th>-->
+                                <th ng-repeat="colHeading in annotationColumns">
+                                    {{colHeading.value}}
+                                </th>
 								<!--</c:forEach>-->
 							</tr>
 
@@ -164,11 +170,10 @@
 		</div>
 		<div class="clearfix"></div>
 	</div>
-	<!-- Footer -->
-	<!--<%@include file="/templates/footer.jsp"%>-->
 
 	<!-- Column display popup -->
 	<!--<%@include file="columnDisplay.jsp"%>-->
+  <div ng-include src="'views/annotation/columnDisplay.html'"></div>
 
 	<!-- Advanced filters popup -->
 	<!--<%@include file="advancedFilters.jsp"%>-->
