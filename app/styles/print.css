@@ -1,0 +1,20 @@
+#header, #searchbar, #save, #options, .next, #banner, #toc, .toc, .toplink, #form, #cart, .action, .hide, .close, #feedback, .noprint {
+}
+div.section {
+}
+span.history, td.tools, th.tools {
+}
+div#footer {
+}
+table.sequence td.feature {
+}
+a:link:after, a:visited:after {
+    content: "";
+}
+#page > div.sidebar, #resultActionButtons, #local-masthead, .page-footer {
+    display: none;
+}
+#page > div.mainContent {
+    left: 0;
+    width: 100%;
+}
