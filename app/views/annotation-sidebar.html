@@ -46,13 +46,11 @@
       <!--</span>-->
 
         <span ng-repeat="filter in appliedFilters">
-          <span ng-model="filter">
           <div class="appliedValue" ng-if="filter">
             <p style="float: left">
               {{filter.key}} : {{filter.id}}</p><span style="float:right"> <img src="images/cross.png" ng-click="removeFilter(filter)"/></span>
             <div class="clearfix"> </div>
           </div>
-          </span>
       </span>
 
 					<script>
