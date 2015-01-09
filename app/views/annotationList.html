@@ -80,7 +80,7 @@
 								<!--</c:forEach>-->
 							</tr>
 
-                            <tr ng-repeat="annotation in annotations">
+                            <tr ng-repeat="goTuple in goList">
                                 <!--<p>1 + 2 = {{ 1 + 2 }}</p>-->
                                 <!--<p>Total number of annotations is {{annotations.length}}-->
                                 <!--gene_product_id' : 'A0A001',-->
@@ -95,17 +95,45 @@
                                 <!--'Taxon':'35758',-->
                                 <!--'Assigned By' : 'InterPro',-->
                                 <!--'Annotation Extension' : ''},-->
-                                <td>{{annotation.Gene_product_id}}</td>
+
+                              <!--//{"protein":"A0A000",
+                              // "symbol":null,
+                              // "qualifier":"enables",
+                              // "goId":"GO:0003824",
+                              // "termName":null,
+                              // "aspect":null,
+                              // "evidenceGo":"IEA",
+                              // "evidenceEco":"ECO:0000256",
+                              // "reference":"GO_REF:0000002",
+                              // "with":"InterPro:IPR015421|InterPro:IPR015422",
+                              // "taxon":0,
+                              // "assignedBy":"InterPro",
+                              // "database":"UniProtKB",
+                              // "date":"20141025",
+                              // "name":null,
+                              // "synonym":null,
+                              // "type":null,
+                              // "taxonName":null,
+                              // "sequence":0,
+                              // "originalTermId":null,
+                              // "originalTermName":null}    -->
+
+
+                                <td>{{goTuple.protein}}</td>
                                 <td>{{annotation.Symbol}}</td>
-                                <td>{{annotation.Qualifier}}</td>
-                                <td>{{annotation.GO_Identifier}}</td>
+                                <td>{{goTuple.qualifier}}</td>
+                                <td>{{goTuple.goId}}</td>
                                 <td>{{annotation.GO_Term_Name}}</td>
                                 <td>{{annotation.Aspect}}</td>
-                                <td>{{annotation.Evidence}}</td>
-                                <td>{{annotation.Reference}}</td>
-                                <td>{{annotation.With}}</td>
-                                <td>{{annotation.Assigned_By}}</td>
-                                <td>{{annotation.Annotation_Extension}}</td>
+                                <td>{{goTuple.evidenceEco}}</td>
+                                <td>{{goTuple.reference}}</td>      <!-- "reference":"GO_REF:0000002", -->
+                                <td>{{goTuple.withList}}</td>
+                                <!--<td>{{goTuple.assignedBy}}</td>-->
+                                <!--<td>**Annotation_Extension**</td>-->
+
+                              <!--<td>**with**</td>-->
+                              <td>**assignedBy**</td>
+                              <td>**Annotation_Extension**</td>
                             </tr>
 
 							<!--<c:forEach var="annotation" items="${sessionScope.annotationsList}">-->

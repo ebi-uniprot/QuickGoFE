@@ -1,9 +1,9 @@
 /*
- 	
+
  	ebi-global.css
- 	
+
  	Style rules for common EBI website elements - global and local headers and footers
- 	
+
  	~ generic masthead rules
  	~ masthead menus
  	~ global masthead
@@ -15,7 +15,7 @@
  	~ local footer
  	~ global footer
  		(includes global expanded nav)
- 		
+
 
 	AUTHOR: Francis Rowland
 	DATE:   Feb 2012
@@ -24,21 +24,21 @@
 
 body.level1 { max-width: 1200px; margin:0 auto; }
 
-/* 
+/*
 	SITE-WIDE MASTHEAD LAYOUT AND SIZE
 	Generic rules for global and local mastheads
 ===================================================
- */ 	
+ */
 div#global-masthead,
 div#global-masthead nav { height: 30px; }	/* 1.5 lines */
 div#global-masthead nav { float: right; }
 
-/* 
+/*
 	HORIZONTAL MASTHEAD MENUS
 	Generic rules
 ====================================
  */
-div.masthead ul { 
+div.masthead ul {
 	margin: 0;
 	padding: 0;
 	float: left;
@@ -88,7 +88,7 @@ div#local-footer p {
 }
 
 /* Global menu styling */
-div#global-masthead ul { 
+div#global-masthead ul {
 	float: right;
 	font-size: 93%;	/* 12px */
 }
@@ -107,7 +107,7 @@ div#global-masthead ul li.last a { border-right: 0 none; }
 
 div#global-masthead ul li a,
 div#global-masthead ul li a:link,
-div#global-masthead ul li a:visited { 
+div#global-masthead ul li a:visited {
 	color: white;
 	border-bottom: 0 none;
 }
@@ -116,8 +116,8 @@ div#global-masthead ul li a:hover,
 div#global-masthead ul li a:active,
 div#global-masthead ul li a:focus,
 div#global-masthead ul li.active a,
-div#global-masthead ul li.active-trail a { 
-	border-top: 3px solid white; 
+div#global-masthead ul li.active-trail a {
+	border-top: 3px solid white;
 	height: 20px
 }
 
@@ -127,53 +127,53 @@ div#global-masthead ul li.active-trail a {
 	div#global-masthead ul li#services a:active,
 	div#global-masthead ul li#services a:focus,
 	div#global-masthead ul li.active#services a,
-	div#global-masthead ul li.active-trail#services a { 
-		border-top-color: #207a7a; 
+	div#global-masthead ul li.active-trail#services a {
+		border-top-color: #207a7a;
 	}
-	
+
 	/* custom colour for Research */
 	div#global-masthead ul li#research a:hover,
 	div#global-masthead ul li#research a:active,
 	div#global-masthead ul li#research a:focus,
-	div#global-masthead ul li#research.active a { 
+	div#global-masthead ul li#research.active a {
 		/* border-top-color: #e3823e;  */	/* Not allowed to use orange! */
 		border-top-color: #71b360;
 	}
-	
+
 	/* custom colour for Training */
 	div#global-masthead ul li#training a:hover,
 	div#global-masthead ul li#training a:active,
 	div#global-masthead ul li#training a:focus,
 	div#global-masthead ul li#training.active a,
-	div#global-masthead ul li#training.active-trail a { 
-		border-top-color: #fab700; 
+	div#global-masthead ul li#training.active-trail a {
+		border-top-color: #fab700;
 	}
-	
+
 	/* custom colour for Industry */
 	div#global-masthead ul li#industry a:hover,
 	div#global-masthead ul li#industry a:active,
 	div#global-masthead ul li#industry a:focus,
 	div#global-masthead ul li#industry.active a,
-    div#global-masthead ul li#industry.active-trail a { 
-		border-top-color: #346189; 
+    div#global-masthead ul li#industry.active-trail a {
+		border-top-color: #346189;
 	}
-	
-	
+
+
 	/* custom colour for About us */
 	div#global-masthead ul li#about a:hover,
 	div#global-masthead ul li#about a:active,
 	div#global-masthead ul li#about a:focus,
 	div#global-masthead ul li#about.active a,
 	div#global-masthead ul li#about.active-trail a {
-  		border-top-color: #207a7a; 
+  		border-top-color: #207a7a;
 	}
   /* custom colour for About us (Drupal) */
 	div#global-masthead ul li#about-us a:hover,
 	div#global-masthead ul li#about-us a:active,
 	div#global-masthead ul li#about-us a:focus,
 	div#global-masthead ul li#about-us.active a,
-	div#global-masthead ul li#about-us.active-trail a { 
-		border-top-color: #207a7a; 
+	div#global-masthead ul li#about-us.active-trail a {
+		border-top-color: #207a7a;
 	}
 
 
@@ -205,7 +205,7 @@ form#global-search input#global-searchbox {
 
 form#global-search input.submit {
 	/* padding: 0.25em; */
-	
+
 	width: 24px;
 	height: 24px;
 	margin: 0;
@@ -214,12 +214,12 @@ form#global-search input.submit {
 	background-position: 0 0;
 	width: 24px;
 	height: 24px;
-	-moz-box-shadow: 0 0 0 transparent; 
-	-webkit-box-shadow: 0 0 0 transparent; 
-	box-shadow:  0 0 0 transparent; 
-	
+	-moz-box-shadow: 0 0 0 transparent;
+	-webkit-box-shadow: 0 0 0 transparent;
+	box-shadow:  0 0 0 transparent;
+
 	border:0 none;
-	
+
 
 	/* font-size: 93%;	 */
 }
@@ -239,14 +239,14 @@ form#global-search input.submit:active {
 */
 
 
-div#local-masthead { 
+div#local-masthead {
 	border-bottom: 3px solid #eee;
 }
 
 
 
 div#skip-to,
-div#local-title-logo h1 { 
+div#local-title-logo h1 {
 	left: -5000px;
 	top: -5000px;
 	position: absolute;
@@ -264,14 +264,14 @@ div#local-masthead h1 span {
 /* Local menu styling */
 div#local-masthead nav {}
 
-div#local-masthead ul { 
+div#local-masthead ul {
 	margin-top:-5px;
 	height: 25px;
 	width: 100%;
 	background-color: #111111;
-	background-color: rgba(17, 17, 17, 0.4);  
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#111111',EndColorStr='#111111'); 					
-	filter: progid:DXImageTransform.Microsoft.transparency(40); 					
+	background-color: rgba(17, 17, 17, 0.4);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#111111',EndColorStr='#111111');
+	filter: progid:DXImageTransform.Microsoft.transparency(40);
 }
 
 div#local-masthead ul li {
@@ -280,8 +280,8 @@ div#local-masthead ul li {
 }
 
 div#local-masthead ul li.active,
-div#local-masthead ul li.active-trail { 
-  background-color: #111; 
+div#local-masthead ul li.active-trail {
+  background-color: #111;
 }
 
 div#local-masthead ul li.last { border-right: 0 none; }
@@ -291,11 +291,11 @@ div#local-masthead ul li a {
 
 div#local-masthead ul li a,
 div#local-masthead ul li a:link,
-div#local-masthead ul li a:visited { 
+div#local-masthead ul li a:visited {
 	border-bottom:0 none;
 	color: #f6f6f6;
 }
-	
+
 div#local-masthead ul li.active a,
 div#local-masthead ul li.active a:link,
 div#local-masthead ul li.active-trail a:link,
@@ -317,7 +317,7 @@ div#local-masthead ul li a:active {
 
 div#local-masthead p {
     margin: 20px 0;		/* Check where this is being used */
-}	
+}
 
 body div#local-title h1,
 body div#local-title p,
@@ -358,7 +358,7 @@ body.section-home div#local-masthead {
 }
 
 
-ul#local-nav li.functional { 
+ul#local-nav li.functional {
 	float: right;
 	/* background-color: #111; */
 }
@@ -366,8 +366,8 @@ ul#local-nav li.functional {
 
 /* We don't want any borders on those <h1>s */
 div#local-title a { border: 0 none; }
-		
-/* Custom styling for different local masthead */		
+
+/* Custom styling for different local masthead */
 div#local-title.logo-only img,
 div#local-title.logo-title img,
 div#local-title.logo-title-strapline img { float: left; margin: 1em 0.69em 0.69em; }
@@ -384,16 +384,16 @@ div#local-title.logo-title-strapline p { display: inline; font-size: 123.1%; }
 div#local-search form fieldset,
 form#local-search fieldset {
 	background-color: #ffffff;
-	background-color: rgba(255, 255, 255, 0.8);  
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#ffffff'); 
-	filter: progid:DXImageTransform.Microsoft.transparency(80); 
+	background-color: rgba(255, 255, 255, 0.8);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#ffffff');
+	filter: progid:DXImageTransform.Microsoft.transparency(80);
 	padding: 0.5em 2em 0.5em 0.3em; /* Increased right padding from 0.7em because the fieldset could collapse... ! */
 }
 
 /* Lay things out */
-div#local-search form fieldset div.left, 
+div#local-search form fieldset div.left,
 form#local-search fieldset div.left { width:80%; margin-right:2%; float:left; }
-div#local-search form fieldset div.right, 
+div#local-search form fieldset div.right,
 form#local-search fieldset div.right { width:18%; float:left; text-align:center; }
 
 /* A touch of RWD */
@@ -411,10 +411,10 @@ form#local-search fieldset input.submit { display: inline; margin: 0.3em 0.2em 0
 /* Get the local search input box to behave */
 div#local-search form fieldset input.form-text,
 div#local-search form fieldset input#local-searchbox,
-form#local-search fieldset input#local-searchbox { 
+form#local-search fieldset input#local-searchbox {
 	font-size: 123.1%;	/* fontsize = 16px */
-	width: 95%;		
-}	
+	width: 95%;
+}
 
 /* Style local search examples*/
 div#local-search form fieldset span.examples,
@@ -425,12 +425,12 @@ div#local-search form fieldset span.adv,
 form#local-search fieldset span.adv { margin:0; font-size:80%; }
 
 
-div#content { 
+div#content {
 	padding-top: 9px;
 	padding-bottom: 40px;
-}	
+}
 
-ul#secondary-nav li.active a { font-weight: bold; }	
+ul#secondary-nav li.active a { font-weight: bold; }
 
 nav#breadcrumb { margin-top: 4px; }
 
@@ -438,7 +438,7 @@ nav#breadcrumb { margin-top: 4px; }
 /*
 	FOOTER
 
-*/	
+*/
 div#local-footer,
 div#global-footer {
 	background-color: white;
@@ -447,30 +447,30 @@ div#global-footer {
 	filter: progid:DXImageTransform.Microsoft.transparency(85);
 }
 
-#ebi-footer-meta { 
-  padding-bottom: 1px; 
+#ebi-footer-meta {
+  padding-bottom: 1px;
   clear:both;
 }
 
-/* 
+/*
 	LOCAL FOOTER
 ===============================
  */
 
 
-div#local-footer { 
+div#local-footer {
 	background-color: #fff;
 	border-top: 2px solid #eee;
 	}
 
 
-/* 
+/*
 	GLOBAL FOOTER
 ================================
  */
- 
-#global-footer { 
-	border-top: 5px solid #eee; 
+
+#global-footer {
+	border-top: 5px solid #eee;
 }
 
 #global-footer h3 {
@@ -478,19 +478,19 @@ div#local-footer {
 	font-size: 123.1%;			/* 16px */
 	margin-bottom: 5px;
 	color: #333;
-} 
+}
 
-#global-footer p { 
+#global-footer p {
 	font-size: 100%;			/* 13px */
     margin: 0 0 5px 0;
  }
- 
+
 #global-footer ul {
-	font-size: 85%;	/* 11px */ 
+	font-size: 85%;	/* 11px */
 	padding: 0 0 0 9px;
 	list-style: none;
-}	
- 
+}
+
 #global-footer a { border-bottom: 0 none; }
 
 #global-footer ul li a,
@@ -508,7 +508,7 @@ div#local-footer {
 	-khtml-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	
+
 	background-color: #e4e4e4;
 }
 
@@ -518,12 +518,12 @@ div#local-footer {
 #ebi-footer-meta p.legal { margin-bottom: 9px; }
 
 
-#global-nav-expanded img { 
+#global-nav-expanded img {
 	padding-left: 0.7em;
 	margin: 18px 0 0 0;
 }
 
-#global-nav-expanded h3 { margin-top: 20px; margin-bottom 5px; line-height: 1.538; }
+#global-nav-expanded h3 { margin-top: 20px; margin-bottom: 5px; line-height: 1.538; }
 #global-nav-expanded h3.services { border-bottom: 2px solid #207a7a; }
 #global-nav-expanded h3.research { border-bottom: 2px solid #71b360; }
 #global-nav-expanded h3.training { border-bottom: 2px solid #fab700; }

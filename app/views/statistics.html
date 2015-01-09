@@ -2,15 +2,15 @@
 <div id="statisticsMainContent" class="mainContent grid_10" style="display: none">
 	<ul class="action-buttons-grouped decorated" id="resultActionStatsButtons">
 		<li id="downloadStatsItem"><a id="download-stats-button" title="Download statistics" class="icon icon-functional button tooltipped" data-icon="=">Download</a>
-		</li>				
+		</li>
 	</ul>
 	<!-- Download menu -->
 	<%@include file="/templates/downloadStats.jsp"%>
 	<div id="loading-stats-div">
 	        <h4 style="text-align:center;vertical-align:middle;">
-			<img src="<%= request.getContextPath() %>/images/ajax-loader.gif" alt="Loading...">  Calculating statistics...
+			<img src="images/ajax-loader.gif" alt="Loading...">  Calculating statistics...
 		</h4>
-	</div>	
+	</div>
 
 	<div id="statisticsTabs">
 
@@ -36,7 +36,7 @@
 		<div id="statsGOID">
 			<div class="grid_5">
 				<h4>Count of Annotations per GO Identifier</h4>
-				<table id="annotationsByGOID" class="two-colours" style="font-size: 90%;">	
+				<table id="annotationsByGOID" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>Name</th>
@@ -50,7 +50,7 @@
 			</div>
 			<div class="grid_5">
 				<h4>Count of Proteins per GO Identifier</h4>
-				<table id="proteinsByGOID" class="two-colours" style="font-size: 90%;">	
+				<table id="proteinsByGOID" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>Name</th>
@@ -66,7 +66,7 @@
 		<div id="statsAspect">
 			<div class="grid_5">
 				<h4>Count of Annotations per Aspect</h4>
-				<table id="annotationsByAspect" class="two-colours" style="font-size: 90%;">	
+				<table id="annotationsByAspect" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>%</th>
@@ -79,7 +79,7 @@
 			</div>
 			<div class="grid_5">
 				<h4>Count of Proteins per Aspect</h4>
-				<table id="proteinsByAspect" class="two-colours" style="font-size: 90%;">	
+				<table id="proteinsByAspect" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>%</th>
@@ -94,7 +94,7 @@
 		<div id="statsEvidence">
 			<div class="grid_5">
 				<h4>Count of Annotations per Evidence</h4>
-				<table id="annotationsByEvidence" class="two-colours" style="font-size: 90%;">	
+				<table id="annotationsByEvidence" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>Name</th>
@@ -108,7 +108,7 @@
 			</div>
 			<div class="grid_5">
 				<h4>Count of Proteins per Evidence</h4>
-				<table id="proteinsByEvidence" class="two-colours" style="font-size: 90%;">	
+				<table id="proteinsByEvidence" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>Name</th>
@@ -119,12 +119,12 @@
 							<tr><td><strong>${protByEvidence.code}</strong></td><td>${protByEvidence.name}</td><td>${protByEvidence.percentage}</td><td>${protByEvidence.count}</td></tr>
 						</c:forEach>
 				</table>
-			</div>			
+			</div>
 		</div>
 		<div id="statsReference">
 			<div class="grid_5">
 				<h4>Count of Annotations per Reference</h4>
-				<table id="annotationsByReference" class="two-colours" style="font-size: 90%;">	
+				<table id="annotationsByReference" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>%</th>
@@ -137,7 +137,7 @@
 			</div>
 			<div class="grid_5">
 				<h4>Count of Proteins per Reference</h4>
-				<table id="proteinsByReference" class="two-colours" style="font-size: 90%;">	
+				<table id="proteinsByReference" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>%</th>
@@ -152,7 +152,7 @@
 		<div id="statsTaxon">
 			<div class="grid_5">
 				<h4>Count of Annotations per Taxon</h4>
-				<table id="annotationsByTaxon" class="two-colours" style="font-size: 90%;">	
+				<table id="annotationsByTaxon" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>Name</th>
@@ -162,11 +162,11 @@
 						<c:forEach var="annByTaxon" items="${statsBean.annotationsPerTaxon}">
 							<tr><td><strong>${annByTaxon.code}</strong></td><td>${annByTaxon.name}</td><td>${annByTaxon.percentage}</td><td>${annByTaxon.count}</td></tr>
 						</c:forEach>
-				</table>				
+				</table>
 			</div>
 			<div class="grid_5">
 				<h4>Count of Proteins per Taxon</h4>
-				<table id="proteinsByTaxon" class="two-colours" style="font-size: 90%;">	
+				<table id="proteinsByTaxon" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>Name</th>
@@ -182,7 +182,7 @@
 		<div id="statsAssignedBy">
 			<div class="grid_5">
 				<h4>Count of Annotations per Assigned By</h4>
-				<table id="annotationsByAssignedBy" class="two-colours" style="font-size: 90%;">	
+				<table id="annotationsByAssignedBy" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>%</th>
@@ -191,12 +191,12 @@
 						<c:forEach var="annByAssignedBy" items="${statsBean.annotationsPerAssignedBy}">
 							<tr><td><strong>${annByAssignedBy.code}</strong></td><td>${annByAssignedBy.percentage}</td><td>${annByAssignedBy.count}</td></tr>
 						</c:forEach>
-				</table>	
-			
+				</table>
+
 			</div>
 			<div class="grid_5">
 				<h4>Count of Proteins per Assigned By</h4>
-				<table id="proteinsByAssignedBy" class="two-colours" style="font-size: 90%;">	
+				<table id="proteinsByAssignedBy" class="two-colours" style="font-size: 90%;">
 						<tr>
 							<th>Code</th>
 							<th>%</th>
@@ -206,8 +206,8 @@
 							<tr><td><strong>${protByAssignedBy.code}</strong></td><td>${protByAssignedBy.percentage}</td><td>${protByAssignedBy.count}</td></tr>
 						</c:forEach>
 				</table>
-			</div>	
-		</div>		
+			</div>
+		</div>
 	</div>
 	<script>
 		// Tabs

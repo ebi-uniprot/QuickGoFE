@@ -11,15 +11,15 @@ table td, form table td {
 	font-size:13px;
 }
  */
- 
+
 th, td {
  	font-size:100%;
  }
- 
+
  div#content {
  	padding-top:0;
  }
- 
+
 
 /**  COMMON
 ===================================================*/
@@ -111,11 +111,11 @@ option.subsubitem {
     -moz-box-shadow: 5px 5px 7px rgba(0,0,0,0.4);
     box-shadow: 5px 5px 7px rgba(0,0,0,0.4);
     padding-bottom: 10px;
-   
+
 }
 
 .advSearch p.builder input {
-	margin-top:0px;	
+	margin-top:0px;
 }
 
 .advSearch h5 {
@@ -153,8 +153,8 @@ div#local-search form fieldset, form#local-search fieldset {
 	padding: 0.8em;
 	max-width: none;
 	background-color: rgba(255, 255, 255, 0.4);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#ffffff'); 
-	filter: progid:DXImageTransform.Microsoft.transparency(40); 
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#ffffff');
+	filter: progid:DXImageTransform.Microsoft.transparency(40);
 }
 
 div#local-masthead ul.filterList, div#local-masthead ul.filterList li ul {
@@ -165,7 +165,7 @@ div#local-masthead ul.filterList, div#local-masthead ul.filterList li ul {
 
 #local-search fieldset{
 	border: 0px;
-} 
+}
 
 div#local-masthead .filterList p {
 	padding: 0;margin: 0;
@@ -194,12 +194,12 @@ div .field p {
 }
 
 .filterButtons {
-	clear:both; 
+	clear:both;
 	float:right;
 }
 
 #query-builder-container a.circular {
-	border-radius:50%;	
+	border-radius:50%;
 }
 
 .icon-functional.circular:before {
@@ -245,7 +245,7 @@ div .field p {
 }
 
 #clear-query.active:HOVER {
-	color: #333333;	
+	color: #333333;
 }
 
 a#advanced-search-toggle:link, a#advanced-search-toggle:visited {
@@ -425,7 +425,7 @@ ol.citations {
 
 
 .namespaceIcons{
-	
+
 	display:inline;
 	margin-right:20px;
 }
@@ -462,7 +462,7 @@ table.UniParc th, table.UniRef th {
 }
 
 
-/**  BASKET  
+/**  BASKET
 =======================================  **/
 #basket {
 #	float:right;
@@ -567,8 +567,8 @@ td.removeFromBasketCell {
 
 #basket-table-uniprot, #basket-table-uniref, #basket-table-uniparc{
 	margin: 0px;
-	
-	
+
+
 }
 
 /* tabs inside the basket */
@@ -581,7 +581,7 @@ ul.tabs
 ul.tabs li
 {
 	display:inline;
-	
+
 }
 
 ul.tabs li a
@@ -639,7 +639,7 @@ div.tabsContent
 }
 
 
-/* FOOTER 
+/* FOOTER
 ===================================================*/
 
 .page-footer {
@@ -772,7 +772,7 @@ div.tabsContent
 
 .homepage ul#highlights li ul li {
 	margin:0 0 5px 0;
-	padding:0;	
+	padding:0;
 }
 
 .homepage ul#highlights li ul li ul li {
@@ -794,13 +794,13 @@ div.tabsContent
 	float:left;
 	z-index:10000000;
 }*/
-a.prev {			
+a.prev {
  	left: 0;
 }
 a.prev:hover, a.next:hover {
 	border-bottom: none;
 }
-a.next {			
+a.next {
  	right: 0;
 }
 
@@ -828,7 +828,7 @@ a.next span {
 
 
 .run-isoform-tool {
-	margin-left: 4px;	
+	margin-left: 4px;
 }
 
 
@@ -842,7 +842,7 @@ a.next span {
 }
 
 #newsection ul {
-	margin: 0;padding:0; 
+	margin: 0;padding:0;
 }
 
 #newsection ul li {
@@ -896,7 +896,7 @@ ul.alignGoButton{
 	margin-top: 10px;
 }
 
-/**  OPTION MENU FOR BUTTON  
+/**  OPTION MENU FOR BUTTON
 =====================================================  **/
 .options-menu {
 	background-color: #FFFFFF;
@@ -943,8 +943,8 @@ label.bold-label {
 	margin: 0 2px;
 	display: inline-block;
 	width: 0;
-	height: 0; 
-	content: ""; 
+	height: 0;
+	content: "";
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
 	border-top: 5px solid #ffffff;
@@ -955,14 +955,14 @@ label.bold-label {
 	margin: 0 2px;
 	display: inline-block;
 	width: 0;
-	height: 0; 
-	content: ""; 
+	height: 0;
+	content: "";
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
 	border-top: 5px solid #999999;
 }
 
-/** Pre-sections 
+/** Pre-sections
 ==================================*/
 .presections {
 	min-height: 45px;
@@ -992,11 +992,11 @@ label.bold-label {
 	float:right;
 	display:none;
 	margin-right:200px;
-	
+
 }
 .unirefdetail{
-	
-	
+
+
 
 }
 .clusterID{
@@ -1004,7 +1004,7 @@ label.bold-label {
 }
 
 
-/** Select Entries 
+/** Select Entries
 ===================================*/
 #results tr#selectAllStatus {
 	display: none;
@@ -1023,8 +1023,8 @@ label.bold-label {
 
 #clearSelection{
 	cursor: pointer;
-	
-	
+
+
 }
 
 /** RESULTS TABLE
@@ -1112,7 +1112,7 @@ table.databaseTable td.first-column, .tabsContent table.databaseTable td.first-c
 	width: 19em;
 	padding-right: 1em;
 	text-align:right;
-	
+
 }
 
 table tr th, .tabsContent table tr th {
@@ -1229,12 +1229,12 @@ a.closeBox:LINK:HOVER {
 .selectedColumn div.delete{
     height: 19px;
     width: 19px;
-    
+
     float: right;
     position: relative;
     top: -13px;
 	left: 13px;
-	
+
 	background-image: url("../images/frontier/icon_floating_delete.png");
 	background-repeat: no-repeat;
 	cursor: pointer;
@@ -1254,9 +1254,9 @@ a.closeBox:LINK:HOVER {
 }
 
 #news-container{
-	float: right;	
+	float: right;
 	marginw-righ: 20px;
-	
+
 }
 .hide{
 	cursor: pointer;
@@ -1275,7 +1275,7 @@ a.closeBox:LINK:HOVER {
 .hasDatepicker:FOCUS{
 	background-image: none;
 	background-repeat: no-repeat;
-	
+
 }
 
 .obsolete, .obsolete a:link, .obsolete a:visited {
@@ -1288,14 +1288,14 @@ a.closeBox:LINK:HOVER {
 	border:4px solid #B9772E;
 	width:80%;
 	border-radius:5px;
-	
+
 	background-image: url("/images/frontier/protein.png");
-	
+
 }
 
 #noResultsMessage p, #noResultsMessage h2, #noResultsMessage img {
 	text-align: center;
-	
+
 }
 
 /** Entry View page
@@ -1377,7 +1377,7 @@ ol.noNumbering li {
 	margin-top: 20px;
 }
 .legends h6{
-	
+
 font-variant: normal;
 }
 
@@ -1388,7 +1388,7 @@ font-variant: normal;
 #showSecStructTable, #hideSecStructTable{
 	cursor: pointer;
 	margin-left:9px;
-	
+
 }
 
 .entryEmpty{
@@ -1586,7 +1586,7 @@ ul#entry_sections {
 }
 
 #similiar_proteins ul li a.tab-current{
-	
+
 	background-color: #dbdbdb;
 }
 
@@ -1673,7 +1673,7 @@ div.sidebarsubsection  a.suggestionReviewed{
 	line-height: 18px;
 }
 div.sidebarsubsection  a.suggestionUnreviewed:after , div.sidebarsubsection  a.suggestionReviewed:after {
-	margin-top: -26px;	
+	margin-top: -26px;
 }
 
 .sidebarsubsection{
@@ -1694,7 +1694,7 @@ a.tab-similiarProtein.selected {
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
     padding: 5px;
-    border-bottom:none;	
+    border-bottom:none;
 }
 
 .similiarity-100-list, .similiarity-90-list, .similiarity-50-list {
@@ -1722,16 +1722,16 @@ a.tab-similiarProtein.selected {
 
 .long strong{
 	font-weight: bold;
-	
+
 }
 
-/**  CUSTOMIZE COLUMNS 
+/**  CUSTOMIZE COLUMNS
 ===========================================  **/
 
 div.lightbox {
 	position: fixed;
 	z-index: 15;
-	background-image: url("../images/frontier/overlay.png");
+	background-image: url("../images/overlay.png");
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -1793,7 +1793,7 @@ div#slimming-graph-popup-content {
 }
 
 .slimming_section {
-    border: 2px solid #5CAECD; 
+    border: 2px solid #5CAECD;
     padding: 10px;
     height: 90px;
     overflow:auto;
@@ -1949,13 +1949,13 @@ div.level2 div.rightColumn{
 	float:left;
 }
 
-.nonDefaultColumns{ 
+.nonDefaultColumns{
 	float:left;
-	width: 200px;	
+	width: 200px;
 	padding-top:0px
 }
 
-.secondPage .nonDefaultColumns{ 
+.secondPage .nonDefaultColumns{
 	padding-top:20px
 }
 
@@ -1998,7 +1998,7 @@ div.level2 div.rightColumn{
 	margin-bottom:0px;
 }
 .more, .less{
-	cursor:pointer;	
+	cursor:pointer;
 }
 
 .nonDefaultColumns {
@@ -2018,7 +2018,7 @@ div.level2 div.rightColumn{
 
 #sequence th, #sitesAnno_section th, #regionAnno_section th, #peptides_section th, #aaMod_section th, #domainsAnno_section th, #interaction .grid th, #Region_section th, #Motif_section th, #Compositional_bias_section th, #isoforms th, #Natural_variant_section th{
 	background-color: #DBDBDB;
-	
+
 }
 
 .results{
@@ -2026,7 +2026,7 @@ div.level2 div.rightColumn{
 }
 
 /*.sidebarsubsection{
-padding-bottom: 10px;	
+padding-bottom: 10px;
 }*/
 .suggestionOrganism{
 	padding-bottom: 0px;
@@ -2036,7 +2036,7 @@ padding-bottom: 10px;
 
 
 .filterBy.sidebarsubsection, .viewBy.sidebarsubsection, .MapTo.sidebarsubsection{
-padding-bottom: 0px;	
+padding-bottom: 0px;
 }
 
 
@@ -2143,7 +2143,7 @@ padding-bottom: 0px;
 .evidenceContainer ul li {
 	margin-top:0px;
 	list-style-type: none;
-}	
+}
 
 
 
@@ -2160,7 +2160,7 @@ div.secStrut {
 	height:20px;
 	display:inline-block;
 	vertical-align:top;
-	cursor: pointer;	
+	cursor: pointer;
 }
 
 
@@ -2208,7 +2208,7 @@ div.secStrut {
 }
 
 p.uploadListsResultsSubMessage{
-	
+
 	margin-bottom: 20px;
 }
 
@@ -2256,10 +2256,10 @@ p.uploadListsResultsSubMessage{
 }
 
 .newTip {
-#	Experimental do not delete	
+#	Experimental do not delete
 #	background-color: rgba(0, 0, 0, 0.8);
-#	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#000000',EndColorStr='#000000'); 
-#	filter: progid:DXImageTransform.Microsoft.transparency(80); 
+#	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#000000',EndColorStr='#000000');
+#	filter: progid:DXImageTransform.Microsoft.transparency(80);
 #	padding:10px;
 #	z-index:1000;
 #	color: #ffffff;
@@ -2268,8 +2268,8 @@ p.uploadListsResultsSubMessage{
 
 .tip {
  	background-color: rgba(0, 0, 0, 0.8);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#000000',EndColorStr='#000000'); 
-	filter: progid:DXImageTransform.Microsoft.transparency(80); 
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#000000',EndColorStr='#000000');
+	filter: progid:DXImageTransform.Microsoft.transparency(80);
 	padding:10px;
 	z-index:1000;
 }
@@ -2303,7 +2303,7 @@ span.watermark {
     -webkit-user-select: none;
     user-select: none;
 }
- 
+
 #download-options-menu {
 	padding-top : 10px;
 	padding-right: 10px;
@@ -2318,7 +2318,7 @@ span.watermark {
 	display: none;
 }
 
-@media screen and (max-width: 978px) {  
+@media screen and (max-width: 978px) {
 	span.statusShow {
 		display:none;
 	}
@@ -2327,17 +2327,17 @@ span.watermark {
 	}
 }
 
-@media screen and (max-width: 1088px) and (min-width: 978px) {  
+@media screen and (max-width: 1088px) and (min-width: 978px) {
 	span.statusShow {
 		display:none;
 	}
-	
+
 	div.sidebar {
 		display: inline;
 	}
 }
 
-@media screen and (min-width: 1088px) {  
+@media screen and (min-width: 1088px) {
 	span.statusShow {
 		display:inline;
 	}
@@ -2369,7 +2369,7 @@ p.attributionExplain {
 }
 
 .helpcontent p.details {
-	margin-bottom:0	
+	margin-bottom:0
 }
 
 .comment{
@@ -2462,7 +2462,7 @@ p.attributionExplain {
    width:0;
    border-width:0 10px 10px;
    border-style:solid;
-   border-color:#3A4155 transparent;	
+   border-color:#3A4155 transparent;
 }
 
 .tooltipsy {
@@ -2510,7 +2510,7 @@ p.attributionExplain {
 }
 
 ul.TreeView, ul.TreeView ul {
-	list-style-type: none;	
+	list-style-type: none;
 }
 ul.TreeView {
 	padding-left: 0px;
@@ -2628,7 +2628,7 @@ div#tree div.tree_node, div#tree div.horizontal_line, div#tree div.vertical_line
     font-size: 11px;
     max-height: 240px;
     overflow: auto;
-    padding-right: 7px;    
+    padding-right: 7px;
     /*padding-bottom: 7px;*/
     line-height: 13px;
     width: 100%;
@@ -2644,8 +2644,8 @@ div#tree div.tree_node, div#tree div.horizontal_line, div#tree div.vertical_line
     overflow-y: auto;
 }
 
-#advancedBottomButtons{	
-    bottom: 0px;    
+#advancedBottomButtons{
+    bottom: 0px;
     right: 20px;
     position: absolute;
 }
@@ -2665,12 +2665,12 @@ th.evidence {
 }
 
 element.disabled {
-   cursor:default;    
+   cursor:default;
    opacity: 0.4;
 }
 
 element.enabled {
-   cursor:pointer;       
+   cursor:pointer;
 }
 
 #basketTermsTable {
@@ -2712,7 +2712,7 @@ div#ontology-graph-content {
 }
 
 .relationHelp{
-   cursor:pointer;       
+   cursor:pointer;
 }
 
 td.extension {
@@ -2721,13 +2721,13 @@ td.extension {
 
 div#extension-content {
     background-color: #FFFFFF;
-    border: 3px solid #006F9B;    
+    border: 3px solid #006F9B;
     left: 40%;
     min-width: 300px;
     opacity: 1;
     padding: 20px;
     position: fixed;
-    top: 30%;    
+    top: 30%;
 }
 
 div#bookmarkable-link-content {
@@ -2750,7 +2750,7 @@ div#bookmarkable-link-content {
     background-color: #71B8D3;
     height: 50px;
     float: right;
-    width: 600px;		
+    width: 600px;
 }
 
 #query-area {
@@ -2771,7 +2771,7 @@ div#bookmarkable-link-content {
     margin: 0;
     padding: 0.375em 0.563em;
     width: 100%;
-    height: 90%;	
+    height: 90%;
 }
 
 #button-area {
