@@ -16,7 +16,8 @@ var app = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'quickGoFeApp.services'
+    'quickGoFeApp.services',
+    'app.quickGo.filters'
   ]);
 
   app.config(function ($routeProvider) {
@@ -231,6 +232,39 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', function($scope, $http)
       }
 
 //});
+
+  //$scope.withUrl = function(withListUrl) {
+  //
+  //  var urls = withListUrl.split("|")
+  //  var result = "";
+  //  for (i = 0; i < urls.length; i++) {
+  //    if (urls[i].indexOf("InterPro") == 0) {
+  //      var vals = withList[i].split(":");
+  //      result = result +  "<a href=\"http://www.ebi.ac.uk/interpro/entry/\"" + vals[1] + ">" + urls[i] + "</a>";
+  //    }
+  //  }
+  //  return result;
+  //}
+
+  //  $scope.singleWithUrl = function(withUrl) {
+  //
+  //      if(withUrl.indexOf("InterPro")==0){
+  //        var vals = withList[i].split(":");
+  //        return "http://www.ebi.ac.uk/interpro/entry/" + vals[1];
+  //      }
+  //}
+
+  app.filter('withUrlFilter', function() {
+    return function(input) {
+      return "www.google.com";
+      if(input.indexOf("InterPro")==0){
+        //var vals = withList[i].split(":");
+        //return "http://www.ebi.ac.uk/interpro/entry/" + vals[1];
+
+      }
+      return "www.google.com";
+    };
+  });
 
 
 }]);
