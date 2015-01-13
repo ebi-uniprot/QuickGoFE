@@ -48,57 +48,10 @@ app.controller('StartCtrl', function ($scope) {
     ];
 });
 
-//app.controller('AnnotationListCtrl',['$scope', 'annotations',
-//        function ($scope, annotations) {
-//            $scope.annotations = annotations;
-//        }]);
-
-//app.controller('AnnotationListCtrl', ['$scope', 'Annotation', function($scope, Annotation) {
-//    $scope.annotations = Annotation.query();
-//}]);
 
 app.controller('AnnotationListCtrl', ['$scope', '$http', function($scope, $http) {
-//app.controller('AnnotationListCtrl', function($scope) {
 
-  //Test http request
-  //function($scope, $http) {
-    //$http.get('http://wwwdev.ebi.ac.uk/QuickGO/ws/lookup?id=GO:0006915').success(function(data) {
-    //  console.log(data);
-    //  $scope.go = data;
-
-
-    //var formattedURL='http://www.ebi.ac.uk/QuickGO-Beta/annotation';
-    //map taxonomyClosure = " 9606"
-    //{"taxonomyClosure":" 9606"}
-    //advanced=false
-
-    //var formattedURL='http://localhost:9080/annotation';
-    //$http.post(formattedURL).success(function(data) {
-    //  console.log(data);
-    //  $scope.go = data;
-    //
-    //});
-
-    //var formattedURL='http://www.ebi.ac.uk/QuickGO-Beta/annotation';
-    //var message = { q:{"taxonomyClosure":" 9606"}, page:1, advanced:false}
-    //$http.post(formattedURL,message).success(function(data) {
-    //  console.log(data);
-    //  $scope.go = data;
-    //});
-
-  //var formattedURL='http://localhost:9080/annotation';
-  //var formattedURL=http://wwwdev.ebi.ac.uk/QuickGO/ws/annotation
-  //var formattedURL='http://localhost:9080/ws/annotation';
-  //var message = { q:{"taxonomyClosure":" 9606"}, page:1, advanced:false}
-  //$http.post(formattedURL,message).success(function(data) {
-  //  console.log("got the response back >>>>" + data);
-  //  $scope.go = data;
-  //});
-
-  //var formattedURL='http://localhost:9080/annotation';
-  //var formattedURL=http://wwwdev.ebi.ac.uk/QuickGO/ws/annotation
   var formattedURL='http://localhost:9080/ws/annotation?format=json';
-  //var message = { q:{"taxonomyClosure":" 9606"}, page:1, advanced:false}
   $http.get(formattedURL).success(function(data) {
     console.log("got the response back >>>>" + data);
 
@@ -124,43 +77,6 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', function($scope, $http)
     $scope.goList = data;
   });
 
-  //$scope.annotations = [
-  //  {'Gene_product_id' : 'A0A001',
-  //              'Symbol' : 'moeA5',
-  //              'Qualifier' : 'enables',
-  //              'GO_Identifier' : 'GO:0003824',
-  //              'GO_Term_Name' : 'catalytic activity ',
-  //              'Aspect':'F',
-  //              'Evidence':'ECO:0000256',
-  //              'Reference':'GO_REF:0000002',
-  //              'With':'InterPro:IPR015421| InterPro:IPR015422',
-  //              'Taxon':'35758',
-  //              'Assigned_By' : 'InterPro',
-  //              'Annotation_Extension' : ''},
-  //  {'Gene_product_id' : 'A0A002',
-  //              'Symbol': 'moeA5',
-  //              'Qualifier' : 'enables',
-  //              'GO_Identifier' : 'GO:0003824',
-  //              'GO_Term_Name' : 'catalytic activity ',
-  //              'Aspect':'F',
-  //              'Evidence':'ECO:0000256',
-  //              'Reference':'GO_REF:0000002',
-  //              'With':'InterPro:IPR015421| InterPro:IPR015422',
-  //              'Taxon':'35758',
-  //              'Assigned_By' : 'InterPro',
-  //              'Annotation_Extension' : ''},
-  //  {'Gene_product_id' : 'A0A003',
-  //              'Symbol': 'moeA5',
-  //              'Qualifier' : 'enables',
-  //              'GO_Identifier' : 'GO:0003824',
-  //              'GO_Term_Name' : 'catalytic activity ',
-  //              'Aspect':'F',
-  //              'Evidence':'ECO:0000256',
-  //              'Reference':'GO_REF:0000002',
-  //              'With':'InterPro:IPR015421| InterPro:IPR015422',
-  //              'Taxon':'35758',
-  //              'Assigned_By' : 'InterPro',
-  //              'Annotation_Extension' : ''}];
 
         $scope.annotationColumns =[
             {'name':'colGeneProductID', 'value':'Gene Product ID'},
@@ -231,40 +147,10 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', function($scope, $http)
         }
       }
 
-//});
 
-  //$scope.withUrl = function(withListUrl) {
-  //
-  //  var urls = withListUrl.split("|")
-  //  var result = "";
-  //  for (i = 0; i < urls.length; i++) {
-  //    if (urls[i].indexOf("InterPro") == 0) {
-  //      var vals = withList[i].split(":");
-  //      result = result +  "<a href=\"http://www.ebi.ac.uk/interpro/entry/\"" + vals[1] + ">" + urls[i] + "</a>";
-  //    }
-  //  }
-  //  return result;
-  //}
+  $scope.newItem = {};
+  $scope.basket = basket;
 
-  //  $scope.singleWithUrl = function(withUrl) {
-  //
-  //      if(withUrl.indexOf("InterPro")==0){
-  //        var vals = withList[i].split(":");
-  //        return "http://www.ebi.ac.uk/interpro/entry/" + vals[1];
-  //      }
-  //}
-
-  app.filter('withUrlFilter', function() {
-    return function(input) {
-      return "www.google.com";
-      if(input.indexOf("InterPro")==0){
-        //var vals = withList[i].split(":");
-        //return "http://www.ebi.ac.uk/interpro/entry/" + vals[1];
-
-      }
-      return "www.google.com";
-    };
-  });
 
 
 }]);
