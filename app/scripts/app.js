@@ -49,7 +49,7 @@ app.controller('StartCtrl', function ($scope) {
 });
 
 
-app.controller('AnnotationListCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', function($scope, $http, $cookieStore) {
 
   var formattedURL='http://localhost:9080/ws/annotation?format=json';
   $http.get(formattedURL).success(function(data) {
@@ -148,8 +148,16 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', function($scope, $http)
       }
 
 
-  $scope.newItem = {};
-  $scope.basket = basket;
+  //$scope.newItem = {};
+  //$scope.basket = basket;
+
+  $scope.basketList = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [];
+
+  $scope.addItem = function(goId){
+    console.log("Add to cookie" + goId);
+    $scope.basketList.push(goId);
+    $cookieStore.put('uk.ac.ebi.quickgo.basket', $scope.basketList);
+  }
 
 
 

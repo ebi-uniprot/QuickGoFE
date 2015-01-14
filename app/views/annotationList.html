@@ -2,7 +2,9 @@
 	<div id="content" class="container_12">
 
 		<div class="sidebar grid_2">
-			<h2 class="page-title">Results <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." height="42" width="42" /></h2>
+			<h2 class="page-title">
+        <!--Results <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." height="42" width="42" />-->
+      </h2>
 		</div>
 		<div class="mainContent grid_8">
 			<p></p>
@@ -11,10 +13,12 @@
 			<div id="basket">
 				<a id="basket-list"
 					class="closed basket-empty icon icon-static caret_white button"
-					data-icon="b" href="#">Basket <span id="basket-count" style="display: inline;">${fn:length(sessionScope.basketTerms)}</span></a>
+					data-icon="b" href="#">Basket <span id="basket-count" style="display: inline;">{{basketList.length}}</span></a>
+        <!--{{basketList.length}}-->
 			</div>
-			<!-- Basket -->
-			<!--<%@include file="/templates/basket.jsp"%>-->
+      <!-- Basket -->
+      <!--<%@include file="/templates/basket.jsp"%>-->
+        <div ng-include src="'views/basket.html'"></div>
 		</div>
 
 		<div class="clearfix"></div>
@@ -58,13 +62,13 @@
 					<!--</c:when>-->
 					<!--<c:otherwise>-->
 						<table id="results" class="grid">
-						<script>
-							quickFilteringButtons();
-							refreshBasketTerms();
-							addTermsToBasketFunctionality();
-							addListTermsToBasketFunctionality();
-							generateOntologyGraphFunctionality();
-						</script>
+						<!--<script>-->
+							<!--quickFilteringButtons();-->
+							<!--refreshBasketTerms();-->
+							<!--addTermsToBasketFunctionality();-->
+							<!--addListTermsToBasketFunctionality();-->
+							<!--generateOntologyGraphFunctionality();-->
+						<!--</script>-->
 							<tr>
 								<!--<c:forEach var="annotationColumn" items="${sessionScope.annotationsColumns}">-->
 									<!--<c:set var="display" value="display:none" />-->
@@ -118,30 +122,35 @@
                               // "originalTermId":null,
                               // "originalTermName":null}    -->
 
+                              <!--{"protein":"A0A000","symbol":null,"qualifier":"enables","goId":"GO:0003824","termName":null,"aspect":null,"evidenceGo":"IEA","evidenceEco":"ECO:0000256","reference":"GO_REF:0000002","withList":["InterPro:IPR015421","InterPro:IPR015422"],"taxon":0,"assignedBy":"InterPro","database":"UniProtKB","date":"20141025","name":null,"synonym":null,"type":null,"taxonName":null,"sequence":0,"originalTermId":null,"originalTermName":null}-->
 
-                                <td>{{goTuple.protein}}</td>
-                                <td>{{annotation.Symbol}}</td>
+
+                                <td><a ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a></td>
+                                <td>{{goTuple.symbol}}</td>
                                 <td>{{goTuple.qualifier}}</td>
-                                <td>{{goTuple.goId}}</td>
-                                <td>{{annotation.GO_Term_Name}}</td>
-                                <td>{{annotation.Aspect}}</td>
-                                <td>{{goTuple.evidenceEco}}</td>
+                                <td>
+                                  <!--<element id="term_{{goTuple.goId}}"-->
+                                           <!--class="add-basket-item icon icon-static enabled"-->
+                                           <!--data-icon="b" title="Add term to basket"></element>&nbsp;{{goTuple.goId}}-->
+
+
+                                  <img src="images/shopping2.png" ng-click="addItem('{{goTuple.goId}}')"/>&nbsp;{{goTuple.goId}}
+                                </td>
+                                <td>{{goTuple.termName}}</td>
+                                <td>{{goTuple.aspect}}</td>
+                                <td><a class="ontologygraph" id="ontologygraph_{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>&nbsp;<a href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">(IEA)</a></td>
                                 <td><a ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}">{{goTuple.reference}}</a></td>      <!-- "reference":"GO_REF:0000002", --> <!-- http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000002  -->
                                 <td><span ng-repeat="ref in goTuple.withList">
-                                  <a ng-href="{{ref | withUrlFilter}}">{{ref}}</a>
+                                  <a ng-href="{{ref | withUrlFilter}}" target="_blank">{{ref}}</a>
                                   </span>
                                 </td>
-                                <!--<td><span ng-model="singleWithUrl(ref)"></span></td>-->
-                                <!--<td>{{goTuple.assignedBy}}</td>-->
-                                <!--<td>**Annotation_Extension**</td>-->
-
-                              <!--<td>**with**</td>-->
-                              <td>**assignedBy**</td>
-                              <td>**Annotation_Extension**</td>
+                                <td>{{goTuple.taxon}}</td>
+                                <td>{{goTuple.assignedBy}}</td>
+                                <td></td>
                             </tr>
-
+            </table>
 							<!--<c:forEach var="annotation" items="${sessionScope.annotationsList}">-->
-								<tr>
+								<!--<tr>-->
 									<!--<c:forEach var="annotationColumn" items="${annotationsColumns}">-->
 										<!--<c:set var="display" value="display:none" />-->
 										<!--<c:forEach items="${sessionScope.visibleAnnotationsColumns}" var="visible">-->
@@ -150,15 +159,15 @@
 											<!--</c:if>-->
 										<!--</c:forEach>-->
 
-										<td class="${annotationColumn.name}" style="${display}">
+										<!--<td class="${annotationColumn.name}" style="${display}">-->
 										<!--<c:if test="${annotationColumn.name == 'goId' || annotationColumn.name == 'originaltermid'}">-->
 											<!--<c:set var="clicked" value="enabled" />-->
 											<!--<c:if test="${sessionScope.basketTerms[annotation[annotationColumn.id].name] != null}">-->
 												<!--<c:set var="clicked" value="disabled" />-->
 											<!--</c:if>-->
-											<element id="term_${annotation[annotationColumn.id].name}"
-												class="add-basket-item icon icon-static ${clicked}"
-													data-icon="b" title="Add term to basket"></element>
+											<!--<element id="term_${annotation[annotationColumn.id].name}"-->
+												<!--class="add-basket-item icon icon-static ${clicked}"-->
+													<!--data-icon="b" title="Add term to basket"></element>-->
 										<!--</c:if>-->
 										<!--<c:choose>-->
 											<!--<c:when test="${annotationColumn.showURL}">-->
@@ -194,11 +203,11 @@
 												<!--</c:choose>-->
 											<!--</c:otherwise>-->
 										<!--</c:choose>-->
-										</td>
+										<!--</td>-->
 									<!--</c:forEach>-->
-								</tr>
+								<!--</tr>-->
 							<!--</c:forEach>-->
-						</table>
+						<!--</table>-->
 					<!--</c:otherwise>-->
 				<!--</c:choose>-->
 			</div>
