@@ -508,6 +508,21 @@ table.UniParc th, table.UniRef th {
     box-shadow: 5px 5px 7px rgba(0,0,0,0.4);
 }
 
+#basket-contents-show {
+  background-color: white;
+  border: 2px solid rgba(92, 174, 205, 0.9);
+  right:0px;
+  border-radius: 8px 8px 8px 8px;
+  /*display: none;*/
+  height: 400px;
+  padding: 0.6em;
+  position: absolute;
+  width: 600px;
+  -webkit-box-shadow: 5px 5px 7px rgba(0,0,0,0.4);
+  -moz-box-shadow: 5px 5px 7px rgba(0,0,0,0.4);
+  box-shadow: 5px 5px 7px rgba(0,0,0,0.4);
+}
+
 td.removeFromBasketCell {
 	text-align:center
 }
