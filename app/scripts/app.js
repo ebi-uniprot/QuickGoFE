@@ -153,12 +153,21 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', functio
 
   $scope.basketList = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [];
 
-  $scope.addItem = function(goId){
+  $scope.addItem = function(goId, termName){
     console.log("Add to cookie" + goId);
-    $scope.basketList.push(goId);
+    var basketItem = {goId:goId, termName:termName};
+    $scope.basketList.push(basketItem);
     $cookieStore.put('uk.ac.ebi.quickgo.basket', $scope.basketList);
   }
 
 
+  $scope.isBasketShow = false;
+  $scope.showBasket = function(){
+    if($scope.isBasketShow==true){
+      $scope.isBasketShow=false;
+    }else{
+      $scope.isBasketShow=true;
+    }
+  }
 
 }]);
