@@ -51,6 +51,10 @@ app.controller('StartCtrl', function ($scope) {
 
 app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', function($scope, $http, $cookieStore) {
 
+  /**
+   * Get data from the server
+   * @type {string}
+   */
   var formattedURL='http://localhost:9080/ws/annotation?format=json';
   $http.get(formattedURL).success(function(data) {
     console.log("got the response back >>>>" + data);
@@ -129,8 +133,10 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', functio
     ];
 
 
-  //Remove filter from applied filters
-  //parm: filter.key-filterValue
+  /**
+   * Remove filter from applied filters
+   * @param filter
+   */
       $scope.removeFilter=function(filter) {
         var filterLen = -1;
         var i;
@@ -148,9 +154,27 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', functio
       }
 
 
-  //$scope.newItem = {};
-  //$scope.basket = basket;
+  //**********************************************
 
+
+  /**
+   * Show/Don't show the basket pop-up
+   * @type {boolean}
+   */
+  $scope.isBasketShow = false;
+  $scope.showBasket = function(){
+    if($scope.isBasketShow==true){
+      $scope.isBasketShow=false;
+    }else{
+      $scope.isBasketShow=true;
+    }
+  }
+
+
+  /**
+   * Add an item to the basket
+   * @type {Object|Array}
+   */
   $scope.basketList = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [];
 
   $scope.addItem = function(goId, termName){
@@ -161,13 +185,23 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', functio
   }
 
 
-  $scope.isBasketShow = false;
-  $scope.showBasket = function(){
-    if($scope.isBasketShow==true){
-      $scope.isBasketShow=false;
-    }else{
-      $scope.isBasketShow=true;
+  /**
+   * Remove an item from the basket
+   * @param basketItem
+   */
+  $scope.removeBasketItem=function(basketItem) {
+
+    console.log("Remove from cookie" + basketItem.goId);
+    var basketLen = -1;
+    var i;
+
+    for (i = 0, basketLen = $scope.basketList.length; i < basketLen; i++) {
+      if($scope.basketList[i].goId==basketItem.goId){
+        $scope.basketList.splice(i,1);
+        return;
+      }
     }
   }
+
 
 }]);
