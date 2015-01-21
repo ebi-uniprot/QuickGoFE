@@ -124,14 +124,14 @@
 			<span class="status">
 				<div class="pagination light-theme simple-pagination" id="light-pagination"></div></span>
 			<span class="status">
-				<div id="pageCount">Page <strong>${currentPage}</strong> of <strong>
+				<div id="pageCount">Page <strong>{{page}}</strong> of <strong>
                     <!--<fmt:formatNumber value="${totalNumberAnnotations}" type="number"/>-->
-                    {{annotations.length}}
+                    {{totalAnnotations.total}}
                 </strong> annotations</div>
 			</span>
 			<div id="resultsArea" style="display: block;">
-				<input type="hidden" name="current_page" value="${currentPage}" />
-				<input type="hidden" name="total_number_annotations" value="${totalNumberAnnotations}" />
+				<!--<input type="hidden" name="current_page" value="${currentPage}" />-->
+				<!--<input type="hidden" name="total_number_annotations" value="${totalNumberAnnotations}" />-->
 				<!--<c:choose>-->
 					<!--<c:when test="${fn:length(sessionScope.annotationsList) == 0}">-->
 						<!--<h4>No matching annotations</h4>-->
