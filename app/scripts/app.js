@@ -17,7 +17,8 @@ var app = angular
     'ngSanitize',
     'ngTouch',
     'quickGoFeApp.services',
-    'app.quickGo.filters'
+    'app.quickGo.filters',
+    'angularUtils.directives.dirPagination'
   ]);
 
   app.config(function ($routeProvider) {
@@ -40,6 +41,10 @@ var app = angular
       });
   });
 
+  app.config(function(paginationTemplateProvider) {
+  paginationTemplateProvider.setPath('scripts/directives/pagination/dirPagination.tpl.html');
+});
+
 app.controller('StartCtrl', function ($scope) {
     $scope.awesomeThings = [
         'HTML5 Boilerplate',
@@ -51,17 +56,45 @@ app.controller('StartCtrl', function ($scope) {
 
 app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', function($scope, $http, $cookieStore) {
 
-  $scope.page=1;
+  //$scope.page=1;
+  $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
+  getResultsPage(1);
+
+  $scope.pagination = {
+    current: 1
+  };
+
+
+  $scope.pageChanged = function(newPage) {
+    getResultsPage(newPage);
+  };
+
+  function getResultsPage(pageNumber) {
+    // this is just an example, in reality this stuff should be in a service
+    //$http.get('path/to/api/users?page=' + pageNumber)
+    //  .then(function(result) {
+    //    $scope.users = result.data.Items;
+    //    $scope.totalUsers = result.data.Count
+    //  });
+
+    var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
+    $http.get(formattedURL).success(function(data) {
+      console.log("got the response back >>>>" + data);
+      $scope.goList = data;
+      $scope.totalAnnotations = 299000000;
+    })
+  }
+
 
   /**
    * Get total number of annotations from server
    * @type {string}
    */
-  var totalAnnotationsURL='http://localhost:9080/ws/annotationtotal';
-  $http.get(totalAnnotationsURL).success(function(data) {
-    console.log("got the total annotations back >>>>" + data);
-    $scope.totalAnnotations = data;
-  });
+  //var totalAnnotationsURL='http://localhost:9080/ws/annotationtotal';
+  //$http.get(totalAnnotationsURL).success(function(data) {
+  //  console.log("got the total annotations back >>>>" + data);
+  //  $scope.totalAnnotations = data;
+  //});
 
 
   /**
@@ -88,42 +121,22 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', functio
    *
    * @type {string}
    */
-  var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ $scope.page +'&rows=25';
-  $http.get(formattedURL).success(function(data) {
-    console.log("got the response back >>>>" + data);
-    $scope.goList = data;
+  //var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ $scope.page +'&rows=25';
+  //$http.get(formattedURL).success(function(data) {
+  //  console.log("got the response back >>>>" + data);
+  //  $scope.goList = data;
+  //
+  //  $(".pagination-page").pagination({
+  //    items: $scope.totalAnnotations.total,
+  //    currentPage: 1,
+  //    itemsOnPage: 25,
+  //    displayedPages: 3,
+  //    edges: 0,
+  //    cssStyle: 'light-theme'
+  //
+  //  });
 
-    //$(".pagination-page").pagination({
-    //  items: 100,
-    //  itemsOnPage: 25,
-    //  cssStyle: "light-theme"
-    //  //onPageClick: function(pageNumber) { // this is where the magic happens
-    //  //  // someone changed page, lets hide/show trs appropriately
-    //  //  var showFrom = perPage * (pageNumber - 1);
-    //  //  var showTo = showFrom + perPage;
-    //  //
-    //  //  items.hide() // first hide everything, then show for the new page
-    //  //    .slice(showFrom, showTo).show();
-    //  //}
-    //});
-
-    //$(".pagination-page").pagination('updateItems',  $scope.totalAnnotations.total);
-    //$(".pagination-page").pagination('selectPage', 1);
-
-    $(".pagination-page").pagination({
-      items: $scope.totalAnnotations.total,
-      currentPage: 1,
-      itemsOnPage: 25,
-      displayedPages: 3,
-      edges: 0,
-      cssStyle: 'light-theme'
-      //onPageClick: function doSearch(){
-      //  ajaxPaginationRequest();
-      //}
-
-    });
-
-  });
+  //});
 
 
 

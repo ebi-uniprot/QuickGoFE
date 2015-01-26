@@ -38,10 +38,13 @@
   <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
 
   <!--Pagination-->
-  <link rel="stylesheet" type="text/css" href="styles/simple-pagination.css">
+  <!--<link rel="stylesheet" type="text/css" href="styles/simple-pagination.css">-->
+  <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
 
 
-    <!-- imports -->
+
+
+  <!-- imports -->
     <!--<div ng-include src="'views/imports.html'"></div>-->
     <!--<script src="bower_components/angular-resource/angular-resource.js"></script>-->
 
@@ -108,6 +111,11 @@
     <script src="scripts/jquery.cookie.js"></script>
     <script src="scripts/common.js"></script>
 
+  <!--Pagination http://www.michaelbromley.co.uk/blog/108/paginate-almost-anything-in-angularjs -->
+  <script src="scripts/dirPagination.js"></script>
+  <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
 
 </head>
 <body>
@@ -117,13 +125,6 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-
-<!-- header templates -->
-<div ng-include src="'views/header.html'"></div>
-
-<!-- Basket terms hidden input -->
-<input type="hidden" id="basket_terms_hidden_list" name="basket_terms"/>
-<!-- header templates End -->
 
 <div ng-view=""></div>
 
