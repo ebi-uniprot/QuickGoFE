@@ -53,43 +53,80 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', functio
 
   $scope.page=1;
 
-
   /**
-   * Get data from the server
+   * Get total number of annotations from server
    * @type {string}
    */
-  var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ $scope.page +'&rows=25';
-  $http.get(formattedURL).success(function(data) {
-    console.log("got the response back >>>>" + data);
-
-    //{"protein":"A0A000",
-    // "symbol":null,
-    // "qualifier":"enables",
-    // "goId":"GO:0003824",
-    // "termName":null,
-    // "aspect":null,
-    // "evidenceGo":"IEA",
-    // "evidenceEco":"ECO:0000256",
-    // "reference":"GO_REF:0000002",
-    // "with":"InterPro:IPR015421|InterPro:IPR015422",
-    // "taxon":0,"assignedBy":"InterPro",
-    // "database":"UniProtKB",
-    // "date":"20141025",
-    // "name":null,
-    // "synonym":null,
-    // "type":null,
-    // "taxonName":null,"sequence":0,
-    // "originalTermId":null,"originalTermName":null}
-
-    $scope.goList = data;
-  });
-
-
   var totalAnnotationsURL='http://localhost:9080/ws/annotationtotal';
   $http.get(totalAnnotationsURL).success(function(data) {
     console.log("got the total annotations back >>>>" + data);
     $scope.totalAnnotations = data;
   });
+
+
+  /**
+   * Get data from the server
+   *
+   * {"protein":"A0A000",
+   * "symbol":null,
+   *  "qualifier":"enables",
+   *  "goId":"GO:0003824",
+   *  "termName":null,
+   *  "aspect":null,
+   *  "evidenceGo":"IEA",
+   *  "evidenceEco":"ECO:0000256",
+   *  "reference":"GO_REF:0000002",
+   *  "with":"InterPro:IPR015421|InterPro:IPR015422",
+   *  "taxon":0,"assignedBy":"InterPro",
+   *  "database":"UniProtKB",
+   *  "date":"20141025",
+   *  "name":null,
+   *  "synonym":null,
+   *  "type":null,
+   *  "taxonName":null,"sequence":0,
+   *  "originalTermId":null,"originalTermName":null}
+   *
+   * @type {string}
+   */
+  var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ $scope.page +'&rows=25';
+  $http.get(formattedURL).success(function(data) {
+    console.log("got the response back >>>>" + data);
+    $scope.goList = data;
+
+    //$(".pagination-page").pagination({
+    //  items: 100,
+    //  itemsOnPage: 25,
+    //  cssStyle: "light-theme"
+    //  //onPageClick: function(pageNumber) { // this is where the magic happens
+    //  //  // someone changed page, lets hide/show trs appropriately
+    //  //  var showFrom = perPage * (pageNumber - 1);
+    //  //  var showTo = showFrom + perPage;
+    //  //
+    //  //  items.hide() // first hide everything, then show for the new page
+    //  //    .slice(showFrom, showTo).show();
+    //  //}
+    //});
+
+    //$(".pagination-page").pagination('updateItems',  $scope.totalAnnotations.total);
+    //$(".pagination-page").pagination('selectPage', 1);
+
+    $(".pagination-page").pagination({
+      items: $scope.totalAnnotations.total,
+      currentPage: 1,
+      itemsOnPage: 25,
+      displayedPages: 3,
+      edges: 0,
+      cssStyle: 'light-theme'
+      //onPageClick: function doSearch(){
+      //  ajaxPaginationRequest();
+      //}
+
+    });
+
+  });
+
+
+
 
   $scope.annotationColumns =[
       {'name':'colGeneProductID', 'value':'Gene Product ID'},
@@ -214,10 +251,18 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', functio
     for (i = 0, basketLen = $scope.basketList.length; i < basketLen; i++) {
       if($scope.basketList[i].goId==basketItem.goId){
         $scope.basketList.splice(i,1);
-        return;
       }
+      $cookieStore.put('uk.ac.ebi.quickgo.basket', $scope.basketList);
     }
   }
 
+
+  //$(function() {
+  //  $(selector).pagination({
+  //    items: 100,
+  //    itemsOnPage: 10,
+  //    cssStyle: 'light-theme'
+  //  });
+  //});
 
 }]);
