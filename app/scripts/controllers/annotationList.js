@@ -3,7 +3,9 @@
  */
 
 
-app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', function($scope, $http, $cookieStore) {
+app.controller('AnnotationListCtrl', ['$scope', '$http', 'basketService', function($scope, $http, basketService) {
+
+  $scope.countBasket = basketService.getItems().length;
 
   //$scope.page=1;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
@@ -185,46 +187,38 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', '$cookieStore', functio
     }
   }
 
+  //$scope.countBasket = BasketService.basketQuantity();
 
-  /**
-   * Add an item to the basket
-   * @type {Object|Array}
-   */
-  $scope.basketList = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [];
 
+  ///**
+  // * Add an item to the basket
+  // * @type {Object|Array}
+  // */
+  //$scope.basketList = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [];
+  //
   $scope.addItem = function(goId, termName){
-    console.log("Add to cookie" + goId);
     var basketItem = {goId:goId, termName:termName};
-    $scope.basketList.push(basketItem);
-    $cookieStore.put('uk.ac.ebi.quickgo.basket', $scope.basketList);
+    console.log(basketService.addBasketItem(basketItem));
+    $scope.countBasket = basketService.getItems().length;
   }
 
 
-  /**
-   * Remove an item from the basket
-   * @param basketItem
-   */
-  $scope.removeBasketItem=function(basketItem) {
-
-    console.log("Remove from cookie" + basketItem.goId);
-    var basketLen = -1;
-    var i;
-
-    for (i = 0, basketLen = $scope.basketList.length; i < basketLen; i++) {
-      if($scope.basketList[i].goId==basketItem.goId){
-        $scope.basketList.splice(i,1);
-      }
-      $cookieStore.put('uk.ac.ebi.quickgo.basket', $scope.basketList);
-    }
-  }
-
-
-  //$(function() {
-  //  $(selector).pagination({
-  //    items: 100,
-  //    itemsOnPage: 10,
-  //    cssStyle: 'light-theme'
-  //  });
-  //});
+  ///**
+  // * Remove an item from the basket
+  // * @param basketItem
+  // */
+  //$scope.removeBasketItem=function(basketItem) {
+  //
+  //  console.log("Remove from cookie" + basketItem.goId);
+  //  var basketLen = -1;
+  //  var i;
+  //
+  //  for (i = 0, basketLen = $scope.basketList.length; i < basketLen; i++) {
+  //    if($scope.basketList[i].goId==basketItem.goId){
+  //      $scope.basketList.splice(i,1);
+  //    }
+  //    $cookieStore.put('uk.ac.ebi.quickgo.basket', $scope.basketList);
+  //  }
+  //}
 
 }]);

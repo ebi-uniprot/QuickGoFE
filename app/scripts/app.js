@@ -18,7 +18,8 @@ var app = angular
     'ngTouch',
     'quickGoFeApp.services',
     'app.quickGo.filters',
-    'angularUtils.directives.dirPagination'
+    'angularUtils.directives.dirPagination',
+    'quickGoFeApp.BasketModule'
   ]);
 
   app.config(function ($routeProvider) {

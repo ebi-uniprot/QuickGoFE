@@ -2,7 +2,7 @@
   <!--<a id="basket-list"-->
   <!--class="closed basket-empty icon icon-static caret_white button"-->
   <!--data-icon="b" href="#/annotations">Basket <span id="basket-count" style="display: inline;">{{basketList.length}}</span></a>-->
-  Basket:&nbsp;<span id="basket-count" style="display: inline;">{{basketList.length}}</span><img src="images/shopping2.png" ng-click="showBasket()"/>
+  Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span><img src="images/shopping2.png" ng-click="showBasket()"/>
 </div>
 <!-- Basket -->
 <!--<%@include file="/templates/basket.jsp"%>-->
@@ -39,8 +39,8 @@
         <!--<c:forEach var="basketItem" items="${sessionScope.basketTerms}">-->
         <!--<tr><td><a href="<c:url value="/"/>term/${basketItem.key}">${basketItem.key}</a></td><td>${basketItem.value}</td><td><element id="remove_term_${basketItem.key}" class='remove-term enabled icon icon-functional' data-icon='d' title="Remove"></element></td></tr>-->
         <!--</c:forEach>-->
-        <tr ng-repeat="basketItem in basketList ">
-          <td>{{basketItem.goId}}</td>
+        <tr ng-repeat="basketItem in basketList.items">
+          <td><a ng-href="/term{{basketItem.goId}}">{{basketItem.goId}}</a></td>
           <td>{{basketItem.termName}}</td>
           <td><img src="images/cross.png" ng-click="removeBasketItem(basketItem)"/></td>
         </tr>

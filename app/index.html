@@ -91,6 +91,7 @@
     <script src="scripts/controllers/about.js"></script>
     <script src="scripts/controllers/annotationList.js"></script>
 
+
   <!-- endbuild -->
 
     <!-- defined by me -->
@@ -103,20 +104,21 @@
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-  <!--Pagination-->
-  <script src="scripts/jquery.simplePagination.js"          type="text/javascript"></script>
 
   <!-- local -->
 
     <script src="scripts/tooltipsy.min.js"></script>
     <script src="scripts/jquery.highlight-4.js"></script>
     <script src="scripts/jquery.cookie.js"></script>
-    <script src="scripts/common.js"></script>
+    <!--<script src="scripts/common.js"></script>-->
 
   <!--Pagination http://www.michaelbromley.co.uk/blog/108/paginate-almost-anything-in-angularjs -->
   <script src="scripts/dirPagination.js"></script>
   <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
+
+  <script src="scripts/services/basketService.js"></script>
+  <!--<script src="scripts/controllers/basket.js"></script>-->
 
 
 </head>
@@ -134,9 +136,6 @@
 <div class="footer">
     <div ng-include src="'views/footer.html'"></div>
 </div>
-</div>
-
-
 
 </body>
 </html>
