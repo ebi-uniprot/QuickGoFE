@@ -48,6 +48,7 @@ basketModule.factory('basketService', function($cookieStore) {
   }
 
   basketList.getItems = function(){
+    console.log("get items called");
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
     return items;
   }

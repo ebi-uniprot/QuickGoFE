@@ -6,8 +6,7 @@
 app.controller('AnnotationListCtrl', ['$scope', '$http', 'basketService', function($scope, $http, basketService) {
 
   $scope.countBasket = basketService.getItems().length;
-
-  //$scope.page=1;
+  $scope.isBasketShow = false;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
   getResultsPage(1);
 
@@ -21,12 +20,6 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', 'basketService', functi
   };
 
   function getResultsPage(pageNumber) {
-    // this is just an example, in reality this stuff should be in a service
-    //$http.get('path/to/api/users?page=' + pageNumber)
-    //  .then(function(result) {
-    //    $scope.users = result.data.Items;
-    //    $scope.totalUsers = result.data.Count
-    //  });
 
     var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
     $http.get(formattedURL).success(function(data) {
@@ -35,61 +28,6 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', 'basketService', functi
       $scope.totalAnnotations = 299000000;
     })
   }
-
-
-  /**
-   * Get total number of annotations from server
-   * @type {string}
-   */
-  //var totalAnnotationsURL='http://localhost:9080/ws/annotationtotal';
-  //$http.get(totalAnnotationsURL).success(function(data) {
-  //  console.log("got the total annotations back >>>>" + data);
-  //  $scope.totalAnnotations = data;
-  //});
-
-
-  /**
-   * Get data from the server
-   *
-   * {"protein":"A0A000",
-   * "symbol":null,
-   *  "qualifier":"enables",
-   *  "goId":"GO:0003824",
-   *  "termName":null,
-   *  "aspect":null,
-   *  "evidenceGo":"IEA",
-   *  "evidenceEco":"ECO:0000256",
-   *  "reference":"GO_REF:0000002",
-   *  "with":"InterPro:IPR015421|InterPro:IPR015422",
-   *  "taxon":0,"assignedBy":"InterPro",
-   *  "database":"UniProtKB",
-   *  "date":"20141025",
-   *  "name":null,
-   *  "synonym":null,
-   *  "type":null,
-   *  "taxonName":null,"sequence":0,
-   *  "originalTermId":null,"originalTermName":null}
-   *
-   * @type {string}
-   */
-    //var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ $scope.page +'&rows=25';
-    //$http.get(formattedURL).success(function(data) {
-    //  console.log("got the response back >>>>" + data);
-    //  $scope.goList = data;
-    //
-    //  $(".pagination-page").pagination({
-    //    items: $scope.totalAnnotations.total,
-    //    currentPage: 1,
-    //    itemsOnPage: 25,
-    //    displayedPages: 3,
-    //    edges: 0,
-    //    cssStyle: 'light-theme'
-    //
-    //  });
-
-    //});
-
-
 
 
   $scope.annotationColumns =[
@@ -170,15 +108,11 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', 'basketService', functi
     }
   }
 
-
-  //**********************************************
-
-
   /**
    * Show/Don't show the basket pop-up
    * @type {boolean}
    */
-  $scope.isBasketShow = false;
+
   $scope.showBasket = function(){
     if($scope.isBasketShow==true){
       $scope.isBasketShow=false;
@@ -186,8 +120,6 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', 'basketService', functi
       $scope.isBasketShow=true;
     }
   }
-
-  //$scope.countBasket = BasketService.basketQuantity();
 
 
   ///**
@@ -202,23 +134,5 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', 'basketService', functi
     $scope.countBasket = basketService.getItems().length;
   }
 
-
-  ///**
-  // * Remove an item from the basket
-  // * @param basketItem
-  // */
-  //$scope.removeBasketItem=function(basketItem) {
-  //
-  //  console.log("Remove from cookie" + basketItem.goId);
-  //  var basketLen = -1;
-  //  var i;
-  //
-  //  for (i = 0, basketLen = $scope.basketList.length; i < basketLen; i++) {
-  //    if($scope.basketList[i].goId==basketItem.goId){
-  //      $scope.basketList.splice(i,1);
-  //    }
-  //    $cookieStore.put('uk.ac.ebi.quickgo.basket', $scope.basketList);
-  //  }
-  //}
 
 }]);
