@@ -34,7 +34,9 @@
           <!--<tr><td><a href="<c:url value="/"/>term/${basketItem.key}">${basketItem.key}</a></td><td>${basketItem.value}</td><td><element id="remove_term_${basketItem.key}" class='remove-term enabled icon icon-functional' data-icon='d' title="Remove"></element></td></tr>-->
           <!--</c:forEach>-->
           <tr ng-repeat="basketItem in basketItems">
-            <td><a ng-href="#/term?goID={{basketItem.goId}}">{{basketItem.goId}}</a></td>
+            <!--<td><span ng-click="term('{{basketItem.goId}}')" style="background:none!important; border:none; padding:0!important; /*border is optional*/ border-bottom:1px solid #444; cursor: pointer;">{{basketItem.goId}}</span></td>-->
+            <td><a><span ng-click="term('{{basketItem.goId}}')">{{basketItem.goId}}</span></a></td>
+
             <td>{{basketItem.termName}}</td>
             <td><img src="images/cross.png" ng-click="removeItem(basketItem)"/></td>
           </tr>

@@ -38,6 +38,10 @@ var app = angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
+      .when('/term/:goId', {
+        templateUrl: 'views/term.html',
+        controller: 'TermCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

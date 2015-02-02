@@ -51,7 +51,6 @@
         </div>
 			</span>
 
-    <div id="resultsArea" style="display: block;">
       <table id="results" class="grid">
         <tr>
           <th ng-repeat="colHeading in annotationColumns">
@@ -65,9 +64,7 @@
           </td>
           <td>{{goTuple.symbol}}</td>
           <td>{{goTuple.qualifier}}</td>
-          <td>
-            <img src="images/shopping2.png" ng-click="addItem('{{goTuple.goId}}','{{goTuple.termName}}')"/>&nbsp;{{goTuple.goId}}
-          </td>
+          <td style="white-space: nowrap;"><img src="images/shopping2.png" ng-click="addItem('{{goTuple.goId}}','{{goTuple.termName}}')"/>{{goTuple.goId}}</td>
           <td>{{goTuple.termName}}</td>
           <td>{{goTuple.aspect}}</td>
           <td><a class="ontologygraph" id="ontologygraph_{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>&nbsp;<a
@@ -87,7 +84,6 @@
         </tr>
       </table>
 
-    </div>
   </div>
   <div class="clearfix"></div>
 </div>
