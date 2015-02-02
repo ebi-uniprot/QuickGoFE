@@ -14,9 +14,9 @@ basketModule.factory('basketService', function($cookieStore) {
    */
   basketList.addBasketItem = function (basketItem) {
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
-    items[items.length] = basketItem;
+    //items[items.length] = basketItem;
     console.log(items);
-    //items.push(basketItem);
+    items.push(basketItem);
     $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
     return items.length;
   }
@@ -30,8 +30,9 @@ basketModule.factory('basketService', function($cookieStore) {
     var basketLen = -1;
     var i;
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
+    console.log("items -" + items);
     for (i = 0, basketLen = items.length; i < basketLen; i++) {
-      if (basketList[i].goId == basketItem.goId) {
+      if (items[i].goId == basketItem.goId) {
         items.splice(i, 1);
       }
       $cookieStore.put('uk.ac.ebi.quickgo.basket', items);

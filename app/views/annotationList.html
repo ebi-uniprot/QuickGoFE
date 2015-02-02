@@ -28,16 +28,18 @@
 
     <div ng-include src="'views/download.html'"></div>
 
+
     <!--Basket start -->
 
     <div id="basket">
-      <!--<a id="basket-list"-->
-      <!--class="closed basket-empty icon icon-static caret_white button"-->
-      <!--data-icon="b" href="#/annotations">Basket <span id="basket-count" style="display: inline;">{{basketList.length}}</span></a>-->
-      Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span><img src="images/shopping2.png" ng-click="showBasket()"/>
+      <!--Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span><img src="images/shopping2.png" ng-click="showBasket()"/>-->
+      <!--Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>-->
+      <!--<button ui-sref="Modal.basket">Show Basket</button>-->
+      <!--<div ui-view="modal" autoscroll="false"></div>-->
+      Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;<button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
     </div>
 
-    <div ng-include src="'views/basket.html'"></div>
+    <!--<div ng-include src="'views/basket.html'"></div>-->
 
     <!--Basket end -->
 

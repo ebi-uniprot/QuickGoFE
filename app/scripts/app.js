@@ -19,7 +19,8 @@ var app = angular
     'quickGoFeApp.services',
     'app.quickGo.filters',
     'angularUtils.directives.dirPagination',
-    'quickGoFeApp.BasketModule'
+    'quickGoFeApp.BasketModule',
+    "ui.bootstrap"
   ]);
 
   app.config(function ($routeProvider) {

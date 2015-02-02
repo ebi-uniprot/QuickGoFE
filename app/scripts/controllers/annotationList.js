@@ -3,9 +3,9 @@
  */
 
 
-app.controller('AnnotationListCtrl', ['$scope', '$http', 'basketService', function($scope, $http, basketService) {
+app.controller('AnnotationListCtrl', function($scope, $http, $modal, $log, basketService) {
 
-  $scope.countBasket = basketService.getItems().length;
+  $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
   getResultsPage(1);
@@ -109,30 +109,43 @@ app.controller('AnnotationListCtrl', ['$scope', '$http', 'basketService', functi
   }
 
   /**
-   * Show/Don't show the basket pop-up
-   * @type {boolean}
+   * Show the basket modal on request
    */
+  $scope.showBasket = function () {
 
-  $scope.showBasket = function(){
-    if($scope.isBasketShow==true){
-      $scope.isBasketShow=false;
-    }else{
-      $scope.isBasketShow=true;
-    }
-  }
+    var modalInstance = $modal.open({
+      templateUrl: 'modals/basketModal.html',
+      controller: 'BasketCtrl',
+      size: 'lg',
+      scope: $scope,
+      resolve: {
+        countBasket: function () {
+          return $scope.countBasket;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
 
 
-  ///**
-  // * Add an item to the basket
-  // * @type {Object|Array}
-  // */
-  //$scope.basketList = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [];
-  //
+  /**
+   * Pick up the basket update event from the modal
+   */
+  $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
+
+  /**
+   * Add an item to the basket
+   * @type {Object|Array}
+   */
   $scope.addItem = function(goId, termName){
     var basketItem = {goId:goId, termName:termName};
     console.log(basketService.addBasketItem(basketItem));
     $scope.countBasket = basketService.getItems().length;
   }
 
-
-}]);
+});
