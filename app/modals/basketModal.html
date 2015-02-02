@@ -1,8 +1,11 @@
 <div class="Modal-box">
-  <div id="basket-contents-show" style="z-index: 3000; top: 34px; " ng-controller="BasketCtrl">
+  <div id="basket-contents-show" style="z-index: 3000; top: 34px;">
     <div id="closeBasket">
-      <span class="basketText">(max 400 entries)</span><img src="images/shopping2.png" ng-click="showBasket()"/>
+      <span class="basketText">(max 400 entries)</span>
+      <!--<img src="images/shopping2.png" ng-click="showBasket()"/>-->
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
     </div>
+
     <div id="filledBasketContents" style="display: block;">
       <!--<c:choose>-->
       <!--<c:when test="${empty sessionScope.basketTerms}">-->
