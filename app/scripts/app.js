@@ -20,6 +20,7 @@ var app = angular
     'app.quickGo.filters',
     'angularUtils.directives.dirPagination',
     'quickGoFeApp.BasketModule',
+    'quickGoFeApp.HardCodedDataModule',
     "ui.bootstrap"
   ]);
 
@@ -37,6 +38,14 @@ var app = angular
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .when('/documentation', {
+        templateUrl: 'views/documentation.html',
+        controller: 'DocumentationCtrl'
+      })
+      .when('/help', {
+        templateUrl: 'views/help.html',
+        controller: 'HelpCtrl'
       })
       .when('/term/:goId', {
         templateUrl: 'views/term.html',

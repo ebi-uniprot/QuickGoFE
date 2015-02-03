@@ -1,6 +1,6 @@
 <!-- header templates -->
 <div id="content" class="container_12" ng-controller="AnnotationListCtrl">
-  <div ng-include src="'views/header.html'"></div>
+  <!--<div ng-include src="'views/header.html'"></div>-->
 
   <div class="sidebar grid_2">
     <h2 class="page-title">
@@ -31,25 +31,21 @@
 
     <!--Basket start -->
 
-    <div id="basket">
+    <!--<span id="basket">-->
       <!--Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span><img src="images/shopping2.png" ng-click="showBasket()"/>-->
       <!--Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>-->
       <!--<button ui-sref="Modal.basket">Show Basket</button>-->
       <!--<div ui-view="modal" autoscroll="false"></div>-->
       Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;<button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
-    </div>
+    <!--</span>-->
 
     <!--<div ng-include src="'views/basket.html'"></div>-->
 
     <!--Basket end -->
 
-			<span class="status">
+
         <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-				<div id="pageCount">Page <strong>{{page}}</strong> of <strong>
-          {{totalAnnotations.total}}
-        </strong> annotations
-        </div>
-			</span>
+
 
       <table id="results" class="grid">
         <tr>
