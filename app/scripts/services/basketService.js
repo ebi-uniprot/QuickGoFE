@@ -55,5 +55,17 @@ basketModule.factory('basketService', function($cookieStore) {
   }
 
 
+  basketList.containsItem = function (searchGoId){
+    var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
+    var basketLen = -1;
+    var i;
+    for (i = 0, basketLen = items.length; i < basketLen; i++) {
+      if (searchGoId == items[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   return basketList;
 });

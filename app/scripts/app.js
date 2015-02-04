@@ -21,6 +21,7 @@ var app = angular
     'angularUtils.directives.dirPagination',
     'quickGoFeApp.BasketModule',
     'quickGoFeApp.HardCodedDataModule',
+    'quickGoFeApp.TermDataModule',
     "ui.bootstrap"
   ]);
 

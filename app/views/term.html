@@ -3,30 +3,36 @@
   <!--<%@include file="/templates/header.jsp"%>-->
 
   <div class="sidebar grid_9">
-    <h2 class="page-title">${term.id} ${term.name}</h2>
+    <h2 class="page-title">{{termModel.termId}}&nbsp;{{termModel.name}}</h2>
   </div>
   <div class="mainContent grid_1">
     <p></p>
   </div>
   <div class="grid_2">
-    <div id="basket">
-      <a id="basket-list"
-         class="closed basket-empty icon icon-static caret_white button"
-         data-icon="b" href="#">Basket <span id="basket-count" style="display: inline;">${fn:length(sessionScope.basketTerms)}</span></a>
-    </div>
+    <!--<div id="basket">-->
+      <!--<a id="basket-list"-->
+         <!--class="closed basket-empty icon icon-static caret_white button"-->
+         <!--data-icon="b" href="#">Basket <span id="basket-count" style="display: inline;">${fn:length(sessionScope.basketTerms)}</span></a>-->
+    <!--</div>-->
     <!-- Basket -->
     <!--<%@include file="/templates/basket.jsp"%>-->
+    Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;<button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
 
   </div>
   <div class="clearfix"></div>
   <!-- Sidebar -->
   <!--<%@include file="/templates/term-sidebar.jsp"%>-->
+  <div ng-include src="'views/term-sidebar.html'"></div>
 
   <!-- Main Content -->
   <div class="mainContent grid_10">
-    <!--<c:if test="${isGO}">-->
+    <div ng-show="termModel.goTerm">
       <ul class="action-buttons-grouped decorated" id="resultActionButtons">
         <div id="add-to-basket-div">
+
+            <button ng-show="isInBasket" disabled>Add to Basket</button>
+            <button ng-show="isNotInBasket" ng-click="addItem('{{termModel.termId}}','{{termModel.name}}')">Add to Basket</button>
+            <button ng-show="isObsolete">ObsoleteButton</button>
           <!--<c:if test="${not term.obsolete}">-->
             <!--<c:set var="clicked" value="enabled" />-->
             <!--<c:if test="${sessionScope.basketTerms[term.id] != null}">-->
@@ -42,16 +48,14 @@
           </script>
         </div>
       </ul>
-    </c:if>
+    </div>
     <div style="display: block;" id="resultsArea">
 
       <!-- Check if it's obsolete -->
-      <!--<c:if test="${term.obsolete}">-->
-        <div class="alert"><element id="warning"
+        <div class="alert" ng-show="isObsolete"><element id="warning"
                                     class="icon icon-generic"
                                     data-icon="l" href="#"></element> <strong>This term is obsolete.</strong><br/>
           ${term.comment}</div><br/>
-      <!--</c:if>-->
 
       <!-- Term information -->
       <!--<%@include file="termInformation.jsp"%>-->
