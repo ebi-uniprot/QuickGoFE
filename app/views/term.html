@@ -1,7 +1,4 @@
 <div id="content" class="container_12">
-  <!--Header -->
-  <!--<%@include file="/templates/header.jsp"%>-->
-
   <div class="sidebar grid_9">
     <h2 class="page-title">{{termModel.termId}}&nbsp;{{termModel.name}}</h2>
   </div>
@@ -9,19 +6,10 @@
     <p></p>
   </div>
   <div class="grid_2">
-    <!--<div id="basket">-->
-      <!--<a id="basket-list"-->
-         <!--class="closed basket-empty icon icon-static caret_white button"-->
-         <!--data-icon="b" href="#">Basket <span id="basket-count" style="display: inline;">${fn:length(sessionScope.basketTerms)}</span></a>-->
-    <!--</div>-->
-    <!-- Basket -->
-    <!--<%@include file="/templates/basket.jsp"%>-->
     Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;<button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
-
   </div>
   <div class="clearfix"></div>
-  <!-- Sidebar -->
-  <!--<%@include file="/templates/term-sidebar.jsp"%>-->
+
   <div ng-include src="'views/term-sidebar.html'"></div>
 
   <!-- Main Content -->
@@ -30,17 +18,8 @@
       <ul class="action-buttons-grouped decorated" id="resultActionButtons">
         <div id="add-to-basket-div">
 
-            <button ng-show="isInBasket" disabled>Add to Basket</button>
-            <button ng-show="isNotInBasket" ng-click="addItem('{{termModel.termId}}','{{termModel.name}}')">Add to Basket</button>
-            <button ng-show="isObsolete">ObsoleteButton</button>
-          <!--<c:if test="${not term.obsolete}">-->
-            <!--<c:set var="clicked" value="enabled" />-->
-            <!--<c:if test="${sessionScope.basketTerms[term.id] != null}">-->
-              <!--<c:set var="clicked" value="disabled" />-->
-            <!--</c:if>-->
-            <!--<li>-->
-              <!--<a id="term_${term.id}" class="add-basket-item icon button ${clicked}" data-icon="b" title="Add term to basket">Add to Basket</a>						</li>-->
-          <!--</c:if>-->
+            <button ng-show="preventAddToBasket" disabled>Add to Basket</button>
+            <button ng-show="allowAddToBasket" ng-click="addItem('{{termModel.termId}}','{{termModel.name}}')">Add to Basket</button>
           <script>
 //            refreshBasketTerms();
 //            addTermsToBasketFunctionality();
