@@ -1,44 +1,73 @@
 /**
  * Created by twardell on 02/02/2015.
  */
-app.controller('TermCtrl', function($scope, $http, $modal, termDataService, basketService) {
-
-  var termId='GO:0003824';
-  $scope.countBasket = basketService.basketQuantity();
-
-  if(basketService.containsItem(termId)){
-    $scope.isInBasket = true;
-    $scope.isNotInBasket = false;
-    console.log("in basket");
-  }else{
-    $scope.isInBasket = false;
-    $scope.isNotInBasket = true;
-    console.log("not in basket");
-  }
-
+app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, basketService) {
 
   var formattedURL='http://localhost:9080/ws/term/';
+  var termId='GO:0003824';
+  //$scope.termModel = {};
+
+  /**
+   * Show basket quantity
+   */
+  $scope.countBasket = basketService.basketQuantity();
+  console.log("qty in basket", $scope.countBasket);
+
+  console.log("basket contains termId",basketService.containsItem(termId));
+
+  //The following variable needs to be in scope
+  //$scope.termModel = loadTermModel();
+
+  /**
+   * Get Term Data from WS
+   */
+  $http.get(formattedURL+termId).success(function(data) {
+    $scope.termModel = data;
+    console.log($scope.termModel);
+
+    if(!basketService.containsItem(termId) && $scope.termModel.active == true){
+      $scope.allowAddToBasket = true;
+      $scope.preventAddToBasket = false;
+      console.log("display add to basket");
+    }else{
+      $scope.allowAddToBasket = false;
+      $scope.preventAddToBasket = true;
+      console.log("already in basket or obsolete");
+    }
+
+  });
+
+  //var loadTermModelPromise = function() {
+  //  //try and get the data
+  //  loadTermModel()
+  //    //deal with what comes back with loadTermModel
+  //    .then(function(data){
+  //      $scope.termModel = data;
+  //    }, function(error) {
+  //      //err...
+  //    });
+  //};
+
+
+  /**
+   * Control display of add to basket buttons
+   */
+    //if(!basketService.containsItem(termId) && $scope.termModel.active == true){
+
+
 
   //$scope.termModel = {"termId":"GO:0003824","name":"catalytic activity"};
   //$scope.termModel = {};
   //$scope.termModel = termDataService.getTerm(termId);
 
-  $http.get(formattedURL+termId).success(function(data) {
-    $scope.termModel = data;
-    //$scope.termModel.isGoTerm=false;
-    console.log($scope.termModel);
-  });
 
 
-  $scope.isObsolete = function() {
-    return ($scope.termModel.active != true);
-  }
 
 
   $scope.addItem = function(goId, termName){
     var basketItem = {goId:goId, termName:termName};
     console.log(basketService.addBasketItem(basketItem));
-    $scope.countBasket = basketService.getItems().length;
+    $scope.countBasket =  basketService.basketQuantity();
   }
 
   /**
@@ -61,7 +90,7 @@ app.controller('TermCtrl', function($scope, $http, $modal, termDataService, bask
     modalInstance.result.then(function (selectedItem) {
       $scope.selected = selectedItem;
     }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
+      console.log('Modal dismissed at: ', new Date());
     });
   };
 
@@ -70,6 +99,31 @@ app.controller('TermCtrl', function($scope, $http, $modal, termDataService, bask
    * Pick up the basket update event from the modal
    */
   $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
+
+
+  //function loadTermModel(){
+  //  $http.get(formattedURL+termId).success(function(data) {
+  //    $scope.termModel = data;
+  //    //$scope.termModel.isGoTerm=false;
+  //    console.log(" get data from ws for termModel  ", $scope.termModel);
+  //    return $scope.termModel;
+  //  });
+  //}
+
+  //function loadTermModel() {
+  //  return $http.get(formattedURL + termId)
+  //    .then(function (response) {
+  //      if (typeof response.data === 'object') {
+  //        return response.data;
+  //      } else {
+  //        // invalid response
+  //        return $q.reject(response.data);
+  //      }
+  //    }, function (response) {
+  //      // something went wrong
+  //      return $q.reject(response.data);
+  //    });
+  //};
 
 
 });
