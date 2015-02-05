@@ -20,15 +20,17 @@ app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, 
     console.log($scope.termModel);
 
     //Control if the basket shows
-    if(!basketService.containsItem(termId) && $scope.termModel.active == true){
-      $scope.allowAddToBasket = true;
-      $scope.preventAddToBasket = false;
-      console.log("display add to basket");
-    }else{
-      $scope.allowAddToBasket = false;
-      $scope.preventAddToBasket = true;
-      console.log("already in basket or obsolete");
-    }
+    //if(!basketService.containsItem(termId) && $scope.termModel.active == true){
+    //  $scope.allowAddToBasket = true;
+    //  $scope.preventAddToBasket = false;
+    //  console.log("display add to basket");
+    //}else{
+    //  $scope.allowAddToBasket = false;
+    //  $scope.preventAddToBasket = true;
+    //  console.log("already in basket or obsolete");
+    //}
+
+    setupBasketButton($scope.termModel);
 
   });
 
@@ -37,6 +39,10 @@ app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, 
     var basketItem = {goId:goId, termName:termName};
     console.log(basketService.addBasketItem(basketItem));
     $scope.countBasket =  basketService.basketQuantity();
+
+    //Stop this item being added to the basket again
+    $scope.allowAddToBasket = false;
+    $scope.preventAddToBasket = true;
   }
 
   /**
@@ -67,7 +73,48 @@ app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, 
   /**
    * Pick up the basket update event from the modal
    */
-  $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
+  $scope.$on('basketUpdate', function(event, data) {
+
+    console.log("Basket Update event has been called", event);
+    console.log("Basket Update event has been called", data);
+
+    $scope.countBasket = data;
+
+    //$http.get(formattedURL+termId).success(function(data) {
+    //  $scope.termModel = data;
+    //  console.log($scope.termModel);
+
+      //Control if the basket shows
+      //if(!basketService.containsItem(termId) && $scope.termModel.active == true){
+      //  $scope.allowAddToBasket = true;
+      //  $scope.preventAddToBasket = false;
+      //  console.log("display add to basket");
+      //}else{
+      //  $scope.allowAddToBasket = false;
+      //  $scope.preventAddToBasket = true;
+      //  console.log("already in basket or obsolete");
+      //}
+
+      setupBasketButton($scope.termModel);
+
+    //});
+  });
+
+
+  function setupBasketButton(termModel){
+    console.log("setup basket");
+
+      //Control if the basket shows
+      if(!basketService.containsItem(termId) && termModel.active == true){
+        $scope.allowAddToBasket = true;
+        $scope.preventAddToBasket = false;
+        console.log("display add to basket");
+      }else{
+        $scope.allowAddToBasket = false;
+        $scope.preventAddToBasket = true;
+        console.log("already in basket or obsolete");
+      }
+  }
 
 
 });
