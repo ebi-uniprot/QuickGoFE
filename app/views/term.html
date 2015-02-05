@@ -19,7 +19,7 @@
         <div id="add-to-basket-div">
 
             <button ng-show="preventAddToBasket" disabled>Add to Basket</button>
-            <button ng-show="allowAddToBasket" ng-click="addItem('{{termModel.termId}}','{{termModel.name}}')">Add to Basket</button>
+            <button ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add to Basket</button>
           <script>
 //            refreshBasketTerms();
 //            addTermsToBasketFunctionality();

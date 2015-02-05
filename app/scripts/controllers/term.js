@@ -5,18 +5,12 @@ app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, 
 
   var formattedURL='http://localhost:9080/ws/term/';
   var termId='GO:0003824';
-  //$scope.termModel = {};
 
   /**
    * Show basket quantity
    */
   $scope.countBasket = basketService.basketQuantity();
-  console.log("qty in basket", $scope.countBasket);
 
-  console.log("basket contains termId",basketService.containsItem(termId));
-
-  //The following variable needs to be in scope
-  //$scope.termModel = loadTermModel();
 
   /**
    * Get Term Data from WS
@@ -25,6 +19,7 @@ app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, 
     $scope.termModel = data;
     console.log($scope.termModel);
 
+    //Control if the basket shows
     if(!basketService.containsItem(termId) && $scope.termModel.active == true){
       $scope.allowAddToBasket = true;
       $scope.preventAddToBasket = false;
@@ -36,32 +31,6 @@ app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, 
     }
 
   });
-
-  //var loadTermModelPromise = function() {
-  //  //try and get the data
-  //  loadTermModel()
-  //    //deal with what comes back with loadTermModel
-  //    .then(function(data){
-  //      $scope.termModel = data;
-  //    }, function(error) {
-  //      //err...
-  //    });
-  //};
-
-
-  /**
-   * Control display of add to basket buttons
-   */
-    //if(!basketService.containsItem(termId) && $scope.termModel.active == true){
-
-
-
-  //$scope.termModel = {"termId":"GO:0003824","name":"catalytic activity"};
-  //$scope.termModel = {};
-  //$scope.termModel = termDataService.getTerm(termId);
-
-
-
 
 
   $scope.addItem = function(goId, termName){
@@ -99,31 +68,6 @@ app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, 
    * Pick up the basket update event from the modal
    */
   $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
-
-
-  //function loadTermModel(){
-  //  $http.get(formattedURL+termId).success(function(data) {
-  //    $scope.termModel = data;
-  //    //$scope.termModel.isGoTerm=false;
-  //    console.log(" get data from ws for termModel  ", $scope.termModel);
-  //    return $scope.termModel;
-  //  });
-  //}
-
-  //function loadTermModel() {
-  //  return $http.get(formattedURL + termId)
-  //    .then(function (response) {
-  //      if (typeof response.data === 'object') {
-  //        return response.data;
-  //      } else {
-  //        // invalid response
-  //        return $q.reject(response.data);
-  //      }
-  //    }, function (response) {
-  //      // something went wrong
-  //      return $q.reject(response.data);
-  //    });
-  //};
 
 
 });
