@@ -57,34 +57,21 @@
       </tr>
   </table>
 
-  <!-- Tabs -->
-  <div id="termInformationTabs">
-    <ul>
-      <li ng-show="termModel.synonyms.length>0"><a href="#synonyms">Synonyms</a></li>
-      <li ng-show="termModel.guidelines.length>0"><a href="#guidance">Annotation Guidance</a></li>
-      <li ng-show="termModel.crossOntologyRelations.length>0"><a href="#ontologyrelations">Cross-Ontology Relations</a></li>
-      <li ng-show="termModel.taxonConstraints.length>0"><a href="#taxonconstraints">Taxon constraints</a></li>
-      <li ng-show="termModel.subsets.length>0"><a href="#subsets">GO Slims</a></li>
-      <li ng-show="termModel.xrefs.length>0"><a href="#xref">Cross-references</a></li>
-      <li ng-show="termModel.replaces.length>0"><a href="#replaces">Replaces</a></li>
-      <li ng-show="termModel.replacements.length>0"><a href="#replacements">Replaced by</a></li>
-    </ul>
-
-
-    <div ng-show="termModel.synonyms.length>0">
-      <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication of the relationship between the name and synonym given by the synonym scope.</p>
-      <table id="synonymsTable" class="two-colours">
-        <tr>
-          <th>Type</th>
-          <th>Synonym</th>
-        </tr>
-          <tr ng-repeat="synonym in termModel.synonyms">
-            <td>{{synonym.type}}</td>
-            <td>{{synonym.name}}</td>
-          </tr>
-      </table>
-    </div>
-    <div ng-show="termModel.taxonConstraints.length>0">
+  <accordion close-others="oneAtATime">
+    <accordion-group heading="Synonyms" is-open="false" is-disabled="termModel.synonyms.length==0">
+    <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication of the relationship between the name and synonym given by the synonym scope.</p>
+    <table id="synonymsTableAccordian" class="two-colours">
+      <tr>
+        <th>Type</th>
+        <th>Synonym</th>
+      </tr>
+      <tr ng-repeat="synonym in termModel.synonyms">
+        <td>{{synonym.type}}</td>
+        <td>{{synonym.name}}</td>
+      </tr>
+    </table>
+    </accordion-group>
+    <accordion-group heading="Taxon Constraints" is-disabled="termModel.taxonConstraints.length==0">
       <p>The use of this term should conform to the following taxon constraints:</p>
       <table id="taxonconstraintsTable" class="two-colours">
         <tr>
@@ -96,75 +83,74 @@
           <th>Taxon</th>
           <th>Reference(s)</th>
         </tr>
-          <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
-            <td>{{taxonconstraint.ruleId}}</td>
-            <td><a href="/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
-            <td>{{taxonconstraint.name}}</td>
-            <td>{{taxonconstraint.relationship.text}</td>
-            <td>{{taxonconstraint.taxId}}</td>
-            <td>{{taxonconstraint.taxonName}}</td>
-            <td>
-              <li ng-repeat="source in taxonconstraint.sources">
-                <a href="{{source.url}}" target="_blank">{{source.pmid}}</a>
-              </li>
-            </td>
-          </tr>
+        <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
+          <td>{{taxonconstraint.ruleId}}</td>
+          <td><a href="/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
+          <td>{{taxonconstraint.name}}</td>
+          <td>{{taxonconstraint.relationship.text}</td>
+          <td>{{taxonconstraint.taxId}}</td>
+          <td>{{taxonconstraint.taxonName}}</td>
+          <td>
+            <li ng-repeat="source in taxonconstraint.sources">
+              <a href="{{source.url}}" target="_blank">{{source.pmid}}</a>
+            </li>
+          </td>
+        </tr>
       </table>
-    </div>
-    <div ng-show="termModel.guidelines.length>0">
+    </accordion-group>
+    <accordion-group heading="Annotation Guidance" is-disabled="termModel.guidelines.length==0">
       <p>Usage of this term is subject to the following annotation guidelines:</p>
       <table id="guidelineTable" class="two-colours">
         <tr>
           <th colspan="2">Annotation Guidelines</th>
         </tr>
-          <tr ng-repeat="guideline in termModel.guidelines">
-            <td>{{guideline.title}}</td>
-            <td><a href="{{guideline.url}}" target="_blanket">Link</a></td>
-          </tr>
+        <tr ng-repeat="guideline in termModel.guidelines">
+          <td>{{guideline.title}}</td>
+          <td><a href="{{guideline.url}}" target="_blanket">Link</a></td>
+        </tr>
       </table>
-    </div>
-    <div ng-show="termModel.crossOntologyRelations.length>0">
+    </accordion-group>
+    <accordion-group heading="Cross-Ontology Relations" is-disabled="termModel.crossOntologyRelations.length==0">
       <table id="ontologyrelationsTable" class="two-colours">
         <tr>
           <th>Relation</th><th>Other Ontology</th><th>ID</th><th>Term</th>
         </tr>
-          <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
-            <td>{{crossontology.relation}}</td>
-            <td>{{crossontology.otherNamespace}}</td>
-            <td><a href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
-            <td>{{crossontology.foreignTerm}}</td>
-          </tr>
+        <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
+          <td>{{crossontology.relation}}</td>
+          <td>{{crossontology.otherNamespace}}</td>
+          <td><a href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
+          <td>{{crossontology.foreignTerm}}</td>
+        </tr>
       </table>
-    </div>
-
-    <div ng-show="termModel.subsets.length>0">
+    </accordion-group>
+    <accordion-group heading="GO Slims" is-open="false" is-disabled="termModel.subsets.length==0">
       <p>This term is present in the following GO Consortium-maintained GO slims:</p>
       <table id="subsetsTable" class="two-colours">
         <tr>
           <th>GO slim name</th>
           <th>Count of all terms</th>
         </tr>
-          <tr ng-repeat="subset in subsetsCounts">
-            <td>{{subset.subset}}</td>
-            <td>{{subset.subsetCount}}</td>
-          </tr>
+        <tr ng-repeat="subset in termModel.subsets">
+          <td>{{subset.name}}</td>
+          <td>{{subset.termCount}}</td>
+        </tr>
       </table>
-    </div>
-    <div ng-show="termModel.xrefs.length>0">
+    </accordion-group>
+    <accordion-group heading="Cross-references" is-open="false" is-disabled="termModel.xrefs.length==0">
       <table id="xrefTable" class="two-colours">
         <tr>
           <th>Database</th>
           <th>ID</th>
           <th>Description</th>
         </tr>
-          <tr ng-repeat="xref in termModel.Xrefs">
-            <td>{{xref.xrefDB}}</td>
-            <td>{{xref.xrefID}}</td>
-            <td><a href="{{xref.xrefDescription.url}}" target="_blank">{{xref.xrefDescription.name}}</a></td>
-          </tr>
+        <tr ng-repeat="xref in termModel.xrefs">
+          <td>{{xref.db}}</td>
+          <td>{{xref.id}}</td>
+          <td><a ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.name}}</a></td>
+        </tr>
       </table>
-    </div>
-    <div ng-show="termModel.replaces.length>0">
+    </accordion-group>
+    <accordion-group heading="Replaces" is-open="false" is-disabled="termModel.replaces.length==0">
       <p>This term can be used instead of these obsolete terms:</p>
       <table id="replacesTable" class="two-colours">
         <tr>
@@ -172,14 +158,14 @@
           <th>GO Term Name</th>
           <th>Reason</th>
         </tr>
-          <tr ng-repeat="replacement in termModel.replaces">
-            <td><a href="/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
-            <td>{{replacement.child.name}}</td>
-            <td>{{replacement.typeof.description}} <a href="/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a></td>
-          </tr>
+        <tr ng-repeat="replacement in termModel.replaces">
+          <td><a href="/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
+          <td>{{replacement.child.name}}</td>
+          <td>{{replacement.typeof.description}} <a href="/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a></td>
+        </tr>
       </table>
-    </div>
-    <div ng-show="termModel.replacements.length>0">
+    </accordion-group>
+    <accordion-group heading="Replaced by" is-open="false" is-disabled="termModel.replacements.length==0">
       <p>This term is obsolete. Try one of these terms:</p>
       <table id="replacementsTable" class="two-colours">
         <tr>
@@ -188,17 +174,14 @@
           <th>Ontology</th>
           <th>GO Term Name</th>
         </tr>
-          <tr ng-repeat="replacedby in termModel.replacements">
-            <td>{{replacedby.typeof.description}}</td>
-            <td><a href="/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
-            <td>{{replacedby.parent.aspectDescription}}</td>
-            <td>{{replacedby.parent.name}}</td>
-          </tr>
+        <tr ng-repeat="replacedby in termModel.replacements">
+          <td>{{replacedby.typeof.description}}</td>
+          <td><a href="/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
+          <td>{{replacedby.parent.aspectDescription}}</td>
+          <td>{{replacedby.parent.name}}</td>
+        </tr>
       </table>
-    </div>
-  </div>
-  <script>
-    // Tabs
-    $("#termInformationTabs").tabs();
-  </script>
+    </accordion-group>
+  </accordion>
+
 </div>
