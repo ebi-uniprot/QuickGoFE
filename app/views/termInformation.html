@@ -20,121 +20,71 @@
       <td>
         {{termModel.definition}}
         <div class="clearfix"/>
-        <c:forEach var="xrefDef" items="${term.definitionXrefs}">
-          <a href="http://europepmc.org/abstract/MED/${xrefDef.id}" target="_blank">${xrefDef.db}:${xrefDef.id}</a>
-        </c:forEach>
+        <li ng-repeat="xrefDef in termModel.definitionXrefs">
+          <a href="http://europepmc.org/abstract/MED/{{xrefDef.id}}" target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
+        </li>
       </td>
     </tr>
-    <c:if test="${term.usage.code != 'U' && isGO}">
-      <tr>
+      <tr ng-show="showRestrictions">
         <td class="first">Restrictions</td>
         <td>
-					<span style="background-color:#FFFBCC;">${term.usage.description}
-					<c:if test="${not empty term.comment}">See comment below for further information.</c:if></span>
+					<span style="background-color:#FFFBCC;">{{termModel.usage.description}}
+					<div ng-if="termModel.comment !=''">See comment below for further information.</div></span>
         </td>
       </tr>
-    </c:if>
-    <c:if test="${not empty term.comment}">
-      <tr>
+      <tr ng-if="termModel.comment !='' && termModel.comment !== null">
         <td class="first">Comment</td>
         <td>${term.comment}</td>
       </tr>
-    </c:if>
-    <c:if test="${fn:length(term.altIds) > 0}">
-      <tr>
+      <tr ng-if="termModel.altIds.length>0">
         <td class="first">Secondary IDs</td>
-        <td id="secondariesColumn">${term.altIdsString}</td>
+        <td id="secondariesColumn">{{termModel.altIdsString}}</td>
       </tr>
-    </c:if>
-    <c:if test="${isGO}">
-      <tr>
+      <tr ng-if="termModel.goTerm">
         <td class="first">GONUTS</td>
-        <td><a href="http://gowiki.tamu.edu/wiki/index.php/Category:${term.id}" target="_blank">${term.id} Wiki Page</a></td>
+        <td><a href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}} Wiki Page</a></td>
       </tr>
-    </c:if>
-    <c:if test="${fn:length(term.credits) > 0}">
-      <tr>
+      <tr ng-if="termModel.credits.length>0">
         <td class="first">Acknowledgements</td>
         <td>
-          <c:forEach var="credit" items="${term.credits}">
+          <li ng-repeat="credit in termModel.credits">
             This term was created by the GO Consortium with support from
-            <a href="${credit.url}" target="_blank">
-              <c:if test="${credit.code eq 'BHF'}">
-                <img src="http://www.bhf.org.uk/images/logo.jpg" alt="BHF image" style="width:50px;height:45px;" />
-              </c:if>
-              <c:if test="${credit.code eq 'KRUK'}">
-                <img src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image" style="width:90px;height:45px;" />
-              </c:if>
+            <a ng-if="termModel.credit.code == 'BHF'" href="termModel.credit.url" target="_blank"><img src="http://www.bhf.org.uk/images/logo.jpg" alt="BHF image" style="width:50px;height:45px;" /></a>
+            <a ng-if="termModel.credit.code == 'KRUK'" href="termModel.credit.url" target="_blank"> <img src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image" style="width:90px;height:45px;" /></a>
             </a>
-          </c:forEach>
+          </li>
         </td>
       </tr>
-    </c:if>
   </table>
 
   <!-- Tabs -->
   <div id="termInformationTabs">
-
-    <c:set var="synonymsDisplay" value="display:none"/>
-    <c:set var="guidelinesDisplay" value="display:none"/>
-    <c:set var="ontologyRelationsDisplay" value="display:none"/>
-    <c:set var="xrefsDisplay" value="display:none"/>
-    <c:set var="replacesDisplay" value="display:none"/>
-    <c:set var="replacementsDisplay" value="display:none"/>
-    <c:set var="taxonConstraintsDisplay" value="display:none"/>
-    <c:set var="subsetsDisplay" value="display:none"/>
     <ul>
-      <c:if test="${fn:length(term.synonyms) > 0}">
-        <li><a href="#synonyms">Synonyms</a></li>
-        <c:set var="synonymsDisplay" value="display:block"/>
-      </c:if>
-      <c:if test="${fn:length(term.guidelines) > 0}">
-        <c:set var="guidelinesDisplay" value="display:block"/>
-        <li><a href="#guidance">Annotation Guidance</a></li>
-      </c:if>
-      <c:if test="${fn:length(term.crossOntologyRelations) > 0}">
-        <c:set var="ontologyRelationsDisplay" value="display:block"/>
-        <li><a href="#ontologyrelations">Cross-Ontology Relations</a></li>
-      </c:if>
-      <c:if test="${fn:length(term.taxonConstraints) > 0}">
-        <li><a href="#taxonconstraints">Taxon constraints</a></li>
-        <c:set var="taxonConstraintsDisplay" value="display:block"/>
-      </c:if>
-      <c:if test="${fn:length(term.subsets) > 0}">
-        <li><a href="#subsets">GO Slims</a></li>
-        <c:set var="subsetsDisplay" value="display:block"/>
-      </c:if>
-      <c:if test="${fn:length(term.xrefs) > 0}">
-        <li><a href="#xref">Cross-references</a></li>
-        <c:set var="xrefsDisplay" value="display:block"/>
-      </c:if>
-      <c:if test="${fn:length(term.replaces) > 0}">
-        <li><a href="#replaces">Replaces</a></li>
-        <c:set var="replacesDisplay" value="display:block"/>
-      </c:if>
-      <c:if test="${fn:length(term.replacements) > 0}">
-        <li><a href="#replacements">Replaced by</a></li>
-        <c:set var="replacementsDisplay" value="display:block"/>
-      </c:if>
+      <li ng-show="termModel.synonyms.length>0"><a href="#synonyms">Synonyms</a></li>
+      <li ng-show="termModel.guidelines.length>0"><a href="#guidance">Annotation Guidance</a></li>
+      <li ng-show="termModel.crossOntologyRelations.length>0"><a href="#ontologyrelations">Cross-Ontology Relations</a></li>
+      <li ng-show="termModel.taxonConstraints.length>0"><a href="#taxonconstraints">Taxon constraints</a></li>
+      <li ng-show="termModel.subsets.length>0"><a href="#subsets">GO Slims</a></li>
+      <li ng-show="termModel.xrefs.length>0"><a href="#xref">Cross-references</a></li>
+      <li ng-show="termModel.replaces.length>0"><a href="#replaces">Replaces</a></li>
+      <li ng-show="termModel.replacements.length>0"><a href="#replacements">Replaced by</a></li>
     </ul>
 
 
-    <div id="synonyms" style="${synonymsDisplay}">
+    <div ng-show="termModel.synonyms.length>0">
       <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication of the relationship between the name and synonym given by the synonym scope.</p>
       <table id="synonymsTable" class="two-colours">
         <tr>
           <th>Type</th>
           <th>Synonym</th>
         </tr>
-        <c:forEach var="synonym" items="${term.synonyms}">
-          <tr>
-            <td>${synonym.type}</td>
-            <td>${synonym.name}</td>
+          <tr ng-repeat="synonym in termModel.synonyms">
+            <td>{{synonym.type}}</td>
+            <td>{{synonym.name}}</td>
           </tr>
-        </c:forEach>
       </table>
     </div>
-    <div id="taxonconstraints" style="${taxonConstraintsDisplay}">
+    <div ng-show="termModel.taxonConstraints.length>0">
       <p>The use of this term should conform to the following taxon constraints:</p>
       <table id="taxonconstraintsTable" class="two-colours">
         <tr>
@@ -146,85 +96,75 @@
           <th>Taxon</th>
           <th>Reference(s)</th>
         </tr>
-        <c:forEach var="taxonconstraint" items="${term.taxonConstraints}">
-          <tr>
-            <td>${taxonconstraint.ruleId}</td>
-            <td><a href="<c:url value="/"/>term/${taxonconstraint.goId}">${taxonconstraint.goId}</a></td>
-            <td>${taxonconstraint.name}</td>
-            <td>${taxonconstraint.relationship.text}</td>
-            <td>${taxonconstraint.taxId}</td>
-            <td>${taxonconstraint.taxonName}</td>
+          <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
+            <td>{{taxonconstraint.ruleId}}</td>
+            <td><a href="/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
+            <td>{{taxonconstraint.name}}</td>
+            <td>{{taxonconstraint.relationship.text}</td>
+            <td>{{taxonconstraint.taxId}}</td>
+            <td>{{taxonconstraint.taxonName}}</td>
             <td>
-              <c:forEach var="source" items="${taxonconstraint.sources}">
-                <a href="${source.url}" target="_blank">${source.pmid} </a>
-              </c:forEach>
+              <li ng-repeat="source in taxonconstraint.sources">
+                <a href="{{source.url}}" target="_blank">{{source.pmid}}</a>
+              </li>
             </td>
           </tr>
-        </c:forEach>
       </table>
     </div>
-    <div id="guidance" style="${guidelinesDisplay}">
+    <div ng-show="termModel.guidelines.length>0">
       <p>Usage of this term is subject to the following annotation guidelines:</p>
       <table id="guidelineTable" class="two-colours">
         <tr>
           <th colspan="2">Annotation Guidelines</th>
         </tr>
-        <c:forEach var="guideline" items="${term.guidelines}">
-          <tr>
-            <td>${guideline.title}</td>
-            <td><a href="${guideline.url}" target="_blanket">Link</a></td>
+          <tr ng-repeat="guideline in termModel.guidelines">
+            <td>{{guideline.title}}</td>
+            <td><a href="{{guideline.url}}" target="_blanket">Link</a></td>
           </tr>
-        </c:forEach>
       </table>
     </div>
-    <div id="ontologyrelations" style="${ontologyRelationsDisplay}">
+    <div ng-show="termModel.crossOntologyRelations.length>0">
       <table id="ontologyrelationsTable" class="two-colours">
         <tr>
           <th>Relation</th><th>Other Ontology</th><th>ID</th><th>Term</th>
         </tr>
-        <c:forEach var="crossontology" items="${term.crossOntologyRelations}">
-          <tr>
-            <td>${crossontology.relation}</td>
-            <td>${crossontology.otherNamespace}</td>
-            <td><a href="${crossontology.url}" target="_blanket">${crossontology.foreignID}</a></td>
-            <td>${crossontology.foreignTerm}</td>
+          <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
+            <td>{{crossontology.relation}}</td>
+            <td>{{crossontology.otherNamespace}}</td>
+            <td><a href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
+            <td>{{crossontology.foreignTerm}}</td>
           </tr>
-        </c:forEach>
       </table>
     </div>
 
-    <div id="subsets" style="${subsetsDisplay}">
+    <div ng-show="termModel.subsets.length>0">
       <p>This term is present in the following GO Consortium-maintained GO slims:</p>
       <table id="subsetsTable" class="two-colours">
         <tr>
           <th>GO slim name</th>
           <th>Count of all terms</th>
         </tr>
-        <c:forEach var="subset" items="${subsetsCounts}">
-          <tr>
-            <td>${subset.subset}</td>
-            <td>${subset.subsetCount}</td>
+          <tr ng-repeat="subset in subsetsCounts">
+            <td>{{subset.subset}}</td>
+            <td>{{subset.subsetCount}}</td>
           </tr>
-        </c:forEach>
       </table>
     </div>
-    <div id="xref" style="${xrefsDisplay}">
+    <div ng-show="termModel.xrefs.length>0">
       <table id="xrefTable" class="two-colours">
         <tr>
           <th>Database</th>
           <th>ID</th>
           <th>Description</th>
         </tr>
-        <c:forEach var="xref" items="${termXrefs}">
-          <tr>
-            <td>${xref.xrefDB}</td>
-            <td>${xref.xrefID}</td>
-            <td><a href="${xref.xrefDescription.url}" target="_blank">${xref.xrefDescription.name}</a></td>
+          <tr ng-repeat="xref in termModel.Xrefs">
+            <td>{{xref.xrefDB}}</td>
+            <td>{{xref.xrefID}}</td>
+            <td><a href="{{xref.xrefDescription.url}}" target="_blank">{{xref.xrefDescription.name}}</a></td>
           </tr>
-        </c:forEach>
       </table>
     </div>
-    <div id="replaces" style="${replacesDisplay}">
+    <div ng-show="termModel.replaces.length>0">
       <p>This term can be used instead of these obsolete terms:</p>
       <table id="replacesTable" class="two-colours">
         <tr>
@@ -232,16 +172,14 @@
           <th>GO Term Name</th>
           <th>Reason</th>
         </tr>
-        <c:forEach var="replacement" items="${term.replaces}">
-          <tr>
-            <td><a href="<c:url value="/"/>term/${replacement.child.id}">${replacement.child.id}</a></td>
-            <td>${replacement.child.name}</td>
-            <td>${replacement.typeof.description} <a href="<c:url value="/"/>term/${replacement.parent.id}">${replacement.parent.id}</a></td>
+          <tr ng-repeat="replacement in termModel.replaces">
+            <td><a href="/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
+            <td>{{replacement.child.name}}</td>
+            <td>{{replacement.typeof.description}} <a href="/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a></td>
           </tr>
-        </c:forEach>
       </table>
     </div>
-    <div id="replacements" style="${replacementsDisplay}">
+    <div ng-show="termModel.replacements.length>0">
       <p>This term is obsolete. Try one of these terms:</p>
       <table id="replacementsTable" class="two-colours">
         <tr>
@@ -250,14 +188,12 @@
           <th>Ontology</th>
           <th>GO Term Name</th>
         </tr>
-        <c:forEach var="replacedby" items="${term.replacements}">
-          <tr>
-            <td>${replacedby.typeof.description}</td>
-            <td><a href="<c:url value="/"/>term/${replacedby.parent.id}">${replacedby.parent.id}</a></td>
-            <td>${replacedby.parent.aspectDescription}</td>
-            <td>${replacedby.parent.name}</td>
+          <tr ng-repeat="replacedby in termModel.replacements">
+            <td>{{replacedby.typeof.description}}</td>
+            <td><a href="/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
+            <td>{{replacedby.parent.aspectDescription}}</td>
+            <td>{{replacedby.parent.name}}</td>
           </tr>
-        </c:forEach>
       </table>
     </div>
   </div>
