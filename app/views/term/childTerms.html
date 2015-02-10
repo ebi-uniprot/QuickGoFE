@@ -1,0 +1,17 @@
+<div id="child-terms-section" style="display:none">
+  <h3><strong>Child Terms</strong></h3>
+    <div ng-show="childTermsRelations.length == 0">
+      Term ${term.id} has no children
+    </div>
+    <div ng-show="childTermsRelations.length > 0">
+      <p>This table lists all terms that are direct descendants (child terms) of {{term.id}}:</p>
+      <table id="childTerms" class="two-colours">
+        <tr><th>Relationship to {{term.id}}</th><th>Child Term</th><th>Child Term Name</th></tr>
+          <tr ng-repeat="childRelation in childTermsRelations">
+            <td>{{childRelation.typeof.description}}</td>
+            <td><a href="/term/{{childRelation.child.id}}">{{childRelation.child.id}}</a></td>
+            <td>{{childRelation.child.name}}</td>
+          </tr>
+      </table>
+  </div>
+</div>
