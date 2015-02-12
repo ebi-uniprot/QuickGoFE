@@ -1,0 +1,30 @@
+<div id="ancestor-chart-section"  ng-controller="AncestorsGraphCtrl" ng-show="showAncestorChart">
+  <h3><strong>Ancestors Chart</strong></h3>
+  <div ng-if="termGraphImageSrc != '' && termGraphImageSrc != null">
+    <input type="hidden" id="termGraphImageWidth" value="${graphImageWidth}" />
+    <input type="hidden" id="termGraphImageHeight" value="${graphImageHeight}" />
+    <img id="ancestorsGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ancestorsgraphmap" style="max-width:none">
+    <!--<script>-->
+      <!--getGraphImage('<c:url value="/"/>${termGraphImageSrc}',true);-->
+    <!--</script>-->
+
+    <map name="ancestorsgraphmap">
+        <area ng-repeat="termTermNode in termGraphImageSrc.termTermsNodes" shape="termArea"
+              coords="${termTermNode.left},${termTermNode.top},${termTermNode.right},${termTermNode.bottom}"
+              href="/term/{{termTermNode.id}}"
+        alt="Term {{termTermNode.id}}"
+        title="{{termTermNode.id}} - Click for more information" target="_blank">
+        <area ng-repeat="termLegendNode in termGraphImageSrc.termLegendNodes"  shape="termArea"
+              id="{{termLegendNode.topic}}"
+              class="relationHelp"
+              coords="{{termLegendNode.left}},{{termLegendNode.top}},{{termLegendNode.right}},{{termLegendNode.bottom}}"/>
+      <!--<script>-->
+        <!--// Create help tooltip for each relation-->
+        <!--$('.relationHelp').each(function() {-->
+          <!--var id = $(this).attr('id');-->
+          <!--formattedTooltip(id);-->
+        <!--});-->
+      <!--</script>-->
+    </map>
+  </div>
+</div>

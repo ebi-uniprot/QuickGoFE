@@ -1,16 +1,18 @@
-<div id="child-terms-section" style="display:none">
+<div id="child-terms-section" ng-show="showChildTerms">
   <h3><strong>Child Terms</strong></h3>
-    <div ng-show="childTermsRelations.length == 0">
-      Term ${term.id} has no children
+    <div ng-show="termModel.childTermsRelations.length == 0">
+      Term {{termModel.termId}} has no children
     </div>
-    <div ng-show="childTermsRelations.length > 0">
-      <p>This table lists all terms that are direct descendants (child terms) of {{term.id}}:</p>
+    <div ng-show="termModel.childTermsRelations.length > 0">
+      <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
       <table id="childTerms" class="two-colours">
-        <tr><th>Relationship to {{term.id}}</th><th>Child Term</th><th>Child Term Name</th></tr>
-          <tr ng-repeat="childRelation in childTermsRelations">
-            <td>{{childRelation.typeof.description}}</td>
-            <td><a href="/term/{{childRelation.child.id}}">{{childRelation.child.id}}</a></td>
-            <td>{{childRelation.child.name}}</td>
+        <tr>
+          <th>Relationship to {{termModel.termId}}</th><th>Child Term</th><th>Child Term Name</th>
+        </tr>
+          <tr ng-repeat="childRelation in termModel.childTermsRelations">
+            <td>{{childRelation.typeOf}}</td>
+            <td><a ng-href="/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
+            <td>{{childRelation.name}}</td>
           </tr>
       </table>
   </div>

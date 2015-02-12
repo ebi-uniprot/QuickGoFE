@@ -1,0 +1,131 @@
+<div id="content" class="container_12">
+  <div class="sidebar grid_9">
+    <h2 class="page-title">{{termModel.termId}}&nbsp;{{termModel.name}}</h2>
+  </div>
+  <div class="mainContent grid_1">
+    <p></p>
+  </div>
+  <div class="grid_2">
+    Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;<button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
+  </div>
+  <div class="clearfix"></div>
+
+  <!--<div ng-include src="'views/term/term-sidebar.html'"></div>-->
+  <div class="sidebar grid_2">
+    <div id="entrySidebar">
+      <div class="sidebarsubsection">
+        <h3 class="first">
+          <strong>Display</strong>
+          <!-- <div class="sidebar-h-links">
+                      <a href="#" id="all">All</a>
+                  </div>-->
+        </h3>
+        <ul id="entry_sections">
+          <li class="default active">
+            <div class="heading" id="jp_term_information">
+              <input type="checkbox" checked="true" id="term-information-checkbox"  ng-init="showTermInformation='true'" ng-model="showTermInformation">
+              <span title="" id="term-information" class="entryview-name-nav">Term Information</span>
+            </div>
+          </li>
+          <li class="default">
+            <div class="heading" id="jp_ancestors">
+              <input type="checkbox"  id="ancestor-chart-checkbox" ng-model="showAncestorChart">
+              <span title="" id="ancestor-chart" class="entryview-name-nav">Ancestor Chart</span>
+            </div>
+          </li>
+          <div ng-show="termModel.goTerm">
+            <li class="default">
+              <div class="heading" id="jp_children">
+                <input type="checkbox" id="child-terms-checkbox" class="toggle-section" ng-model="showChildTerms">
+                <span title="" id="child-terms" class="entryview-name-nav">Child Terms</span>
+              </div>
+            </li>
+            <li class="default">
+              <div class="heading" id="jp_co_occurring">
+                <input type="checkbox" id="co-occurring-terms-checkbox" ng-model="showCoocurring">
+                <span title="" id="co-occurring-terms" class="entryview-name-nav">Co-occurring Terms</span>
+              </div>
+            </li>
+            <li class="default">
+              <div class="heading" id="jp_logs">
+                <input type="checkbox" id="term-history-checkbox" ng-model="showHistory">
+                <span title="" id="term-history" class="entryview-name-nav">Change Log</span>
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+      <div>
+        <div ng-show="termModel.goTerm">
+          <element data-icon="i" id="show-term-annotations" class="closed icon icon-functional button" value="${term.id}"
+                   style="cursor:pointer">Show annotations
+          </element>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--End of side bar information-->
+
+  <!-- Main Content -->
+  <div class="mainContent grid_10">
+    <div ng-show="termModel.goTerm">
+      <ul class="action-buttons-grouped decorated" id="resultActionButtons">
+        <div id="add-to-basket-div">
+
+            <button ng-show="preventAddToBasket" disabled>Add to Basket</button>
+            <button ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add to Basket</button>
+          <!--<script>-->
+            <!--showTermAnnotationsButton();-->
+          <!--</script>-->
+        </div>
+      </ul>
+    </div>
+    <div style="display: block;" id="resultsArea">
+      <!-- Check if it's obsolete -->
+        <div class="alert" ng-show="isObsolete">
+          <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
+          <strong>This term is obsolete.</strong><br/>
+          {{termModel.comment}}</div><br/>
+
+      <!-- Term information -->
+      <div ng-include src="'views/term/termInformation.html'"></div>
+      <div class="clearfix"></div>
+
+      <!-- Ancestors graph -->
+      <div ng-include src="'views/term/ancestorsGraph.html'"></div>
+      <div class="clearfix"></div>
+
+      <!-- Child Terms -->
+      <div ng-show="true" ng-include src="'views/term/childTerms.html'"></div>
+      <div class="clearfix"></div>
+
+      <!-- Co-occurring terms -->
+      <div ng-show="true" ng-include src="'views/term/coOccuring.html'"></div>
+      <div class="clearfix"></div>
+
+      <!-- Change log -->
+      <div ng-show="true" ng-include src="'views/term/history.html'"></div>
+
+      <!-- Ontology graphs -->
+      <!--<%@include file="/templates/ontologygraph.jsp"%>-->
+
+      <!-- Check if there is any section specified after # . In that case, focus the page on that section-->
+      <script>
+        var section = window.location.hash;
+        if(section != ''){
+          section = section.replace("#","");
+          var checkbox = section + "-checkbox";
+          $("#" + checkbox).prop("checked", true);
+          section = section + "-section";
+          $("#" + section).show();
+        }
+        $('html, body').animate({
+          scrollTop : $("#" + section).offset().top
+        }, 1000);
+      </script>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+

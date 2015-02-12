@@ -49,7 +49,7 @@ var app = angular
         controller: 'HelpCtrl'
       })
       .when('/term/:goId', {
-        templateUrl: 'views/term.html',
+        templateUrl: 'views/term/term.html',
         controller: 'TermCtrl'
       })
       .otherwise({

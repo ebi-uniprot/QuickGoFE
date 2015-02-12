@@ -1,174 +1,137 @@
-<div id="term-history-section" style="display:none">
+<div id="term-history-section" ng-show="showHistory">
   <h3>
     <strong>Change Log</strong>
   </h3>
 
   <div id="termHistoryTabs">
 
-    <c:set var="termchangesDisplay" value="display:none" />
-    <c:set var="definitionchangesDisplay" value="display:none" />
-    <c:set var="relationshipschangesDisplay" value="display:none" />
-    <c:set var="otherchangesDisplay" value="display:none" />
-    <c:set var="xrefschangesDisplay" value="display:none" />
-    <c:set var="obsoletionschangesDisplay" value="display:none" />
-
-    <ul>
-      <li><a href="#allchanges">All changes</a></li>
-      <c:if test="${fn:length(term.history.historyTerms) > 0}">
-        <c:set var="termchangesDisplay" value="display:block"/>
-        <li><a href="#termchanges">Term</a></li>
-      </c:if>
-      <c:if test="${fn:length(term.history.historyDefinitions) > 0}">
-        <c:set var="definitionchangesDisplay" value="display:block"/>
-        <li><a href="#definitionchanges">Definition/Synonyms</a></li>
-      </c:if>
-      <c:if test="${fn:length(term.history.historyRelations) > 0}">
-        <c:set var="relationshipschangesDisplay" value="display:block"/>
-        <li><a href="#relationshipschanges">Relationships</a></li>
-      </c:if>
-      <c:if test="${fn:length(term.history.historyOther) > 0}">
-        <c:set var="otherchangesDisplay" value="display:block"/>
-        <li><a href="#otherchanges">Other</a></li>
-      </c:if>
-      <c:if test="${fn:length(term.history.historyXRefs) > 0}">
-        <c:set var="xrefschangesDisplay" value="display:block"/>
-        <li><a href="#xrefschanges">Cross-references</a></li>
-      </c:if>
-      <c:if test="${fn:length(term.history.historyObsoletions) > 0}">
-        <c:set var="obsoletionschangesDisplay" value="display:block"/>
-        <li><a href="#obsoletionschanges">Obsoletions</a></li>
-      </c:if>
-    </ul>
-
-    <div id="allchanges">
-      <table id="allChangesTable" class="two-colours">
-        <tr>
-          <th>Timestamp</th>
-          <th>Action</th>
-          <th>Category</th>
-          <th>Detail</th>
-        </tr>
-        <c:forEach var="history" items="${term.history.historyAll}">
-          <tr>
-            <td>${history.timestamp}</td>
-            <td>${history.actionString}</td>
-            <td>${history.category}</td>
-            <td>${history.text}</td>
-          </tr>
-        </c:forEach>
-      </table>
-    </div>
-    <div id="termchanges" style="${termchangesDisplay}">
-      <table id="termchangesTable" class="two-colours">
-        <tr>
-          <th>Timestamp</th>
-          <th>Action</th>
-          <th>Category</th>
-          <th>Detail</th>
-        </tr>
-        <c:forEach var="history" items="${term.history.historyTerms}">
-          <tr>
-            <td>${history.timestamp}</td>
-            <td>${history.actionString}</td>
-            <td>${history.category}</td>
-            <td>${history.text}</td>
-          </tr>
-        </c:forEach>
-      </table>
-    </div>
-    <div id="definitionchanges" style="${definitionchangesDisplay}">
-      <table id="definitionchangesTable" class="two-colours">
-        <tr>
-          <th>Timestamp</th>
-          <th>Action</th>
-          <th>Category</th>
-          <th>Detail</th>
-        </tr>
-        <c:forEach var="history" items="${term.history.historyDefinitions}">
-          <tr>
-            <td>${history.timestamp}</td>
-            <td>${history.actionString}</td>
-            <td>${history.category}</td>
-            <td>${history.text}</td>
-          </tr>
-        </c:forEach>
-      </table>
-    </div>
-    <div id="relationshipschanges" style="${relationshipschangesDisplay}">
-      <table id="relationshipschangesTable" class="two-colours">
-        <tr>
-          <th>Timestamp</th>
-          <th>Action</th>
-          <th>Category</th>
-          <th>Detail</th>
-        </tr>
-        <c:forEach var="history" items="${term.history.historyRelations}">
-          <tr>
-            <td>${history.timestamp}</td>
-            <td>${history.actionString}</td>
-            <td>${history.category}</td>
-            <td>${history.text}</td>
-          </tr>
-        </c:forEach>
-      </table>
-    </div>
-    <div id="otherchanges" style="${otherchangesDisplay}">
-      <table id="otherchangesTable" class="two-colours">
-        <tr>
-          <th>Timestamp</th>
-          <th>Action</th>
-          <th>Category</th>
-          <th>Detail</th>
-        </tr>
-        <c:forEach var="history" items="${term.history.historyOther}">
-          <tr>
-            <td>${history.timestamp}</td>
-            <td>${history.actionString}</td>
-            <td>${history.category}</td>
-            <td>${history.text}</td>
-          </tr>
-        </c:forEach>
-      </table>
-    </div>
-    <div id="xrefschanges" style="${xrefschangesDisplay}">
-      <table id="xrefschangesTable" class="two-colours">
-        <tr>
-          <th>Timestamp</th>
-          <th>Action</th>
-          <th>Category</th>
-          <th>Detail</th>
-        </tr>
-        <c:forEach var="history" items="${term.history.historyXRefs}">
-          <tr>
-            <td>${history.timestamp}</td>
-            <td>${history.actionString}</td>
-            <td>${history.category}</td>
-            <td>${history.text}</td>
-          </tr>
-        </c:forEach>
-      </table>
-    </div>
-    <div id="obsoletionschanges" style="${obsoletionschangesDisplay}">
-      <table id="obsoletionschangesTable" class="two-colours">
-        <tr>
-          <th>Timestamp</th>
-          <th>Action</th>
-          <th>Category</th>
-          <th>Detail</th>
-        </tr>
-        <c:forEach var="history" items="${term.history.historyObsoletions}">
-          <tr>
-            <td>${history.timestamp}</td>
-            <td>${history.actionString}</td>
-            <td>${history.category}</td>
-            <td>${history.text}</td>
-          </tr>
-        </c:forEach>
-      </table>
-    </div>
+    <accordion close-others="oneAtATime">
+      <accordion-group heading="All changes" is-open="false" is-disabled="termModel.history.historyAll.length==0">
+        <div id="allchanges">
+          <table id="allChangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="history in termModel.history.historyAll">
+              <td>{{history.timestamp}}</td>
+              <td>{{history.actionString}}</td>
+              <td>{{history.category}}</td>
+              <td>{{history.text}}</td>
+            </tr>
+          </table>
+        </div>
+      </accordion-group>
+      <accordion-group heading="Term" is-open="false" is-disabled="termModel.history.historyTerms.length==0">
+        <div id="termchanges">
+          <table id="termchangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="history in termModel.history.historyTerms">
+              <td>{{history.timestamp}}</td>
+              <td>{{history.actionString}}</td>
+              <td>{{history.category}}</td>
+              <td>{{history.text}}</td>
+            </tr>
+          </table>
+        </div>
+      </accordion-group>
+      <accordion-group heading="Definition/Synonyms" is-open="false" is-disabled="termModel.history.historyDefinitions.length==0">
+        <div id="definitionchanges">
+          <table id="definitionchangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+              <tr ng-repeat="history in termModel.history.historyDefinitions">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.actionString}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+          </table>
+        </div>
+      </accordion-group>
+      <accordion-group heading="Relationships" is-open="false" is-disabled="termModel.history.historyRelations.length==0">
+        <div id="relationshipschanges">
+          <table id="relationshipschangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+              <tr ng-repeat="history in termModel.history.historyRelations">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.actionString}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+          </table>
+        </div>
+      </accordion-group>
+      <accordion-group heading="Other" is-open="false" is-disabled="termModel.history.historyOther.length==0">
+        <div id="otherchanges">
+          <table id="otherchangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+              <tr ng-repeat="history in termModel.history.historyOther">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.actionString}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+          </table>
+        </div>
+      </accordion-group>
+      <accordion-group heading="Cross-references" is-open="false" is-disabled="termModel.history.historyXRefs.length==0">
+        <div id="xrefschanges">
+          <table id="xrefschangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+              <tr ng-repeat="history in termModel.history.historyXRefs">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.actionString}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+          </table>
+        </div>
+        </accordion-group>
+      <accordion-group heading="Obsoletions" is-open="false" is-disabled="termModel.history.historyObsoletions.length==0">
+        <div id="obsoletionschanges">
+          <table id="obsoletionschangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+              <tr ng-repeat="history in termModel.history.historyObsoletions">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.actionString}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+          </table>
+        </div>
   </div>
-  <script>
-    // Tabs
-    $("#termHistoryTabs").tabs();
-  </script>
+        </accordion-group>
+    </accordion>
 </div>
