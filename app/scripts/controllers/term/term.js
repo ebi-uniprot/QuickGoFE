@@ -1,14 +1,19 @@
 /**
  * Created by twardell on 02/02/2015.
  */
-app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, basketService) {
+app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, termDataService, basketService) {
 
   //Initialize data
-  //$scope.showTermInformation=true;
+  var currentdate = new Date();
+  console.log("IN CONTROLLER", currentdate);
 
-
+  /*Parse the url to get the termid*/
+  var pathVals =$location.path().split("/");
+  var termId=pathVals[(pathVals.length-1)];
   var formattedURL='http://localhost:9080/ws/term/';
-  var termId='GO:0003824';
+
+  $rootScope.header = "QuickGO::Term "+termId;
+
 
   /**
    * Show basket quantity
@@ -102,25 +107,7 @@ app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, 
     console.log("Basket Update event has been called", data);
 
     $scope.countBasket = data;
-
-    //$http.get(formattedURL+termId).success(function(data) {
-    //  $scope.termModel = data;
-    //  console.log($scope.termModel);
-
-      //Control if the basket shows
-      //if(!basketService.containsItem(termId) && $scope.termModel.active == true){
-      //  $scope.allowAddToBasket = true;
-      //  $scope.preventAddToBasket = false;
-      //  console.log("display add to basket");
-      //}else{
-      //  $scope.allowAddToBasket = false;
-      //  $scope.preventAddToBasket = true;
-      //  console.log("already in basket or obsolete");
-      //}
-
       setupBasketButton($scope.termModel);
-
-    //});
   });
 
 
@@ -139,5 +126,12 @@ app.controller('TermCtrl', function($scope, $http, $modal, $q, termDataService, 
       }
   }
 
+
+  //Control the scrolling to anchors from sidebar -> elements of the term page
+  $scope.scrollTo = function(id) {
+    $location.hash(id);
+    console.log($location.hash());
+    $anchorScroll();
+  };
 
 });

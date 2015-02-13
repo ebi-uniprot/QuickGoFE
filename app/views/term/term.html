@@ -1,4 +1,4 @@
-<div id="content" class="container_12">
+<div id="content" class="container_12" xmlns="http://www.w3.org/1999/html">
   <div class="sidebar grid_9">
     <h2 class="page-title">{{termModel.termId}}&nbsp;{{termModel.name}}</h2>
   </div>
@@ -21,35 +21,45 @@
                   </div>-->
         </h3>
         <ul id="entry_sections">
-          <li class="default active">
-            <div class="heading" id="jp_term_information">
-              <input type="checkbox" checked="true" id="term-information-checkbox"  ng-init="showTermInformation='true'" ng-model="showTermInformation">
-              <span title="" id="term-information" class="entryview-name-nav">Term Information</span>
+          <li>
+            <div>
+              <input type="checkbox" ng-init="showTermInformation='true'" ng-model="showTermInformation" ng-checked="showTermInformation" ng-click="scrollTo('term-information-section')">
+              <!--<span title="" id="term-information" class="entryview-name-nav" ng-click="scrollTo('term-information-section')">Term Information</span>-->
+              Term Information
+              <!--<button type="button" ng-click="scrollTo('term-information-section')" ng-disable="showTermInformation==false">&gt;</button>-->
             </div>
           </li>
-          <li class="default">
-            <div class="heading" id="jp_ancestors">
-              <input type="checkbox"  id="ancestor-chart-checkbox" ng-model="showAncestorChart">
-              <span title="" id="ancestor-chart" class="entryview-name-nav">Ancestor Chart</span>
+          <li>
+            <div>
+              <input type="checkbox" ng-model="showAncestorChart" ng-checked="showAncestorChart">
+              <!--<span title="" id="ancestor-chart" class="entryview-name-nav" ng-click="scrollTo('ancestor-chart-section')">Ancestor Chart</span>-->
+              Ancestor Chart
+              <!--<button type="button"  ng-click="scrollTo('ancestor-chart-section')" ng-show="showAncestorChart">&gt;</button>-->
             </div>
           </li>
           <div ng-show="termModel.goTerm">
-            <li class="default">
-              <div class="heading" id="jp_children">
-                <input type="checkbox" id="child-terms-checkbox" class="toggle-section" ng-model="showChildTerms">
-                <span title="" id="child-terms" class="entryview-name-nav">Child Terms</span>
+            <li>
+              <div>
+                <input type="checkbox"ng-model="showChildTerms" ng-checked="showChildTerms">
+                <!--<span title="" id="child-terms" class="entryview-name-nav" ng-click="scrollTo('child-terms-section')">Child Terms</span>-->
+                Child Terms
+                <!--<button type="button"  ng-click="scrollTo('child-terms-section')" ng-disable="showChildTerms==false">&gt;</button>-->
               </div>
             </li>
-            <li class="default">
-              <div class="heading" id="jp_co_occurring">
-                <input type="checkbox" id="co-occurring-terms-checkbox" ng-model="showCoocurring">
-                <span title="" id="co-occurring-terms" class="entryview-name-nav">Co-occurring Terms</span>
+            <li>
+              <div>
+                <input type="checkbox" ng-model="showCoocurring" ng-checked="showCoocurring">
+                <!--<span title="" id="co-occurring-terms" class="entryview-name-nav" ng-click="scrollTo('co-occurring-terms-section')">Co-occurring Terms</span>-->
+                Co-occurring Terms
+                <!--<button type="button"  ng-click="scrollTo('co-occurring-terms-section')" ng-show="showCoocurring">&gt;</button>-->
               </div>
             </li>
-            <li class="default">
-              <div class="heading" id="jp_logs">
-                <input type="checkbox" id="term-history-checkbox" ng-model="showHistory">
-                <span title="" id="term-history" class="entryview-name-nav">Change Log</span>
+            <li>
+              <div>
+                <input type="checkbox" ng-model="showHistory" ng-checked="showHistory">
+                <!--<span title="" id="term-history" class="entryview-name-nav" ng-click="scrollTo('term-history-section')">Change Log</span>-->
+                Change Log
+                <!--<button type="button"  ng-click="scrollTo('term-history-section')" ng-show="showHistory">&gt;</button>-->
               </div>
             </li>
           </div>
@@ -111,19 +121,19 @@
       <!--<%@include file="/templates/ontologygraph.jsp"%>-->
 
       <!-- Check if there is any section specified after # . In that case, focus the page on that section-->
-      <script>
-        var section = window.location.hash;
-        if(section != ''){
-          section = section.replace("#","");
-          var checkbox = section + "-checkbox";
-          $("#" + checkbox).prop("checked", true);
-          section = section + "-section";
-          $("#" + section).show();
-        }
-        $('html, body').animate({
-          scrollTop : $("#" + section).offset().top
-        }, 1000);
-      </script>
+      <!--<script>-->
+        <!--var section = window.location.hash;-->
+        <!--if(section != ''){-->
+          <!--section = section.replace("#","");-->
+          <!--var checkbox = section + "-checkbox";-->
+          <!--$("#" + checkbox).prop("checked", true);-->
+          <!--section = section + "-section";-->
+          <!--$("#" + section).show();-->
+        <!--}-->
+        <!--$('html, body').animate({-->
+          <!--scrollTop : $("#" + section).offset().top-->
+        <!--}, 1000);-->
+      <!--</script>-->
     </div>
   </div>
   <div class="clearfix"></div>
