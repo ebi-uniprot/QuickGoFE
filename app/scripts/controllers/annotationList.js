@@ -3,7 +3,7 @@
  */
 
 
-app.controller('AnnotationListCtrl', function($scope, $http, $modal, $log, basketService, hardCodedDataService) {
+app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, basketService, hardCodedDataService) {
 
   //Get hardcoded data
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
@@ -18,6 +18,9 @@ app.controller('AnnotationListCtrl', function($scope, $http, $modal, $log, baske
   $scope.pagination = {
     current: 1
   };
+
+
+  $rootScope.header = "QuickGO::Annotation List";
 
 
   $scope.pageChanged = function(newPage) {
