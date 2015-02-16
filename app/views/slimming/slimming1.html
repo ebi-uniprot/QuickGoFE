@@ -1,9 +1,9 @@
-<div class="modal-box">
+<div id="wrap">
     <!--<h2>GO SLIMS  <img id="loading-image" src="<%= request.getContextPath() %>/images/ajax-loader.gif" alt="Loading..." height="42" width="42" /></h2>-->
     <h2>GO SLIMS</h2>
 
-    <div id="subleftmenu">
-      <h6>Step 1: Add terms to your list</h6>
+    <div id="slimming-left">
+      <h4>Step 1: Add terms to your list</h4>
       <h5>Add predefined slim sets</h5>
       <div id="slimming_set_terms">
         <div class="slimming_section">
@@ -16,8 +16,16 @@
           <!--<c:if test="${count.subset eq selectedSet}">-->
           <!--<c:set var="checked" value="checked"/>-->
           <!--</c:if>-->
-          <input ${checked} ${disabled} type="radio" name="set_values_slimming" value="${count.subset}"> ${count.subset} (${count.subsetCount})</input><br/>
+
+          <form>
+          <ul ng-repeat="predefinedSet in predefinedSlimSets">
+          <!--<input ${checked} ${disabled} type="radio" name="set_values_slimming" value="${count.subset}"> ${count.subset} (${count.subsetCount})</input><br/>-->
           <!--</c:forEach>-->
+            <!--<label class="checkbox" for="{{$index}}">-->
+              <input type="radio" value="predefinedSet.name" name="predefinedSlimSetRadio" ng-click="showSlimSet(predefinedSet)"/>{{predefinedSet.name}}
+            <!--</label>-->
+          </ul>
+          </form>
         </div>
       </div>
       <div class="slimming_buttons_panel">
@@ -53,10 +61,13 @@
 
   <!-- RHS-->
 
-  <div id="right_slimming_menu">
-    <h5>Selected terms<span style="float:right;font-size:12px"><a href="#" onclick="clearSlimming()">Clear All</a></span></h5>
-    <div id="selected_slimming_terms" style="height: 600px;overflow:auto;white-space: nowrap;">
-      <h3>Biological Process Terms<span style="float:right;font-size:12px"><a onclick="inactivateTerm('P')" href="#">Deselect All</a></span><span style="float:right;font-size:12px"><a href="#" onclick="activateTerm('P')">Select All /</a></span></h3>
+  <div id="slimming-right">
+    <h5>Selected terms</h5>
+    <a href="#" onclick="clearSlimming()">Clear All</a>
+    <div>
+      <h3>Biological Process Terms</h3>
+        <a onclick="inactivateTerm('P')" href="#">Deselect All</a>
+        <a href="#" onclick="activateTerm('P')">Select All</a>
       <div id="bp_section">
         <ul class="no-li-symbol">
           <!--<c:forEach var="slimmingTerm" items="${sessionScope.bp_slimmingTerms}">-->
