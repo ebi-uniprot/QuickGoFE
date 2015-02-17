@@ -52,6 +52,10 @@ var app = angular
         templateUrl: 'views/term/term.html',
         controller: 'TermCtrl'
       })
+      .when('/slimming', {
+        templateUrl: 'views/slimming/slimming1.html',
+        controller: 'GOSlimCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -60,14 +64,3 @@ var app = angular
   app.config(function(paginationTemplateProvider) {
   paginationTemplateProvider.setPath('scripts/directives/pagination/dirPagination.tpl.html');
 });
-
-app.controller('StartCtrl', function ($scope) {
-    $scope.awesomeThings = [
-        'HTML5 Boilerplate',
-        'AngularJS',
-        'Karma'
-    ];
-});
-
-
-

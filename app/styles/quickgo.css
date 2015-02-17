@@ -1,0 +1,18 @@
+#wrap {
+  width:800px;
+  margin:0 auto;
+  background:#99c;
+}
+
+#slimming-left {
+  float:left;
+  width:400px;
+  background:#9c9;
+}
+
+#slimming-right {
+  float:right;
+  width:400px;
+  background:#c9c;
+}
+

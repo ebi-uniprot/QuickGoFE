@@ -8,7 +8,6 @@ angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $modal,
     var modalInstance = $modal.open({
       templateUrl: 'modals/slimmingModal.html',
       controller: 'SlimCtrl',
-      size: 'lg',
       scope: $scope,
       resolve: {
         //countBasket: function () {
