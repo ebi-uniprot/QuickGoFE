@@ -58,6 +58,10 @@ hardCodedModule.factory('hardCodedDataService', function() {
    *   ~~~~~~ Testing ~~~~~~
    */
 
+  /**
+   * bio
+   * @type {{goId: string, goName: string}[]}
+   */
   var goslimCandidaBiologicalProcessTerms = [
     {'goId':'GO:0006629', 'goName':'lipid metabolic process'},
     {'goId':'GO:0030448', 'goName':'hyphal growth'}
@@ -67,6 +71,24 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {'goId':'GO:0015979', 'goName':'photosynthesis'},
     {'goId':'GO:0008219', 'goName':'cell death'}
   ];
+
+  /**
+   * mol
+   * @type {{goId: string, goName: string}[]}
+   */
+  var goslimCandidaBiologicalProcessTerms = [
+    {'goId':'GO:0006629', 'goName':'lipid metabolic process'},
+    {'goId':'GO:0030448', 'goName':'hyphal growth'}
+  ];
+
+  var goslimPlantBiologicalProcessTerms = [
+    {'goId':'GO:0015979', 'goName':'photosynthesis'},
+    {'goId':'GO:0008219', 'goName':'cell death'}
+  ];
+
+  /**
+   * component
+   */
 
 
   /**
@@ -79,11 +101,25 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
 
   /**
-   * Function for testing only
+   * Function for testing only - bioProcessTerms
    * @param selectedSlimSet
    * @returns {{goId: string, goName: string}[]}
    */
   hardCodedService.getBioProcessTerms = function(selectedSlimSet){
+
+    if(selectedSlimSet =='goslim_candida' ){
+      return goslimCandidaBiologicalProcessTerms;
+    }
+    return goslimPlantBiologicalProcessTerms;
+  }
+
+
+  /**
+   * Function for testing only - bioProcessTerms
+   * @param selectedSlimSet
+   * @returns {{goId: string, goName: string}[]}
+   */
+  hardCodedService.getmolFunctionTerms = function(selectedSlimSet){
 
     if(selectedSlimSet =='goslim_candida' ){
       return goslimCandidaBiologicalProcessTerms;

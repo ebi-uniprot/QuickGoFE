@@ -50,7 +50,7 @@
     </div>
 
 
-  <!-- RHS-->
+  <!-- RHS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
   <div id="slimming-right">
     <h3>Selected terms</h3>
@@ -71,7 +71,7 @@
           <!--<li><input ${termchecked} id="${slimmingTerm.key}" type="checkbox" name="final_terms_slimming" value="${slimmingTerm.key}"/><label for="${slimmingTerm.key}" style="color:${color}"> ${slimmingTerm.key} ${slimmingTerm.value}</label></li>-->
 
           <ul ng-repeat="bioTerm in bioProcessTerms">
-            {{bioTerm.goId}}&nbsp;{{bioTerm.goName}}
+            {{bioTerm.termId}}&nbsp;{{bioTerm.name}}
           </ul>
           <!--</c:forEach>-->
         </ul>

@@ -35,6 +35,12 @@ var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
 wsService.factory('PreDefinedSlimSets', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
     return $resource(targetDomainAndPort+'/ws/predefinedslims', {}, {
-      query: {method:'GET', isArray:true}
+      query: {method:'GET', isArray:true, Cache:true}
     });
   }]);
+
+wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/predefinedSetTerms/:setId', {setId: '@id'}, {
+    query: {method:'GET', isArray:true}
+  });
+}]);
