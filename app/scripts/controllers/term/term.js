@@ -1,7 +1,8 @@
 /**
  * Created by twardell on 02/02/2015.
  */
-app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, termDataService, basketService) {
+app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, termDataService,
+                                    basketService, targetDomainAndPort) {
 
   //Initialize data
   var currentdate = new Date();
@@ -10,7 +11,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   /*Parse the url to get the termid*/
   var pathVals =$location.path().split("/");
   var termId=pathVals[(pathVals.length-1)];
-  var formattedURL='http://localhost:9080/ws/term/';
+  var formattedURL=targetDomainAndPort+'/ws/term/';
 
   $rootScope.header = "QuickGO::Term "+termId;
 

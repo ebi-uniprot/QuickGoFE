@@ -2,7 +2,7 @@
  * Created by twardell on 17/12/2014.
  */
 
-var services = angular.module('quickGoFeApp.services', ['ngResource']);
+var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
 //services.factory('basket', function() {
 //  var items = [];
@@ -33,9 +33,8 @@ var services = angular.module('quickGoFeApp.services', ['ngResource']);
 //        );
 //    }]);
 
-//phonecatServices.factory('Phone', ['$resource',
-//    function($resource){
-//        return $resource('phones/:phoneId.json', {}, {
-//            query: {method:'GET', params:{phoneId:'phones'}, isArray:true}
-//        });
-//    }]);
+wsService.factory('PreDefinedSlimSets', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+    return $resource(targetDomainAndPort+'/ws/predefinedslims', {}, {
+      query: {method:'GET', isArray:true}
+    });
+  }]);

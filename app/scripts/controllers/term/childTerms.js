@@ -1,10 +1,10 @@
 /**
  * Created by twardell on 10/02/2015.
  */
-app.controller('ChildTermsGraphCtrl', function($scope, $http) {
+app.controller('ChildTermsGraphCtrl', function($scope, $http,targetDomainAndPort) {
 
 
-  var formattedURL='http://localhost:9080/ws/ontologyGraph/';
+  var formattedURL=targetDomainAndPort+'/ws/ontologyGraph/';
   var termId='GO:0003824';
 
   /**

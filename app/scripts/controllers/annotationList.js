@@ -3,7 +3,8 @@
  */
 
 
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, basketService, hardCodedDataService) {
+app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, basketService,
+                                              hardCodedDataService, targetDomainAndPort) {
 
   //Get hardcoded data
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
@@ -29,7 +30,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   function getResultsPage(pageNumber) {
 
-    var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
+    console.log(targetDomainAndPort);
+
+    //var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
+    var formattedURL=targetDomainAndPort+'/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
     $http.get(formattedURL).success(function(data) {
       console.log("got the response back >>>>" + data);
       $scope.goList = data;

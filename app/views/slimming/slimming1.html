@@ -4,42 +4,33 @@
 
     <div id="slimming-left">
       <h3>Step 1: Add terms to your list</h3>
-      <h5>Add predefined slim sets</h5>
+      <h4>Add predefined slim sets</h4>
       <div id="slimming_set_terms">
         <div class="slimming_section">
-          <!--<c:set var="disabled" value=""/>-->
-          <!--<c:if test="${not empty selectedSet}">-->
-          <!--<c:set var="disabled" value="disabled"/>-->
-          <!--</c:if>-->
-          <!--<c:forEach var="count" items="${sessionScope.allSubsetsCounts}">-->
-          <!--<c:set var="checked" value=""/>-->
-          <!--<c:if test="${count.subset eq selectedSet}">-->
-          <!--<c:set var="checked" value="checked"/>-->
-          <!--</c:if>-->
-
           <form>
           <ul ng-repeat="predefinedSet in predefinedSlimSets">
-          <!--<input ${checked} ${disabled} type="radio" name="set_values_slimming" value="${count.subset}"> ${count.subset} (${count.subsetCount})</input><br/>-->
-          <!--</c:forEach>-->
-            <!--<label class="checkbox" for="{{$index}}">-->
-              <input type="radio" value="predefinedSet.name" name="predefinedSlimSetRadio" ng-click="showSlimSet(predefinedSet)"/>{{predefinedSet.name}}
-            <!--</label>-->
+            <input type="radio" value="predefinedSet.subset" name="predefinedSlimSetRadio" ng-click="showSlimSet(predefinedSet)"/>{{predefinedSet.subset}}
           </ul>
           </form>
         </div>
       </div>
-      <div class="slimming_buttons_panel">
-        <a href="#" data-icon="+" class="closed icon icon-functional button" id="addSetTermsButton" onclick="addPredefinedSetsTerms()">Add to list >>></a>
-      </div>
       <div class="clearfix"><p/></div>
-      <h5>Add your own terms</h5>
+
+      <h4>Add your own terms</h4>
       <div class="slimming_section">
-        <textarea id="slimming_own_terms" class="slimming_textarea"></textarea>
+        <form>
+        <textarea ng-model="slimOwnTerms"></textarea>
+          <p></p>
+          <button ng-click="addOwnTerms(slimOwnTerms)">Add to List</button>
+        </form>
       </div>
       <div class="slimming_buttons_panel">
         <a href="#" data-icon="+" class="closed icon icon-functional button" id="addOwnTermsButton" onclick="addOwnTerms($('#slimming_own_terms').val())">Add to list >>></a>
       </div>
-      <div class="clearfix"><p/></div>
+      <div class="clearfix">
+        <p/>
+      </div>
+
       <h5>Add terms from your basket</h5>
       <div id="slimming_basket_terms">
         <div  class="slimming_section">
@@ -68,8 +59,8 @@
       <h4>Biological Process Terms</h4>
         <!--<a onclick="inactivateTerm('P')" href="#">Deselect All</a>-->
         <!--<a href="#" onclick="activateTerm('P')">Select All</a>-->
-      <div id="bp_section">
-        <ul class="no-li-symbol">
+      <div>
+        <ul>
           <!--<c:forEach var="slimmingTerm" items="${sessionScope.bp_slimmingTerms}">-->
           <!--<c:set var="termchecked" value="checked"/>-->
           <!--<c:set var="color" value=""/>-->
@@ -79,8 +70,8 @@
           <!--</c:if>-->
           <!--<li><input ${termchecked} id="${slimmingTerm.key}" type="checkbox" name="final_terms_slimming" value="${slimmingTerm.key}"/><label for="${slimmingTerm.key}" style="color:${color}"> ${slimmingTerm.key} ${slimmingTerm.value}</label></li>-->
 
-          <ul ng-repeat="term in bioProcessTerms">
-            {{term.goId}}&nbsp;{{term.goName}}
+          <ul ng-repeat="bioTerm in bioProcessTerms">
+            {{bioTerm.goId}}&nbsp;{{bioTerm.goName}}
           </ul>
           <!--</c:forEach>-->
         </ul>
@@ -88,7 +79,11 @@
         <!--activeInactiveEvent();-->
         <!--</script>-->
       </div>
-      <h4>Molecular Function Terms<span style="float:right;font-size:12px"><a onclick="inactivateTerm('F')" href="#">Deselect All</a></span><span style="float:right;font-size:12px"><a href="#" onclick="activateTerm('F')">Select All /</a></span></h4>
+
+      <h4>Molecular Function Terms
+        <!--<span style="float:right;font-size:12px"><a onclick="inactivateTerm('F')" href="#">Deselect All</a></span>-->
+        <!--<span style="float:right;font-size:12px"><a href="#" onclick="activateTerm('F')">Select All /</a></span>-->
+      </h4>
       <div id="mf_section">
         <ul class="no-li-symbol">
           <!--<c:forEach var="slimmingTerm" items="${sessionScope.mf_slimmingTerms}">-->
@@ -98,14 +93,17 @@
           <!--<c:set var="termchecked" value=""/>-->
           <!--<c:set var="color" value="#B5B5B5"/>-->
           <!--</c:if>-->
-          <li><input ${termchecked} id="${slimmingTerm.key}" type="checkbox" name="final_terms_slimming" value="${slimmingTerm.key}"/><label for="${slimmingTerm.key}" style="color:${color}"> ${slimmingTerm.key} ${slimmingTerm.value}</label></li>
-
+          <!--<li><input ${termchecked} id="${slimmingTerm.key}" type="checkbox" name="final_terms_slimming" value="${slimmingTerm.key}"/><label for="${slimmingTerm.key}" style="color:${color}"> ${slimmingTerm.key} ${slimmingTerm.value}</label></li>-->
+          <ul ng-repeat="molTerm in molFunctionTerms">
+            {{molTerm.goId}}&nbsp;{{molTerm.goName}}
+          </ul>
           <!--</c:forEach>-->
         </ul>
         <!--<script>-->
         <!--activeInactiveEvent();-->
         <!--</script>-->
       </div>
+
       <h5>Cellular component Terms<span style="float:right;font-size:12px"><a onclick="inactivateTerm('C')" href="#">Deselect All</a></span><span style="float:right;font-size:12px"><a href="#" onclick="activateTerm('C')">Select All /</a></span></h5>
       <div id="cc_section">
         <ul class="no-li-symbol">

@@ -1,10 +1,10 @@
 /**
  * Created by twardell on 02/02/2015.
  */
-app.controller('AncestorsGraphCtrl', function($scope, $http) {
+app.controller('AncestorsGraphCtrl', function($scope, $http, targetDomainAndPort) {
 
 
-  var formattedURL='http://localhost:9080/ws/ontologyGraph/';
+  var formattedURL=targetDomainAndPort+'/ws/ontologyGraph/';
   var termId='GO:0003824';
 
   /**
