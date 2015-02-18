@@ -16,7 +16,7 @@ var app = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'quickGoFeApp.services',
+    'quickGoFeApp.wsService',
     'app.quickGo.filters',
     'angularUtils.directives.dirPagination',
     'quickGoFeApp.BasketModule',
@@ -62,5 +62,9 @@ var app = angular
   });
 
   app.config(function(paginationTemplateProvider) {
-  paginationTemplateProvider.setPath('scripts/directives/pagination/dirPagination.tpl.html');
-});
+    paginationTemplateProvider.setPath('scripts/directives/pagination/dirPagination.tpl.html');
+  });
+
+  app.value('targetDomainAndPort','http://localhost:9080');
+
+
