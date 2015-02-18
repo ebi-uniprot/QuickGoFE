@@ -9,10 +9,16 @@ app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSl
   $scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
   //$scope.bioProcessTerms = [{'goId':'GO:0006412', 'goName':'translation'}];
-  $scope.bioProcessTerms = [];
-  $scope.molFunctionTerms = [];
-  $scope.cellComponentTerms = [];
+  $scope.allTerms = [];
+  //$scope.molFunctionTerms = [];
+  //$scope.cellComponentTerms = [];
   $scope.predefinedTerms = [];
+
+  /**
+   * Model to hold selected go terms
+   * @param selectedSlimSet
+   */
+  $scope.selectedGoTerms = {};
 
   $scope.showSlimSet = function(selectedSlimSet){
     console.log("Got selected slim set", selectedSlimSet);
@@ -26,9 +32,9 @@ app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSl
     $scope.availableSlimList.$promise.then(function(data) {
       console.log("got promise", data);
 
-      $scope.bioProcessTerms = [];
-      $scope.bioProcessTerms =  $scope.bioProcessTerms.concat($scope.availableSlimList);
-      console.log("Added to bioProcessTerms", $scope.bioProcessTerms);
+      $scope.allTerms = [];
+      $scope.allTerms =  $scope.allTerms.concat($scope.availableSlimList);
+      console.log("Added to bioProcessTerms", $scope.allTerms);
     });
 
   }
