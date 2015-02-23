@@ -9,7 +9,7 @@
         <div class="slimming_section">
           <form>
           <ul ng-repeat="predefinedSet in predefinedSlimSets">
-            <input type="radio" value="predefinedSet.subset" name="predefinedSlimSetRadio" ng-click="showSlimSet(predefinedSet)"/>{{predefinedSet.subset}}
+            <input type="radio" value="predefinedSet.subset" name="predefinedSlimSetRadio" ng-click="showSlimSet(predefinedSet)"/>{{predefinedSet.subset}}&nbsp;({{predefinedSet.subsetCount}})
           </ul>
           </form>
         </div>
@@ -70,7 +70,7 @@
           <!--</c:if>-->
           <!--<li><input ${termchecked} id="${slimmingTerm.key}" type="checkbox" name="final_terms_slimming" value="${slimmingTerm.key}"/><label for="${slimmingTerm.key}" style="color:${color}"> ${slimmingTerm.key} ${slimmingTerm.value}</label></li>-->
 
-          <ul ng-repeat="aTerm in allTerms">
+          <ul ng-repeat="aTerm in availableTerms">
             <span ng-if="aTerm.aspectDescription=='Biological Process'">
               <!--<label class="checkbox" for="{{aTerm.termId}}">-->
                 <input type="checkbox" ng-model="selectedGoTerms.id[aTerm.termId]" name="group" id="{{aTerm.termId}}" />
@@ -99,7 +99,7 @@
           <!--<c:set var="color" value="#B5B5B5"/>-->
           <!--</c:if>-->
           <!--<li><input ${termchecked} id="${slimmingTerm.key}" type="checkbox" name="final_terms_slimming" value="${slimmingTerm.key}"/><label for="${slimmingTerm.key}" style="color:${color}"> ${slimmingTerm.key} ${slimmingTerm.value}</label></li>-->
-          <ul ng-repeat="aTerm in allTerms">
+          <ul ng-repeat="aTerm in availableTerms">
             <span ng-if="aTerm.aspectDescription=='Molecular Function'">
               {{aTerm.termId}}&nbsp;{{aTerm.name}}
             </span>
@@ -129,7 +129,7 @@
           <!--<c:set var="color" value="#B5B5B5"/>-->
           <!--</c:if>-->
           <!--<li><input ${termchecked} id="${slimmingTerm.key}" type="checkbox" name="final_terms_slimming" value="${slimmingTerm.key}"/><label for="${slimmingTerm.key}" style="color:${color}"> ${slimmingTerm.key} ${slimmingTerm.value}</label></li>-->
-          <ul ng-repeat="aTerm in allTerms">
+          <ul ng-repeat="aTerm in availableTerms">
              <span ng-if="aTerm.aspectDescription=='Cellular Component'">
                {{aTerm.termId}}&nbsp;{{aTerm.name}}
              </span>

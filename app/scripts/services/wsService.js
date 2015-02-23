@@ -44,3 +44,9 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'targetDomainAndPort'
     query: {method:'GET', isArray:true}
   });
 }]);
+
+wsService.factory('term', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/term/:termId', {termId: '@id'}, {
+    query: {method:'GET'}
+  });
+}]);

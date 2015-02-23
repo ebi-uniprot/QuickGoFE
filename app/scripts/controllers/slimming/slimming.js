@@ -3,16 +3,18 @@
  */
 
 
-app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail) {
+app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail, term) {
 
 //  $scope.predefinedSlimSets = hardCodedDataService.getPreDefinedSlimSets();
   $scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
   //$scope.bioProcessTerms = [{'goId':'GO:0006412', 'goName':'translation'}];
-  $scope.allTerms = [];
+  $scope.availableTerms = [];
+  $scope.enteredTerms = [];
+
   //$scope.molFunctionTerms = [];
   //$scope.cellComponentTerms = [];
-  $scope.predefinedTerms = [];
+  //$scope.predefinedTerms = [];
 
   /**
    * Model to hold selected go terms
@@ -26,15 +28,15 @@ app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSl
 
     //Populated bioProcessTerms with Selected slim set
     //$scope.predefinedSlimSetBio = hardCodedDataService.getBioProcessTerms(selectedSlimSet.name);
-    $scope.availableSlimList= PreDefinedSlimSetDetail.query({setId : selectedSlimSet.subset});
+    availableSlimList= PreDefinedSlimSetDetail.query({setId : selectedSlimSet.subset});
     console.log("Got retrieved Terms", $scope.availableSlimList);
 
-    $scope.availableSlimList.$promise.then(function(data) {
+    availableSlimList.$promise.then(function(data) {
       console.log("got promise", data);
 
-      $scope.allTerms = [];
-      $scope.allTerms =  $scope.allTerms.concat($scope.availableSlimList);
-      console.log("Added to bioProcessTerms", $scope.allTerms);
+      $scope.availableTerms = [];
+      $scope.availableTerms =  $scope.availableTerms.concat($scope.availableSlimList);
+      console.log("Added to bioProcessTerms", $scope.availableTerms);
     });
 
   }
@@ -42,8 +44,17 @@ app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSl
   $scope.addOwnTerms = function(ownTermsList){
 
     console.log("Got own terms list", ownTermsList);
+    var termData=term.query({termId : ownTermsList});
+    console.log("Term Data", termData)
 
     //Parse list and add to predefined terms
+    $scope.availableSlimList.$promise.then(function(data) {
+      console.log("got promise", data);
+
+      $scope.availableTerms = [];
+      $scope.availableTerms =  $scope.availableTerms.concat($scope.availableSlimList);
+      console.log("Added to bioProcessTerms", $scope.availableTerms);
+    });
   }
 
 
