@@ -3,17 +3,13 @@
  */
 
 
-app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail, term) {
+app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, PreDefinedSlimSets,
+                                      PreDefinedSlimSetDetail, term, basketService, wizardService) {
 
-//  $scope.predefinedSlimSets = hardCodedDataService.getPreDefinedSlimSets();
   $scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
-  //$scope.bioProcessTerms = [{'goId':'GO:0006412', 'goName':'translation'}];
   $scope.availableTerms = [];
   $scope.enteredTerms = [];
-
-  //$scope.molFunctionTerms = [];
-  //$scope.cellComponentTerms = [];
   $scope.predefinedTerms = [];
 
   /**
@@ -22,53 +18,88 @@ app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSl
    */
   $scope.selectedGoTerms = {};
 
-  $scope.showSlimSet = function(){
+  /**
+   * Get basket items
+   */
 
-    console.log("Got selected slim set", $scope.selectedPreDefinedSlimSet);
+  $scope.basketList=basketService.getItems();
 
-    $scope.availableTerms = PreDefinedSlimSetDetail.query({setId : $scope.selectedPreDefinedSlimSet.subset});
-    //
-    $scope.availableTerms.$promise.then(function(data) {
-      console.log("got promise", data);
+
+  $scope.showSlimSet = function() {
+    $scope.availableTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
+    $scope.availableTerms.$promise.then(function (data) {
       $scope.availableTerms.concat(data)
     });
+  };
 
-    //
-    //  $scope.availableTerms = [];
-    //  $scope.availableTerms =  $scope.availableTerms.concat(data);
-    //  console.log("Added to bioProcessTerms", $scope.availableTerms);
-    //});
-
-    //var deferred = $q.defer();
-    //
-    //var getAvailableSlimList = function(){
-    //  PreDefinedSlimSetDetail.query({setId : $scope.selectedPreDefinedSlimSet.subset});
-    //}
-
-  }
-
-
-  //function asyncPredefinedSlimDetail(subset){
-  //  return $q(function resolve, reject){
-  //    setT
-  //  }
-  //}
 
 
   $scope.addOwnTerms = function(ownTermsList){
-
-    console.log("Got own terms list", ownTermsList);
     var termData=term.query({termId : ownTermsList});
-    console.log("Term Data", termData)
 
     //Parse list and add to predefined terms
     $scope.availableSlimList.$promise.then(function(data) {
-      console.log("got promise", data);
-
       $scope.availableTerms = [];
       $scope.availableTerms =  $scope.availableTerms.concat($scope.availableSlimList);
-      console.log("Added to bioProcessTerms", $scope.availableTerms);
     });
+  };
+
+  //$scope.selectedAll = true;
+
+
+  $scope.checkAllBio = function (type) {
+    if ($scope.selectedAllBio) {
+      $scope.selectedAllBio = false;
+    } else {
+      $scope.selectedAllBio = true;
+    }
+
+    angular.forEach($scope.availableTerms, function (aTerm) {
+      if(aTerm.aspectDescription==type) {
+        aTerm.Selected = $scope.selectedAllBio;
+
+      }
+    });
+  };
+
+  $scope.checkAllMol = function (type) {
+    if ($scope.selectedAllMol) {
+      $scope.selectedAllMol = false;
+    } else {
+      $scope.selectedAllMol = true;
+    }
+
+    angular.forEach($scope.availableTerms, function (aTerm) {
+      if(aTerm.aspectDescription==type) {
+        aTerm.Selected = $scope.selectedAllMol;
+      }
+    });
+  };
+
+  $scope.checkAllCell = function (type) {
+    if ($scope.selectedAllCell) {
+      $scope.selectedAllCell = false;
+    } else {
+      $scope.selectedAllCell = true;
+    }
+
+    angular.forEach($scope.availableTerms, function (aTerm) {
+      if(aTerm.aspectDescription==type) {
+        aTerm.Selected = $scope.selectedAllCell;
+      }
+    });
+  };
+
+  $scope.nextSlimming = function(){
+    console.log("next slimming called");
+    var selectedTerms = []
+    angular.forEach($scope.availableTerms, function (aTerm) {
+      if(aTerm.Selected){
+        selectedTerms.push(aTerm);
+      }
+    });
+    wizardService.setSelectedTerms(selectedTerms);
+    $location.path("slimming2");
   }
 
 

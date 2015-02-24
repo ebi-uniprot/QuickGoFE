@@ -2,118 +2,72 @@
     <!--<h2>GO SLIMS  <img id="loading-image" src="<%= request.getContextPath() %>/images/ajax-loader.gif" alt="Loading..." height="42" width="42" /></h2>-->
     <h2>GO SLIMS</h2>
 
-    <div id="slimming-left">
+    <div id="slimming">
       <h3>Step 1: Add terms to your list</h3>
       <h4>Add predefined slim sets</h4>
-      <div id="slimming_set_terms">
-        <div class="slimming_section">
-          <!--<form>-->
-          <!--<ul ng-repeat="predefinedSet in predefinedSlimSets">-->
-            <!--<input type="radio" value="predefinedSet.subset" name="predefinedSlimSetRadio" ng-click="showSlimSet(predefinedSet)"/>{{predefinedSet.subset}}&nbsp;({{predefinedSet.subsetCount}})-->
-          <!--</ul>-->
-          <!--</form>-->
-        </div>
 
-        <!--<div class="btn-group" dropdown is-open="status.isopen"> &lt;!&ndash; Drop down for predefined slim sets&ndash;&gt;-->
-          <!--<button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">-->
-            <!--Predefined Slim Sets <span class="caret"></span>-->
-          <!--</button>-->
-          <!--<ul class="dropdown-menu" role="menu">-->
-            <!--<span ng-repeat="predefinedSet in predefinedSlimSets">-->
-              <!--<li><a ng-click="showSlimSet(predefinedSet)">{{predefinedSet.subset}}&nbsp;({{predefinedSet.subsetCount}})</a></li>-->
-            <!--</span>-->
-          <!--</ul>-->
-        <!--</div>-->
+      <select ng-model="selectedPreDefinedSlimSet"  ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets" ng-change="showSlimSet()"></select>
 
-        <div>
-          <select ng-model="selectedPreDefinedSlimSet"  ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets" ng-change="showSlimSet()"></select>
-        </div>
+      <p></p>
+      <accordion>
 
-
-        <div>
-          <h4>Biological Process Terms</h4>
-          <div>
+          <accordion-group heading="Biological Process Terms">
+            <input type="checkbox" ng-model="selectedAllBio" ng-click="checkAllBio('Biological Process')" />Select All
             <ul ng-repeat="aTerm in availableTerms">
             <span ng-if="aTerm.aspectDescription=='Biological Process'">
-              <!--<label class="checkbox" for="{{aTerm.termId}}">-->
-                <input type="checkbox" ng-model="selectedGoTerms.id[aTerm.termId]" name="group" id="{{aTerm.termId}}" />
+             <label>
+                <input type="checkbox" ng-model="aTerm.Selected"/>
                 {{aTerm.termId}}&nbsp;{{aTerm.name}}
-              <!--</label>-->
+              </label>
               </span>
             </ul>
-          </div>
+          </accordion-group>
 
-          <h4>Molecular Function Terms
-          </h4>
-          <div>
-              <ul ng-repeat="aTerm in availableTerms">
-            <span ng-if="aTerm.aspectDescription=='Molecular Function'">
-               <input type="checkbox" ng-model="selectedGoTerms.id[aTerm.termId]" name="group" id="{{aTerm.termId}}" />
-              {{aTerm.termId}}&nbsp;{{aTerm.name}}
-            </span>
+          <accordion-group heading="Molecular Function Terms">
+            <input type="checkbox" ng-model="selectedAllMol" ng-click="checkAllMol('Molecular Function')" />Select All
+            <ul ng-repeat="aTerm in availableTerms">
+              <span ng-if="aTerm.aspectDescription=='Molecular Function'">
+                <input type="checkbox" ng-model="aTerm.Selected" />
+                {{aTerm.termId}}&nbsp;{{aTerm.name}}
+              </span>
             </ul>
-          </div>
+          </accordion-group>
 
-          <h4>Cellular component Terms</h4>
-          <div>
-               <ul ng-repeat="aTerm in availableTerms">
-             <span ng-if="aTerm.aspectDescription=='Cellular Component'">
-                <input type="checkbox" ng-model="selectedGoTerms.id[aTerm.termId]" name="group" id="{{aTerm.termId}}" />
-               {{aTerm.termId}}&nbsp;{{aTerm.name}}
-             </span>
+          <accordion-group heading="Cellular component Terms">
+            <input type="checkbox" ng-model="selectedAllCell" ng-click="checkAllCell('Cellular Component')" />Select All
+            <ul ng-repeat="aTerm in availableTerms">
+              <span ng-if="aTerm.aspectDescription=='Cellular Component'">
+                <input type="checkbox" ng-model="aTerm.Selected" />
+                {{aTerm.termId}}&nbsp;{{aTerm.name}}
+              </span>
             </ul>
+          </accordion-group>
 
-          </div>
-        </div>
+      </accordion>
 
-
-
-      </div>
-      <div class="clearfix"><p/></div>
 
       <h4>Add your own terms</h4>
-      <div class="slimming_section">
-        <form>
-        <textarea ng-model="slimOwnTerms"></textarea>
-          <p></p>
-          <button ng-click="addOwnTerms(slimOwnTerms)">Add to List</button>
-        </form>
-      </div>
-      <div class="slimming_buttons_panel">
-        <a href="#" data-icon="+" class="closed icon icon-functional button" id="addOwnTermsButton" onclick="addOwnTerms($('#slimming_own_terms').val())">Add to list >>></a>
-      </div>
-      <div class="clearfix">
-        <p/>
-      </div>
+      <form>
+      <textarea ng-model="slimOwnTerms"></textarea>
+        <p></p>
+        <button ng-click="addOwnTerms(slimOwnTerms)">Add</button>
+      </form>
 
-      <h5>Add terms from your basket</h5>
-      <div id="slimming_basket_terms">
-        <div  class="slimming_section">
+      <p/><p/>
+      <h4>Add terms from your basket&nbsp;({{basketList.length}}&nbsp;Available)</h4>
+      <ul ng-repeat="basketItem in basketList">
+        <input type="checkbox" ng-model="selectedGoTerms.id[aTerm.termId]" name="group" id="{{aTerm.termId}}" />
+        {{basketItem.goId}}&nbsp;{{basketItem.termName}}
+      </ul>
 
-          <input ${termchecked} type="checkbox" name="basket_values_slimming" value="${basketItem.key}"> ${basketItem.key} ${basketItem.value}</input><br/>
-        </div>
-      </div>
-      <div class="slimming_buttons_panel">
-        <a href="#" data-icon="+" class="closed icon icon-functional button" id="addBasketTermsButton" onclick="addBasketTerms()">Add to list >>></a>
-      </div>
+
+    </div> <!-- slimming div -->
+
+    <div id="slimming-next">
+      <form>
+        <button ng-click="nextSlimming()">Next</button>
+      </form>
     </div>
 
 
-  <!-- RHS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
-  <div id="slimming-right">
-    <h3>Selected terms</h3>
-    <!--<a href="#" onclick="clearSlimming()">Clear All</a>-->
-  </div>
-
-  <!--Buttons-->
-  <!--<div class="grid_12" style="float:right;padding-bottom:1%" id="slimming_popup_buttons_menu">-->
-    <!--<a  style="float:right" onclick="nextstep()" id="slimmingNextButton" class="closed icon icon-functional button" data-icon=">" href="#">Next</a>-->
-    <!--<a  style="float:right;display:none" onclick="backstep()" id="slimmingBackButton" class="closed icon icon-functional button" data-icon="<" href="#">Back</a>-->
-    <!--<a  style="float:right" onclick="slim()" id="slimmingProcess" class="closed icon icon-functional button" data-icon="i" href="#">View Annotations</a>-->
-    <!--<a  style="float:right" onclick="showSlimmingGraph()" id="showSlimmingTermsGraph" class="closed icon icon-conceptual button" data-icon="o" href="#">Show Graph</a>-->
-  <!--</div>-->
-
-  <pre ng-bind="selectedGoTerms.id | json"></pre>
-
-</div>
+    </div> <!-- wrap div -->

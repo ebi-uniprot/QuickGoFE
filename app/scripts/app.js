@@ -21,6 +21,7 @@ var app = angular
     'angularUtils.directives.dirPagination',
     'quickGoFeApp.BasketModule',
     'quickGoFeApp.HardCodedDataModule',
+    'quickGoFeApp.WizardModule',
     "ui.bootstrap"
   ]);
 
@@ -53,7 +54,11 @@ var app = angular
       })
       .when('/slimming', {
         templateUrl: 'views/slimming/slimming1.html',
-        controller: 'GOSlimCtrl'
+        controller: 'GOSlimCtrl1'
+      })
+      .when('/slimming2', {
+        templateUrl: 'views/slimming/slimming2.html',
+        controller: 'GOSlimCtrl2'
       })
       .otherwise({
         redirectTo: '/'
