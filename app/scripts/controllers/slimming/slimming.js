@@ -14,7 +14,7 @@ app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSl
 
   //$scope.molFunctionTerms = [];
   //$scope.cellComponentTerms = [];
-  //$scope.predefinedTerms = [];
+  $scope.predefinedTerms = [];
 
   /**
    * Model to hold selected go terms
@@ -22,24 +22,38 @@ app.controller('GOSlimCtrl', function($scope, hardCodedDataService, PreDefinedSl
    */
   $scope.selectedGoTerms = {};
 
-  $scope.showSlimSet = function(selectedSlimSet){
-    console.log("Got selected slim set", selectedSlimSet);
-    console.log("Got selected slim set #2", selectedSlimSet.subset);
+  $scope.showSlimSet = function(){
 
-    //Populated bioProcessTerms with Selected slim set
-    //$scope.predefinedSlimSetBio = hardCodedDataService.getBioProcessTerms(selectedSlimSet.name);
-    availableSlimList= PreDefinedSlimSetDetail.query({setId : selectedSlimSet.subset});
-    console.log("Got retrieved Terms", $scope.availableSlimList);
+    console.log("Got selected slim set", $scope.selectedPreDefinedSlimSet);
 
-    availableSlimList.$promise.then(function(data) {
+    $scope.availableTerms = PreDefinedSlimSetDetail.query({setId : $scope.selectedPreDefinedSlimSet.subset});
+    //
+    $scope.availableTerms.$promise.then(function(data) {
       console.log("got promise", data);
-
-      $scope.availableTerms = [];
-      $scope.availableTerms =  $scope.availableTerms.concat($scope.availableSlimList);
-      console.log("Added to bioProcessTerms", $scope.availableTerms);
+      $scope.availableTerms.concat(data)
     });
 
+    //
+    //  $scope.availableTerms = [];
+    //  $scope.availableTerms =  $scope.availableTerms.concat(data);
+    //  console.log("Added to bioProcessTerms", $scope.availableTerms);
+    //});
+
+    //var deferred = $q.defer();
+    //
+    //var getAvailableSlimList = function(){
+    //  PreDefinedSlimSetDetail.query({setId : $scope.selectedPreDefinedSlimSet.subset});
+    //}
+
   }
+
+
+  //function asyncPredefinedSlimDetail(subset){
+  //  return $q(function resolve, reject){
+  //    setT
+  //  }
+  //}
+
 
   $scope.addOwnTerms = function(ownTermsList){
 
