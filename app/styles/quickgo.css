@@ -4,15 +4,12 @@
   background:#99c;
 }
 
-#slimming-left {
-  float:left;
-  width:400px;
-  background:#9c9;
-}
+#slimming {
+   float:left;
+   width:800px;
+   background:#9c9;
+ }
 
-#slimming-right {
+#slimming-next{
   float:right;
-  width:400px;
-  background:#c9c;
 }
-
