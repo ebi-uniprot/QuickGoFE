@@ -9,7 +9,7 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
   $scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
   $scope.availableTerms = [];
-  $scope.enteredTerms = [];
+  $scope.ownTerms = [];
   $scope.predefinedTerms = [];
 
   /**
@@ -38,9 +38,13 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
     var termData=term.query({termId : ownTermsList});
 
     //Parse list and add to predefined terms
-    $scope.availableSlimList.$promise.then(function(data) {
-      $scope.availableTerms = [];
-      $scope.availableTerms =  $scope.availableTerms.concat($scope.availableSlimList);
+    termData.$promise.then(function(data) {
+      $scope.ownTerms = [];
+      $scope.ownTerms = $scope.ownTerms.concat(data);
+
+      angular.forEach($scope.ownTerms, function (aTerm) {
+        aTerm.Selected = true;
+      });
     });
   };
 
@@ -92,12 +96,23 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
 
   $scope.nextSlimming = function(){
     console.log("next slimming called");
-    var selectedTerms = []
+    var selectedTerms = [];
+
+    //Add all selected terms from preDefined slim sets.
     angular.forEach($scope.availableTerms, function (aTerm) {
       if(aTerm.Selected){
         selectedTerms.push(aTerm);
       }
+
     });
+
+    //Add all own terms
+    angular.forEach($scope.ownTerms, function (aTerm) {
+      if(aTerm.Selected){
+        selectedTerms.push(aTerm);
+      }
+    });
+
     wizardService.setSelectedTerms(selectedTerms);
     $location.path("slimming2");
   }
