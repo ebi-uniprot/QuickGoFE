@@ -7,18 +7,68 @@ var wizardModule = angular.module('quickGoFeApp.WizardModule', []);
 wizardModule.factory('wizardService', function() {
 
   var wizardService = {};
-  var selectedGoTerms = [];
+  var selectedPredefinedTerms = [];
+  var ownTerms = [];
+  var selectedBasketTerms = [];
+  var selectedPredefinedSlimSet;
 
-  wizardService.setSelectedTerms = function(terms){
+  /**
+   * Predefined Terms
+   * @param terms
+   */
+  wizardService.setSelectedPredefinedTerms = function(terms){
+    selectedPredefinedTerms = terms;
+  };
 
-    selectedGoTerms = terms;
+  wizardService.getSelectedPredefinedTerms = function(){
+    return selectedPredefinedTerms;
   };
 
 
-  wizardService.getSelectedTerms = function(){
-
-    return selectedGoTerms;
+  /**
+   * Own Terms
+   * @param terms
+   */
+  wizardService.setOwnTerms = function(terms){
+       ownTerms = terms;
   };
 
+  wizardService.getOwnTerms = function(){
+    console.log("returning selected own terms", ownTerms);
+    return ownTerms;
+  };
+
+
+  /**
+   * Basket Terms
+   * @param terms
+   */
+  wizardService.setSelectedBasketTerms = function(terms){
+    selectedBasketTerms = terms;
+  };
+
+
+  wizardService.getSelectedBasketTerms = function(){
+    return selectedBasketTerms;
+  };
+
+
+  /**
+   * Predefined Slim Set
+   * @param terms
+   */
+  wizardService.setSelectedPredefinedSlimSet = function(aSlimSet){
+    selectedPredefinedSlimSet = aSlimSet;
+  };
+
+
+  wizardService.getSelectedPredefinedSlimSet = function(){
+    return selectedPredefinedSlimSet;
+  };
+
+
+  /**
+   * Return factory
+   */
   return wizardService;
 });

@@ -6,40 +6,71 @@
 app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, PreDefinedSlimSets,
                                       PreDefinedSlimSetDetail, term, basketService, wizardService) {
 
-  $scope.predefinedSlimSets = PreDefinedSlimSets.query();
-
-  $scope.availableTerms = [];
-  $scope.ownTerms = [];
-  $scope.predefinedTerms = [];
 
   /**
-   * Model to hold selected go terms
-   * @param selectedSlimSet
+   * For display
+   * @type {Array}
    */
-  $scope.selectedGoTerms = {};
+  $scope.availablePredefinedTerms = [];
 
   /**
    * Get basket items
    */
-
   $scope.basketList=basketService.getItems();
 
+  /**
+   * Get predefined slim sets
+   */
+  $scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
+  /**
+   * Load already selected terms
+   */
+  $scope.ownTerms = wizardService.getOwnTerms();
+  $scope.predefinedTerms = wizardService.getSelectedPredefinedTerms();
+  //$scope.selectedbasketTerms = wizardService.getSelectedBasketTerms();  //Modify basket contents directly
+  $scope.selectedPreDefinedSlimSet = wizardService.getSelectedPredefinedSlimSet();
+
+  if (!$scope.selectedPreDefinedSlimSet===undefined){
+    $scope.showSlimSet();
+  }
+
+
+  /**
+   * Set basket terms already selected to selected state
+   */
+  //angular.forEach($scope.basketList, function (basketItem) {
+  //    angular.forEach($scope.selectedbasketTerms, function (selectedBasketTerm) {
+  //      if(basketItem.goId == selectedBasketTerm.termId){
+  //        basketItem.Selected=true;
+  //      }
+  //    });
+  //});
+
+
+  /**
+   * Load required slim set
+   */
   $scope.showSlimSet = function() {
-    $scope.availableTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
-    $scope.availableTerms.$promise.then(function (data) {
-      $scope.availableTerms.concat(data)
+
+    $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
+    $scope.availablePredefinedTerms.$promise.then(function (data) {
+      $scope.availablePredefinedTerms = data;
     });
   };
 
 
 
+
+  /**
+   * Add own terms to selectable list
+   * @param ownTermsList
+   */
   $scope.addOwnTerms = function(ownTermsList){
     var termData=term.query({termId : ownTermsList});
 
     //Parse list and add to predefined terms
     termData.$promise.then(function(data) {
-      $scope.ownTerms = [];
       $scope.ownTerms = $scope.ownTerms.concat(data);
 
       angular.forEach($scope.ownTerms, function (aTerm) {
@@ -48,24 +79,36 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
     });
   };
 
-  //$scope.selectedAll = true;
 
-
+  /**
+   * Turn on and off the selection of al Biological Process Terms
+   * @param type
+   */
   $scope.checkAllBio = function (type) {
+    console.log("check all bio called");
     if ($scope.selectedAllBio) {
       $scope.selectedAllBio = false;
     } else {
       $scope.selectedAllBio = true;
     }
 
-    angular.forEach($scope.availableTerms, function (aTerm) {
+    //console.log("Contents of available predefined terms", $scope.availablePredefinedTerms);
+    angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
+      //console.log("available term", aTerm);
       if(aTerm.aspectDescription==type) {
+        //console.log("Setting check for ", type);
         aTerm.Selected = $scope.selectedAllBio;
-
       }
+
     });
+
   };
 
+
+  /**
+   * Turn on and off the selection of all Molecular Terms
+   * @param type
+   */
   $scope.checkAllMol = function (type) {
     if ($scope.selectedAllMol) {
       $scope.selectedAllMol = false;
@@ -73,13 +116,18 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
       $scope.selectedAllMol = true;
     }
 
-    angular.forEach($scope.availableTerms, function (aTerm) {
+    angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
       if(aTerm.aspectDescription==type) {
         aTerm.Selected = $scope.selectedAllMol;
       }
     });
   };
 
+
+  /**
+   * Turn on and off the selection of al Cellular Component Terms
+   * @param type
+   */
   $scope.checkAllCell = function (type) {
     if ($scope.selectedAllCell) {
       $scope.selectedAllCell = false;
@@ -87,33 +135,56 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
       $scope.selectedAllCell = true;
     }
 
-    angular.forEach($scope.availableTerms, function (aTerm) {
+    angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
       if(aTerm.aspectDescription==type) {
         aTerm.Selected = $scope.selectedAllCell;
       }
     });
   };
 
+
+  /**
+   * Save all selected terms on the use of the next button.
+   * Route to page 2 of the wizard.
+   */
   $scope.nextSlimming = function(){
     console.log("next slimming called");
-    var selectedTerms = [];
 
-    //Add all selected terms from preDefined slim sets.
-    angular.forEach($scope.availableTerms, function (aTerm) {
-      if(aTerm.Selected){
-        selectedTerms.push(aTerm);
-      }
+    // 1. Add all selected terms from preDefined slim sets.
+    //var newSelectedPredefinedTerms = [];
+    //angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
+    //  if(aTerm.Selected){
+    //    newSelectedPredefinedTerms.push(aTerm.termId);
+    //  }
+    //});
+    wizardService.setSelectedPredefinedTerms($scope.availablePredefinedTerms);
 
-    });
+    // 2. Add all own terms
+    //var newSelectedOwnTerms = [];
+    //angular.forEach($scope.ownTerms, function (aTerm) {
+    //  if(aTerm.Selected){
+    //    newSelectedOwnTerms.push(aTerm.termId);
+    //  }
+    //});
+    //console.log("saving own terms to wizard service", newSelectedOwnTerms);
+    wizardService.setOwnTerms($scope.ownTerms);
 
-    //Add all own terms
-    angular.forEach($scope.ownTerms, function (aTerm) {
-      if(aTerm.Selected){
-        selectedTerms.push(aTerm);
-      }
-    });
+    // 3. Add all basket terms
+    //var newSelectedBasketTerms = [];
+    //angular.forEach($scope.basketList, function (aTerm) {
+    //  if(aTerm.Selected){
+    //    newSelectedBasketTerms.push(aTerm);
+    //  }
+    //});
+    //wizardService.setSelectedBasketTerms(newSelectedBasketTerms);
 
-    wizardService.setSelectedTerms(selectedTerms);
+    basketService.refreshBasket($scope.basketList);
+
+
+    // 4. Save predefined slim set
+    wizardService.setSelectedPredefinedSlimSet($scope.selectedPreDefinedSlimSet);
+
+
     $location.path("slimming2");
   }
 

@@ -124,8 +124,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * Add an item to the basket
    * @type {Object|Array}
    */
-  $scope.addItem = function(goId, termName){
-    var basketItem = {goId:goId, termName:termName};
+  $scope.addItem = function(termId, termName){
+    var basketItem = {termId:termId, name:termName};
     console.log(basketService.addBasketItem(basketItem));
     $scope.countBasket = basketService.getItems().length;
   }

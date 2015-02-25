@@ -21,6 +21,20 @@ basketModule.factory('basketService', function($cookieStore) {
     return items.length;
   }
 
+
+  /*
+   * Refresh the basket completely
+   */
+  basketList.refreshBasket = function (newBasketList) {
+    //var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
+    //items[items.length] = basketItem;
+    //console.log(items);
+    //items.push(basketItem);
+    $cookieStore.put('uk.ac.ebi.quickgo.basket', newBasketList);
+  }
+
+
+
   /**
    * Remove an item from the basket
    * @param basketItem
