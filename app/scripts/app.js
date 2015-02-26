@@ -44,6 +44,14 @@ var app = angular
         templateUrl: 'views/documentation.html',
         controller: 'DocumentationCtrl'
       })
+      .when('/webservices', {
+        templateUrl: 'views/webservices.html',
+        controller: 'WebServicesCtrl'
+      })
+      .when('/dataset', {
+        templateUrl: 'views/dataset.html',
+        controller: 'DataSetCtrl'
+      })
       .when('/help', {
         templateUrl: 'views/help.html',
         controller: 'HelpCtrl'
