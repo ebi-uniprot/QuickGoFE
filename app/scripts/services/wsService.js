@@ -50,3 +50,9 @@ wsService.factory('term', ['$resource', 'targetDomainAndPort', function($resourc
     query: {method:'GET'}
   });
 }]);
+
+wsService.factory('annotationUpdates', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/dataset', {}, {
+    query: {method:'GET', isArray:true, Cache:true}
+  });
+}]);

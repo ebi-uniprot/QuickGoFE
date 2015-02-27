@@ -52,6 +52,10 @@ var app = angular
         templateUrl: 'views/dataset.html',
         controller: 'DataSetCtrl'
       })
+      .when('/dataset/goTermHistory', {
+        templateUrl: 'views/goTermHistory.html',
+        controller: 'GoTermHistoryCtrl'
+      })
       .when('/help', {
         templateUrl: 'views/help.html',
         controller: 'HelpCtrl'
