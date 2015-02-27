@@ -1,5 +1,4 @@
 <div id="wrap">
-    <!--<h2>GO SLIMS  <img id="loading-image" src="<%= request.getContextPath() %>/images/ajax-loader.gif" alt="Loading..." height="42" width="42" /></h2>-->
     <h2>GO SLIMS</h2>
 
     <div id="slimming">
@@ -13,7 +12,7 @@
 
           <accordion-group heading="Biological Process Terms">
             <input type="checkbox" ng-model="selectedAllBio" ng-click="checkAllBio('Biological Process')" />Select All
-            <ul ng-repeat="aTerm in availableTerms">
+            <ul ng-repeat="aTerm in availablePredefinedTerms">
             <span ng-if="aTerm.aspectDescription=='Biological Process'">
              <label>
                 <input type="checkbox" ng-model="aTerm.Selected"/>
@@ -25,7 +24,7 @@
 
           <accordion-group heading="Molecular Function Terms">
             <input type="checkbox" ng-model="selectedAllMol" ng-click="checkAllMol('Molecular Function')" />Select All
-            <ul ng-repeat="aTerm in availableTerms">
+            <ul ng-repeat="aTerm in availablePredefinedTerms">
               <span ng-if="aTerm.aspectDescription=='Molecular Function'">
                 <input type="checkbox" ng-model="aTerm.Selected" />
                 {{aTerm.termId}}&nbsp;{{aTerm.name}}
@@ -35,7 +34,7 @@
 
           <accordion-group heading="Cellular component Terms">
             <input type="checkbox" ng-model="selectedAllCell" ng-click="checkAllCell('Cellular Component')" />Select All
-            <ul ng-repeat="aTerm in availableTerms">
+            <ul ng-repeat="aTerm in availablePredefinedTerms">
               <span ng-if="aTerm.aspectDescription=='Cellular Component'">
                 <input type="checkbox" ng-model="aTerm.Selected" />
                 {{aTerm.termId}}&nbsp;{{aTerm.name}}
@@ -60,8 +59,8 @@
       <p/><p/>
       <h4>Add terms from your basket&nbsp;({{basketList.length}}&nbsp;Available)</h4>
       <ul ng-repeat="basketItem in basketList">
-        <input type="checkbox" ng-model="selectedGoTerms.id[aTerm.termId]" name="group" id="{{aTerm.termId}}" />
-        {{basketItem.goId}}&nbsp;{{basketItem.termName}}
+        <input type="checkbox" ng-model="basketItem.Selected"/>
+        {{basketItem.termId}}&nbsp;{{basketItem.name}}
       </ul>
 
 
