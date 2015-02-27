@@ -56,3 +56,9 @@ wsService.factory('annotationUpdates', ['$resource', 'targetDomainAndPort', func
     query: {method:'GET', isArray:true, Cache:true}
   });
 }]);
+
+wsService.factory('goTermHistory', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/dataset/goTermHistory', {from:'@from', to:'@to', limit:'@limit'}, {
+    query: {method:'GET', Cache:true}
+  });
+}]);
