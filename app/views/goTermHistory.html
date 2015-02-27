@@ -1,37 +1,94 @@
 
-    <h3>GO Term History: Displaying ${fn:length(allChanges)} audit records for all terms for the period since ${from}</h3>
+<h3>GO Term History: Displaying {{history.allChanges.length}} audit records for all terms for the period since {{history.from}}</h3>
 
+    <tabset justified="true">
+      <tab heading="All changes">
+          <table id="allChangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>GO ID</th>
+              <th>GO Term Name</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="aHistory in history.allChanges">
+              <td>{{aHistory.timestamp}}</td>
+              <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+              <td>{{aHistory.termName}}</td>
+              <td>{{aHistory.actionString}}</td>
+              <td>{{aHistory.category}}</td>
+              <td>{{aHistory.text}}</td>
+            </tr>
+          </table>
+      </tab>
 
-      <!--<c:set var="termchangesDisplay" value="display:none" />-->
-      <!--<c:set var="definitionchangesDisplay" value="display:none" />-->
-      <!--<c:set var="relationshipschangesDisplay" value="display:none" />-->
-      <!--<c:set var="otherchangesDisplay" value="display:none" />-->
-      <!--<c:set var="xrefschangesDisplay" value="display:none" />-->
-      <!--<c:set var="obsoletionschangesDisplay" value="display:none" />-->
+      <tab heading="Term">
+          <table id="termchangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>GO ID</th>
+              <th>GO Term Name</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="aHistory in history.termsRecords">
+              <td>{{aHistory.timestamp}}</td>
+              <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+              <td>{{aHistory.termName}}</td>
+              <td>{{aHistory.actionString}}</td>
+              <td>{{aHistory.category}}</td>
+              <td>{{aHistory.text}}</td>
+            </tr>
+          </table>
+      </tab>
 
-      <ul>
-        <li><a href="#allchanges">All changes</a></li>
+      <tab heading="Definition/Synonyms">
+          <table id="definitionchangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>GO ID</th>
+              <th>GO Term Name</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="aHistory in history.definitionRecords">
+              <td>{{aHistory.timestamp}}</td>
+              <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+              <td>{{aHistory.termName}}</td>
+              <td>{{aHistory.actionString}}</td>
+              <td>{{aHistory.category}}</td>
+              <td>{{aHistory.text}}</td>
+            </tr>
+            <!--</c:forEach>-->
+          </table>
+      </tab>
 
-        <!--<c:if test="${fn:length(termsRecords) > 0}">-->
-          <!--<c:set var="termchangesDisplay" value="display:block" />-->
-          <li><a href="#termchanges">Term</a></li>
-        <!--</c:if>-->
-        <!--<c:if test="${fn:length(definitionsRecords) > 0}">-->
-          <!--<c:set var="definitionchangesDisplay" value="display:block" />-->
-          <li><a href="#definitionchanges">Definition/Synonyms</a></li>
-        <!--</c:if>-->
-        <!--<c:if test="${fn:length(relationsRecords) > 0}">-->
-          <!--<c:set var="relationshipschangesDisplay" value="display:block" />-->
-          <li><a href="#relationshipschanges">Relationships</a></li>
-        <!--</c:if>-->
-        <!--<c:if test="${fn:length(xrefRecords) > 0}">-->
-          <!--<c:set var="xrefschangesDisplay" value="display:block" />-->
-          <li><a href="#xrefschanges">Cross-references</a></li>
-        <!--</c:if>-->
-      </ul>
+      <tab heading="Relationships">
+          <table class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>GO ID</th>
+              <th>GO Term Name</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="aHistory in history.relationsRecords">
+              <td>{{aHistory.timestamp}}</td>
+              <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+              <td>{{aHistory.termName}}</td>
+              <td>{{aHistory.actionString}}</td>
+              <td>{{aHistory.category}}</td>
+              <td>{{aHistory.text}}</td>
+            </tr>
+          </table>
+      </tab>
 
-      <div>
-        <table id="allChangesTable" class="two-colours">
+      <tab heading="Cross-references">
+        <table class="two-colours">
           <tr>
             <th>Timestamp</th>
             <th>GO ID</th>
@@ -40,105 +97,18 @@
             <th>Category</th>
             <th>Detail</th>
           </tr>
-          <!--<c:forEach var="history" items="${allChanges}">-->
-            <tr>
-              <td>${history.timestamp}</td>
-              <td><a target="_blank" href="<c:url value="/"/>term/${history.termID}">${history.termID}</a></td>
-              <td>${history.termName}</td>
-              <td>${history.actionString}</td>
-              <td>${history.category}</td>
-              <td>${history.text}</td>
-            </tr>
-          <!--</c:forEach>-->
-        </table>
-      </div>
-      <div id="termchanges" style="${termchangesDisplay}">
-        <table id="termchangesTable" class="two-colours">
-          <tr>
-            <th>Timestamp</th>
-            <th>GO ID</th>
-            <th>GO Term Name</th>
-            <th>Action</th>
-            <th>Category</th>
-            <th>Detail</th>
+          <tr ng-repeat="aHistory in history.xrefRecords">
+            <td>{{aHistory.timestamp}}</td>
+            <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+            <td>{{aHistory.termName}}</td>
+            <td>{{aHistory.actionString}}</td>
+            <td>{{aHistory.category}}</td>
+            <td>{{aHistory.text}}</td>
           </tr>
-          <!--<c:forEach var="history" items="${termsRecords}">-->
-            <tr>
-              <td>${history.timestamp}</td>
-              <td><a target="_blank" href="<c:url value="/"/>term/${history.termID}">${history.termID}</a></td>
-              <td>${history.termName}</td>
-              <td>${history.actionString}</td>
-              <td>${history.category}</td>
-              <td>${history.text}</td>
-            </tr>
-          <!--</c:forEach>-->
         </table>
-      </div>
-      <div id="definitionchanges" style="${definitionchangesDisplay}">
-        <table id="definitionchangesTable" class="two-colours">
-          <tr>
-            <th>Timestamp</th>
-            <th>GO ID</th>
-            <th>GO Term Name</th>
-            <th>Action</th>
-            <th>Category</th>
-            <th>Detail</th>
-          </tr>
-          <!--<c:forEach var="history" items="${definitionsRecords}">-->
-            <tr>
-              <td>${history.timestamp}</td>
-              <td><a target="_blank" href="<c:url value="/"/>term/${history.termID}">${history.termID}</a></td>
-              <td>${history.termName}</td>
-              <td>${history.actionString}</td>
-              <td>${history.category}</td>
-              <td>${history.text}</td>
-            </tr>
-          <!--</c:forEach>-->
-        </table>
-      </div>
-      <div id="relationshipschanges"
-           style="${relationshipschangesDisplay}">
-        <table id="relationshipschangesTable" class="two-colours">
-          <tr>
-            <th>Timestamp</th>
-            <th>GO ID</th>
-            <th>GO Term Name</th>
-            <th>Action</th>
-            <th>Category</th>
-            <th>Detail</th>
-          </tr>
-          <!--<c:forEach var="history" items="${relationsRecords}">-->
-            <tr>
-              <td>${history.timestamp}</td>
-              <td><a target="_blank" href="<c:url value="/"/>term/${history.termID}">${history.termID}</a></td>
-              <td>${history.termName}</td>
-              <td>${history.actionString}</td>
-              <td>${history.category}</td>
-              <td>${history.text}</td>
-            </tr>
-          </c:forEach>
-        </table>
-      </div>
-      <div id="xrefschanges" style="${xrefschangesDisplay}">
-        <table id="xrefschangesTable" class="two-colours">
-          <tr>
-            <th>Timestamp</th>
-            <th>GO ID</th>
-            <th>GO Term Name</th>
-            <th>Action</th>
-            <th>Category</th>
-            <th>Detail</th>
-          </tr>
-          <!--<c:forEach var="history" items="${xrefRecords}">-->
-            <tr>
-              <td>${history.timestamp}</td>
-              <td><a target="_blank" href="<c:url value="/"/>term/${history.termID}">${history.termID}</a></td>
-              <td>${history.termName}</td>
-              <td>${history.actionString}</td>
-              <td>${history.category}</td>
-              <td>${history.text}</td>
-            </tr>
-          <!--</c:forEach>-->
-        </table>
-      </div>
+      </tab>
+    </tabset>
+
+
+
 
