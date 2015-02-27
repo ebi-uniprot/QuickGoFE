@@ -24,4 +24,9 @@ p.pos_indented {
   left: 50px;
 }
 
+.two-colours tr:nth-child(even) {
+  background-color: #DEEFF5;
+}
+
+
 
