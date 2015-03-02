@@ -3,9 +3,11 @@
  */
 app.controller('DataSetCtrl', function($scope, annotationUpdates) {
 
-  $scope.annotationUpdates=annotationUpdates.query();
+  $scope.annotationUpdates = [];
 
-  $scope.annotationUpdates.$promise.then(function(data) {
+  $scope.myPromise=annotationUpdates.query();
+
+  $scope.myPromise.$promise.then(function(data) {
 
     console.log("go annotation updates back", data);
     $scope.annotationUpdates = data;

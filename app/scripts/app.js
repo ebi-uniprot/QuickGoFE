@@ -22,7 +22,8 @@ var app = angular
     'quickGoFeApp.BasketModule',
     'quickGoFeApp.HardCodedDataModule',
     'quickGoFeApp.WizardModule',
-    "ui.bootstrap"
+    "ui.bootstrap",
+    'cgBusy'
   ]);
 
   app.config(function ($routeProvider) {
