@@ -62,3 +62,9 @@ wsService.factory('goTermHistory', ['$resource', 'targetDomainAndPort', function
     query: {method:'GET', Cache:true}
   });
 }]);
+
+  wsService.factory('taxonConstraints', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+    return $resource(targetDomainAndPort+'/ws/dataset/taxonConstraints', {}, {
+      query: {method:'GET', isArray:true, Cache:true}
+    });
+}]);

@@ -1,26 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ page session="true" %>
-<!doctype html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!-->
-<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<!--<![endif]-->
-<head>
-  <title>Taxon Constraints Rules &lt; QuickGO &lt; EMBL-EBI</title>
-  <!-- Imports -->
-  <%@include file="/templates/imports.jsp"%>
-  <script src="<%= request.getContextPath() %>/js/annotations.js"></script>
-</head>
-<body>
 <div id="content" class="container_12">
-  <!--Header -->
-  <%@include file="/templates/header.jsp"%>
-
   <div class="sidebar grid_2">
     <h2 class="page-title"></h2>
   </div>
@@ -38,23 +16,16 @@ pageEncoding="UTF-8"%>
         <th>Taxon ID</th>
         <th>Taxon</th>
         <th>Reference(s)</th>
-      <tr>
-        <c:forEach var="taxonConstraint" items="${taxonConstraints}">
-          <tr>
-            <td>${taxonConstraint.ruleId}</td>
-            <td><a href="<c:url value="/"/>term/${taxonConstraint.goId}">${taxonConstraint.goId}</a></td>
-            <td>${taxonConstraint.name}</td>
-            <td>${taxonConstraint.relationship}</td>
-            <td>${taxonConstraint.taxId}</td>
-            <td>${taxonConstraint.taxonName}</td>
-            <td>${taxonConstraint.sourcesString}</td>
-          </tr>
-        </c:forEach>
+      </tr>
+      <tr ng-repeat="taxonConstraint in taxonConstraints">
+        <td>{{taxonConstraint.ruleId}}</td>
+        <td><a href="#/term/{{taxonConstraint.goId}}">{{taxonConstraint.goId}}</a></td>
+        <td>{{taxonConstraint.name}}</td>
+        <td>{{taxonConstraint.relationship}}</td>
+        <td>{{taxonConstraint.taxId}}</td>
+        <td>{{taxonConstraint.taxonName}}</td>
+        <td>{{taxonConstraint.sourcesString}}</td>
+      </tr>
     </table>
-
   </div>
 </div>
-<!-- Footer -->
-<%@include file="/templates/footer.jsp"%>
-</body>
-</html>
