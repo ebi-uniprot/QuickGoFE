@@ -1,8 +1,8 @@
 /**
  * Created by twardell on 02/02/2015.
  */
-app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, termDataService,
-                                    basketService, targetDomainAndPort) {
+app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, basketService,
+                                    targetDomainAndPort) {
 
   //Initialize data
   var currentdate = new Date();
