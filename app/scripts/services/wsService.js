@@ -63,8 +63,15 @@ wsService.factory('goTermHistory', ['$resource', 'targetDomainAndPort', function
   });
 }]);
 
-  wsService.factory('taxonConstraints', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+wsService.factory('taxonConstraints', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
     return $resource(targetDomainAndPort+'/ws/dataset/taxonConstraints', {}, {
       query: {method:'GET', isArray:true, Cache:true}
     });
+}]);
+
+
+wsService.factory('annotationBlacklist', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/dataset/annotationBlacklist', {}, {
+    query: {method:'GET', Cache:true}
+  });
 }]);
