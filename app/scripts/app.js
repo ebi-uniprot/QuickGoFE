@@ -65,6 +65,10 @@ var app = angular
         templateUrl: 'views/annotationBlacklist.html',
         controller: 'AnnotationBlacklistCtrl'
       })
+      .when('/dataset/annotationPostProcessing', {
+        templateUrl: 'views/annotationPostProcessing.html',
+        controller: 'AnnotationPostProcessingCtrl'
+      })
       .when('/help', {
         templateUrl: 'views/help.html',
         controller: 'HelpCtrl'

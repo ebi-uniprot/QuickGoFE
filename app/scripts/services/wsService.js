@@ -69,9 +69,15 @@ wsService.factory('taxonConstraints', ['$resource', 'targetDomainAndPort', funct
     });
 }]);
 
-
 wsService.factory('annotationBlacklist', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
   return $resource(targetDomainAndPort+'/ws/dataset/annotationBlacklist', {}, {
+    query: {method:'GET', Cache:true}
+  });
+}]);
+
+
+wsService.factory('annotationPostProcessing', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/dataset/annotationPostProcessing', {}, {
     query: {method:'GET', Cache:true}
   });
 }]);
