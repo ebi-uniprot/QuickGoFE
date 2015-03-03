@@ -14,8 +14,13 @@
         <a href="terms/C">Cellular Component</a>
     </div>
 
+  <span style="float:right"> Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
+    <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
+  </span>
+    <br/>
     <div class="grid_10">
-      <div ng-include src="'views/basket.html'"></div>
+      <!--<div ng-include src="'views/basket.html'"></div>-->
+
 
       <p id="intro_text">QuickGO is provided by the UniProt-GOA project at the EBI and incorporates annotations from the GO consortium and other specialist annotation groups</p></div>
     <div class="clearfix"><p></p></div>
