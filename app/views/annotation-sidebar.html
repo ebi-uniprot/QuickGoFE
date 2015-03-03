@@ -13,37 +13,11 @@
 		</h3>
 			<div id="appliedFiltersValuesDiv">
 
-        <!-- Applied Filters -->
-        <!--<input name="appliedFiltersValues" type="hidden" value="${sessionScope.appliedFilters.parameters}" />-->
-				<!--<c:if test="${sessionScope.appliedFilters.numValues() == 0}">-->
         <span ng-if="appliedFilters.length==0">
           <div class="clearfix"><p></p></div>
           No filters applied
         </span>
 
-				<!--</c:if>-->
-
-				<!--<c:forEach var="filter" items="${sessionScope.appliedFilters.parameters}">-->
-						<!--<c:forEach var="filterValue" items="${sessionScope.appliedFilters.parameters[filter.key]}">-->
-							<!--<c:if test="${filter.key != 'slim' && filterValue != 'ancestorsI' && filterValue != 'ancestorsIPO' && filterValue != 'ancestorsIPOR'}">-->
-								<!--<div class="appliedValue"><p style="float: left">${sessionScope.appliedFilters.toAnnotationColumn(filter.key)} : ${fn:replace(filterValue, "\"", "").toUpperCase()}</p>-->
-									<!--<a style="float: right" id="${filter.key}-${fn:replace(filterValue, "\"", "")}" class="closeBox removeFilter" href="#">x</a>-->
-								<!--</div>-->
-							<!--</c:if>-->
-<!--<div class="clearfix"> </div>-->
-	  				        <!--</c:forEach>-->
-				    <!--</c:forEach>-->
-
-        <!-- Filters are Key::filtertype, List::ids -->
-      <!--<span ng-repeat="filter in appliedFilters">-->
-        <!--<span ng-repeat="filterValue in filter.ids">-->
-          <!--<div class="appliedValue">-->
-            <!--<p style="float: left">-->
-              <!--{{filter.key}} : {{filterValue.id}}</p><span style="float:right"> <img src="images/cross.png" ng-click="removeFilter(filter.key, filterValue)"/></span>-->
-            <!--<div class="clearfix"> </div>-->
-          <!--</div>-->
-        <!--</span>-->
-      <!--</span>-->
 
         <span ng-repeat="filter in appliedFilters">
           <div class="appliedValue" ng-if="filter">
@@ -53,95 +27,15 @@
           </div>
       </span>
 
-					<script>
 
-						// TO DO: Move these functions to the annotations.js file
-
-						/**
-						* Remove a filter function
-						*/
-						$('.removeFilter').off();
-						// Remove filter
-						$('.removeFilter').on("click", function() {
-							var idValue = $(this).attr('id');
-							removeFilter(idValue);
-						});
-
-
-						// Remove filter
-						function removeFilter(idValue) {
-							var url = window.location;
-								$.ajax({
-									type : "POST",
-									url : url,
-									data : {removeFilter:idValue, page:1},
-									success : function(response) {
-										// We have the response
-										$('#resultsArea').html($(response).find('#resultsArea'));
-										// Update pagination component and number of annotations
-										$("#light-pagination").pagination('updateItems', $('input[name=total_number_annotations]').val());
-										$('#pageCount').html($(response).find('#pageCount'));
-										// Left sidebar
-										$('#appliedFiltersValuesDiv').html($(response).find('#appliedFiltersValuesDiv'));
-										$('#quickFiltersMenu').html($(response).find('#quickFiltersMenu'));
-										makeSelectedTaxonomyActive();
-										$('#taxonomiesArea').html($(response).find('#taxonomiesArea'));
-										$('#qualifierArea').html($(response).find('#qualifierArea'));
-										$('#evidencesArea').html($(response).find('#evidencesArea'));
-										$('#aspectsArea').html($(response).find('#aspectsArea'));
-										$('#withArea').html($(response).find('#withArea'));
-										$('#assignedByArea').html($(response).find('#assignedByArea'));
-										$('#addedTermsToBasket').html($(response).find('#addedTermsToBasket'));
-
-									},
-									error: function(xhr, status, error) {
-										  var err = eval("(" + xhr.responseText + ")");
-										  alert(err.Message);
-									}
-								});
-						}
-						/*
-						 * Clear All Filters function
-						 */
-						$("#clearAllFilters").on("click", function() {
-									var url = window.location;
-									$.ajax({
-										type : "POST",
-										url : url,
-										data : {removeAllFilters:true},
-										success : function(response) {
-					 						// We have the response
-											$('#resultsArea').html($(response).find('#resultsArea'));
-											// Update pagination component and number of annotations
-											$("#light-pagination").pagination('updateItems', $('input[name=total_number_annotations]').val());
-											$('#pageCount').html($(response).find('#pageCount'));
-											// Left sidebar
-											$('#quickFiltersMenu').html($(response).find('#quickFiltersMenu'));
-											$('#appliedFiltersValuesDiv').html($(response).find('#appliedFiltersValuesDiv'));
-											makeSelectedTaxonomyActive();
-											$('#taxonomiesArea').html($(response).find('#taxonomiesArea'));
-											$('#qualifierArea').html($(response).find('#qualifierArea'));
-											$('#evidencesArea').html($(response).find('#evidencesArea'));
-											$('#aspectsArea').html($(response).find('#aspectsArea'));
-											$('#withArea').html($(response).find('#withArea'));
-											$('#assignedByArea').html($(response).find('#assignedByArea'));
-											$('#addedTermsToBasket').html($(response).find('#addedTermsToBasket'));
-
-										},
-										error : function(e) {
-											alert('Error: ' + e.responseText);
-										}
-									});
-						});
-					</script>
-				<c:set var="req" value="${pageContext.request}" />
-				<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
-				<c:set var="filters" value="${sessionScope.appliedFilters.URL}" />
-				<input type="hidden" name="filtersURL" id="filtersURL" value="${baseURL}/annotation?q=${filters}" />
-				<script>
-					$("#link-value").html($("#filtersURL").val());
-					$("#bookmarkable-link").attr("href", $("#filtersURL").val())
-				</script>
+				<!--<c:set var="req" value="${pageContext.request}" />-->
+				<!--<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />-->
+				<!--<c:set var="filters" value="${sessionScope.appliedFilters.URL}" />-->
+				<!--<input type="hidden" name="filtersURL" id="filtersURL" value="${baseURL}/annotation?q=${filters}" />-->
+				<!--<script>-->
+					<!--$("#link-value").html($("#filtersURL").val());-->
+					<!--$("#bookmarkable-link").attr("href", $("#filtersURL").val())-->
+				<!--</script>-->
 			</div>
 			<element class='icon icon-generic' data-icon='L'><a id="bookmarkable-link" style="font-size:10px;text-align:right" href="#">Bookmarkable link</a>
 	</div>
@@ -154,10 +48,6 @@
 				<h4 class="filter-title">Taxon</h4>
 				<ul id="taxonomyId" class="filter-value">
 
-          <!-- List common taxonomies to filter by -->
-					<!--<c:forEach var="taxon" items="${sessionScope.mostCommonTaxonomies}">-->
-						<!--<li id="${taxon.id}" class="tooltipped" title="${taxon.name}"><a href="#">[${taxon.id}] ${taxon.name}</a></li>-->
-					<!--</c:forEach>-->
           <li ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}' ng-show="showCommonTaxon(taxon, $scope.showMore)">
             <a href="#">{{taxon.taxId}} {{taxon.title}}</a>
           </li>
@@ -168,33 +58,6 @@
 				</ul>
 			</div>
 
-			<script>
-				// Suggested taxonomies
-				$(".suggestionOrganism li").click(function(){
-					if($(this).attr("class").indexOf("active") == -1){// It's not checked yet
-						$(this).addClass("active");
-						ajaxTaxonomyFilteringRequest();
-					} else { // It's checked, so uncheck it
-						$(this).removeClass("active");
-						$(this).siblings().show();
-						removeFilter("taxonomyClosure-" + $(this).attr("id"));
-					}
-				});
-
-				// Show/Hide more taxonomies
-				$('.suggestionOrganism li:gt(3)').hide();
-				$('#showMoreTaxonomies').click(function() {
-				    if($("label[for='showMoreTaxonomies']").text() == "+Show more"){
-					    $("label[for='showMoreTaxonomies']").text("-Show less");
-              $scope.showAll=true;
-//					    $('.suggestionOrganism li:gt(3)').show();
-				    }else{
-				    	    $("label[for='showMoreTaxonomies']").text("+Show more");
-//				    	    $('.suggestionOrganism li:gt(3)').hide();
-              $scope.showAll=false;
-				    }
-				});
-			</script>
 		</p>
 		<p class="builder">
 			<div>
@@ -214,10 +77,7 @@
 			<div><a style="float: right" id="advanced-filters" title=""
 								class="icon icon-functional button tooltipped" data-icon="f">Advanced filters</a>
 			</div>
-		<script>
-			quickFilteringButtons();
-			advancedFiltersButtons();
-		</script>
+
 	</div>
 
 	<div class="viewBy sidebarsubsection">
@@ -233,15 +93,5 @@
 			</div>
 		</p>
 	</div>
-		<script>
-				// View by
-				$(".viewBy li").click(function(){
-					if($(this).attr("class").indexOf("active") == -1){// It's not checked yet
-						$(this).addClass("active");
-						$(this).siblings().removeClass("active");
-					} else { // It's checked, so uncheck it
-						$(this).removeClass("active");
-					}
-				});
-		</script>
+
 </div>
