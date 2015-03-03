@@ -1,12 +1,5 @@
 <!-- header templates -->
 <div id="content" class="container_12" ng-controller="AnnotationListCtrl">
-  <!--<div ng-include src="'views/header.html'"></div>-->
-
-  <div class="sidebar grid_2">
-    <h2 class="page-title">
-      <!--Results <img id="loading-image" src="images/ajax-loader.gif" alt="Loading..." height="42" width="42" />-->
-    </h2>
-  </div>
 
   <div class="clearfix"></div>
 
@@ -26,59 +19,54 @@
       </li>
     </ul>
 
+    <!-- Download button -->
     <div ng-include src="'views/download.html'"></div>
 
-
     <!--Basket start -->
-
-    <!--<span id="basket">-->
-      <!--Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span><img src="images/shopping2.png" ng-click="showBasket()"/>-->
-      <!--Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>-->
-      <!--<button ui-sref="Modal.basket">Show Basket</button>-->
-      <!--<div ui-view="modal" autoscroll="false"></div>-->
-      Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;<button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
-    <!--</span>-->
-
-    <!--<div ng-include src="'views/basket.html'"></div>-->
-
+    Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
+    <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
     <!--Basket end -->
 
+    <!-- Pagination -->
+    <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
 
-        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
 
+    <!-- Results -->
+    <table id="results" class="grid">
+      <tr>
+        <th ng-repeat="colHeading in annotationColumns">
+          {{colHeading.value}}
+        </th>
 
-      <table id="results" class="grid">
-        <tr>
-          <th ng-repeat="colHeading in annotationColumns">
-            {{colHeading.value}}
-          </th>
+      </tr>
+      <tr dir-paginate="goTuple in goList | itemsPerPage: 25" total-items="totalAnnotations">
 
-        </tr>
-        <tr dir-paginate="goTuple in goList | itemsPerPage: 25" total-items="totalAnnotations">
+        <td><a ng-href="www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
+        </td>
+        <td>{{goTuple.symbol}}</td>
+        <td>{{goTuple.qualifier}}</td>
+        <td style="white-space: nowrap;"><img src="images/shopping2.png"
+                                              ng-click="addItem('{{goTuple.goId}}','{{goTuple.termName}}')"/>{{goTuple.goId}}
+        </td>
+        <td>{{goTuple.termName}}</td>
+        <td>{{goTuple.aspect}}</td>
+        <td><a class="ontologygraph" id="ontologygraph_{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>&nbsp;<a
+          href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">(IEA)</a></td>
+        <td><a
+          ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}">{{goTuple.reference}}</a>
+        </td>
 
-          <td><a ng-href="www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
-          </td>
-          <td>{{goTuple.symbol}}</td>
-          <td>{{goTuple.qualifier}}</td>
-          <td style="white-space: nowrap;"><img src="images/shopping2.png" ng-click="addItem('{{goTuple.goId}}','{{goTuple.termName}}')"/>{{goTuple.goId}}</td>
-          <td>{{goTuple.termName}}</td>
-          <td>{{goTuple.aspect}}</td>
-          <td><a class="ontologygraph" id="ontologygraph_{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>&nbsp;<a
-            href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">(IEA)</a></td>
-          <td><a ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}">{{goTuple.reference}}</a>
-          </td>
-
-          <!-- "reference":"GO_REF:0000002", -->
-          <!-- http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000002  -->
-          <td><span ng-repeat="ref in goTuple.withList">
+        <!-- "reference":"GO_REF:0000002", -->
+        <!-- http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000002  -->
+        <td><span ng-repeat="ref in goTuple.withList">
                                   <a ng-href="{{ref | withUrlFilter}}" target="_blank">{{ref}}</a>
                                   </span>
-          </td>
-          <td>{{goTuple.taxon}}</td>
-          <td>{{goTuple.assignedBy}}</td>
-          <td></td>
-        </tr>
-      </table>
+        </td>
+        <td>{{goTuple.taxon}}</td>
+        <td>{{goTuple.assignedBy}}</td>
+        <td></td>
+      </tr>
+    </table>
 
   </div>
   <div class="clearfix"></div>
