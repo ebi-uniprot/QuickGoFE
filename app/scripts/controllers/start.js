@@ -1,18 +1,24 @@
-angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $modal, $log) {
+angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $modal, $log, basketService) {
+
+  /**
+   * Initialisation
+   */
+  $scope.countBasket = basketService.basketQuantity();
 
   /**
    * Show the basket modal on request
    */
-  $scope.goSlims = function () {
+  $scope.showBasket = function () {
 
     var modalInstance = $modal.open({
-      templateUrl: 'modals/slimmingModal.html',
-      controller: 'SlimCtrl',
+      templateUrl: 'modals/basketModal.html',
+      controller: 'BasketCtrl',
+      size: 'lg',
       scope: $scope,
       resolve: {
-        //countBasket: function () {
-        //  return $scope.countBasket;
-        // }
+        countBasket: function () {
+          return $scope.countBasket;
+        }
       }
     });
 
