@@ -6,14 +6,21 @@
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, basketService,
                                               hardCodedDataService, targetDomainAndPort) {
 
-  //Get hardcoded data
+
+  /**
+   * Initialisation
+   */
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
-
-
   $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
+  $scope.appliedFilters=[
+    {'key':'taxon', 'id' : '9606'},
+    {'key':'taxon', 'id': '10116'},
+    {'key':'protein ', 'id' : '123456'},
+    {'key':'goId', 'id' : 'GO:0008270'}
+  ];
   getResultsPage(1);
 
   $scope.pagination = {
@@ -23,6 +30,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   $rootScope.header = "QuickGO::Annotation List";
 
+
+  /**
+   *
+   * @param newPage
+   */
 
   $scope.pageChanged = function(newPage) {
     getResultsPage(newPage);
@@ -60,14 +72,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     }
     return true;
   }
-
-
-  $scope.appliedFilters=[
-    {'key':'taxon', 'id' : '9606'},
-    {'key':'taxon', 'id': '10116'},
-    {'key':'protein ', 'id' : '123456'},
-    {'key':'goId', 'id' : 'GO:0008270'}
-  ];
 
 
   /**
