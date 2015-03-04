@@ -15,17 +15,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
-  $scope.appliedFilters=[
-    {'key':'taxon', 'id' : '9606'},
-    {'key':'taxon', 'id': '10116'},
-    {'key':'protein ', 'id' : '123456'},
-    {'key':'goId', 'id' : 'GO:0008270'}
-  ];
   getResultsPage(1);
 
   $scope.pagination = {
     current: 1
   };
+
 
 
   $rootScope.header = "QuickGO::Annotation List";
@@ -43,9 +38,29 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   function getResultsPage(pageNumber) {
 
     console.log(targetDomainAndPort);
-
+    //annotationfiltered
     //var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
-    var formattedURL=targetDomainAndPort+'/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
+    //var formattedURL=targetDomainAndPort+'/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
+    //var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?format=json&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
+
+    var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?format=json';  //&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
+
+    //Add the taxon filters
+    var haveTaxonFilter=0;
+    angular.forEach($scope.mostCommonTaxonomies,function(aTaxon){
+
+      if(haveTaxonFilter==0){
+        formattedURL=formattedURL+'&q=taxonomyId:';
+        haveTaxonFilter=1;
+      }
+      if(aTaxon.Selected) {
+        formattedURL = formattedURL + aTaxon.taxId + '\n';
+      }
+    });
+
+    //Add page and rows parameters
+    formattedURL = formattedURL + '&page='+ pageNumber +'&rows=25';
+
     $http.get(formattedURL).success(function(data) {
       console.log("got the response back >>>>" + data);
       $scope.goList = data;
@@ -133,5 +148,14 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     console.log(basketService.addBasketItem(basketItem));
     $scope.countBasket = basketService.getItems().length;
   }
+
+
+
+  $scope.filterByTaxon = function(){
+
+      getResultsPage(1);
+
+  }
+
 
 });
