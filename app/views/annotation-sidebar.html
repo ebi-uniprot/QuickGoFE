@@ -1,7 +1,4 @@
-<div>
-</div>
 <div class="sidebar grid_2">
-  <div>
 
     <!-- Applied filters list-->
     <h4>Applied filters</h4>
@@ -31,44 +28,34 @@
       <div id="quickFiltersMenu" class="quickFilters sidebarsubsection">
         <h4>Quick Filters</h4>
 
-        <p>
-
         <div>
           <h5>Taxon</h5>
-          <ul>
-            <li ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}'
+            <ul ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}'
                 ng-show="showCommonTaxon(taxon, $scope.showMore)">
-              <a href="#">{{taxon.taxId}} {{taxon.title}}</a>
-            </li>
+              <!--<a href="#">{{taxon.taxId}} {{taxon.title}}</a>-->
+              <input type="checkbox" ng-model="taxon.Selected" ng-change="filterByTaxon()"/>[{{taxon.taxId}}] {{taxon.title}}
+            </ul>
 
             <div style="padding: 5px;">
               <a href="#" id="showMoreTaxonomies" style="color:#B9772E"><label for="showMoreTaxonomies">+Show
                 more</label></a>
             </div>
-          </ul>
         </div>
-
-        </p>
 
         <!-- Enter filter area-->
-        <p>
-        <div>
+
+
           <h5>GO ID</h5>
           <fieldset><textarea id="goID" class="filter-value"></textarea></fieldset>
-        </div>
-        </p>
 
-        <p class="builder">
-        <div>
+
           <h5>Gene Product ID</h5>
           <fieldset><textarea id="dbObjectID" class="filter-value"></textarea></fieldset>
-        </div>
-        </p>
+
 
         <a style="float: right" href="#" id="submit_quick_filtering" title=""
            class="icon icon-functional button tooltipped" data-icon="1">Filter</a>
 
-        <div class="clearfix"><p></p></div>
 
         <div><a style="float: right" id="advanced-filters" title=""
                 class="icon icon-functional button tooltipped" data-icon="f">Advanced filters</a>
@@ -77,7 +64,6 @@
       </div>
 
       <!-- Select view by-->
-      <div>
         <h5>View by</h5>
 
         <p class="builder">
@@ -88,4 +74,3 @@
             <li id="statisticsView"><a class="viewBy" href="#" rel="nofollow">Statistics</a></li>
           </ul>
         </div>
-      </div>
