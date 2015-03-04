@@ -62,9 +62,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     formattedURL = formattedURL + '&page='+ pageNumber +'&rows=25';
 
     $http.get(formattedURL).success(function(data) {
-      console.log("got the response back >>>>" + data);
+      console.log("got the response back ", data);
       $scope.goList = data;
-      $scope.totalAnnotations = 299000000;
     })
   }
 
