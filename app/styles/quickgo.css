@@ -1,14 +1,35 @@
+body {
+  max-width: 100%;
+  width: 100%;
+}
+
+
 #wrap {
   width:1000px;
   margin:0 auto;
   background:#99c;
 }
 
+
+
+p.pos_indented {
+  left: 50px;
+}
+
+.two-colours tr:nth-child(even) {
+  background-color: #DEEFF5;
+}
+
+/* Annotation Side Bar*/
+
+
+
+/* Slimming pages*/
 #slimming {
-   float:left;
-   width:1000px;
-   background:#9c9;
- }
+  float:left;
+  width:1000px;
+  background:#9c9;
+}
 
 #slimming-next{
   float:right;
@@ -18,14 +39,6 @@
   height:200px;
   width:800px;
   font-size:14pt;
-}
-
-p.pos_indented {
-  left: 50px;
-}
-
-.two-colours tr:nth-child(even) {
-  background-color: #DEEFF5;
 }
 
 
