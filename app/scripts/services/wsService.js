@@ -75,9 +75,20 @@ wsService.factory('annotationBlacklist', ['$resource', 'targetDomainAndPort', fu
   });
 }]);
 
-
 wsService.factory('annotationPostProcessing', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
   return $resource(targetDomainAndPort+'/ws/dataset/annotationPostProcessing', {}, {
     query: {method:'GET', Cache:true}
+  });
+}]);
+
+wsService.factory('evidencetypes', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/evidencetypes', {}, {
+    query: {method:'GET',  isArray:true, Cache:true}
+  });
+}]);
+
+wsService.factory('withDBs', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/withdbs', {}, {
+    query: {method:'GET',  isArray:true, Cache:true}
   });
 }]);
