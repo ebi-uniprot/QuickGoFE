@@ -1,3 +1,8 @@
+
+/**
+Common
+*/
+
 body {
   max-width: 100%;
   width: 100%;
@@ -11,7 +16,6 @@ body {
 }
 
 
-
 p.pos_indented {
   left: 50px;
 }
@@ -20,8 +24,24 @@ p.pos_indented {
   background-color: #DEEFF5;
 }
 
-/* Annotation Side Bar*/
+.choiceA {
+  background-color: #D2E0E6;
+}
 
+.choiceB {
+  background-color: #d8d8d8;
+}
+
+.indent1 {
+  padding-left: 3em;
+}
+
+ul
+{
+  list-style-type: none;
+}
+
+/* Annotation Side Bar*/
 
 
 /* Slimming pages*/
@@ -39,6 +59,16 @@ p.pos_indented {
   height:200px;
   width:800px;
   font-size:14pt;
+}
+
+
+/* Advanced Filters Modal*/
+.content-margin-10 {
+  margin: 10px;
+}
+
+.app-modal-window .modal-dialog {
+  width: 90%;
 }
 
 

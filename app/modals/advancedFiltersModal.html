@@ -243,78 +243,79 @@
   <tab heading="Go Identifier">
 
     <div class="content-margin-10">
-      <strong>Select the terms that you wish to use</strong>
-
-      <div id="addedTermsToBasket">
+      <section>
+        <h4>1. Select the terms that you wish to use:</h4>
+        <h5>Select Go terms from your basket:</h5>
         <ul ng-repeat="basketItem in basketItems">
-          <input type="checkbox" ng-model="basketItem.Selected"/>{{basketItem.termId}} {{basketItem.name}}
+          <input type="checkbox" id="{{basketItem.termId}}" ng-model="basketItem.Selected"/>
+          <label for="{{basketItem.termId}}">{{basketItem.termId}} {{basketItem.name}}</label>
         </ul>
-      </div>
 
-      <!-- Enter predefined classes-->
-      <div class="content-margin-10">
-        Predefined GO term sets:
+        <!-- Enter predefined classes-->
+        <h5>Predefined GO term sets:</h5>
+        <ul>
+          <select class="advanced-filter-subSet">
+            <option value="">None</option>
+            <!--<c:forEach var="count" items="${sessionScope.allSubsetsCounts}">-->
+            <option value="${count.subset}">${count.subset}(${count.subsetCount})</option>
+            <!--</c:forEach>-->
+          </select>
+        </ul>
 
-        <select class="advanced-filter-subSet">
-          <option value="">None</option>
-          <!--<c:forEach var="count" items="${sessionScope.allSubsetsCounts}">-->
-          <option value="${count.subset}">${count.subset}(${count.subsetCount})</option>
-          <!--</c:forEach>-->
-        </select>
-      </div>
-
-      <!-- Enter list of go identifiers-->
-      <div class="content-margin-10">
-        Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:<br/>
+        <!-- Enter list of go identifiers-->
+        <h5>Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:</h5>
+        <ul>
         <textarea class="advanced-filter-goID" style="width:50%;height:50px"></textarea>
-      </div>
+        </ul>
+
+      </section>
 
       <!-- How use-->
-      <div class="content-margin-10">
-        <strong>Select how you want to use the terms that you have chosen</strong>
+      <section>
+          <h4>2. Select how you want to use the terms that you have chosen:</h4>
 
           <fieldset>
-          <div class="choiceA" style="display:block">
-            <input type="radio" id="slim-filtering" name="slim" value="slim-filtering" ng-model="ancestors">
-            Use these terms as a GO slim
-          </div>
+            <div class="choiceA" style="display:block">
+              <input type="radio" id="slim-filtering" name="slim" value="slim-filtering" ng-model="ancestors">
+              Use these terms as a GO slim
+            </div>
           </fieldset>
           <div class="choiceB" style="display:block">
             <fieldset>
-            <input type="radio" id="descendants-filtering" name="slim" value="descendants-filtering"
-                   ng-model="ancestors"/>
-            Find annotations to descendants of these terms (annotations will display the original GO terms applied)
-            Select which relationship an annotated term should have to the terms above:
+              <input type="radio" id="descendants-filtering" name="slim" value="descendants-filtering"
+                     ng-model="ancestors"/>
+              Find annotations to descendants of these terms (annotations will display the original GO terms applied)
+              Select which relationship an annotated term should have to the terms above:
 
-            <div class="indent1" ng-show="ancestors == 'descendants-filtering'">
+              <div class="indent1" ng-show="ancestors == 'descendants-filtering'">
                 <div style="display:block"><input type="radio" name="closure" value="ancestorsI"/>is_a only</div>
                 <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO"/>is_a, part_of</div>
                 <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR"/>is_a, part_of,
                   regulates
                 </div>
 
-            </div>
+              </div>
             </fieldset>
           </div>
 
+          <!--Alternatively-->
+          <p>Use these terms as a GO slim, <strong>or</strong> find annotations to descendants of these terms
+            (annotations will display the original GO terms applied)
+            Select which relationship an annotated term should have to the terms above</p>
 
-        <!--Alternatively-->
-        <p>Use these terms as a GO slim, <strong>or</strong> find annotations to descendants of these terms (annotations will display the original GO terms applied)
-        Select which relationship an annotated term should have to the terms above</p>
+          <select>
+            <optgroup label="Use these terms as a GO slim">
+              <option value="GoSlim">GoSlim</option>
+            </optgroup>
+            <optgroup label="Find annotations to descendants">
+              <option value="ancestorsI">is_a only</option>
+              <option value="ancestorsIPO">is_a, part_of</option>
+              <option value="ancestorsIPOR">is_a, part_of, regulates</option>
+            </optgroup>
+          </select>
 
-        <select>
-          <optgroup label="Use these terms as a GO slim">
-            <option value="GoSlim">GoSlim</option>
-          </optgroup>
-          <optgroup label="Find annotations to descendants">
-            <option value="ancestorsI">is_a only</option>
-            <option value="ancestorsIPO">is_a, part_of</option>
-            <option value="ancestorsIPOR">is_a, part_of, regulates</option>
-          </optgroup>
-        </select>
+      </section>
 
-      </div>
-    </div>
     </div>
   </tab>
 
@@ -334,21 +335,22 @@
   <tab heading="Evidence">
     <div class="content-margin-10">
       <p>A full description of evidence codes and their usage can be found <a
-      href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
+        href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
 
       <ul>
         <li>
-      <input type="checkbox" id="ECO:0000352" value="ECO:0000352">
-          <label for="ECO:0000352">ECO:0000352 (IMP,IGI,IPI,IDA,IEP,EXP,ISS,TAS,NAS,ND,IC,RCA,IBA,IBD,IKR,IRD,ISA,ISM,ISO,IGC) Manual All</label>
+          <input type="checkbox" id="ECO:0000352" value="ECO:0000352">
+          <label for="ECO:0000352">ECO:0000352
+            (IMP,IGI,IPI,IDA,IEP,EXP,ISS,TAS,NAS,ND,IC,RCA,IBA,IBD,IKR,IRD,ISA,ISM,ISO,IGC) Manual All</label>
         </li>
-      <li>
-      <input type="checkbox" id="ECO:0000269" value="ECO:0000269">
-      <label for="ECO:0000269">ECO:0000269 (IDA,IMP,IPI,IGI,IEP,EXP) Manual Experimental</label>
-      </li>
-      <li ng-repeat="evidenceType in evidenceTypes">
-        <input type="checkbox" id="{{evidenceType.ecoTerm}}" value="{{evidenceType.ecoTerm}}"/>
-        <label for="{{evidenceType.ecoTerm}}">{{evidenceType.value}}</label>
-      </li>
+        <li>
+          <input type="checkbox" id="ECO:0000269" value="ECO:0000269">
+          <label for="ECO:0000269">ECO:0000269 (IDA,IMP,IPI,IGI,IEP,EXP) Manual Experimental</label>
+        </li>
+        <li ng-repeat="evidenceType in evidenceTypes">
+          <input type="checkbox" id="{{evidenceType.ecoTerm}}" value="{{evidenceType.ecoTerm}}"/>
+          <label for="{{evidenceType.ecoTerm}}">{{evidenceType.value}}</label>
+        </li>
 
       </ul>
       <br>
@@ -367,27 +369,10 @@
   </tab>
 
   <tab heading="With">
-    <div id="withTab" class="grid_9">
-      <div class="clearfix"><p/></div>
-      <div id="withArea">
-        <table id="withDatabases" style="width:98%">
-          <!--<c:forEach items="${sessionScope.withDBs}" var="withDB">-->
-          <!--<c:set var="assignedChecked" value=""/>-->
-          <!--<c:forEach var="withSelected" items="${sessionScope.appliedFilters.parameters['with']}">-->
-          <!--<c:if test="${withSelected == withDB.key}">-->
-          <!--<c:set var="withChecked" value="checked"/>-->
-          <!--</c:if>-->
-          <!--</c:forEach>-->
-          <tr>
-            <td><input type="checkbox" value="${withDB.key}*" ${withChecked} class="advanced-filter-with"/></td>
-            <td><strong>${withDB.key}:*</strong></td>
-            <td>${withDB.value}</td>
-          </tr>
-          <!--</c:forEach>-->
-        </table>
-      </div>
-    </div>
-
+    <ul>
+      <li ng-repeat="withDB in withDBs"><input type="checkbox" id="{{withDB.dbId}}">
+        <label for="{{withDB.dbId}}">{{withDB.xrefDatabase}}</label></li>
+    </ul>
   </tab>
 
   <tab heading="Assigned by">
