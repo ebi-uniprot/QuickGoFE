@@ -60,8 +60,6 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
   };
 
 
-
-
   /**
    * Add own terms to selectable list
    * @param ownTermsList
