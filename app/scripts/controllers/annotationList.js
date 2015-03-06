@@ -15,6 +15,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
+  $scope.isLoading = 0;
   getResultsPage(1);
 
   $scope.pagination = {
@@ -38,10 +39,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   function getResultsPage(pageNumber) {
 
     console.log(targetDomainAndPort);
-    //annotationfiltered
-    //var formattedURL='http://localhost:9080/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
-    //var formattedURL=targetDomainAndPort+'/ws/annotationjson?format=json&page='+ pageNumber +'&rows=25';
-    //var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?format=json&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
+    $scope.isLoading=1;
 
     var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?format=json';  //&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
 
@@ -64,6 +62,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     $http.get(formattedURL).success(function(data) {
       console.log("got the response back ", data);
       $scope.goList = data;
+      $scope.isLoading=0;
     })
   }
 

@@ -22,6 +22,8 @@
     <!-- Download button -->
     <div ng-include src="'views/download.html'"></div>
 
+    <img ng-show="isLoading" src="images/ajax-loader-80.gif">
+
     <!--Basket start -->
     Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
     <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
@@ -31,15 +33,16 @@
     <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
 
 
-    <!-- Results -->
+    <!-- Results Header-->
     <table id="results" class="grid">
       <tr>
         <th ng-repeat="colHeading in annotationColumns">
           {{colHeading.value}}
         </th>
-
       </tr>
-      <tr dir-paginate="goTuple in goList | itemsPerPage: 25" total-items="totalAnnotations">
+
+      <!-- Results Repeat -->
+      <tr dir-paginate="goTuple in goList.annotationsList | itemsPerPage: 25" total-items="goList.numberAnnotations">
 
         <td><a ng-href="www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
         </td>
