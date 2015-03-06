@@ -157,4 +157,34 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   }
 
 
+  /**
+   * ------------------------------------ Filtering Sidebar Code --------------------------------------------------
+   */
+
+
+  /**
+   * Show the basket modal on request
+   */
+  $scope.showAdvancedFilters = function () {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'modals/advancedFiltersModal.html',
+      controller: 'AdvancedFiltersCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope
+      //resolve: {
+      //  countBasket: function () {
+      //    return $scope.countBasket;
+      //  }
+      //}
+    });
+
+    //modalInstance.result.then(function (selectedItem) {
+    //  $scope.selected = selectedItem;
+    //}, function () {
+    //  $log.info('Modal dismissed at: ' + new Date());
+    //});
+  };
+
+
 });
