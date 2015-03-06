@@ -28,19 +28,10 @@
       <div id="quickFiltersMenu" class="quickFilters sidebarsubsection">
         <h4>Quick Filters</h4>
 
-        <div>
           <h5>Taxon</h5>
-            <ul ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}'
-                ng-show="showCommonTaxon(taxon, $scope.showMore)">
-              <!--<a href="#">{{taxon.taxId}} {{taxon.title}}</a>-->
+            <ul ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}'>
               <input type="checkbox" ng-model="taxon.Selected" ng-change="filterByTaxon()"/>[{{taxon.taxId}}] {{taxon.title}}
             </ul>
-
-            <div style="padding: 5px;">
-              <a href="#" id="showMoreTaxonomies" style="color:#B9772E"><label for="showMoreTaxonomies">+Show
-                more</label></a>
-            </div>
-        </div>
 
         <!-- Enter filter area-->
 
@@ -53,12 +44,16 @@
           <fieldset><textarea id="dbObjectID" class="filter-value"></textarea></fieldset>
 
 
+        <div>
         <a style="float: right" href="#" id="submit_quick_filtering" title=""
            class="icon icon-functional button tooltipped" data-icon="1">Filter</a>
+        </div>
 
 
-        <div><a style="float: right" id="advanced-filters" title=""
-                class="icon icon-functional button tooltipped" data-icon="f">Advanced filters</a>
+        <div>
+          <!--<a style="float: right" id="advanced-filters" title=""-->
+                <!--class="icon icon-functional button tooltipped" data-icon="f">Advanced filters</a>-->
+          <button class="btn btn-default" ng-click="showAdvancedFilters()">Advanced Filters</button>
         </div>
 
       </div>
