@@ -22,6 +22,7 @@ var app = angular
     'quickGoFeApp.BasketModule',
     'quickGoFeApp.HardCodedDataModule',
     'quickGoFeApp.WizardModule',
+    'quickGoFeApp.FilteringModule',
     "ui.bootstrap",
     'cgBusy'
   ]);
