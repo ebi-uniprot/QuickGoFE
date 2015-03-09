@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 04/03/2015.
  */
-app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, basketService, evidencetypes, withDBs ) {
+app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, basketService, evidencetypes, withDBs, assignDBs ) {
 
   /**
    * Basket items are used by the go identifer tab
@@ -25,6 +25,18 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, basketSer
     $scope.withDBs = data;
     console.log("Got With DBs", $scope.withDBs);
   });
+
+
+  /**
+   * Get Assigned DBs
+   */
+  var resultADB = assignDBs.query();
+  resultADB.$promise.then(function(data){
+    $scope.assignDBs = data;
+    console.log("Got Assigned DBs", $scope.assignDBs);
+  });
+
+
 
   /**
    * Close window

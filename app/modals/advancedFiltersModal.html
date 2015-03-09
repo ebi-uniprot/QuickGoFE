@@ -371,35 +371,19 @@
   <tab heading="With">
     <ul>
       <li ng-repeat="withDB in withDBs"><input type="checkbox" id="{{withDB.dbId}}">
-        <label for="{{withDB.dbId}}">{{withDB.xrefDatabase}}</label></li>
+        <label for="{{withDB.dbId}}">{{withDB.dbId}} <em>{{withDB.xrefDatabase}}</em></label></li>
     </ul>
   </tab>
 
   <tab heading="Assigned by">
 
-    <div id="assignedByTab" class="grid_9">
+    <!--<div id="assignedByTab" class="grid_9">-->
       <h4>Assigned by</h4>
       Select annotation from:
-      <div class="clearfix"><p/></div>
-      <div id="assignedByArea">
-        <table id="assignedByDatabases" style="width:98%">
-          <!--<c:forEach items="${sessionScope.assignedByDBs}" var="assignedByDb">-->
-          <!--<c:set var="assignedChecked" value=""/>-->
-          <!--<c:forEach var="assignedSelected" items="${sessionScope.appliedFilters.parameters['assignedBy']}">-->
-          <!--<c:if test="${assignedSelected == assignedByDb.key}">-->
-          <!--<c:set var="assignedChecked" value="checked"/>-->
-          <!--</c:if>-->
-          <!--</c:forEach>-->
-          <tr>
-            <td><input type="checkbox" value="${assignedByDb.key}" ${assignedChecked}
-                       class="advanced-filter-assignedBy"/></td>
-            <td><strong>${assignedByDb.key}</strong></td>
-            <td>${assignedByDb.value}</td>
-          </tr>
-          <!--</c:forEach>-->
-        </table>
-      </div>
-    </div>
+    <ul>
+      <li ng-repeat="assignDB in assignDBs"><input type="checkbox" id="{{assignDB.dbId}}">
+        <label for="{{assignDB.dbId}}">{{assignDB.dbId}} <em>{{assignDB.xrefDatabase}}</em></label></li>
+    </ul>
   </tab>
 
 </tabset>

@@ -92,3 +92,9 @@ wsService.factory('withDBs', ['$resource', 'targetDomainAndPort', function($reso
     query: {method:'GET',  isArray:true, Cache:true}
   });
 }]);
+
+wsService.factory('assignDBs', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/assigneddbs', {}, {
+    query: {method:'GET',  isArray:true, Cache:true}
+  });
+}]);
