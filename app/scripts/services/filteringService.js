@@ -20,15 +20,28 @@ var filteringModule = angular.module('quickGoFeApp.FilteringModule', []);
 filteringModule.factory('filteringService', function() {
 
   var filteringService = {};
-  var filters = [];
+  var filters = {};
 
 
   filteringService.setFilters = function (filterList){
     filters=filterList;
+    console.log("Creating filters list", filters)
   }
 
   filteringService.getFilters = function(){
     return filters;
+  }
+
+  /**
+   * Create
+   */
+  filteringService.toQueryString = function(){
+    console.log("Building Query String", filters);
+
+    var queryString = '';
+    if(filters.dbObjectID != undefined) {
+      queryString = queryString + filters.dbObjectID;
+    }
   }
 
   return filteringService;

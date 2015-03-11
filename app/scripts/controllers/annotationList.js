@@ -4,14 +4,17 @@
 
 
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, basketService,
-                                              hardCodedDataService, targetDomainAndPort) {
+                                              hardCodedDataService, targetDomainAndPort, filteringService) {
 
+
+  console.log("In the annotation list controller");
 
   /**
    * Initialisation
    */
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+  $scope.advancedFilters = {};
   $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
@@ -26,6 +29,20 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   $rootScope.header = "QuickGO::Annotation List";
 
+  /**
+   * Pick up the basket update event from the modal
+   */
+  $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
+
+  /**
+   * Listen for update to the filters list (this is 'emit' from the Advanced  Filters controller
+   */
+  $scope.$on('filtersUpdate', function(event, data) {
+    //The filters service will now contain the filters
+    console.log("Filters update called in the annotation list");
+    $scope.advancedFilters = data;
+    getResultsPage(1);
+  });
 
   /**
    *
@@ -55,6 +72,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
         formattedURL = formattedURL + aTaxon.taxId + '\n';
       }
     });
+
+    //formattedURL=formattedURL+filteringService.toQueryString();
+    //var filterString = filteringService.toQueryString();
+    console.log("advanced filter vales", $scope.advancedFilters);
+
 
     //Add page and rows parameters
     formattedURL = formattedURL + '&page='+ pageNumber +'&rows=25';
@@ -131,11 +153,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     });
   };
 
-
-  /**
-   * Pick up the basket update event from the modal
-   */
-  $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
 
   /**
    * Add an item to the basket

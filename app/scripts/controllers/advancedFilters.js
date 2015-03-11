@@ -1,12 +1,14 @@
 /**
  * Created by twardell on 04/03/2015.
  */
-app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, basketService, evidencetypes, withDBs, assignDBs ) {
+app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location, basketService, evidencetypes, withDBs,
+                                               assignDBs, filteringService) {
 
   /**
    * Basket items are used by the go identifer tab
    */
   $scope.basketItems = basketService.getItems();
+  $scope.advancedFilters = {};
 
   /**
    * Get Evidence Types
@@ -36,6 +38,34 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, basketSer
     console.log("Got Assigned DBs", $scope.assignDBs);
   });
 
+
+  /**
+   * Button related functions
+   */
+
+  $scope.cancel  = function(){
+    $modalInstance.dismiss('cancel');
+
+  }
+
+  /**
+   * Iterate through ALL selectable elements
+   * Create a list of selected ones
+   * Pass that list to the filtering service.
+   */
+  $scope.submit = function(advancedFilters){
+
+    console.log("get the text area value", advancedFilters);
+    //filteringService.setFilters(advancedFilters);
+
+    //Tell parent page this value has been updated.
+
+    $scope.$emit('filtersUpdate', advancedFilters);
+
+    //Now go back to the annotation list
+    $modalInstance.dismiss('cancel');
+    $location.path("annotations");
+  }
 
 
   /**
