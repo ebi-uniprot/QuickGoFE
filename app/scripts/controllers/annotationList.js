@@ -44,14 +44,37 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     getResultsPage(1);
   });
 
+
   /**
-   *
-   * @param newPage
+   * ------------------------------------ Local methods --------------------------------------------------
    */
 
-  $scope.pageChanged = function(newPage) {
-    getResultsPage(newPage);
-  };
+  function createQueryString(){
+
+    console.log("Building Query String", $scope.advancedFilters);
+    var queryString = '';
+
+    var targetSetQuery = '';
+    if($scope.advancedFilters.dbObjectID != undefined) {
+      targetSetQuery = targetSetQuery + $scope.advancedFilters.dbObjectID;
+    }
+    if($scope.advancedFilters.bhfucl != undefined) {
+      targetSetQuery = targetSetQuery + $scope.advancedFilters.bhfucl;
+    }
+
+    if(targetSetQuery.length > 0){
+      queryString = 'targetSet:'+ targetSetQuery;
+    }
+
+    //Place query parameter
+    if(queryString.length>0){
+      queryString='&q='+queryString;
+
+    }
+
+    return queryString;
+  }
+
 
   function getResultsPage(pageNumber) {
 
@@ -61,23 +84,24 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?format=json';  //&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
 
     //Add the taxon filters
-    var haveTaxonFilter=0;
-    angular.forEach($scope.mostCommonTaxonomies,function(aTaxon){
+    //var haveTaxonFilter=0;
+    //angular.forEach($scope.mostCommonTaxonomies,function(aTaxon){
+    //
+    //  if(haveTaxonFilter==0){
+    //    formattedURL=formattedURL+'taxonomyId:';
+    //    haveTaxonFilter=1;
+    //  }
+    //  if(aTaxon.Selected) {
+    //    formattedURL = formattedURL + aTaxon.taxId + '\n';
+    //  }
+    //});
 
-      if(haveTaxonFilter==0){
-        formattedURL=formattedURL+'&q=taxonomyId:';
-        haveTaxonFilter=1;
-      }
-      if(aTaxon.Selected) {
-        formattedURL = formattedURL + aTaxon.taxId + '\n';
-      }
-    });
-
-    //formattedURL=formattedURL+filteringService.toQueryString();
+    formattedURL=formattedURL+createQueryString();
     //var filterString = filteringService.toQueryString();
-    console.log("advanced filter vales", $scope.advancedFilters);
+    console.log("Query url", formattedURL);
 
 
+    //todo - be able to post query so the length doesn't exceed parameter max
     //Add page and rows parameters
     formattedURL = formattedURL + '&page='+ pageNumber +'&rows=25';
 
@@ -88,6 +112,19 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     })
   }
 
+  /**
+   * ------------------------------------ $scope methods --------------------------------------------------
+   */
+
+
+  /**
+   *
+   * @param newPage
+   */
+
+  $scope.pageChanged = function(newPage) {
+    getResultsPage(newPage);
+  };
 
 
   /**
