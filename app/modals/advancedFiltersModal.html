@@ -1,64 +1,50 @@
 <h3>Advanced filters</h3>
 
+<form ng-submit="submit(advancedFilters)">
+
 <!-- Tabs-->
 <tabset type="pills">
 
   <tab heading="Gene Product ID">
 
-    <div>
+    <div  style="padding: 15px">
       <h4>Gene Product ID</h4>
-      <h6>Find annotations for a defined set of gene or protein identifiers</h6>
+      <section>
+      <h5>Find annotations for a defined set of gene or protein identifiers</h5>
 
       <p>To restrict the annotations to a set of gene or protein identifiers, enter a list of IDs in the text box below,
-        separated by commas, spaces or newlines. There is no limit on the number of identifers that can be entered into
+        separated by commas, spaces or newlines. <br>
+        There is no limit on the number of identifiers that can be entered into
         this box.</p>
-      <!--<p>You can use identifier types other than UniProtKB accessions (for the full range of acceptable ID types, please see the ID Mapping tab on the Annotation Tool Bar). However please note that QuickGO will automatically map the identifiers to UniProtKB accessions, and unless you have additionally selected a specific Identifier Type to be returned in the annotation set, the default behaviour of this tool will be to display the filtered set of annotations with their corresponding UniProtKB accession numbers.</p>-->
-      <div id="geneProductArea">
-        <textarea class="advanced-filter-dbObjectID" style="width:50%"></textarea>
-        <h6>OR select a list of proteins</h6>
-        <table>
-          <!--<c:set var="targetSetChecked" value=""/>-->
-          <!--<c:if test="${fn:contains(sessionScope.appliedFilters.parameters['targetSet'], 'BHF-UCL')}">-->
-          <!--<c:set var="targetSetChecked" value="checked"/>-->
-          <!--</c:if>-->
-          <tr>
-            <td><input type="checkbox" ${targetSetChecked} value="BHF-UCL" class="advanced-filter-targetSet"/></td>
-            <td>BHF-UCL</td>
-            <td>The set of Cardiovascular-associated proteins being prioritised for annotation by the Cardiovascular
-              Gene Ontology Annotation Initiative located at University College London
-            </td>
-            <td><a href="http://www.ucl.ac.uk/cardiovasculargeneontology" target="_blank"/>http://www.ucl.ac.uk/cardiovasculargeneontology</a>
-            </td>
-          </tr>
-          <!--<c:set var="targetSetChecked" value=""/>-->
-          <!--<c:if test="${fn:contains(sessionScope.appliedFilters.parameters['targetSet'], 'KRUK')}">-->
-          <!--<c:set var="targetSetChecked" value="checked"/>-->
-          <!--</c:if>-->
-          <tr>
-            <td><input type="checkbox" ${targetSetChecked} value="KRUK" class="advanced-filter-targetSet"/></td>
-            <td>KRUK</td>
-            <td>The set of proteins associated with renal processes being prioritised for annotation by the EBI's Renal
-              Gene Ontology Annotation Initiative
-            </td>
-            <td><a href="http://www.ebi.ac.uk/GOA/kidney" target="_blank">http://www.ebi.ac.uk/GOA/kidney</a></td>
-          </tr>
-          <!--<c:set var="targetSetChecked" value=""/>-->
-          <!--<c:if test="${fn:contains(sessionScope.appliedFilters.parameters['targetSet'], 'ReferenceGenome')}">-->
-          <!--<c:set var="targetSetChecked" value="checked"/>-->
-          <!--</c:if>-->
-          <tr>
-            <td><input type="checkbox" ${targetSetChecked} value="ReferenceGenome" class="advanced-filter-targetSet"/>
-            </td>
-            <td>ReferenceGenome</td>
-            <td>The set of human proteins being comprehensively curated by the UniProt-GOA project as part of the GO
-              Consortium's Reference Genome initiative
-            </td>
-            <td><a href="http://www.geneontology.org/GO.refgenome.shtml" target="_blank">http://www.geneontology.org/GO.refgenome.shtml</a>
-            </td>
-          </tr>
 
-        </table>
+      <textarea ng-model="advancedFilters.dbObjectID" style="width:50%"></textarea>
+      </section>
+
+      <section>
+      <h5>OR select a list of proteins</h5>
+
+      <div class="wrapper">
+        <input type="checkbox" ng-model="advancedFilters.bhfucl">BHF-UCL  <a href="http://www.ucl.ac.uk/cardiovasculargeneontology" target="_blank">Website</a>
+        <div class="tooltip">The set of Cardiovascular-associated proteins being prioritised for annotation by the Cardiovascular
+          Gene Ontology Annotation Initiative located at University College London.
+        </div>
       </div>
+
+      <br>
+
+      <input type="checkbox" ng-model="advancedFilters.kruk"/>
+      KRUK
+      The set of proteins associated with renal processes being prioritised for annotation by the EBI's Renal
+      Gene Ontology Annotation Initiative
+
+      <a href="http://www.ebi.ac.uk/GOA/kidney" target="_blank">http://www.ebi.ac.uk/GOA/kidney</a>
+      <br><input type="checkbox" ng-model="advancedFilters.refGenome"/>
+      ReferenceGenome
+      The set of human proteins being comprehensively curated by the UniProt-GOA project as part of the GO
+      Consortium's Reference Genome initiative
+
+      <a href="http://www.geneontology.org/GO.refgenome.shtml" target="_blank">http://www.geneontology.org/GO.refgenome.shtml</a>
+        </section>
     </div>
 
   </tab>
@@ -265,54 +251,54 @@
         <!-- Enter list of go identifiers-->
         <h5>Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:</h5>
         <ul>
-        <textarea class="advanced-filter-goID" style="width:50%;height:50px"></textarea>
+          <textarea class="advanced-filter-goID" style="width:50%;height:50px"></textarea>
         </ul>
 
       </section>
 
       <!-- How use-->
       <section>
-          <h4>2. Select how you want to use the terms that you have chosen:</h4>
+        <h4>2. Select how you want to use the terms that you have chosen:</h4>
 
+        <fieldset>
+          <div class="choiceA" style="display:block">
+            <input type="radio" id="slim-filtering" name="slim" value="slim-filtering" ng-model="ancestors">
+            Use these terms as a GO slim
+          </div>
+        </fieldset>
+        <div class="choiceB" style="display:block">
           <fieldset>
-            <div class="choiceA" style="display:block">
-              <input type="radio" id="slim-filtering" name="slim" value="slim-filtering" ng-model="ancestors">
-              Use these terms as a GO slim
+            <input type="radio" id="descendants-filtering" name="slim" value="descendants-filtering"
+                   ng-model="ancestors"/>
+            Find annotations to descendants of these terms (annotations will display the original GO terms applied)
+            Select which relationship an annotated term should have to the terms above:
+
+            <div class="indent1" ng-show="ancestors == 'descendants-filtering'">
+              <div style="display:block"><input type="radio" name="closure" value="ancestorsI"/>is_a only</div>
+              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO"/>is_a, part_of</div>
+              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR"/>is_a, part_of,
+                regulates
+              </div>
+
             </div>
           </fieldset>
-          <div class="choiceB" style="display:block">
-            <fieldset>
-              <input type="radio" id="descendants-filtering" name="slim" value="descendants-filtering"
-                     ng-model="ancestors"/>
-              Find annotations to descendants of these terms (annotations will display the original GO terms applied)
-              Select which relationship an annotated term should have to the terms above:
+        </div>
 
-              <div class="indent1" ng-show="ancestors == 'descendants-filtering'">
-                <div style="display:block"><input type="radio" name="closure" value="ancestorsI"/>is_a only</div>
-                <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO"/>is_a, part_of</div>
-                <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR"/>is_a, part_of,
-                  regulates
-                </div>
+        <!--Alternatively-->
+        <p>Use these terms as a GO slim, <strong>or</strong> find annotations to descendants of these terms
+          (annotations will display the original GO terms applied)
+          Select which relationship an annotated term should have to the terms above</p>
 
-              </div>
-            </fieldset>
-          </div>
-
-          <!--Alternatively-->
-          <p>Use these terms as a GO slim, <strong>or</strong> find annotations to descendants of these terms
-            (annotations will display the original GO terms applied)
-            Select which relationship an annotated term should have to the terms above</p>
-
-          <select>
-            <optgroup label="Use these terms as a GO slim">
-              <option value="GoSlim">GoSlim</option>
-            </optgroup>
-            <optgroup label="Find annotations to descendants">
-              <option value="ancestorsI">is_a only</option>
-              <option value="ancestorsIPO">is_a, part_of</option>
-              <option value="ancestorsIPOR">is_a, part_of, regulates</option>
-            </optgroup>
-          </select>
+        <select>
+          <optgroup label="Use these terms as a GO slim">
+            <option value="GoSlim">GoSlim</option>
+          </optgroup>
+          <optgroup label="Find annotations to descendants">
+            <option value="ancestorsI">is_a only</option>
+            <option value="ancestorsIPO">is_a, part_of</option>
+            <option value="ancestorsIPOR">is_a, part_of, regulates</option>
+          </optgroup>
+        </select>
 
       </section>
 
@@ -378,8 +364,8 @@
   <tab heading="Assigned by">
 
     <!--<div id="assignedByTab" class="grid_9">-->
-      <h4>Assigned by</h4>
-      Select annotation from:
+    <h4>Assigned by</h4>
+    Select annotation from:
     <ul>
       <li ng-repeat="assignDB in assignDBs"><input type="checkbox" id="{{assignDB.dbId}}">
         <label for="{{assignDB.dbId}}">{{assignDB.dbId}} <em>{{assignDB.xrefDatabase}}</em></label></li>
@@ -391,10 +377,10 @@
 <div>
   <button type="button" ng-click="cancel()">Cancel</button>
   <button type="reset" ng-click="reset()">Reset</button>
-  <button type="submit" ng-click="submit()">Go</button>
+  <input type="submit" id="submit" value="Submit" />
 </div>
 
-
+</form>
 
 
 
