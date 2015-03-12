@@ -39,8 +39,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * Listen for update to the filters list (this is 'emit' from the Advanced  Filters controller
    */
   $scope.$on('filtersUpdate', function(event, data) {
+
     //The filters service will now contain the filters
     console.log("Filters update called in the annotation list");
+    populateAppliedFilters(data);
+
     $scope.advancedFilters = data;
     getResultsPage(1);
   });
@@ -50,26 +53,54 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * ------------------------------------ Local methods --------------------------------------------------
    */
 
+  //function createQueryString(){
+  //
+  //  console.log("Building Query String", $scope.advancedFilters);
+  //  var queryString = '';
+  //
+  //  var targetSetQuery = '';
+  //  if($scope.advancedFilters.dbObjectID != undefined) {
+  //    targetSetQuery = targetSetQuery + $scope.advancedFilters.dbObjectID;
+  //    var appliedFilter = {type: 'protein','value': $scope.advancedFilters.dbObjectID };
+  //    $scope.appliedFilters.push(appliedFilter);
+  //  }
+  //
+  //  if($scope.advancedFilters.bhfucl != undefined) {
+  //    targetSetQuery = targetSetQuery + 'BHF-UCL';
+  //    var appliedFilter = {type: 'protein','value': 'BHF-UCL' };
+  //    $scope.appliedFilters.push(appliedFilter);
+  //  }
+  //
+  //  if(targetSetQuery.length > 0){
+  //    queryString = 'targetSet:'+ targetSetQuery;
+  //  }
+  //
+  //  //Place query parameter
+  //  if(queryString.length>0){
+  //    queryString='&q='+queryString;
+  //
+  //  }
+  //
+  //  return queryString;
+  //}
+
+
   function createQueryString(){
 
-    console.log("Building Query String", $scope.advancedFilters);
-    var queryString = '';
+    var queryString='';
+    var queryType='';
+    var typeString='';
+    for (i = 0  ; i < $scope.appliedFilters.length; i++) {
 
-    var targetSetQuery = '';
-    if($scope.advancedFilters.dbObjectID != undefined) {
-      targetSetQuery = targetSetQuery + $scope.advancedFilters.dbObjectID;
-      var appliedFilter = {type: 'protein','value': $scope.advancedFilters.dbObjectID };
-      $scope.appliedFilters.push(appliedFilter);
-    }
+      if(queryType!=$scope.appliedFilters[i].type ){
 
-    if($scope.advancedFilters.bhfucl != undefined) {
-      targetSetQuery = targetSetQuery + 'BHF-UCL';
-      var appliedFilter = {type: 'protein','value': 'BHF-UCL' };
-      $scope.appliedFilters.push(appliedFilter);
-    }
+        queryString=queryString+$scope.appliedFilters[i].type + ":";
 
-    if(targetSetQuery.length > 0){
-      queryString = 'targetSet:'+ targetSetQuery;
+        queryType=$scope.appliedFilters[i].type;
+      }
+
+      queryString=queryString+$scope.appliedFilters[i].value+',';
+
     }
 
     //Place query parameter
@@ -82,6 +113,45 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   }
 
 
+
+
+
+
+  /**
+   *
+   */
+  function populateAppliedFilters(data){
+    //var appliedFilters = [];
+
+    console.log("Has own data", data);
+
+
+    for (var property in data) {
+      if (data.hasOwnProperty(property)) {
+        console.log("Has own proerty", property);
+
+        var values = data[property]
+        console.log("values", values);
+
+        for(var aValue in values){
+          console.log("aValue", values[aValue]);
+          $scope.appliedFilters.push({type: property, value:values[aValue] });
+
+        }
+
+
+  //      console.log(Object.keys(data))
+
+     }
+    }
+
+  }
+
+
+  /**
+   * Get the results page
+   * @param pageNumber
+   */
   function getResultsPage(pageNumber) {
 
     console.log(targetDomainAndPort);
@@ -117,6 +187,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
       $scope.isLoading=0;
     })
   }
+
+
+  /**
+   *
+   */
+
 
   /**
    * ------------------------------------ $scope methods --------------------------------------------------
@@ -160,16 +236,19 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     var filterLen = -1;
     var i;
 
-    for (i = 0, filterLen = $scope.appliedFilters.length; i < filterLen; i++) {
+    for (i = 0  ; i < $scope.appliedFilters.length; i++) {
 
-      if ($scope.appliedFilters[i].key == filter.key) {
+      if ($scope.appliedFilters[i].type == filter.type) {
 
-        if ($scope.appliedFilters[i].id == filter.id) {
-          delete $scope.appliedFilters[i];
+        if ($scope.appliedFilters[i].value == filter.value) {
+           $scope.appliedFilters.splice(i, 1);
 
         }
       }
     }
+
+    //Reload the page now that we have less filters
+    getResultsPage(1);
   }
 
   /**
