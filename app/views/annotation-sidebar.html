@@ -2,22 +2,18 @@
 
     <!-- Applied filters list-->
     <h4>Applied filters</h4>
+
     <div style="float:right"><a href="#" id="clearAllFilters">Clear</a></div>
 
-    <div>
-        <span ng-if="appliedFilters.length==0">
-          <div class="clearfix"><p></p></div>
+  <div>
+    <em ng-if="appliedFilters.length==0">
           No filters applied
-        </span>
-        <span ng-repeat="filter in appliedFilters">
-          <div class="appliedValue" ng-if="filter">
-            <p style="float: left">
-              {{filter.key}} : {{filter.id}}</p><span style="float:right"> <img src="images/cross.png"
-                                                                                ng-click="removeFilter(filter)"/></span>
-
-            <div class="clearfix"></div>
-          </div>
-      </span>
+    </em>
+      <ul style="float: left">
+        <li ng-repeat="filter in appliedFilters">{{filter.type}} : {{filter.value}}
+          <span style="float:right"> <img src="images/cross.png" ng-click="removeFilter(filter)"/></span>
+        </li>
+      </ul>
     </div>
 
     <!-- Bookmarkable link-->

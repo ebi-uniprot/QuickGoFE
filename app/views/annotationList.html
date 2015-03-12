@@ -71,6 +71,11 @@
       </tr>
     </table>
 
+    <!-- if there are no results tell the user explicitly -->
+    <div ng-show="goList.numberAnnotations==0">
+      <h5>No matching annotations have been found</h5>
+    </div>
+
   </div>
   <div class="clearfix"></div>
 </div>

@@ -14,6 +14,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    */
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+  $scope.appliedFilters = [];
   $scope.advancedFilters = {};
   $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
@@ -57,9 +58,14 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     var targetSetQuery = '';
     if($scope.advancedFilters.dbObjectID != undefined) {
       targetSetQuery = targetSetQuery + $scope.advancedFilters.dbObjectID;
+      var appliedFilter = {type: 'protein','value': $scope.advancedFilters.dbObjectID };
+      $scope.appliedFilters.push(appliedFilter);
     }
+
     if($scope.advancedFilters.bhfucl != undefined) {
-      targetSetQuery = targetSetQuery + $scope.advancedFilters.bhfucl;
+      targetSetQuery = targetSetQuery + 'BHF-UCL';
+      var appliedFilter = {type: 'protein','value': 'BHF-UCL' };
+      $scope.appliedFilters.push(appliedFilter);
     }
 
     if(targetSetQuery.length > 0){
