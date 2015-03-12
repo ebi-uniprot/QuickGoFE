@@ -24,7 +24,7 @@
       <h5>OR select a list of proteins</h5>
 
       <div class="wrapper">
-        <input type="checkbox" ng-model="advancedFilters.bhfucl">BHF-UCL  <a href="http://www.ucl.ac.uk/cardiovasculargeneontology" target="_blank">Website</a>
+        <input type="checkbox" ng-model="advancedFilters.targetSet.bhfucl" ng-true-value="BHF-UCL">BHF-UCL  <a href="http://www.ucl.ac.uk/cardiovasculargeneontology" target="_blank">Website</a>
         <div class="tooltip">The set of Cardiovascular-associated proteins being prioritised for annotation by the Cardiovascular
           Gene Ontology Annotation Initiative located at University College London.
         </div>
@@ -32,13 +32,13 @@
 
       <br>
 
-      <input type="checkbox" ng-model="advancedFilters.kruk"/>
+      <input type="checkbox" ng-model="advancedFilters.targetSet.kruk"/>
       KRUK
       The set of proteins associated with renal processes being prioritised for annotation by the EBI's Renal
       Gene Ontology Annotation Initiative
 
       <a href="http://www.ebi.ac.uk/GOA/kidney" target="_blank">http://www.ebi.ac.uk/GOA/kidney</a>
-      <br><input type="checkbox" ng-model="advancedFilters.refGenome"/>
+      <br><input type="checkbox" ng-model="advancedFilters.targetSet.refGenome"/>
       ReferenceGenome
       The set of human proteins being comprehensively curated by the UniProt-GOA project as part of the GO
       Consortium's Reference Genome initiative
