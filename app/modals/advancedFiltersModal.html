@@ -53,27 +53,15 @@
     <p>To filter by species/taxonomic group, list taxon identifiers in the text box or select one or more of the
       pre-defined taxonomic groups below</p>
 
-    <div id="taxonomiesArea">
       <table id="taxonomyIdAdvancedFilter" style="width:70%">
-        <!--<c:forEach var="taxon" items="${sessionScope.mostCommonTaxonomies}">-->
-        <!--<c:set var="taxChecked" value=""/>-->
-        <!--<c:forEach var="taxSelected" items="${sessionScope.appliedFilters.parameters['taxonomyClosure']}">-->
-        <!--<c:if test="${taxSelected == taxon.id}">-->
-        <!--<c:set var="taxChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <!--</c:forEach>-->
-        <tr>
-          <td><input type="checkbox" value="${taxon.id}" ${taxChecked} class="advanced-filter-taxonomyId"/></td>
-          <td>${taxon.id}</td>
-          <td>${taxon.name}</td>
+        <tr ng-repeat="taxon in mostCommonTaxonomies">
+          <td><input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]" ng-true-value="{{taxon.taxId}}"></td>
+          <td>{{taxon.taxId}}</td>
+          <td>{{taxon.title}}</td>
         </tr>
-        <!--</c:forEach>-->
       </table>
-    </div>
-    <div class="clearfix"><p/></div>
-    <textarea class="advanced-filter-taxonomyId" style="width:50%"></textarea>
+    <textarea ng-model="advancedFilters.text.taxonomyId" style="width:50%"></textarea>
 
-    <div class="clearfix"><p/></div>
     Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for other
     taxonomic groups
   </tab>
@@ -87,141 +75,12 @@
 
     <div id="qualifierArea">
       <table>
-        <!--<c:set var="enablesChecked" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], 'enables')}">-->
-        <!--<c:set var="enablesChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${enablesChecked} value="enables" class="advanced-filter-qualifier"/></td>
-          <td>enables</td>
+        <tr ng-repeat="aQualifier in qualifiers">
+          <td><input type="checkbox" ng-model="advancedFilters.boolean.qualifier[aQualifier.qualifier]" ng-true-value="'{{aQualifier.qualifier}}'"></td>
+          <td>{{aQualifier.qualifier}}</td>
           <td></td>
         </tr>
-        <!--<c:set var="notEnablesChecked" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], '\"-->
-        <!--NOT\-->
-        <!--" AND enables')}">-->
-        <!--<c:set var="notEnablesChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${notEnablesChecked} value="NOT AND enables" class="advanced-filter-qualifier"/>
-          </td>
-          <td>NOT | enables</td>
-          <td></td>
-        </tr>
-        <!--<c:set var="involvedInChecked" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], 'involved_in')}">-->
-        <!--<c:set var="involvedInChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${involvedInChecked} value="involved_in" class="advanced-filter-qualifier"/></td>
-          <td>involved_in</td>
-          <td></td>
-        </tr>
-        <!--<c:set var="notInvolvedInChecked" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], '\"-->
-        <!--NOT\-->
-        <!--" AND involved_in')}">-->
-        <!--<c:set var="notInvolvedInChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${notInvolvedInChecked} value="NOT AND involved_in"
-                     class="advanced-filter-qualifier"/></td>
-          <td>NOT | involved_in</td>
-          <td></td>
-        </tr>
-        <!--<c:set var="partOfChecked" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], 'part_of')}">-->
-        <!--<c:set var="partOfChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${partOfChecked} value="part_of" class="advanced-filter-qualifier"/></td>
-          <td>part_of</td>
-          <td></td>
-        </tr>
-        <!--<c:set var="notPartOfChecked" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], '\"-->
-        <!--NOT\-->
-        <!--" AND part_of')}">-->
-        <!--<c:set var="notPartOfChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${notPartOfChecked} value="NOT AND part_of" class="advanced-filter-qualifier"/>
-          </td>
-          <td>NOT | part_of</td>
-          <td></td>
-        </tr>
-        <!--<c:set var="contributesTo" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], 'contributes_to')}">-->
-        <!--<c:set var="contributesTo" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${contributesTo} value="contributes_to" class="advanced-filter-qualifier"/></td>
-          <td>contributes_to</td>
-          <td></td>
-        </tr>
-        <!--<c:set var="notContributesTo" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], '\"-->
-        <!--NOT\-->
-        <!--" AND contributes_to')}">-->
-        <!--<c:set var="notContributesTo" value="checked"/>-->
-        <!--</c:if>-->
-        <!--<c:set var="notContributesTo" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], '\"-->
-        <!--NOT\-->
-        <!--" AND contributes_to')}">-->
-        <!--<c:set var="notContributesTo" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${notContributesTo} value="NOT AND contributes_to"
-                     class="advanced-filter-qualifier"/></td>
-          <td>NOT | contributes_to</td>
-          <td></td>
-        </tr>
-        <!--<c:set var="colocalizesWithChecked" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], 'colocalizes_with')}">-->
-        <!--<c:set var="colocalizesWithChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <!--<tr>-->
-        <td><input type="checkbox" ${colocalizesWithChecked} value="colocalizes_with"
-                   class="advanced-filter-qualifier"/></td>
-        <td>colocalizes_with</td>
-        <td></td>
-        </tr>
-        <!--<c:set var="notColocalizesWithChecked" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], '\"-->
-        <!--NOT\-->
-        <!--" AND colocalizes_with')}">-->
-        <!--<c:set var="notColocalizesWithChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${notColocalizesWithChecked} value="NOT AND colocalizes_with"
-                     class="advanced-filter-qualifier"/></td>
-          <td>NOT | colocalizes_with</td>
-          <td></td>
-        </tr>
-        <!--<c:set var="notChecked" value=""/>-->
-        <!--<c:if-->
-        <!--test="${sessionScope.appliedFilters.containsIgnoreCase(sessionScope.appliedFilters.parameters['qualifier'], '\"-->
-        <!--NOT\-->
-        <!--"')}">-->
-        <!--<c:set var="notChecked" value="checked"/>-->
-        <!--</c:if>-->
-        <tr>
-          <td><input type="checkbox" ${notChecked} value="NOT" class="advanced-filter-qualifier"/></td>
-          <td>NOT</td>
-          <td></td>
-        </tr>
+
       </table>
     </div>
   </tab>

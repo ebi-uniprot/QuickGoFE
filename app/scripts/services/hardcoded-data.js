@@ -45,6 +45,22 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {'name':'goslim_plant'}
   ];
 
+
+  var qualifiers = [
+    {'qualifier':'enables'},
+    {'qualifier':'NOT | enables'},
+    {'qualifier':'involved_in'},
+    {'qualifier':'NOT | involved_in'},
+    {'qualifier':'part_of'},
+    {'qualifier':'NOT | part_of'},
+    {'qualifier':'contributes_to'},
+    {'qualifier':'NOT | contributes_to'},
+    {'qualifier':'colocalizes_with'},
+    {'qualifier':'NOT | colocalizes_with'},
+    {'qualifier':'NOT'}
+  ];
+
+
   hardCodedService.getAnnotationColumns = function() {
     return annotationColumns;
   }
@@ -53,6 +69,9 @@ hardCodedModule.factory('hardCodedDataService', function() {
     return mostCommonTaxonomies;
   }
 
+  hardCodedService.getQualifiers = function(){
+    return qualifiers;
+  }
 
   /**
    *   ~~~~~~ Testing ~~~~~~

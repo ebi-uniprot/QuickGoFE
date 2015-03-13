@@ -2,12 +2,14 @@
  * Created by twardell on 04/03/2015.
  */
 app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location, basketService, evidencetypes, withDBs,
-                                               assignDBs, filteringService) {
+                                               assignDBs, filteringService, hardCodedDataService) {
 
   /**
    * Basket items are used by the go identifer tab
    */
   $scope.basketItems = basketService.getItems();
+  $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+  $scope.qualifiers = hardCodedDataService.getQualifiers();
   $scope.advancedFilters = {};
 
   /**
