@@ -114,9 +114,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
 
-
-
-
   /**
    *
    */
@@ -125,26 +122,56 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
     console.log("Has own data", data);
 
+    for(var inputType in data) {
+      if (data.hasOwnProperty(inputType)) {
+        console.log("Input type", inputType);
 
-    for (var property in data) {
-      if (data.hasOwnProperty(property)) {
-        console.log("Has own proerty", property);
+        //Input fields; text area etc
+        if (inputType == 'text') {
 
-        var values = data[property]
-        console.log("values", values);
+          var anInputType = data[inputType];
+          console.log("An Input type", anInputType);
 
-        for(var aValue in values){
-          console.log("aValue", values[aValue]);
-          $scope.appliedFilters.push({type: property, value:values[aValue] });
+          //parse content
+          for (var property in anInputType) {
+            if (anInputType.hasOwnProperty(property)) {
+              console.log("Has own proerty", property);
+              var values = anInputType[property]
+              var res = values.split("\n");
+              console.log("res",res);
+              var i;
+              for (i = 0; i < res.length; i++) {
 
+                $scope.appliedFilters.push({type: property, value: res[i]});
+
+              }
+            }
+          }
         }
 
+        //Checkboxes; radio buttons; select boxes etc
+        if (inputType == 'boolean') {
 
-  //      console.log(Object.keys(data))
+          var anInputType = data[inputType];
+          console.log("An Input type", anInputType);
 
-     }
+          for (var property in anInputType) {
+            if (anInputType.hasOwnProperty(property)) {
+              console.log("Has own proerty", property);
+
+              var values = anInputType[property];
+              console.log("values", values);
+
+              for (var aValue in values) {
+                console.log("aValue", values[aValue]);
+                $scope.appliedFilters.push({type: property, value: values[aValue]});
+
+              }
+            }
+          }
+        }
+      }
     }
-
   }
 
 

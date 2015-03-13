@@ -1,67 +1,72 @@
 <div class="sidebar grid_2">
 
-    <!-- Applied filters list-->
-    <h4>Applied filters</h4>
+  <!-- Applied filters list-->
+  <h4>Applied filters</h4>
 
-    <div style="float:right"><a href="#" id="clearAllFilters">Clear</a></div>
+  <div style="float:right"><a href="#" id="clearAllFilters">Clear</a></div>
 
   <div>
     <em ng-if="appliedFilters.length==0">
-          No filters applied
+      No filters applied
     </em>
-      <ul style="float: left">
-        <li ng-repeat="filter in appliedFilters">{{filter.type}} : {{filter.value}}
+    <ul style="float: left">
+
+        <li ng-repeat="filter in appliedFilters">
+          <div class="appliedValue" ng-if="filter">
+            {{filter.type}} : {{filter.value}}
           <span style="float:right"> <img src="images/cross.png" ng-click="removeFilter(filter)"/></span>
+          </div>
         </li>
+
+    </ul>
+  </div>
+
+  <!-- Bookmarkable link-->
+  <element class='icon icon-generic' data-icon='L'><a id="bookmarkable-link" style="font-size:10px;text-align:right"
+                                                      href="#">Bookmarkable link</a>
+
+    <!-- Selectable Filter list-->
+    <div id="quickFiltersMenu" class="quickFilters sidebarsubsection">
+      <h4>Quick Filters</h4>
+
+      <h5>Taxon</h5>
+      <ul ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}'>
+        <input type="checkbox" ng-model="taxon.Selected" ng-change="filterByTaxon()"/>[{{taxon.taxId}}] {{taxon.title}}
       </ul>
-    </div>
 
-    <!-- Bookmarkable link-->
-    <element class='icon icon-generic' data-icon='L'><a id="bookmarkable-link" style="font-size:10px;text-align:right"
-                                                        href="#">Bookmarkable link</a>
-
-      <!-- Selectable Filter list-->
-      <div id="quickFiltersMenu" class="quickFilters sidebarsubsection">
-        <h4>Quick Filters</h4>
-
-          <h5>Taxon</h5>
-            <ul ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}'>
-              <input type="checkbox" ng-model="taxon.Selected" ng-change="filterByTaxon()"/>[{{taxon.taxId}}] {{taxon.title}}
-            </ul>
-
-        <!-- Enter filter area-->
+      <!-- Enter filter area-->
 
 
-          <h5>GO ID</h5>
-          <fieldset><textarea id="goID" class="filter-value"></textarea></fieldset>
+      <h5>GO ID</h5>
+      <fieldset><textarea id="goID" class="filter-value"></textarea></fieldset>
 
 
-          <h5>Gene Product ID</h5>
-          <fieldset><textarea id="dbObjectID" class="filter-value"></textarea></fieldset>
+      <h5>Gene Product ID</h5>
+      <fieldset><textarea id="dbObjectID" class="filter-value"></textarea></fieldset>
 
 
-        <div>
+      <div>
         <a style="float: right" href="#" id="submit_quick_filtering" title=""
            class="icon icon-functional button tooltipped" data-icon="1">Filter</a>
-        </div>
-
-
-        <div>
-          <!--<a style="float: right" id="advanced-filters" title=""-->
-                <!--class="icon icon-functional button tooltipped" data-icon="f">Advanced filters</a>-->
-          <button class="btn btn-default" ng-click="showAdvancedFilters()">Advanced Filters</button>
-        </div>
-
       </div>
 
-      <!-- Select view by-->
-        <h5>View by</h5>
 
-        <p class="builder">
+      <div>
+        <!--<a style="float: right" id="advanced-filters" title=""-->
+        <!--class="icon icon-functional button tooltipped" data-icon="f">Advanced filters</a>-->
+        <button class="btn btn-default" ng-click="showAdvancedFilters()">Advanced Filters</button>
+      </div>
 
-        <div>
-          <ul>
-            <li id="resultsTableView"><a class="viewBy" href="#" rel="nofollow">Results table</a></li>
-            <li id="statisticsView"><a class="viewBy" href="#" rel="nofollow">Statistics</a></li>
-          </ul>
-        </div>
+    </div>
+
+    <!-- Select view by-->
+    <h5>View by</h5>
+
+    <p class="builder">
+
+    <div>
+      <ul>
+        <li id="resultsTableView"><a class="viewBy" href="#" rel="nofollow">Results table</a></li>
+        <li id="statisticsView"><a class="viewBy" href="#" rel="nofollow">Statistics</a></li>
+      </ul>
+    </div>

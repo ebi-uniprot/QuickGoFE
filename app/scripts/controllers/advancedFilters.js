@@ -16,7 +16,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   var resultET = evidencetypes.query();
   resultET.$promise.then(function(data){
     $scope.evidenceTypes = data;
-    console.log("Got Evidence Types", $scope.evidenceTypes);
+    //console.log("Got Evidence Types", $scope.evidenceTypes);
   });
 
   /**
@@ -25,7 +25,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   var resultWDB = withDBs.query();
   resultWDB.$promise.then(function(data){
     $scope.withDBs = data;
-    console.log("Got With DBs", $scope.withDBs);
+    //console.log("Got With DBs", $scope.withDBs);
   });
 
 
@@ -35,7 +35,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   var resultADB = assignDBs.query();
   resultADB.$promise.then(function(data){
     $scope.assignDBs = data;
-    console.log("Got Assigned DBs", $scope.assignDBs);
+    //console.log("Got Assigned DBs", $scope.assignDBs);
   });
 
 
@@ -55,7 +55,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
    */
   $scope.submit = function(advancedFilters){
 
-    console.log("get the text area value", advancedFilters);
+   // console.log("get the text area value", advancedFilters);
     //filteringService.setFilters(advancedFilters);
 
     //Tell parent page this value has been updated.
