@@ -40,9 +40,17 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {'taxId': '9913', 'title': 'Bos taurus'}
   ];
 
+  //The following data is also available via the web service.
   var preDefinedSlimSets = [
-    {'name':'goslim_candida'},
-    {'name':'goslim_plant'}
+    {'name':'goslim_candida', 'slimId': 89},
+    {'name':'goslim_plant', 'slimId': 100},
+    {'name':'goslim_generic', 'slimId': 149},
+    {'name':'goslim_pir', 'slimId': 462},
+    {'name':'goslim_virus', 'slimId':30},
+    {'name':'goslim_yeast', 'slimId': 169},
+    {'name':'goslim_pombe', 'slimId': 48},
+    {'name':'goslim_aspergillus', 'slimId': 85},
+    {'name':'goslim_metagenomics', 'slimId': 119}
   ];
 
 
