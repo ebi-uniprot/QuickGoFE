@@ -20,11 +20,13 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.isBasketShow = false;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
   $scope.isLoading = 0;
-  getResultsPage(1);
+  $scope.currentPage;
+  getResultsPage(1);    //<--this is called instead by the page changed call
 
   $scope.pagination = {
     current: 1
   };
+
 
 
 
@@ -181,6 +183,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    */
   function getResultsPage(pageNumber) {
 
+    $scope.currentPage = pageNumber;
+
     console.log(targetDomainAndPort);
     $scope.isLoading=1;
 
@@ -232,7 +236,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    */
 
   $scope.pageChanged = function(newPage) {
-    getResultsPage(newPage);
+    console.log("Page changed", newPage);
+    if($scope.currentPage!=newPage) {
+      getResultsPage(newPage);
+    }
   };
 
 
@@ -275,6 +282,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     }
 
     //Reload the page now that we have less filters
+    console.log("Reload the page now that we have less filters");
     getResultsPage(1);
   }
 
@@ -315,11 +323,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
 
-  $scope.filterByTaxon = function(){
-
-      getResultsPage(1);
-
-  }
+  //$scope.filterByTaxon = function(){
+  //
+  //    getResultsPage(1);
+  //
+  //}
 
 
   /**
@@ -352,4 +360,13 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   };
 
 
+});
+
+
+/**
+ * ------------------------------------ Other Controllers --------------------------------------------------
+ */
+
+app.controller('ColumnOrderCtrl', function() {
+  console.log("Column Controller");
 });

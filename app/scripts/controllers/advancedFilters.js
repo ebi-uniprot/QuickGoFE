@@ -2,7 +2,7 @@
  * Created by twardell on 04/03/2015.
  */
 app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location, basketService, evidencetypes, withDBs,
-                                               assignDBs, filteringService, hardCodedDataService) {
+                                               assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets) {
 
   /**
    * Basket items are used by the go identifer tab
@@ -11,6 +11,16 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.qualifiers = hardCodedDataService.getQualifiers();
   $scope.advancedFilters = {};
+
+  /**
+   * Get predefined slim sets
+   */
+  //$scope.predefinedSlimSets = PreDefinedSlimSets.query();
+  var resultPSS = PreDefinedSlimSets.query();
+  resultPSS.$promise.then(function(data){
+    $scope.predefinedSlimSets = data;
+    console.log("PredefinedSlimSets", $scope.predefinedSlimSets);
+  });
 
   /**
    * Get Evidence Types

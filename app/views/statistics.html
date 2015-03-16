@@ -1,11 +1,10 @@
 
-<div id="statisticsMainContent" class="mainContent grid_10" style="display: none">
+<div id="statisticsMainContent" class="mainContent grid_10" style="display: none" ng-controller="StatisticsCtrl">
 	<ul class="action-buttons-grouped decorated" id="resultActionStatsButtons">
 		<li id="downloadStatsItem"><a id="download-stats-button" title="Download statistics" class="icon icon-functional button tooltipped" data-icon="=">Download</a>
 		</li>
 	</ul>
 	<!-- Download menu -->
-	<%@include file="/templates/downloadStats.jsp"%>
 	<div id="loading-stats-div">
 	        <h4 style="text-align:center;vertical-align:middle;">
 			<img src="images/ajax-loader.gif" alt="Loading...">  Calculating statistics...
