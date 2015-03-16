@@ -172,6 +172,16 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
             }
           }
         }
+
+        //Have to deal with drop down selects like this atm.
+        if(inputType == 'predefinedSlimSet'){
+          var anInputType = data[inputType];
+          console.log("An Input type", anInputType);
+          var value = anInputType['subset'];
+          console.log("A value", value);
+          $scope.appliedFilters.push({type: 'subSet', value: value});
+        }
+
       }
     }
   }

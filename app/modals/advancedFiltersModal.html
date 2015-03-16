@@ -93,19 +93,21 @@
         <h5>Select Go terms from your basket:</h5>
         <ul ng-repeat="basketItem in basketItems">
           <!--<input type="checkbox" id="{{basketItem.termId}}" ng-model="basketItem.Selected"/>-->
-          <input type="checkbox" id="{{basketItem.termId}}" ng-model="advancedFilters.boolean.goID[basketItem.termId]" ng-true-value="'{{basketItem.termId}}'">
+          <input type="checkbox" id="{{basketItem.termId}}"  ng-true-value="'{{basketItem.termId}}'">
           <label for="{{basketItem.termId}}">{{basketItem.termId}} {{basketItem.name}}</label>
         </ul>
 
         <!-- Enter predefined classes-->
         <h5>Predefined GO term sets:</h5>
         <ul>
-          <select class="advanced-filter-subSet">
-            <option value="">None</option>
-            <option ng-repeat="predefinedSlimSet in predefinedSlimSets" ng-model="advancedFilters.boolean.subSet[predefinedSlimSet.subset]" ng-true-value="'{{predefinedSlimSet.subsetCount}}'">
-              {{predefinedSlimSet.subset}} ({{predefinedSlimSet.subsetCount}})
-            </option>
-          </select>
+          <!--<select class="advanced-filter-subSet">-->
+            <!--<option value="">None</option>-->
+            <!--<option ng-repeat="predefinedSlimSet in predefinedSlimSets" ng-model="advancedFilters.boolean.subSet[predefinedSlimSet.subset]" ng-true-value="'{{predefinedSlimSet.subsetCount}}'">-->
+              <!--{{predefinedSlimSet.subset}} ({{predefinedSlimSet.subsetCount}})-->
+            <!--</option>-->
+          <!--</select>-->
+            <select ng-options="predefinedSlimSet.subset + '(' + predefinedSlimSet.subsetCount + ')' for predefinedSlimSet in predefinedSlimSets" ng-model="advancedFilters.predefinedSlimSet">
+            </select>
         </ul>
 
         <!-- Enter list of go identifiers-->
