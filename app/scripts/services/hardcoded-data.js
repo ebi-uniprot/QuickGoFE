@@ -55,17 +55,17 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
 
   var qualifiers = [
-    {'qualifier':'enables'},
-    {'qualifier':'NOT | enables'},
-    {'qualifier':'involved_in'},
-    {'qualifier':'NOT | involved_in'},
-    {'qualifier':'part_of'},
-    {'qualifier':'NOT | part_of'},
-    {'qualifier':'contributes_to'},
-    {'qualifier':'NOT | contributes_to'},
-    {'qualifier':'colocalizes_with'},
-    {'qualifier':'NOT | colocalizes_with'},
-    {'qualifier':'NOT'}
+    {name:'enables','qualifier':'ENABLES'},
+    {name:'NOT | enables','qualifier':'NOT | enables'},
+    {name:'involved_in','qualifier':'involved_in'},
+    {name:'NOT | involved_in','qualifier':'NOT | involved_in'},
+    {name:'part_of','qualifier':'part_of'},
+    {name:'NOT | part_of','qualifier':'NOT | part_of'},
+    {name:'contributes_to','qualifier':'contributes_to'},
+    {name:'NOT | contributes_to','qualifier':'NOT | contributes_to'},
+    {name:'colocalizes_with','qualifier':'colocalizes_with'},
+    {name:'NOT | colocalizes_with','qualifier':'NOT | colocalizes_with'},
+    {name:'NOT','qualifier':'NOT'}
   ];
 
 

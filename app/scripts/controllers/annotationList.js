@@ -117,7 +117,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
   /**
-   *
+   * Parse the content of the applied filters model supplied form the advanced filters modal and form.
    */
   function populateAppliedFilters(data){
     //var appliedFilters = [];
@@ -125,8 +125,15 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     console.log("Has own data", data);
 
     for(var inputType in data) {
+
       if (data.hasOwnProperty(inputType)) {
         console.log("Input type", inputType);
+
+        //Don't process the following
+        //Input fields; text area etc
+        if (inputType == 'ignore') {
+          continue;
+        }
 
         //Input fields; text area etc
         if (inputType == 'text') {
@@ -157,17 +164,20 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
           var anInputType = data[inputType];
           console.log("An Input type", anInputType);
 
-          for (var property in anInputType) {
-            if (anInputType.hasOwnProperty(property)) {
-              console.log("Has own proerty", property);
+          for (var filtertype in anInputType) {
+            if (anInputType.hasOwnProperty(filtertype)) {
+              console.log("Has own proerty", filtertype);
 
-              var values = anInputType[property];
-              console.log("values", values);
+              var filterValues = anInputType[filtertype];
+              //var values = anInputType[property];
+              console.log("filter values", filterValues);
 
-              for (var aValue in values) {
-                console.log("aValue", values[aValue]);
-                $scope.appliedFilters.push({type: property, value: values[aValue]});
-
+              for (var aFilterValue in filterValues) {
+                console.log("aFilterValue", filterValues[aFilterValue]);
+                $scope.appliedFilters.push({type: filtertype, value: filterValues[aFilterValue]});
+                //console
+                console.log('Content of applied Filters is', $scope.appliedFilters)
+              //
               }
             }
           }

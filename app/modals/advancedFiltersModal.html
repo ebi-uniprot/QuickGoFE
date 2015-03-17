@@ -77,7 +77,7 @@
       <table>
         <tr ng-repeat="aQualifier in qualifiers">
           <td><input type="checkbox" ng-model="advancedFilters.boolean.qualifier[aQualifier.qualifier]" ng-true-value="'{{aQualifier.qualifier}}'"></td>
-          <td>{{aQualifier.qualifier}}</td>
+          <td>{{aQualifier.name}}</td>
           <td></td>
         </tr>
 
@@ -113,7 +113,7 @@
         <!-- Enter list of go identifiers-->
         <h5>Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:</h5>
         <ul>
-          <textarea class="advanced-filter-goID" style="width:50%;height:50px"></textarea>
+          <textarea ng-model="advancedFilters.text.goID" style="width:50%;height:50px"></textarea>
         </ul>
 
       </section>
@@ -130,15 +130,14 @@
         </fieldset>
         <div class="choiceB" style="display:block">
           <fieldset>
-            <input type="radio" id="descendants-filtering" name="slim" value="descendants-filtering"
-                   ng-model="ancestors"/>
+            <input type="radio" id="descendants-filtering" name="slim" value="descendants-filtering" ng-model="ancestors"/>
             Find annotations to descendants of these terms (annotations will display the original GO terms applied)
             Select which relationship an annotated term should have to the terms above:
 
             <div class="indent1" ng-show="ancestors == 'descendants-filtering'">
-              <div style="display:block"><input type="radio" name="closure" value="ancestorsI"/>is_a only</div>
-              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO"/>is_a, part_of</div>
-              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR"/>is_a, part_of,
+              <div style="display:block"><input type="radio" name="closure" value="ancestorsI" ng-model="advancedFilters.boolean.filtering.ancestorsI">is_a only</div>
+              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO" ng-model="advancedFilters.boolean.filtering.ancestorsIPO">is_a, part_of</div>
+              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR" ng-model="advancedFilters.boolean.filtering.ancestorsIPOR">is_a, part_of,
                 regulates
               </div>
 
@@ -147,20 +146,20 @@
         </div>
 
         <!--Alternatively-->
-        <p>Use these terms as a GO slim, <strong>or</strong> find annotations to descendants of these terms
-          (annotations will display the original GO terms applied)
-          Select which relationship an annotated term should have to the terms above</p>
+        <!--<p>Use these terms as a GO slim, <strong>or</strong> find annotations to descendants of these terms-->
+          <!--(annotations will display the original GO terms applied)-->
+          <!--Select which relationship an annotated term should have to the terms above</p>-->
 
-        <select>
-          <optgroup label="Use these terms as a GO slim">
-            <option value="GoSlim">GoSlim</option>
-          </optgroup>
-          <optgroup label="Find annotations to descendants">
-            <option value="ancestorsI">is_a only</option>
-            <option value="ancestorsIPO">is_a, part_of</option>
-            <option value="ancestorsIPOR">is_a, part_of, regulates</option>
-          </optgroup>
-        </select>
+        <!--<select>-->
+          <!--<optgroup label="Use these terms as a GO slim">-->
+            <!--<option value="GoSlim">GoSlim</option>-->
+          <!--</optgroup>-->
+          <!--<optgroup label="Find annotations to descendants">-->
+            <!--<option ng-model="advancedFilters.boolean.filtering.ancestorsI" ng-true-value="ancestorsI">is_a only</option>-->
+            <!--<option ng-model="advancedFilters.boolean.filtering.ancestorsIPO" ng-true-value="ancestorsIPO">is_a, part_of</option>-->
+            <!--<option ng-model="advancedFilters.boolean.filtering.ancestorsIPOR" ng-true-value="ancestorsIPOR">is_a, part_of, regulates</option>-->
+          <!--</optgroup>-->
+        <!--</select>-->
 
       </section>
 
@@ -173,9 +172,10 @@
       specific ontologies:
 
       <div id="aspectsArea">
-        <div style="display:block"><input type="checkbox" value="Function"/> Molecular Function</div>
-        <div style="display:block"><input type="checkbox" value="Process"/> Biological Process</div>
-        <div style="display:block"><input type="checkbox" value="Component"/>Cellular Component</div>
+
+        <div style="display:block"><input type="checkbox"  ng-model="advancedFilters.boolean.goAspects.function" ng-true-value="'Function'"> Molecular Function</div>
+        <div style="display:block"><input type="checkbox"  ng-model="advancedFilters.boolean.goAspects.process"  ng-true-value="'Process'"> Biological Process</div>
+        <div style="display:block"><input type="checkbox"  ng-model="advancedFilters.boolean.goAspects.component"  ng-true-value="'Component'">Cellular Component</div>
       </div>
     </div>
   </tab>
@@ -185,34 +185,38 @@
       <p>A full description of evidence codes and their usage can be found <a
         href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
 
+      <br><input type="radio" name="evidence-match" ng-model="advancedFilters.ignore.evidenceType" value="ancestorsI">Include Child Terms
+      <br><input type="radio" name="evidence-match" ng-model="advancedFilters.ignore.evidenceType" value="ECOID"/>Exact match
+<br>
+      <code>Evidence Type = {{advancedFilters.ignore.evidenceType}}</code><br/>
+
       <ul>
         <li>
-          <input type="checkbox" id="ECO:0000352" value="ECO:0000352">
+          <input type="checkbox" id="ECO:0000352" ng-model="advancedFilters.boolean[advancedFilters.ignore.evidenceType].aaa" ng-true-value="'ECO:0000352'">
           <label for="ECO:0000352">ECO:0000352
             (IMP,IGI,IPI,IDA,IEP,EXP,ISS,TAS,NAS,ND,IC,RCA,IBA,IBD,IKR,IRD,ISA,ISM,ISO,IGC) Manual All</label>
         </li>
         <li>
-          <input type="checkbox" id="ECO:0000269" value="ECO:0000269">
+          <input type="checkbox" id="ECO:0000269" ng-model="advancedFilters.boolean[advancedFilters.ignore.evidenceType].aab" ng-true-value="'ECO:0000269'">
           <label for="ECO:0000269">ECO:0000269 (IDA,IMP,IPI,IGI,IEP,EXP) Manual Experimental</label>
         </li>
         <li ng-repeat="evidenceType in evidenceTypes">
-          <input type="checkbox" id="{{evidenceType.ecoTerm}}" value="{{evidenceType.ecoTerm}}"/>
+          <!--<input type="checkbox" id="{{evidenceType.ecoTerm}}" value="{{evidenceType.ecoTerm}}"/>-->
+          <input type="checkbox" id="{{evidenceType.ecoTerm}}" ng-model="advancedFilters.boolean[advancedFilters.ignore.evidenceType].aac" ng-true-value="'{{evidenceType.ecoTerm}}'">
           <label for="{{evidenceType.ecoTerm}}">{{evidenceType.value}}</label>
         </li>
 
       </ul>
       <br>
       Enter a list of ECO <strong>names</strong> separated by comma:<br/>
-      <textarea class="advanced-filter-ecoName" style="width:50%;height:50px"></textarea>
+      <textarea class="advanced-filter-ecoName" style="width:50%;height:50px" ng-model="advancedFilters.text.ecoName"></textarea>
 
       <br>
       Enter a list of ECO <strong>identifiers</strong> (ECO:nnnnnnn), separated by space, comma or newline characters:
-      <textarea class="advanced-filter-ecoID" style="width:50%;height:50px"></textarea>
+      <textarea class="advanced-filter-ecoID" style="width:50%;height:50px"   ng-model="advancedFilters.text.ecoID">></textarea>
 
 
-      <br><input type="radio" name="evidence-match" value="" class="advanced-filter-ecoAncestorsI" checked/>Include
-      Child Terms
-      <br><input type="radio" name="evidence-match" value=""/>Exact match
+
     </div>
   </tab>
 
