@@ -93,7 +93,7 @@
         <h5>Select Go terms from your basket:</h5>
         <ul ng-repeat="basketItem in basketItems">
           <!--<input type="checkbox" id="{{basketItem.termId}}" ng-model="basketItem.Selected"/>-->
-          <input type="checkbox" id="{{basketItem.termId}}"  ng-true-value="'{{basketItem.termId}}'">
+          <input type="checkbox" id="{{basketItem.termId}}"  ng-model="advancedFilters.boolean.goId[basketItem.termId]" ng-true-value="'{{basketItem.termId}}'">
           <label for="{{basketItem.termId}}">{{basketItem.termId}} {{basketItem.name}}</label>
         </ul>
 
@@ -122,19 +122,17 @@
       <section>
         <h4>2. Select how you want to use the terms that you have chosen:</h4>
 
-        <fieldset>
-          <div class="choiceA" style="display:block">
-            <input type="radio" id="slim-filtering" name="slim" value="slim-filtering" ng-model="ancestors">
+
+          <div class="choiceA" style="display:block" ng-init="ancestors='slim'">
+            <input type="radio" value="slim" ng-model="ancestors" >
             Use these terms as a GO slim
           </div>
-        </fieldset>
         <div class="choiceB" style="display:block">
-          <fieldset>
-            <input type="radio" id="descendants-filtering" name="slim" value="descendants-filtering" ng-model="ancestors"/>
+            <input type="radio" value="descendants" ng-model="ancestors"/>
             Find annotations to descendants of these terms (annotations will display the original GO terms applied)
             Select which relationship an annotated term should have to the terms above:
 
-            <div class="indent1" ng-show="ancestors == 'descendants-filtering'">
+            <div class="indent1" ng-show="ancestors == 'descendants'">
               <div style="display:block"><input type="radio" name="closure" value="ancestorsI" ng-model="advancedFilters.boolean.filtering.ancestorsI">is_a only</div>
               <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO" ng-model="advancedFilters.boolean.filtering.ancestorsIPO">is_a, part_of</div>
               <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR" ng-model="advancedFilters.boolean.filtering.ancestorsIPOR">is_a, part_of,
@@ -142,7 +140,6 @@
               </div>
 
             </div>
-          </fieldset>
         </div>
 
         <!--Alternatively-->
@@ -173,9 +170,9 @@
 
       <div id="aspectsArea">
 
-        <div style="display:block"><input type="checkbox"  ng-model="advancedFilters.boolean.goAspects.function" ng-true-value="'Function'"> Molecular Function</div>
-        <div style="display:block"><input type="checkbox"  ng-model="advancedFilters.boolean.goAspects.process"  ng-true-value="'Process'"> Biological Process</div>
-        <div style="display:block"><input type="checkbox"  ng-model="advancedFilters.boolean.goAspects.component"  ng-true-value="'Component'">Cellular Component</div>
+        <div style="display:block"><input type="checkbox"  ng-model="advancedFilters.boolean.goAspect.function" ng-true-value="'Function'"> Molecular Function</div>
+        <div style="display:block"><input type="checkbox"  ng-model="advancedFilters.boolean.goAspect.process"  ng-true-value="'Process'"> Biological Process</div>
+        <div style="display:block"><input type="checkbox"  ng-model="advancedFilters.boolean.goAspect.component"  ng-true-value="'Component'">Cellular Component</div>
       </div>
     </div>
   </tab>
@@ -185,9 +182,7 @@
       <p>A full description of evidence codes and their usage can be found <a
         href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
 
-      <br><input type="radio" name="evidence-match" ng-model="advancedFilters.ignore.evidenceType" value="ancestorsI">Include Child Terms
-      <br><input type="radio" name="evidence-match" ng-model="advancedFilters.ignore.evidenceType" value="ECOID"/>Exact match
-<br>
+
       <code>Evidence Type = {{advancedFilters.ignore.evidenceType}}</code><br/>
 
       <ul>
@@ -215,7 +210,11 @@
       Enter a list of ECO <strong>identifiers</strong> (ECO:nnnnnnn), separated by space, comma or newline characters:
       <textarea class="advanced-filter-ecoID" style="width:50%;height:50px"   ng-model="advancedFilters.text.ecoID">></textarea>
 
-
+      <br>
+      <!--<div ng-init="advancedFilters.ignore.evidenceType='ecoAncestorsI'">-->
+      <br><input type="radio" ng-model="advancedFilters.ignore.evidenceType" value="ecoAncestorsI" ng-value="ecoAncestorsI">Include Child Terms
+      <br><input type="radio" ng-model="advancedFilters.ignore.evidenceType" value="ECOID"/>Exact match
+      <!--</div>-->
 
     </div>
   </tab>
