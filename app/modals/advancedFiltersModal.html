@@ -222,7 +222,7 @@
 
   <tab heading="With">
     <ul>
-      <li ng-repeat="withDB in withDBs"><input type="checkbox" id="{{withDB.dbId}}">
+      <li ng-repeat="withDB in withDBs"><input type="checkbox" id="{{withDB.dbId}}" ng-model="advancedFilters.boolean.with[withDB]" ng-true-value="'{{withDB.dbId}}'">
         <label for="{{withDB.dbId}}">{{withDB.dbId}} <em>{{withDB.xrefDatabase}}</em></label></li>
     </ul>
   </tab>
@@ -233,7 +233,7 @@
     <h4>Assigned by</h4>
     Select annotation from:
     <ul>
-      <li ng-repeat="assignDB in assignDBs"><input type="checkbox" id="{{assignDB.dbId}}">
+      <li ng-repeat="assignDB in assignDBs"><input type="checkbox" id="{{assignDB.dbId}}" ng-model="advancedFilters.boolean.assignedby[assignDB.dbId]" ng-true-value="'{{assignDB.dbId}}'">
         <label for="{{assignDB.dbId}}">{{assignDB.dbId}} <em>{{assignDB.xrefDatabase}}</em></label></li>
     </ul>
   </tab>
