@@ -28,8 +28,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   };
 
   // Set up the default check box for the Evidence radio buttons
-  $scope.advancedFilters.boolean = {};
-  $scope.advancedFilters.boolean.evidenceType='ecoAncestorsI';
+  //$scope.advancedFilters.boolean = {};
+  //$scope.advancedFilters.boolean.evidenceType={};
+  //$scope.advancedFilters.boolean.evidenceType.evidenceType="ecoAncestorsI";
+  $scope.evidenceSetter="ecoAncestorsI";
 
 
   $rootScope.header = "QuickGO::Annotation List";
