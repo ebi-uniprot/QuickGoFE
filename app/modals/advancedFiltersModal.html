@@ -183,21 +183,21 @@
         href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
 
 
-      <code>Evidence Type = {{advancedFilters.ignore.evidenceType}}</code><br/>
+      <code>Evidence Type = {{advancedFilters.boolean.evidenceType}}</code><br/>
 
       <ul>
         <li>
-          <input type="checkbox" id="ECO:0000352" ng-model="advancedFilters.boolean[advancedFilters.ignore.evidenceType].aaa" ng-true-value="'ECO:0000352'">
+          <input type="checkbox" id="ECO:0000352" ng-model="advancedFilters.boolean[advancedFilters.ignore.evidenceType.evidenceType].aaa" ng-true-value="'ECO:0000352'">
           <label for="ECO:0000352">ECO:0000352
             (IMP,IGI,IPI,IDA,IEP,EXP,ISS,TAS,NAS,ND,IC,RCA,IBA,IBD,IKR,IRD,ISA,ISM,ISO,IGC) Manual All</label>
         </li>
         <li>
-          <input type="checkbox" id="ECO:0000269" ng-model="advancedFilters.boolean[advancedFilters.ignore.evidenceType].aab" ng-true-value="'ECO:0000269'">
+          <input type="checkbox" id="ECO:0000269" ng-model="advancedFilters.boolean[advancedFilters.ignore.evidenceType.evidenceType].aab" ng-true-value="'ECO:0000269'">
           <label for="ECO:0000269">ECO:0000269 (IDA,IMP,IPI,IGI,IEP,EXP) Manual Experimental</label>
         </li>
         <li ng-repeat="evidenceType in evidenceTypes">
           <!--<input type="checkbox" id="{{evidenceType.ecoTerm}}" value="{{evidenceType.ecoTerm}}"/>-->
-          <input type="checkbox" id="{{evidenceType.ecoTerm}}" ng-model="advancedFilters.boolean[advancedFilters.ignore.evidenceType].aac" ng-true-value="'{{evidenceType.ecoTerm}}'">
+          <input type="checkbox" id="{{evidenceType.ecoTerm}}" ng-model="advancedFilters.boolean[advancedFilters.ignore.evidenceType.evidenceType].aac" ng-true-value="'{{evidenceType.ecoTerm}}'">
           <label for="{{evidenceType.ecoTerm}}">{{evidenceType.value}}</label>
         </li>
 
@@ -212,8 +212,8 @@
 
       <br>
       <!--<div ng-init="advancedFilters.ignore.evidenceType='ecoAncestorsI'">-->
-      <br><input type="radio" ng-model="advancedFilters.ignore.evidenceType" value="ecoAncestorsI" ng-value="ecoAncestorsI">Include Child Terms
-      <br><input type="radio" ng-model="advancedFilters.ignore.evidenceType" value="ECOID"/>Exact match
+      <br><input type="radio" ng-model="advancedFilters.boolean.evidenceType.evidenceType" value="ecoAncestorsI" ng-value="ecoAncestorsI">Include Child Terms
+      <br><input type="radio" ng-model="advancedFilters.boolean.evidenceType.evidenceType" value="ECOID"/>Exact match
       <!--</div>-->
 
     </div>
@@ -221,7 +221,7 @@
 
   <tab heading="With">
     <ul>
-      <li ng-repeat="withDB in withDBs"><input type="checkbox" id="{{withDB.dbId}}" ng-model="advancedFilters.boolean.with[withDB]" ng-true-value="'{{withDB.dbId}}'">
+      <li ng-repeat="withDB in withDBs"><input type="checkbox" value="{{withDB.dbId}}" ng-model="advancedFilters.boolean.with[withDB.dbId]" ng-true-value="'{{withDB.dbId}}'">
         <label for="{{withDB.dbId}}">{{withDB.dbId}} <em>{{withDB.xrefDatabase}}</em></label></li>
     </ul>
   </tab>

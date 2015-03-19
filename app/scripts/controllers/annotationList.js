@@ -27,7 +27,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     current: 1
   };
 
-
+  // Set up the default check box for the Evidence radio buttons
+  $scope.advancedFilters.boolean = {};
+  $scope.advancedFilters.boolean.evidenceType='ecoAncestorsI';
 
 
   $rootScope.header = "QuickGO::Annotation List";
@@ -54,38 +56,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   /**
    * ------------------------------------ Local methods --------------------------------------------------
    */
-
-  //function createQueryString(){
-  //
-  //  console.log("Building Query String", $scope.advancedFilters);
-  //  var queryString = '';
-  //
-  //  var targetSetQuery = '';
-  //  if($scope.advancedFilters.dbObjectID != undefined) {
-  //    targetSetQuery = targetSetQuery + $scope.advancedFilters.dbObjectID;
-  //    var appliedFilter = {type: 'protein','value': $scope.advancedFilters.dbObjectID };
-  //    $scope.appliedFilters.push(appliedFilter);
-  //  }
-  //
-  //  if($scope.advancedFilters.bhfucl != undefined) {
-  //    targetSetQuery = targetSetQuery + 'BHF-UCL';
-  //    var appliedFilter = {type: 'protein','value': 'BHF-UCL' };
-  //    $scope.appliedFilters.push(appliedFilter);
-  //  }
-  //
-  //  if(targetSetQuery.length > 0){
-  //    queryString = 'targetSet:'+ targetSetQuery;
-  //  }
-  //
-  //  //Place query parameter
-  //  if(queryString.length>0){
-  //    queryString='&q='+queryString;
-  //
-  //  }
-  //
-  //  return queryString;
-  //}
-
 
   function createQueryString(){
 
@@ -168,16 +138,25 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
             if (anInputType.hasOwnProperty(filtertype)) {
               console.log("Has own proerty", filtertype);
 
-              var filterValues = anInputType[filtertype];
-              //var values = anInputType[property];
-              console.log("filter values", filterValues);
+              var filterKeys = anInputType[filtertype];
 
-              for (var aFilterValue in filterValues) {
-                console.log("aFilterValue", filterValues[aFilterValue]);
-                $scope.appliedFilters.push({type: filtertype, value: filterValues[aFilterValue]});
-                //console
-                console.log('Content of applied Filters is', $scope.appliedFilters)
-              //
+              console.log("filterKeys", filterKeys);
+
+              for (var aFilterKey in filterKeys) {
+
+                var aFilterValue = filterKeys[aFilterKey];
+
+                //Don't include de-selected values
+                if(aFilterValue!='false') {
+
+                  console.log("aFilterValue", aFilterValue);
+
+                  $scope.appliedFilters.push({type: filtertype, value: aFilterValue});
+
+                  console.log('Content of applied Filters is', $scope.appliedFilters);
+
+                }
+
               }
             }
           }
@@ -185,10 +164,13 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
         //Have to deal with drop down selects like this atm.
         if(inputType == 'predefinedSlimSet'){
+
           var anInputType = data[inputType];
           console.log("An Input type", anInputType);
+
           var value = anInputType['subset'];
           console.log("A value", value);
+
           $scope.appliedFilters.push({type: 'subSet', value: value});
         }
 
@@ -235,6 +217,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     $http.get(formattedURL).success(function(data) {
       console.log("got the response back ", data);
       $scope.goList = data;
+
+      prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
+
       $scope.isLoading=0;
     })
   }
@@ -243,6 +228,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   /**
    *
    */
+  function prettyPrintNumberAnnotations(numberAnnotations){
+    $scope.totalAnnotations = numberAnnotations.toLocaleString();
+
+  }
 
 
   /**

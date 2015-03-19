@@ -29,6 +29,9 @@
     <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
     <!--Basket end -->
 
+    <!--Show current page number and total annotations-->
+    <p>Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong></p>
+
     <!-- Pagination -->
     <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
 
