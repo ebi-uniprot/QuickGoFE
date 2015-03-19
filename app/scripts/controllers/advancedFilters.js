@@ -37,8 +37,16 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   var resultWDB = withDBs.query();
   resultWDB.$promise.then(function(data){
     $scope.withDBs = data;
+    $scope.withDBs.sort(function comparewithDBs(a,b) {
+      if (a.dbId < b.dbId)
+        return -1;
+      if (a.dbId > b.dbId)
+        return 1;
+      return 0;
+    });
     //console.log("Got With DBs", $scope.withDBs);
   });
+
 
 
   /**
@@ -47,6 +55,13 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   var resultADB = assignDBs.query();
   resultADB.$promise.then(function(data){
     $scope.assignDBs = data;
+    $scope.assignDBs.sort(function comparewithDBs(a,b) {
+      if (a.dbId < b.dbId)
+        return -1;
+      if (a.dbId > b.dbId)
+        return 1;
+      return 0;
+    });
     //console.log("Got Assigned DBs", $scope.assignDBs);
   });
 
