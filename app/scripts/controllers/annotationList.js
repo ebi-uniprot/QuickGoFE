@@ -20,7 +20,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.isBasketShow = false;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
   $scope.isLoading = 0;
-  $scope.currentPage;
+  $scope.currentPage=1;
   getResultsPage(1);    //<--this is called instead by the page changed call
 
   $scope.pagination = {
@@ -115,14 +115,15 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
           for (var property in anInputType) {
             if (anInputType.hasOwnProperty(property)) {
               console.log("Has own proerty", property);
-              var values = anInputType[property]
+              var values = anInputType[property];
               var res = values.split("\n");
               console.log("res",res);
               var i;
               for (i = 0; i < res.length; i++) {
 
-                $scope.appliedFilters.push({type: property, value: res[i]});
-
+                var aFilter = {type: property, value: res[i]};
+                saveAppliedFilter(aFilter);
+                //$scope.appliedFilters.push({type: property, value: res[i]});
               }
             }
           }
@@ -151,12 +152,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
                   console.log("aFilterValue", aFilterValue);
 
-                  $scope.appliedFilters.push({type: filtertype, value: aFilterValue});
-
-                  console.log('Content of applied Filters is', $scope.appliedFilters);
-
+                  var aFilter = {type: filtertype, value: aFilterValue};
+                  saveAppliedFilter(aFilter);
+                  //$scope.appliedFilters.push({type: filtertype, value: aFilterValue});
                 }
-
               }
             }
           }
@@ -171,12 +170,46 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
           var value = anInputType['subset'];
           console.log("A value", value);
 
-          $scope.appliedFilters.push({type: 'subSet', value: value});
+          var aFilter = {type: 'subSet', value: value};
+          saveAppliedFilter(aFilter);
+          //$scope.appliedFilters.push({type: 'subSet', value: value});
         }
-
       }
     }
   }
+
+
+  /**
+   * Save the object to applied filters if it doesn't exist already
+   */
+  function saveAppliedFilter(aFilter){
+    console.log("save applied filter filter ", aFilter);
+    console.log('Content of applied Filters is', $scope.appliedFilters);
+
+    var j=-1;
+    var exists=0;
+    for(j=0; j<$scope.appliedFilters.length; j++){
+
+      if($scope.appliedFilters[j]=='undefined'){
+        continue;
+      }
+
+      console.log("what is j",j);
+
+      if($scope.appliedFilters[j].type == aFilter.value & $scope.appliedFilters[j].type == aFilter.value){
+        exists=1;
+      }
+    }
+
+
+    if(!exists) {
+
+      $scope.appliedFilters.push(aFilter);
+
+    }
+
+  }
+
 
 
   /**
@@ -263,12 +296,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     if($scope.showAll==="" || $scope.showAll==='false')
     {
       //Only show selected
-      if(taxon.taxId=='9606'|taxon.taxId=='10090'|taxon.taxId=='10116')
-        return true;
-      return false;
+      return (taxon.taxId=='9606'|taxon.taxId=='10090'|taxon.taxId=='10116');
     }
     return true;
-  }
+  };
 
 
   /**
@@ -293,7 +324,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     //Reload the page now that we have less filters
     console.log("Reload the page now that we have less filters");
     getResultsPage(1);
-  }
+  };
 
   /**
    * Show the basket modal on request
@@ -328,7 +359,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     var basketItem = {termId:termId, name:termName};
     console.log(basketService.addBasketItem(basketItem));
     $scope.countBasket = basketService.getItems().length;
-  }
+  };
 
 
 
