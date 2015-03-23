@@ -204,11 +204,11 @@
       </ul>
       <br>
       Enter a list of ECO <strong>names</strong> separated by comma:<br/>
-      <textarea class="advanced-filter-ecoName" style="width:50%;height:50px" ng-model="advancedFilters.text.ecoName"></textarea>
+      <textarea class="advanced-filter-ecoName" style="width:50%;height:50px" ng-model="advancedFilters.text[evidenceSetter].ecoName"></textarea>
 
       <br>
       Enter a list of ECO <strong>identifiers</strong> (ECO:nnnnnnn), separated by space, comma or newline characters:
-      <textarea class="advanced-filter-ecoID" style="width:50%;height:50px"   ng-model="advancedFilters.text.ecoID">></textarea>
+      <textarea class="advanced-filter-ecoID" style="width:50%;height:50px"   ng-model="advancedFilters.text[evidenceSetter].ecoID"></textarea>
 
       <br>
       <!--<div ng-init="advancedFilters.ignore.evidenceType='ecoAncestorsI'">-->
@@ -225,8 +225,10 @@
 
   <tab heading="With">
     <ul>
-      <li ng-repeat="withDB in withDBs"><input type="checkbox" value="{{withDB.dbId}}" ng-model="advancedFilters.boolean.with[withDB.dbId]" ng-true-value="'{{withDB.dbId}}'">
-        <label for="{{withDB.dbId}}">{{withDB.dbId}} <em>{{withDB.xrefDatabase}}</em></label></li>
+      <li ng-repeat="withDB in withDBs">
+        <input type="checkbox" value="{{withDB.dbId}}" id="{{withDB.dbId}}" ng-model="advancedFilters.boolean.with[withDB.dbId]" ng-true-value="'{{withDB.dbId}}'">
+        <label for="{{withDB.dbId}}">{{withDB.dbId}} <em>{{withDB.xrefDatabase}}</em></label>
+      </li>
     </ul>
   </tab>
 
@@ -239,6 +241,22 @@
       <li ng-repeat="assignDB in assignDBs"><input type="checkbox" id="{{assignDB.dbId}}" ng-model="advancedFilters.boolean.assignedby[assignDB.dbId]" ng-true-value="'{{assignDB.dbId}}'">
         <label for="{{assignDB.dbId}}">{{assignDB.dbId}} <em>{{assignDB.xrefDatabase}}</em></label></li>
     </ul>
+  </tab>
+
+
+  <tab heading="Reference">
+    <br>
+    <p>If you want to find annotations that cite one or more specific references, you can enter them in this text box (with or without a database prefix):</p>
+    <textarea ng-model="advancedFilters.text.reference"></textarea>
+
+      <p>Alternatively (or in addition), you can find annotations that cite a particular type of reference by selecting the appropriate check box(es) below: </p>
+      <ul>
+        <li ng-repeat="aRef in referenceList">
+          <input type="checkbox" id="{{aRef.refId}}" ng-model="advancedFilters.boolean.reference[aRef.refId]" ng-true-value="'{{aRef.refId}}'">
+          <label for="{{aRef.refId}}">{{aRef.refId}} {{aRef.name}}</label>
+        </li>
+      </ul>
+
   </tab>
 
 </tabset>
