@@ -9,6 +9,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
    */
   $scope.basketItems = basketService.getItems();
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+  $scope.referenceList = hardCodedDataService.getFilterReferences();
   $scope.qualifiers = hardCodedDataService.getQualifiers();
   $scope.advancedFilters = {};
 
