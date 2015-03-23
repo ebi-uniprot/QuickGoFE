@@ -196,29 +196,21 @@
           <label for="ECO:0000269">ECO:0000269 (IDA,IMP,IPI,IGI,IEP,EXP) Manual Experimental</label>
         </li>
         <li ng-repeat="evidenceType in evidenceTypes">
-          <!--<input type="checkbox" id="{{evidenceType.ecoTerm}}" value="{{evidenceType.ecoTerm}}"/>-->
           <input type="checkbox" id="{{evidenceType.ecoTerm}}" ng-model="advancedFilters.boolean[evidenceSetter][evidenceType.ecoTerm]" ng-true-value="'{{evidenceType.ecoTerm}}'">
           <label for="{{evidenceType.ecoTerm}}">{{evidenceType.value}}</label>
         </li>
-
       </ul>
-      <br>
-      Enter a list of ECO <strong>names</strong> separated by comma:<br/>
-      <textarea class="advanced-filter-ecoName" style="width:50%;height:50px" ng-model="advancedFilters.text[evidenceSetter].ecoName"></textarea>
 
       <br>
       Enter a list of ECO <strong>identifiers</strong> (ECO:nnnnnnn), separated by space, comma or newline characters:
       <textarea class="advanced-filter-ecoID" style="width:50%;height:50px"   ng-model="advancedFilters.text[evidenceSetter].ecoID"></textarea>
 
       <br>
-      <!--<div ng-init="advancedFilters.ignore.evidenceType='ecoAncestorsI'">-->
       <!-- Include Child Terms need to create a filter with values such as ecoAncestorsI : ECO:0000266 -->
       <!-- Option Exact match needs to create a filter with values such as ECOID : ECO:0000255-->
 
-
       <br><input type="radio" ng-model="evidenceSetter" value="ecoAncestorsI">Include Child Terms
       <br><input type="radio" ng-model="evidenceSetter" value="ECOID"/>Exact match
-      <!--</div>-->
 
     </div>
   </tab>
