@@ -92,7 +92,8 @@ var app = angular
   });
 
   app.config(function(paginationTemplateProvider) {
-    paginationTemplateProvider.setPath('scripts/directives/pagination/dirPagination.tpl.html');
+    //paginationTemplateProvider.setPath('scripts/directives/pagination/dirPagination.tpl.html');
+    paginationTemplateProvider.setPath('views/controls/quickgoDirPagination.tpl.html');
   });
 
   app.value('targetDomainAndPort','http://localhost:9080');
