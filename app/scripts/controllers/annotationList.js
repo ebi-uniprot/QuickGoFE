@@ -68,12 +68,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
       if(queryType!=$scope.appliedFilters[i].type ){
 
-        queryString=queryString+$scope.appliedFilters[i].type + ":";
+        queryString=queryString + '"' + $scope.appliedFilters[i].type + '"' + ":";
 
         queryType=$scope.appliedFilters[i].type;
       }
 
-      queryString=queryString+$scope.appliedFilters[i].value+',';
+      queryString=queryString + '"' + $scope.appliedFilters[i].value + '"' + ',';
 
     }
 
@@ -90,6 +90,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   /**
    * Parse the content of the applied filters model supplied form the advanced filters modal and form.
+   * //todo get rid of the quotes required around individual values. These have to be in there to make stuff work
    */
   function populateAppliedFilters(data){
     //var appliedFilters = [];
