@@ -93,7 +93,7 @@
         <h5>Select Go terms from your basket:</h5>
         <ul ng-repeat="basketItem in basketItems">
           <!--<input type="checkbox" id="{{basketItem.termId}}" ng-model="basketItem.Selected"/>-->
-          <input type="checkbox" id="{{basketItem.termId}}"  ng-model="advancedFilters.boolean.goId[basketItem.termId]" ng-true-value="'{{basketItem.termId}}'">
+          <input type="checkbox" id="{{basketItem.termId}}"  ng-model="advancedFilters.boolean.goID[basketItem.termId]" ng-true-value="'{{basketItem.termId}}'">
           <label for="{{basketItem.termId}}">{{basketItem.termId}} {{basketItem.name}}</label>
         </ul>
 
@@ -113,7 +113,7 @@
         <!-- Enter list of go identifiers-->
         <h5>Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:</h5>
         <ul>
-          <textarea ng-model="advancedFilters.text.goId" style="width:50%;height:50px"></textarea>
+          <textarea ng-model="advancedFilters.text.goID" style="width:50%;height:50px"></textarea>
         </ul>
 
       </section>
@@ -124,22 +124,22 @@
 
 
           <div class="choiceA" style="display:block" ng-init="ancestors='slim'">
-            <input type="radio" value="slim" ng-model="ancestors" >
+            <input type="checkbox" value="slim" ng-model="ancestors" >
             Use these terms as a GO slim
           </div>
         <div class="choiceB" style="display:block">
-            <input type="radio" value="descendants" ng-model="ancestors"/>
-            Find annotations to descendants of these terms (annotations will display the original GO terms applied)
+            <!--<input type="radio" value="descendants" ng-model="ancestors"/>-->
+            <!--Find annotations to descendants of these terms (annotations will display the original GO terms applied)-->
+            <!--Select which relationship an annotated term should have to the terms above:-->
+
+            <!--<div class="indent1" ng-show="ancestors == 'descendants'">-->
+          <div>
             Select which relationship an annotated term should have to the terms above:
-
-            <div class="indent1" ng-show="ancestors == 'descendants'">
-              <div style="display:block"><input type="radio" name="closure" value="ancestorsI" ng-model="advancedFilters.boolean.filtering.ancestorsI">is_a only</div>
-              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO" ng-model="advancedFilters.boolean.filtering.ancestorsIPO">is_a, part_of</div>
-              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR" ng-model="advancedFilters.boolean.filtering.ancestorsIPOR">is_a, part_of,
-                regulates
-              </div>
-
-            </div>
+            <div style="display:block"><input type="radio" name="closure" value="ancestorsI" ng-model="advancedFilters.boolean.ancestorsI.ancestorsI">is_a only</div>
+            <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO" ng-model="advancedFilters.boolean.ancestorsIPO.ancestorsIPO">is_a, part_of</div>
+            <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR" ng-model="advancedFilters.boolean.ancestorsIPOR.ancestorsIPOR">is_a, part_of,regulates</div>
+          </div>
+            <!--</div>-->
         </div>
 
         <!--Alternatively-->
