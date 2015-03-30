@@ -16,10 +16,9 @@
       <th>Assigned By</th>
       <th>Annotations</th>
     <tr>
-      <
         <tr ng-repeat="annotationUpdate in annotationUpdates">
           <td>{{annotationUpdate.name}}</td>
-          <td><a href="#" onclick="getAssociatedAnnotations('assignedBy','${assignedByCount.name}')">{{annotationUpdate.count}}</a></td>
+          <td>{{annotationUpdate.count}}</td><!-- TODO put in link from count to detail-->
         </tr>
   </table>
 
