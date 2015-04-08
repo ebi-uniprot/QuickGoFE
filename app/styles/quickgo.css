@@ -107,6 +107,21 @@ ul
                   /*box-shadow: 0px 0px 8px 4px #666; *//*opacity: 0.8;*/
 /*}*/
 
+.pseudo-link{
+  background:none!important;
+  border:none;
+  padding:0!important;
+  font: inherit;
+  /*border is optional*/
+  border-bottom:1px solid #444;
+  cursor: pointer;
+}
+
+
+IMG.displayed {
+  display: block;
+  margin-left: auto;
+  margin-right: auto }
 
 .wrapper {
   /*text-transform: uppercase;*/
