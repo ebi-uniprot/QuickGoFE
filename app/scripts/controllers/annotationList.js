@@ -379,7 +379,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
   /**
-   * Show the basket modal on request
+   * Show the advanced filters modal on request
    */
   $scope.showAdvancedFilters = function () {
 
@@ -403,6 +403,35 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   };
 
 
+
+/**
+ * ------------------------------------ GO Ontology Graph Image --------------------------------------------------
+ */
+
+
+/**
+ * Show the GO ontology graph image modal on request
+ */
+$scope.showOntologyGraph = function (goId, title) {
+
+  var modalInstance = $modal.open({
+    templateUrl: 'modals/ontologyGraphModal.html',
+    controller: 'OntologyGraphCtrl',
+    windowClass: 'app-modal-window',
+    scope: $scope,
+    resolve: {
+      goModel: function () {
+        return {id:goId, name:title};
+      }
+    }
+  });
+
+};
+
+
+  /**
+   * ------------------------------------ End of AnnotationListCtrl Controller -----------------------------------------
+   */
 });
 
 

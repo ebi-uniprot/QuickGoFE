@@ -26,15 +26,14 @@
 
     <!--Basket start -->
     Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
-    <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
+    <button class"btn btn-default" ng-click="showBasket()">Show Basket</button>
     <!--Basket end -->
 
     <!--Show current page number and total annotations-->
     <p>Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong></p>
 
-    <!-- Pagination -->
+    <!-- Pagination https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination  -->
     <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-
 
     <!-- Results Header-->
     <table id="results" class="grid">
@@ -51,8 +50,8 @@
         </td>
         <td>{{goTuple.symbol}}</td>
         <td>{{goTuple.qualifier}}</td>
-        <td style="white-space: nowrap;"><img src="images/shopping2.png"
-                                              ng-click="addItem('{{goTuple.goId}}','{{goTuple.termName}}')"/>{{goTuple.goId}}
+        <td style="white-space: nowrap;"><img src="images/shopping2.png" ng-click="addItem('{{goTuple.goId}}','{{goTuple.termName}}')"/>
+          <span ng-click="showOntologyGraph('{{goTuple.goId}}','{{goTuple.termName}}')">{{goTuple.goId}}</span>
         </td>
         <td>{{goTuple.termName}}</td>
         <td>{{goTuple.aspect}}</td>
