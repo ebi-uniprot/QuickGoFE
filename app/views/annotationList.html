@@ -51,19 +51,19 @@
         <td>{{goTuple.symbol}}</td>
         <td>{{goTuple.qualifier}}</td>
         <td style="white-space: nowrap;"><img src="images/shopping2.png" ng-click="addItem('{{goTuple.goId}}','{{goTuple.termName}}')"/>
-          <span ng-click="showOntologyGraph('{{goTuple.goId}}','{{goTuple.termName}}')">{{goTuple.goId}}</span>
+          <span class="pseudo-link" ng-click="showOntologyGraph('{{goTuple.goId}}','{{goTuple.termName}}')">{{goTuple.goId}}</span>
         </td>
         <td>{{goTuple.termName}}</td>
         <td>{{goTuple.aspect}}</td>
         <td><a class="ontologygraph" id="ontologygraph_{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>&nbsp;<a
           href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">(IEA)</a></td>
-        <td><a
+        <td><a class="pseudo-link"
           ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}">{{goTuple.reference}}</a>
         </td>
 
         <!-- "reference":"GO_REF:0000002", -->
         <!-- http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000002  -->
-        <td><span ng-repeat="ref in goTuple.withList">
+        <td><span class="pseudo-link" ng-repeat="ref in goTuple.withList">
                                   <a ng-href="{{ref | withUrlFilter}}" target="_blank">{{ref}}</a>
                                   </span>
         </td>
