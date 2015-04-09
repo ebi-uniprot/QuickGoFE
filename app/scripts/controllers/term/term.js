@@ -7,6 +7,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   //Initialize data
   var currentdate = new Date();
   console.log("IN CONTROLLER", currentdate);
+  $scope.isLoading=1;
 
   /*Parse the url to get the termid*/
   var pathVals =$location.path().split("/");
@@ -27,6 +28,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
    */
   $http.get(formattedURL+termId).success(function(data) {
     $scope.termModel = data;
+    $scope.isLoading=0;
     console.log($scope.termModel);
 
     setupBasketButton($scope.termModel);
