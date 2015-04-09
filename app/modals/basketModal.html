@@ -1,81 +1,51 @@
 <div class="Modal-box">
   <div id="basket-contents-show" style="top: 34px;">
-    <div id="closeBasket">
-      <span class="basketText">(max 400 entries)</span>
-      <!--<img src="images/shopping2.png" ng-click="showBasket()"/>-->
-      <button class="btn btn-primary" ng-click="ok()">OK</button>
-    </div>
+    <strong>Max 400 entries</strong>
 
     <div id="filledBasketContents" style="display: block;">
-      <!--<c:choose>-->
-      <!--<c:when test="${empty sessionScope.basketTerms}">-->
-      <!--<h3>Your basket is currently empty.</h3>-->
-      <!--<p>-->
-      <!--You can add a GO term to the Term Basket by clicking on the <element class="icon icon-static" data-icon="b"></element> icon that appears next to its identifier in QuickGO.<br>-->
-      <!--</p>-->
-      <!--</c:when>-->
-      <!--<c:otherwise>-->
+
+      <!--Show message if the basket is empty-->
+      <div ng-show="basketItems.length==0">
+        <h3> Your basket is currently empty.</h3>
+        <p>You can add a GO term to the Term Basket by clicking on the <element class="icon icon-static" data-icon="b"></element> icon that appears next to its identifier in QuickGO.</p>
+      </div>
+
+      <!--List GO Terms in the basket-->
       <div id="basketTableDiv">
         <table id="basketTermsTable">
           <thead>
           <tr>
-            <th><span id="idHeader"><span class="expanderHeading"><span
-              title="Term ID"
-              class="tooltipped">Term ID</span></span><span class="expander"></span></span></th>
-            <th><span id="entry_nameHeader"><span
-              class="expanderHeading"><span
-              title="Term name"
-              class="tooltipped">Term name</span></span><span class="expander"></span></span></th>
+            <th>Term ID</th>
+            <th>Term name</th>
             <th>Remove</th>
           </tr>
           </thead>
           <tbody id="basketTermsRows" class="basket-rows">
-          <!--<c:forEach var="basketItem" items="${sessionScope.basketTerms}">-->
-          <!--<tr><td><a href="<c:url value="/"/>term/${basketItem.key}">${basketItem.key}</a></td><td>${basketItem.value}</td><td><element id="remove_term_${basketItem.key}" class='remove-term enabled icon icon-functional' data-icon='d' title="Remove"></element></td></tr>-->
-          <!--</c:forEach>-->
           <tr ng-repeat="basketItem in basketItems">
-            <!--<td><span ng-click="term('{{basketItem.goId}}')" style="background:none!important; border:none; padding:0!important; /*border is optional*/ border-bottom:1px solid #444; cursor: pointer;">{{basketItem.goId}}</span></td>-->
-            <td><a><span ng-click="term('{{basketItem.goId}}')">{{basketItem.goId}}</span></a></td>
-
-            <td>{{basketItem.termName}}</td>
+            <td><a><span ng-click="term('{{basketItem.termId}}')">{{basketItem.termId}}</span></a></td>
+            <td>{{basketItem.name}}</td>
             <td><img src="images/cross.png" ng-click="removeItem(basketItem)"/></td>
           </tr>
           </tbody>
         </table>
       </div>
-      <!--</c:otherwise>-->
-      <!--</c:choose>-->
+
       <div class="clearfix"><p/></div>
+    </div>
+      <!-- Enter GO Terms Directly-->
       Enter a list of terms to be added to your basket:
-      <textarea id="termsListToAdd"style="width:80%;height:55px"></textarea>
-      <a title="Add terms" class="button add-terms" href="#" id="add-list-terms-button">Add terms</a>
-      <!--<script>-->
-      <!--removeTermFromBasketFunctionality();-->
-      <!--addListTermsToBasketFunctionality();-->
-      <!--</script>-->
-    </div>
+      <form ng-submit="submit(basketModal)">
+      <textarea id="termsListToAdd" style="width:80%;height:55px" ng-model="basketModal.text"></textarea>
 
-    <div id="basket-actions" style="display: block;">
-      <!--<c:set var="display" value="" />	-->
-      <!--<c:if test="${empty sessionScope.basketTerms}">-->
-      <!--<c:set var="display" value="disabled" />-->
-      <!--</c:if>-->
-      <ul class="action-buttons-grouped">
-        <!-- <li><a id="basket-download-button" href="#"
-                  class="${display} button icon icon-functional download"
-                  title="Download results" data-icon="=">Download</a></li>
-              <li id="view-basket-annotations" style="float: right"><a href="" class="button ${display} fullView"
-                  title="View annotations">View annotations</a></li>-->
-        <li id="clear-basket-button" style="float: right"><a href="#" class="button ${display} clear"
-                                                             title="Clear basket">Clear</a></li>
-        <li id="display-terms-graph-basket" style="float: right"><a href="#" class="button ${display}"
-                                                                    title="Display terms in Ancestor Chart">Display terms in Ancestor Chart</a></li>
+        <div>
 
-      </ul>
-      <!--<script>-->
-      <!--setBasketButtonsFunctionality();-->
-      <!--generateTermsBasketOntologyGraphFunctionality();-->
-      <!--</script>-->
-    </div>
+          <input type="submit" id="submit" value="Submit" />
+          <button  ng-click="ok()">Close</button>
+          <button ng-click="ancestorChart()">Display terms in Ancestor Chart</button>
+        </div>
+
+      </form>
+
   </div><!--End of basket-->
+
 </div>
