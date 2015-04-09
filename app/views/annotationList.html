@@ -26,7 +26,7 @@
 
     <!--Basket start -->
     Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
-    <button class"btn btn-default" ng-click="showBasket()">Show Basket</button>
+    <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
     <!--Basket end -->
 
     <!--Show current page number and total annotations-->
@@ -50,14 +50,14 @@
         </td>
         <td>{{goTuple.symbol}}</td>
         <td>{{goTuple.qualifier}}</td>
-        <td style="white-space: nowrap;"><img src="images/shopping2.png" ng-click="addItem('{{goTuple.goId}}','{{goTuple.termName}}')"/>
+        <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addItem('{{goTuple.goId}}','{{goTuple.termName}}')"></element>
           <span class="pseudo-link" ng-click="showOntologyGraph('{{goTuple.goId}}','{{goTuple.termName}}')">{{goTuple.goId}}</span>
         </td>
         <td>{{goTuple.termName}}</td>
         <td>{{goTuple.aspect}}</td>
         <td><a class="ontologygraph" id="ontologygraph_{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>&nbsp;<a
           href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">(IEA)</a></td>
-        <td><a class="pseudo-link"
+        <td><a
           ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}">{{goTuple.reference}}</a>
         </td>
 
