@@ -365,14 +365,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   };
 
 
-
-  //$scope.filterByTaxon = function(){
-  //
-  //    getResultsPage(1);
-  //
-  //}
-
-
   /**
    * ------------------------------------ Filtering Sidebar Code --------------------------------------------------
    */
@@ -412,7 +404,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 /**
  * Show the GO ontology graph image modal on request
  */
-$scope.showOntologyGraph = function (goId, title) {
+$scope.showOntologyGraph = function (termId, title) {
 
   var modalInstance = $modal.open({
     templateUrl: 'modals/ontologyGraphModal.html',
@@ -421,7 +413,7 @@ $scope.showOntologyGraph = function (goId, title) {
     scope: $scope,
     resolve: {
       goModel: function () {
-        return {id:goId, name:title};
+        return {id:termId, name:title};
       }
     }
   });

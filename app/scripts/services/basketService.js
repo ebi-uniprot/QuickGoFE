@@ -40,14 +40,22 @@ basketModule.factory('basketService', function($cookieStore) {
    * @param basketItem
    */
   basketList.removeBasketItem = function (basketItem) {
-    console.log("Remove from cookie" + basketItem.goId);
+    console.log("BASKET SERVICE: removeBasketItem");
+
+    console.log("Remove from cookie",basketItem);
     var basketLen = -1;
-    var i;
+
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
     console.log("items:: ", items);
+
+    var i;
     for (i = 0, basketLen = items.length; i < basketLen; i++) {
-      if (items[i].goId == basketItem.goId) {
+
+      console.log("testing basket item ", i);
+
+      if (items[i].termId == basketItem.termId) {
         items.splice(i, 1);
+        basketLen--;
       }
       $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
     }
@@ -69,6 +77,11 @@ basketModule.factory('basketService', function($cookieStore) {
   }
 
 
+  /**
+   *
+   * @param searchGoId
+   * @returns {boolean}
+   */
   basketList.containsItem = function (searchGoId){
     console.log("contains items called ", searchGoId);
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
@@ -77,7 +90,7 @@ basketModule.factory('basketService', function($cookieStore) {
     var i;
     for (i = 0, basketLen = items.length; i < basketLen; i++) {
       console.log("Have found in the cookie store ", items[i]);
-      if (searchGoId == items[i].goId) {
+      if (searchGoId == items[i].termId) {
         console.log("Found in cookie list")
         return true;
       }

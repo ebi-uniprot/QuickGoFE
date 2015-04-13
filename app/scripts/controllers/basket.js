@@ -6,10 +6,12 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, b
 
 
   $scope.basketItems = basketService.getItems();
-
+  console.log("The contents of the basket are ", $scope.basketItems);
+  $scope.isLoading = 0;
 
   $scope.removeItem = function(basketItem){
-    console.log("Remove item in basket.js")
+    console.log("REMOVE ITEM from BASKET");
+
     basketService.removeBasketItem(basketItem);
 
     //update displayed list
@@ -27,9 +29,18 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, b
    * Pass that list to the filtering service.
    */
   $scope.submit = function(basketModal){
+    console.log("SUBMIT CALLED");
 
+    //Show loading screen
+    $scope.isLoading = 1;
 
-    console.log("In the basket modal ");
+    //This method is entered even when close-> ok() is called
+    //todo this is a hack to get round this -- fix it.
+    if(basketModal == undefined){
+      return;
+    }
+
+    console.log("Content of the basketModal", basketModal);
     // console.log("get the text area value", advancedFilters);
     //filteringService.setFilters(advancedFilters);
 
@@ -46,21 +57,59 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, b
     //look up GO Term based on the id
     //and save the resulting data to the basket.
 
-    basketModal.text.replace(/\t/g, " ");   //tab
-    basketModal.text.replace(/\r\n/g, " "); //Windows
-    basketModal.text.replace(/\n/g, " ");   //The linux
+    basketModal.text = basketModal.text.replace(/\t/g, " ");   //tab
+    basketModal.text = basketModal.text.replace(/\n/g, " ");   //The linux
+    basketModal.text = basketModal.text.replace(/\r\n/g, " "); //Windows
+
+    console.log("content of basketModal after replace", basketModal);
     var goIds = basketModal.text.split(" ");
 
-    var k =-1;
-    for(k=0; k<goIds.size; k++){
+    console.log("content of goids", goIds);
+    console.log(goIds.length);
 
-      var termData=term.query({termId : goIds[k]});
-      console.log(termData);
+    var k =-1;
+    for(k=0; k<goIds.length; k++){
+
+      console.log("Might add to the basket", goIds[k]);
+
+      var termId = goIds[k].trim();
+      if(termId=="")continue;
+
+      //Retrieval of term data is asynchronous
+      console.log("attempting query for termId", termId);
+      term.query({termId : termId}, function(termData){
+
+        console.log("found term data ", termData);
+
+        var savedTermId = termData.termId;
+        var savedName = termData.name;
+        console.log("saved term id ", savedTermId);
+        console.log("savedName ", savedName);
+
+        var basketItem = {termId: savedTermId, name: savedName};
+        console.log("Adding basket item to basket ", basketItem);
+
+        basketService.addBasketItem(basketItem);
+
+        //Tell the value in the annotation list controller holding the number of basket items to update
+        var qtyInBasket = basketService.basketQuantity();
+        console.log("the quantity in the basket is " + qtyInBasket);
+
+        $scope.$emit('basketUpdate', basketService.basketQuantity());
+
+        //reload basketItems list
+        $scope.basketItems = basketService.getItems();
+
+        $scope.isLoading = 0;
+      });
+
+
     }
 
-    //var basketItem = {termId:termId, name:termName};
-    //console.log(basketService.addBasketItem(basketItem));
-    //$scope.countBasket = basketService.getItems().length;
+    //Clear the input text field
+    $scope.basketModal.text="";
+
+
 
   }
 
