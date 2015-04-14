@@ -18,76 +18,23 @@
                   target="_blank">
           </span>
         <span ng-repeat="legendNode in graphImage.legendNodes">
+          <div ng-mouseover="formattedTooltip(legendNode.topic)">
           <area shape="rect"
+                id="{{legendNode.topic}}"
                 class="relationHelp"
                 coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                ng-if="legendNode.topic == 'is_a'"
-                popover-placement="bottom"
-                popover="Term A is_a term B means that term A is a subtype of term B.For example, 'transcription' is a
-                 type of 'nucleic acid metabolic process'."
-                popover-trigger="mouseenter">
-          <area shape="rect"
-                class="relationHelp"
-                coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                ng-if="legendNode.topic == 'part_of'"
-                popover-placement="bottom"
-                popover="Term A part_of term B means that term A is always a part of term B. For example,
-                 'transcription' is always a part of 'gene expression'."
-                popover-trigger="mouseenter">
-          <area shape="rect"
-                class="relationHelp"
-                coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                ng-if="legendNode.topic == 'regulates'"
-                popover-placement="bottom"
-                popover="Term A regulates term B means that term A regulates term B, but term B may not always be
-                 regulated by term A." popover-trigger="mouseenter">
-           <area shape="rect"
-                 class="relationHelp"
-                 coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                 ng-if="legendNode.topic == 'positively_regulates'"
-                 popover-placement="bottom"
-                 popover="A sub-relation of the 'regulates' relationship. Term A positively_regulates term B means
-                  that term B is positively regulated by term A."
-                 popover-trigger="mouseenter" >
-           <area shape="rect"
-                 class="relationHelp"
-                 coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                 ng-if="legendNode.topic == 'negatively_regulates'"
-                 popover-placement="bottom"
-                 popover="A sub-relation of the 'regulates' relationship. Term A negatively_regulates term B means
-                  that term B is negatively regulated by term A."
-                 popover-trigger="mouseenter">
-           <area shape="rect"
-                 class="relationHelp"
-                 coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                 ng-if="legendNode.topic == 'has_part'"
-                 popover-placement="bottom"
-                 popover="has_part means that term B always has as part of it term A, but term A may exist
-                 independently of term B. For example, 'protein binding trancription factor activity' always has
-                 as a part of it 'protein binding' but 'protein binding' may occur independently of transcription
-                 factor activity. Note that has_part is not a transitive relationship, meaning there is NO
-                 implication that gene products annotated to term A could also be correctly associated with term
-                 B or any of its parent terms. Has_part should be read in the opposite direction to the other
-                 relationships."
-                 popover-trigger="mouseenter">
-           <area shape="rect"
-                 class="relationHelp"
-                 coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                 ng-if="legendNode.topic == 'occurs_in'"
-                 popover-placement="bottom"
-                 popover="This relation is used for inter-ontology links between the Biological Process ontology
-                  and the Cellular Component ontology, for example 'mitochondrial translation' occurs_in 'mitochondrion'."
-                 popover-trigger="mouseenter">
-           <area shape="rect"
-                 class="relationHelp"
-                 coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                 ng-if="legendNode.topic == 'used_in'"
-                 popover-placement="bottom"
-                 popover="Documentation coming shortly..."
-                 popover-trigger="mouseenter">
-
+                tooltip-html-unsafe="{{tooltip}}" tooltip-placement="left">
+          </div>
           </span>
 
+        <!--<script>-->
+          <!--// Create help tooltip for each relation-->
+          <!--console.log("In the tool tip help script");-->
+          <!--$('.relationHelp').each(function() {-->
+            <!--var id = $(this).attr('id');-->
+            <!--formattedTooltip(id);-->
+          <!--});-->
+        <!--</script>-->
       </map>
 
   </div><!--End of modal for ontology hierarchy-->
