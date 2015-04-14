@@ -2,7 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, basketService, term ) {
+app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $modal, basketService, term ) {
 
 
   $scope.basketItems = basketService.getItems();
@@ -114,13 +114,45 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, b
   }
 
 
-
-
   $scope.term = function(goId){
     $modalInstance.dismiss('forward');
     console.log("forward to term");
     $location.path("/term/"+goId); // path not hash
   }
+
+
+  /**
+   * Show the Ancestors graph image modal on request.
+   * Turn the list of basket items into to comma delimited list
+   */
+  $scope.showAncestorGraph = function () {
+
+
+    //currentList = basketService.getItems();
+
+    var k=0;
+    var itemString="";
+    for(k=0;k<$scope.basketItems.length;k++ ){
+      itemString = itemString+$scope.basketItems[k].termId;
+      itemString=itemString+',';
+    }
+
+    console.log("Item String", itemString);
+
+
+    var modalInstance = $modal.open({
+      templateUrl: 'modals/ancestorChartModal.html',
+      controller: 'AncestorChartCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope,
+      resolve: {
+        chartRequest: function () {
+          return {ids:itemString};
+        }
+      }
+    });
+
+  };
 
 
   /**

@@ -11,27 +11,44 @@ app.controller('AncestorChartCtrl', function($scope, $http, $modalInstance, targ
 
   //var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+goModel.id;   //single version
   var formattedURL=targetDomainAndPort+'/ws/graphmulti?ids='+chartRequest.ids;
-  //var chartURL=targetDomainAndPort;
+  var chartURL=targetDomainAndPort;
 
   console.log("Chart Full url", formattedURL);
 
 
   $http.get(formattedURL).success(function(data) {
-    console.log("got the response back ", data);
+    console.log("got the Chart Full response back ", data);
     $scope.isLoading=0;
     $scope.graphImage = data;
 
 
-    var jsongraphsSrc = $scope.graphImage.graphImageSrc.replace("graphs", "jsongraphs");
-
     //Now get the image data
-    var jsongraphsURL=targetDomainAndPort+'/'+jsongraphsSrc;
-    console.log("Getting the jsongraphsURL ", jsongraphsURL);
+    chartURL=targetDomainAndPort+'/'+$scope.graphImage.graphImageSrc;
+    console.log("Getting the charturl ", chartURL);
 
-    $http.get(jsongraphsURL).success(function(imgdata) {
+    //$http.get({
+    //  url: chartURL,
+    //  method: 'GET',
+    //  transformResponse: undefined
+    //}).success(function(imgdata) {
+    //  console.log("got the response back ", imgdata);
+    //  $scope.imgdata = imgdata;
+    //});
+
+    $scope.imgdata = "data:image/png;base64, ";
+
+    $http.get(chartURL,{
+      method: 'GET',
+      transformResponse: undefined
+    }).success(function(imgdata) {
       console.log("got the response back ", imgdata);
-      $scope.imgdata = imgdata;
+      $scope.imgdata = $scope.imgdata+imgdata;
     });
+
+    //$http.get(chartURL).success(function(imgdata) {
+    //  console.log("got the response back ", imgdata);
+    //  $scope.imgdata = imgdata;
+    //});
 
   });
 
