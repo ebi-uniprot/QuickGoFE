@@ -86,6 +86,10 @@ var app = angular
         templateUrl: 'views/slimming/slimming2.html',
         controller: 'GOSlimCtrl2'
       })
+      .when('/statistics', {
+        templateUrl: 'views/statistics.html',
+        controller: 'StatisticsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
