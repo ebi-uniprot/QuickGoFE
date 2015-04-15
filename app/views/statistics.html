@@ -1,5 +1,5 @@
 
-<div id="statisticsMainContent" class="mainContent grid_10" style="display: none" ng-controller="StatisticsCtrl">
+<div id="statisticsMainContent" class="mainContent grid_10" ng-controller="StatisticsCtrl">
 	<ul class="action-buttons-grouped decorated" id="resultActionStatsButtons">
 		<li id="downloadStatsItem"><a id="download-stats-button" title="Download statistics" class="icon icon-functional button tooltipped" data-icon="=">Download</a>
 		</li>
@@ -28,8 +28,8 @@
 			Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation set that you have selected; if you perform any filtering or ID mapping 				operations, the statistics displayed will alter accordingly.
 			You can find full details of the datasets that comprise the full annotation set <a target="_blank" href=<c:url value="/"/>dataset>here</a>.
 			<table style="width:30%">
-				<tr><td><strong>Number of annotations</strong></td><td>${totalNumberAnnotations}</td></tr>
-				<tr><td><strong>Number of distinct proteins</strong></td><td>${totalNumberProteins}</td></tr>
+				<tr><td><strong>Number of annotations</strong></td><td>{{totalNumberAnnotations}}</td></tr>
+				<tr><td><strong>Number of distinct proteins</strong></td><td>{{totalNumberProteins}}</td></tr>
 			</table>
 		</div>
 		<div id="statsGOID">
@@ -42,9 +42,14 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="annByGOID" items="${statsBean.annotationsPerGOID}">
-							<tr><td><strong>GO:${annByGOID.code}</strong></td><td>${annByGOID.name}</td><td>${annByGOID.percentage}</td><td>${annByGOID.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="annByGOID" items="{{statsBean.annotationsPerGOID}}">-->
+							<tr ng-repeat="annByGOID in statsBean.annotationsPerGOID">
+                <td><strong>GO:{{annByGOID.code}}</strong></td>
+                <td>{{annByGOID.name}}</td>
+                <td>{{annByGOID.percentage}}</td>
+                <td>{{annByGOID.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 			<div class="grid_5">
@@ -56,9 +61,14 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="protByGOID" items="${statsBean.proteinsPerGOID}">
-							<tr><td><strong>GO:${protByGOID.code}</strong></td><td>${protByGOID.name}</td><td>${protByGOID.percentage}</td><td>${protByGOID.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="protByGOID" items="${statsBean.proteinsPerGOID}">-->
+							<tr ng-repeat="protByGOID in statsBean.proteinsPerGOID">
+                <td><strong>GO:{{protByGOID.code}}</strong></td>
+                <td>{{protByGOID.name}}</td>
+                <td>{{protByGOID.percentage}}</td>
+                <td>{{protByGOID.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 		</div>
@@ -71,9 +81,13 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="annByAspect" items="${statsBean.annotationsPerAspect}">
-							<tr><td><strong>${annByAspect.code}</strong></td><td>${annByAspect.percentage}</td><td>${annByAspect.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="annByAspect" items="${statsBean.annotationsPerAspect}">-->
+							<tr ng-repeat="annByAspect in statsBean.annotationsPerAspect">
+                <td><strong>{{annByAspect.code}}</strong></td>
+                <td>{{annByAspect.percentage}}</td>
+                <td>{{annByAspect.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 			<div class="grid_5">
@@ -84,9 +98,13 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="protByAspect" items="${statsBean.proteinsPerAspect}">
-							<tr><td><strong>${protByAspect.code}</strong></td><td>${protByAspect.percentage}</td><td>${protByAspect.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="protByAspect" items="${statsBean.proteinsPerAspect}">-->
+							<tr ng-repeat="protByAspect in statsBean.proteinsPerAspect">
+                <td><strong>{{protByAspect.code}}</strong></td>
+                <td>{{protByAspect.percentage}}</td>
+                <td>{{protByAspect.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 		</div>
@@ -100,9 +118,14 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="annByEvidence" items="${statsBean.annotationsPerEvidence}">
-							<tr><td><strong>${annByEvidence.code}</strong></td><td>${annByEvidence.name}</td><td>${annByEvidence.percentage}</td><td>${annByEvidence.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="annByEvidence" items="${statsBean.annotationsPerEvidence}">-->
+							<tr ng-repeat="annByEvidence in statsBean.annotationsPerEvidence">
+                <td><strong>{{annByEvidence.code}</strong></td>
+                <td>{{annByEvidence.name}}</td>
+                <td>{{annByEvidence.percentage}</td>
+                <td>{{annByEvidence.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 			<div class="grid_5">
@@ -114,9 +137,14 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="protByEvidence" items="${statsBean.proteinsPerEvidence}">
-							<tr><td><strong>${protByEvidence.code}</strong></td><td>${protByEvidence.name}</td><td>${protByEvidence.percentage}</td><td>${protByEvidence.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="protByEvidence" items="${statsBean.proteinsPerEvidence}">-->
+							<tr ng-repeat="protByEvidence in statsBean.proteinsPerEvidence">
+                <td><strong>{{protByEvidence.code}}</strong></td>
+                <td>{{protByEvidence.name}}</td>
+                <td>{{protByEvidence.percentage}}</td>
+                <td>{{protByEvidence.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 		</div>
@@ -129,9 +157,13 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="annByReference" items="${statsBean.annotationsPerReference}">
-							<tr><td><strong>${annByReference.code}</strong></td><td>${annByReference.percentage}</td><td>${annByReference.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="annByReference" items="${statsBean.annotationsPerReference}">-->
+							<tr ng-repeat="annByReference in statsBean.annotationsPerReference">
+                <td><strong>{{annByReference.code}}</strong></td>
+                <td>{{annByReference.percentage}}</td>
+                <td>{{annByReference.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 			<div class="grid_5">
@@ -142,9 +174,13 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="protByReference" items="${statsBean.proteinsPerReference}">
-							<tr><td><strong>${protByReference.code}</strong></td><td>${protByReference.percentage}</td><td>${protByReference.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="protByReference" items="${statsBean.proteinsPerReference}">-->
+							<tr ng-repeat="protByReference in statsBean.proteinsPerReference">
+                <td><strong>{{protByReference.code}}</strong></td>
+                <td>{{protByReference.percentage}}</td>
+                <td>{{protByReference.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 		</div>
@@ -158,9 +194,14 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="annByTaxon" items="${statsBean.annotationsPerTaxon}">
-							<tr><td><strong>${annByTaxon.code}</strong></td><td>${annByTaxon.name}</td><td>${annByTaxon.percentage}</td><td>${annByTaxon.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="annByTaxon" items="${statsBean.annotationsPerTaxon}">-->
+							<tr ng-repeat="annByTaxon in statsBean.annotationsPerTaxon">
+                <td><strong>{{annByTaxon.code}</strong></td>
+                <td>{{annByTaxon.name}}</td>
+                <td>{annByTaxon.percentage}}</td>
+                <td>{{annByTaxon.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 			<div class="grid_5">
@@ -172,9 +213,14 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="protByTaxon" items="${statsBean.proteinsPerTaxon}">
-							<tr><td><strong>${protByTaxon.code}</strong></td><td>${protByTaxon.name}</td><td>${protByTaxon.percentage}</td><td>${protByTaxon.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="protByTaxon" items="${statsBean.proteinsPerTaxon}">-->
+							<tr ng-repeat="protByTaxon in statsBean.proteinsPerTaxon">
+                <td><strong>{{protByTaxon.code}}</strong></td>
+                <td>{{protByTaxon.name}}</td>
+                <td>{{protByTaxon.percentage}}</td>
+                <td>{{protByTaxon.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 		</div>
@@ -187,9 +233,13 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="annByAssignedBy" items="${statsBean.annotationsPerAssignedBy}">
-							<tr><td><strong>${annByAssignedBy.code}</strong></td><td>${annByAssignedBy.percentage}</td><td>${annByAssignedBy.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="annByAssignedBy" items="${statsBean.annotationsPerAssignedBy}">-->
+							<tr ng-repeat="annByAssignedBy in statsBean.annotationsPerAssignedBy">
+                <td><strong>{{annByAssignedBy.code}}</strong></td>
+                <td>{{annByAssignedBy.percentage}}</td>
+                <td>{{annByAssignedBy.count}}</td>
+              </tr>
+						<!--</c:forEach>-->
 				</table>
 
 			</div>
@@ -201,16 +251,15 @@
 							<th>%</th>
 							<th>Count</th>
 						</tr>
-						<c:forEach var="protByAssignedBy" items="${statsBean.proteinsPerAssignedBy}">
-							<tr><td><strong>${protByAssignedBy.code}</strong></td><td>${protByAssignedBy.percentage}</td><td>${protByAssignedBy.count}</td></tr>
-						</c:forEach>
+						<!--<c:forEach var="protByAssignedBy" items="${statsBean.proteinsPerAssignedBy}">-->
+							<tr>
+                <td><strong>{{protByAssignedBy.code}}</strong></td>
+                <td>{{protByAssignedBy.percentage}}</td>
+                <td>{{protByAssignedBy.count}}</td></tr>
+						<!--</c:forEach>-->
 				</table>
 			</div>
 		</div>
 	</div>
-	<script>
-		// Tabs
-		$("#statisticsTabs").tabs();
-	</script>
 
 </div>
