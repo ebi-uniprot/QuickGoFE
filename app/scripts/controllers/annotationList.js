@@ -14,8 +14,14 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    */
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+
+
   $scope.appliedFilters = [];
+
+  //The raw list of filters as they come back from the advanced filters modal
   $scope.advancedFilters = {};
+
+
   $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
   $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
@@ -27,10 +33,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     current: 1
   };
 
-  // Set up the default check box for the Evidence radio buttons
-  //$scope.advancedFilters.boolean = {};
-  //$scope.advancedFilters.boolean.evidenceType={};
-  //$scope.advancedFilters.boolean.evidenceType.evidenceType="ecoAncestorsI";
+
   $scope.evidenceSetter="ecoAncestorsI";
 
 
@@ -376,22 +379,13 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.showAdvancedFilters = function () {
 
     var modalInstance = $modal.open({
-      templateUrl: 'modals/advancedFiltersModal.html',
+      templateUrl: 'advancedfilters/advancedFiltersModal.html',
       controller: 'AdvancedFiltersCtrl',
       windowClass: 'app-modal-window',
       scope: $scope
-      //resolve: {
-      //  countBasket: function () {
-      //    return $scope.countBasket;
-      //  }
-      //}
+
     });
 
-    //modalInstance.result.then(function (selectedItem) {
-    //  $scope.selected = selectedItem;
-    //}, function () {
-    //  $log.info('Modal dismissed at: ' + new Date());
-    //});
   };
 
 
