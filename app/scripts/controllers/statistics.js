@@ -4,4 +4,6 @@
 app.controller('StatisticsCtrl', function($scope) {
 
  console.log("Statistics Controller");
+
+  $scope.isLoading = 1;
 });
