@@ -16,6 +16,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
 
 
+  //The filters from the advanced filters modal, taxon checkbox, and sidebar input boxes.
   $scope.appliedFilters = [];
 
   //The raw list of filters as they come back from the advanced filters modal
@@ -50,8 +51,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.$on('filtersUpdate', function(event, data) {
 
     //The filters service will now contain the filters
-    console.log("Filters update called in the annotation list");
-    populateAppliedFilters(data);
+    console.log("Filters update called in the annotation list", data);
+    filteringService.populateAppliedFilters(data);
+    $scope.appliedFilters = filteringService.getFilters();
+    console.log("After populating filters, loaded applied filters", $scope.appliedFilters);
 
     $scope.advancedFilters = data;
     getResultsPage(1);
@@ -62,159 +65,159 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * ------------------------------------ Local methods --------------------------------------------------
    */
 
-  function createQueryString(){
-
-    var queryString='';
-    var queryType='';
-    var typeString='';
-    for (i = 0  ; i < $scope.appliedFilters.length; i++) {
-
-      if(queryType!=$scope.appliedFilters[i].type ){
-
-        queryString=queryString + '"' + $scope.appliedFilters[i].type + '"' + ":";
-
-        queryType=$scope.appliedFilters[i].type;
-      }
-
-      queryString=queryString + '"' + $scope.appliedFilters[i].value + '"' + ',';
-
-    }
-
-    //Place query parameter
-    if(queryString.length>0){
-      queryString='&q='+queryString;
-
-    }
-
-    return queryString;
-  }
-
-
-
-  /**
-   * Parse the content of the applied filters model supplied form the advanced filters modal and form.
-   * //todo get rid of the quotes required around individual values. These have to be in there to make stuff work
-   */
-  function populateAppliedFilters(data){
-    //var appliedFilters = [];
-
-    console.log("Has own data", data);
-
-    for(var inputType in data) {
-
-      if (data.hasOwnProperty(inputType)) {
-        console.log("Input type", inputType);
-
-        //Don't process the following
-        //Input fields; text area etc
-        if (inputType == 'ignore') {
-          continue;
-        }
-
-        //Input fields; text area etc
-        if (inputType == 'text') {
-
-          var anInputType = data[inputType];
-          console.log("An Input type", anInputType);
-
-          //parse content
-          for (var property in anInputType) {
-            if (anInputType.hasOwnProperty(property)) {
-              console.log("Has own proerty", property);
-              var values = anInputType[property];
-              var res = values.split("\n");
-              console.log("res",res);
-              var i;
-              for (i = 0; i < res.length; i++) {
-
-                var aFilter = {type: property, value: res[i]};
-                saveAppliedFilter(aFilter);
-                //$scope.appliedFilters.push({type: property, value: res[i]});
-              }
-            }
-          }
-        }
-
-        //Checkboxes; radio buttons; select boxes etc
-        if (inputType == 'boolean') {
-
-          var anInputType = data[inputType];
-          console.log("An Input type", anInputType);
-
-          for (var filtertype in anInputType) {
-            if (anInputType.hasOwnProperty(filtertype)) {
-              console.log("Has own proerty", filtertype);
-
-              var filterKeys = anInputType[filtertype];
-
-              console.log("filterKeys", filterKeys);
-
-              for (var aFilterKey in filterKeys) {
-
-                var aFilterValue = filterKeys[aFilterKey];
-
-                //Don't include de-selected values
-                if(aFilterValue!='false') {
-
-                  console.log("aFilterValue", aFilterValue);
-
-                  var aFilter = {type: filtertype, value: aFilterValue};
-                  saveAppliedFilter(aFilter);
-                  //$scope.appliedFilters.push({type: filtertype, value: aFilterValue});
-                }
-              }
-            }
-          }
-        }
-
-        //Have to deal with drop down selects like this atm.
-        if(inputType == 'predefinedSlimSet'){
-
-          var anInputType = data[inputType];
-          console.log("An Input type", anInputType);
-
-          var value = anInputType['subset'];
-          console.log("A value", value);
-
-          var aFilter = {type: 'subSet', value: value};
-          saveAppliedFilter(aFilter);
-          //$scope.appliedFilters.push({type: 'subSet', value: value});
-        }
-      }
-    }
-  }
+  //function createQueryString(){
+  //
+  //  var queryString='';
+  //  var queryType='';
+  //  var typeString='';
+  //  for (i = 0  ; i < $scope.appliedFilters.length; i++) {
+  //
+  //    if(queryType!=$scope.appliedFilters[i].type ){
+  //
+  //      queryString=queryString + '"' + $scope.appliedFilters[i].type + '"' + ":";
+  //
+  //      queryType=$scope.appliedFilters[i].type;
+  //    }
+  //
+  //    queryString=queryString + '"' + $scope.appliedFilters[i].value + '"' + ',';
+  //
+  //  }
+  //
+  //  //Place query parameter
+  //  if(queryString.length>0){
+  //    queryString='&q='+queryString;
+  //
+  //  }
+  //
+  //  return queryString;
+  //}
 
 
-  /**
-   * Save the object to applied filters if it doesn't exist already
-   */
-  function saveAppliedFilter(aFilter){
-    console.log("save applied filter filter ", aFilter);
-    console.log('Content of applied Filters is', $scope.appliedFilters);
 
-    var j=-1;
-    var exists=0;
-    for(j=0; j<$scope.appliedFilters.length; j++){
-
-      if($scope.appliedFilters[j]=='undefined'){
-        continue;
-      }
-
-      console.log("what is j",j);
-
-      if($scope.appliedFilters[j].type == aFilter.value & $scope.appliedFilters[j].type == aFilter.value){
-        exists=1;
-      }
-    }
-
-
-    if(!exists) {
-
-      $scope.appliedFilters.push(aFilter);
-
-    }
-
-  }
+  ///**
+  // * Parse the content of the applied filters model supplied form the advanced filters modal and form.
+  // * //todo get rid of the quotes required around individual values. These have to be in there to make stuff work
+  // */
+  //function populateAppliedFilters(data){
+  //  //var appliedFilters = [];
+  //
+  //  console.log("Has own data", data);
+  //
+  //  for(var inputType in data) {
+  //
+  //    if (data.hasOwnProperty(inputType)) {
+  //      console.log("Input type", inputType);
+  //
+  //      //Don't process the following
+  //      //Input fields; text area etc
+  //      if (inputType == 'ignore') {
+  //        continue;
+  //      }
+  //
+  //      //Input fields; text area etc
+  //      if (inputType == 'text') {
+  //
+  //        var anInputType = data[inputType];
+  //        console.log("An Input type", anInputType);
+  //
+  //        //parse content
+  //        for (var property in anInputType) {
+  //          if (anInputType.hasOwnProperty(property)) {
+  //            console.log("Has own proerty", property);
+  //            var values = anInputType[property];
+  //            var res = values.split("\n");
+  //            console.log("res",res);
+  //            var i;
+  //            for (i = 0; i < res.length; i++) {
+  //
+  //              var aFilter = {type: property, value: res[i]};
+  //              saveAppliedFilter(aFilter);
+  //              //$scope.appliedFilters.push({type: property, value: res[i]});
+  //            }
+  //          }
+  //        }
+  //      }
+  //
+  //      //Checkboxes; radio buttons; select boxes etc
+  //      if (inputType == 'boolean') {
+  //
+  //        var anInputType = data[inputType];
+  //        console.log("An Input type", anInputType);
+  //
+  //        for (var filtertype in anInputType) {
+  //          if (anInputType.hasOwnProperty(filtertype)) {
+  //            console.log("Has own proerty", filtertype);
+  //
+  //            var filterKeys = anInputType[filtertype];
+  //
+  //            console.log("filterKeys", filterKeys);
+  //
+  //            for (var aFilterKey in filterKeys) {
+  //
+  //              var aFilterValue = filterKeys[aFilterKey];
+  //
+  //              //Don't include de-selected values
+  //              if(aFilterValue!='false') {
+  //
+  //                console.log("aFilterValue", aFilterValue);
+  //
+  //                var aFilter = {type: filtertype, value: aFilterValue};
+  //                saveAppliedFilter(aFilter);
+  //                //$scope.appliedFilters.push({type: filtertype, value: aFilterValue});
+  //              }
+  //            }
+  //          }
+  //        }
+  //      }
+  //
+  //      //Have to deal with drop down selects like this atm.
+  //      if(inputType == 'predefinedSlimSet'){
+  //
+  //        var anInputType = data[inputType];
+  //        console.log("An Input type", anInputType);
+  //
+  //        var value = anInputType['subset'];
+  //        console.log("A value", value);
+  //
+  //        var aFilter = {type: 'subSet', value: value};
+  //        saveAppliedFilter(aFilter);
+  //        //$scope.appliedFilters.push({type: 'subSet', value: value});
+  //      }
+  //    }
+  //  }
+  //}
+  //
+  //
+  ///**
+  // * Save the object to applied filters if it doesn't exist already
+  // */
+  //function saveAppliedFilter(aFilter){
+  //  console.log("save applied filter filter ", aFilter);
+  //  console.log('Content of applied Filters is', $scope.appliedFilters);
+  //
+  //  var j=-1;
+  //  var exists=0;
+  //  for(j=0; j<$scope.appliedFilters.length; j++){
+  //
+  //    if($scope.appliedFilters[j]=='undefined'){
+  //      continue;
+  //    }
+  //
+  //    console.log("what is j",j);
+  //
+  //    if($scope.appliedFilters[j].type == aFilter.value & $scope.appliedFilters[j].type == aFilter.value){
+  //      exists=1;
+  //    }
+  //  }
+  //
+  //
+  //  if(!exists) {
+  //
+  //    $scope.appliedFilters.push(aFilter);
+  //
+  //  }
+  //
+  //}
 
 
 
@@ -229,7 +232,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     console.log(targetDomainAndPort);
     $scope.isLoading=1;
 
-    var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?format=json';  //&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
+    var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?';  //&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
 
     //Add the taxon filters
     //var haveTaxonFilter=0;
@@ -244,7 +247,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     //  }
     //});
 
-    formattedURL=formattedURL+createQueryString();
+    formattedURL=formattedURL+filteringService.createQueryString();
     //var filterString = filteringService.toQueryString();
     console.log("Query url", formattedURL);
 
