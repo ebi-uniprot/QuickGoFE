@@ -1,17 +1,24 @@
 /**
- * Created by twardell on 04/03/2015.
+ * Created by twardell on 04/03/2015
+ * This controller handles the creation and initial processing of the advanced filters modal.
  */
 app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location, basketService, evidencetypes, withDBs,
                                                assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets) {
 
+
+  $scope.advancedFilters = {};
+
   /**
-   * Basket items are used by the go identifer tab
+   * ---------------------------------------   Data loading Operations    --------------------------------------------
    */
+
+  //Basket items are used by the go identifer tab
   $scope.basketItems = basketService.getItems();
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.referenceList = hardCodedDataService.getFilterReferences();
   $scope.qualifiers = hardCodedDataService.getQualifiers();
-  $scope.advancedFilters = {};
+
+
 
   /**
    * Get predefined slim sets
@@ -68,7 +75,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
 
 
   /**
-   * Button related functions
+   * ---------------------------------------   Button related functions   --------------------------------------------
    */
 
   $scope.cancel  = function(){
@@ -88,7 +95,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
 
     //Tell parent page this value has been updated.
 
-    $scope.$emit('filtersUpdate', advancedFilters);
+    $scope.$emit('filtersUpdate', advancedFilters);   //todo change this so is notification only
 
     //Now go back to the annotation list
     $modalInstance.dismiss('cancel');
@@ -102,5 +109,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   $scope.ok = function () {
     $modalInstance.dismiss('cancel');
   };
+
 });
 
