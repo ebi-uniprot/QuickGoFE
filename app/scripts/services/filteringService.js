@@ -5,8 +5,8 @@
  * The contents are a list of things by which the annotation page is being  filtered.
  * The inputs from this service are the sidebar on the annotation page itself, or the 'Advanced Filtering' modal
  * available from the annotation list page.
- * The annotation list controller should make a call to this service before it does anything to find out what filters
- * have been specified.
+ * The annotation list controller and statistics controller  should make a call to this service before it does anything
+ * to find out what filters have been specified.
  *
  * This service will hold a list of records with 3 attributes
  * TYPE: this corresponds to the tab heading on the advanced filtering modal
