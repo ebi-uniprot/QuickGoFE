@@ -13,7 +13,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * Initialisation
    */
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
-  $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+  //$scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
 
 
   //The filters from the advanced filters modal, taxon checkbox, and sidebar input boxes.
@@ -37,7 +37,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   $scope.evidenceSetter="ecoAncestorsI";
 
-
   $rootScope.header = "QuickGO::Annotation List";
 
   /**
@@ -51,8 +50,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.$on('filtersUpdate', function(event, data) {
 
     //The filters service will now contain the filters
-    console.log("Filters update called in the annotation list", data);
-    filteringService.populateAppliedFilters(data);
+    //console.log("Filters update called in the annotation list", data);
+    //filteringService.populateAppliedFilters(data);
+
+    //Retrieve parsed filters
     $scope.appliedFilters = filteringService.getFilters();
     console.log("After populating filters, loaded applied filters", $scope.appliedFilters);
 
@@ -139,46 +140,46 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   };
 
 
-  /**
-   * Show the common taxons used for filtering
-   * @param taxon
-   * @param showAll
-   * @returns {boolean}
-   */
-  $scope.showCommonTaxon=function(taxon, showAll){
+  ///**
+  // * Show the common taxons used for filtering
+  // * @param taxon
+  // * @param showAll
+  // * @returns {boolean}
+  // */
+  //$scope.showCommonTaxon=function(taxon, showAll){
+  //
+  //  if($scope.showAll==="" || $scope.showAll==='false')
+  //  {
+  //    //Only show selected
+  //    return (taxon.taxId=='9606'|taxon.taxId=='10090'|taxon.taxId=='10116');
+  //  }
+  //  return true;
+  //};
 
-    if($scope.showAll==="" || $scope.showAll==='false')
-    {
-      //Only show selected
-      return (taxon.taxId=='9606'|taxon.taxId=='10090'|taxon.taxId=='10116');
-    }
-    return true;
-  };
 
+  ///**
+  // * Remove filter from applied filters
+  // * @param filter
+  // */
+  //$scope.removeFilter=function(filter) {
+  //  var filterLen = -1;
+  //  var i;
+  //
+  //  for (i = 0  ; i < $scope.appliedFilters.length; i++) {
+  //
+  //    if ($scope.appliedFilters[i].type == filter.type) {
+  //
+  //      if ($scope.appliedFilters[i].value == filter.value) {
+  //         $scope.appliedFilters.splice(i, 1);
+  //
+  //      }
+  //    }
+  //  }
 
-  /**
-   * Remove filter from applied filters
-   * @param filter
-   */
-  $scope.removeFilter=function(filter) {
-    var filterLen = -1;
-    var i;
-
-    for (i = 0  ; i < $scope.appliedFilters.length; i++) {
-
-      if ($scope.appliedFilters[i].type == filter.type) {
-
-        if ($scope.appliedFilters[i].value == filter.value) {
-           $scope.appliedFilters.splice(i, 1);
-
-        }
-      }
-    }
-
-    //Reload the page now that we have less filters
-    console.log("Reload the page now that we have less filters");
-    getResultsPage(1);
-  };
+  //  //Reload the page now that we have less filters
+  //  console.log("Reload the page now that we have less filters");
+  //  getResultsPage(1);
+  //};
 
   /**
    * Show the basket modal on request
