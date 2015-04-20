@@ -16,7 +16,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
   //The filters from the advanced filters modal, taxon checkbox, and sidebar input boxes.
+  //We may arrive at this page from the statistics page (or others) so will need to load the
+  //selected filters at page initialisation time.
   $scope.appliedFilters = [];
+  $scope.appliedFilters = filteringService.getFilters();
 
   //The raw list of filters as they come back from the advanced filters modal
   $scope.advancedFilters = {};
