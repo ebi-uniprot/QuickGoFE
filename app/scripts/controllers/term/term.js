@@ -2,7 +2,7 @@
  * Created by twardell on 02/02/2015.
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, basketService,
-                                    targetDomainAndPort) {
+                                    targetDomainAndPort, filteringService) {
 
   //Initialize data
   var currentdate = new Date();
@@ -65,6 +65,17 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
 
   });
 
+
+  /**
+   * ---------------------------------------------- Scope methods ----------------------------------------------------
+   */
+
+
+  /**
+   *
+   * @param goId
+   * @param termName
+   */
 
   $scope.addItem = function(goId, termName){
     var basketItem = {goId:goId, termName:termName};
@@ -137,4 +148,26 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
     $anchorScroll();
   };
 
+
+  /**
+   * Take the user to the annotation list page, where the results are filtered only by this term id.
+   * @param termId
+   */
+  $scope.showTermAnnotations = function(termId){
+
+    console.log("filter annotations by term ", termId);
+
+    filteringService.clearFilters();
+
+    //Create model to hold the term id to be filtered
+    var advancedFilters = {};
+    advancedFilters.text = {};
+    advancedFilters.text.goID = termId;
+
+    filteringService.populateAppliedFilters(advancedFilters);
+
+    //Now go back to the annotation list
+    $location.path("annotations");
+
+  }
 });
