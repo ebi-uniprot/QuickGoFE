@@ -11,15 +11,11 @@
   </div>
   <div class="clearfix"></div>
 
-  <!--<div ng-include src="'views/term/term-sidebar.html'"></div>-->
   <div class="sidebar grid_2">
     <div id="entrySidebar">
-      <div class="sidebarsubsection">
+      <div class="sidebarsubsection"  style="position: fixed">
         <h3 class="first">
           <strong>Display</strong>
-          <!-- <div class="sidebar-h-links">
-                      <a href="#" id="all">All</a>
-                  </div>-->
         </h3>
         <ul id="entry_sections">
           <li>
@@ -42,53 +38,45 @@
             <li>
               <div>
                 <input type="checkbox"ng-model="showChildTerms" ng-checked="showChildTerms">
-                <!--<span title="" id="child-terms" class="entryview-name-nav" ng-click="scrollTo('child-terms-section')">Child Terms</span>-->
                 Child Terms
-                <!--<button type="button"  ng-click="scrollTo('child-terms-section')" ng-disable="showChildTerms==false">&gt;</button>-->
               </div>
             </li>
             <li>
               <div>
                 <input type="checkbox" ng-model="showCoocurring" ng-checked="showCoocurring">
-                <!--<span title="" id="co-occurring-terms" class="entryview-name-nav" ng-click="scrollTo('co-occurring-terms-section')">Co-occurring Terms</span>-->
                 Co-occurring Terms
-                <!--<button type="button"  ng-click="scrollTo('co-occurring-terms-section')" ng-show="showCoocurring">&gt;</button>-->
               </div>
             </li>
             <li>
               <div>
                 <input type="checkbox" ng-model="showHistory" ng-checked="showHistory">
-                <!--<span title="" id="term-history" class="entryview-name-nav" ng-click="scrollTo('term-history-section')">Change Log</span>-->
                 Change Log
-                <!--<button type="button"  ng-click="scrollTo('term-history-section')" ng-show="showHistory">&gt;</button>-->
               </div>
             </li>
           </div>
         </ul>
-      </div>
-      <div>
-        <div ng-show="termModel.goTerm">
-          <element data-icon="i" id="show-term-annotations" class="closed icon icon-functional button" value="${term.id}"
-                   style="cursor:pointer">Show annotations
+
+                <span ng-show="termModel.goTerm">
+          <element data-icon="i" id="show-term-annotations" class="closed icon icon-functional button" value="{{termModel.termId}}"
+                   style="cursor:pointer" ng-click="showTermAnnotations(termModel.termId)">Show annotations
           </element>
-        </div>
+        </span>
+
       </div>
+
     </div>
   </div>
 
   <!--End of side bar information-->
 
   <!-- Main Content -->
-  <div class="mainContent grid_10">
+  <div class="mainContent grid_10" style="float:right">
     <div ng-show="termModel.goTerm">
       <ul class="action-buttons-grouped decorated" id="resultActionButtons">
         <div id="add-to-basket-div">
 
             <button ng-show="preventAddToBasket" disabled>Add to Basket</button>
             <button ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add to Basket</button>
-          <!--<script>-->
-            <!--showTermAnnotationsButton();-->
-          <!--</script>-->
         </div>
       </ul>
     </div>
@@ -118,23 +106,6 @@
       <!-- Change log -->
       <div ng-show="true" ng-include src="'views/term/history.html'"></div>
 
-      <!-- Ontology graphs -->
-      <!--<%@include file="/templates/ontologygraph.jsp"%>-->
-
-      <!-- Check if there is any section specified after # . In that case, focus the page on that section-->
-      <!--<script>-->
-        <!--var section = window.location.hash;-->
-        <!--if(section != ''){-->
-          <!--section = section.replace("#","");-->
-          <!--var checkbox = section + "-checkbox";-->
-          <!--$("#" + checkbox).prop("checked", true);-->
-          <!--section = section + "-section";-->
-          <!--$("#" + section).show();-->
-        <!--}-->
-        <!--$('html, body').animate({-->
-          <!--scrollTop : $("#" + section).offset().top-->
-        <!--}, 1000);-->
-      <!--</script>-->
     </div>
   </div>
   <div class="clearfix"></div>
