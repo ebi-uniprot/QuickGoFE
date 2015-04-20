@@ -84,16 +84,13 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   }
 
   /**
-   * Iterate through ALL selectable elements
-   * Create a list of selected ones
-   * Pass that list to the filtering service.
+   * Notify the filtering service with the submitted data
    */
   $scope.submit = function(advancedFilters){
 
-   // console.log("get the text area value", advancedFilters);
-    //filteringService.setFilters(advancedFilters);
+    filteringService.populateAppliedFilters(advancedFilters);
 
-    //Tell parent page this value has been updated.
+    //Tell annotations list this value has been updated.
 
     $scope.$emit('filtersUpdate', advancedFilters);   //todo change this so is notification only
 
