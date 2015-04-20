@@ -205,15 +205,24 @@ filteringModule.factory('filteringService', function() {
   };
 
   /**
-   * -------------------------------------------- Non public methods   ----------------------------------------
+   *
+   */
+  filteringService.clearFilters=function(){
+    console.log("Clearing filters");
+    filters = [];
+  };
+
+  /**
+   * -------------------------------------------- Non public methods ------------------------------------------
    */
 
   /**
    * Save the object to applied filters if it doesn't exist already
    */
   function saveAppliedFilter(aFilter){
-    console.log("save applied filter filter ", aFilter);
     console.log('Content of applied Filters is', filters);
+    console.log("save applied filter ", aFilter);
+
 
     var j=-1;
     var exists=0;
@@ -234,6 +243,8 @@ filteringModule.factory('filteringService', function() {
     if(!exists) {
       filters.push(aFilter);
     }
+
+    console.log('Content of applied Filters is now', filters);
 
   }
 
