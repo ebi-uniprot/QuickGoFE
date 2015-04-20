@@ -77,7 +77,9 @@ filteringModule.factory('filteringService', function() {
 
           //parse content
           for (var property in anInputType) {
+
             if (anInputType.hasOwnProperty(property)) {
+
               console.log("Has own proerty", property);
               var values = anInputType[property];
               var res = values.split("\n");
@@ -88,6 +90,9 @@ filteringModule.factory('filteringService', function() {
                 var aFilter = {type: property, value: res[i]};
                 saveAppliedFilter(aFilter);
                 //$scope.appliedFilters.push({type: property, value: res[i]});
+
+                //Clear the content of the text box.
+                anInputType[property] = "";
               }
             }
           }
@@ -101,7 +106,7 @@ filteringModule.factory('filteringService', function() {
 
           for (var filtertype in anInputType) {
             if (anInputType.hasOwnProperty(filtertype)) {
-              console.log("Has own proerty", filtertype);
+              console.log("Has own property", filtertype);
 
               var filterKeys = anInputType[filtertype];
 
@@ -112,13 +117,17 @@ filteringModule.factory('filteringService', function() {
                 var aFilterValue = filterKeys[aFilterKey];
 
                 //Don't include de-selected values
-                if(aFilterValue!='false') {
+                if(aFilterValue!=false) {
 
                   console.log("aFilterValue", aFilterValue);
 
                   var aFilter = {type: filtertype, value: aFilterValue};
                   saveAppliedFilter(aFilter);
                   //$scope.appliedFilters.push({type: filtertype, value: aFilterValue});
+                }else{
+                  console.log("Removing filter ", aFilter);
+                  var aFilter = {type: filtertype, value: aFilterValue};
+                  filteringService.removeFilter(aFilter);
                 }
               }
             }
@@ -175,6 +184,25 @@ filteringModule.factory('filteringService', function() {
   }
 
 
+  /**
+   * Remove filter from applied filters
+   * @param filter
+   */
+  filteringService.removeFilter=function(filter) {
+    var filterLen = -1;
+    var i;
+
+    for (i = 0  ; i < filters.length; i++) {
+
+      if (filters[i].type == filter.type) {
+
+        if (filters[i].value == filter.value) {
+          filters.splice(i, 1);
+
+        }
+      }
+    }
+  };
 
   /**
    * -------------------------------------------- Non public methods   ----------------------------------------
@@ -208,6 +236,9 @@ filteringModule.factory('filteringService', function() {
     }
 
   }
+
+
+
 
 
   return filteringService;
