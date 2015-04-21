@@ -90,6 +90,18 @@ var app = angular
         templateUrl: 'views/statistics.html',
         controller: 'StatisticsCtrl'
       })
+      .when('/terms/P', {
+        templateUrl: 'simplelist/ontologyTerms.html',
+        controller: 'OntologyTermsCtrl'
+      })
+      .when('/terms/F', {
+        templateUrl: 'simplelist/molecularfunction.html',
+        controller: 'MolecularFunctionListCtrl'
+      })
+      .when('/terms/C', {
+        templateUrl: 'simplelist/cellularcomponent.html',
+        controller: 'CellularComponentListCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -1,0 +1,13 @@
+<title>All GO terms in the {{ontology.ontology}} ontology</title>
+<style>
+  body {
+    background: none;
+  }
+</style>
+</head>
+<h2>All GO terms in the {{ontology.ontology}} ontology</h2>
+<ul>
+  <li ng-repeat="(key, value) in ontology.terms">
+    <a href="#/term/{{key}}">{{key}}</a>   {{value}}</a>
+  </li>
+</ul>
