@@ -98,3 +98,9 @@ wsService.factory('assignDBs', ['$resource', 'targetDomainAndPort', function($re
     query: {method:'GET',  isArray:true, Cache:true}
   });
 }]);
+
+  wsService.factory('ontologies', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort) {
+    return $resource(targetDomainAndPort + '/ws/terms/:ontology', {ontology: '@ontology'}, {
+      query: {method: 'GET', Cache: true}
+    });
+  }]);
