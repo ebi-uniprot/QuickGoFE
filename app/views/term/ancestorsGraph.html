@@ -1,30 +1,31 @@
-<div id="ancestor-chart-section"  ng-show="showAncestorChart">
+<div id="ancestor-chart-section"  ng-show="showAncestorChart" ng-controller="AncestorsGraphCtrl">
   <h3><strong>Ancestors Chart</strong></h3>
-  <div ng-if="termGraphImageSrc != '' && termGraphImageSrc != null">
-    <input type="hidden" id="termGraphImageWidth" value="${graphImageWidth}" />
-    <input type="hidden" id="termGraphImageHeight" value="${graphImageHeight}" />
-    <img id="ancestorsGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ancestorsgraphmap" style="max-width:none">
-    <!--<script>-->
-      <!--getGraphImage('<c:url value="/"/>${termGraphImageSrc}',true);-->
-    <!--</script>-->
+<h5 style="text-align:center"><strong>{{goModel.id}}&nbsp{{goModel.name}}</strong></h5>
+<img ng-show="isLoading" src="images/ajax-loader-80.gif">
+<!--<img src="data:image/png;base64, {{graphImageRaw}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >-->
+<img class="displayed" src="http://localhost:9080/ws/chart?ids={{goModel.id}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >
 
-    <map name="ancestorsgraphmap">
-        <area ng-repeat="termTermNode in termGraphImageSrc.termTermsNodes" shape="termArea"
-              coords="${termTermNode.left},${termTermNode.top},${termTermNode.right},${termTermNode.bottom}"
-              href="/term/{{termTermNode.id}}"
-        alt="Term {{termTermNode.id}}"
-        title="{{termTermNode.id}} - Click for more information" target="_blank">
-        <area ng-repeat="termLegendNode in termGraphImageSrc.termLegendNodes"  shape="termArea"
-              id="{{termLegendNode.topic}}"
-              class="relationHelp"
-              coords="{{termLegendNode.left}},{{termLegendNode.top}},{{termLegendNode.right}},{{termLegendNode.bottom}}"/>
-      <!--<script>-->
-        <!--// Create help tooltip for each relation-->
-        <!--$('.relationHelp').each(function() {-->
-          <!--var id = $(this).attr('id');-->
-          <!--formattedTooltip(id);-->
-        <!--});-->
-      <!--</script>-->
-    </map>
-  </div>
+
+<map name="ontologygraphmap">
+  <!--<c:if test="${not fn:containsIgnoreCase(termGraphTitle, 'ECO:')}">-->
+  <!-- ng-hide="graphImage.termGraphTitle.contains('ECO')"-->
+        <span  ng-repeat="layoutNode in graphImage.layoutNodes">
+            <area shape="rect"
+                  coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
+                  href="/#/term/{{layoutNode.id}}"
+                  alt="Term {{layoutNode.id}}"
+                  title="{{layoutNode.id}} - Click for more information"
+                  target="_blank">
+          </span>
+        <span ng-repeat="legendNode in graphImage.legendNodes">
+          <div ng-mouseover="formattedTooltip(legendNode.topic)">
+            <area shape="rect"
+                  id="{{legendNode.topic}}"
+                  class="relationHelp"
+                  coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
+                  tooltip-html-unsafe="{{tooltip}}" tooltip-placement="left">
+          </div>
+          </span>
+
+</map>
 </div>
