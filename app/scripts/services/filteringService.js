@@ -159,17 +159,12 @@ filteringModule.factory('filteringService', function() {
   filteringService.createQueryString =  function (){
 
     var queryString='';
-    var queryType='';
+    //var queryType='';
     var typeString='';
     for (i = 0  ; i < filters.length; i++) {
 
-      if(queryType!=filters[i].type ){
-
-        queryString=queryString + '"' + filters[i].type + '"' + ":";
-
-        queryType=filters[i].type;
-      }
-
+      //Always add type
+      queryString=queryString + '"' + filters[i].type + '"' + ":";
       queryString=queryString + '"' + filters[i].value + '"' + ',';
 
     }
