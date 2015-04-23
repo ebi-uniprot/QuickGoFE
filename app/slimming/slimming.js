@@ -190,27 +190,34 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
    * Save the entered information and use it to filter the results on the annotation list page,
    * which we will forward to now
    */
-$scope.viewAnnotations = function(advancedFilters){
+  $scope.viewAnnotations = function(advancedFilters){
 
-  //No point saving them to the wizard on the first page, lets just send them to the filtering service
-  //wizardService.setSelectedPredefinedTerms($scope.availablePredefinedTerms);
-  //wizardService.setOwnTerms($scope.ownTerms);
-  //wizardService.setSelectedPredefinedSlimSet($scope.selectedPreDefinedSlimSet);
+    //No point saving them to the wizard on the first page, lets just send them to the filtering service
+    //wizardService.setSelectedPredefinedTerms($scope.availablePredefinedTerms);
+    //wizardService.setOwnTerms($scope.ownTerms);
+    //wizardService.setSelectedPredefinedSlimSet($scope.selectedPreDefinedSlimSet);
 
-  //console.log("Predefined slim terms", $scope.availablePredefinedTerms);
-  //console.log("Own terms", $scope.ownTerms);
-  //console.log("Predefind slim set", $scope.selectedPreDefinedSlimSet);
+    //console.log("Predefined slim terms", $scope.availablePredefinedTerms);
+    //console.log("Own terms", $scope.ownTerms);
+    //console.log("Predefind slim set", $scope.selectedPreDefinedSlimSet);
 
-  console.log("Advanced filters in slimming one", advancedFilters);
-  filteringService.populateAppliedFilters(advancedFilters);
-  console.log("Populated the filtering service, maybe");
+    console.log("Advanced filters in slimming one", advancedFilters);
 
-  //Tell annotations list this value has been updated.
-  $scope.$emit('filtersUpdate', advancedFilters);   //todo change this so is notification only
+    //Try and deal with async query service
+    var resultFiltering = filteringService.populateAppliedFilters(advancedFilters);
+    resultFiltering.$promise.then(function(){
 
+      console.log("Populated the filtering service, maybe");
 
-  $location.path("annotations");
-}
+      //Tell annotations list this value has been updated.
+      //No we don't need to do this as going back to first page anyway
+      //$scope.$emit('filtersUpdate', advancedFilters);   //todo change this so is notification only
 
+      //$location.path("annotations");
+      $window.location.href= "#annotations";
+
+    });
+
+  }
 
 });
