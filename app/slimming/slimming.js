@@ -4,9 +4,9 @@
 
 
 app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, PreDefinedSlimSets,
-                                      PreDefinedSlimSetDetail, term, basketService, wizardService) {
+                                      PreDefinedSlimSetDetail, term, basketService, wizardService, filteringService) {
 
-
+  $scope.advancedFilters = {};
   /**
    * For display
    * @type {Array}
@@ -185,6 +185,32 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
 
     $location.path("slimming2");
   }
+
+  /**
+   * Save the entered information and use it to filter the results on the annotation list page,
+   * which we will forward to now
+   */
+$scope.viewAnnotations = function(advancedFilters){
+
+  //No point saving them to the wizard on the first page, lets just send them to the filtering service
+  //wizardService.setSelectedPredefinedTerms($scope.availablePredefinedTerms);
+  //wizardService.setOwnTerms($scope.ownTerms);
+  //wizardService.setSelectedPredefinedSlimSet($scope.selectedPreDefinedSlimSet);
+
+  //console.log("Predefined slim terms", $scope.availablePredefinedTerms);
+  //console.log("Own terms", $scope.ownTerms);
+  //console.log("Predefind slim set", $scope.selectedPreDefinedSlimSet);
+
+  console.log("Advanced filters in slimming one", advancedFilters);
+  filteringService.populateAppliedFilters(advancedFilters);
+  console.log("Populated the filtering service, maybe");
+
+  //Tell annotations list this value has been updated.
+  $scope.$emit('filtersUpdate', advancedFilters);   //todo change this so is notification only
+
+
+  $location.path("annotations");
+}
 
 
 });
