@@ -18,7 +18,7 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
 
     console.log("AnnotationSidebar.js -  advanced filters", advancedFilters);
 
-    filteringService.populateAppliedFilters(advancedFilters);
+    filteringService.populateAppliedFilters(advancedFilters,0); //0==not a slim
 
     //Tell parent page this value has been updated.
 

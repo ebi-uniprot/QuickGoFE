@@ -69,6 +69,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?';  //&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
 
     formattedURL=formattedURL+filteringService.createQueryString();
+    formattedURL=formattedURL+filteringService.createSlimString();
     console.log("Query url", formattedURL);
 
 
@@ -106,7 +107,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    */
   $scope.$on('filtersUpdate', function(event, data) {
 
-    //Retrieve parsed filters
+    //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
     $scope.appliedFilters = filteringService.getFilters();
     console.log("Loaded applied filters", $scope.appliedFilters);
 

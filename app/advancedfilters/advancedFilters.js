@@ -87,8 +87,8 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
    * Notify the filtering service with the submitted data
    */
   $scope.submit = function(advancedFilters){
-
-    filteringService.populateAppliedFilters(advancedFilters);
+    var isSlim=0;
+    filteringService.populateAppliedFilters(advancedFilters, isSlim);
 
     //Tell annotations list this value has been updated.
 

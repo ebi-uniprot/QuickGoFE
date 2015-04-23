@@ -21,6 +21,7 @@ filteringModule.factory('filteringService', function() {
 
   var filteringService = {};
   var filters = [];
+  var isSlimRequest = 0;
 
 
   filteringService.setFilters = function (filterList){
@@ -53,8 +54,12 @@ filteringModule.factory('filteringService', function() {
    * Parse the content of the applied filters model supplied form the advanced filters modal and form.
    * //todo get rid of the quotes required around individual values. These have to be in there to make stuff work
    */
-  filteringService.populateAppliedFilters = function(data){
+  filteringService.populateAppliedFilters = function(data, isSlim){
     //var appliedFilters = [];
+
+    console.log("state for isSlim is ", isSlim);
+    isSlimRequest = isSlim;
+    console.log("state for isSlimRequest is ", isSlimRequest);
 
     console.log("Has own data", data);
 
@@ -149,6 +154,7 @@ filteringModule.factory('filteringService', function() {
         }
       }
     }
+    return;
   }
 
 
@@ -177,6 +183,13 @@ filteringModule.factory('filteringService', function() {
 
     return queryString;
   }
+
+
+  filteringService.createSlimString =  function (){
+
+    return isSlimRequest?"slim=true":"slim=false";
+  }
+
 
 
   /**

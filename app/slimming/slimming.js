@@ -3,7 +3,7 @@
  */
 
 
-app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, PreDefinedSlimSets,
+app.controller('GOSlimCtrl1', function($scope, $location, $window, hardCodedDataService, PreDefinedSlimSets,
                                       PreDefinedSlimSetDetail, term, basketService, wizardService, filteringService) {
 
   $scope.advancedFilters = {};
@@ -204,8 +204,9 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
     console.log("Advanced filters in slimming one", advancedFilters);
 
     //Try and deal with async query service
-    var resultFiltering = filteringService.populateAppliedFilters(advancedFilters);
-    resultFiltering.$promise.then(function(){
+    //var isSlim=1;
+    filteringService.populateAppliedFilters(advancedFilters, 1);
+    //resultFiltering.$promise.then(function(){
 
       console.log("Populated the filtering service, maybe");
 
@@ -216,7 +217,7 @@ app.controller('GOSlimCtrl1', function($scope, $location, hardCodedDataService, 
       //$location.path("annotations");
       $window.location.href= "#annotations";
 
-    });
+   // });
 
   }
 
