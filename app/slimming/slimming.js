@@ -35,19 +35,6 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, hardCodedData
     $scope.showSlimSet();
   }
 
-
-  /**
-   * Set basket terms already selected to selected state
-   */
-  //angular.forEach($scope.basketList, function (basketItem) {
-  //    angular.forEach($scope.selectedbasketTerms, function (selectedBasketTerm) {
-  //      if(basketItem.goId == selectedBasketTerm.termId){
-  //        basketItem.Selected=true;
-  //      }
-  //    });
-  //});
-
-
   /**
    * Load required slim set
    */
@@ -142,82 +129,27 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, hardCodedData
 
 
   /**
-   * Save all selected terms on the use of the next button.
-   * Route to page 2 of the wizard.
+   * Save the entered information and use it to filter the results on the annotation list page,
+   * which we will forward to now
    */
-  $scope.nextSlimming = function(){
-    console.log("next slimming called");
+  $scope.viewAnnotations = function(advancedFilters){
+    console.log("Advanced filters in slimming one", advancedFilters);
 
-    // 1. Add all selected terms from preDefined slim sets.
-    //var newSelectedPredefinedTerms = [];
-    //angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
-    //  if(aTerm.Selected){
-    //    newSelectedPredefinedTerms.push(aTerm.termId);
-    //  }
-    //});
-    wizardService.setSelectedPredefinedTerms($scope.availablePredefinedTerms);
+    filteringService.populateAppliedFilters(advancedFilters, 1);
+    $window.location.href= "#annotations";
 
-    // 2. Add all own terms
-    //var newSelectedOwnTerms = [];
-    //angular.forEach($scope.ownTerms, function (aTerm) {
-    //  if(aTerm.Selected){
-    //    newSelectedOwnTerms.push(aTerm.termId);
-    //  }
-    //});
-    //console.log("saving own terms to wizard service", newSelectedOwnTerms);
-    wizardService.setOwnTerms($scope.ownTerms);
-
-    // 3. Add all basket terms
-    //var newSelectedBasketTerms = [];
-    //angular.forEach($scope.basketList, function (aTerm) {
-    //  if(aTerm.Selected){
-    //    newSelectedBasketTerms.push(aTerm);
-    //  }
-    //});
-    //wizardService.setSelectedBasketTerms(newSelectedBasketTerms);
-
-    basketService.refreshBasket($scope.basketList);
-
-
-    // 4. Save predefined slim set
-    wizardService.setSelectedPredefinedSlimSet($scope.selectedPreDefinedSlimSet);
-
-
-    $location.path("slimming2");
   }
 
   /**
    * Save the entered information and use it to filter the results on the annotation list page,
    * which we will forward to now
    */
-  $scope.viewAnnotations = function(advancedFilters){
-
-    //No point saving them to the wizard on the first page, lets just send them to the filtering service
-    //wizardService.setSelectedPredefinedTerms($scope.availablePredefinedTerms);
-    //wizardService.setOwnTerms($scope.ownTerms);
-    //wizardService.setSelectedPredefinedSlimSet($scope.selectedPreDefinedSlimSet);
-
-    //console.log("Predefined slim terms", $scope.availablePredefinedTerms);
-    //console.log("Own terms", $scope.ownTerms);
-    //console.log("Predefind slim set", $scope.selectedPreDefinedSlimSet);
-
+  $scope.nextSlimming = function(advancedFilters){
     console.log("Advanced filters in slimming one", advancedFilters);
 
-    //Try and deal with async query service
-    //var isSlim=1;
     filteringService.populateAppliedFilters(advancedFilters, 1);
-    //resultFiltering.$promise.then(function(){
-
-      console.log("Populated the filtering service, maybe");
-
-      //Tell annotations list this value has been updated.
-      //No we don't need to do this as going back to first page anyway
-      //$scope.$emit('filtersUpdate', advancedFilters);   //todo change this so is notification only
-
-      //$location.path("annotations");
-      $window.location.href= "#annotations";
-
-   // });
+    //$window.location.href= "#annotations";
+    $location.path("slimming2");    //todo - this one?
 
   }
 
