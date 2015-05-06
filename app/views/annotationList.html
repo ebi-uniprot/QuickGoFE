@@ -8,29 +8,52 @@
 
   <!-- Main Content -->
   <div id="annotationsMainContent" class="mainContent grid_10">
-    <ul class="action-buttons-grouped decorated" id="resultActionButtons">
-      <li><a id="customize-columns-button" title="Add or remove columns from the results table"
-             class="icon icon-functional button tooltipped" data-icon="e">Columns</a></li>
-      <li><a id="download-button" title="Download results"
-             class="icon icon-functional button tooltipped" data-icon="=">Download</a>
-      </li>
-    </ul>
 
-    <!-- Download button -->
-    <div ng-include src="'views/download.html'"></div>
+    <div id="list-control-area">
 
-    <img ng-show="isLoading" src="images/ajax-loader-80.gif">
+      <!-- Left column-->
+      <div id="left-control-col">
 
-    <!--Basket start -->
-    Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
-    <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
-    <!--Basket end -->
+        <img ng-show="isLoading" src="images/ajax-loader-80.gif">
 
-    <!--Show current page number and total annotations-->
-    <p>Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong></p>
+        <!--Show current page number and total annotations-->
+        <p>Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong></p>
 
-    <!-- Pagination https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination  -->
-    <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+        <!-- Pagination https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination  -->
+        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+      </div>
+
+      <!-- Right Hand column -->
+      <div id="right-control-col">
+
+        <!-- Download and column reorganization buttons-->
+        <div style="float:right">
+          <ul id="resultActionButtons">
+            <li class="action-buttons-grouped"><a id="customize-columns-button" title="Add or remove columns from the results table"
+                                                  class="icon icon-functional button tooltipped" data-icon="e">Columns</a></li>
+            <li class="action-buttons-grouped" ><a id="download-button" title="Download results"
+                                                   class="icon icon-functional button tooltipped" data-icon="=">Download</a>
+            </li>
+          </ul>
+        </div>
+
+        <br/>
+        <br/>
+        <br/>
+
+
+        <!--Basket start -->
+        <div style="float:right">
+          Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
+          <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
+        </div>
+        <!--Basket end -->
+
+      </div>
+
+      <!-- Download button -->
+      <div ng-include src="'views/download.html'"></div>
+    </div>
 
     <!-- Results Header-->
     <table id="results" class="grid">
