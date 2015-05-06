@@ -184,13 +184,24 @@ filteringModule.factory('filteringService', function() {
     return queryString;
   }
 
-
+  /**
+   * Create the appropriate selection string for the slim request
+   * @returns {string}
+   */
   filteringService.createSlimString =  function (){
 
-    return isSlimRequest?"slim=true":"slim=false";
+    return isSlimRequest?"&slim=true":"&slim=false";
   }
 
 
+  /**
+   * Save whether the last filtering request was a slim or not
+   * @returns {string}
+   */
+  filteringService.isSlimming =  function (){
+
+    return isSlimRequest;
+  }
 
   /**
    * Remove filter from applied filters
