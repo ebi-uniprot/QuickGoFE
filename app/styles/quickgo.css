@@ -211,3 +211,20 @@ IMG.displayed {
 .lte8 .wrapper:hover .tooltip {
   display: block;
 }
+
+.action-buttons-grouped {
+  display: inline;
+}
+
+
+#left-control-col {
+  float:left;
+  width:500px;
+  /*background:#9c9;*/
+}
+#right-control-col {
+  float:right;
+  width:500px;
+  /*background:#c9c;*/
+}
+
