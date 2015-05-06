@@ -10,6 +10,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   console.log("In the annotation list controller");
   $scope.isSlim = 0;
 
+  $scope.annotationsPerPage=35;
+
   /**
    * Initialisation
    */
@@ -28,7 +30,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
-  $scope.rowsPerPage = 25; // this should match however many results your API puts on one page
+  //$scope.rowsPerPage = 25; // this should match however many results your API puts on one page
   $scope.isLoading = 0;
   $scope.currentPage=1;
   getResultsPage(1);    //<--this is called instead by the page changed call
@@ -80,7 +82,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
     //todo - be able to post query so the length doesn't exceed parameter max
     //Add page and rows parameters
-    formattedURL = formattedURL + '&page='+ pageNumber +'&rows=25';
+    formattedURL = formattedURL + '&page='+ pageNumber +'&rows='+ $scope.annotationsPerPage;
 
     $http.get(formattedURL).success(function(data) {
       console.log("got the response back ", data);
