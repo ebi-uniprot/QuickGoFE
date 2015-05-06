@@ -2,8 +2,9 @@
   <!-- Applied filters list-->
   <h4>Applied filters</h4>
 
-  <div style="float:right"><a href="#" id="clearAllFilters">Clear</a></div>
-
+  <!-- Bookmarkable link-->
+  <element class='icon icon-generic' data-icon='L'><a id="bookmarkable-link" style="font-size:10px;text-align:right"
+                                                      href="#">Bookmarkable link</a></element>
   <div>
     <em ng-if="appliedFilters.length==0">
       No filters applied
@@ -20,12 +21,11 @@
     </ul>
   </div>
 
-  <!-- Bookmarkable link-->
-  <element class='icon icon-generic' data-icon='L'><a id="bookmarkable-link" style="font-size:10px;text-align:right"
-                                                      href="#">Bookmarkable link</a></element>
+  <div style="float: left"><button ng-click="clearFilters()">Clear All Filters</button></div>
 
     <!-- Selectable Filter list-->
-    <div id="quickFiltersMenu" class="quickFilters sidebarsubsection">
+    <!--<div id="quickFiltersMenu" class="quickFilters sidebarsubsection">-->
+  <br/>
       <h4>Quick Filters</h4>
 
       <h5>Taxon</h5>
@@ -69,7 +69,7 @@
         <button class="btn btn-default" ng-click="showAdvancedFilters()">Advanced Filters</button>
       </div>
       </form>
-    </div>
+    <!--</div>-->
 
     <!-- Select view by-->
     <h5>View by</h5>
