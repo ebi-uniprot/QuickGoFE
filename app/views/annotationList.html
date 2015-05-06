@@ -38,6 +38,8 @@
         <th ng-repeat="colHeading in annotationColumns">
           {{colHeading.value}}
         </th>
+        <th ng-show="isSlim">Original Go Identifier</th>
+        <th ng-show="isSlim">Original Go Term Name</th>
       </tr>
 
       <!-- Results Repeat -->
@@ -66,7 +68,9 @@
         </td>
         <td>{{goTuple.taxon}}</td>
         <td>{{goTuple.assignedBy}}</td>
-        <td></td>
+        <td></td>  <!-- Annotation Extension -->
+        <td ng-show="isSlim">{{goTuple.originalTermId}}</td>
+        <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
       </tr>
     </table>
 
