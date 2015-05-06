@@ -41,6 +41,20 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
   };
 
 
+  /**
+   * Remove ALL applied filters
+   * @param filter
+   */
+  $scope.clearFilters=function() {
+
+    filteringService.clearFilters();
+
+    //send an update to the annotation list to refresh itself
+    $scope.$emit('filtersClear');
+
+  };
+
+
 
   /**
    * Show the common taxons used for filtering
