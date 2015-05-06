@@ -113,5 +113,6 @@ var app = angular
   });
 
   app.value('targetDomainAndPort','http://localhost:9080');
+  //app.value('targetDomainAndPort','http://localhost:8080/quickgows');
 
 
