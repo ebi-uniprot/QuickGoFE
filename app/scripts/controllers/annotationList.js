@@ -8,6 +8,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
   console.log("In the annotation list controller");
+  $scope.isSlim = 0;
 
   /**
    * Initialisation
@@ -69,8 +70,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?';  //&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
 
     formattedURL=formattedURL+filteringService.createQueryString();
-    formattedURL=formattedURL+filteringService.createSlimString();
+    $scope.isSlim = filteringService.isSlimming();
+    if($scope.isSlim) {
+      formattedURL = formattedURL + filteringService.createSlimString();
+    }
     console.log("Query url", formattedURL);
+
 
 
     //todo - be able to post query so the length doesn't exceed parameter max
@@ -112,6 +117,23 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     console.log("Loaded applied filters", $scope.appliedFilters);
 
     $scope.advancedFilters = data;
+
+    //refresh the page
+    getResultsPage(1);
+  });
+
+
+
+  /**
+   * Listen for clearing of the filters list (this is 'emit' from the Advanced Filters controller and the sidebar controller
+   */
+  $scope.$on('filtersClear', function(event) {
+
+    //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
+    $scope.appliedFilters = filteringService.getFilters();
+    console.log("Loaded applied filters after clearing all", $scope.appliedFilters);
+
+    $scope.advancedFilters =  {};
 
     //refresh the page
     getResultsPage(1);
