@@ -3,7 +3,7 @@
  */
 
 
-app.controller('GOSlimCtrl2', function($scope, basketService, wizardService) {
+app.controller('GOSlimCtrl2', function($scope, $location, $window, basketService, wizardService, filteringService) {
 
   $scope.selectedItems=[];
 
@@ -31,5 +31,25 @@ app.controller('GOSlimCtrl2', function($scope, basketService, wizardService) {
 
 
   console.log("selected items", $scope.selectedItems);
+
+
+  /**
+   * Save the entered information and use it to filter the results on the annotation list page,
+   * which we will forward to now
+   */
+  $scope.viewAnnotations = function(advancedFilters){
+    console.log("Advanced filters in slimming one", advancedFilters);
+
+    filteringService.populateAppliedFilters(advancedFilters, 1);
+    $window.location.href= "#annotations";
+
+  }
+
+
+  $scope.back = function(){
+    console.log("back called to slimming");
+    $window.location.href= "#/slimming";
+
+  }
 
 });

@@ -125,17 +125,17 @@
 
 
           <div class="choiceA" style="display:block" ng-init="ancestors='slim'">
-            <input type="checkbox" value="slim" ng-model="ancestors" >
+            <input type="radio" value="slim" ng-model="ancestors" >
             Use these terms as a GO slim
           </div>
         <div class="choiceB" style="display:block">
+          <input type="radio"> Select which relationship an annotated term should have to the terms above:
             <!--<input type="radio" value="descendants" ng-model="ancestors"/>-->
             <!--Find annotations to descendants of these terms (annotations will display the original GO terms applied)-->
             <!--Select which relationship an annotated term should have to the terms above:-->
 
             <!--<div class="indent1" ng-show="ancestors == 'descendants'">-->
           <div>
-            Select which relationship an annotated term should have to the terms above:
             <div style="display:block"><input type="radio" name="closure" value="ancestorsI" ng-model="advancedFilters.boolean.ancestorsI.ancestorsI">is_a only</div>
             <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO" ng-model="advancedFilters.boolean.ancestorsIPO.ancestorsIPO">is_a, part_of</div>
             <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR" ng-model="advancedFilters.boolean.ancestorsIPOR.ancestorsIPOR">is_a, part_of,regulates</div>
