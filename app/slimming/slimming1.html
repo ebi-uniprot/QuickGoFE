@@ -62,7 +62,7 @@
       <p/><p/>
       <h4>Add terms from your basket&nbsp;({{basketList.length}}&nbsp;Available)</h4>
       <ul ng-repeat="basketItem in basketList">
-        <input type="checkbox" ng-model="basketItem.Selected"/>
+        <input type="checkbox" ng-model="advancedFilters.boolean.goID[[basketItem.termId]]"  ng-true-value="'{{basketItem.termId}}'"/>
         {{basketItem.termId}}&nbsp;{{basketItem.name}}
       </ul>
 
@@ -72,6 +72,7 @@
           <!--<button type="reset" ng-click="reset()">Reset</button>-->
           <button type="button" ng-click="viewAnnotations(advancedFilters)">View annotations</button>
           <button type="button" ng-click="nextSlimming(advancedFilters)">Next</button>
+          <button type="button" ng-click="showGraph()">Show Graph</button>
         </div>
 
       </form>
