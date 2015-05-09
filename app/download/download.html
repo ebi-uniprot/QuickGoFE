@@ -3,17 +3,17 @@
   <h6>QuickGO Download</h6>
   <label class="bold-label">Format:</label>
 
-  <form ng-submit="submit(download)">
-    <select name="format" id="format">
-      <option value="gaf" ng-model="download.format" ng-true-value="'gaf'" >Gene Association File (GAF)</option>
-      <option value="gpad" ng-model="download.format" ng-true-value="'gpad'">Gene Product Association Data (GPAD)</option>
-      <option value="fasta" ng-model="download.format" ng-true-value="'fasta'">FASTA</option>
-      <option value="tsv" ng-model="download.format" ng-true-value="'tsv'">Tab-delimited</option>
-      <option value="proteinlist" ng-model="download.format" ng-true-value="'proteinlist'">Protein List</option>
-      <option value="gene2go" ng-model="download.format" ng-true-value="'gene2go'">Gene2GO</option>
-    </select>
+  <form ng-submit="submit(selectedFormat)">
+    <!--<select name="format" id="format">-->
+      <!--<option value="gaf" ng-model="download.format" ng-true-value="'gaf'" >Gene Association File (GAF)</option>-->
+      <!--<option value="gpad" ng-model="download.format" ng-true-value="'gpad'">Gene Product Association Data (GPAD)</option>-->
+      <!--<option value="fasta" ng-model="download.format" ng-true-value="'fasta'">FASTA</option>-->
+      <!--<option value="tsv" ng-model="download.format" ng-true-value="'tsv'">Tab-delimited</option>-->
+      <!--<option value="proteinlist" ng-model="download.format" ng-true-value="'proteinlist'">Protein List</option>-->
+      <!--<option value="gene2go" ng-model="download.format" ng-true-value="'gene2go'">Gene2GO</option>-->
+    <!--</select>-->
 
-    <select ng-model="selectedPreDefinedSlimSet"  ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets" ng-change="showSlimSet()"></select>
+    <select ng-model="selectedFormat"  ng-options="downloadFormat.format for downloadFormat in downloadFileFormats"></select>
 
 
     <input type="submit" id="submit" value="Submit" />

@@ -193,6 +193,30 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
   /**
+   * Show the basket modal on request
+   */
+  $scope.download = function () {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'download/download.html',
+      controller: 'DownloadCtrl',
+      size: 'sm',
+      scope: $scope
+      //resolve: {
+      //  countBasket: function () {
+      //    return $scope.countBasket;
+      //  }
+      //}
+    });
+
+    modalInstance.result.then(function () {
+      $log.info('Download modal dismissed at: ' + new Date());
+    });
+  };
+
+
+
+  /**
    * ------------------------------------ Filtering Sidebar Code --------------------------------------------------
    */
 

@@ -89,6 +89,22 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {refId:"GO_REF:0000049", name:"EnsemblFungi"}
   ];
 
+
+   var downloadFileFormats= [
+      {format:"Gene Association File (GAF)", ext:"gaf" },
+      {format:"Gene Product Association Data (GPAD)", ext:"gpad" },
+      {format:"FASTA", ext:"fasta" },
+      {format:"Tab-delimited", ext:"tsv" },
+      {format:"Protein List", ext:"proteinlist" },
+      {format:"Gene2GO", ext:"gene2go" }
+    ];
+
+
+  /**
+   *
+   *  ~~~~~~ Return Methods ~~~~~~
+   */
+
   hardCodedService.getAnnotationColumns = function() {
     return annotationColumns;
   }
@@ -100,6 +116,13 @@ hardCodedModule.factory('hardCodedDataService', function() {
   hardCodedService.getQualifiers = function(){
     return qualifiers;
   }
+
+  hardCodedService.getDownloadFileFormats = function(){
+    return downloadFileFormats;
+  }
+
+
+
 
   /**
    *   ~~~~~~ Testing ~~~~~~

@@ -31,8 +31,7 @@
           <ul id="resultActionButtons">
             <li class="action-buttons-grouped"><a id="customize-columns-button" title="Add or remove columns from the results table"
                                                   class="icon icon-functional button tooltipped" data-icon="e">Columns</a></li>
-            <li class="action-buttons-grouped" ><a id="download-button" title="Download results"
-                                                   class="icon icon-functional button tooltipped" data-icon="=">Download</a>
+            <li class="action-buttons-grouped" > <button type="button"  ng-click="download()">Download</button>
             </li>
           </ul>
         </div>
@@ -52,7 +51,7 @@
       </div>
 
       <!-- Download button -->
-      <div ng-include src="'views/download.html'"></div>
+      <!--<div ng-include src="'views/download.html'"></div>-->
     </div>
 
     <!-- Results Header-->

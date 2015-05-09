@@ -2,16 +2,18 @@
  * Created by twardell on 07/05/2015.
  */
 
-app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location, targetDomainAndPort, filteringService) {
+app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location, targetDomainAndPort, filteringService,
+                                            hardCodedDataService) {
 
   console.log("download.js");
-  $scope.download={};   //setup form variable.
+
+  $scope.downloadFileFormats=hardCodedDataService.getDownloadFileFormats();
 
   /**
    * process request and start download
    */
-  $scope.submit = function(download) {
-    console.log("Download SUBMIT CALLED", download);
+  $scope.submit = function(format) {
+    console.log("Download SUBMIT CALLED", format);
 
     //Close window
     $scope.close();
@@ -26,8 +28,12 @@ app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location
       formattedURL = formattedURL + filteringService.createSlimString();
     }
 
-    //console.log("forward to ", formattedURL);
-    var fileName='download'+format;
+    //Add requested format to query string --- this prehaps should be in the filtering service,
+    //but its only going to be used for download
+    formattedURL = formattedURL + '&format='+ format.ext;
+
+    console.log("queryString = ", formattedURL);
+    var fileName='download.'+format.ext;
 
     $http.get(formattedURL).success(function(data) {
       console.log("got the response back ", data);
