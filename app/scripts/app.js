@@ -102,6 +102,10 @@ var app = angular
         templateUrl: 'simplelist/cellularcomponent.html',
         controller: 'CellularComponentListCtrl'
       })
+      .when('/bookmark/:filterParms', {
+        templateUrl: 'views/annotationList.html',
+        controller: 'BookmarkCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -114,5 +118,7 @@ var app = angular
 
   app.value('targetDomainAndPort','http://localhost:9080');
   //app.value('targetDomainAndPort','http://localhost:8080/quickgows');
+
+  app.value('feDomainAndPort','http://localhost:9000');
 
 

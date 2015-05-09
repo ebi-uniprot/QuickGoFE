@@ -1,10 +1,12 @@
 /**
  * Created by twardell on 17/04/2015.
  */
-app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardCodedDataService) {
+app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardCodedDataService, feDomainAndPort) {
 
 
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+
+  $scope.bookmarkableLink = feDomainAndPort+"/#/annotations";
 
 
   /**
@@ -19,6 +21,8 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
     console.log("AnnotationSidebar.js -  advanced filters", advancedFilters);
 
     filteringService.populateAppliedFilters(advancedFilters,0); //0==not a slim
+
+    $scope.bookmarkableLink = feDomainAndPort+"/#/bookmark/"+filteringService.createBookmarkableString();
 
     //Tell parent page this value has been updated.
 
@@ -35,6 +39,8 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
 
     filteringService.removeFilter(filter);
 
+    $scope.bookmarkableLink = feDomainAndPort+"/#/bookmark/"+filteringService.createBookmarkableString();
+
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersUpdate', filter);
 
@@ -48,6 +54,8 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
   $scope.clearFilters=function() {
 
     filteringService.clearFilters();
+
+    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations";
 
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersClear');

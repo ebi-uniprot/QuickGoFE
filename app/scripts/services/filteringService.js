@@ -34,7 +34,7 @@ filteringModule.factory('filteringService', function() {
   }
 
   /**
-   * Create
+   * Create //todo is this used?
    */
   filteringService.toQueryString = function(){
     console.log("Building Query String", filters);
@@ -156,6 +156,30 @@ filteringModule.factory('filteringService', function() {
     }
     return;
   }
+
+
+
+  /**
+   * Parse the content of the applied filters model supplied form the advanced filters modal and form.
+   * //todo get rid of the quotes required around individual values. These have to be in there to make stuff work
+   */
+  filteringService.simpleAppliedFilters = function(data, isSlim){
+    //var appliedFilters = [];
+
+    console.log("state for isSlim is ", isSlim);
+    isSlimRequest = isSlim;
+    console.log("state for isSlimRequest is ", isSlimRequest);
+
+    console.log("simpleAppliedFilters", data);
+
+    var j=-1;
+    for(j=0; j<data.length; j++) {
+
+      //var aFilter = {type: property, value: res[i]};
+      saveAppliedFilter(data[j]);
+    }
+    return;
+  };
 
 
 
@@ -288,6 +312,33 @@ filteringModule.factory('filteringService', function() {
 
     return queryString;
   }
+
+
+  /**
+   * Turn the filters into a query string that can be used in the bookmarkable link
+   * @returns {string}
+   */
+  filteringService.createBookmarkableString =  function (){
+
+    var bookmarkString='';
+    //var queryType='';
+    var typeString='';
+    for (i = 0  ; i < filters.length; i++) {
+
+      //Always add type
+      bookmarkString=bookmarkString + filters[i].type  + ":";
+      bookmarkString=bookmarkString + filters[i].value + ',';
+
+    }
+
+    //Place query parameter //todo do this?
+    //if(bookmarkString.length>0){
+    //  bookmarkString='q='+bookmarkString;
+    //}
+
+    return bookmarkString;
+  }
+
 
   /**
    * Create the appropriate selection string for the slim request
