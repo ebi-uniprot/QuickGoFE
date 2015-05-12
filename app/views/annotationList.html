@@ -67,7 +67,7 @@
       <!-- Results Repeat -->
       <tr dir-paginate="goTuple in goList.annotationsList | itemsPerPage: 35" total-items="goList.numberAnnotations">
 
-        <td><a ng-href="www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
+        <td><a ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
         </td>
         <td>{{goTuple.symbol}}</td>
         <td>{{goTuple.qualifier}}</td>
@@ -76,8 +76,10 @@
         </td>
         <td>{{goTuple.termName}}</td>
         <td>{{goTuple.aspect}}</td>
-        <td><a class="ontologygraph" id="ontologygraph_{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>&nbsp;<a
-          href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">(IEA)</a></td>
+        <td>
+          <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('{{goTuple.evidenceEco}}')">{{goTuple.evidenceEco}}</span>
+          &nbsp;<a href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">(IEA)</a>
+        </td>
         <td><a
           ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}">{{goTuple.reference}}</a>
         </td>
