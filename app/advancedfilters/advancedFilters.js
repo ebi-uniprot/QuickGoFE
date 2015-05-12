@@ -36,7 +36,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   var resultET = evidencetypes.query();
   resultET.$promise.then(function(data){
     $scope.evidenceTypes = data;
-    //console.log("Got Evidence Types", $scope.evidenceTypes);
+    console.log("Got Evidence Types", $scope.evidenceTypes);
   });
 
   /**
