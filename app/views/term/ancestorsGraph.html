@@ -1,7 +1,7 @@
 <div id="ancestor-chart-section"  ng-show="showAncestorChart" ng-controller="AncestorsGraphCtrl">
   <h3><strong>Ancestors Chart</strong></h3>
 <h5 style="text-align:center"><strong>{{goModel.id}}&nbsp{{goModel.name}}</strong></h5>
-<img ng-show="isLoading" src="images/ajax-loader-80.gif">
+<img ng-show="isLoading" src="images/ajax-loader.gif">
 <!--<img src="data:image/png;base64, {{graphImageRaw}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >-->
 <img class="displayed" src="http://localhost:9080/ws/chart?ids={{goModel.id}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >
 
