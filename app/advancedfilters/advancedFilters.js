@@ -7,6 +7,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
 
 
   $scope.advancedFilters = {};
+  $scope.useSlim = 1;
 
   /**
    * ---------------------------------------   Data loading Operations    --------------------------------------------
@@ -86,13 +87,15 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
   /**
    * Notify the filtering service with the submitted data
    */
-  $scope.submit = function(advancedFilters){
-    var isSlim=0;
-    filteringService.populateAppliedFilters(advancedFilters, isSlim);
+  $scope.submit = function(){
+
+    console.log("Submitted ")
+
+    filteringService.populateAppliedFilters( $scope.advancedFilters,  $scope.useSlim);
 
     //Tell annotations list this value has been updated.
 
-    $scope.$emit('filtersUpdate', advancedFilters);   //todo change this so is notification only
+    $scope.$emit('filtersUpdate', $scope.advancedFilters);   //todo change this so is notification only
 
     //Now go back to the annotation list
     $modalInstance.dismiss('cancel');
