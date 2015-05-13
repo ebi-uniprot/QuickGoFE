@@ -1,20 +1,20 @@
 /**
  * Created by twardell on 07/04/2015.
  */
-app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targetDomainAndPort, goModel) {
+app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targetDomainAndPort, graphModel) {
 
-  console.log("xgoid",goModel);
   $scope.isLoading = 1;
-  $scope.goModel = goModel;
+  $scope.graphModel = graphModel;
+  $scope.imageSource="";
 
-  var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+goModel.id;
+  var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
   var chartURL=targetDomainAndPort;
 
   console.log("Chart Full url", formattedURL);
 
 
   $http.get(formattedURL).success(function(data) {
-    console.log("got the response back ", data);
+    //console.log("got the response back ", data);
     $scope.isLoading=0;
     $scope.graphImage = data;
 
@@ -26,6 +26,8 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targ
     //  //$scope.graphImageRaw = imgdata;
     //});
 
+    $scope.imageSource=targetDomainAndPort+$scope.graphImage.graphImageSrc;
+
   });
 
   /**
@@ -34,7 +36,7 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targ
 
 
   $scope.formattedTooltip = function (element)  {
-    console.log("formatted Too tip", element);
+    //console.log("formatted Too tip", element);
 
     var content = element;
     if (element == 'is_a') {

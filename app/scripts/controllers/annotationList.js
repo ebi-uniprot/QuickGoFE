@@ -254,14 +254,38 @@ $scope.showOntologyGraph = function (termId, title) {
     windowClass: 'app-modal-window',
     scope: $scope,
     resolve: {
-      goModel: function () {
-        return {id:termId, name:title};
+      graphModel: function () {
+        return {id:termId, name:title, scope:''};
       }
     }
   });
 
 };
 
+
+  /**
+   * ------------------------------------ Evidence Code Graph Image --------------------------------------------------
+   */
+
+
+  /**
+   * Show the GO ontology graph image modal on request
+   */
+  $scope.showEvidenceCodeOntologyGraph = function (ecoId) {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'modals/ontologyGraphModal.html',
+      controller: 'OntologyGraphCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope,
+      resolve: {
+        graphModel: function () {
+          return {id:ecoId, name:'', scope:'ECO'};
+        }
+      }
+    });
+
+  };
 
   /**
    * ------------------------------------ End of AnnotationListCtrl Controller -----------------------------------------
