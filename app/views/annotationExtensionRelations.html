@@ -1,0 +1,45 @@
+<div id="content" class="container_12">
+  <!--Header -->
+  <%@include file="/templates/header.jsp"%>
+
+  <div class="sidebar grid_8">
+    <h2 class="page-title">Visualisation of Annotation Extension Relations</h2>
+  </div>
+  <div class="mainContent grid_8">
+    <p></p>
+  </div>
+  <div class="grid_2"></div>
+
+  <div class="clearfix"></div>
+  <!-- Main Content -->
+  <div id="annotationExtensionRelationsContent"
+       class="mainContent grid_12">
+
+    <div id="annExtRelGraphArea" style="display: block;">
+
+      <script type="text/javascript">
+        $(document).ready(
+          function() {
+            $("#cytoscapeweb").html('Retrieving graph data...');
+            $('.window .close').click(function(e) {
+              //Cancel the link behavior
+              e.preventDefault();
+              $('.window').hide();
+            });
+
+            drawOntology(${data});
+          });
+      </script>
+
+      <div id="cytoscapeweb">(Cytoscape placeholder)</div>
+      <div id="boxes">
+        <div id="dialog" class="window">
+          <a style="float: right" id="closeAnnExtRel" href="#" class="closeBox" onclick="$('#dialog').fadeOut('slow')">x</a>
+          <span id="nodetitle" style="font-weight:bold">(id)</span>
+          <span id="nodenote"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
