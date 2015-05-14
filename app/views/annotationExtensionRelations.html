@@ -15,25 +15,25 @@
 
     <div id="annExtRelGraphArea" style="display: block;">
 
-      <script type="text/javascript">
-        $(document).ready(
-          function() {
-            $("#cytoscapeweb").html('Retrieving graph data...');
-            $('.window .close').click(function(e) {
-              //Cancel the link behavior
-              e.preventDefault();
-              $('.window').hide();
-            });
+      <!--<script type="text/javascript">-->
+        <!--$(document).ready(-->
+          <!--function() {-->
+            <!--$("#cytoscapeweb").html('Retrieving graph data...');-->
+            <!--$('.window .close').click(function(e) {-->
+              <!--//Cancel the link behavior-->
+              <!--e.preventDefault();-->
+              <!--$('.window').hide();-->
+            <!--});-->
 
-            drawOntology(${data});
-          });
-      </script>
+            <!--drawOntology(${data});-->
+          <!--});-->
+      <!--</script>-->
 
       <div id="cytoscapeweb">(Cytoscape placeholder)</div>
       <div id="boxes">
         <div id="dialog" class="window">
-          <a style="float: right" id="closeAnnExtRel" href="#" class="closeBox" onclick="$('#dialog').fadeOut('slow')">x</a>
-          <span id="nodetitle" style="font-weight:bold">(id)</span>
+          <!--<a style="float: right" id="closeAnnExtRel" href="#" class="closeBox" onclick="$('#dialog').fadeOut('slow')">x</a>-->
+          <span id="nodetitle" style="font-weight:bold"></span>
           <span id="nodenote"></span>
         </div>
       </div>
