@@ -106,6 +106,10 @@ var app = angular
         templateUrl: 'views/annotationList.html',
         controller: 'BookmarkCtrl'
       })
+      .when('/annotationExtensionRelations', {
+        templateUrl: 'views/annotationExtensionRelations.html',
+        controller: 'AnnotationExtensionRelationsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

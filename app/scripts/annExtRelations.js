@@ -126,16 +126,16 @@ function setStyle() {
 function drawOntology(data) {
 	MF['data'] = data;
 	var js2 = clone( MF );
-	
+
 	vis.ready(function() { setStyle(); });
-	
+
 	vis.addListener("click", "nodes", function(event) { nodeMenu(event); });
-	
+
 	var layout = {
 		name:    "Tree",
 		options: { breadthSpace: 70, subtreeSpace: 90, depthSpace : 100}
 	};
-	
+
 	vis.draw({ network: js2, nodeTooltipsEnabled: true, edgeTooltipsEnabled: true, layout: layout });
 }
 
@@ -204,8 +204,8 @@ function menuY() {
 }
 
 jQuery(document).ready(function($) {
-	$(document).mousemove(function(e){		
-		oX = e.pageX;		
+	$(document).mousemove(function(e){
+		oX = e.pageX;
 		oY = e.pageY;
 	});
 })
