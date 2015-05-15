@@ -2,7 +2,7 @@
  * Created by twardell on 13/05/2015.
  */
 
-app.controller('AnnotationExtensionRelationsCtrl', function( $scope) {
+app.controller('AnnotationExtensionRelationsCtrl', function( $scope, targetDomainAndPort) {
 
 
   var oX = 0;
@@ -152,7 +152,7 @@ app.controller('AnnotationExtensionRelationsCtrl', function( $scope) {
 
     //$.getJSON("GValidate", "service=ann_ext&action=getRelations&format=graph", callback);
     //$.getJSON("GValidate", "http://www.ebi.ac.uk/QuickGO/GValidate?service=ann_ext&action=getRelations&format=graph", callback);
-    $.getJSON("http://localhost:9080/ws/annotationExtensionRelations", "", callback);
+    $.getJSON(targetDomainAndPort+"/ws/annotationExtensionRelations", "", callback);
 
   }
 

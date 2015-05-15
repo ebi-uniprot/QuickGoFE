@@ -1,11 +1,13 @@
 /**
  * Created by twardell on 07/04/2015.
  */
-app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targetDomainAndPort, graphModel) {
+app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targetDomainAndPort, graphModel, feDomainAndPort) {
 
   $scope.isLoading = 1;
   $scope.graphModel = graphModel;
   $scope.imageSource="";
+  $scope.feDomainAndPort=feDomainAndPort;
+  $scope.targetDomainAndPort=targetDomainAndPort;
 
   var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
   var chartURL=targetDomainAndPort;
