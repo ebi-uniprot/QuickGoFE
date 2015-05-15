@@ -93,7 +93,7 @@ filteringModule.factory('filteringService', function() {
               for (i = 0; i < res.length; i++) {
 
                 var aFilter = {type: property, value: res[i]};
-                saveAppliedFilter(aFilter);
+                filteringService.saveAppliedFilter(aFilter);
                 //$scope.appliedFilters.push({type: property, value: res[i]});
 
                 //Clear the content of the text box.
@@ -127,7 +127,7 @@ filteringModule.factory('filteringService', function() {
                   console.log("aFilterValue", aFilterValue);
 
                   var aFilter = {type: filtertype, value: aFilterValue};
-                  saveAppliedFilter(aFilter);
+                  filteringService.saveAppliedFilter(aFilter);
                   //$scope.appliedFilters.push({type: filtertype, value: aFilterValue});
                 }else{
                   console.log("Removing filter ", aFilter);
@@ -149,7 +149,7 @@ filteringModule.factory('filteringService', function() {
           console.log("A value", value);
 
           var aFilter = {type: 'subSet', value: value};
-          saveAppliedFilter(aFilter);
+          filteringService.saveAppliedFilter(aFilter);
           //$scope.appliedFilters.push({type: 'subSet', value: value});
         }
       }
@@ -176,7 +176,7 @@ filteringModule.factory('filteringService', function() {
     for(j=0; j<data.length; j++) {
 
       //var aFilter = {type: property, value: res[i]};
-      saveAppliedFilter(data[j]);
+      filteringService.saveAppliedFilter(data[j]);
     }
     return;
   };
