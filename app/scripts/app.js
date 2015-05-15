@@ -51,7 +51,7 @@ var app = angular
         controller: 'WebServicesCtrl'
       })
       .when('/dataset', {
-        templateUrl: 'nav/dataset.html',
+        templateUrl: 'dataset/dataset.html',
         controller: 'DataSetCtrl'
       })
       .when('/dataset/goTermHistory', {
@@ -59,15 +59,15 @@ var app = angular
         controller: 'GoTermHistoryCtrl'
       })
       .when('/dataset/taxonConstraints', {
-        templateUrl: 'views/taxonConstraints.html',
+        templateUrl: 'dataset/taxonConstraints.html',
         controller: 'TaxonConstraintsCtrl'
       })
       .when('/dataset/annotationBlacklist', {
-        templateUrl: 'views/annotationBlacklist.html',
+        templateUrl: 'dataset/annotationBlacklist.html',
         controller: 'AnnotationBlacklistCtrl'
       })
       .when('/dataset/annotationPostProcessing', {
-        templateUrl: 'views/annotationPostProcessing.html',
+        templateUrl: 'dataset/annotationPostProcessing.html',
         controller: 'AnnotationPostProcessingCtrl'
       })
       .when('/help', {
@@ -75,7 +75,7 @@ var app = angular
         controller: 'HelpCtrl'
       })
       .when('/term/:goId', {
-        templateUrl: 'views/term/term.html',
+        templateUrl: 'term/term.html',
         controller: 'TermCtrl'
       })
       .when('/slimming', {
