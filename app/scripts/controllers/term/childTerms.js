@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 10/02/2015.
  */
-app.controller('ChildTermsGraphCtrl', function($scope, $http,targetDomainAndPort) {
+app.controller('ChildTermsGraphCtrl', function($scope, $http, targetDomainAndPort) {
 
 
   var formattedURL=targetDomainAndPort+'/ws/ontologyGraph/';
