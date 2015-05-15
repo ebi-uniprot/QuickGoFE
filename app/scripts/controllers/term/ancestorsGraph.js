@@ -4,27 +4,32 @@
 app.controller('AncestorsGraphCtrl', function($scope, $http, targetDomainAndPort) {
 
   console.log("In AncestorsGraphCtrl");
-
-  //goModel.id = 'GO:0003824';
-  //
-  //console.log("xgoid",goModel);
   $scope.isLoading = 1;
-  //$scope.goModel = goModel;
-  $scope.goModel = {};
-  $scope.goModel.id = 'GO:0003824';
+  $scope.graphModel = graphModel;
+  $scope.imageSource="";
+  $scope.feDomainAndPort=feDomainAndPort;
+  $scope.targetDomainAndPort=targetDomainAndPort;
 
-  //goModel.id = 'GO:0003824';
-
-  var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+'GO:0003824';
+  var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
   var chartURL=targetDomainAndPort;
 
   console.log("Chart Full url", formattedURL);
 
 
   $http.get(formattedURL).success(function(data) {
-    console.log("got the response back ", data);
+    //console.log("got the response back ", data);
     $scope.isLoading=0;
     $scope.graphImage = data;
+
+
+    //Now get the image data
+    //chartURL=chartURL+'/'+$scope.graphImage.graphImageSrc;
+    //$http.get(chartURL).success(function(imgdata) {
+    //  //console.log("got the response back ", data);
+    //  //$scope.graphImageRaw = imgdata;
+    //});
+
+    $scope.imageSource=targetDomainAndPort+$scope.graphImage.graphImageSrc;
 
   });
 
@@ -33,10 +38,8 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, targetDomainAndPort
    */
 
 
-  //todo this is repeated (from ontology graph.js) - create only a single version
-
   $scope.formattedTooltip = function (element)  {
-    console.log("formatted Too tip", element);
+    //console.log("formatted Too tip", element);
 
     var content = element;
     if (element == 'is_a') {
@@ -60,7 +63,6 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, targetDomainAndPort
     $scope.tooltip= content;
 
   }
-
 
   /**
    * End
