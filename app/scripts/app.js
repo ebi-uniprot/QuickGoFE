@@ -124,5 +124,5 @@ var app = angular
   //app.value('targetDomainAndPort','http://localhost:8080/quickgows');
 
   app.value('feDomainAndPort','http://localhost:9000');
-
+  //app.value('feDomainAndPort','http://ves-hx-cd:8080/QuickGO');
 
