@@ -24,28 +24,12 @@
   <div style="float: left"><button ng-click="clearFilters()">Clear All Filters</button></div>
 
     <!-- Selectable Filter list-->
-    <!--<div id="quickFiltersMenu" class="quickFilters sidebarsubsection">-->
   <br/>
       <h4>Quick Filters</h4>
 
       <h5>Taxon</h5>
 
-
-
-        <!--<table id="taxonomyIdAdvancedFilter" style="width:70%">-->
-          <!--<tr ng-repeat="taxon in mostCommonTaxonomies">-->
-            <!--<td><input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]" ng-true-value="{{taxon.taxId}}"></td>-->
-            <!--<td>{{taxon.taxId}}</td>-->
-            <!--<td>{{taxon.title}}</td>-->
-          <!--</tr>-->
-        <!--</table>-->
-
-
         <ul ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}'>
-            <!--<input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]" ng-true-value="{{taxon.taxId}}"-->
-                   <!--ng-false-value="false" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}-->
-          <!--<span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>-->
-          <!--<button type="button" ng-click="quickTax(taxon.taxId)">&nbsp;</button>[{{taxon.taxId}}] {{taxon.title}}-->
           <input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>
 
 
@@ -69,12 +53,9 @@
 
 
       <div>
-        <!--<a style="float: right" id="advanced-filters" title=""-->
-        <!--class="icon icon-functional button tooltipped" data-icon="f">Advanced filters</a>-->
         <button class="btn btn-default" ng-click="showAdvancedFilters()">Advanced Filters</button>
       </div>
       </form>
-    <!--</div>-->
 
     <!-- Select view by-->
     <h5>View by</h5>
