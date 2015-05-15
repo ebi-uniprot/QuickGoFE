@@ -35,27 +35,27 @@ var app = angular
         controller: 'StartCtrl'
       })
       .when('/annotations', {
-        templateUrl: 'views/annotationList.html',
+        templateUrl: 'annotationsList/annotationList.html',
         controller: 'AnnotationListCtrl'
       })
       .when('/about', {
-        templateUrl: 'views/about.html',
+        templateUrl: 'nav/about.html',
         controller: 'AboutCtrl'
       })
       .when('/documentation', {
-        templateUrl: 'views/documentation.html',
+        templateUrl: 'nav/documentation.html',
         controller: 'DocumentationCtrl'
       })
       .when('/webservices', {
-        templateUrl: 'views/webservices.html',
+        templateUrl: 'nav/webservices.html',
         controller: 'WebServicesCtrl'
       })
       .when('/dataset', {
-        templateUrl: 'views/dataset.html',
+        templateUrl: 'nav/dataset.html',
         controller: 'DataSetCtrl'
       })
       .when('/dataset/goTermHistory', {
-        templateUrl: 'views/goTermHistory.html',
+        templateUrl: 'term/goTermHistory.html',
         controller: 'GoTermHistoryCtrl'
       })
       .when('/dataset/taxonConstraints', {
@@ -71,7 +71,7 @@ var app = angular
         controller: 'AnnotationPostProcessingCtrl'
       })
       .when('/help', {
-        templateUrl: 'views/help.html',
+        templateUrl: 'nav/help.html',
         controller: 'HelpCtrl'
       })
       .when('/term/:goId', {
@@ -87,7 +87,7 @@ var app = angular
         controller: 'GOSlimCtrl2'
       })
       .when('/statistics', {
-        templateUrl: 'views/statistics.html',
+        templateUrl: 'annotationsList/statistics.html',
         controller: 'StatisticsCtrl'
       })
       .when('/terms/P', {
@@ -103,7 +103,7 @@ var app = angular
         controller: 'CellularComponentListCtrl'
       })
       .when('/bookmark/:filterParms', {
-        templateUrl: 'views/annotationList.html',
+        templateUrl: 'annotationsList/annotationList.html',
         controller: 'BookmarkCtrl'
       })
       .when('/annotationExtensionRelations', {

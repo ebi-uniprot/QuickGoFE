@@ -1,7 +1,7 @@
 <div class="Modal-box">
   <div id="basket-contents-show" style="top: 34px;">
     <strong>Max 400 entries</strong>
-    <img ng-show="isLoading" src="images/ajax-loader.gif">
+    <img ng-show="isLoading" src="../images/ajax-loader.gif">
     <div id="filledBasketContents" style="display: block;">
 
       <!--Show message if the basket is empty-->
@@ -24,7 +24,7 @@
           <tr ng-repeat="basketItem in basketItems">
             <td><a><span ng-click="term('{{basketItem.termId}}')">{{basketItem.termId}}</span></a></td>
             <td>{{basketItem.name}}</td>
-            <td><img src="images/cross.png" ng-click="removeItem(basketItem)"/></td>
+            <td><img src="../images/cross.png" ng-click="removeItem(basketItem)"/></td>
           </tr>
           </tbody>
         </table>

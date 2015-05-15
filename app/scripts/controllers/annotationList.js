@@ -162,7 +162,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.showBasket = function () {
 
     var modalInstance = $modal.open({
-      templateUrl: 'modals/basketModal.html',
+      templateUrl: 'basket/basketModal.html',
       controller: 'BasketCtrl',
       size: 'lg',
       scope: $scope,

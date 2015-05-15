@@ -4,7 +4,7 @@
   <div class="clearfix"></div>
 
   <!-- Sidebar -->
-  <div ng-include src="'views/annotation-sidebar.html'"></div>
+  <div ng-include src="'annotationsList/annotation-sidebar.html'"></div>
 
   <!-- Main Content -->
   <div id="annotationsMainContent" class="mainContent grid_10">
@@ -14,7 +14,7 @@
       <!-- Left column-->
       <div id="left-control-col">
 
-        <img ng-show="isLoading" src="images/ajax-loader.gif">
+        <img ng-show="isLoading" src="../images/ajax-loader.gif">
 
         <!--Show current page number and total annotations-->
         <p>Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong></p>
