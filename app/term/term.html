@@ -1,7 +1,7 @@
 <div id="content" class="container_12" xmlns="http://www.w3.org/1999/html">
   <div class="sidebar grid_9">
     <h2 class="page-title">{{termModel.termId}}&nbsp;{{termModel.name}}</h2>
-    <img ng-show="isLoading" src="images/ajax-loader.gif">
+    <img ng-show="isLoading" src="../images/ajax-loader.gif">
   </div>
   <div class="mainContent grid_1">
     <p></p>
@@ -88,23 +88,23 @@
           {{termModel.comment}}</div><br/>
 
       <!-- Term information -->
-      <div ng-include src="'views/term/termInformation.html'"></div>
+      <div ng-include src="'term/termInformation.html'"></div>
       <div class="clearfix"></div>
 
       <!-- Ancestors graph -->
-      <div ng-include src="'views/term/ancestorsGraph.html'"></div>
+      <div ng-include src="'term/ancestorsGraph.html'"></div>
       <div class="clearfix"></div>
 
       <!-- Child Terms -->
-      <div ng-show="true" ng-include src="'views/term/childTerms.html'"></div>
+      <div ng-show="true" ng-include src="'term/childTerms.html'"></div>
       <div class="clearfix"></div>
 
       <!-- Co-occurring terms -->
-      <div ng-show="true" ng-include src="'views/term/coOccuring.html'"></div>
+      <div ng-show="true" ng-include src="'term/coOccuring.html'"></div>
       <div class="clearfix"></div>
 
       <!-- Change log -->
-      <div ng-show="true" ng-include src="'views/term/history.html'"></div>
+      <div ng-show="true" ng-include src="'term/history.html'"></div>
 
     </div>
   </div>
