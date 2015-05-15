@@ -30,8 +30,7 @@
 
       <h5>Taxon</h5>
 
-      <!-- Form for quick submission of the filter parameters-->
-      <form ng-submit="submit(advancedFilters)">
+
 
         <!--<table id="taxonomyIdAdvancedFilter" style="width:70%">-->
           <!--<tr ng-repeat="taxon in mostCommonTaxonomies">-->
@@ -43,12 +42,18 @@
 
 
         <ul ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}'>
-        <!--<input type="checkbox" ng-model="quickFilters.taxon.Selected" ng-change="filterByTaxon()"/>[{{taxon.taxId}}] {{taxon.title}}-->
-            <input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]" ng-true-value="{{taxon.taxId}}" ng-false-value="false">[{{taxon.taxId}}] {{taxon.title}}
-      </ul>
+            <!--<input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]" ng-true-value="{{taxon.taxId}}"-->
+                   <!--ng-false-value="false" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}-->
+          <!--<span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>-->
+          <!--<button type="button" ng-click="quickTax(taxon.taxId)">&nbsp;</button>[{{taxon.taxId}}] {{taxon.title}}-->
+          <input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>
+
+
+        </ul>
 
       <!-- Enter filter area-->
-
+      <!-- Form for quick submission of the filter parameters-->
+      <form ng-submit="submit(advancedFilters)">
 
       <h5>GO ID</h5>
         <fieldset><textarea ng-model="advancedFilters.text.goID"></textarea></fieldset>

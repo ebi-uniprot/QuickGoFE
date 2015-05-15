@@ -31,6 +31,33 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
   }
 
 
+  $scope.quickTax = function(taxId){
+
+    console.log("AnnotationSidebar.js - quickTax", taxId);
+
+    var aFilter = {type: 'taxonomyId', value: taxId};
+
+    if(filteringService.hasFilter(aFilter)){
+      filteringService.removeFilter(aFilter);
+    }else{
+      filteringService.saveAppliedFilter(aFilter);
+    }
+
+    //Check to see if this combination is in the advancedFilters list
+    // - if not, add it.
+    // - if so, remove it.
+
+
+    //filteringService.populateAppliedFilters(advancedFilters,0); //0==not a slim
+    //
+    $scope.bookmarkableLink = feDomainAndPort+"/#/bookmark/"+filteringService.createBookmarkableString();
+    //
+    //Tell parent page this value has been updated.
+
+    $scope.$emit('filtersUpdate', '');   //todo change this so is notification only
+
+  }
+
   /**
    * Remove filter from applied filters
    * @param filter

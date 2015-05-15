@@ -380,21 +380,46 @@ filteringModule.factory('filteringService', function() {
   };
 
   /**
-   *
+   * Clear all filters
    */
   filteringService.clearFilters=function(){
     console.log("Clearing filters");
     filters = [];
   };
 
+
   /**
-   * -------------------------------------------- Non public methods ------------------------------------------
+   * Check if filter exists
    */
+
+  filteringService.hasFilter=function(aFilter){
+
+    var j=-1;
+    var exists=0;
+    for(j=0; j<filters.length; j++){
+
+      if(filters[j]=='undefined'){
+        continue;
+      }
+
+      console.log("what is j",j);
+
+      if(filters[j].type == aFilter.type & filters[j].value == aFilter.value){
+        exists=1;
+      }
+    }
+
+    return exists;
+
+  }
+
+
+
 
   /**
    * Save the object to applied filters if it doesn't exist already
    */
-  function saveAppliedFilter(aFilter){
+  filteringService.saveAppliedFilter=function(aFilter){
     console.log('Content of applied Filters is', filters);
     console.log("save applied filter ", aFilter);
 
