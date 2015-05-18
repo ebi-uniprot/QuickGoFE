@@ -10,7 +10,6 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targ
   $scope.targetDomainAndPort=targetDomainAndPort;
 
   var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
-  var chartURL=targetDomainAndPort;
 
   console.log("Chart Full url", formattedURL);
 
