@@ -29,7 +29,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   $http.get(formattedURL+termId).success(function(data) {
     $scope.termModel = data;
     $scope.isLoading=0;
-    console.log($scope.termModel);
+    console.log("Got Term model", $scope.termModel);
 
     setupBasketButton($scope.termModel);
 
