@@ -122,7 +122,7 @@ filteringModule.factory('filteringService', function() {
                 var aFilterValue = filterKeys[aFilterKey];
 
                 //Don't include de-selected values
-                if(aFilterValue!=false) {
+                if(aFilterValue!=false && aFilterValue !=undefined) {
 
                   console.log("aFilterValue", aFilterValue);
 

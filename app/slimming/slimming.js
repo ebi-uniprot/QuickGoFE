@@ -43,6 +43,25 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
     $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
     $scope.availablePredefinedTerms.$promise.then(function (data) {
       $scope.availablePredefinedTerms = data;
+
+
+      //On loading all the terms for a selected predefined set, set their selection to true as the default.
+      //We are setting the name of the variable to be saved to be the termid, as well as the value it holds.
+
+      //Initialize
+      $scope.advancedFilters.boolean = {};
+      $scope.advancedFilters.boolean.goID = {};
+
+      var k=-1;
+      for(k=0; k<$scope.availablePredefinedTerms.length; k++){
+        var aTerm = $scope.availablePredefinedTerms[k];
+
+        $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
+
+      }
+
+      console.log("Loaded advanced filters = ",$scope.advancedFilters);
+
     });
   };
 
@@ -69,23 +88,38 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
    * Turn on and off the selection of al Biological Process Terms
    * @param type
    */
-  $scope.checkAllBio = function (type) {
-    console.log("check all bio called");
-    if ($scope.selectedAllBio) {
-      $scope.selectedAllBio = false;
-    } else {
-      $scope.selectedAllBio = true;
+  $scope.selectClearAll = function (type) {
+    console.log("selectClearAll called", type);
+    //if ($scope.selectedAllBio) {
+    //  $scope.selectedAllBio = false;
+    //} else {
+    //  $scope.selectedAllBio = true;
+    //}
+    //
+    ////console.log("Contents of available predefined terms", $scope.availablePredefinedTerms);
+    //angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
+    //  //console.log("available term", aTerm);
+    //  if(aTerm.aspectDescription==type) {
+    //    //console.log("Setting check for ", type);
+    //    aTerm.Selected = $scope.selectedAllBio;
+    //  }
+    //
+    //});
+
+
+    var k=-1;
+    for(k=0; k<$scope.availablePredefinedTerms.length; k++){
+      var aTerm = $scope.availablePredefinedTerms[k];
+
+      if(aTerm.aspectDescription==type) {
+        if ($scope.advancedFilters.boolean.goID[[aTerm.termId]] == aTerm.termId) {
+          $scope.advancedFilters.boolean.goID[[aTerm.termId]] = undefined;
+        } else {
+          $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
+        }
+      }
     }
 
-    //console.log("Contents of available predefined terms", $scope.availablePredefinedTerms);
-    angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
-      //console.log("available term", aTerm);
-      if(aTerm.aspectDescription==type) {
-        //console.log("Setting check for ", type);
-        aTerm.Selected = $scope.selectedAllBio;
-      }
-
-    });
 
   };
 

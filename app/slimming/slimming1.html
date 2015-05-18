@@ -14,11 +14,11 @@
       <accordion>
 
           <accordion-group heading="Biological Process Terms">
-            <input type="checkbox" ng-model="selectedAllBio" ng-click="checkAllBio('Biological Process')" >Select All
+            <button type="button" ng-click="selectClearAll('Biological Process')" >Select/Clear All</button>
             <ul ng-repeat="aTerm in availablePredefinedTerms">
             <span ng-if="aTerm.aspectDescription=='Biological Process'">
              <label>
-                <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]" ng-true-value="'{{aTerm.termId}}'">
+                <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]" ng-true-value="'{{aTerm.termId}}'" >
                 {{aTerm.termId}}&nbsp;{{aTerm.name}}
               </label>
               </span>
@@ -26,7 +26,7 @@
           </accordion-group>
 
           <accordion-group heading="Molecular Function Terms">
-            <input type="checkbox" ng-model="selectedAllMol" ng-click="checkAllMol('Molecular Function')" >Select All
+            <button type="button" ng-click="selectClearAll('Molecular Function')">Select/Clear All</button>
             <ul ng-repeat="aTerm in availablePredefinedTerms">
               <span ng-if="aTerm.aspectDescription=='Molecular Function'">
                 <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"  ng-true-value="'{{aTerm.termId}}'">
@@ -36,7 +36,7 @@
           </accordion-group>
 
           <accordion-group heading="Cellular component Terms">
-            <input type="checkbox" ng-model="selectedAllCell" ng-click="checkAllCell('Cellular Component')" >Select All
+            <button type="button" ng-click="selectClearAll('Cellular Component')">Select/Clear All</button>
             <ul ng-repeat="aTerm in availablePredefinedTerms">
               <span ng-if="aTerm.aspectDescription=='Cellular Component'">
                 <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"  ng-true-value="'{{aTerm.termId}}'">
