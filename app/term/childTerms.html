@@ -1,6 +1,6 @@
 <div id="child-terms-section" ng-show="showChildTerms">
   <h3><strong>Child Terms</strong></h3>
-    <div ng-show="termModel.childTermsRelations.length == 0">
+    <div ng-show="termModel.childTermsRelations == undefined">
       Term {{termModel.termId}} has no children
     </div>
     <div ng-show="termModel.childTermsRelations.length > 0">
