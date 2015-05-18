@@ -1,16 +1,21 @@
 /**
  * Created by twardell on 02/02/2015.
  */
-app.controller('AncestorsGraphCtrl', function($scope, $http, targetDomainAndPort) {
+app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDomainAndPort) {
+
+
+  /*Parse the url to get the termid*/
+  var pathVals =$location.path().split("/");
+  //var termId=pathVals[(pathVals.length-1)];
 
   console.log("In AncestorsGraphCtrl");
   $scope.isLoading = 1;
-  $scope.graphModel = graphModel;
+  $scope.graphModel = {};
+  $scope.graphModel.id =pathVals[(pathVals.length-1)];
   $scope.imageSource="";
-  $scope.feDomainAndPort=feDomainAndPort;
   $scope.targetDomainAndPort=targetDomainAndPort;
 
-  var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
+  var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+$scope.graphModel.id + "&scope=" + $scope.graphModel.scope;
   var chartURL=targetDomainAndPort;
 
   console.log("Chart Full url", formattedURL);
@@ -20,14 +25,6 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, targetDomainAndPort
     //console.log("got the response back ", data);
     $scope.isLoading=0;
     $scope.graphImage = data;
-
-
-    //Now get the image data
-    //chartURL=chartURL+'/'+$scope.graphImage.graphImageSrc;
-    //$http.get(chartURL).success(function(imgdata) {
-    //  //console.log("got the response back ", data);
-    //  //$scope.graphImageRaw = imgdata;
-    //});
 
     $scope.imageSource=targetDomainAndPort+$scope.graphImage.graphImageSrc;
 
