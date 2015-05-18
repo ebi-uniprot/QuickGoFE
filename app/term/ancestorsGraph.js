@@ -3,22 +3,44 @@
  */
 app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDomainAndPort) {
 
+  /**
+   * Do stuff for ancestor graph
+   * /
 
-  /*Parse the url to get the termid*/
-  var pathVals =$location.path().split("/");
-  //var termId=pathVals[(pathVals.length-1)];
+   //Parse the url to get the termid*/
+    var pathVals =$location.path().split("/");
+    var termId=pathVals[(pathVals.length-1)];
 
   console.log("In AncestorsGraphCtrl");
   $scope.isLoading = 1;
   $scope.graphModel = {};
-  $scope.graphModel.id =pathVals[(pathVals.length-1)];
+  $scope.graphModel.id =termId;
+
+  if(termId.lastIndexOf('ECO', 0) === 0){
+    $scope.isGoTerm=0;
+  }else{
+    $scope.isGoTerm=1;
+  }
+
+  console.log("graphModel.id", $scope.graphModel);
+
   $scope.imageSource="";
   $scope.targetDomainAndPort=targetDomainAndPort;
 
-  var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+$scope.graphModel.id + "&scope=" + $scope.graphModel.scope;
-  var chartURL=targetDomainAndPort;
 
-  console.log("Chart Full url", formattedURL);
+  //Get the graph from the server - scope is only applicable for eco terms
+  //var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+ termId + termId.lastIndexOf('ECO', 0) === 0?"&scope=ECO":'';
+  var formattedURL;
+  if(termId.lastIndexOf('ECO', 0) === 0){
+    formattedURL = targetDomainAndPort +'/ws/chartfull?ids='+ termId + '&scope=ECO';
+    $scope.graphModel.scope='ECO';
+  }else{
+    formattedURL = targetDomainAndPort +'/ws/chartfull?ids='+ termId
+    $scope.graphModel.scope='';
+  }
+
+  console.log("Chart Full url fasdf", formattedURL);
+  console.log("boo");
 
 
   $http.get(formattedURL).success(function(data) {
