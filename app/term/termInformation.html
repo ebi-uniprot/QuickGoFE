@@ -59,7 +59,7 @@
   </table>
 
   <accordion close-others="oneAtATime">
-    <accordion-group heading="Synonyms" is-open="false" is-disabled="termModel.synonyms.length==0">
+    <accordion-group heading="Synonyms" is-open="false" is-disabled="termModel.synonyms.length==0" ng-show="isGoTerm">
     <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication of the relationship between the name and synonym given by the synonym scope.</p>
     <table id="synonymsTableAccordian" class="two-colours">
       <tr>
@@ -72,7 +72,7 @@
       </tr>
     </table>
     </accordion-group>
-    <accordion-group heading="Taxon Constraints" is-disabled="termModel.taxonConstraints.length==0">
+    <accordion-group heading="Taxon Constraints" is-disabled="termModel.taxonConstraints.length==0" ng-show="isGoTerm">
       <p>The use of this term should conform to the following taxon constraints:</p>
       <table id="taxonconstraintsTable" class="two-colours">
         <tr>
@@ -99,7 +99,7 @@
         </tr>
       </table>
     </accordion-group>
-    <accordion-group heading="Annotation Guidance" is-disabled="termModel.guidelines.length==0">
+    <accordion-group heading="Annotation Guidance" is-disabled="termModel.guidelines.length==0" ng-show="isGoTerm">
       <p>Usage of this term is subject to the following annotation guidelines:</p>
       <table id="guidelineTable" class="two-colours">
         <tr>
@@ -111,7 +111,7 @@
         </tr>
       </table>
     </accordion-group>
-    <accordion-group heading="Cross-Ontology Relations" is-disabled="termModel.crossOntologyRelations.length==0">
+    <accordion-group heading="Cross-Ontology Relations" is-disabled="termModel.crossOntologyRelations.length==0" ng-show="isGoTerm">
       <table id="ontologyrelationsTable" class="two-colours">
         <tr>
           <th>Relation</th><th>Other Ontology</th><th>ID</th><th>Term</th>
@@ -124,7 +124,7 @@
         </tr>
       </table>
     </accordion-group>
-    <accordion-group heading="GO Slims" is-open="false" is-disabled="termModel.subsets.length==0">
+    <accordion-group heading="GO Slims" is-open="false" is-disabled="termModel.subsets.length==0" ng-show="isGoTerm">
       <p>This term is present in the following GO Consortium-maintained GO slims:</p>
       <table id="subsetsTable" class="two-colours">
         <tr>
@@ -136,7 +136,7 @@
           <td>{{subset.termCount}}</td>
         </tr>
       </table>
-    </accordion-group>
+    </accordion-group >
     <accordion-group heading="Cross-references" is-open="false" is-disabled="termModel.xrefs.length==0">
       <table id="xrefTable" class="two-colours">
         <tr>
@@ -151,7 +151,7 @@
         </tr>
       </table>
     </accordion-group>
-    <accordion-group heading="Replaces" is-open="false" is-disabled="termModel.replaces.length==0">
+    <accordion-group heading="Replaces" is-open="false" is-disabled="termModel.replaces.length==0" ng-show="isGoTerm">
       <p>This term can be used instead of these obsolete terms:</p>
       <table id="replacesTable" class="two-colours">
         <tr>
@@ -166,7 +166,7 @@
         </tr>
       </table>
     </accordion-group>
-    <accordion-group heading="Replaced by" is-open="false" is-disabled="termModel.replacements.length==0">
+    <accordion-group heading="Replaced by" is-open="false" is-disabled="termModel.replacements.length==0" ng-show="isGoTerm">
       <p>This term is obsolete. Try one of these terms:</p>
       <table id="replacementsTable" class="two-colours">
         <tr>

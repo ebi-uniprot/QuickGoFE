@@ -16,6 +16,13 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
 
   $rootScope.header = "QuickGO::Term "+termId;
 
+  //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
+  if(termId.lastIndexOf('ECO', 0) === 0){
+    $scope.isGoTerm=0;
+  }else{
+    $scope.isGoTerm=1;
+  }
+
 
   /**
    * Show basket quantity
