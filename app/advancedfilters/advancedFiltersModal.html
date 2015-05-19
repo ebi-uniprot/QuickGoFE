@@ -127,30 +127,33 @@
         <section>
           <h4>2. Select how you want to use the terms that you have chosen:</h4>
 
-          <div class="choiceA" style="display:block">
-            <input type="radio" name="useSlim" ng-model="useSlim" value="1">
-            Use these terms as a GO slim
+          <div class="choiceA" style="text-indent: 3%;" ng-init="useSlim=0">
+            <ul>
+              <li><input type="radio" ng-model="useSlim" value="1"> Use these terms as a GO slim</li>
+              <li><input type="radio" ng-model="useSlim" value="0"> Find annotations to descendants of these
+                       terms (annotations will display the original GO terms applied)</li>
+            </ul>
           </div>
-          <div class="choiceB" style="display:block">
-            <input type="radio" name="useSlim" ng-model="useSlim" value="0"> Select which relationship an annotated term
-            should have to the terms above:
-            <div ng-show="useSlim==0">
-              <div style="display:block"><input type="radio" name="closure" value="ancestorsI"
-                                                ng-model="advancedFilters.boolean.ancestorsI.ancestorsI">is_a only
-              </div>
-              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPO"
-                                                ng-model="advancedFilters.boolean.ancestorsIPO.ancestorsIPO">is_a,
-                part_of
-              </div>
-              <div style="display:block"><input type="radio" name="closure" value="ancestorsIPOR"
-                                                ng-model="advancedFilters.boolean.ancestorsIPOR.ancestorsIPOR">is_a,
-                part_of,regulates
-              </div>
-            </div>
-          </div>
-
         </section>
 
+        <section>
+        <h4>3. Select which relationship an annotated term should have to the terms above:</h4>
+          <div>
+            Select which relationship an annotated term should have to the terms above:
+            <div style="text-indent: 3%;">
+
+              <ul>
+              <li><input type="radio" name="closure" value="ancestorsI"
+                                                 ng-model="advancedFilters.boolean.ancestorsI.ancestorsI">is_a only</li>
+              <li><input type="radio" name="closure" value="ancestorsIPO"
+                                                 ng-model="advancedFilters.boolean.ancestorsIPO.ancestorsIPO">is_a, part_of</li>
+
+              <li><input type="radio" name="closure" value="ancestorsIPOR"
+                                                 ng-model="advancedFilters.boolean.ancestorsIPOR.ancestorsIPOR">is_a, part_of,regulates</li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </div>
     </tab>
 

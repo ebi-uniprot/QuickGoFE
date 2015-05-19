@@ -7,7 +7,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
 
 
   $scope.advancedFilters = {};
-  $scope.useSlim = 1;
+  $scope.useSlim = 0;
 
   /**
    * ---------------------------------------   Data loading Operations    --------------------------------------------
@@ -89,7 +89,9 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
    */
   $scope.submit = function(){
 
-    console.log("Submitted ")
+    console.log("Submitted advancedFilters",$scope.advancedFilters);
+    console.log("Submitted useSlim",$scope.useSlim);
+
 
     filteringService.populateAppliedFilters( $scope.advancedFilters,  $scope.useSlim);
 
