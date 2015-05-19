@@ -3,7 +3,7 @@
  */
 
 
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, basketService,
+app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, $location, basketService,
                                               hardCodedDataService, targetDomainAndPort, filteringService) {
 
 
@@ -31,6 +31,46 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
   //$scope.rowsPerPage = 25; // this should match however many results your API puts on one page
+
+
+
+  $scope.evidenceSetter="ecoAncestorsI";
+
+  $rootScope.header = "QuickGO::Annotation List";
+
+
+  /**
+   * Have we come here from a bookmarkable link?
+   */
+  // Parse the query parameters and forward to the annotation page after populating the filtering service values
+  // It will be something like http://localhost:9000/#/bookmark/taxonomyId:9606,
+
+  /*Parse the url to get the filter parameters*/
+  //var advancedFilters = [];
+  //var pathVals =$location.path().split("/");
+  //var filterParms=pathVals[(pathVals.length-1)];
+  //var args = filterParms.split(",");
+  //
+  //var i=-1;
+  //for(i=0;i<args.length;i++) {
+  //
+  //  var singleArg = args[i];
+  //
+  //  if (singleArg != '') {
+  //    console.log(singleArg);
+  //    var components = singleArg.split(":");
+  //    var aFilter = {type: components[0], value: components[1]};
+  //    console.log("Bookmark.js -created aFilter", aFilter);
+  //    advancedFilters.push(aFilter);
+  //  }
+  //
+  //}
+  //
+  ////Save the passed in parameters to the
+  //filteringService.simpleAppliedFilters(advancedFilters,0); //0==not a slim
+
+
+  /*   */
   $scope.isLoading = 0;
   $scope.currentPage=1;
   getResultsPage(1);    //<--this is called instead by the page changed call
@@ -40,9 +80,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   };
 
 
-  $scope.evidenceSetter="ecoAncestorsI";
+  /**
+   * Page initialization over
+   */
 
-  $rootScope.header = "QuickGO::Annotation List";
 
   /**
    * Pick up the basket update event from the modal
@@ -96,7 +137,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
   /**
-   * Put commas betweenn the rather large numbers we can have here.
+   * Put commas between the rather large numbers we can have here.
    */
   function prettyPrintNumberAnnotations(numberAnnotations){
     $scope.totalAnnotations = numberAnnotations.toLocaleString();

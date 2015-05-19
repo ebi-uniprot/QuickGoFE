@@ -6,6 +6,7 @@ app.controller('BookmarkCtrl', function($scope, $location,  $window, filteringSe
                                         hardCodedDataService, targetDomainAndPort) {
 
   console.log("In the bookmark controller");
+  console.log("The path we arrived here with is", $location.path())
 
   //The raw list of filters as they come back from the advanced filters modal
   var advancedFilters = [];
@@ -17,10 +18,7 @@ app.controller('BookmarkCtrl', function($scope, $location,  $window, filteringSe
   /*Parse the url to get the filter parameters*/
   var pathVals =$location.path().split("/");
   var filterParms=pathVals[(pathVals.length-1)];
-
-
-  console.log("filter parms", filterParms);
-
+  //console.log("filter parms", filterParms);
 
   var args = filterParms.split(",");
 
@@ -30,10 +28,10 @@ app.controller('BookmarkCtrl', function($scope, $location,  $window, filteringSe
     var singleArg = args[i];
 
     if (singleArg != '') {
-      console.log(singleArg);
+      //console.log(singleArg);
       var components = singleArg.split(":");
       var aFilter = {type: components[0], value: components[1]};
-      console.log("Bookmark.js -created aFilter", aFilter);
+      //console.log("Bookmark.js -created aFilter", aFilter);
       advancedFilters.push(aFilter);
     }
 
@@ -43,7 +41,8 @@ app.controller('BookmarkCtrl', function($scope, $location,  $window, filteringSe
   filteringService.simpleAppliedFilters(advancedFilters,0); //0==not a slim
 
   //Go to annotation list page
-  //$window.location.href= "#annotations";
+  console.log("Forwarding to the annotations page");
+  window.location.href= "#/annotations/";
 
 
 });

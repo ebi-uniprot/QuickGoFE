@@ -26,7 +26,7 @@ filteringModule.factory('filteringService', function() {
 
   filteringService.setFilters = function (filterList){
     filters=filterList;
-    console.log("Creating filters list", filters)
+    //console.log("Creating filters list", filters)
   }
 
   filteringService.getFilters = function(){
@@ -37,7 +37,7 @@ filteringModule.factory('filteringService', function() {
    * Create //todo is this used?
    */
   filteringService.toQueryString = function(){
-    console.log("Building Query String", filters);
+    //console.log("Building Query String", filters);
 
     var queryString = '';
     if(filters.dbObjectID != undefined) {
@@ -57,16 +57,16 @@ filteringModule.factory('filteringService', function() {
   filteringService.populateAppliedFilters = function(data, isSlim){
     //var appliedFilters = [];
 
-    console.log("state for isSlim is ", isSlim);
+    //console.log("state for isSlim is ", isSlim);
     isSlimRequest = isSlim;
-    console.log("state for isSlimRequest is ", isSlimRequest);
+    //console.log("state for isSlimRequest is ", isSlimRequest);
 
-    console.log("Has own data", data);
+    //console.log("Has own data", data);
 
     for(var inputType in data) {
 
       if (data.hasOwnProperty(inputType)) {
-        console.log("Input type", inputType);
+        //console.log("Input type", inputType);
 
         //Don't process the following
         //Input fields; text area etc
@@ -78,17 +78,17 @@ filteringModule.factory('filteringService', function() {
         if (inputType == 'text') {
 
           var anInputType = data[inputType];
-          console.log("An Input type", anInputType);
+          //console.log("An Input type", anInputType);
 
           //parse content
           for (var property in anInputType) {
 
             if (anInputType.hasOwnProperty(property)) {
 
-              console.log("Has own proerty", property);
+              //console.log("Has own proerty", property);
               var values = anInputType[property];
               var res = values.split("\n");
-              console.log("res",res);
+              //console.log("res",res);
               var i;
               for (i = 0; i < res.length; i++) {
 
@@ -107,15 +107,15 @@ filteringModule.factory('filteringService', function() {
         if (inputType == 'boolean') {
 
           var anInputType = data[inputType];
-          console.log("An Input type", anInputType);
+          //console.log("An Input type", anInputType);
 
           for (var filtertype in anInputType) {
             if (anInputType.hasOwnProperty(filtertype)) {
-              console.log("Has own property", filtertype);
+              //console.log("Has own property", filtertype);
 
               var filterKeys = anInputType[filtertype];
 
-              console.log("filterKeys", filterKeys);
+              //console.log("filterKeys", filterKeys);
 
               for (var aFilterKey in filterKeys) {
 
@@ -124,13 +124,13 @@ filteringModule.factory('filteringService', function() {
                 //Don't include de-selected values
                 if(aFilterValue!=false && aFilterValue !=undefined) {
 
-                  console.log("aFilterValue", aFilterValue);
+                  //console.log("aFilterValue", aFilterValue);
 
                   var aFilter = {type: filtertype, value: aFilterValue};
                   filteringService.saveAppliedFilter(aFilter);
                   //$scope.appliedFilters.push({type: filtertype, value: aFilterValue});
                 }else{
-                  console.log("Removing filter ", aFilter);
+                  //console.log("Removing filter ", aFilter);
                   var aFilter = {type: filtertype, value: aFilterValue};
                   filteringService.removeFilter(aFilter);
                 }
@@ -143,10 +143,10 @@ filteringModule.factory('filteringService', function() {
         if(inputType == 'predefinedSlimSet'){
 
           var anInputType = data[inputType];
-          console.log("An Input type", anInputType);
+          //console.log("An Input type", anInputType);
 
           var value = anInputType['subset'];
-          console.log("A value", value);
+          //console.log("A value", value);
 
           var aFilter = {type: 'subSet', value: value};
           filteringService.saveAppliedFilter(aFilter);
@@ -166,11 +166,11 @@ filteringModule.factory('filteringService', function() {
   filteringService.simpleAppliedFilters = function(data, isSlim){
     //var appliedFilters = [];
 
-    console.log("state for isSlim is ", isSlim);
+    //console.log("state for isSlim is ", isSlim);
     isSlimRequest = isSlim;
-    console.log("state for isSlimRequest is ", isSlimRequest);
+    //console.log("state for isSlimRequest is ", isSlimRequest);
 
-    console.log("simpleAppliedFilters", data);
+    //console.log("simpleAppliedFilters", data);
 
     var j=-1;
     for(j=0; j<data.length; j++) {
@@ -188,13 +188,13 @@ filteringModule.factory('filteringService', function() {
    * //todo get rid of the quotes required around individual values. These have to be in there to make stuff work
    */
   filteringService.returnListOfFilters = function(data){
-    console.log("returnListOfFilters ", data);
+    //console.log("returnListOfFilters ", data);
     var filterTerms = [];
 
     for(var inputType in data) {
 
       if (data.hasOwnProperty(inputType)) {
-        console.log("Input type", inputType);
+        //console.log("Input type", inputType);
 
         //Don't process the following
         //Input fields; text area etc
@@ -206,17 +206,17 @@ filteringModule.factory('filteringService', function() {
         if (inputType == 'text') {
 
           var anInputType = data[inputType];
-          console.log("An Input type", anInputType);
+          //console.log("An Input type", anInputType);
 
           //parse content
           for (var property in anInputType) {
 
             if (anInputType.hasOwnProperty(property)) {
 
-              console.log("Has own proerty", property);
+              //console.log("Has own proerty", property);
               var values = anInputType[property];
               var res = values.split("\n");
-              console.log("res",res);
+              //console.log("res",res);
               var i;
               for (i = 0; i < res.length; i++) {
 
@@ -235,15 +235,15 @@ filteringModule.factory('filteringService', function() {
         if (inputType == 'boolean') {
 
           var anInputType = data[inputType];
-          console.log("An Input type", anInputType);
+          //console.log("An Input type", anInputType);
 
           for (var filtertype in anInputType) {
             if (anInputType.hasOwnProperty(filtertype)) {
-              console.log("Has own property", filtertype);
+              //console.log("Has own property", filtertype);
 
               var filterKeys = anInputType[filtertype];
 
-              console.log("filterKeys", filterKeys);
+              //console.log("filterKeys", filterKeys);
 
               for (var aFilterKey in filterKeys) {
 
@@ -252,13 +252,13 @@ filteringModule.factory('filteringService', function() {
                 //Don't include de-selected values
                 if(aFilterValue!=false) {
 
-                  console.log("aFilterValue", aFilterValue);
+                  //console.log("aFilterValue", aFilterValue);
 
                   var aFilter = {type: filtertype, value: aFilterValue};
                   filterTerms.push(aFilter);
                   //$scope.appliedFilters.push({type: filtertype, value: aFilterValue});
                 //}else{
-                //  console.log("Removing filter ", aFilter);
+                //  //console.log("Removing filter ", aFilter);
                 //  var aFilter = {type: filtertype, value: aFilterValue};
                 //  filteringService.removeFilter(aFilter);
                 }
@@ -271,10 +271,10 @@ filteringModule.factory('filteringService', function() {
         if(inputType == 'predefinedSlimSet'){
 
           var anInputType = data[inputType];
-          console.log("An Input type", anInputType);
+          //console.log("An Input type", anInputType);
 
           var value = anInputType['subset'];
-          console.log("A value", value);
+          //console.log("A value", value);
 
           var aFilter = {type: 'subSet', value: value};
           filterTerms.push(aFilter);
@@ -383,7 +383,7 @@ filteringModule.factory('filteringService', function() {
    * Clear all filters
    */
   filteringService.clearFilters=function(){
-    console.log("Clearing filters");
+    //console.log("Clearing filters");
     filters = [];
   };
 
@@ -402,7 +402,7 @@ filteringModule.factory('filteringService', function() {
         continue;
       }
 
-      console.log("what is j",j);
+      //console.log("what is j",j);
 
       if(filters[j].type == aFilter.type & filters[j].value == aFilter.value){
         exists=1;
@@ -420,8 +420,8 @@ filteringModule.factory('filteringService', function() {
    * Save the object to applied filters if it doesn't exist already
    */
   filteringService.saveAppliedFilter=function(aFilter){
-    console.log('Content of applied Filters is', filters);
-    console.log("save applied filter ", aFilter);
+    //console.log('Content of applied Filters is', filters);
+    //console.log("save applied filter ", aFilter);
 
 
     var j=-1;
@@ -432,7 +432,7 @@ filteringModule.factory('filteringService', function() {
         continue;
       }
 
-      console.log("what is j",j);
+      //console.log("what is j",j);
 
       if(filters[j].type == aFilter.type & filters[j].value == aFilter.value){
         exists=1;
@@ -444,7 +444,7 @@ filteringModule.factory('filteringService', function() {
       filters.push(aFilter);
     }
 
-    console.log('Content of applied Filters is now', filters);
+    //console.log('Content of applied Filters is now', filters);
 
   }
 

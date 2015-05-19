@@ -22,7 +22,7 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
 
     filteringService.populateAppliedFilters(advancedFilters,0); //0==not a slim
 
-    $scope.bookmarkableLink = feDomainAndPort+"/#/bookmark/"+filteringService.createBookmarkableString();
+    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
 
     //Tell parent page this value has been updated.
 
@@ -50,7 +50,7 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
 
     //filteringService.populateAppliedFilters(advancedFilters,0); //0==not a slim
     //
-    $scope.bookmarkableLink = feDomainAndPort+"/#/bookmark/"+filteringService.createBookmarkableString();
+    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
     //
     //Tell parent page this value has been updated.
 
@@ -66,7 +66,7 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
 
     filteringService.removeFilter(filter);
 
-    $scope.bookmarkableLink = feDomainAndPort+"/#/bookmark/"+filteringService.createBookmarkableString();
+    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
 
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersUpdate', filter);

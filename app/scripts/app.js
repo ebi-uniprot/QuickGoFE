@@ -102,7 +102,7 @@ var app = angular
         templateUrl: 'simplelist/cellularcomponent.html',
         controller: 'CellularComponentListCtrl'
       })
-      .when('/bookmark/:filterParms', {
+      .when('/annotations/:filterParms', {
         templateUrl: 'annotationsList/annotationList.html',
         controller: 'BookmarkCtrl'
       })
