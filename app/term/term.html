@@ -7,57 +7,64 @@
     <p></p>
   </div>
   <div class="grid_2">
-    Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;<button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
+    Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
+    <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
   </div>
   <div class="clearfix"></div>
 
   <div class="sidebar grid_2">
     <div id="entrySidebar">
-      <div class="sidebarsubsection"  style="position: fixed">
+      <div class="sidebarsubsection" style="position: fixed">
         <h3 class="first">
           <strong>Display</strong>
         </h3>
         <ul id="entry_sections">
           <li>
             <div>
-              <input type="checkbox" ng-init="showTermInformation='true'" ng-model="showTermInformation" ng-checked="showTermInformation" ng-click="scrollTo('term-information-section')">
-              <!--<span title="" id="term-information" class="entryview-name-nav" ng-click="scrollTo('term-information-section')">Term Information</span>-->
+              <input type="checkbox"  ng-model="termInformation">
+              <span ng-click="scrollTo('termInformation')">
               Term Information
-              <!--<button type="button" ng-click="scrollTo('term-information-section')" ng-disable="showTermInformation==false">&gt;</button>-->
+              </span>
             </div>
           </li>
           <li>
             <div>
-              <input type="checkbox" ng-model="showAncestorChart" ng-checked="showAncestorChart">
-              <!--<span title="" id="ancestor-chart" class="entryview-name-nav" ng-click="scrollTo('ancestor-chart-section')">Ancestor Chart</span>-->
+              <input type="checkbox" ng-model="ancestorChart">
+              <span ng-click="scrollTo('ancestorChart')">
               Ancestor Chart
-              <!--<button type="button"  ng-click="scrollTo('ancestor-chart-section')" ng-show="showAncestorChart">&gt;</button>-->
+              </span>
             </div>
           </li>
           <div ng-show="termModel.goTerm">
             <li>
               <div>
-                <input type="checkbox"ng-model="showChildTerms" ng-checked="showChildTerms">
+                <input type="checkbox" ng-model="childTerms">
+                <span ng-click="scrollTo('childTerms')">
                 Child Terms
+                </span>
               </div>
             </li>
             <li>
               <div>
-                <input type="checkbox" ng-model="showCoocurring" ng-checked="showCoocurring">
+                <input type="checkbox" ng-model="coOcurring"> <span ng-click="scrollTo('coOcurring')">
                 Co-occurring Terms
+                </span>
               </div>
             </li>
             <li>
               <div>
-                <input type="checkbox" ng-model="showHistory" ng-checked="showHistory">
+                <input type="checkbox" ng-model="termHistory">
+                <span ng-click="scrollTo('termHistory')">
                 Change Log
+                </span>
               </div>
             </li>
           </div>
         </ul>
 
                 <span ng-show="termModel.goTerm">
-          <element data-icon="i" id="show-term-annotations" class="closed icon icon-functional button" value="{{termModel.termId}}"
+          <element data-icon="i" id="show-term-annotations" class="closed icon icon-functional button"
+                   value="{{termModel.termId}}"
                    style="cursor:pointer" ng-click="showTermAnnotations(termModel.termId)">Show annotations
           </element>
         </span>
@@ -75,17 +82,19 @@
       <ul class="action-buttons-grouped decorated" id="resultActionButtons">
         <div id="add-to-basket-div">
 
-            <button ng-show="preventAddToBasket" disabled>Add to Basket</button>
-            <button ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add to Basket</button>
+          <button ng-show="preventAddToBasket" disabled>Add to Basket</button>
+          <button ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add to Basket</button>
         </div>
       </ul>
     </div>
     <div style="display: block;" id="resultsArea">
       <!-- Check if it's obsolete -->
-        <div class="alert" ng-show="isObsolete">
-          <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
-          <strong>This term is obsolete.</strong><br/>
-          {{termModel.comment}}</div><br/>
+      <div class="alert" ng-show="isObsolete">
+        <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
+        <strong>This term is obsolete.</strong><br/>
+        {{termModel.comment}}
+      </div>
+      <br/>
 
       <!-- Term information -->
       <div ng-include src="'term/termInformation.html'"></div>

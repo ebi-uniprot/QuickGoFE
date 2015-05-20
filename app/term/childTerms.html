@@ -1,11 +1,11 @@
-<div id="child-terms-section" ng-show="showChildTerms">
+<div id="childTerms" ng-show="showChildTerms">
   <h3><strong>Child Terms</strong></h3>
     <div ng-show="termModel.childTermsRelations == undefined">
       Term {{termModel.termId}} has no children
     </div>
     <div ng-show="termModel.childTermsRelations.length > 0">
       <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
-      <table id="childTerms" class="two-colours">
+      <table class="two-colours">
         <tr>
           <th>Relationship to {{termModel.termId}}</th><th>Child Term</th><th>Child Term Name</th>
         </tr>
