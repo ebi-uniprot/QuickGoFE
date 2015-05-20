@@ -12,11 +12,11 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   /**
    * Data required for showing term elements
    */
-  $scope.termInformation=1;
-  $scope.ancestorChart=0;
-  $scope.childTerms=0;
-  $scope.coOcurring=0;
-  $scope.termHistory  =0;
+  //$scope.termInformation=1;
+  //$scope.ancestorChart=0;
+  //$scope.childTerms=0;
+  //$scope.coOcurring=0;
+  //$scope.termHistory  =0;
 
 
   /*Parse the url to get the termid*/
@@ -162,25 +162,30 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   // https://docs.angularjs.org/api/ng/service/$anchorScroll
   $scope.scrollTo = function(id) {
 
+    var old = $location.hash();
+    $location.hash(id);
+    $anchorScroll();
+    //reset to old to keep any additional routing logic from kicking in
+    $location.hash(old);
+
     //if($scope[id]==0){
     //  return;
     //}
 
-  console.log('Going to scroll to ', id);
-    var newHash = id;
+  //console.log('Going to scroll to ', id);
+  //  var newHash = id;
 
-    if ($location.hash() !== newHash) {
-      // set the $location.hash to `newHash` and
-      // $anchorScroll will automatically scroll to it
-      $location.hash(id);
-      console.log("set hash");
-      $anchorScroll();
-    } else {
-      // call $anchorScroll() explicitly,
-      // since $location.hash hasn't changed
-      $anchorScroll();
-      console.log("anchorScroll");
-    }
+    //if ($location.hash() !== newHash) {
+    //  // set the $location.hash to `newHash` and
+    //  // $anchorScroll will automatically scroll to it
+    //  $location.hash(id);
+    //  console.log("set hash");
+    //} else {
+    //  // call $anchorScroll() explicitly,
+    //  // since $location.hash hasn't changed
+    //  $anchorScroll();
+    //  console.log("anchorScroll");
+    //}
   };
 
 
