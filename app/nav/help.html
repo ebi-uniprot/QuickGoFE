@@ -1,8 +1,534 @@
 <div style=" white-space: pre;">
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-    deserunt mollit anim id est laborum.</p>
+  <p>Inline help
+
+    Inline help is available by clicking the link wherever the  is found.
+    Inline help consists of sections from the Reference Manual.
+    The Global Toolbar
+
+    The global toolbar is accessible from any page of QuickGO. The following features can be accessed from the global toolbar;
+    1. The QuickGO search box - search for GO terms by keyword or identifier or search for proteins by name or accession.
+    2. Web Services - QuickGO supplies GO term information and GO annotation data via REST web services.
+    3. Dataset - details of the data that QuickGO contains
+    4. Term Basket - GO terms can be added to your term basket by clicking on  icons that appear adjacent to GO terms.
+    For more information see the 'Term Basket' section below.
+    The Annotation Toolbar
+
+    The annotation toolbar is accessible from pages displaying annotations, e.g. the Annotation Download page.
+    The following features can be accessed from the annotation toolbar;
+    1. Display - the annotation table is customisable by selecting which columns are displayed
+    2. ID mapping - this filter is used to change between different sequence identifier types, the default is UniProtKB accessions.
+    3. Filter - the annotation set can be filtered by several parameters, including sequence identifier, taxon, GO ID and evidence code.
+    4. Statistics - various statistics are calculated for the current annotation set, including number of distinct proteins, count of GO IDs, count of evidence codes and count of taxon identifiers. Statistics are updated on-the-fly for each filtering action on the annotation dataset.
+    5. Download - annotation sets may be downloaded in several formats, including gene association file, protein list and FASTA. The 'Limit' should be increased to ensure all annotations in the set are downloaded (the total number of annotations in a set is found at the top left of the annotation table). There is an option to have the output file gzipped.
+    The Term History Toolbar
+
+    History Options
+    The default GO Term History displays the last 500 changes for all GO terms. However, in addition to clicking on the tabs, timestamp and GO identifiers in the default display, users can further tailor the display of GO term changes by adding parameters into the page URL, using the History Options form. Users can therefore use specify the types of changes of most interest to them and bookmark the resulting URL to be regularly updated.
+    Date Specification
+    The History Options dialog enables users to specify an explicit date range of interest by setting the "From" and "To" parameters; this will limit the data displayed to those changes that were recorded within that (inclusive) date range.
+    Alternatively, the "Period" parameter allows users to view the GO term changes that occurred over a specific number of Day(s), Week(s), Month(s) or Year(s) before a specified date.
+    If no "To" date value is entered, then the period will be relative to the current date. If, however, a "To" value is specified, then the "Period" value will display records in the timeframe up to and including that specified date.
+    For example, if "To" is set to 2011-06-01 and "Period" is set to 6w, then QuickGO will display those changes recorded in the size week period that ended on 1st June 2011.
+    Category
+    Users can use this field to specify what types of term changes they would like returned.
+    Terms
+    GO Terms can be entered in this field to limit the term changes displayed. Please note that only changes made to directly listed terms will be displayed, not term descendants.
+    Limit
+    The default number of records returned is 500, however this limit can be increased/decreased by the user. In order to prevent possible browser problems, the maximum upper limit is 10,000.
+    Term Basket
+
+    GO terms can be added to the Term Basket by clicking on  icons that appear adjacent to GO terms.
+    In this manner, a set of GO terms can be selected that can then be used to retrieve associated annotations
+    Home
+
+    QuickGO home page.
+    Help
+
+    QuickGO help manual.
+    Downloads
+
+    Download gene association files from UniProt-GOA website.
+    Descriptions of the columns displayed when returning lists of retrieved GO terms from a GO term keyword search
+
+    GO Ontology
+
+    The GO contains three ontologies of terms: Molecular Function, Biological Process and Cellular Component.
+    The values displayed indicate in which of the three ontologies a GO term resides.
+    GO Term Identifier
+
+    Unique, stable numerical GO term identifiers for displayed GO terms
+    Clicking on a GO identifier will take you to the GO term detail page, where further information on the GO term, as well as a list of any annotations using this term.
+    Clicking on one of the  icons enables users to add the adjacent GO term into the Term Basket
+    The GO term list thus generated can be used to retrieve annotations that contain one or more of these GO terms
+    GO Term Name
+
+    Primary name for displayed GO terms
+    Obsolete tags
+
+    When a GO term has been made obsolete, a red 'Obsolete' tag will appear adjacent to a listed GO term.
+    Clicking on such an 'Obsolete' tag will generate a pop-up window that will detail the reasons behind the term's obsoletion.
+    Definition or Synonym tags
+
+    When a search returns a GO term based on matching words found in either the GO term's description or synonym section,
+    then either a 'Description' or 'Synonym' tag will appear adjacent to the listed GO term.
+    Clicking on such a tag will produce a pop-up window showing the term's definition or synonyms, with matching word(s) highlighted.
+    Descriptions of the columns displayed when returning lists of retrieved proteins from a protein keyword search
+
+    UniProtKB Accession
+
+    Unique protein identifier from the UniProt KnowledgeBase
+    Clicking on the accession will take you to a page containing all the GO annotations to that protein.
+    Gene Symbol
+
+    The gene symbol that is matched to the UniProtKB accession number
+    Taxonomy
+
+    Scientific name of species for displayed protein
+    Protein Name
+
+    Protein name provided by UniProtKB
+    Descriptions of the values for GO term detail page
+
+    Definition
+
+    Explanation of the term name
+    Comment
+
+    Clarification of definition or remarks on GO term usage
+    Secondary IDs
+
+    List of secondary GO term identifiers that this term replaces
+    GONUTS Page
+
+    Link to the GONUTS wiki page relating to this GO term
+    Synonyms
+
+    Synonyms alternative words or phrases closely related in meaning to the term name, with indication of the relationship between the name and synonym given by the synonym scope.
+    The scopes for GO synonyms are:
+    exact - an exact equivalent interchangeable with the term name, e.g., ornithine cycle is an exact synonym of urea cycle
+    broad - the synonym is broader than the term name, e.g., cell division is a broad synonym of cytokinesis
+    narrow - the synonym is narrower or more precise than the term name, e.g., pyrimidine-dimer repair by photolyase is a narrow synonym of photoreactive repair
+    related - the terms are related in some way not covered above, e.g., cytochrome bc1 complex is a related synonym of ubiquinol-cytochrome-c reductase activity, virulence is a related synonym of pathogenesis
+    For full details, see http://www.geneontology.org/GO.ontology.structure.shtml#opt.
+    XRefs
+
+    Cross-references to external database entries relevant for that term.
+    Ancestor chart
+
+    Visual display of a section of the GO directed acyclic graph (DAG) for a single or set of GO terms. Terms in the GO are linked to parent (more general) terms and often to child (more specific) terms by one or more 'relationships'
+    Ancestor table
+
+    Alternative display of a section of the GO, providing a concise view of the relationships connecting GO terms
+    Relationship Key
+
+    Terms in the GO can be linked to one another by three different relationships:
+    is_a
+    part_of
+    regulates
+    For more details on relationships see here.
+    Child Terms
+
+    Child terms are more specialised GO terms that, when existing, are directly linked to the selected GO term.
+    Protein Annotation
+
+    Associations created between GO terms and protein identifiers.
+    Statistics
+
+    Statistics of co-occurence of GO terms in protein annotations.
+    Descriptions of the columns in the annotation tables
+
+    Database
+
+    This column displays the name of the database from which the annotated gene or protein identifier originates (e.g., UniProtKB, RefSeq, MGI).
+    Please click on the 'ID Mapping' button in the tool bar if you would like to have the identifiers displayed mapped to a different sequence database.
+
+    This field equates to 'DB' (column 1) of the GO Consortium's gene association file.
+    Gene Product ID
+
+    This column displays the sequence identifiers that have been annotated to GO.
+    Please click on the 'Filter' button in the tool bar if you would like to see annotations to a specific list of sequence identifiers.
+    Alternatively, click on the 'ID Mapping' button in the tool bar if you would like to have the identifiers displayed mapped to a different sequence database.
+
+    This field equates to 'DB Object ID' (column 2) of the GO Consortium's gene association file.
+    Product Form ID
+
+    This column displays any isoform identifiers (splice variants) that GO terms have been specifically annotated to.
+    If no isoform identifier has been specified in the annotation, then there will be no values displayed in this column.
+
+    This field equates to 'Gene Product Form ID' column (column 17) of the GO Consortium's gene association file.
+    Symbol
+
+    This column displays symbols which match the identifier supplied in the 'ID' column.
+    An officially approved gene symbol will be used in this field when available. Alternatively, other gene symbols or locus names are applied.
+    If no symbols are available, the identifier applied in column 2 (DB_Object_ID) will be used.
+
+    This field equates to 'DB_Object_Symbol' (column 3) of the GO Consortium's gene association file.
+    Qualifier
+
+    This column is used to modify the interpretation of an annotation.
+    When applied in an annotation, values can equal one of 'NOT', 'contributes_to' or 'colocalizes_with'.
+    Further details on qualifiers can be found here.
+    If you would like to explicitly filter qualifier values in this annotation set, please click on the 'Filter' button in the tool bar.
+
+    This field equates to 'Qualifier' (column 3) of the GO Consortium's gene association file.
+    GO Identifier
+
+    This column displays the unique, stable identifier of the GO term.
+
+    This field equates to 'GO ID' (column 5) of the GO Consortium's gene association file.
+    Original GO ID
+
+    This column displays the GO ID of the original annotation when annotations have been slimmed up to higher-level terms.
+    Reference
+
+    This column displays a citation to a reference, either a PubMed reference or a GO_REF identifier, which contains either the data supporting the annotation or details of the electronic method applied to generate the annotation.
+
+    This field equates to 'DB:Reference' (column 6) of the GO Consortium's gene association file.
+    Evidence
+
+    GO terms are assigned to proteins based on different evidence. This is represented by an evidence code. See also the GO Consortium documentation
+
+    This field equates to 'Evidence Code' (column 7) of the GO Consortium's gene association file.
+    With
+
+    This column displays an additional identifier to support annotations using certain evidence codes (including IEA, IPI, IGI, IC and ISS evidences).
+
+    Examples: UniProtKB:O00341, InterPro:IPROO1878, Ensembl:ENSG00000136141, GO:0000001, EC:3.1.22.1
+
+    This field equates to 'With or From' (column 8) of the GO Consortium's gene association file.
+    Aspect
+
+    This column displays the single letter initial of the ontology to which the GO term belongs. One of either F (Molecular Function), P (Biological Process) or C (Cellular Component).
+
+    This field equates to 'Aspect' (column 9) of the GO Consortium's gene association file.
+    Name
+
+    This column displays the name of the protein.
+
+    This field equates to 'DB Object Name' (column 10) of the GO Consortium's gene association file.
+    Synonym
+
+    This column displays any synonyms or gene symbols associated with the protein.
+
+    This field equates to 'DB Object Synonym' (column 11) of the GO Consortium's gene association file.
+    Type
+
+    This column displays the type of gene product that has been annotated.
+
+    This field equates to 'DB Object Type' (column 12) of the GO Consortium's gene association file.
+    Taxon
+
+    This column displays the taxonomic identifier for the species being annotated.
+
+    This field equates to 'Taxon' (column 13) of the GO Consortium's gene association file.
+    Taxon Name
+
+    This column displays the name of the species that matches the taxonomic identifier being annotated.
+    Date
+
+    This column displays the date on which the annotation was made.
+
+    This field equates to 'Date' (column 14) of the GO Consortium's gene association file.
+    Assigned By
+
+    This column indicates the database which created the annotation. The GO annotation may not be copied without acknowledgement of the data source.
+
+    This field equates to 'Assigned By' (column 15) of the GO Consortium's gene association file.
+    GO Term Name
+
+    This column displays the GO term name which matches the GO Identifier used in the annotation.
+    Original GO Term Name
+
+    This column displays the GO term name of the original annotation when annotations have been slimmed up to higher-level terms.
+    Sequence
+
+    This column displays the amino acid length of the annotated sequence. Clicking on the length will result in a pop-up box containing the actual sequence.
+    Description of columns in term history / change logs
+
+    Timestamp
+
+    Changes to terms are displayed in descending date order according to the timestamp registered by the UniProt-GOA database.
+    Clicking on a date will display those changes that were recorded on that date for all terms.
+    GO ID
+
+    The different changes to terms in the GO are focused around the stable GO identifier.
+    Clicking on a GO identifier will provide full data on the selected GO term, which includes the full history (in the Change Log tab) of all changes recorded for that term.
+    GO Term Name
+
+    The GO term name of the associated GO identifier.
+    Action
+
+    Changes to the ontology are recorded in the UniProt-GOA database as "Added", "Updated" or "Deleted" actions.
+    Please note that the order in which these changes are displayed is determined by the order in which the actions were performed in the database.
+    This may lead to situations where actions that were recorded as part of the same overall ontology update may appear to be displayed in a non-intuitive order; this is, unfortunately, unavoidable.
+    Category
+
+    Changes are recognised by the changes logged to specific aspects of a GO term.
+    The categories that are currently audited are: TERM, OBSOLETION, DEFINITION, SYNONYM, RELATION, XREF, SECONDARY and SLIM.
+    In addition to the "All changes" tab, which displays changes in all categories, there are also separate tabs for each individual category.
+    Detail
+
+    This column contains additional detailed information about the change; its content varies dependent on the change category.
+    For example, for the RELATION category it shows the type of the relationship and the identifier and name of the target GO term.
+    Qualifiers
+
+    The NOT Qualifier
+
+    NOT is used to make an explicit note that the gene product is not associated with the GO term.GO Consortium documentation
+    The Contributes_to Qualifier
+
+    'Contributes_to' appears in a GO annotation when a function of a protein complex is facilitated, but not directly carried out by one of its subunits. GO Consortium documentation
+    The Colocalizes_with Qualifier
+
+    'Colocalizes_with' appears in a GO annotation to indicate a transient or peripheral association of the protein with an organelle or complex. GO Consortium documentation
+    GO References
+
+    GO_REF:0000002
+
+    Electronic annotation created from application of the InterPro to GO mapping over UniProtKB. GO Consortium documentation
+    GO_REF:0000003
+
+    Electronic annotation created from application of the Enzyme Commission number to GO mapping over UniProtKB. GO Consortium documentation
+    GO_REF:0000004
+
+    Electronic annotation created from application of the Swiss-Prot Keyword to GO mapping over UniProtKB. GO Consortium documentation
+    GO_REF:0000015
+
+    Manual annotation created when a curator has searched all the relevant literature for the annotated protein and found no information supporting an annotation to any GO term in a particular ontology. This reference can only be used with the three terms; Molecular Function GO:0003674, Biological Process GO:0008150 and Cellular Component GO:0005575. GO Consortium documentation
+    GO_REF:0000019
+
+    Electronic annotation created from the transfer of experimentally verified manual GO annotation data to orthologs using Ensembl orthology data. UniProt-GOA documentation
+    GO_REF:0000020
+
+    Electronic annotation created from application of the HAMAP to GO mapping over UniProtKB. GO Consortium documentation
+    GO_REF:0000023
+
+    Electronic annotation created from application of the UniProt Subcellular Location to GO mapping over UniProtKB. GO Consortium documentation
+    GO_REF:0000033
+
+    Inferred annotation created by the GO Consortium's Reference Genome Project from annotation of evolutionary trees from the PANTHER database. GO Consortium documentation
+    Evidence Codes
+
+    EXP
+
+    Inferred from experiment. See GO Consortium documentation.
+    IDA
+
+    Inferred by direct assay. See GO Consortium documentation.
+    IPI
+
+    Inferred from physical interation. See GO Consortium documentation.
+    IMP
+
+    Inferred from mutant phenotype. See GO Consortium documentation.
+    IEP
+
+    Inferred from expression pattern. See GO Consortium documentation.
+    IGI
+
+    Inferred from genetic interaction. See GO Consortium documentation
+    RCA
+
+    Inferred from reviewed computational analysis. See GO Consortium documentation.
+    IGC
+
+    Inferred from genomic context. See GO Consortium documentation.
+    TAS
+
+    Traceable author statement. See GO Consortium documentation.
+    NAS
+
+    Non-traceable author statement. See GO Consortium documentation.
+    IC
+
+    Inferred by curator. See GO Consortium documentation.
+    ND
+
+    No data. See GO Consortium documentation.
+    ISS
+
+    Inferred from sequence or structural similarity. See GO Consortium documentation.
+    ISO
+
+    Inferred from sequence orthology. See GO Consortium documentation.
+    ISA
+
+    Inferred from sequence alignment. See GO Consortium documentation.
+    ISM
+
+    Inferred from sequence model. See GO Consortium documentation.
+    IEA
+
+    Inferred by electronic annotation. See GO Consortium documentation.
+    Co-occurence
+
+    A list of terms which are most often annotated to the same proteins as the selected term, and the terms least often annotated to the same proteins.
+    Over represented terms
+
+    Terms which are over-represented in the proteins annotated to selected term, sorted by probability ratio.
+    Compared terms
+
+    Compared term: this is compared to the selected term
+    PR
+
+    Probability ratio
+    Ratio of probability of compared term given selected term to probability of compared term
+    =(#together/selected)/(#compared/#all)
+    Probability of term here estimated as fraction of proteins annotated to term.
+    S%
+
+    Probability similarity ratio
+    Ratio of probability of both terms to probability of either term
+    =#together/(#selected+#compared-#together)
+    Probability of term here estimated as fraction of proteins annotated to term.
+    Together
+
+    Count of proteins where both selected and compared terms are annotated
+    Compared
+
+    Count of proteins where compared term is annotated
+    Selected
+
+    Total count of proteins annotated to selected term
+    All
+
+    Total count of proteins
+    Advanced Annotation Search
+
+    GO annotation sets can be customized using a set of Boolean operators.
+    Enter a query (available fields and operators shown below) into the input box on the Advanced tab of the Filter dialog box, and press the Submit button to submit the query. If you have also set filter criteria on any of the other tabs, they will also be included in the query, ANDed with the criteria that you enter in the Advanced tab.
+    General form
+    A query is made out of a collection of annotation criteria combined with operators. The annotation criteria are of the form field=value where multiple fields and values can be provided separated by commas. The criterion matches an annotation in which any of the specified fields have any of the specified values. For example to find any annotations to terms with an isa, partof or identity relationship to GO:0005515 or GO:0005634:
+    identity,isa,partof=GO:0005515,GO:0005634
+    Criteria are combined with the operators below:
+    Operator	Purpose	Example	Explanation
+    ( X )	group operators together - used for clarification	(term=GO:0005515 | evidence=IPI) & tax=9606	All annotations to protein binding or using the IPI evidence code in human proteins
+    ! X	not - all annotations which do not match X	!evidence=IEA	All non electronic annotations
+    X ~ Y	Like - all annotations which match X where for each protein one of them matches Y	term=GO:0005515 ~ evidence=IDA	Find all protein binding annotations where for each protein at least one of the annotations is evidence IDA
+    ~ X	Like - all annotations for each protein where one of them matches X	~ evidence=IDA	Find all annotations to all proteins where at least one of the annotations is evidence IDA
+    X & Y	And - all annotations matching X and Y	term=GO:0005515 & tax=9606	All human protein binding annotations
+    X | Y	Or - any annotation matching criteria X or Y	tax=9606 | tax=10090	All annotations to human or mouse proteins
+    Query Example:
+    Find all ISS annotations to any proteins which are annotated to the protein binding term with a PubMed reference:
+    ~(ancestor=GO:0005515&ref=PMID:*)&evidence=ISS
+    More advanced query examples are available here
+    Fields
+    Field name	Value	Examples	Explanation
+    db	Protein database (identifier type)	UniProtKB, UniGene, Ensembl	Annotations to proteins in these databases
+    term	GO identifier directly used in annotation	GO:0005515	Annotations to protein binding (but not to more specfic terms)
+    ancestor	GO identifiers either directly or indirectly (descendent GO identifiers) applied in annotations	GO:0002080	annotations to GO:002080 or any of its child terms: GO:0002079, GO:0002081, GO:0033282
+    identity	GO identifier directly used in annotation	GO:0005515	(is the same as the term criterion)
+    isa	GO identifiers with an IS A relation to the specified term	GO:0005634	finds annotations to terms such as: GO:0043073 germ cell nucleus but not to GO:0005634 nucleus itself
+    partof	GO identifiers with an PART OF relation to the specified term	GO:0005634	finds annotations to GO:0044428 nuclear part but not to GO:0005634 nucleus itself
+    regulates	GO identifiers with an REGULATES relation to the specified term
+    positiveregulates	GO identifiers with an POSITIVE REGULATES relation to the specified term
+    negativeregulates	GO identifiers with an NEGATIVE REGULATES relation to the specified term
+    haspart	GO identifiers with an HAS PART relation to the specified term
+    evidence	Annotation evidence code (Ev) category	IDA, IC, ISS, IEA	Annotations with any of these evidences
+    source	Annotation provider	UniProt, HGNC
+    ref	PubMed or GO reference supporting annotation. Can refer to a specific reference identifier or category (for category level, use * after ref type)	PUBMED:*, GO_REF:0000002, 16262699	Annotations referring to any Pubmed identifier, to the InterPro database (see GO REF documentation) or to any identifier 16262699
+    with	Additional supporting information supplied in IEA, ISS, IPI, IC evidenced annotations; see: GO documentation . Can refer to a specific identifier or category (for category level, use * after with type)	EC:2.5.1.30, IPR000092, HAMAP:*	Annotations refering to this particular EC code, this InterPro entry or any HAMAP code
+    tax	NCBI taxonomic identifer of annotated protein	9606	Human annotations
+    protein	Specify a specific sequence identifier(s) or accession(s) from available database (see DB filter column)	Mm.363225, P99999	Annotations to any of these accessions
+    Further information on operators available here
+    Slim across all relationships
+
+    This option will cause annotations to be slimmed up to all ancestors of requested GO terms, using all relationship routes.
+
+    It will use not only the is_a, part_of, regulates, positively_regulates and negatively_regulates relationships, but also undefined combinatorial relationships, such as:
+    part_of + regulates
+    part_of + negatively_regulates
+    part_of + positively_regulates
+    regulates + regulates
+    For information on GO relationships, please see the GO Consortium documentation.
+    Slim across custom relationships
+
+    Relationship types
+    ?	(ancestor)
+    =	(identity)
+    I	(is_a)
+    P	(part_of)
+    O	(occurs_in)
+    R	(regulates)
+    +	(positively_regulates)
+    -	(negatively_regulates)
+
+    For information on GO relationships, please see the GO Consortium documentation.
+
+    Contact goa@ebi.ac.uk if you have any queries regarding the resulting dataset.
+    Search and Filter GO annotation sets
+
+    Use this option to view, filter and download sets of GO annotations.
+    QuickGO enables you to filter annotation sets with specific gene or protein identifiers, GO term identifiers, taxonomic identifiers or evidence codes.
+    This page also offers you the ability to map between different sequence identifier types (e.g. UniProtKB, Ensembl, RefSeq or MGI identifiers), and to download annotation data.
+    Investigate GO slims
+
+    Use this option to find out how QuickGO can help you create your own GO slim, or use the predefined GO Consortium GO slims to generate specific views of the ontology structure, or annotation sets.
+    View GO history
+
+    Use this option to view the history of changes to GO, as recorded in the UniProt-GOA database.
+    On this page you can specify optional filters to view the changes based on a date range, set of terms and/or type of change.
+    GO Slims and GO Term Comparison - Choose Terms - Term Basket
+
+    This section of the Choose Terms page shows the contents of your Term Basket.
+    You can add a term to the list of chosen terms by clicking on its  icon; you can add all of your terms to the list by clicking on the  icon in the header row.
+    You can add a term to the comparison chart by clicking on its  button. When you do this, the term will be added to the chart and its list entry will be highlighted in the same colour used to highlight the term in the chart. Additionally, the  button changes to ; click on this button to remove the term from the chart.
+    You can add all of your terms to the comparison chart by clicking on the  button in the header row.
+    GO Slims and GO Term Comparison - Edit Terms - Compare Terms
+
+    This section of the Edit Terms page shows the list of GO terms that you have selected to be part of your slim. The term list is partitioned into three sections, one for each ontology.
+    You can remove a term from the list by clicking on its  button. If you click on the  button in the ontolgy header row, that will remove all of the terms in that ontology from the list.
+    You can add a term to the comparison chart by clicking on its  button. When you do this, the term will be added to the chart and its list entry will be highlighted in the same colour used to highlight the term in the chart. Additionally, the  button changes to ; click on this button to remove the term from the chart.
+    You can add all of the terms from an ontology by clicking the  button in the ontology header row.
+    Relationship Types
+
+    IS_A
+
+    Term A is_a term B means that term A is a subtype of term B.
+    For example, 'transcription' is a type of 'nucleic acid metabolic process'.
+    PART_OF
+
+    Term A part_of term B means that term A is always a part of term B.
+    For example, 'transcription' is always a part of 'gene expression'.
+    REGULATES
+
+    Term A regulates term B means that term A regulates term B, but term B may not always be regulated by term A.
+    POSITIVELY_REGULATES
+
+    A sub-relation of the 'regulates' relationship.
+    Term A positively_regulates term B means that term B is positively regulated by term A.
+    NEGATIVELY_REGULATES
+
+    A sub-relation of the 'regulates' relationship.
+    Term A negatively_regulates term B means that term B is negatively regulated by term A.
+    HAS_PART
+
+    has_part means that term B always has as part of it term A, but term A may exist independently of term B.
+    For example, 'protein binding trancription factor activity' always has as a part of it 'protein binding' but 'protein binding' may occur independently of transcription factor activity.
+    Note that has_part is not a transitive relationship, meaning there is NO implication that gene products annotated to term A could also be correctly associated with term B or any of its parent terms.
+    Has_part should be read in the opposite direction to the other relationships.
+    OCCURS_IN
+
+    Documentation coming shortly...
+    Data Download Formats
+
+    Download formats
+
+    The filtered annotation sets you have created can be downloaded from QuickGO in a number of formats (see 'Tab-separated Values' below for a user-specified download format).
+    Gene Association File (GAF 2.0)
+    The primary format used for annotation files by the GO Consortium. Fields are provided in a 17 column tab-delimited format. The GAF2.0 format specification is described here: http://www.geneontology.org/GO.format.gaf-2_0.shtml
+    Gene2GO
+    A file format using 7 tab-delimited fields supplying 'Taxon', 'Gene Product ID', 'Evidence', 'Qualifier', 'GO Term Name', 'Reference' and 'Aspect' information.
+    ProteinList
+    A tab-delimited list of unique proteins, as displayed in the 'Gene Product ID' field of the selected annotation set. Output includes specific protein descriptors: database (DB), identifier (ID), Symbol, Name, Synonym, Type and Taxon. N.B. the Synonym field includes both synonymous protein or gene names or symbols, International Protein Index identifiers as well as secondary UniProtKB accessions.
+    Fasta
+    A FASTA-formatted output, providing UniProt accession, symbol, protein name and protein sequence of the proteins selected.
+    Tab-separated Values
+    A tab-separated format that reflects the columns selected in the QuickGO Protein Annotation table. The default table display can be altered by adding or removing columns using the options provided in the 'Display' pop-up.
+    'With' Strings
+
+    With:Not_supplied
+
+    The GO Consortium guidelines on the use of the Inferred from Sequence Similarity (ISS) evidence code recommends that the 'with' field be populated with a database identifier.
+    Where the 'with' field is populated with 'With:Not_supplied', the annotation group that created the annotation did not provide any entry for this field.</p>
 </div>
