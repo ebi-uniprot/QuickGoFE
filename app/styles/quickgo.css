@@ -117,6 +117,25 @@ ul
   cursor: pointer;
 }
 
+.pseudo-button{
+  background-color: #DEEFF5
+  border:none;
+  padding:0!important;
+  font: inherit;
+  cursor: pointer;
+}
+
+span.entryview-name-nav {
+  border-left:1px solid #FFFFFF;
+  background-color: #DEEFF5
+  line-height:30px;
+  height:30px;
+  padding-left:2px;
+  display:inline-block;
+  white-space:nowrap;
+  width:100%;
+}
+
 
 IMG.displayed {
   display: block;
