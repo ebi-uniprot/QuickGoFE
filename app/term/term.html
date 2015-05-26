@@ -22,7 +22,7 @@
           <li>
             <div>
               <input type="checkbox"  ng-model="termInformation">
-              <span span class="pseudo-button" ng-click="scrollTo('termInformation')">
+              <span class="pseudo-button" ng-click="scrollTo('termInformation')">
               Term Information
               </span>
             </div>
@@ -30,7 +30,7 @@
           <li>
             <div>
               <input type="checkbox" ng-model="ancestorChart">
-              <span span class="pseudo-button" ng-click="scrollTo('ancestorChart')">
+              <span class="pseudo-button" ng-click="scrollTo('ancestorChart')">
               Ancestor Chart
               </span>
             </div>
@@ -83,8 +83,8 @@
       <ul class="action-buttons-grouped decorated" id="resultActionButtons">
         <div id="add-to-basket-div">
 
-          <button ng-show="preventAddToBasket" disabled>Add to Basket</button>
-          <button ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add to Basket</button>
+          <button class="btn btn-default" ng-show="preventAddToBasket" disabled>Add to Basket</button>
+          <button class="btn btn-default" ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add to Basket</button>
         </div>
       </ul>
     </div>

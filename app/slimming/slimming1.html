@@ -14,7 +14,7 @@
       <accordion>
 
           <accordion-group heading="Biological Process Terms">
-            <button type="button" ng-click="selectClearAll('Biological Process')" >Select/Clear All</button>
+            <button class="btn btn-default" ng-click="selectClearAll('Biological Process')" >Select/Clear All</button>
             <ul ng-repeat="aTerm in availablePredefinedTerms">
             <span ng-if="aTerm.aspectDescription=='Biological Process'">
              <label>
@@ -26,7 +26,7 @@
           </accordion-group>
 
           <accordion-group heading="Molecular Function Terms">
-            <button type="button" ng-click="selectClearAll('Molecular Function')">Select/Clear All</button>
+            <button class="btn btn-default" ng-click="selectClearAll('Molecular Function')">Select/Clear All</button>
             <ul ng-repeat="aTerm in availablePredefinedTerms">
               <span ng-if="aTerm.aspectDescription=='Molecular Function'">
                 <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"  ng-true-value="'{{aTerm.termId}}'">
@@ -36,7 +36,7 @@
           </accordion-group>
 
           <accordion-group heading="Cellular component Terms">
-            <button type="button" ng-click="selectClearAll('Cellular Component')">Select/Clear All</button>
+            <button class="btn btn-default" ng-click="selectClearAll('Cellular Component')">Select/Clear All</button>
             <ul ng-repeat="aTerm in availablePredefinedTerms">
               <span ng-if="aTerm.aspectDescription=='Cellular Component'">
                 <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"  ng-true-value="'{{aTerm.termId}}'">
@@ -56,7 +56,7 @@
       <form>
       <textarea ng-model="slimOwnTerms"></textarea>
         <p></p>
-        <button ng-click="addOwnTerms(slimOwnTerms)">Add</button>
+        <button class="btn btn-default" ng-click="addOwnTerms(slimOwnTerms)">Add</button>
       </form>
 
       <p/><p/>
@@ -70,9 +70,9 @@
         <div>
           <!--<button type="button" ng-click="cancel()">Cancel</button>-->
           <!--<button type="reset" ng-click="reset()">Reset</button>-->
-          <button type="button" ng-click="viewAnnotations(advancedFilters)">View annotations</button>
-          <button type="button" ng-click="nextSlimming(advancedFilters)">Next</button>
-          <button type="button" ng-click="showGraph()">Show Graph</button>
+          <button class="btn btn-default" ng-click="viewAnnotations(advancedFilters)">View annotations</button>
+          <button class="btn btn-default"" ng-click="nextSlimming(advancedFilters)">Next</button>
+          <button class="btn btn-default" ng-click="showGraph()">Show Graph</button>
         </div>
 
       </form>

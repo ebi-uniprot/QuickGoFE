@@ -1,4 +1,4 @@
-<div class="Modal-box">
+<div class="Modal-box" style="margin: 20px">
   <div id="basket-contents-show" style="top: 34px;">
     <strong>Max 400 entries</strong>
     <img ng-show="isLoading" src="images/ajax-loader.gif">
@@ -34,14 +34,14 @@
     </div>
       <!-- Enter GO Terms Directly-->
       Enter a list of terms to be added to your basket:
-      <form ng-submit="submit(basketModal)">
+      <form >
       <textarea id="termsListToAdd" style="width:80%;height:55px" ng-model="basketModal.text"></textarea>
 
         <div>
-
-          <input type="submit" id="submit" value="Submit" />
-          <button  ng-click="ok()">Close</button>
-          <button ng-click="showAncestorGraph()">Display terms in Ancestor Chart</button>
+<br/>
+          <button class="btn btn-default" ng-click="submit(basketModal)">Submit</button>
+          <button class="btn btn-default" ng-click="ok()">Close</button>
+          <button class="btn btn-default" ng-click="showAncestorGraph()">Display terms in Ancestor Chart</button>
         </div>
 
       </form>
