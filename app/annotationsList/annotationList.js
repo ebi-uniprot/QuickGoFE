@@ -241,7 +241,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     var modalInstance = $modal.open({
       templateUrl: 'download/download.html',
       controller: 'DownloadCtrl',
-      size: 'sm',
+      size: 'med',
       scope: $scope
       //resolve: {
       //  countBasket: function () {

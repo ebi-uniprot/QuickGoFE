@@ -6,17 +6,17 @@ app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location
                                             hardCodedDataService) {
 
   console.log("download.js");
+  $scope.isLoading = 0;
+  $scope.selectedLimit=1000;
 
   $scope.downloadFileFormats=hardCodedDataService.getDownloadFileFormats();
 
   /**
    * process request and start download
    */
-  $scope.submit = function(format) {
+  $scope.submit = function(format,limit) {
     console.log("Download SUBMIT CALLED", format);
-
-    //Close window
-    $scope.close();
+    $scope.isLoading = 1;
 
     //document.location = 'data:Application/octet-stream,' +
     //  encodeURIComponent('blahblah');
@@ -27,6 +27,9 @@ app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location
     if($scope.isSlim) {
       formattedURL = formattedURL + filteringService.createSlimString();
     }
+
+    //Add the limit requested by the user
+    formattedURL = formattedURL + '&limit='+ limit;
 
     //Add requested format to query string --- this prehaps should be in the filtering service,
     //but its only going to be used for download
@@ -44,6 +47,11 @@ app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location
       //which of course is supplied as part of the URL
       //$location.path("#/annotations");    //todo - this one?
 
+
+      $scope.isLoading = 0;
+
+      //Close window
+      $scope.close();
     });
 
 

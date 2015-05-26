@@ -1,24 +1,21 @@
-<div style="margin: 40px">
-  <a style="float: right" href="#" class="closeBox" id="closeDownloadMenu">x</a>
-  <h6>QuickGO Download</h6>
-  <label class="bold-label">Format:</label>
+<div style="margin: 20px">
+  <a style="float: right;" class="closeBox" id="closeDownloadMenu"  ng-click="close()">X</a>
+  <h5>QuickGO Download</h5>
+  <img ng-show="isLoading" src="../images/ajax-loader.gif">
 
-  <form ng-submit="submit(selectedFormat)">
-    <!--<select name="format" id="format">-->
-      <!--<option value="gaf" ng-model="download.format" ng-true-value="'gaf'" >Gene Association File (GAF)</option>-->
-      <!--<option value="gpad" ng-model="download.format" ng-true-value="'gpad'">Gene Product Association Data (GPAD)</option>-->
-      <!--<option value="fasta" ng-model="download.format" ng-true-value="'fasta'">FASTA</option>-->
-      <!--<option value="tsv" ng-model="download.format" ng-true-value="'tsv'">Tab-delimited</option>-->
-      <!--<option value="proteinlist" ng-model="download.format" ng-true-value="'proteinlist'">Protein List</option>-->
-      <!--<option value="gene2go" ng-model="download.format" ng-true-value="'gene2go'">Gene2GO</option>-->
-    <!--</select>-->
 
+  <form>
+    <label class="bold-label">Format:</label>
     <select ng-model="selectedFormat"  ng-options="downloadFormat.format for downloadFormat in downloadFileFormats"></select>
-
-
-    <input type="submit" id="submit" value="Submit" />
+    <br/>
+    <br/>
+    <label class="bold-label">Limit:</label>
+    <input ng-model="selectedLimit" ng-bind="selectedLimit">
+    <br/>
+    <br/>
+    <button ng-click="submit(selectedFormat,selectedLimit)">Submit</button>
     <button ng-click="close()">Close</button>
-    </form>
+  </form>
 
   </div>
 
