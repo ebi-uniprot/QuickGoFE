@@ -10,7 +10,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   console.log("In the annotation list controller");
   $scope.isSlim = 0;
 
-  $scope.annotationsPerPage=35;
+  $scope.annotationsPerPage=25;
 
   /**
    * Initialisation

@@ -16,42 +16,31 @@
 
         <img ng-show="isLoading" src="../images/ajax-loader.gif">
 
-        <!--Show current page number and total annotations-->
-        <p>Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong></p>
+        <div style="float: left;">
 
         <!-- Pagination https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination  -->
         <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+
+
+          </div>
       </div>
 
       <!-- Right Hand column -->
       <div id="right-control-col">
 
-        <!-- Download and column reorganization buttons-->
-        <div style="float:right">
-          <ul id="resultActionButtons">
-            <!--<li class="action-buttons-grouped"><a id="customize-columns-button" title="Add or remove columns from the results table"-->
-                                                  <!--class="icon icon-functional button tooltipped" data-icon="e">Columns</a></li>-->
-            <li class="action-buttons-grouped" > <button type="button"  ng-click="download()">Download</button>
-            </li>
-          </ul>
-        </div>
+        <div style="float: right;">
 
-        <br/>
-        <br/>
-        <br/>
-
-
-        <!--Basket start -->
-        <div style="float:right">
+          <!--Show current page number and total annotations-->
+          Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
           <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
-        </div>
-        <!--Basket end -->
 
+          <!-- Download button-->
+          &nbsp;&nbsp;<button class="btn btn-default" ng-click="download()" >Download</button>
+        </div>
       </div>
 
-      <!-- Download button -->
-      <!--<div ng-include src="'views/download.html'"></div>-->
     </div>
 
     <!-- Results Header-->
@@ -65,7 +54,7 @@
       </tr>
 
       <!-- Results Repeat -->
-      <tr dir-paginate="goTuple in goList.annotationsList | itemsPerPage: 35" total-items="goList.numberAnnotations">
+      <tr dir-paginate="goTuple in goList.annotationsList | itemsPerPage: 25" total-items="goList.numberAnnotations">
 
         <td><a ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
         </td>

@@ -11,61 +11,69 @@
     </em>
     <ul style="float: left">
 
-        <li ng-repeat="filter in appliedFilters">
-          <div class="appliedValue" ng-if="filter">
-            {{filter.type}} : {{filter.value}}
+      <li ng-repeat="filter in appliedFilters">
+        <div class="appliedValue" ng-if="filter">
+          {{filter.type}} : {{filter.value}}
           <span style="float:right"> <img src="images/cross.png" ng-click="removeFilter(filter)"/></span>
-          </div>
-        </li>
+        </div>
+      </li>
 
     </ul>
   </div>
-
-  <div style="float: left"><button ng-click="clearFilters()">Clear All Filters</button></div>
-
-    <!-- Selectable Filter list-->
   <br/>
-      <h4>Quick Filters</h4>
+  <br/>
 
-      <h5>Taxon</h5>
+  <div style="float: left">
+    <button class="btn btn-default" ng-click="clearFilters()">Clear All Filters</button>
+  </div>
 
-        <ul ng-repeat="taxon in mostCommonTaxonomies" class="tooltipped" title='{{taxon.name}}'>
-          <input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>
+  <!-- Selectable Filter list-->
+  <br/>
+  <br/>
+  <br/>
+
+  <h4>Quick Filters</h4>
+
+  <label>Taxon</label>
+
+  <ul>
+    <li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}'>
+      <input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>
+    </li>
+  </ul>
+
+  <!-- Enter filter area-->
+  <!-- Form for quick submission of the filter parameters-->
+  <!--< ng-submit="submit(advancedFilters)">-->
+  <br/>
+  <label>GO ID</label>
+  <fieldset><textarea ng-model="advancedFilters.text.goID"></textarea></fieldset>
+
+  <label>Gene Product ID</label>
+  <fieldset><textarea ng-model="advancedFilters.text.dbObjectID"></textarea></fieldset>
+
+  <br/>
+  <br/>
+
+  <input class="btn btn-default" type="submit" id="submit" value="Submit Quick Filter"/>
+
+  <br/>
+  <br/>
 
 
-        </ul>
+  <button class="btn btn-default" ng-click="showAdvancedFilters()">Advanced Filters</button>
 
-      <!-- Enter filter area-->
-      <!-- Form for quick submission of the filter parameters-->
-      <form ng-submit="submit(advancedFilters)">
+  </form>
 
-      <h5>GO ID</h5>
-        <fieldset><textarea ng-model="advancedFilters.text.goID"></textarea></fieldset>
+  <!-- Select view by-->
+  <h4>View by</h4>
 
+  <p class="builder">
 
-      <h5>Gene Product ID</h5>
-        <fieldset><textarea ng-model="advancedFilters.text.dbObjectID"></textarea></fieldset>
-
-
-        <div>
-          <input type="submit" id="submit" value="Submit Quick Filter" />
-        </div>
-
-
-      <div>
-        <button class="btn btn-default" ng-click="showAdvancedFilters()">Advanced Filters</button>
-      </div>
-      </form>
-
-    <!-- Select view by-->
-    <h5>View by</h5>
-
-    <p class="builder">
-
-    <div>
-      <ul>
-        <li id="resultsTableView"><a class="viewBy" href="#/annotations" rel="nofollow">Results table</a></li>
-        <li id="statisticsView"><a class="viewBy" href="#/statistics" rel="nofollow">Statistics</a></li>
-      </ul>
-    </div>
+  <div>
+    <ul>
+      <li id="resultsTableView"><a class="viewBy" href="#/annotations" rel="nofollow">Results table</a></li>
+      <li id="statisticsView"><a class="viewBy" href="#/statistics" rel="nofollow">Statistics</a></li>
+    </ul>
+  </div>
 </div>
