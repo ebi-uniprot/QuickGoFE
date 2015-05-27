@@ -15,6 +15,10 @@ body {
   /*background:#99c;*/
 }
 
+label {
+  font-weight: normal;
+}
+
 
 p.pos_indented {
   left: 50px;
