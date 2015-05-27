@@ -241,9 +241,14 @@ IMG.displayed {
   width:300px;
   /*background:#9c9;*/
 }
+
 #right-control-col {
   float:right;
   width:800px;
   /*background:#c9c;*/
+}
+
+.quickgo-modal {
+  margin: 20px;
 }
 
