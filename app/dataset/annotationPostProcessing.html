@@ -1,5 +1,9 @@
-<h3>Introduction</h3>
+<div style="float:right">
+  Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
+  <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
+</div>
 
+<h3>Introduction</h3>
 <p>The table below describes the actions that UniProt-GOA carries out on automatic annotations supplied by the
   Ensembl, InterPro and UniProt groups for the UniProtKB GO annotation set.</p>
 <p>Conservative changes to particular annotation subsets are made by UniProt-GOA when the annotation originally
@@ -34,15 +38,21 @@
     <th>Taxon Name</th>
   <tr>
   <tr ng-repeat="postProcessing in annotationPostProcessing.content">
-    <td><a href="#/term/{{postProcessing.originalGoId}}">{{postProcessing.originalGoId}}</a></td>
+    <td style="white-space: nowrap;">
+      <element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{postProcessing.originalGoId}}','{{postProcessing.originalTerm}}')"></element>
+      <a href="#/term/{{postProcessing.originalGoId}}">{{postProcessing.originalGoId}}</a></td>
     <td>{{postProcessing.originalTerm}}</td>
     <td>{{postProcessing.cleanupAction}}</td>
     <td>{{postProcessing.affectedTaxGroup}}</td>
-    <td><a href="#/term/{{postProcessing.substitutedGoId}}">{{postProcessing.substitutedGoId}}</a></td>
+    <td style="white-space: nowrap;">
+      <element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{postProcessing.substitutedGoId}}','{{postProcessing.substitutedTerm}}')"></element>
+      <a href="#/term/{{postProcessing.substitutedGoId}}">{{postProcessing.substitutedGoId}}</a></td>
     <td>{{postProcessing.substitutedTerm}}</td>
     <td>{{postProcessing.curatorNotes}}</td>
     <td>{{postProcessing.ruleId}}</td>
-    <td><a href="#/term/{{postProcessing.ancestorGoId}}">{{postProcessing.ancestorGoId}}</a></td>
+    <td style="white-space: nowrap;">
+      <element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{postProcessing.ancestorGoId}}','{{postProcessing.ancestorTerm}}')"></element>
+      <a href="#/term/{{postProcessing.ancestorGoId}}">{{postProcessing.ancestorGoId}}</a></td>
     <td>{{postProcessing.ancestorTerm}}</td>
     <td>{{postProcessing.relationship}}</td>
     <td>{{postProcessing.taxonName}}</td>
