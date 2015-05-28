@@ -110,6 +110,10 @@ var app = angular
         templateUrl: 'views/annotationExtensionRelations.html',
         controller: 'AnnotationExtensionRelationsCtrl'
       })
+      .when('/feedback', {
+        templateUrl: 'nav/feedback.html',
+        controller: 'FeedbackCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
