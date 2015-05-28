@@ -62,26 +62,6 @@ app.controller('GoTermHistoryCtrl', function($scope, $modal, basketService, goTe
    */
   $scope.addToBasket = function(termId, termName){
 
-    //$scope.isLoading = 1;
-    //
-    ////Look up the full termInformation to add it to the basket
-    //term.query({termId : termId}, function(termData){
-    //
-    //  var savedTermId = termData.termId;
-    //  var savedName = termData.name;
-    //  var basketItem = {termId: savedTermId, name: savedName};
-    //
-    //  basketService.addBasketItem(basketItem);
-    //
-    //  //Tell all listeners the number of basket items needs updating
-    //  $scope.$emit('basketUpdate', basketService.basketQuantity());
-    //
-    //  //reload basketItems list
-    //  //$scope.basketItems = basketService.getItems();
-    //  $scope.isLoading = 0;
-    //  $scope.countBasket = basketService.basketQuantity();
-    //});
-
     var basketItem = {termId: termId, name: termName};
     basketService.addBasketItem(basketItem);
     $scope.countBasket = basketService.basketQuantity();
