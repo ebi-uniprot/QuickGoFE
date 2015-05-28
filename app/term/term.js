@@ -4,20 +4,9 @@
 app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, basketService,
                                     targetDomainAndPort, filteringService) {
 
-  //Initialize data
-  var currentdate = new Date();
-  console.log("IN CONTROLLER", currentdate);
+  console.log("Term Controller");
+
   $scope.isLoading=1;
-
-  /**
-   * Data required for showing term elements
-   */
-  //$scope.termInformation=1;
-  //$scope.ancestorChart=0;
-  //$scope.childTerms=0;
-  //$scope.coOcurring=0;
-  //$scope.termHistory  =0;
-
 
   /*Parse the url to get the termid*/
   var pathVals =$location.path().split("/");
@@ -40,10 +29,12 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   $scope.countBasket = basketService.basketQuantity();
 
 
+  var termUrl = formattedURL+termId;
+  console.log("Getting the termUrl", termUrl);
   /**
    * Get Term Data from WS
    */
-  $http.get(formattedURL+termId).success(function(data) {
+  $http.get(termUrl).success(function(data) {
     $scope.termModel = data;
     $scope.isLoading=0;
     console.log("Got Term model", $scope.termModel);
@@ -89,7 +80,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
 
 
   /**
-   *
+   * Add item to basket
    * @param goId
    * @param termName
    */
@@ -165,27 +156,10 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
     var old = $location.hash();
     $location.hash(id);
     $anchorScroll();
+
     //reset to old to keep any additional routing logic from kicking in
     $location.hash(old);
 
-    //if($scope[id]==0){
-    //  return;
-    //}
-
-  //console.log('Going to scroll to ', id);
-  //  var newHash = id;
-
-    //if ($location.hash() !== newHash) {
-    //  // set the $location.hash to `newHash` and
-    //  // $anchorScroll will automatically scroll to it
-    //  $location.hash(id);
-    //  console.log("set hash");
-    //} else {
-    //  // call $anchorScroll() explicitly,
-    //  // since $location.hash hasn't changed
-    //  $anchorScroll();
-    //  console.log("anchorScroll");
-    //}
   };
 
 
