@@ -1,39 +1,44 @@
 <div cg-busy="myPromise"></div>
-<div  style=" white-space: pre; background: #FFFFFF; ">
-
-  <h3>Dataset Statistics</h3>
+<div style=" background: #FFFFFF;" id="content" class="container_12">
+  <h2>Dataset Statistics</h2>
 
   <h4>GO Term Information</h4>
+
   <p>QuickGO contains information for 41157 GO terms, as defined in the version of the GO definition file which was
     downloaded at: YYYY-MM-DD HH:MM.
-    You can find a history of changes to the ontology <a href="#/dataset/goTermHistory">here</a>.</p>
+    <br/>You can find a history of changes to the ontology <a href="#/dataset/goTermHistory">here</a>.</p>
 
   <h4>Annotation Updates</h4>
 
-  <table id="assignedByCount" class="two-colours" style="font-size:12px; width:25%; float: left">
+  <table id="assignedByCount" class="two-colours" style="width:50%;">
     <tr>
       <th>Assigned By</th>
       <th>No. of Annotations</th>
-    <tr>
-        <tr ng-repeat="annotationUpdate in annotationUpdates">
-          <td>{{annotationUpdate.name}}</td>
-          <td>{{annotationUpdate.count}}</td><!-- TODO put in link from count to detail-->
-        </tr>
+    </tr>
+    <tr ng-repeat="annotationUpdate in annotationUpdates">
+      <td>{{annotationUpdate.name}}</td>
+      <td>{{annotationUpdate.count}}</td>
+      <!-- TODO put in link from count to detail-->
+    </tr>
   </table>
+  <hr/>
 
   <h3>How the QuickGO Dataset is Generated</h3>
 
   <h4>Annotation Blacklist</h4>
+
   <p>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
     annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium. Details of the
     annotation blacklist can be found <a href="#/dataset/annotationBlacklist">here</a>.</p>
 
   <h4>Annotation Post-processing</h4>
+
   <p>UniProt-GOA will be displaying some electronic annotations that have been subject to minor post-processing to
     ensure taxonomic correctness of annotated GO terms. Details of the annotation post-processing can be found
     <a href="#/dataset/annotationPostProcessing">here</a>.</p>
 
   <h4>GO Consortium Annotations</h4>
+
   <p>GO annotations from member groups of the GO Consortium may also be viewed in the AmiGO browser. However, the
     display of annotations between QuickGO and AmiGO can vary, due to the different update frequencies of the two tools
     plus the fact that QuickGO provides electronic (IEA-coded) annotations for all species in UniProtKB with GO
@@ -43,11 +48,13 @@
     the GO identifier associated has not been made secondary.</p>
 
   <h4>PDB Gene Associations</h4>
+
   <p>QuickGO does not contain the GO annotations to PDB entries from the PDB Gene Association File since the entity
     annotated in this file is a protein structure rather than a protein. The PDB Gene Association File can be downloaded
     here</p>
 
   <h4>Taxon Constraint Rules</h4>
+
   <p>Details of the taxon constraint rules can be found <a href="#/dataset/taxonConstraints">here</a>.</p>
 
   <h3>How to cite UniProt-GOA</h3>
