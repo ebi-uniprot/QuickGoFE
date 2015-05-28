@@ -55,7 +55,7 @@ var app = angular
         controller: 'DataSetCtrl'
       })
       .when('/dataset/goTermHistory', {
-        templateUrl: 'term/goTermHistory.html',
+        templateUrl: 'dataset/goTermHistory.html',
         controller: 'GoTermHistoryCtrl'
       })
       .when('/dataset/taxonConstraints', {
