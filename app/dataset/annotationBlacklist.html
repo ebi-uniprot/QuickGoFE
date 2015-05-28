@@ -1,111 +1,131 @@
-<div>
+<div class="container_12">
 
   <div style="float:right">
     Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
     <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
   </div>
+  <h2>Annotation Blacklist</h2>
 
-  <div>
-    <h3>Scope</h3>
-    <p>This method aims to correct annotations to UniProtKB accessions, from incorrect annotations inferred from
-      electronic annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</p>
+  <h3>Scope</h3>
 
-    <h3>The Need For A Blacklist</h3>
-    <p>The process of changing incorrect electronically inferred annotations is not instantaneous and in some cases
-      these annotations are displayed for a while before the prediction method can be corrected at source.
-      In some cases it is not possible for the IEA source to remove the annotation (see note 1, below).
-      Example: False positives In the case where proteins are grouped together by a sequence model and the model hits
-      a false positive, the 'false positive' protein would receive incorrect annotation(s).</p>
+  <p>This method aims to correct annotations to UniProtKB accessions, from incorrect annotations inferred from
+    electronic annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</p>
 
-    <h3>Contents</h3>
-    <p>This list contains UniProtKB protein accessions associated with specific GO terms that curators feel incorrectly
-      describe a protein's function, associated process or subcellular location. This list is split into three sections:</p>
+  <h3>The Need For A Blacklist</h3>
 
-    <h4>1. Negative associations curated from IEA pipeline review</h4>
-    <p>A list of protein-GO term associations that have been observed as being incorrect from the review of annotations
-      obtained from an IEA pipeline. These associations are often added when a curator has observed that a
-      function/process term is being over-predicted to a group of proteins.
-      These associations are not present in the UniProt-GOA annotation set, as there is no published sequence or
-      experimental data to specifically negate these associations. However, curator knowledge has been used to assert
-      these undesirable associations.
-      Note:
-      Some electronic annotation sources have a cut-off criterion such that if the annotation is true for 95% of the
-      proteins in the set, it is considered relevant for GO mappings to be added to the FULL protein set.
-      This blacklist endeavours to highlight those proteins that may have been caught out in the 5% to provide users
-      with as correct a set of protein annotations as possible.</p>
+  <p>The process of changing incorrect electronically inferred annotations is not instantaneous and in some cases
+    these annotations are displayed for a while before the prediction method can be corrected at source.
+    In some cases it is not possible for the IEA source to remove the annotation (see note 1, below).
+    Example: False positives In the case where proteins are grouped together by a sequence model and the model hits
+    a false positive, the 'false positive' protein would receive incorrect annotation(s).</p>
 
-    <h4>2. Negative associations obtained from NOT-qualified GO annotations (annotation set updated weekly)</h4>
-    <p>These protein-GO term associations have been created when a protein has been expected to have a particular
-      function, associated process or location, but specific experimental or sequence-based evidence has been curated
-      to demonstrate the contrary. These NOT-qualified GO annotations are obtained from the current UniProt-GOA
-      annotation set and are updated weekly. GO Consortium guidance on curator usage of the NOT-qualifier is available
-      here: http://www.geneontology.org/GO.annotation.conventions.shtml#not</p>
-    <h4>3. Negative associations obtained from UniProt COMMENT_CAUTION entries (annotation set updated weekly)</h4>
-    <p>These protein-GO term associations have been created when a 'caution' comment in the UniProt entry indicates that
-      a protein does not have the expected function, process or location. These comments are added manually by UniProt
-      curators after reviewing the sequence or literature.</p>
+  <h3>Contents</h3>
 
-    <h3>Custodian of the blacklist</h3>
-    <p>The <a href="http://www.ebi.ac.uk/GOA" target="_blank">UniProt-GOA</a> project is responsible for maintaining
-      the annotation blacklist for annotation sources originating from this group.</p>
-    <div class="clearfix"><p></p></div>
+  <p>This list contains UniProtKB protein accessions associated with specific GO terms that curators feel incorrectly
+    describe a protein's function, associated process or subcellular location. This list is split into three
+    sections:</p>
 
-    <h3>The Currently Active Annotation Blacklist</h3>
-      <tabset justified="true">
-        <tab heading="Curated From IEA Pipeline Review">
-            <table class="two-colours">
-              <tr>
-                <th>Gene Product ID</th>
-                <th>GO Identifier</th>
-                <th>Reason</th>
-                <th>Rule/Method ID</th>
-              <tr>
-              <tr ng-repeat="blacklistentry in annotationBlacklist.ieareview">
-                <td><a href="#" ng-click="getAssociatedAnnotations('dbObjectID','{{blacklistentry.proteinAc}}')">{{blacklistentry.proteinAc}}</a></td>
-                <td style="white-space: nowrap;">
-                  <element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{blacklistentry.goId}}','')"></element>
-                  <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a></td>
-                <td>{{blacklistentry.reason}}</td>
-                <td>{{blacklistentry.methodId}}</td>
-              </tr>
-            </table>
-        </tab>
+  <ol>
+    <li><h4>Negative associations curated from IEA pipeline review</h4>
 
-        <tab heading="Obtained from NOT-qualified GO Annotations">
-            <table class="two-colours">
-              <tr>
-                <th>Gene Product ID</th>
-                <th>GO Identifier</th>
-                <th>Reason</th>
-              <tr>
-              <tr ng-repeat="blacklistentry in annotationBlacklist.blackListNotQualified">
-                <td>{{blacklistentry.proteinAc}}</td>
-                <td style="white-space: nowrap;">
-                  <element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{blacklistentry.goId}}','')"></element>
-                  <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a></td>
-                <td>{{blacklistentry.reason}}</td>
-              </tr>
-            </table>
-          </tab>
+      <p>A list of protein-GO term associations that have been observed as being incorrect from the review of
+        annotations
+        obtained from an IEA pipeline. These associations are often added when a curator has observed that a
+        function/process term is being over-predicted to a group of proteins.
+        These associations are not present in the UniProt-GOA annotation set, as there is no published sequence or
+        experimental data to specifically negate these associations. However, curator knowledge has been used to assert
+        these undesirable associations.
+        Note:
+        Some electronic annotation sources have a cut-off criterion such that if the annotation is true for 95% of the
+        proteins in the set, it is considered relevant for GO mappings to be added to the FULL protein set.
+        This blacklist endeavours to highlight those proteins that may have been caught out in the 5% to provide users
+        with as correct a set of protein annotations as possible.</p>
+    </li>
 
-        <tab heading="Obtained From UniProt COMMENT_CAUTION entries">
-            <table class="two-colours">
-              <tr>
-                <th>Gene Product ID</th>
-                <th>GO Identifier</th>
-                <th>Reason</th>
-              <tr>
-              <tr ng-repeat="blacklistentry in annotationBlacklist.blackListUniProtCaution">
-                <td>{{blacklistentry.proteinAc}}</td>
-                <td style="white-space: nowrap;">
-                  <element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{blacklistentry.goId}}','')"></element>
-                  <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a></td>
-                <td>{{blacklistentry.reason}}</td>
-              </tr>
-            </table>
-        </tab>
-      </tabset>
+    <li><h4>Negative associations obtained from NOT-qualified GO annotations (annotation set updated weekly)</h4>
 
-    </div>
-  </div>
+      <p>These protein-GO term associations have been created when a protein has been expected to have a particular
+        function, associated process or location, but specific experimental or sequence-based evidence has been curated
+        to demonstrate the contrary. These NOT-qualified GO annotations are obtained from the current UniProt-GOA
+        annotation set and are updated weekly. GO Consortium guidance on curator usage of the NOT-qualifier is available
+        here: http://www.geneontology.org/GO.annotation.conventions.shtml#not</p>
+    </li>
+
+    <li><h4>Negative associations obtained from UniProt COMMENT_CAUTION entries (annotation set updated weekly)</h4>
+
+      <p>These protein-GO term associations have been created when a 'caution' comment in the UniProt entry indicates
+        that
+        a protein does not have the expected function, process or location. These comments are added manually by UniProt
+        curators after reviewing the sequence or literature.</p>
+    </li>
+  </ol>
+
+  <h3>Custodian of the blacklist</h3>
+
+  <p>The <a href="http://www.ebi.ac.uk/GOA" target="_blank">UniProt-GOA</a> project is responsible for maintaining
+    the annotation blacklist for annotation sources originating from this group.</p>
+
+  <div class="clearfix"><p></p></div>
+
+  <h3>The Currently Active Annotation Blacklist</h3>
+  <tabset justified="true">
+    <tab heading="Curated From IEA Pipeline Review">
+      <table class="two-colours">
+        <tr>
+          <th>Gene Product ID</th>
+          <th>GO Identifier</th>
+          <th>Reason</th>
+          <th>Rule/Method ID</th>
+        <tr>
+        <tr ng-repeat="blacklistentry in annotationBlacklist.ieareview">
+          <td><a href="#" ng-click="getAssociatedAnnotations('dbObjectID','{{blacklistentry.proteinAc}}')">{{blacklistentry.proteinAc}}</a>
+          </td>
+          <td style="white-space: nowrap;">
+            <element class="icon icon-static" data-icon="b"
+                     ng-click="addToBasket('{{blacklistentry.goId}}','')"></element>
+            <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a></td>
+          <td>{{blacklistentry.reason}}</td>
+          <td>{{blacklistentry.methodId}}</td>
+        </tr>
+      </table>
+    </tab>
+
+    <tab heading="Obtained from NOT-qualified GO Annotations">
+      <table class="two-colours">
+        <tr>
+          <th>Gene Product ID</th>
+          <th>GO Identifier</th>
+          <th>Reason</th>
+        <tr>
+        <tr ng-repeat="blacklistentry in annotationBlacklist.blackListNotQualified">
+          <td>{{blacklistentry.proteinAc}}</td>
+          <td style="white-space: nowrap;">
+            <element class="icon icon-static" data-icon="b"
+                     ng-click="addToBasket('{{blacklistentry.goId}}','')"></element>
+            <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a></td>
+          <td>{{blacklistentry.reason}}</td>
+        </tr>
+      </table>
+    </tab>
+
+    <tab heading="Obtained From UniProt COMMENT_CAUTION entries">
+      <table class="two-colours">
+        <tr>
+          <th>Gene Product ID</th>
+          <th>GO Identifier</th>
+          <th>Reason</th>
+        <tr>
+        <tr ng-repeat="blacklistentry in annotationBlacklist.blackListUniProtCaution">
+          <td>{{blacklistentry.proteinAc}}</td>
+          <td style="white-space: nowrap;">
+            <element class="icon icon-static" data-icon="b"
+                     ng-click="addToBasket('{{blacklistentry.goId}}','')"></element>
+            <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a></td>
+          <td>{{blacklistentry.reason}}</td>
+        </tr>
+      </table>
+    </tab>
+  </tabset>
+
+</div>
 
