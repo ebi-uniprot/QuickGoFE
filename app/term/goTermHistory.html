@@ -1,4 +1,7 @@
-
+<div style="float:right">
+  Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
+  <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
+</div>
 <h3>GO Term History: Displaying {{history.allChanges.length}} audit records for all terms for the period since {{history.from}}</h3>
 
     <tabset justified="true">
@@ -14,7 +17,8 @@
             </tr>
             <tr ng-repeat="aHistory in history.allChanges">
               <td>{{aHistory.timestamp}}</td>
-              <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+              <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{aHistory.termID}}','{{aHistory.termName}}')"></element>
+                  <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
               <td>{{aHistory.termName}}</td>
               <td>{{aHistory.actionString}}</td>
               <td>{{aHistory.category}}</td>
@@ -35,7 +39,8 @@
             </tr>
             <tr ng-repeat="aHistory in history.termsRecords">
               <td>{{aHistory.timestamp}}</td>
-              <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+              <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{aHistory.termID}}','{{aHistory.termName}}')"></element>
+                  <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
               <td>{{aHistory.termName}}</td>
               <td>{{aHistory.actionString}}</td>
               <td>{{aHistory.category}}</td>
@@ -56,7 +61,8 @@
             </tr>
             <tr ng-repeat="aHistory in history.definitionRecords">
               <td>{{aHistory.timestamp}}</td>
-              <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+              <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{aHistory.termID}}','{{aHistory.termName}}')"></element>
+                <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
               <td>{{aHistory.termName}}</td>
               <td>{{aHistory.actionString}}</td>
               <td>{{aHistory.category}}</td>
@@ -78,7 +84,8 @@
             </tr>
             <tr ng-repeat="aHistory in history.relationsRecords">
               <td>{{aHistory.timestamp}}</td>
-              <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+              <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{aHistory.termID}}','{{aHistory.termName}}')"></element>
+                  <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
               <td>{{aHistory.termName}}</td>
               <td>{{aHistory.actionString}}</td>
               <td>{{aHistory.category}}</td>
@@ -99,7 +106,8 @@
           </tr>
           <tr ng-repeat="aHistory in history.xrefRecords">
             <td>{{aHistory.timestamp}}</td>
-            <td><a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
+            <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{aHistory.termID}}','{{aHistory.termName}}')"></element>
+                <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a></td>
             <td>{{aHistory.termName}}</td>
             <td>{{aHistory.actionString}}</td>
             <td>{{aHistory.category}}</td>
