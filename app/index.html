@@ -150,6 +150,8 @@
   <script src="scripts/cytoscape/min/json2.min.js"></script>
   <script src="scripts/controllers/annotationExtensionRelations.js"></script>
   <script src="scripts/annExtRelations.js"></script>
+  <script src="scripts/controllers/search.js"></script>
+
 
   <!--Pagination www.michaelbromley.co.uk/blog/108/paginate-almost-anything-in-angularjs -->
   <script src="scripts/thirdparty/dirPagination.js"></script>
@@ -206,14 +208,15 @@
       <!-- local-search -->
       <!-- NB: if you do not have a local-search, delete the following div, and drop the class="grid_12 alpha" class from local-title above -->
 
-      <div class="grid_12 omega">
+      <div class="grid_12 omega" ng-controller="SearchCtrl">
         <form id="local-search" name="local-search" action="[search-action]" method="post">
 
           <fieldset>
 
             <div class="left">
               <label>
-                <input type="text" name="first" id="local-searchbox">
+                <input type="text" name="first" id="local-searchbox" ng-model="searchText">
+                <input ng-show="true" id="searched_text" ng-binding="foundMatches" />
               </label>
               <!-- Include some example searchterms - keep them short and few! -->
               <span class="examples">Examples: <a href="[search-url-1]">[search-text-1]</a>, <a href="[search-url-1]">[search-text-2]</a>, <a href="[search-url-1]">[search-text-3]</a></span>
