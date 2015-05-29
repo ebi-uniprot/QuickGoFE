@@ -51,29 +51,21 @@
 
   <label>Gene Product ID</label>
   <fieldset><textarea ng-model="advancedFilters.text.dbObjectID"></textarea></fieldset>
-
-  <br/>
-  <br/>
-
+  <br />
   <input class="btn btn-default" type="submit" id="submit" value="Submit Quick Filter"/>
-
-  <br/>
-  <br/>
-
-
-  <button class="btn btn-default" ng-click="showAdvancedFilters()">Advanced Filters</button>
-
   </form>
+  <hr />
+
+  <h4>All Filters</h4>
+  <ul>
+    <li><h5><span class="pseudo-link" ng-click="showAdvancedFilters()">Filter Selector</span></h5></li>
+  </ul>
+  <hr />
 
   <!-- Select view by-->
   <h4>View by</h4>
-
-  <p class="builder">
-
-  <div>
     <ul>
-      <li id="resultsTableView"><a class="viewBy" href="#/annotations" rel="nofollow">Results table</a></li>
-      <li id="statisticsView"><a class="viewBy" href="#/statistics" rel="nofollow">Statistics</a></li>
+      <li id="resultsTableView"><h5><a class="viewBy" href="#/annotations" rel="nofollow">Results table</a></h5></li>
+      <li id="statisticsView"><h5><a class="viewBy" href="#/statistics" rel="nofollow">Statistics</a></h5></li>
     </ul>
-  </div>
 </div>
