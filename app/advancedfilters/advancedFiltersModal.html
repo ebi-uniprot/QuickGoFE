@@ -72,26 +72,6 @@
 
       </tab>
 
-      <tab heading="Taxon">
-        <p>To filter by species/taxonomic group, list taxon identifiers in the text box or select one or more of the
-          pre-defined taxonomic groups below</p>
-
-        <table id="taxonomyIdAdvancedFilter">
-          <tr ng-repeat="taxon in mostCommonTaxonomies">
-            <td><input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]"
-                       ng-true-value="{{taxon.taxId}}">
-              &nbsp;&nbsp;{{taxon.taxId}}
-            </td>
-            <td>{{taxon.title}}</td>
-          </tr>
-        </table>
-        <textarea ng-model="advancedFilters.text.taxonomyId" style="width:50%"></textarea>
-
-        Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for
-        other
-        taxonomic groups
-      </tab>
-
       <tab heading="Qualifier">
         <p>The Qualifier column in a GO annotation is used for flags that modify the interpretation of an annotation.
           Allowable values are NOT, contributes_to, and colocalizes_with.</p>
@@ -257,6 +237,31 @@
         </div>
       </tab>
 
+      <tab heading="Reference">
+        <br>
+
+        <p>If you want to find annotations that cite one or more specific references, you can enter them in this text
+          box
+          (with or without a database prefix):</p>
+        <textarea ng-model="advancedFilters.text.reference"></textarea>
+
+        <p>Alternatively (or in addition), you can find annotations that cite a particular type of reference by
+          selecting
+          the appropriate check box(es) below: </p>
+        <table>
+          <tr ng-repeat="aRef in referenceList">
+            <td>
+              <input type="checkbox" id="{{aRef.refId}}" ng-model="advancedFilters.boolean.reference[aRef.refId]"
+                     ng-true-value="'{{aRef.refId}}'"> <strong>{{aRef.refId}}</strong>
+            </td>
+            <td>
+              <label for="{{aRef.refId}}"> {{aRef.name}}</label>
+            </td>
+          </tr>
+        </table>
+
+      </tab>
+
       <tab heading="With">
         <table>
           <tr ng-repeat="withDB in withDBs">
@@ -270,6 +275,26 @@
             </td>
           </tr>
         </table>
+      </tab>
+
+      <tab heading="Taxon">
+        <p>To filter by species/taxonomic group, list taxon identifiers in the text box or select one or more of the
+          pre-defined taxonomic groups below</p>
+
+        <table id="taxonomyIdAdvancedFilter">
+          <tr ng-repeat="taxon in mostCommonTaxonomies">
+            <td><input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]"
+                       ng-true-value="{{taxon.taxId}}">
+              &nbsp;&nbsp;{{taxon.taxId}}
+            </td>
+            <td>{{taxon.title}}</td>
+          </tr>
+        </table>
+        <textarea ng-model="advancedFilters.text.taxonomyId" style="width:50%"></textarea>
+
+        Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for
+        other
+        taxonomic groups
       </tab>
 
       <tab heading="Assigned by">
@@ -289,31 +314,9 @@
         </table>
       </tab>
 
-      <tab heading="Reference">
-        <br>
-
-        <p>If you want to find annotations that cite one or more specific references, you can enter them in this text
-          box
-          (with or without a database prefix):</p>
-        <textarea ng-model="advancedFilters.text.reference"></textarea>
-
-        <p>Alternatively (or in addition), you can find annotations that cite a particular type of reference by
-          selecting
-          the appropriate check box(es) below: </p>
-        <table>
-          <tr ng-repeat="aRef in referenceList">
-            <td>
-              <input type="checkbox" id="{{aRef.refId}}" ng-model="advancedFilters.boolean.reference[aRef.refId]"
-                   ng-true-value="'{{aRef.refId}}'"> <strong>{{aRef.refId}}</strong>
-            </td>
-            <td>
-              <label for="{{aRef.refId}}"> {{aRef.name}}</label>
-            </td>
-            </tr>
-        </table>
-
+      <tab heading="Annotation Extension">
+        <p>TBC</p>
       </tab>
-
     </tabset>
 
     <div>
