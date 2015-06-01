@@ -4,9 +4,15 @@
   <form>
 
     <!-- Tabs-->
-    <tabset type="pills">
+    <tabset>
 
-      <tab heading="Gene Product ID">
+      <tab>
+
+        <tab-heading>
+          <span>
+          Gene Product ID
+          </span>
+        </tab-heading>
 
         <div style="padding: 15px">
           <h4>Gene Product ID</h4>
@@ -187,12 +193,16 @@
           <p>A full description of evidence codes and their usage can be found <a
             href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
 
-          <table>
+          <table class="two-colours">
+            <thead>
+              <th>Code</th>
+              <th>Coverage</th>
+            </thead>
             <tr>
-              <td>
+              <th class="aFilter">
                 <input type="checkbox" id="ECO:0000352" ng-model="advancedFilters.boolean[evidenceSetter].ECO0000352"
-                       ng-true-value="'ECO:0000352'"> <strong>ECO:0000352</strong>
-              </td>
+                       ng-true-value="'ECO:0000352'"> ECO:0000352
+              </th>
               <td>
                 <label for="ECO:0000352">
                   (IMP,IGI,IPI,IDA,IEP,EXP,ISS,TAS,NAS,ND,IC,RCA,IBA,IBD,IKR,IRD,ISA,ISM,ISO,IGC) Manual All</label>
@@ -200,22 +210,22 @@
             </tr>
 
             <tr>
-              <td>
+              <th class="aFilter">
                 <input type="checkbox" id="ECO:0000269" ng-model="advancedFilters.boolean[evidenceSetter].ECO0000269"
-                       ng-true-value="'ECO:0000269'"> <strong>ECO:0000269</strong>
+                       ng-true-value="'ECO:0000269'"> ECO:0000269
 
-              </td>
+              </th>
               <td>
                 <label for="ECO:0000269"> (IDA,IMP,IPI,IGI,IEP,EXP) Manual Experimental</label>
               </td>
             </tr>
 
             <tr ng-repeat="evidenceType in evidenceTypes">
-              <td>
+              <th class="aFilter">
                 <input type="checkbox" id="{{evidenceType.ecoTerm}}"
                        ng-model="advancedFilters.boolean[evidenceSetter][evidenceType.ecoTerm]"
-                       ng-true-value="'{{evidenceType.ecoTerm}}'"> <strong>{{evidenceType.ecoTerm}}</strong>
-              </td>
+                       ng-true-value="'{{evidenceType.ecoTerm}}'"> {{evidenceType.ecoTerm}}
+              </th>
               <td>
                 <label for="{{evidenceType.ecoTerm}}">({{evidenceType.evidenceKey}}) {{evidenceType.evidence}}</label>
               </td>
@@ -248,12 +258,16 @@
         <p>Alternatively (or in addition), you can find annotations that cite a particular type of reference by
           selecting
           the appropriate check box(es) below: </p>
-        <table>
+        <table class="two-colours">
+          <thead>
+          <th>Reference</th>
+          <th>Name</th>
+          </thead>
           <tr ng-repeat="aRef in referenceList">
-            <td>
+            <th class="aFilter">
               <input type="checkbox" id="{{aRef.refId}}" ng-model="advancedFilters.boolean.reference[aRef.refId]"
-                     ng-true-value="'{{aRef.refId}}'"> <strong>{{aRef.refId}}</strong>
-            </td>
+                     ng-true-value="'{{aRef.refId}}'">{{aRef.refId}}
+            </th>
             <td>
               <label for="{{aRef.refId}}"> {{aRef.name}}</label>
             </td>
@@ -263,13 +277,17 @@
       </tab>
 
       <tab heading="With">
-        <table>
+        <table class="two-colours">
+          <thead>
+          <th>Db</th>
+          <th>Name</th>
+          </thead>
           <tr ng-repeat="withDB in withDBs">
-            <td>
+            <th class="aFilter">
               <input type="checkbox" value="{{withDB.dbId}}" id="{{withDB.dbId}}"
                      ng-model="advancedFilters.boolean.with[withDB.dbId]"
-                     ng-true-value="'{{withDB.dbId}}'"> <strong>{{withDB.dbId}}</strong>
-            </td>
+                     ng-true-value="'{{withDB.dbId}}'"> {{withDB.dbId}}
+            </th>
             <td>
               <label for="{{withDB.dbId}}">{{withDB.xrefDatabase}}</label>
             </td>
@@ -281,12 +299,16 @@
         <p>To filter by species/taxonomic group, list taxon identifiers in the text box or select one or more of the
           pre-defined taxonomic groups below</p>
 
-        <table id="taxonomyIdAdvancedFilter">
+        <table class="two-colours">
+          <thead>
+          <th>Taxon</th>
+          <th>Title</th>
+          </thead>
           <tr ng-repeat="taxon in mostCommonTaxonomies">
-            <td><input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]"
+            <th class="aFilter"><input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]"
                        ng-true-value="{{taxon.taxId}}">
               &nbsp;&nbsp;{{taxon.taxId}}
-            </td>
+            </th>
             <td>{{taxon.title}}</td>
           </tr>
         </table>
@@ -300,13 +322,17 @@
       <tab heading="Assigned by">
         <h4>Assigned by</h4>
         Select annotation from:
-        <table>
+        <table class="two-colours">
+          <thead>
+          <th>Db</th>
+          <th>Database</th>
+          </thead>
           <tr ng-repeat="assignDB in assignDBs">
-            <td>
+            <th class="aFilter">
               <input type="checkbox" id="{{assignDB.dbId}}"
                                                        ng-model="advancedFilters.boolean.assignedby[assignDB.dbId]"
-                                                       ng-true-value="'{{assignDB.dbId}}'"> <strong>{{assignDB.dbId}}</strong>
-            </td>
+                                                       ng-true-value="'{{assignDB.dbId}}'"> {{assignDB.dbId}}
+            </th>
             <td>
               <label for="{{assignDB.dbId}}">{{assignDB.xrefDatabase}}</label>
             </td>
