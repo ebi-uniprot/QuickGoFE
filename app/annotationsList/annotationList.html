@@ -46,11 +46,13 @@
     <!-- Results Header-->
     <table  id="assignedByCount" class="two-colours" >
       <tr>
-        <th ng-repeat="colHeading in annotationColumns">
-          {{colHeading.value}}
-        </th>
-        <th ng-show="isSlim">Original Go Identifier</th>
-        <th ng-show="isSlim">Original Go Term Name</th>
+        <thead>
+          <th ng-repeat="colHeading in annotationColumns">
+            {{colHeading.value}}
+          </th>
+          <th ng-show="isSlim">Original Go Identifier</th>
+          <th ng-show="isSlim">Original Go Term Name</th>
+        </thead>
       </tr>
 
       <!-- Results Repeat -->
