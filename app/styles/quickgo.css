@@ -20,14 +20,60 @@ label {
   font-weight: normal;
 }
 
+tr.even td, tr.even th{
+  background-color: #ccdab3;
+}
+
+tr.odd td, tr.odd th{
+  background-color: firebrick;
+}
+
+
+
+/* Tables*/
+table {
+  border-style: none none none none;
+}
+
+/*td {*/
+  /*border-style: none none none none;*/
+/*}*/
+
+
+
+thead th:first-child {
+  border-top-left-radius: 5px;
+}
+
+thead th:last-child {
+  border-top-right-radius: 5px;
+}
+
+/*thead th{*/
+  /*color: white;*/
+  /*text-shadow: -1px -1px 1px #666666;*/
+/*}*/
+
+td.aFilter {
+  font-weight:bold;
+  /*background: inherit;*/
+}
+
+.two-colours tr:nth-child(odd) {
+  background-color: #bce7e7;
+}
+
+.two-colours tr:nth-child(even) {
+  background-color: #defcfc;
+}
+
+/* End of table*/
 
 p.pos_indented {
   left: 50px;
 }
 
-.two-colours tr:nth-child(even) {
-  background-color: #DEEFF5;
-}
+
 
 .choiceA {
   /*background-color: #D2E0E6;*/
@@ -75,6 +121,8 @@ ul
 .app-modal-window .modal-dialog {
   width: 90%;
 }
+
+
 
 /*  General Content*/
 .col-left {float: left;}
