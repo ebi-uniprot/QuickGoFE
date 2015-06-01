@@ -215,8 +215,10 @@
 
             <div class="left">
               <label>
-                <input type="text" name="first" id="local-searchbox" ng-model="searchText">
-                <input ng-show="true" id="searched_text" ng-binding="foundMatches" />
+                <!--<input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http"-->
+                       <!--typeahead="match for matches in provideSuggestions($viewValue)"-->
+                       <!--typeahead-loading="loadingLocations" class="form-control">-->
+                <input type="text" name="first" id="local-searchbox" ng-model="searchText" placeholder="{{matches}}">
               </label>
               <!-- Include some example searchterms - keep them short and few! -->
               <span class="examples">Examples: <a href="[search-url-1]">[search-text-1]</a>, <a href="[search-url-1]">[search-text-2]</a>, <a href="[search-url-1]">[search-text-3]</a></span>
@@ -261,7 +263,7 @@
     </div>
   </header>
 
-  <main id="content" class="grid_24 clearfix" style="background: #FFFFFF;">
+  <main id="content" class="grid_24 clearfix">
 
   <!-- Add your site or application content here -->
 
