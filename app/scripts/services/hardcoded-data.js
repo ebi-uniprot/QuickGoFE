@@ -70,10 +70,10 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
 
   var references = [
-    {refId:"DOI", name:"Digital Object Identifier"},
-    {refId:"GO_REF", name:"Gene Ontology Database references"},
-    {refId:"PMID", name:"PubMed"},
-    {refId:"Reactome", name:"Reactome - a curated knowledgebase of biological pathways"},
+    {refId:"DOI*", name:"Digital Object Identifier"},
+    {refId:"GO_REF*", name:"Gene Ontology Database references"},
+    {refId:"PMID*", name:"PubMed"},
+    {refId:"Reactome*", name:"Reactome - a curated knowledgebase of biological pathways"},
     {refId:"GO_REF:0000002", name:"InterPro2GO"},
     {refId:"GO_REF:0000003", name:"EC2GO"},
     {refId:"GO_REF:0000019", name:"Ensembl Compara"},
