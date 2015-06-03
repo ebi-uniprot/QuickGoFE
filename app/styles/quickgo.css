@@ -106,7 +106,16 @@ ul
 }
 
 /* Annotation Side Bar*/
+.quickTaxon:hover {
+  background-color: #bce7e7 ;
+}
 
+
+.quickButton {
+  color:#996a44;
+  cursor: hand;
+}
+/* Annotation Side Bar End*/
 
 /* Slimming pages*/
 #slimming {

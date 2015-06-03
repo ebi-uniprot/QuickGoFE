@@ -4,7 +4,11 @@
 app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardCodedDataService, feDomainAndPort) {
 
 
+  $scope.showInitialTaxons=1;
+  $scope.showCommonTaxons=0;
+
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+  $scope.initialTaxonomies = hardCodedDataService.getInitialTaxonomies();
 
   $scope.bookmarkableLink = feDomainAndPort+"/#/annotations";
 
@@ -107,5 +111,16 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
     return true;
   };
 
+
+
+  $scope.showMore = function(){
+    $scope.showInitialTaxons=0;
+    $scope.showCommonTaxons=1;
+  }
+
+  $scope.showLess = function(){
+    $scope.showInitialTaxons=1;
+    $scope.showCommonTaxons=0;
+  }
 
   });

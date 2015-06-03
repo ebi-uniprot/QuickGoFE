@@ -24,6 +24,13 @@ hardCodedModule.factory('hardCodedDataService', function() {
   ];
 
 
+  var initialTaxonomies = [
+    {'taxId': '9606', 'title': 'Homo sapiens'},
+    {'taxId': '10090', 'title': 'Mus musculus'},
+    {'taxId': '10116', 'title': 'Rattus norvegicus'},
+    {'taxId': '3702', 'title': 'Arabidopsis thaliana'}
+  ];
+
   var mostCommonTaxonomies = [
     {'taxId': '9606', 'title': 'Homo sapiens'},
     {'taxId': '10090', 'title': 'Mus musculus'},
@@ -107,6 +114,10 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
   hardCodedService.getAnnotationColumns = function() {
     return annotationColumns;
+  }
+
+  hardCodedService.getInitialTaxonomies = function() {
+    return initialTaxonomies;
   }
 
   hardCodedService.getMostCommonTaxonomies = function() {

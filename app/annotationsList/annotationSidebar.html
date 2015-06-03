@@ -1,6 +1,6 @@
 <div class="sidebar grid_2" ng-controller="AnnotationSidebarCtrl">
   <!-- Applied filters list-->
-  <h4>Applied filters</h4>
+  <h3>Applied filters</h3>
 
   <!-- Bookmarkable link-->
   <element class='icon icon-generic' data-icon='L'><a id="bookmarkable-link" style="font-size:10px;text-align:right"
@@ -32,15 +32,30 @@
   <br/>
   <br/>
 
-  <h4>Quick Filters</h4>
+  <h3>Quick Filters</h3>
 
-  <label>Taxon</label>
+  <h4>Taxon</h4>
 
-  <ul>
-    <li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}'>
-      <input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>
-    </li>
-  </ul>
+    <div ng-show="showInitialTaxons">
+      <ul>
+        <li ng-repeat="taxon in initialTaxonomies" title='{{taxon.name}}' class="quickTaxon">
+          <!--<input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>-->
+          <span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>
+        </li>
+      </ul>
+      <span class="quickButton" ng-click="showMore()">+Show more</span>
+    </div>
+    <div ng-show="showCommonTaxons">
+      <ul>
+        <li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}' class="quickTaxon">
+          <!--<input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>-->
+          <span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>
+        </li>
+    </ul>
+      <span class="quickButton" ng-click="showLess()">-Show less</span>
+</div>
+
+
 
   <!-- Enter filter area-->
   <!-- Form for quick submission of the filter parameters-->
