@@ -99,8 +99,14 @@ wsService.factory('assignDBs', ['$resource', 'targetDomainAndPort', function($re
   });
 }]);
 
-  wsService.factory('ontologies', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort) {
-    return $resource(targetDomainAndPort + '/ws/terms/:ontology', {ontology: '@ontology'}, {
-      query: {method: 'GET', Cache: true}
-    });
-  }]);
+wsService.factory('ontologies', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort) {
+  return $resource(targetDomainAndPort + '/ws/terms/:ontology', {ontology: '@ontology'}, {
+    query: {method: 'GET', Cache: true}
+  });
+}]);
+
+wsService.factory('search', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
+  return $resource(targetDomainAndPort+'/ws/search', {query: '@query', format:'JSON'}, {
+    query: {method:'GET'}
+  });
+}]);
