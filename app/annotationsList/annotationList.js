@@ -125,6 +125,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     $http.get(formattedURL).success(function(data) {
       console.log("got the response back ", data);
       $scope.goList = data;
+      console.log("Got annotation databack", $scope.goList);
 
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
 
