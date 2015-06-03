@@ -69,6 +69,19 @@ td.aFilter {
 
 /* End of table*/
 
+
+/*tabs*/
+/*#myTabs div li.active a {*/
+  /*background-color: #defcfc;*/
+/*}*/
+
+/*#myTabs div li.disable a {*/
+  /*background-color: #bce7e7;*/
+/*}*/
+
+
+/*tabs end*/
+
 p.pos_indented {
   left: 50px;
 }
