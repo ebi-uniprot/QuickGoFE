@@ -1,22 +1,47 @@
 <div id="content" class="container_12">
 
 
-  <div class="sidebar grid_2">
-    <h2 class="page-title">Search Results</h2>
-  </div>
+    <h3 class="page-title">Search Results <img ng-show="isLoading" src="../images/ajax-loader.gif"></h3>
 
   <div class="mainContent grid_8">
     <p></p>
+
   </div>
 
   <div class="clearfix"></div>
   <!-- Sidebar -->
-  <div ng-include src="'search/searchResult-sidebar.html'"></div>
+  <!--<div ng-include src="'search/searchResult-sidebar.html'"></div>-->
+
+  <div class="sidebar grid_2">
+    <ul>
+      <li>Entities ({{x.totalNumberResults}})</li>
+      <li>GO Terms({{results.totalTerms}})</li>
+      <ul>
+        <li>Biological Process ({{x.biologicalProcessNumberResults}})</li>
+        <li>Molecular Function ({{x.molecularFunctionNumberResults}})</li>
+        <li>Cellular Component ({{x.cellularComponentNumberResults}})</li>
+      </ul>
+      <li>ECO Terms</li>
+      <ul>
+        <li>Manual</li>
+        <li>Automatic</li>
+        <li>Evidence</li>
+      </ul>
+    </ul>
+  </div>
+
+
   <!-- Main Content -->
 
 
 
   <div id="searchResultsMainContent" class="mainContent grid_10">
+
+
+    <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+<div>
+    Page <strong>{{currentPage}}</strong> of <strong>{{srcTotalNumberResults}}</strong> results</strong>
+</div>
 			<!--<span class="status">-->
 				<!--<div class="pagination light-theme simple-pagination" id="light-search-pagination"></div></span>-->
 			<!--<span class="status">-->
@@ -35,9 +60,9 @@
               <th>ID</th>
               <th>Name</th>
             </tr>
-            <tr dir-paginate="match in matches | itemsPerPage: 25" total-items="matches.totalNumberResults">
-              <td>{{match.id}}</td>
-              <td>{{match.text}}</td>
+            <tr dir-paginate="searchResult in x.searchResults | itemsPerPage: 25" total-items="x.totalNumberResults">
+              <td>{{searchResult.dbObjectId}}</td>
+              <td>{{searchResult.dbObjectName}}</td>
             </tr>
             <!--<c:choose>-->
               <!--<c:when test="${viewBy == 'entity'}">-->

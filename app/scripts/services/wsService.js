@@ -112,7 +112,7 @@ wsService.factory('search', ['$resource', 'targetDomainAndPort', function($resou
 }]);
 
 wsService.factory('searchfull', ['$resource', 'targetDomainAndPort', function($resource, targetDomainAndPort){
-  return $resource(targetDomainAndPort+'/ws/searchfull', {text: '@text',format:'JSON'}, {
-    query: {method:'GET', method:'POST'}
+  return $resource(targetDomainAndPort+'/ws/searchfull', {text: '@text',format:'JSON', page:'@page', row:'@rows'}, {
+    query: {method:'GET'}
   });
 }]);
