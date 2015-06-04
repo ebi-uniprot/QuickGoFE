@@ -32,10 +32,7 @@
   <br/>
   <br/>
 
-  <h3>Quick Filters</h3>
-
-  <h4>Taxon</h4>
-
+  <h3>Filter By Taxon</h3>
     <div ng-show="showInitialTaxons">
       <ul>
         <li ng-repeat="taxon in initialTaxonomies" title='{{taxon.name}}' class="quickTaxon">
@@ -55,19 +52,18 @@
       <span class="quickButton" ng-click="showLess()">-Show less</span>
 </div>
 
-
-
+<hr />
+  <h3>Filter By ID</h3>
   <!-- Enter filter area-->
   <!-- Form for quick submission of the filter parameters-->
   <!--< ng-submit="submit(advancedFilters)">-->
-  <br/>
   <label>GO ID</label>
   <fieldset><textarea ng-model="advancedFilters.text.goID"></textarea></fieldset>
 
   <label>Gene Product ID</label>
   <fieldset><textarea ng-model="advancedFilters.text.dbObjectID"></textarea></fieldset>
   <br />
-  <input class="btn btn-default" type="submit" id="submit" value="Submit Quick Filter"/>
+  <input class="btn btn-default" type="submit" id="submit" value="Filter By ID"/>
   </form>
   <hr />
 
