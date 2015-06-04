@@ -114,6 +114,10 @@ var app = angular
         templateUrl: 'nav/feedback.html',
         controller: 'FeedbackCtrl'
       })
+      .when('/search/:searchTerm', {
+        templateUrl: 'search/searchResult.html',
+        controller: 'SearchResultCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

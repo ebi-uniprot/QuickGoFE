@@ -144,13 +144,14 @@
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 
-  <!-- Annotation Ext-->
   <script src="scripts/cytoscape/min/AC_OETags.min.js"></script>
   <script src="scripts/cytoscape/min/cytoscapeweb.min.js"></script>
   <script src="scripts/cytoscape/min/json2.min.js"></script>
   <script src="scripts/controllers/annotationExtensionRelations.js"></script>
   <script src="scripts/annExtRelations.js"></script>
   <script src="scripts/controllers/search.js"></script>
+  <script src="search/searchResult.js"></script>
+
 
 
   <!--Pagination www.michaelbromley.co.uk/blog/108/paginate-almost-anything-in-angularjs -->
@@ -225,7 +226,7 @@
             </div>
 
             <div class="right">
-              <input type="submit" name="submit" value="Search" class="submit">
+              <input type="button" name="submit" value="Search" class="submit" ng-click="showSearchResults(searchText)">
               <!-- If your search is more complex than just a keyword search, you can link to an Advanced Search,
                    with whatever features you want available -->
               <span class="adv"><a href="../search" id="adv-search" title="Advanced">Advanced</a></span>
