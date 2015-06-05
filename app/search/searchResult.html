@@ -5,16 +5,16 @@
   <div class="sidebar grid_3">
     <h3 class="page-title">Search Results <img ng-show="isLoading" src="images/ajax-loader.gif"></h3>
     <ul>
-      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='entity'}"  ng-model="x.viewBy"  ng-click="showResults('entity')">Entities ({{x.totalNumberResults}})</li>
-      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='goID'}" ng-click="showResults('goID')">GO Terms({{results.totalTerms}})</li>
+      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='entity'}"  ng-model="x.viewBy"  ng-click="showResults('entity')">Entities ({{x.gpNumberResults}})</li>
+      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='goID'}" ng-click="showResults('goID')">GO Terms({{x.goNumberResults}})</li>
       <ul>
         <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='bp'}" ng-click="showResults('bp')">Biological Process ({{x.biologicalProcessNumberResults}})</li>
         <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='mf'}" ng-click="showResults('mf')">Molecular Function ({{x.molecularFunctionNumberResults}})</li>
         <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='cc'}" ng-click="showResults('cc')">Cellular Component ({{x.cellularComponentNumberResults}})</li>
       </ul>
-      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoID'}" ng-click="showResults('ecoID')">ECO Terms (x.ecoID)</li>
+      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoID'}" ng-click="showResults('ecoID')">ECO Terms ({{x.ecoID}})</li>
       <ul>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoManual'}" ng-click="showResults('ecoManual')">Manual ({{x.expEcoTotalResults}})</li>
+        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoManual'}" ng-click="showResults('ecoManual')">Experimental ({{x.expEcoTotalResults}})</li>
         <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoAutomatic'}" ng-click="showResults('ecoAutomatic')">Automatic ({{x.automaticEcoTotalResults}})</li>
         <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='evidenceEco'}" ng-click="showResults('evidenceEco')">Evidence ({{x.evidenceEcoTotalResults}})</li>
       </ul>
@@ -58,7 +58,7 @@
               <th>ID</th>
               <th>Name</th>
             </tr>
-            <tr dir-paginate="searchResult in x.searchResults | itemsPerPage: 25" total-items="x.totalNumberResults">
+            <tr dir-paginate="searchResult in x.searchResults | itemsPerPage: 25" total-items="srcTotalNumberResults">
 
               <td ng-show="x.viewBy=='entity'">{{searchResult.dbObjectId}}</td>
               <td ng-show="x.viewBy=='entity'" ng-bind-html="highlight(searchResult.dbObjectName)"></td>

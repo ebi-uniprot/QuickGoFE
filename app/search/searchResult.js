@@ -5,7 +5,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, searchfull) {
 
 
   //This value holds the displayed total for the selected view by value
-  //srcTotalNumberResults
+  $scope.srcTotalNumberResults = 0;
 
   console.log("Arrived is search results");
   $scope.isLoading = 1;
@@ -45,6 +45,27 @@ app.controller('SearchResultCtrl', function($scope,  $location, searchfull) {
 
       $scope.isLoading = 0;
       $scope.currentPage = pageNumber;
+
+      //Populate the displayed number of search results
+      if($scope.x.viewBy=='entity') {
+        $scope.srcTotalNumberResults = $scope.x.gpNumberResults;
+      }
+
+      if($scope.x.viewBy=='goID') {
+        $scope.srcTotalNumberResults = $scope.x.goNumberResults;
+      }
+
+      if($scope.x.viewBy=='bp') {
+        $scope.srcTotalNumberResults = $scope.x.biologicalProcessNumberOfResults;
+      }
+
+      if($scope.x.viewBy=='mf') {
+        $scope.srcTotalNumberResults = $scope.x.molecularFunctionNumberOfResults;
+      }
+
+      if($scope.x.viewBy=='cc') {
+        $scope.srcTotalNumberResults = $scope.x.cellularComponentsNumberOfResults;
+      }
 
     });
   }
