@@ -1,18 +1,9 @@
 <div id="content" class="container_12">
 
-
-    <h3 class="page-title">Search Results <img ng-show="isLoading" src="images/ajax-loader.gif"></h3>
-
-  <div class="mainContent grid_8">
-    <p></p>
-
-  </div>
-
   <div class="clearfix"></div>
-  <!-- Sidebar -->
-  <!--<div ng-include src="'search/searchResult-sidebar.html'"></div>-->
 
-  <div class="sidebar grid_2">
+  <div class="sidebar grid_3">
+    <h3 class="page-title">Search Results <img ng-show="isLoading" src="images/ajax-loader.gif"></h3>
     <ul>
       <li>Entities ({{x.totalNumberResults}})</li>
       <li>GO Terms({{results.totalTerms}})</li>
@@ -23,26 +14,29 @@
       </ul>
       <li>ECO Terms</li>
       <ul>
-        <li>Manual</li>
-        <li>Automatic</li>
-        <li>Evidence</li>
+        <li>Manual ({{x.expEcoTotalResults}})</li>
+        <li>Automatic ({{x.automaticEcoTotalResults}})</li>
+        <li>Evidence ({{x.evidenceEcoTotalResults}})</li>
       </ul>
     </ul>
   </div>
 
+<!-- Table heading content-->
 
+  <div id="searchResultsMainContent" class="mainContent grid_9">
+  <div style="display:inline; float: left">
+    <span ><dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls></span>
+  </div>
+  <div style="display:inline; float: right"></div>
+  <span>Page <strong>{{currentPage}}</strong> of <strong>{{srcTotalNumberResults}}</strong> results</strong></span>
+</div>
+  <div><</div>
   <!-- Main Content -->
 
 
+  <div id="searchResultsMainContent" class="mainContent grid_9">
 
-  <div id="searchResultsMainContent" class="mainContent grid_10">
-
-
-    <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-<div>
-    Page <strong>{{currentPage}}</strong> of <strong>{{srcTotalNumberResults}}</strong> results</strong>
-</div>
-			<!--<span class="status">-->
+    <!--<span class="status">-->
 				<!--<div class="pagination light-theme simple-pagination" id="light-search-pagination"></div></span>-->
 			<!--<span class="status">-->
 				<!--<div id="searchPageCount">Page <strong>${searchCurrentPage}</strong> of <strong><fmt:formatNumber value="${totalNumberResults}" type="number"/></strong> results</div>-->
