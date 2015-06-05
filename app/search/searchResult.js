@@ -9,13 +9,15 @@ app.controller('SearchResultCtrl', function($scope,  $location, searchfull) {
 
   console.log("Arrived is search results");
   $scope.isLoading = 1;
+  $scope.resultsPerPage=25;
+  $scope.currentPage=1;
+  $scope.viewBy = "entity";
 
   //Parse the content of the url to use as the search expr
   var pathVals =$location.path().split("/");
   $scope.searchTerm=pathVals[(pathVals.length-1)];
 
-  $scope.resultsPerPage=25;
-  $scope.currentPage=1;
+
   getResultsPage(1);    //<--this is called instead by the page changed call
 
   $scope.pagination = {
@@ -27,8 +29,13 @@ app.controller('SearchResultCtrl', function($scope,  $location, searchfull) {
     $scope.isLoading = 1;
 
 
+    console.log("doing a search with a view by value of ", $scope.viewBy);
+
+
     //Now do search for this
-    searchfull.query({text: $scope.searchTerm, page: pageNumber, rows: $scope.resultsPerPage}, function (result) {
+
+
+    searchfull.query({text: $scope.searchTerm, page: pageNumber, rows: $scope.resultsPerPage, viewBy: $scope.viewBy}, function (result) {
       $scope.matches = [];
 
 
@@ -58,6 +65,25 @@ app.controller('SearchResultCtrl', function($scope,  $location, searchfull) {
 
 
 
+  $scope.showResults= function(viewBy) {
+    console.log("View By changed", viewBy);
+    if($scope.viewBy!=viewBy) {
+      $scope.viewBy=viewBy
+      getResultsPage(1);
+    }
+  };
+
+
+  $scope.highlight = function(text){
+
+    if(!text){
+      return text;
+    }
+
+  var newText =  text.replace(new RegExp($scope.searchTerm, 'gi'), "<span class='highlighted'>" + $scope.searchTerm + "</span>");
+      //console.log("highlight ", newText);
+    return newText;
+  }
 
   //Now do search for this - old code
   //search.query({query : searchTerm}, function(result){
