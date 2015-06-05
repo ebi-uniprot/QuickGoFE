@@ -5,36 +5,40 @@
   <div class="sidebar grid_3">
     <h3 class="page-title">Search Results <img ng-show="isLoading" src="images/ajax-loader.gif"></h3>
     <ul>
-      <li>Entities ({{x.totalNumberResults}})</li>
-      <li>GO Terms({{results.totalTerms}})</li>
+      <li ng-class="{'highlight-viewBy': x.viewBy='entity'}"  ng-model="x.viewBy"  ng-click="showResults('entity')">Entities ({{x.totalNumberResults}})</li>
+      <li ng-class="{'highlight-viewBy': x.viewBy='goID'}" ng-click="showResults('goID')">GO Terms({{results.totalTerms}})</li>
       <ul>
-        <li>Biological Process ({{x.biologicalProcessNumberResults}})</li>
-        <li>Molecular Function ({{x.molecularFunctionNumberResults}})</li>
-        <li>Cellular Component ({{x.cellularComponentNumberResults}})</li>
+        <li ng-class="{'highlight-viewBy': x.viewBy='bp'}" ng-click="showResults('entity')">Biological Process ({{x.biologicalProcessNumberResults}})</li>
+        <li ng-class="{'highlight-viewBy': x.viewBy='mf'}" ng-click="showResults('entity')">Molecular Function ({{x.molecularFunctionNumberResults}})</li>
+        <li ng-class="{'highlight-viewBy': x.viewBy='cc'}" ng-click="showResults('entity')">Cellular Component ({{x.cellularComponentNumberResults}})</li>
       </ul>
-      <li>ECO Terms</li>
+      <li ng-class="{'highlight-viewBy': x.viewBy='ecoID'}">ECO Terms (x.ecoID)</li>
       <ul>
-        <li>Manual ({{x.expEcoTotalResults}})</li>
-        <li>Automatic ({{x.automaticEcoTotalResults}})</li>
-        <li>Evidence ({{x.evidenceEcoTotalResults}})</li>
+        <li ng-class="{'highlight-viewBy': x.viewBy='ecoManual'}" ng-click="showResults('entity')">Manual ({{x.expEcoTotalResults}})</li>
+        <li ng-class="{'highlight-viewBy': x.viewBy='ecoAutomatic'}" ng-click="showResults('entity')">Automatic ({{x.automaticEcoTotalResults}})</li>
+        <li ng-class="{'highlight-viewBy': x.viewBy='evidenceEco'}" ng-click="showResults('entity')">Evidence ({{x.evidenceEcoTotalResults}})</li>
       </ul>
     </ul>
   </div>
 
-<!-- Table heading content-->
 
-  <div id="searchResultsMainContent" class="mainContent grid_9">
-  <div style="display:inline; float: left">
-    <span ><dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls></span>
-  </div>
-  <div style="display:inline; float: right"></div>
-  <span>Page <strong>{{currentPage}}</strong> of <strong>{{srcTotalNumberResults}}</strong> results</strong></span>
-</div>
-  <div><</div>
   <!-- Main Content -->
 
 
   <div id="searchResultsMainContent" class="mainContent grid_9">
+
+    <!-- Table heading content-->
+
+    <div  class="mainContent grid_3">
+
+       <span class="paginationControls"><dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls></span>
+</div>
+      <div  class="mainContent grid_4">
+        <br />
+      <span class="resultsHeader">Page <strong>{{currentPage}}</strong> of <strong>{{srcTotalNumberResults}}</strong> results</strong></span>
+    </div>
+
+
 
     <!--<span class="status">-->
 				<!--<div class="pagination light-theme simple-pagination" id="light-search-pagination"></div></span>-->
