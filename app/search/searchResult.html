@@ -5,101 +5,67 @@
   <div class="sidebar grid_3">
     <h3 class="page-title">Search Results <img ng-show="isLoading" src="images/ajax-loader.gif"></h3>
     <ul>
-      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='entity'}"  ng-model="x.viewBy"  ng-click="showResults('entity')">Entities ({{x.gpNumberResults}})</li>
-      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='goID'}" ng-click="showResults('goID')">GO Terms({{x.goNumberResults}})</li>
+      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='entity'}" ng-model="x.viewBy"
+          ng-click="showResults('entity')">Entities ({{x.gpNumberResults}})
+      </li>
+      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='goID'}" ng-click="showResults('goID')">GO
+        Terms({{x.goNumberResults}})
+      </li>
       <ul>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='bp'}" ng-click="showResults('bp')">Biological Process ({{x.biologicalProcessNumberResults}})</li>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='mf'}" ng-click="showResults('mf')">Molecular Function ({{x.molecularFunctionNumberResults}})</li>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='cc'}" ng-click="showResults('cc')">Cellular Component ({{x.cellularComponentNumberResults}})</li>
+        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='bp'}" ng-click="showResults('bp')">
+          Biological Process ({{x.biologicalProcessNumberResults}})
+        </li>
+        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='mf'}" ng-click="showResults('mf')">Molecular
+          Function ({{x.molecularFunctionNumberResults}})
+        </li>
+        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='cc'}" ng-click="showResults('cc')">Cellular
+          Component ({{x.cellularComponentNumberResults}})
+        </li>
       </ul>
-      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoID'}" ng-click="showResults('ecoID')">ECO Terms ({{x.ecoID}})</li>
+      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoID'}" ng-click="showResults('ecoID')">ECO
+        Terms ({{x.ecoID}})
+      </li>
       <ul>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoManual'}" ng-click="showResults('ecoManual')">Experimental ({{x.expEcoTotalResults}})</li>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoAutomatic'}" ng-click="showResults('ecoAutomatic')">Automatic ({{x.automaticEcoTotalResults}})</li>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='evidenceEco'}" ng-click="showResults('evidenceEco')">Evidence ({{x.evidenceEcoTotalResults}})</li>
+        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoManual'}"
+            ng-click="showResults('ecoManual')">Experimental ({{x.expEcoTotalResults}})
+        </li>
+        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoAutomatic'}"
+            ng-click="showResults('ecoAutomatic')">Automatic ({{x.automaticEcoTotalResults}})
+        </li>
+        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='evidenceEco'}"
+            ng-click="showResults('evidenceEco')">Evidence ({{x.evidenceEcoTotalResults}})
+        </li>
       </ul>
     </ul>
   </div>
 
-
   <!-- Main Content -->
-
-
   <div id="searchResultsMainContent" class="mainContent grid_9">
 
     <!-- Table heading content-->
+    <div class="mainContent grid_3">
 
-    <div  class="mainContent grid_3">
-
-       <span class="paginationControls"><dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls></span>
-</div>
-      <div  class="mainContent grid_4">
-        <br />
+      <span class="paginationControls"><dir-pagination-controls
+        on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls></span>
+    </div>
+    <div class="mainContent grid_4">
+      <br/>
       <span class="resultsHeader">Page <strong>{{currentPage}}</strong> of <strong>{{srcTotalNumberResults}}</strong> results</strong></span>
     </div>
 
+    <table id="searchResults" class="two-colours">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+      <tr dir-paginate="searchResult in x.searchResults | itemsPerPage: 25" total-items="srcTotalNumberResults">
 
-
-    <!--<span class="status">-->
-				<!--<div class="pagination light-theme simple-pagination" id="light-search-pagination"></div></span>-->
-			<!--<span class="status">-->
-				<!--<div id="searchPageCount">Page <strong>${searchCurrentPage}</strong> of <strong><fmt:formatNumber value="${totalNumberResults}" type="number"/></strong> results</div>-->
-			<!--</span>-->
-    <!--<div id="searchResultsArea" style="display: block;">-->
-      <!--<input type="hidden" name="search_current_page" value="${searchCurrentPage}" />-->
-      <!--<input type="hidden" name="total_number_results" value="${totalNumberResults}" />-->
-      <!--<c:choose>-->
-        <!--<c:when test="${fn:length(searchResults) == 0}">-->
-          <!--<h4>No matches found</h4>-->
-        <!--</c:when>-->
-        <!--<c:otherwise>-->
-          <table id="searchResults" class="two-colours">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-            </tr>
-            <tr dir-paginate="searchResult in x.searchResults | itemsPerPage: 25" total-items="srcTotalNumberResults">
-
-              <td ng-show="x.viewBy=='entity'">{{searchResult.dbObjectId}}</td>
-              <td ng-show="x.viewBy=='entity'" ng-bind-html="highlight(searchResult.dbObjectName)"></td>
-              <td ng-show="x.viewBy!='entity'">{{searchResult.id}}</td>
-              <td ng-show="x.viewBy!='entity'" ng-bind-html="highlight(searchResult.name)"></td>
-            </tr>
-            <!--<c:choose>-->
-              <!--<c:when test="${viewBy == 'entity'}">-->
-                <!--<c:forEach var="result" items="${searchResults}">-->
-                  <!--<tr>-->
-                    <!--<td><a href="http://www.uniprot.org/uniprot/${result.dbObjectId}" target="_blank">${result.dbObjectId}</a></td>-->
-                    <!--<td class="result_text">${result.dbObjectName}</td>-->
-                  <!--</tr>-->
-                <!--</c:forEach>-->
-              <!--</c:when>-->
-              <!--<c:otherwise>-->
-                <!--<c:forEach var="result" items="${searchResults}">-->
-                  <!--<tr>-->
-                    <!--<td><a href="<c:url value="/"/>term/${result.id}">${result.id}</a></td>-->
-                    <!--<td class="result_text">${result.name}</td>-->
-                  <!--</tr>-->
-                <!--</c:forEach>-->
-              <!--</c:otherwise>-->
-            <!--</c:choose>-->
-          <!--</table>-->
-        <!--</c:otherwise>-->
-      <!--</c:choose>-->
-      <!--<script>-->
-        <!--var searchedText = document.getElementById("searched_text").value;-->
-        <!--var words = searchedText.split(/[ ,]+/);-->
-        <!--$('.result_text').each(function() {-->
-          <!--var text = $(this).text();-->
-          <!--for (var i = 0; i < words.length; i++) {-->
-            <!--var textToReplace = new RegExp(words[i], 'gi');-->
-            <!--text = text.replace(textToReplace,"<span style='background-color:#FFFBCC;'>" + words[i] + "</span>");-->
-          <!--}-->
-          <!--$(this).html(text);-->
-        <!--});-->
-      <!--</script>-->
-            </table>
-    </div>
-  <!--</div>-->
+        <td ng-show="x.viewBy=='entity'">{{searchResult.dbObjectId}}</td>
+        <td ng-show="x.viewBy=='entity'" ng-bind-html="highlight(searchResult.dbObjectName)"></td>
+        <td ng-show="x.viewBy!='entity'">{{searchResult.id}}</td>
+        <td ng-show="x.viewBy!='entity'" ng-bind-html="highlight(searchResult.name)"></td>
+      </tr>
+    </table>
+  </div>
   <div class="clearfix"></div>
 </div>
