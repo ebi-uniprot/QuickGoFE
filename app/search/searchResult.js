@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 04/06/2015.
  */
-app.controller('SearchResultCtrl', function($scope,  $location, searchfull) {
+app.controller('SearchResultCtrl', function($scope,  $location, $modal, searchfull, basketService) {
 
 
   //This value holds the displayed total for the selected view by value
@@ -12,6 +12,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, searchfull) {
   $scope.resultsPerPage=25;
   $scope.currentPage=1;
   $scope.viewBy = "entity";
+
 
   //Parse the content of the url to use as the search expr
   var pathVals =$location.path().split("/");
@@ -105,6 +106,82 @@ app.controller('SearchResultCtrl', function($scope,  $location, searchfull) {
       //console.log("highlight ", newText);
     return newText;
   }
+
+
+  /**
+   * --------------------------------------------------- Basket Code --------------------------------------------------
+   */
+
+  $scope.countBasket = basketService.basketQuantity();
+
+  /**
+   * Pick up the basket update event from the modal
+   */
+  $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
+
+
+
+  /**
+   * Add an item to the basket
+   * @type {Object|Array}
+   */
+  $scope.addToBasket = function(termId, termName){
+    var basketItem = {termId:termId, name:termName};
+    console.log(basketService.addBasketItem(basketItem));
+    $scope.countBasket = basketService.getItems().length;
+  };
+
+
+
+  /**
+   * Show the basket modal on request
+   */
+  $scope.showBasket = function () {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'basket/basketModal.html',
+      controller: 'BasketCtrl',
+      size: 'lg',
+      scope: $scope,
+      resolve: {
+        countBasket: function () {
+          return $scope.countBasket;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
+
+
+  /**
+   * --------------------------------------------------- Graph Code --------------------------------------------------
+   */
+
+  /**
+   * Show the GO ontology graph image modal on request
+   */
+  $scope.showOntologyGraph = function (termId, title) {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'modals/ontologyGraphModal.html',
+      controller: 'OntologyGraphCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope,
+      resolve: {
+        graphModel: function () {
+          return {id:termId, name:title, scope:''};
+        }
+      }
+    });
+
+  };
+
 
 
 });
