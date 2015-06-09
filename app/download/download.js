@@ -10,6 +10,7 @@ app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location
   $scope.selectedLimit=1000;
 
   $scope.downloadFileFormats=hardCodedDataService.getDownloadFileFormats();
+  $scope.selectedFormat = $scope.downloadFileFormats[1] ; //default to gpad
 
   /**
    * process request and start download
