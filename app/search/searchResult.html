@@ -2,7 +2,7 @@
 
   <div class="clearfix"></div>
 
-  <div class="sidebar grid_3">
+  <div class="grid_3">
     <h3 class="page-title">Search Results <img ng-show="isLoading" src="images/ajax-loader.gif"></h3>
     <ul>
       <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='entity'}" ng-model="x.viewBy"
@@ -35,50 +35,53 @@
         <!--<li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='evidenceEco'}"-->
             <!--ng-click="showResults('evidenceEco')">Evidence ({{x.evidenceEcoTotalResults}})-->
         <!--</li>-->
-      <!--</ul>-->
+      </ul>
     </ul>
   </div>
 
   <!-- Main Content -->
-  <div id="searchResultsMainContent" class="mainContent grid_9">
+  <div id="searchResultsMainContent" class="grid_9">
 
     <!-- Table heading content-->
-    <div class="mainContent grid_2">
+    <div class="grid_6">
 
-      <span class="paginationControls"><dir-pagination-controls
-        on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls></span>
+      <div class="paginationControls">
+        <div style="display: inline-block;"><dir-pagination-controls
+        on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls></div>
+        <div style="display: inline-block;vertical-align: top; padding-top:25px;">Page <strong>{{currentPage}}</strong> of <strong>{{srcTotalNumberResults}}</strong> results</strong></div>
+      </div>
     </div>
 
-    <div class="mainContent grid_5">
-      <br/>
-      <span class="resultsHeader">Page <strong>{{currentPage}}</strong> of <strong>{{srcTotalNumberResults}}</strong> results</strong></span>
-    </div>
 
-    <div class="mainContent grid_2">
+    <!--<div class="mainContent grid_3">&nbsp;</div>-->
+
+    <div class="grid_6">
       <br/>
       <span style="float:right">
         <button class="btn btn-default" ng-click="showBasket()">
-          <element class="icon icon-static" data-icon="b"> Basket &nbsp;<span style="background-color: lightblue; font-weight: 300">{{countBasket}}</span></element>
+          <element class="icon icon-static" data-icon="b"> Basket &nbsp;<span  id="basket"><strong>{{countBasket}}</strong></span></element>
         </button>
       </span>
     </div>
 
-    <table id="searchResults" class="two-colours">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-      </tr>
-      <tr dir-paginate="searchResult in x.searchResults | itemsPerPage: 25" total-items="srcTotalNumberResults">
+    <div>
+      <table id="searchResults" class="two-colours">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+        <tr dir-paginate="searchResult in x.searchResults | itemsPerPage: 25" total-items="srcTotalNumberResults">
 
-        <td ng-show="x.viewBy=='entity'">{{searchResult.dbObjectId}}</td>
-        <td ng-show="x.viewBy=='entity'" ng-bind-html="highlight(searchResult.dbObjectName)"></td>
-        <td ng-show="x.viewBy!='entity'" style="white-space: nowrap;">
-          <element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{searchResult.id}}','{{searchResult.name}}')"></element>
-          <span class="pseudo-link" ng-click="showOntologyGraph('{{searchResult.id}}','{{searchResult.name}}')">{{searchResult.id}}</span>
-        </td>
-        <td ng-show="x.viewBy!='entity'" ng-bind-html="highlight(searchResult.name)"></td>
-      </tr>
-    </table>
+          <td ng-show="x.viewBy=='entity'">{{searchResult.dbObjectId}}</td>
+          <td ng-show="x.viewBy=='entity'" ng-bind-html="highlight(searchResult.dbObjectName)"></td>
+          <td ng-show="x.viewBy!='entity'" style="white-space: nowrap;">
+            <element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{searchResult.id}}','{{searchResult.name}}')"></element>
+            <span class="pseudo-link" ng-click="showOntologyGraph('{{searchResult.id}}','{{searchResult.name}}')">{{searchResult.id}}</span>
+          </td>
+          <td ng-show="x.viewBy!='entity'" ng-bind-html="highlight(searchResult.name)"></td>
+        </tr>
+      </table>
+    </div>
   </div>
   <div class="clearfix"></div>
 </div>

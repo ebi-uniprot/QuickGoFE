@@ -28,7 +28,17 @@ tr.odd td, tr.odd th{
   background-color: firebrick;
 }
 
+/* Basket*/
+#basket {
+  background-color: lightblue;
+  padding: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
 
+/* Basket End*/
 
 
 /* Table Header*/
