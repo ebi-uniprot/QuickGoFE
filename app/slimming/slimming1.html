@@ -13,35 +13,38 @@
       <p></p>
       <accordion>
 
-          <accordion-group heading="Biological Process Terms">
-            <button class="btn btn-default" ng-click="selectClearAll('Biological Process')" >Select/Clear All</button>
-            <ul ng-repeat="aTerm in availablePredefinedTerms">
-            <span ng-if="aTerm.aspectDescription=='Biological Process'">
+          <accordion-group heading="Biological Process Terms ({{slimTermBp.length}})">
+            <button class="btn btn-default" ng-click="selectAllBp()">Select All</button>
+            <button class="btn btn-default" ng-click="clearAllBp()">Clear All</button>
+            <ul ng-repeat="aTerm in slimTermBp">
+            <!--<span ng-if="aTerm.aspectDescription=='Biological Process'">-->
              <label>
                 <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]" ng-true-value="'{{aTerm.termId}}'" >
                 {{aTerm.termId}}&nbsp;{{aTerm.name}}
               </label>
-              </span>
+              <!--</span>-->
             </ul>
           </accordion-group>
 
-          <accordion-group heading="Molecular Function Terms">
-            <button class="btn btn-default" ng-click="selectClearAll('Molecular Function')">Select/Clear All</button>
-            <ul ng-repeat="aTerm in availablePredefinedTerms">
-              <span ng-if="aTerm.aspectDescription=='Molecular Function'">
+          <accordion-group heading="Molecular Function Terms ({{slimTermMf.length}})">
+            <button class="btn btn-default" ng-click="selectAllMf()">Select All</button>
+            <button class="btn btn-default" ng-click="clearAllMf()">Clear All</button>
+            <ul ng-repeat="aTerm in slimTermMf">
+              <!--<span ng-if="aTerm.aspectDescription=='Molecular Function'">-->
                 <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"  ng-true-value="'{{aTerm.termId}}'">
                 {{aTerm.termId}}&nbsp;{{aTerm.name}}
-              </span>
+              <!--</span>-->
             </ul>
           </accordion-group>
 
-          <accordion-group heading="Cellular component Terms">
-            <button class="btn btn-default" ng-click="selectClearAll('Cellular Component')">Select/Clear All</button>
-            <ul ng-repeat="aTerm in availablePredefinedTerms">
-              <span ng-if="aTerm.aspectDescription=='Cellular Component'">
+          <accordion-group heading="Cellular component Terms ({{slimTermCc.length}})">
+            <button class="btn btn-default" ng-click="selectAllCc()">Select All</button>
+            <button class="btn btn-default" ng-click="clearAllCc()">Clear All</button>
+            <ul ng-repeat="aTerm in slimTermCc">
+              <!--<span ng-if="aTerm.aspectDescription=='Cellular Component'">-->
                 <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"  ng-true-value="'{{aTerm.termId}}'">
                 {{aTerm.termId}}&nbsp;{{aTerm.name}}
-              </span>
+              <!--</span>-->
             </ul>
           </accordion-group>
 

@@ -6,6 +6,7 @@
 app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardCodedDataService, PreDefinedSlimSets,
                                       PreDefinedSlimSetDetail, term, basketService, wizardService, filteringService) {
 
+
   $scope.advancedFilters = {};
   /**
    * For display
@@ -40,6 +41,11 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
    */
   $scope.showSlimSet = function() {
 
+    $scope.slimTermBp=[];
+    $scope.slimTermMf=[];
+    $scope.slimTermCc=[];
+
+
     $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
     $scope.availablePredefinedTerms.$promise.then(function (data) {
       $scope.availablePredefinedTerms = data;
@@ -54,7 +60,21 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
 
       var k=-1;
       for(k=0; k<$scope.availablePredefinedTerms.length; k++){
+
+        //Save deach
         var aTerm = $scope.availablePredefinedTerms[k];
+
+        if(aTerm.aspectDescription=='Biological Process'){
+          $scope.slimTermBp.push(aTerm);
+        }
+
+        if(aTerm.aspectDescription=='Molecular Function'){
+          $scope.slimTermMf.push(aTerm);
+        }
+
+        if(aTerm.aspectDescription=='Cellular Component'){
+          $scope.slimTermCc.push(aTerm);
+        }
 
         $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
 
@@ -88,24 +108,8 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
    * Turn on and off the selection of al Biological Process Terms
    * @param type
    */
-  $scope.selectClearAll = function (type) {
+  $scope.selectAll = function (type) {
     console.log("selectClearAll called", type);
-    //if ($scope.selectedAllBio) {
-    //  $scope.selectedAllBio = false;
-    //} else {
-    //  $scope.selectedAllBio = true;
-    //}
-    //
-    ////console.log("Contents of available predefined terms", $scope.availablePredefinedTerms);
-    //angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
-    //  //console.log("available term", aTerm);
-    //  if(aTerm.aspectDescription==type) {
-    //    //console.log("Setting check for ", type);
-    //    aTerm.Selected = $scope.selectedAllBio;
-    //  }
-    //
-    //});
-
 
     var k=-1;
     for(k=0; k<$scope.availablePredefinedTerms.length; k++){
@@ -124,42 +128,74 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
   };
 
 
+
   /**
-   * Turn on and off the selection of all Molecular Terms
+   * Turn on and off the selection of all Biological Process Terms
    * @param type
    */
-  $scope.checkAllMol = function (type) {
-    if ($scope.selectedAllMol) {
-      $scope.selectedAllMol = false;
-    } else {
-      $scope.selectedAllMol = true;
-    }
-
-    angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
-      if(aTerm.aspectDescription==type) {
-        aTerm.Selected = $scope.selectedAllMol;
-      }
+  $scope.selectAllBp = function () {
+    angular.forEach($scope.slimTermBp, function (aTerm) {
+      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
     });
   };
 
 
   /**
-   * Turn on and off the selection of al Cellular Component Terms
+   * Turn on and off the selection of all Biological Process Terms
    * @param type
    */
-  $scope.checkAllCell = function (type) {
-    if ($scope.selectedAllCell) {
-      $scope.selectedAllCell = false;
-    } else {
-      $scope.selectedAllCell = true;
-    }
-
-    angular.forEach($scope.availablePredefinedTerms, function (aTerm) {
-      if(aTerm.aspectDescription==type) {
-        aTerm.Selected = $scope.selectedAllCell;
-      }
+  $scope.clearAllBp = function () {
+    angular.forEach($scope.slimTermBp, function (aTerm) {
+      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = undefined;
     });
   };
+
+
+
+  /**
+   * Turn on and off the selection of all Molecular Function Terms
+   * @param type
+   */
+  $scope.selectAllMf = function () {
+    angular.forEach($scope.slimTermMf, function (aTerm) {
+      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
+    });
+  };
+
+
+  /**
+   * Turn on and off the selection of all Molecular Function Terms
+   * @param type
+   */
+  $scope.clearAllMf = function () {
+    angular.forEach($scope.slimTermMf, function (aTerm) {
+      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = undefined;
+    });
+  };
+
+
+
+  /**
+   * Turn on and off the selection of all Cellular Component Terms
+   * @param type
+   */
+  $scope.selectAllCc = function () {
+    angular.forEach($scope.slimTermCc, function (aTerm) {
+      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
+    });
+  };
+
+
+  /**
+   * Turn on and off the selection of all Cellular Component Terms
+   * @param type
+   */
+  $scope.clearAllCc = function () {
+    angular.forEach($scope.slimTermCc, function (aTerm) {
+      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = undefined;
+    });
+  };
+
 
 
   /**
