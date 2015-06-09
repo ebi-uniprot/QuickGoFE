@@ -146,7 +146,7 @@ function drawOntology() {
 
   //$.getJSON("GValidate", "service=ann_ext&action=getRelations&format=graph", callback);
   //$.getJSON("GValidate", "http://www.ebi.ac.uk/QuickGO/GValidate?service=ann_ext&action=getRelations&format=graph", callback);
-  $.getJSON("http://localhost:9080/ws/annotationExtensionRelations", "", callback);
+  $.getJSON("http://www.ebi.ac.uk/QuickGO-Beta/ws/annotationExtensionRelations", "", callback);
 
 }
 
