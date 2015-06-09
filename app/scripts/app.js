@@ -134,5 +134,6 @@ var app = angular
 
   //Production test
   //app.value('targetDomainAndPort','http://ves-hx-cd.ebi.ac.uk:8080/QuickGO-Beta');;
+  //app.value('targetDomainAndPort','http://www.ebi.ac.uk/QuickGO-Beta');
   //app.value('feDomainAndPort','http://ves-hx-cd:8080/QuickGO');
 
