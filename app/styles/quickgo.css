@@ -197,6 +197,12 @@ ul
   background-color: #bce7e7 ;
 }
 
+textarea.sidebar {
+  width: 22em;
+  height: 6em;
+}
+
+/* Annotation Side Bar End*/
 
 /* Highlight search term in search results*/
 .highlighted{

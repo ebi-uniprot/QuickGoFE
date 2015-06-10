@@ -57,11 +57,11 @@
   <!-- Enter filter area-->
   <!-- Form for quick submission of the filter parameters-->
   <!--< ng-submit="submit(advancedFilters)">-->
-  <label>GO ID</label>
-  <fieldset><textarea ng-model="advancedFilters.text.goID"></textarea></fieldset>
+  <label>GO ID
+  <textarea class="sidebar" ng-model="advancedFilters.text.goID"></textarea></label>
 
-  <label>Gene Product ID</label>
-  <fieldset><textarea ng-model="advancedFilters.text.dbObjectID"></textarea></fieldset>
+  <label>Gene Product ID
+  <textarea class="sidebar" ng-model="advancedFilters.text.dbObjectID"></textarea></label>
   <br />
   <input class="btn quickgo-btn" type="submit" id="submit" value="Filter By ID"/>
   </form>
