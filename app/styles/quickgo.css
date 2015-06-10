@@ -4,8 +4,9 @@ Common
 */
 
 /* Top level container colours */
- .background-colour {
+ .quickgo-content {
    background-color:white;
+   padding: 1%;
  }
 /* Top level container colours End*/
 
