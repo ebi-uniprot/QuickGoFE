@@ -8,7 +8,7 @@
   </div>
   <div class="grid_2">
     Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
-    <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
+    <button class="btn quickgo-btn" ng-click="showBasket()">Show Basket</button>
   </div>
   <div class="clearfix"></div>
 
@@ -83,8 +83,8 @@
       <ul class="action-buttons-grouped decorated" id="resultActionButtons">
         <div id="add-to-basket-div">
 
-          <button class="btn btn-default" ng-show="preventAddToBasket" disabled>Add to Basket</button>
-          <button class="btn btn-default" ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add to Basket</button>
+          <button class="btn quickgo-btn" ng-show="preventAddToBasket" disabled>Add to Basket</button>
+          <button class="btn quickgo-btn" ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add to Basket</button>
         </div>
       </ul>
     </div>
