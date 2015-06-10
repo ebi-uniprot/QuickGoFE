@@ -1,8 +1,10 @@
-<div style="float:right">
-  Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
-  <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
-</div>
-<div class="container_12">
+<!-- Basket Area-->
+  <button class="btn quickgo-btn basket-btn" ng-click="showBasket()">
+    <element class="icon icon-static" data-icon="b"> Basket &nbsp;<span id="basket"><strong>{{countBasket}}</strong></span></element>
+  </button>
+
+<!-- Main content -->
+<div class="grid_24">
 <h3>GO Term History</h3>
 <h4>Displaying {{history.allChanges.length}} audit records for all terms for the period since {{history.from}}</h4>
 

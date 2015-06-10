@@ -1,9 +1,9 @@
-<div >
-  <div style="float:right">
-    Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
-    <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
-  </div>
+<!-- Basket Area-->
+  <button class="btn quickgo-btn basket-btn" ng-click="showBasket()">
+    <element class="icon icon-static" data-icon="b"> Basket &nbsp;<span id="basket"><strong>{{countBasket}}</strong></span></element>
+  </button>
 
+<!--Main Content-->
   <h3>Taxon Constraint Rules</h3>
   <table id="taxConstraintsTable" class="two-colours">
     <tr>
@@ -29,4 +29,3 @@
       <td>{{taxonConstraint.sourcesString}}</td>
     </tr>
   </table>
-</div>
