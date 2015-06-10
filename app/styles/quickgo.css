@@ -3,6 +3,13 @@
 Common
 */
 
+/* Top level container colours */
+ .background-colour {
+   background-color:white;
+ }
+/* Top level container colours End*/
+
+
 body {
   max-width: 100%;
   width: 100%;
