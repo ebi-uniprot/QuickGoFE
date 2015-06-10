@@ -192,7 +192,15 @@ ul
 }
 
 
+/* Documentation*/
+li.strong {
+  font-weight: bold;
+}
 
+p.strong {
+  font-weight: bold;
+}
+/* Documentaion End*/
 
 /*  General Content*/
 .col-left {float: left;}
