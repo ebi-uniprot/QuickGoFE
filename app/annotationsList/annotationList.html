@@ -9,38 +9,26 @@
   <!-- Main Content -->
   <div id="annotationsMainContent" class="mainContent grid_19">
 
-    <div id="list-control-area">
+    <!-- Table heading content-->
+    <div class="grid_10">
 
-      <!-- Left column-->
-      <div id="left-control-col">
-
-        <img ng-show="isLoading" src="images/ajax-loader.gif">
-
-        <div style="float: left;">
-
-        <!-- Pagination https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination  -->
-        <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-
-
-          </div>
-      </div>
-
-      <!-- Right Hand column -->
-      <div id="right-control-col">
-
-        <div style="float: right;">
-
-          <!--Show current page number and total annotations-->
-          Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
-          <button class="btn quickgo-btn" ng-click="showBasket()">Show Basket</button>
-
-          <!-- Download button-->
-          &nbsp;&nbsp;<button class="btn quickgo-btn" ng-click="download()" >Download</button>
+      <!-- Pagination Controls -->
+      <div class="paginationControls">
+        <div style="display: inline-block;">
+          <dir-pagination-controls  on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
         </div>
+        <div class="pagHeader">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> results</strong></div>
       </div>
+    </div>
 
+    <!-- Basket Area-->
+    <div class="grid_14">
+      <br/>
+      <span style="float:right">
+        <button class="btn quickgo-btn" ng-click="showBasket()">
+          <element class="icon icon-static" data-icon="b"> Basket &nbsp;<span id="basket"><strong>{{countBasket}}</strong></span></element>
+        </button>
+      </span>
     </div>
 
     <!-- Results Header-->

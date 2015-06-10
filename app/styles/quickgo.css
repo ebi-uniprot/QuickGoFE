@@ -62,7 +62,7 @@ tr.odd td, tr.odd th{
 
 /* Basket*/
 #basket {
-  background-color: lightblue;
+  background-color: white;
   padding: 5px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -71,6 +71,14 @@ tr.odd td, tr.odd th{
 }
 
 /* Basket End*/
+
+/* Pagination Header*/
+.pagHeader {
+  display: inline-block;
+  vertical-align: top;
+  padding-top:25px;"
+}
+/* Pagination Header End*/
 
 
 /* Table Header*/
