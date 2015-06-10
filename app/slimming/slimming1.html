@@ -1,86 +1,82 @@
-<div id="wrap">
-    <h2>GO SLIMS</h2>
+<div class="text-container">
+<h3>GO SLIMS :: Select GO Terms</h3>
+<ol>
+<li class="slim">Choose predefined slim sets &nbsp;&nbsp;
 
-    <!--<div id="slimming">-->
-      <h3>Step 1: Add terms to your list</h3>
-      <h4>Add predefined slim sets</h4>
+<select ng-model="selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets"
+        ng-change="showSlimSet()"></select>
 
-      <select ng-model="selectedPreDefinedSlimSet"  ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets" ng-change="showSlimSet()"></select>
+<!-- I guess its important to have the form begin under the select so it doesn't get included in the returned actions-->
+  <accordion>
 
-      <!-- I guess its important to have the form begin under the select so it doesn't get included in the returned actions-->
-      <form>
+    <accordion-group heading="Biological Process Terms ({{slimTermBp.length}})">
+      <button class="btn btn-default" ng-click="selectAllBp()">Select All</button>
+      <button class="btn btn-default" ng-click="clearAllBp()">Clear All</button>
+      <ul ng-repeat="aTerm in slimTermBp">
+        <!--<span ng-if="aTerm.aspectDescription=='Biological Process'">-->
+        <label>
+          <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"
+                 ng-true-value="'{{aTerm.termId}}'">
+          {{aTerm.termId}}&nbsp;{{aTerm.name}}
+        </label>
+        <!--</span>-->
+      </ul>
+    </accordion-group>
 
-      <p></p>
-      <accordion>
-
-          <accordion-group heading="Biological Process Terms ({{slimTermBp.length}})">
-            <button class="btn btn-default" ng-click="selectAllBp()">Select All</button>
-            <button class="btn btn-default" ng-click="clearAllBp()">Clear All</button>
-            <ul ng-repeat="aTerm in slimTermBp">
-            <!--<span ng-if="aTerm.aspectDescription=='Biological Process'">-->
-             <label>
-                <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]" ng-true-value="'{{aTerm.termId}}'" >
-                {{aTerm.termId}}&nbsp;{{aTerm.name}}
-              </label>
-              <!--</span>-->
-            </ul>
-          </accordion-group>
-
-          <accordion-group heading="Molecular Function Terms ({{slimTermMf.length}})">
-            <button class="btn btn-default" ng-click="selectAllMf()">Select All</button>
-            <button class="btn btn-default" ng-click="clearAllMf()">Clear All</button>
-            <ul ng-repeat="aTerm in slimTermMf">
-              <!--<span ng-if="aTerm.aspectDescription=='Molecular Function'">-->
-                <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"  ng-true-value="'{{aTerm.termId}}'">
-                {{aTerm.termId}}&nbsp;{{aTerm.name}}
-              <!--</span>-->
-            </ul>
-          </accordion-group>
-
-          <accordion-group heading="Cellular component Terms ({{slimTermCc.length}})">
-            <button class="btn btn-default" ng-click="selectAllCc()">Select All</button>
-            <button class="btn btn-default" ng-click="clearAllCc()">Clear All</button>
-            <ul ng-repeat="aTerm in slimTermCc">
-              <!--<span ng-if="aTerm.aspectDescription=='Cellular Component'">-->
-                <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"  ng-true-value="'{{aTerm.termId}}'">
-                {{aTerm.termId}}&nbsp;{{aTerm.name}}
-              <!--</span>-->
-            </ul>
-          </accordion-group>
-
-      </accordion>
-
-
-      <h4>Add your own terms</h4>
-      <ul ng-repeat="aTerm in ownTerms">
-        <input type="checkbox" ng-model="aTerm.Selected" />
+    <accordion-group heading="Molecular Function Terms ({{slimTermMf.length}})">
+      <button class="btn btn-default" ng-click="selectAllMf()">Select All</button>
+      <button class="btn btn-default" ng-click="clearAllMf()">Clear All</button>
+      <ul ng-repeat="aTerm in slimTermMf">
+        <!--<span ng-if="aTerm.aspectDescription=='Molecular Function'">-->
+        <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"
+               ng-true-value="'{{aTerm.termId}}'">
         {{aTerm.termId}}&nbsp;{{aTerm.name}}
+        <!--</span>-->
       </ul>
-      <form>
-      <textarea ng-model="slimOwnTerms"></textarea>
-        <p></p>
-        <button class="btn btn-default" ng-click="addOwnTerms(slimOwnTerms)">Add</button>
-      </form>
+    </accordion-group>
 
-      <p/><p/>
-      <h4>Add terms from your basket&nbsp;({{basketList.length}}&nbsp;Available)</h4>
-      <ul ng-repeat="basketItem in basketList">
-        <input type="checkbox" ng-model="advancedFilters.boolean.goID[[basketItem.termId]]"  ng-true-value="'{{basketItem.termId}}'"/>
-        {{basketItem.termId}}&nbsp;{{basketItem.name}}
+    <accordion-group heading="Cellular component Terms ({{slimTermCc.length}})">
+      <button class="btn btn-default" ng-click="selectAllCc()">Select All</button>
+      <button class="btn btn-default" ng-click="clearAllCc()">Clear All</button>
+      <ul ng-repeat="aTerm in slimTermCc">
+        <!--<span ng-if="aTerm.aspectDescription=='Cellular Component'">-->
+        <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"
+               ng-true-value="'{{aTerm.termId}}'">
+        {{aTerm.termId}}&nbsp;{{aTerm.name}}
+        <!--</span>-->
       </ul>
+    </accordion-group>
+
+  </accordion>
+</li>
+
+  <li class="slim">Enter one or more GO terms.
+  <ul ng-repeat="aTerm in ownTerms">
+    <input type="checkbox" ng-model="aTerm.Selected"/>
+    {{aTerm.termId}}&nbsp;{{aTerm.name}}
+  </ul>
+  <form>
+    <textarea class="slim" placeholder=" GO:0071555 etc" ng-model="slimOwnTerms"></textarea>
+    <button class="btn quickgo-btn" ng-click="addOwnTerms(slimOwnTerms)"> &nbsp;&nbsp;Add&nbsp;&nbsp; </button>
+  </form>
+
+  </li>
 
 
-        <div>
-          <!--<button type="button" ng-click="cancel()">Cancel</button>-->
-          <!--<button type="reset" ng-click="reset()">Reset</button>-->
-          <button class="btn btn-default" ng-click="viewAnnotations(advancedFilters)">View annotations</button>
-          <button class="btn btn-default"" ng-click="nextSlimming(advancedFilters)">Next</button>
-          <button class="btn btn-default" ng-click="showGraph()">Show Graph</button>
-        </div>
+  <li class="slim">Choose terms from your basket&nbsp;({{basketList.length}}&nbsp;Available)
+  <ul ng-repeat="basketItem in basketList">
+    <input type="checkbox" ng-model="advancedFilters.boolean.goID[[basketItem.termId]]"
+           ng-true-value="'{{basketItem.termId}}'"/>
+    {{basketItem.termId}}&nbsp;{{basketItem.name}}
+  </ul>
+</li></ol>
+  <div>
+    <!--<button type="button" ng-click="cancel()">Cancel</button>-->
+    <!--<button type="reset" ng-click="reset()">Reset</button>-->
+    <button class="btn quickgo-btn" ng-click="viewAnnotations(advancedFilters)">View annotations</button>
+    <button class="btn quickgo-btn" ng-click="nextSlimming(advancedFilters)">Next</button>
+    <button class="btn quickgo-btn" ng-click="showGraph()">Show Graph</button>
+  </div>
 
-      </form>
 
-    <!--</div> &lt;!&ndash; slimming div &ndash;&gt;-->
-
-
-    </div> <!-- wrap div -->
+</div>

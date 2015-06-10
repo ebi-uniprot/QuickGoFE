@@ -22,6 +22,25 @@ body {
   /*margin-left: 3%*/
 }
 
+/* Slim */
+textarea.slim {
+  width: 50em;
+  height: 8em;
+}
+
+li.slim {
+  padding: 1%;
+}
+
+/* Slim end*/
+
+.quickgo-btn {
+  background-color: #ccdab3;
+}
+
+.quickgo-btn:hover {
+  background-color: #bce7e7;
+}
 
 #wrap {
   width:1000px;
