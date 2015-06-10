@@ -4,14 +4,15 @@
     Basket:&nbsp;<span id="basket-count" style="display: inline;">{{countBasket}}</span>&nbsp;&nbsp;
     <button class="btn btn-default" ng-click="showBasket()">Show Basket</button>
   </div>
-  <h2>Annotation Blacklist</h2>
+  <div class="text-container">
+  <h3>Annotation Blacklist</h3>
 
-  <h3>Scope</h3>
+  <h4>Scope</h4>
 
   <p>This method aims to correct annotations to UniProtKB accessions, from incorrect annotations inferred from
     electronic annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</p>
 
-  <h3>The Need For A Blacklist</h3>
+  <h4>The Need For A Blacklist</h4>
 
   <p>The process of changing incorrect electronically inferred annotations is not instantaneous and in some cases
     these annotations are displayed for a while before the prediction method can be corrected at source.
@@ -19,14 +20,14 @@
     Example: False positives In the case where proteins are grouped together by a sequence model and the model hits
     a false positive, the 'false positive' protein would receive incorrect annotation(s).</p>
 
-  <h3>Contents</h3>
+  <h4>Contents</h4>
 
   <p>This list contains UniProtKB protein accessions associated with specific GO terms that curators feel incorrectly
     describe a protein's function, associated process or subcellular location. This list is split into three
     sections:</p>
 
   <ol>
-    <li><h4>Negative associations curated from IEA pipeline review</h4>
+    <li><p class="strong">Negative associations curated from IEA pipeline review</p>
 
       <p>A list of protein-GO term associations that have been observed as being incorrect from the review of
         annotations
@@ -42,7 +43,7 @@
         with as correct a set of protein annotations as possible.</p>
     </li>
 
-    <li><h4>Negative associations obtained from NOT-qualified GO annotations (annotation set updated weekly)</h4>
+    <li><p class="strong">Negative associations obtained from NOT-qualified GO annotations (annotation set updated weekly)</p>
 
       <p>These protein-GO term associations have been created when a protein has been expected to have a particular
         function, associated process or location, but specific experimental or sequence-based evidence has been curated
@@ -51,7 +52,7 @@
         here: http://www.geneontology.org/GO.annotation.conventions.shtml#not</p>
     </li>
 
-    <li><h4>Negative associations obtained from UniProt COMMENT_CAUTION entries (annotation set updated weekly)</h4>
+    <li><p class="strong">Negative associations obtained from UniProt COMMENT_CAUTION entries (annotation set updated weekly)</p>
 
       <p>These protein-GO term associations have been created when a 'caution' comment in the UniProt entry indicates
         that
@@ -60,14 +61,14 @@
     </li>
   </ol>
 
-  <h3>Custodian of the blacklist</h3>
+  <h4>Custodian of the blacklist</h4>
 
   <p>The <a href="http://www.ebi.ac.uk/GOA" target="_blank">UniProt-GOA</a> project is responsible for maintaining
     the annotation blacklist for annotation sources originating from this group.</p>
 
   <div class="clearfix"><p></p></div>
 
-  <h3>The Currently Active Annotation Blacklist</h3>
+  <h4>The Currently Active Annotation Blacklist</h4>
   <tabset justified="true">
     <tab heading="Curated From IEA Pipeline Review">
       <table class="two-colours">
@@ -126,6 +127,6 @@
       </table>
     </tab>
   </tabset>
-
+  </div>
 </div>
 
