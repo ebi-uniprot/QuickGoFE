@@ -22,17 +22,14 @@ body {
   /*margin-left: 3%*/
 }
 
-/* Slim */
-textarea.slim {
+/* Default Form Elements */
+textarea.default {
   width: 50em;
   height: 8em;
 }
 
-li.slim {
-  padding: 1%;
-}
+/* Default Form Elements End*/
 
-/* Slim end*/
 
 .quickgo-btn {
   background-color: #70BDBD;
@@ -216,6 +213,11 @@ textarea.sidebar {
 /* Annotation Side Bar End*/
 
 /* Slimming pages*/
+li.slim {
+  padding: 1%;
+}
+
+
 #slimming {
   float:left;
   width:1000px;
