@@ -22,6 +22,11 @@ body {
   /*margin-left: 3%*/
 }
 
+.text-container-800 {
+  max-width: 800px;
+  /*margin-left: 3%*/
+}
+
 /* Default Form Elements */
 textarea.default {
   width: 50em;
@@ -244,6 +249,14 @@ li.slim {
   width: 90%;
 }
 
+li.main {
+  padding: 4px;
+}
+
+li.sub-1 {
+  padding: 2px;
+}
+/* Advanced Filters Modal End*/
 
 /* Documentation*/
 li.strong {
