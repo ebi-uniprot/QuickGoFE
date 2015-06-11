@@ -2,7 +2,7 @@
  * Created by twardell on 04/03/2015
  * This controller handles the creation and initial processing of the advanced filters modal.
  */
-app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location, basketService, evidencetypes, withDBs,
+app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $location, basketService, evidencetypes, withDBs,
                                                assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets) {
 
 
@@ -103,6 +103,31 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $location
     $modalInstance.dismiss('cancel');
     $location.path("annotations");
   }
+
+
+  /**
+   * ------------------------------------ Evidence Code Graph Image --------------------------------------------------
+   */
+
+
+  /**
+   * Show the GO ontology graph image modal on request
+   */
+  $scope.showEvidenceCodeOntologyGraph = function (ecoId) {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'modals/ontologyGraphModal.html',
+      controller: 'OntologyGraphCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope,
+      resolve: {
+        graphModel: function () {
+          return {id:ecoId, name:'', scope:'ECO'};
+        }
+      }
+    });
+
+  };
 
 
   /**
