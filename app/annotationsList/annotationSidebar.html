@@ -46,7 +46,7 @@
       <ul>
         <li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}' class="quickTaxon">
           <!--<input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>-->
-          <span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>
+          <input type=button class="btn quickgo-btn" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>
         </li>
     </ul>
       <span class="quickButton" ng-click="showLess()">-Show less</span>
