@@ -315,6 +315,18 @@ filteringModule.factory('filteringService', function() {
 
 
   /**
+   * Turn the filters into a json object that can be posted back to the server
+   */
+  filteringService.filterObject =  function (){
+
+    //return {list:filters};
+    return filters;
+
+    }
+
+
+
+  /**
    * Turn the filters into a query string that can be used in the bookmarkable link
    * @returns {string}
    */

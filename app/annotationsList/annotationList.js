@@ -100,7 +100,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * Get the results page
    * @param pageNumber
    */
-  function getResultsPage(pageNumber) {
+  function getResultsPageY(pageNumber) {
 
     $scope.currentPage = pageNumber;
 
@@ -125,12 +125,66 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     $http.get(formattedURL).success(function(data) {
       console.log("got the response back ", data);
       $scope.goList = data;
-      console.log("Got annotation databack", $scope.goList);
 
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
 
       $scope.isLoading=0;
     })
+
+  }
+
+
+  /**
+   * Get the results page - Post version
+   * @param pageNumber
+   */
+  function getResultsPage(pageNumber) {
+
+    //var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNames';
+    var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNamesNotSpring';
+    console.log("formatted url", formattedURL);
+
+
+    //Create the object to send to the server
+    var filterRequest = {};
+    filterRequest.list =  filteringService.getFilters();
+    filterRequest.rows =  $scope.annotationsPerPage;
+    filterRequest.page = pageNumber;
+    filterRequest.isSlim = filteringService.isSlimming();
+
+
+    // Post the filter request to the webservice
+
+    //var package = JSON.stringify({myString:'Tony'});
+    var name='Tony';
+    var data = 'myString='+name;
+
+    //$http.post(formattedURL, package).success(function(data) {
+
+    var request = {
+      method: 'POST',
+      url: formattedURL,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: filterRequest
+    };
+
+
+    //data: {myString: 'Tony'}
+
+    $http(request).success(function(data) {
+
+      console.log("got the response back ", data);
+      $scope.goList = data;
+
+
+      prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
+
+      $scope.isLoading=0;
+
+    })
+
   }
 
 

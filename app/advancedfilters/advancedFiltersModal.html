@@ -229,7 +229,7 @@
             </thead>
             <tr>
               <td class="aFilter">
-                <input type="checkbox" id="ECO:0000352" ng-model="advancedFilters.boolean[evidenceSetter].ECO0000352"
+                <input type="checkbox" id="ECO:0000352" ng-model="advancedFilters.boolean.ecoID.ECO0000352"
                        ng-true-value="'ECO:0000352'"> <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('ECO:0000352')">ECO:0000352</span>
               </td>
               <td>
@@ -248,6 +248,18 @@
                 <label for="ECO:0000269"> (IDA,IMP,IPI,IGI,IEP,EXP) Manual Experimental</label>
               </td>
             </tr>
+
+            <tr>
+              <td class="aFilter">
+                <input type="checkbox" id="ECO:0000250" ng-model="advancedFilters.boolean.ecoID.ECO0000250"
+                       ng-true-value="'ECO:0000250'">
+                <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('ECO:0000269')">ECO:0000250</span>
+              </td>
+              <td>
+                <label for="ECO:0000250"> (TEST) TEST VERSION ONLY DO NO USE</label>
+              </td>
+            </tr>
+
 
             <tr ng-repeat="evidenceType in evidenceTypes">
               <td class="aFilter">
@@ -270,8 +282,8 @@
           <!-- Include Child Terms need to create a filter with values such as ecoAncestorsI : ECO:0000266 -->
           <!-- Option Exact match needs to create a filter with values such as ECOID : ECO:0000255-->
 
-          <br><input type="radio" ng-model="evidenceSetter" value="ecoAncestorsI">Include Child Terms
-          <br><input type="radio" ng-model="evidenceSetter" value="ECOID"/>Exact match
+          <br><input type="radio" ng-model="advancedFilters.boolean.ecoTermUse.ancestor" value="ancestor">Include Child Terms
+          <br><input type="radio" ng-model="advancedFilters.boolean.ecoTermUse.exact" value="exact"/>Exact match
 
         </div>
       </tab>
@@ -310,8 +322,8 @@
       <tab heading="With">
         <table class="two-colours">
           <thead>
-          <th>Db</th>
-          <th>Name</th>
+          <th>Annotation</th>
+          <th>Group</th>
           </thead>
           <tr ng-repeat="withDB in withDBs">
             <td class="aFilter">
@@ -327,8 +339,8 @@
       </tab>
 
       <tab heading="Taxon">
-        <p>To filter by species/taxonomic group, list taxon identifiers in the text box or select one or more of the
-          pre-defined taxonomic groups below</p>
+        <p>To filter by species/taxonomic group, select one or more of the pre-defined taxonomic groups,
+          or enter taxon identifiers in the text box or below</p>
 
         <table class="two-colours">
           <thead>
@@ -336,18 +348,18 @@
           <th>Title</th>
           </thead>
           <tr ng-repeat="taxon in mostCommonTaxonomies">
-            <td class="aFilter"><input type="checkbox" ng-model="advancedFilters.boolean.taxonomyId[taxon.taxId]"
+            <td class="aFilter"><input type="checkbox" ng-model="advancedFilters.boolean.taxon[taxon.taxId]"
                        ng-true-value="{{taxon.taxId}}">
               &nbsp;&nbsp;{{taxon.taxId}}
             </td>
             <td>{{taxon.title}}</td>
           </tr>
         </table>
-        <textarea ng-model="advancedFilters.text.taxonomyId" style="width:50%"></textarea>
+        <p> Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for
+          other taxonomic groups</p>
+        <textarea class="default" ng-model="advancedFilters.text.taxon" ></textarea>
+        <p></p>
 
-        Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for
-        other
-        taxonomic groups
       </tab>
 
       <tab heading="Assigned by">
