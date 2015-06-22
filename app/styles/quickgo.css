@@ -1,7 +1,4 @@
 
-/**
-Common
-*/
 
 /* Top level container colours */
  .quickgo-content {
@@ -83,7 +80,7 @@ tr.odd td, tr.odd th{
 .pagHeader {
   display: inline-block;
   vertical-align: top;
-  padding-top:25px;"
+  padding-top: 25px;
 }
 /* Pagination Header End*/
 
@@ -273,37 +270,6 @@ p.strong {
 
 .col-right {float: right;}
 
-/* Tool tip */
-
-/*a.tooltip {outline:none; }*/
-
-/*a.tooltip strong {line-height:30px;}*/
-
-/*a.tooltip:hover {text-decoration:none;}*/
-
-/*a.tooltip span { z-index:10;*/
-                /*display:none;*/
-                /*padding:14px 20px;*/
-                /*margin-top:60px; margin-left:-160px;*/
-                /*width:300px; line-height:16px;*/
-/*}*/
-/*a.tooltip:hover span{ display:inline;*/
-                      /*position:absolute;*/
-                      /*border:2px solid #FFF;*/
-                      /*color:#EEE;*/
-                    /*}*/
-
-/*.callout {z-index:20;*/
-          /*position:absolute;*/
-          /*border:0;*/
-          /*top:-14px;*/
-          /*left:120px;*/
-/*}*/
-
-/*a.tooltip span { border-radius:2px;*/
-                  /*box-shadow: 0px 0px 8px 4px #666; *//*opacity: 0.8;*/
-/*}*/
-
 .pseudo-link{
   background:none!important;
   border:none;
@@ -337,20 +303,12 @@ span.entryview-name-nav {
 IMG.displayed {
   display: block;
   margin-left: auto;
-  margin-right: auto }
+  margin-right: auto
+}
 
 .wrapper {
-  /*text-transform: uppercase;*/
-  /*background: #ececec;*/
-  /*color: #555;*/
   cursor: help;
-  /*font-family: "Gill Sans", Impact, sans-serif;*/
-  /*font-size: 20px;*/
-  /*margin: 100px 75px 10px 75px;*/
-  /*padding: 15px 20px;*/
   position: relative;
-  /*text-align: center;*/
-  /*width: 200px;*/
   -webkit-transform: translateZ(0); /* webkit flicker fix */
   -webkit-font-smoothing: antialiased; /* webkit text rendering fix */
 }
