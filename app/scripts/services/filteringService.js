@@ -148,7 +148,7 @@ filteringModule.factory('filteringService', function() {
           var value = anInputType['subset'];
           //console.log("A value", value);
 
-          var aFilter = {type: 'subSet', value: value};
+          var aFilter = {type: 'goSlim', value: value};
           filteringService.saveAppliedFilter(aFilter);
           //$scope.appliedFilters.push({type: 'subSet', value: value});
         }
@@ -276,7 +276,7 @@ filteringModule.factory('filteringService', function() {
           var value = anInputType['subset'];
           //console.log("A value", value);
 
-          var aFilter = {type: 'subSet', value: value};
+          var aFilter = {type: 'goSlim', value: value};
           filterTerms.push(aFilter);
           //$scope.appliedFilters.push({type: 'subSet', value: value});
         }
