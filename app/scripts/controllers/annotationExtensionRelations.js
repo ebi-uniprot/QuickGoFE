@@ -193,10 +193,13 @@ app.controller('AnnotationExtensionRelationsCtrl', function( $scope, targetDomai
       printMenu("nodenote", "<b>Usage:</b> " + data.usage);
     }
 
-    if (data.subsets && data.subsets.length > 0) {
+    if (data.subsets && data.subsets.length > 1) {
       printMenu("nodenote", "<b>Subsets:</b>");
       for (i = 0; i < data.subsets.length; i++) {
-        printMenu("nodenote", data.subsets[i]);
+        // ignore the "all_relations" subset, which isn't a "real" subset
+        if (data.subsets[i] != "all_relations") {
+          printMenu("nodenote", data.subsets[i]);
+        }
       }
     }
 
