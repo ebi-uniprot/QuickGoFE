@@ -7,13 +7,7 @@
   <div id="myTabs">
     <tabset>
 
-      <tab>
-
-        <tab-heading>
-          <span>
-          Gene Product ID
-          </span>
-        </tab-heading>
+      <tab heading="Gene Product ID">
 
         <div style="padding: 15px">
           <h4>Gene Product ID</h4>
@@ -23,7 +17,7 @@
               <br>
               There is no limit on the number of identifiers that can be entered into this box.</p>
 
-            <textarea class="default" ng-model="advancedFilters.text.gpID" placeholder="GO:0003824 etc"></textarea>
+            <textarea class="default" ng-model="advancedFilters.text.gpID" placeholder="A0A000 etc"></textarea>
           </section>
 
 
@@ -144,15 +138,6 @@
               </ul>
             </li>
 
-            <!-- Enter predefined classes-->
-            <li class="sub-1">Predefined GO term sets:
-              <ul><li>
-              <select
-                ng-options="predefinedSlimSet.subset + '(' + predefinedSlimSet.subsetCount + ')' for predefinedSlimSet in predefinedSlimSets"
-                ng-model="advancedFilters.predefinedSlimSet">
-              </select>
-              </li></ul>
-            </li>
 
             <!-- Enter list of GO identifiers-->
             <li class="sub-1">Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:
