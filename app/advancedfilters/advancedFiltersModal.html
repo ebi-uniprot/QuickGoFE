@@ -23,7 +23,7 @@
               <br>
               There is no limit on the number of identifiers that can be entered into this box.</p>
 
-            <textarea class="default" ng-model="advancedFilters.text.dbObjectID" placeholder="GO:0003824 etc"></textarea>
+            <textarea class="default" ng-model="advancedFilters.text.gpID" placeholder="GO:0003824 etc"></textarea>
           </section>
 
 
@@ -44,7 +44,7 @@
               <!--BHF-UCL -->
               <tr>
                 <td>
-                  <input id="bhfucl" type="checkbox" ng-model="advancedFilters.boolean.targetSet.bhfucl"
+                  <input id="bhfucl" type="checkbox" ng-model="advancedFilters.boolean.gpSet.bhfucl"
                          ng-true-value="'BHF-UCL'">
                 </td>
                 <td><label for="bhfucl">
@@ -68,7 +68,7 @@
               <!-- Kruk -->
               <tr>
                 <td>
-                  <input id="kruk" type="checkbox" ng-model="advancedFilters.boolean.targetSet.kruk" ng-true-value="'KRUK'">
+                  <input id="kruk" type="checkbox" ng-model="advancedFilters.boolean.gpSet.kruk" ng-true-value="'KRUK'">
                 </td>
                 <td><label for="kruk">KRUK</label>
                 </td>
@@ -165,33 +165,36 @@
 
             <li class="main"><strong>Select how you want to use the terms that you have chosen:</strong>
 
-            <div class="choiceA" ng-init="useSlim=0">
+            <section ng-init="advancedFilters.text.goTermUse='ancestor'">
               <ul>
-                <li><input type="radio" ng-model="useSlim" value="1"> Use these terms as a GO slim</li>
-                <li><input type="radio" ng-model="useSlim" value="0"> Find annotations to descendants of these
-                  terms (annotations will display the original GO terms applied)
+                <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="ancestor" ng-click="ensureGoRelations()"> Find annotations to <strong>descendants</strong> of these
+                  terms (annotations will display the original GO terms applied).
                 </li>
+                <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="slim" ng-click="ensureGoRelations()"> Use these terms as a <strong>GO slim</strong>.</li>
+                <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="exact" ng-click="removeGoRelations()"> Use these terms as an <strong>exact</strong> match.</li>
               </ul>
-            </div>
+            </section>
             </li>
 
           <!-- Select Relationship-->
-            <li class="main"><strong>Select which relationship an annotated term should have to the terms above:</strong>
+          <section ng-show="advancedFilters.text.goTermUse=='slim' || advancedFilters.text.goTermUse=='ancestor'"
+                   ng-init="advancedFilters.text.goRelations='IPO'">
+            <li><strong>Select which relationship an annotated term should have to the terms above:</strong>
+               <ul>
+                <li>Select which relationship an annotated term should have to the terms above:</li>
+                <li><input type="radio" name="closure" value="I"
+                           ng-model="advancedFilters.text.goRelations">is_a only
+                </li>
+                <li><input type="radio" name="closure" value="IPO"
+                           ng-model="advancedFilters.text.goRelations">is_a, part_of
+                </li>
 
-             <ul>
-              <li>Select which relationship an annotated term should have to the terms above:</li>
-              <li><input type="radio" name="closure" value="ancestorsI"
-                         ng-model="advancedFilters.boolean.ancestorsI.ancestorsI">is_a only
-              </li>
-              <li><input type="radio" name="closure" value="ancestorsIPO"
-                         ng-model="advancedFilters.boolean.ancestorsIPO.ancestorsIPO">is_a, part_of
-              </li>
-
-              <li><input type="radio" name="closure" value="ancestorsIPOR"
-                         ng-model="advancedFilters.boolean.ancestorsIPOR.ancestorsIPOR">is_a, part_of,regulates
-              </li>
-            </ul>
+                <li><input type="radio" name="closure" value="IPOR"
+                           ng-model="advancedFilters.text.goRelations">is_a, part_of,regulates
+                </li>
+              </ul>
             </li>
+          </section>
             </ol>
       </tab>
 

@@ -92,6 +92,34 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
     console.log("Submitted advancedFilters",$scope.advancedFilters);
     console.log("Submitted useSlim",$scope.useSlim);
 
+    //If a goid has not been selected then remove the defaults for ancestor and relationship from the submitted filters
+    console.log("Clear the defaults for radio buttons in the advanced filters dialogue. ", $scope.advancedFilters);
+
+    hasGoId=0;
+
+    for(var input in $scope.advancedFilters.boolean) {
+
+      if ($scope.advancedFilters.boolean.hasOwnProperty(input)) {
+        if (input == 'goID') {
+          hasGoId = 1;
+        }
+      }
+    }
+
+    for(var input in $scope.advancedFilters.text) {
+
+      if ($scope.advancedFilters.text.hasOwnProperty(input)) {
+        if (input == 'goID' || input=='predefinedSlimSet') {
+          hasGoId = 1;
+        }
+      }
+    }
+
+    if(hasGoId==0){
+      delete $scope.advancedFilters.text.goTermUse;
+      delete $scope.advancedFilters.text.goRelations;
+    }
+
 
     filteringService.populateAppliedFilters( $scope.advancedFilters,  $scope.useSlim);
 
@@ -129,6 +157,23 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
 
   };
 
+  /**
+   * ------------------------------------ Filtering Operations for Go Ids ----------------------------------------------
+   */
+
+  //If any go term use other than exact is chosen, set the go relations (if not already set) to the default of IPO
+  $scope.ensureGoRelations = function(){
+    if(advancedFilters.text.goRelations == undefined || advancedFilters.text.goRelations==null){
+      $scope.advancedFilters.text.goRelations = 'IPO';
+    }
+  }
+
+
+  // If a go term use of exact has been selected, then we should not set the value for go relations
+  $scope.removeGoRelations = function(){
+    console.log("Removing go relations");
+    delete $scope.advancedFilters.text.goRelations;
+  }
 
   /**
    * Close window
