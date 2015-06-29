@@ -61,10 +61,9 @@
   <textarea class="sidebar" ng-model="advancedFilters.text.goID"></textarea></label>
 
   <label>Gene Product ID
-  <textarea class="sidebar" ng-model="advancedFilters.text.dbObjectID"></textarea></label>
+  <textarea class="sidebar" ng-model="advancedFilters.text.gpID"></textarea></label>
   <br />
-  <input class="btn quickgo-btn" type="submit" id="submit" value="Filter By ID"/>
-  </form>
+  <input class="btn quickgo-btn" value="Filter By ID" ng-click="quickFilterById(advancedFilters)"/>
   <hr />
 
   <h3>Advanced Filters</h3>

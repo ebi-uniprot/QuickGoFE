@@ -20,9 +20,9 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
   /**
    * Notify the filtering service with the submitted data
    */
-  $scope.submit = function(advancedFilters){
+  $scope.quickFilterById = function(advancedFilters){
 
-    console.log("AnnotationSidebar.js -  advanced filters", advancedFilters);
+    console.log("quickFilterById ", advancedFilters);
 
     filteringService.populateAppliedFilters(advancedFilters,0); //0==not a slim
 
@@ -39,7 +39,7 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
 
     console.log("AnnotationSidebar.js - quickTax", taxId);
 
-    var aFilter = {type: 'taxonomyId', value: taxId};
+    var aFilter = {type: 'taxon', value: taxId};
 
     if(filteringService.hasFilter(aFilter)){
       filteringService.removeFilter(aFilter);
