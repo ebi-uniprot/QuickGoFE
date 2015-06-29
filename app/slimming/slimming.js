@@ -76,7 +76,15 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
           $scope.slimTermCc.push(aTerm);
         }
 
-        $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
+
+        //By default, all the Go Terms in the slim set are set to choosen, except for the root terms,
+        // GO:0008150 biological process
+        // GO:0003674 molecular_function
+        // GO:0005575 cellular_component
+
+        if(aTerm.termId != 'GO:0008150' && aTerm.termId != 'GO:0003674' &&  aTerm.termId != 'GO:0005575') {
+          $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
+        }
 
       }
 
