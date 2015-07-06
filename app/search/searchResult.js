@@ -11,7 +11,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, $modal, searchfu
   $scope.isLoading = 1;
   $scope.resultsPerPage=25;
   $scope.currentPage=1;
-  $scope.viewBy = "entity";
+  $scope.viewBy = "goID";
 
 
   //Parse the content of the url to use as the search expr
