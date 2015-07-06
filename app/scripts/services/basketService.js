@@ -13,12 +13,22 @@ basketModule.factory('basketService', function($cookieStore) {
    * Add an item to the basket
    */
   basketList.addBasketItem = function (basketItem) {
+    console.log("basket item is ", basketItem);
+
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
     //items[items.length] = basketItem;
-    console.log(items);
-    items.push(basketItem);
-    $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
-    return items.length;
+
+    //check the item isn't already isn't in the basket, and if it is don't add it.
+    if(!this.containsItem(basketItem)){
+      console.log("current contents of basket",items);
+      items.push(basketItem);
+      $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
+      return items.length;
+    }else{
+      console.log("item already exists in the basket");
+    }
+
+
   }
 
 
@@ -83,14 +93,14 @@ basketModule.factory('basketService', function($cookieStore) {
    * @returns {boolean}
    */
   basketList.containsItem = function (searchGoId){
-    console.log("contains items called ", searchGoId);
+    console.log("does the basket contain? ", searchGoId);
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
     console.log("size of cookie store is ", items.length);
     var basketLen = -1;
     var i;
     for (i = 0, basketLen = items.length; i < basketLen; i++) {
       console.log("Have found in the cookie store ", items[i]);
-      if (searchGoId == items[i].termId) {
+      if (searchGoId.termId == items[i].termId) {
         console.log("Found in cookie list")
         return true;
       }
