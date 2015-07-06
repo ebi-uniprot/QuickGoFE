@@ -191,7 +191,7 @@ ul
   list-style-type: none;
 }
 
-/* Annotation Side Bar*/
+/* Annotation SideBar         ---------------------------------------------------------------*/
 .quickTaxon:hover {
   background-color: #bce7e7 ;
 }
@@ -209,10 +209,16 @@ textarea.sidebar {
 }
 
 .quickButton {
-  color:#996a44;
+  /*color: #70BDBD;*/
   cursor: pointer;
+  font-weight: bold;
 }
-/* Annotation Side Bar End*/
+
+h4.sidebar {
+  color: #996a44;
+}
+
+/* Annotation Side Bar End      -------------------------------------------------------------------*/
 
 /* Slimming pages*/
 li.slim {
