@@ -4,6 +4,9 @@
 app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, basketService,
                                     targetDomainAndPort, filteringService) {
 
+  //Clear search term
+  $scope.searchText ='';
+
   console.log("Term Controller");
 
   $scope.isLoading=1;

@@ -76,6 +76,9 @@ angular.module('quickGoFeApp').controller('TypeaheadCtrl', function ($scope, $ht
     $scope.$model = $model;
     $scope.$label = $label;
 
+    //Clear the entered search text
+    $scope.searchText ='';
+
     if($item.type=="GENE_PRODUCT"){
 
       //Use the id of the gene product to filter the annotation list
@@ -85,8 +88,14 @@ angular.module('quickGoFeApp').controller('TypeaheadCtrl', function ($scope, $ht
       //Tell the annotation list the filters have changed
       $rootScope.$emit('filtersUpdate', {});   //todo change this so is notification only
 
-      //Clear the entered search text
-      $scope.searchText ='';
+      $location.path("/annotations");
+
+    }
+
+    if($item.type=="TERM"){
+
+      console.log("forward to term");
+      $location.path("/term/"+ $item.key); // path not hash
 
     }
   };
