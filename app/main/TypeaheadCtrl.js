@@ -2,7 +2,8 @@
  * Created by twardell on 06/07/2015.
  */
 
-angular.module('quickGoFeApp').controller('TypeaheadCtrl', function ($scope, $http, targetDomainAndPort) {
+angular.module('quickGoFeApp').controller('TypeaheadCtrl', function ($scope, $http, targetDomainAndPort, filteringService,
+                                            $location, $rootScope) {
 
   $scope.searchText='';
 
@@ -59,4 +60,34 @@ angular.module('quickGoFeApp').controller('TypeaheadCtrl', function ($scope, $ht
 
   }
 
+
+  /**
+   * If a value is selected from the typeahead list decide if things should happen.
+   */
+
+  $scope.onSelect = function ($item, $model, $label) {
+
+    console.log("on select item", $item);
+    console.log("on select model", $model);
+
+    console.log("on select label", $label);
+
+    $scope.$item = $item;
+    $scope.$model = $model;
+    $scope.$label = $label;
+
+    if($item.type=="GENE_PRODUCT"){
+
+      //Use the id of the gene product to filter the annotation list
+      var aFilter = {type: 'gpID', value: $item.key};
+      filteringService.saveAppliedFilter(aFilter);
+
+      //Tell the annotation list the filters have changed
+      $rootScope.$emit('filtersUpdate', {});   //todo change this so is notification only
+
+      //Clear the entered search text
+      $scope.searchText ='';
+
+    }
+  };
 });
