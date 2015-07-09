@@ -31,7 +31,7 @@ var app = angular
         console.log($routeProvider);
     $routeProvider
       .when('/', {
-        templateUrl: 'views/start.html',
+        templateUrl: 'main/start.html',
         controller: 'StartCtrl'
       })
       .when('/annotations', {
