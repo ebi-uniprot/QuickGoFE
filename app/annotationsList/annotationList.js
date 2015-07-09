@@ -205,13 +205,27 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   /**
    * Listen for update to the filters list (this is 'emit' from the Advanced Filters controller and the sidebar controller
    */
-  $scope.$on('filtersUpdate', function(event, data) {
+  $scope.$on('filtersUpdate', function(event) {
 
     //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
     $scope.appliedFilters = filteringService.getFilters();
     console.log("Loaded applied filters", $scope.appliedFilters);
 
-    $scope.advancedFilters = data;
+    //refresh the page
+    getResultsPage(1);
+  });
+
+
+  /**
+   * Listen to an update to the filters list that comes from the typeahead function
+   */
+  $rootScope.$on('filtersUpdate', function(event) {
+
+    //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
+    $scope.appliedFilters = filteringService.getFilters();
+    console.log("Loaded applied filters", $scope.appliedFilters);
+
+    //$scope.advancedFilters = data;
 
     //refresh the page
     getResultsPage(1);
