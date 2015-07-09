@@ -23,10 +23,6 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <!-- Bootstrap CSS -->
-  <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="bower_components/angular-busy/dist/angular-busy.css"/>
-
 
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
@@ -44,6 +40,11 @@
   <!--
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
   -->
+
+  <!-- Bootstrap CSS -->
+  <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-busy/dist/angular-busy.css"/>
+
 
   <!-- Only has was I need -->
   <link rel="stylesheet" type="text/css" href="styles/quickgo.css">
@@ -91,19 +92,19 @@
   <!-- endbower -->
   <!-- endbuild -->
 
-  <!--Used for modal-->
-  <script src="scripts/thirdparty/ui-bootstrap-tpls-0.12.0.js"></script>
+  <!--Used for modal, typeahead-->
+  <script src="scripts/thirdparty/ui-bootstrap-tpls-0.13.0.js"></script>
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/common.js"></script>
-  <script src="scripts/controllers/main.js"></script>
+  <script src="main/main.js"></script>
   <script src="nav/about.js"></script>
   <script src="annotationsList/annotationList.js"></script>
   <script src="term/term.js"></script>
   <!--<script src="scripts/controllers/term/term-sidebar.js"></script>-->
   <script src="term/ancestorsGraph.js"></script>
-  <script src="scripts/controllers/start.js"></script>
+  <script src="main/start.js"></script>
   <script src="slimming/slimming.js"></script>
   <script src="slimming/slimming2.js"></script>
   <script src="nav/documentation.js"></script>
@@ -124,6 +125,7 @@
   <script src="simplelist/ontologyTerms.js"></script>
   <script src="annotationsList/bookmark.js"></script>
   <script src="nav/feedback.js"></script>
+  <script src="main/TypeaheadCtrl.js"></script>
 
   <!-- endbuild -->
 
@@ -149,7 +151,7 @@
   <script src="scripts/cytoscape/min/json2.min.js"></script>
   <script src="scripts/controllers/annotationExtensionRelations.js"></script>
   <!--<script src="scripts/annExtRelations.js"></script>-->
-  <script src="scripts/controllers/search.js"></script>
+  <script src="main/search.js"></script>
   <script src="search/searchResult.js"></script>
 
 
@@ -214,32 +216,32 @@
       <!-- local-search -->
       <!-- NB: if you do not have a local-search, delete the following div, and drop the class="grid_12 alpha" class from local-title above -->
 
-      <div class="grid_12 omega" ng-controller="SearchCtrl">
-        <form id="local-search" name="local-search" action="[search-action]" method="post">
+      <!--<div class="grid_12 omega" ng-controller="SearchCtrl">-->
+      <div class="grid_12 omega" ng-controller="TypeaheadCtrl">
 
-          <fieldset>
-
-            <div class="left">
-              <label>
-                <!--<input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http"-->
-                       <!--typeahead="match for matches in provideSuggestions($viewValue)"-->
-                       <!--typeahead-loading="loadingLocations" class="form-control">-->
-                <input type="text" name="first" id="local-searchbox" ng-model="searchText" placeholder="{{matches}}">
-              </label>
+            <!--<div class="left">-->
+              <!--<label>-->
+             <div id="typeaheadsearch">
+                <input type="text" ng-model="searchText"
+                       placeholder="Enter search value"
+                       typeahead-on-select='onSelect($item, $model, $label)'
+                       typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
+                  typeahead-min-length="4" typeahead-wait="300">
+             </div>
+            <!--<input type="text" name="first" id="local-searchbox" ng-model="searchText" placeholder="{{matches}}">-->
+              <!--</label>-->
               <!-- Include some example searchterms - keep them short and few! -->
               <span class="examples">Examples: <a href="#/search/catalytic">[catalytic]</a>, <a href="#/search/GO:0003824">[GO:0003824]</a>, <a href="#/search/ECO:0000256">[ECO:0000256]</a></span>
-            </div>
+            <!--</div>-->
 
             <div class="right">
-              <input type="button" name="submit" value="Search" class="submit" ng-click="showSearchResults(searchText)">
+              <button class="btn quickgo-content" ng-click="showSearchResults(searchText)">Search</button>
               <!-- If your search is more complex than just a keyword search, you can link to an Advanced Search,
                    with whatever features you want available -->
               <span class="adv"><a href="../search" id="adv-search" title="Advanced">Advanced</a></span>
             </div>
 
-          </fieldset>
 
-        </form>
       </div>
 
       <!-- /local-search -->
@@ -326,7 +328,6 @@
 
   </footer>
 </div> <!--! end of #wrapper -->
-
 
 <!-- JavaScript at the bottom for fast page loading -->
 
