@@ -413,3 +413,10 @@ IMG.displayed {
   margin: 20px;
 }
 
+  /* type ahead search - stop the defaults from ebi-global.css*/
+ div#typeaheadsearch ul li{
+  clear: both;
+  border-right: none;
+}
+
+
