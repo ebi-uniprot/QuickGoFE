@@ -1,52 +1,66 @@
-<div class="grid_5" ng-controller="AnnotationSidebarCtrl">
-  <!-- Applied filters list-->
+<div id="sidebar" class="grid_5" ng-controller="AnnotationSidebarCtrl">
+
+  <!-- APPLIED FILTERS LIST-->
+  
+  <div class="sidebar-section-applied" ng-show="appliedFilters.length>0">
+  <h4>Applied filters</h4>
+    <div class="sidebar-content">
+      <button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>
+      <element ng-if="appliedFilters.length>0" class='icon icon-generic' data-icon='L'>
+        <a id="bookmarkable-link" style="font-size:10px;" ng-href="{{bookmarkableLink}}">Bookmark</a>
+      </element>
+
+      <em ng-if="appliedFilters.length==0">
+        No filters applied
+      </em>
+      <ul style="float: left">
+        <li ng-repeat="filter in appliedFilters">
+          <div class="appliedValue" ng-if="filter">
+            {{filter.type}} : {{filter.value}}
+            <span style="float:right"> &nbsp;<img src="images/cross.png" ng-click="removeFilter(filter)"/></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 
 
-  <h4 class="sidebar" style="display: inline;">Applied filters</h4>
-  <button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>
-  <element ng-if="appliedFilters.length>0" class='icon icon-generic' data-icon='L'>
-    <a id="bookmarkable-link" style="font-size:10px;" ng-href="{{bookmarkableLink}}">Bookmark</a>
-  </element>
-  <hr/>
+  <div>&nbsp;</div>
 
+  <!-- FILTER BY TAXON-->
+  <div class="sidebar-section">
+  <h4>Filter By Taxon</h4>
+    <div class="sidebar-content">
 
-  <em ng-if="appliedFilters.length==0">
-    No filters applied
-  </em>
-  <ul style="float: left">
-    <li ng-repeat="filter in appliedFilters">
-      <div class="appliedValue" ng-if="filter">
-        {{filter.type}} : {{filter.value}}
-        <span style="float:right"> &nbsp;<img src="images/cross.png" ng-click="removeFilter(filter)"/></span>
+      <div ng-show="showInitialTaxons">
+        <ul>
+          <li ng-repeat="taxon in initialTaxonomies" title='{{taxon.name}}' class="quickTaxon">
+            <!--<input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>-->
+            <span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>
+          </li>
+        </ul>
+        <span class="quickButton" ng-click="showMore()">+Show more</span>
       </div>
-    </li>
-  </ul>
-
-  <h4 class="sidebar">Filter By Taxon</h4>
-  <hr/>
-  <div ng-show="showInitialTaxons">
-    <ul>
-      <li ng-repeat="taxon in initialTaxonomies" title='{{taxon.name}}' class="quickTaxon">
-        <!--<input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>-->
-        <span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>
-      </li>
-    </ul>
-    <span class="quickButton" ng-click="showMore()">+Show more</span>
-  </div>
-  <div ng-show="showCommonTaxons">
-    <ul>
-      <li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}' class="quickTaxon">
-        <!--<input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>-->
-        <input type=button class="btn quickgo-btn" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}]
-        {{taxon.title}}</input>
-      </li>
-    </ul>
-    <span class="quickButton" ng-click="showLess()">-Show less</span>
+      <div ng-show="showCommonTaxons">
+        <ul>
+          <li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}' class="quickTaxon">
+            <!--<input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>-->
+            <input type=button class="btn quickgo-btn" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}]
+            {{taxon.title}}</input>
+          </li>
+        </ul>
+        <span class="quickButton" ng-click="showLess()">-Show less</span>
+      </div>
+    </div>
   </div>
 
+  <div>&nbsp;</div>
 
-  <h4 class="sidebar">Filter By ID</h4>
-  <hr />
+
+  <!-- FILTER BY ID -->
+  <div class="sidebar-section">
+  <h4>Filter By ID</h4>
+    <div class="sidebar-content">
   <!-- Enter filter area-->
   <!-- Form for quick submission of the filter parameters-->
   <!--< ng-submit="submit(advancedFilters)">-->
@@ -66,13 +80,22 @@
   <div><button style="float: right" class="btn quickgo-btn"
           class="icon icon-functional button tooltipped" data-icon="f" ng-click="showAdvancedFilters()">Advanced filters</button>
   </div>
+    </div>
+  </div>
+
+  <div>&nbsp;</div>
 
 
-  <!-- Select view by-->
+  <!-- SELECT VIEW BY-->
+    <div class="sidebar-section">
   <h4 class="sidebar">View by</h4>
-  <hr/>
-  <ul>
+      <div class="sidebar-content">
+
+      <ul>
     <li id="resultsTableView"><a class="quickButton" href="#/annotations" rel="nofollow">Results table</a></li>
     <li id="statisticsView"><a class="quickButton" href="#/statistics" rel="nofollow">Statistics</a></li>
   </ul>
+      </div>
+    </div>
+
 </div>
