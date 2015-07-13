@@ -1,28 +1,28 @@
 <div id="sidebar" class="grid_5" ng-controller="AnnotationSidebarCtrl">
 
   <!-- APPLIED FILTERS LIST-->
-  
-  <div class="sidebar-section-applied" ng-show="appliedFilters.length>0">
-  <h4>Applied filters</h4>
-    <div class="sidebar-content">
-      <button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>
-      <element ng-if="appliedFilters.length>0" class='icon icon-generic' data-icon='L'>
-        <a id="bookmarkable-link" style="font-size:10px;" ng-href="{{bookmarkableLink}}">Bookmark</a>
-      </element>
 
-      <em ng-if="appliedFilters.length==0">
-        No filters applied
-      </em>
-      <ul style="float: left">
-        <li ng-repeat="filter in appliedFilters">
-          <div class="appliedValue" ng-if="filter">
+  <table class="sidebar-section-applied" ng-show="appliedFilters.length>0">
+  <tr>Applied filters</tr>
+    <div class="sidebar-content">
+      <!--<button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>-->
+      <!--<element ng-if="appliedFilters.length>0" class='icon icon-generic' data-icon='L'>-->
+        <!--<a id="bookmarkable-link" style="font-size:10px;" ng-href="{{bookmarkableLink}}">Bookmark</a>-->
+      <!--</element>-->
+
+      <!--<em ng-if="appliedFilters.length==0">-->
+        <!--No filters applied-->
+      <!--</em>-->
+      <!--<ul style="float: left">-->
+        <tr ng-repeat="filter in appliedFilters">
+          <td class="sidebar-appliedFilter" ng-if="filter">
             {{filter.type}} : {{filter.value}}
             <span style="float:right"> &nbsp;<img src="images/cross.png" ng-click="removeFilter(filter)"/></span>
-          </div>
-        </li>
-      </ul>
+          </td>
+        </tr>
+      <!--</ul>-->
     </div>
-  </div>
+  </table>
 
 
   <div>&nbsp;</div>
