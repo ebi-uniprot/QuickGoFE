@@ -1,19 +1,9 @@
 <div id="sidebar" class="grid_5" ng-controller="AnnotationSidebarCtrl">
 
   <!-- APPLIED FILTERS LIST-->
-
   <div class="sidebar-section">
   <h4>Applied filters</h4>
     </div>
-    <!--<div class="sidebar-content">-->
-      <!--<button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>-->
-      <!--<element ng-if="appliedFilters.length>0" class='icon icon-generic' data-icon='L'>-->
-        <!--<a id="bookmarkable-link" style="font-size:10px;" ng-href="{{bookmarkableLink}}">Bookmark</a>-->
-      <!--</element>-->
-
-      <em ng-if="appliedFilters.length==0">
-        No filters applied
-      </em>
       <!--<ul style="float: left">-->
       <table class="sidebar-section-applied" ng-show="appliedFilters.length>0">
         <tr ng-repeat="filter in appliedFilters">
@@ -22,10 +12,13 @@
             <span style="float:right"> &nbsp;<img src="images/cross.png" ng-click="removeFilter(filter)"/></span>
           </td>
         </tr>
-      <!--</ul>-->
-    <!--</div>-->
   </table>
 
+  <em class="sidebar-padding" style="display: block" ng-if="appliedFilters.length==0">No filters applied</em>
+  <button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>
+  <element class='icon icon-generic' data-icon='L'>
+    <a id="bookmarkable-link" style="font-size:10px;" ng-href="{{bookmarkableLink}}">Bookmark</a>
+  </element>
 
   <div>&nbsp;</div>
 
@@ -46,9 +39,7 @@
       <div ng-show="showCommonTaxons">
         <ul>
           <li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}' class="quickTaxon">
-            <!--<input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>-->
-            <input type=button class="btn quickgo-btn" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}]
-            {{taxon.title}}</input>
+            <span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>
           </li>
         </ul>
         <span class="quickButton" ng-click="showLess()">-Show less</span>
@@ -61,43 +52,30 @@
 
   <!-- FILTER BY ID -->
   <div class="sidebar-section">
-  <h4>Filter By ID</h4>
-    <div class="sidebar-content">
-  <!-- Enter filter area-->
-  <!-- Form for quick submission of the filter parameters-->
-  <!--< ng-submit="submit(advancedFilters)">-->
-  <label>GO ID
-    <textarea class="sidebar" ng-model="advancedFilters.text.goID"></textarea></label>
-
-  <label>Gene Product ID
-    <textarea class="sidebar" ng-model="advancedFilters.text.gpID"></textarea></label>
-  <br />
-  <!--<button class="btn quickgo-btn" value="" ng-click="quickFilterById(advancedFilters)">Filter By ID</button>-->
-  <br />
-  <div><button style="float: right"  class="btn quickgo-btn"
-               class="icon icon-functional button tooltipped" data-icon="1" ng-click="quickFilterById(advancedFilters)">Filter By ID</button>
-  </div>
-  <!--<button class="btn quickgo-btn" ng-click="showAdvancedFilters()">Advanced Filters</button>-->
-  <div class="clearfix"><p></p></div><br />
-  <div><button style="float: right" class="btn quickgo-btn"
-          class="icon icon-functional button tooltipped" data-icon="f" ng-click="showAdvancedFilters()">Advanced filters</button>
-  </div>
+    <h4>Filter By ID</h4>
+      <div class="sidebar-content">
+        <div class="sidebar-padding"><label>Go Id:</label><textarea class="sidebar" ng-model="advancedFilters.text.goID"></textarea></div>
+        <div class="sidebar-padding"><label>Gene Product:</label><textarea class="sidebar" ng-model="advancedFilters.text.gpID"></textarea></div>
+        <button class="btn quickgo-btn sidebar-padding" class="icon icon-functional button tooltipped" data-icon="1"
+            ng-click="quickFilterById(advancedFilters)">Submit</button>
     </div>
   </div>
 
   <div>&nbsp;</div>
-
+  <div><button class="btn quickgo-btn"
+               class="icon icon-functional button tooltipped" data-icon="f" ng-click="showAdvancedFilters()">Advanced filters</button>
+  </div>
+  <div>&nbsp;</div>
 
   <!-- SELECT VIEW BY-->
-    <div class="sidebar-section">
-  <h4 class="sidebar">View by</h4>
-      <div class="sidebar-content">
-
+  <div class="sidebar-section">
+    <h4 class="sidebar">View by</h4>
+    <div class="sidebar-content">
       <ul>
-    <li id="resultsTableView"><a class="quickButton" href="#/annotations" rel="nofollow">Results table</a></li>
-    <li id="statisticsView"><a class="quickButton" href="#/statistics" rel="nofollow">Statistics</a></li>
-  </ul>
-      </div>
+        <li id="resultsTableView"><a class="quickButton" href="#/annotations" rel="nofollow">Results table</a></li>
+        <li id="statisticsView"><a class="quickButton" href="#/statistics" rel="nofollow">Statistics</a></li>
+      </ul>
     </div>
+  </div>
 
 </div>

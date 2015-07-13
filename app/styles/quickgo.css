@@ -155,17 +155,6 @@ td.aFilter {
 
 /* End of table*/
 
-
-/*tabs*/
-/*#myTabs div li.active a {*/
-  /*background-color: #defcfc;*/
-/*}*/
-
-/*#myTabs div li.disable a {*/
-  /*background-color: #bce7e7;*/
-/*}*/
-
-
 /*tabs end*/
 
 p.pos_indented {
@@ -191,17 +180,54 @@ ul
   list-style-type: none;
 }
 
-/* Annotation SideBar         ---------------------------------------------------------------*/
+/* ANNOTATION SIDEBAR         ---------------------------------------------------------------*/
+
+div#sidebar {
+  /*background-color: #70BDBD ;*/
+  /*background-color: rgba(112, 189, 189, 0.47) ;*/
+  /*padding: 1em;*/
+
+}
+
+div.sidebar-section-applied {
+  /*background-color: white;*/
+  background-color: #70BDBD ;
+  padding: 3px;
+}
+
+table.sidebar-section-applied {
+  /*background-color: white;*/
+  background-color: #70BDBD ;
+  padding: 3px;
+}
+
+div.sidebar-section {
+  /*background-color: white;*/
+  background-color: rgba(112, 189, 189, 0.47) ;
+  padding: 3px;
+}
+
+/* list of applied filters*/
+td.sidebar-appliedFilter {
+  background-color: white;
+}
+
+
+div.sidebar-content {
+  background-color: white;
+}
+
 .quickTaxon:hover {
   background-color: #bce7e7 ;
 }
 
-textarea.sidebar {
-  width: 22em;
-  height: 6em;
-}
 
-/* Annotation Side Bar End*/
+textarea.sidebar {
+  /*width: 22em;*/
+  height: 6em;
+  width: 100%;
+  /*height:100%;*/
+}
 
 /* Highlight search term in search results*/
 .highlighted{
@@ -214,13 +240,16 @@ textarea.sidebar {
   font-weight: bold;
 }
 
-h4.sidebar {
-  color: #996a44;
+.sidebar-padding {
+  margin: 4px;
 }
 
-/* Annotation Side Bar End      -------------------------------------------------------------------*/
+/*h4.sidebar {*/
+  /*color: #996a44;*/
+/*}*/
 
-/* Slimming pages*/
+/* SLIMMING PAGES      -------------------------------------------------------------------*/
+
 li.slim {
   padding: 1%;
 }

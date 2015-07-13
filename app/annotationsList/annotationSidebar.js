@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 17/04/2015.
  */
-app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardCodedDataService, feDomainAndPort) {
+app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardCodedDataService, feDomainAndPort, $location) {
 
 
   $scope.showInitialTaxons=1;
@@ -31,6 +31,8 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
     //Tell parent page this value has been updated.
 
     $scope.$emit('filtersUpdate', advancedFilters);   //todo change this so is notification only
+
+    $location.path("/annotations");
 
   }
 
