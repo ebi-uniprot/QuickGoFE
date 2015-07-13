@@ -443,9 +443,9 @@ IMG.displayed {
 }
 
   /* type ahead search - stop the defaults from ebi-global.css*/
- div#typeaheadsearch ul li{
-  clear: both;
-  border-right: none;
+ div#typeaheadsearch{
+   margin: 20px;
+   display: inline;
 }
 
 

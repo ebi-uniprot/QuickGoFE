@@ -204,7 +204,7 @@
       <!-- local-title -->
       <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
 
-      <div class="grid_12 alpha" id="local-title">
+      <div class="grid_9 alpha" id="local-title">
         <h1><a ng-href="#/" accesskey="1" id="logo"><img title="QuickGO home" src="images/quickgo-logo.png" alt=""></a></h1>
 
         <h4 class="title">A fast browser for Gene Ontology terms and annotations</h4>
@@ -217,34 +217,32 @@
       <!-- NB: if you do not have a local-search, delete the following div, and drop the class="grid_12 alpha" class from local-title above -->
 
       <!--<div class="grid_12 omega" ng-controller="SearchCtrl">-->
-      <div class="grid_12 omega" ng-controller="TypeaheadCtrl">
+      <div class="grid_14" ng-controller="TypeaheadCtrl">
 
-            <!--<div class="left">-->
+        <!-- /local-search -->
+        <!-- Include some example searchterms - keep them short and few! -->
+        <div style="float: right; padding-top: 2em">
               <!--<label>-->
              <div id="typeaheadsearch">
-                <input type="text" ng-model="searchText"
+                <input class="quickgo-content" type="text" ng-model="searchText"
                        placeholder="Enter search value"
                        typeahead-on-select='onSelect($item, $model, $label)'
                        typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
                   typeahead-min-length="4" typeahead-wait="300">
+               <button class="btn quickgo-content" ng-click="showSearchResults(searchText)">Search</button>
              </div>
-            <!--<input type="text" name="first" id="local-searchbox" ng-model="searchText" placeholder="{{matches}}">-->
-              <!--</label>-->
-              <!-- Include some example searchterms - keep them short and few! -->
-              <span class="examples">Examples: <a href="#/search/catalytic">[catalytic]</a>, <a href="#/search/GO:0003824">[GO:0003824]</a>, <a href="#/search/ECO:0000256">[ECO:0000256]</a></span>
-            <!--</div>-->
+          <div>Examples: <a href="#/search/catalytic">[catalytic]</a>, <a href="#/search/GO:0003824">[GO:0003824]</a></div>
 
-            <div class="right">
-              <button class="btn quickgo-content" ng-click="showSearchResults(searchText)">Search</button>
-              <!-- If your search is more complex than just a keyword search, you can link to an Advanced Search,
-                   with whatever features you want available -->
-              <span class="adv"><a href="../search" id="adv-search" title="Advanced">Advanced</a></span>
-            </div>
+        </div>
+
+        <!-- If your search is more complex than just a keyword search, you can link to an Advanced Search,
+             with whatever features you want available -->
+        <!-- todo populate <span class="adv"><a href="../search" id="adv-search" title="Advanced">Advanced</a></span>-->
 
 
       </div>
 
-      <!-- /local-search -->
+
 
       <!-- local-nav -->
 
