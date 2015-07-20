@@ -140,6 +140,13 @@ thead th:last-child {
   /*text-shadow: -1px -1px 1px #666666;*/
 /*}*/
 
+/* ANNOTATION LIST         ---------------------------------------------------------------*/
+
+th, td {
+  padding: 3px;
+}
+
+
 td.aFilter {
   font-weight:bold;
   /*background: inherit;*/
