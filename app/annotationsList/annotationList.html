@@ -47,8 +47,8 @@
         <td><a ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a></td>
         <td>{{goTuple.symbol}}</td>
         <td>{{goTuple.qualifier}}</td>
-        <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{goTuple.goId}}','{{goTuple.termName}}')"></element>
-          <span class="pseudo-link" ng-click="showOntologyGraph('{{goTuple.goId}}','{{goTuple.termName}}')">{{goTuple.goId}}</span>
+        <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
+          <span class="pseudo-link" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</span>
         </td>
         <td>{{goTuple.termName}}</td>
         <td>{{goTuple.aspect}}</td>

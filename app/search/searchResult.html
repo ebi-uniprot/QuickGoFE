@@ -71,8 +71,8 @@
           <td ng-show="x.viewBy=='entity'">{{searchResult.dbObjectId}}</td>
           <td ng-show="x.viewBy=='entity'" ng-bind-html="highlight(searchResult.dbObjectName)"></td>
           <td ng-show="x.viewBy!='entity'" style="white-space: nowrap;">
-            <element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{searchResult.id}}','{{searchResult.name}}')"></element>
-            <span class="pseudo-link" ng-click="showOntologyGraph('{{searchResult.id}}','{{searchResult.name}}')">{{searchResult.id}}</span>
+            <element class="icon icon-static" data-icon="b"  ng-click="addToBasket(searchResult.id, searchResult.name)"></element>
+            <span class="pseudo-link" ng-click="showOntologyGraph(searchResult.id,searchResult.name)">{{searchResult.id}}</span>
           </td>
           <td ng-show="x.viewBy!='entity'" ng-bind-html="highlight(searchResult.name)"></td>
         </tr>
