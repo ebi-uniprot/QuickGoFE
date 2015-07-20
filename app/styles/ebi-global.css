@@ -210,7 +210,7 @@ form#global-search input.submit {
 	height: 24px;
 	margin: 0;
 	display: inline;
-	background: url(../images/search-button.png) no-repeat;
+	background: url(images/search-button.png) no-repeat;
 	background-position: 0 0;
 	width: 24px;
 	height: 24px;
@@ -327,13 +327,13 @@ body div#local-title a {
 }
 
 body.section-about div#local-masthead {
-	background: #60bdc4 url(../../../images/banners/EBI_ABOUT_Banner.jpg) top right no-repeat;
+	background: #60bdc4 url(images/banners/EBI_ABOUT_Banner.jpg) top right no-repeat;
 }
 body.section-industry div#local-masthead {
-	background: #83a3c9 url(../../../images/banners/EBI_INDUSTRY_Banner.jpg) top right no-repeat;
+	background: #83a3c9 url(http://www.ebi.ac.uk/web_guidelines/images/banners/EBI_INDUSTRY_Banner.jpg) top right no-repeat;
 }
 body.section-research div#local-masthead {
-	background: #a8d793 url(../../../images/banners/EBI_RESEARCH_Banner.jpg) top right no-repeat;
+	background: #a8d793 url(http://www.ebi.ac.uk/web_guidelines/images/banners/EBI_RESEARCH_Banner.jpg) top right no-repeat;
 }
 body.section-research div#local-title h1,
 body.section-research div#local-title p,
