@@ -44,8 +44,7 @@
       <!-- Results Repeat -->
       <tr dir-paginate="goTuple in goList.annotationsList | itemsPerPage: 25" total-items="goList.numberAnnotations">
 
-        <td><a ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
-        </td>
+        <td><a ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a></td>
         <td>{{goTuple.symbol}}</td>
         <td>{{goTuple.qualifier}}</td>
         <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket('{{goTuple.goId}}','{{goTuple.termName}}')"></element>
