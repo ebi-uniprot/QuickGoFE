@@ -1,4 +1,4 @@
-angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $modal, $log, basketService) {
+angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $modal, $log, basketService, $location, filteringService) {
 
   /**
    * Initialisation
@@ -28,5 +28,11 @@ angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $modal,
       $log.info('Modal dismissed at: ' + new Date());
     });
   };
+
+  $scope.annotationList = function () {
+    console.log("stuff");
+    filteringService.clearFilters();
+    $location.path("annotations");
+  }
 
 });
