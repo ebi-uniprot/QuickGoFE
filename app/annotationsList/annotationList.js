@@ -3,7 +3,7 @@
  */
 
 
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, $location, basketService,
+app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, $location, $window, basketService,
                                               hardCodedDataService, targetDomainAndPort, filteringService) {
 
 
@@ -322,6 +322,20 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   };
 
 
+  $scope.showAssignedBy = function(target) {
+    console.log("show assigned by",target);
+    if (target==='InterPro') {
+      $window.open('http://www.ebi.ac.uk/interpro/', '_blank');
+    }
+    if (target==='GOC') {
+      $window.open('http://geneontology.org/', '_blank');
+    }
+  }
+
+
+  $scope.showTaxon = function(target) {
+    $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
+  }
 
   /**
    * ------------------------------------ Filtering Sidebar Code --------------------------------------------------
