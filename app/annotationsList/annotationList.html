@@ -53,11 +53,11 @@
         <td>{{goTuple.termName}}</td>
         <td>{{goTuple.aspect}}</td>
         <td>
-          <a class="quickgo-link" class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('{{goTuple.evidenceEco}}')">{{goTuple.evidenceEco}}</a>
-          &nbsp;<a  class="quickgo-link"href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">({{goTuple.evidenceGo}})</a>
+          <a class="quickgo-link" ng-click="showEvidenceCodeOntologyGraph('{{goTuple.evidenceEco}}')">{{goTuple.evidenceEco}}</a>
+          &nbsp;<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">({{goTuple.evidenceGo}})</a>
         </td>
         <td><a class="quickgo-link"
-          ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}">{{goTuple.reference}}</a>
+          ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}" target="_blank">{{goTuple.reference}}</a>
         </td>
 
         <!-- "reference":"GO_REF:0000002", -->
