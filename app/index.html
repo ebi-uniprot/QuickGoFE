@@ -24,27 +24,29 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
 
+  <!-- Bootstrap CSS -->
+  <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="bower_components/angular-busy/dist/angular-busy.css"/>
+
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
-  <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css">
+  <!--<link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css">-->
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen">
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen">
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen">
-  <link rel="stylesheet" type="text/css" href="styles/960_fluid_grid.css">
+  <!--<link rel="stylesheet" type="text/css" href="styles/960_fluid_grid.css">-->
 
   <!-- you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this -->
   <!-- also inform ES so we can host your colour palette file -->
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen">
+  <!--<link rel="stylesheet" href="http://www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-services-about-colours.css" type="text/css" media="screen">-->
+  <!--<link rel="stylesheet" href="http://http://www.ebi.ac.uk/web_guidelines/css/compliance/develop/colour-template.css" type="text/css" media="screen">-->
+
 
   <!-- for production the above can be replaced with -->
   <!--
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
   -->
-
-  <!-- Bootstrap CSS -->
-  <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="bower_components/angular-busy/dist/angular-busy.css"/>
-
 
   <!-- Only has was I need -->
   <link rel="stylesheet" type="text/css" href="styles/quickgo.css">
@@ -231,7 +233,7 @@
                   typeahead-min-length="4" typeahead-wait="300">
                <button class="btn quickgo-content" ng-click="showSearchResults(searchText)">Search</button>
              </div>
-          <div>Examples: <a href="#/search/catalytic">[catalytic]</a>, <a href="#/search/GO:0003824">[GO:0003824]</a></div>
+          <div>Examples: <a class="quickgo-link" href="#/search/catalytic">[catalytic]</a>, <a class="quickgo-link" href="#/search/GO:0003824">[GO:0003824]</a></div>
 
         </div>
 

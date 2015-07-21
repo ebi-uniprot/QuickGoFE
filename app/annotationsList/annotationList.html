@@ -44,27 +44,27 @@
       <!-- Results Repeat -->
       <tr dir-paginate="goTuple in goList.annotationsList | itemsPerPage: 25" total-items="goList.numberAnnotations">
 
-        <td><a ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a></td>
+        <td><a class="quickgo-link" ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a></td>
         <td>{{goTuple.symbol}}</td>
         <td>{{goTuple.qualifier}}</td>
         <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
-          <span class="pseudo-link" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</span>
+          <a class="quickgo-link" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</a>
         </td>
         <td>{{goTuple.termName}}</td>
         <td>{{goTuple.aspect}}</td>
         <td>
-          <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('{{goTuple.evidenceEco}}')">{{goTuple.evidenceEco}}</span>
-          &nbsp;<a href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">({{goTuple.evidenceGo}})</a>
+          <a class="quickgo-link" class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('{{goTuple.evidenceEco}}')">{{goTuple.evidenceEco}}</a>
+          &nbsp;<a  class="quickgo-link"href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">({{goTuple.evidenceGo}})</a>
         </td>
-        <td><a
+        <td><a class="quickgo-link"
           ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}">{{goTuple.reference}}</a>
         </td>
 
         <!-- "reference":"GO_REF:0000002", -->
         <!-- http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000002  -->
-        <td><span class="pseudo-link" ng-repeat="ref in goTuple.withList">
+        <td><a ng-repeat="ref in goTuple.withList">
                                   <a ng-href="{{ref | withUrlFilter}}" target="_blank">{{ref}}</a>
-                                  </span>
+                                  </a>
         </td>
         <td>{{goTuple.taxon}}</td>
         <td>{{goTuple.assignedBy}}</td>

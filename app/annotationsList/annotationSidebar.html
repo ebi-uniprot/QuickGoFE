@@ -17,7 +17,7 @@
   <em class="sidebar-padding" style="display: block" ng-if="appliedFilters.length==0">No filters applied</em>
   <button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>
   <element class='icon icon-generic' data-icon='L'>
-    <a id="bookmarkable-link" style="font-size:10px;" ng-href="{{bookmarkableLink}}">Bookmark</a>
+    <a class="quickgo-link" id="bookmarkable-link" style="font-size:10px;" ng-href="{{bookmarkableLink}}">Bookmark</a>
   </element>
 
   <div>&nbsp;</div>
@@ -72,8 +72,8 @@
     <h4 class="sidebar">View by</h4>
     <div class="sidebar-content">
       <ul>
-        <li id="resultsTableView"><a class="quickButton" href="#/annotations" rel="nofollow">Results table</a></li>
-        <li id="statisticsView"><a class="quickButton" href="#/statistics" rel="nofollow">Statistics</a></li>
+        <li id="resultsTableView"><a class="quickButton quickgo-link" href="#/annotations" rel="nofollow">Results table</a></li>
+        <li id="statisticsView"><a class="quickButton quickgo-link" href="#/statistics" rel="nofollow">Statistics</a></li>
       </ul>
     </div>
   </div>

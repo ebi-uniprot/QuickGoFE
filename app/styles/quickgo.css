@@ -1,13 +1,46 @@
-
+/* Universal         ---------------------------------------------------------------*/
 
 /* Top level container colours */
  .quickgo-content {
    background-color:white;
    padding: 1%;
  }
-/* Top level container colours End*/
+
+ul
+{
+  list-style-type: none;
+}
+
+a:hover, {
+  text-decoration: none;
+}
+
+/*a:hover, a:focus{*/
+  /*text-decoration: dotted;*/
+/*}*/
+
+a.quickgo-link:hover{
+  background:none!important;
+  /*border:none;*/
+  /*padding:0!important;*/
+  /*font: inherit;*/
+  /*/!*border is optional*!/*/
+  border-bottom:1px solid #444;
+  /*cursor: pointer;*/
+  border-bottom-style: solid;
+  text-decoration: none;
+}
+
+.pseudo-button{
+  background-color: #DEEFF5
+border:none;
+  padding:0!important;
+  font: inherit;
+  cursor: pointer;
+}
 
 
+/* STRUCTURE         ---------------------------------------------------------------*/
 body {
   max-width: 100%;
   width: 100%;
@@ -30,8 +63,6 @@ textarea.default {
   height: 8em;
 }
 
-/* Default Form Elements End*/
-
 
 .quickgo-btn {
   background-color: #70BDBD;
@@ -51,6 +82,16 @@ label {
   font-weight: normal;
 }
 
+/* TABLES         ---------------------------------------------------------------*/
+
+table {
+  border-style: none none none none;
+}
+
+th, td {
+  padding: 3px;
+}
+
 tr.even td, tr.even th{
   background-color: #ccdab3;
 }
@@ -59,7 +100,31 @@ tr.odd td, tr.odd th{
   background-color: firebrick;
 }
 
-/* Basket*/
+
+thead th:first-child {
+  border-top-left-radius: 5px;
+}
+
+thead th:last-child {
+  border-top-right-radius: 5px;
+}
+
+
+td.aFilter {
+  font-weight:bold;
+  /*background: inherit;*/
+}
+
+.two-colours tr:nth-child(odd) {
+  background-color: #bce7e7;
+}
+
+.two-colours tr:nth-child(even) {
+  background-color: #defcfc;
+}
+
+
+/* BASKET         ---------------------------------------------------------------*/
 #basket {
   background-color: white;
   padding: 5px;
@@ -74,7 +139,7 @@ tr.odd td, tr.odd th{
 }
 
 
-/* Basket End*/
+/* PAGINATION         ---------------------------------------------------------------*/
 
 /* Pagination Header*/
 .pagHeader {
@@ -113,79 +178,21 @@ tr.odd td, tr.odd th{
   cursor: pointer;
 }
 
-/* Table Header End*/
-
-
-/* Tables*/
-table {
-  border-style: none none none none;
-}
-
-/*td {*/
-  /*border-style: none none none none;*/
-/*}*/
-
-
-
-thead th:first-child {
-  border-top-left-radius: 5px;
-}
-
-thead th:last-child {
-  border-top-right-radius: 5px;
-}
-
-/*thead th{*/
-  /*color: white;*/
-  /*text-shadow: -1px -1px 1px #666666;*/
-/*}*/
 
 /* ANNOTATION LIST         ---------------------------------------------------------------*/
-
-th, td {
-  padding: 3px;
-}
-
-
-td.aFilter {
-  font-weight:bold;
-  /*background: inherit;*/
-}
-
-.two-colours tr:nth-child(odd) {
-  background-color: #bce7e7;
-}
-
-.two-colours tr:nth-child(even) {
-  background-color: #defcfc;
-}
-
-/* End of table*/
-
-/*tabs end*/
 
 p.pos_indented {
   left: 50px;
 }
 
 
-
-.choiceA {
-  /*background-color: #D2E0E6;*/
-}
-
-.choiceB {
-  /*background-color: #d8d8d8;*/
-}
+/* ADVANCED FILTER DIALOGUE --------------------------------------------------------------*/
 
 .indent1 {
   padding-left: 3em;
 }
 
-ul
-{
-  list-style-type: none;
-}
+
 
 /* ANNOTATION SIDEBAR         ---------------------------------------------------------------*/
 
@@ -312,23 +319,7 @@ p.strong {
 
 .col-right {float: right;}
 
-.pseudo-link{
-  background:none!important;
-  border:none;
-  padding:0!important;
-  font: inherit;
-  /*border is optional*/
-  border-bottom:1px solid #444;
-  cursor: pointer;
-}
 
-.pseudo-button{
-  background-color: #DEEFF5
-  border:none;
-  padding:0!important;
-  font: inherit;
-  cursor: pointer;
-}
 
 span.entryview-name-nav {
   border-left:1px solid #FFFFFF;
