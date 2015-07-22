@@ -221,14 +221,14 @@
       <!-- NB: if you do not have a local-search, delete the following div, and drop the class="grid_12 alpha" class from local-title above -->
 
       <!--<div class="grid_12 omega" ng-controller="SearchCtrl">-->
-      <div class="grid_14" ng-controller="TypeaheadCtrl">
+      <div id="typeaheadsearch" class="grid_11 typeaheadsearch" ng-controller="TypeaheadCtrl">
 
         <!-- /local-search -->
         <!-- Include some example searchterms - keep them short and few! -->
         <div style="float: right; padding-top: 2em">
               <!--<label>-->
-             <div id="typeaheadsearch">
-                <input class="quickgo-content" type="text" ng-model="searchText"
+             <div >
+                <input class="quickgo-content resizedTextbox" type="text" ng-model="searchText"
                        placeholder="Enter search value"
                        typeahead-on-select='onSelect($item, $model, $label)'
                        typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
@@ -243,8 +243,7 @@
              with whatever features you want available -->
         <!-- todo populate <span class="adv"><a href="../search" id="adv-search" title="Advanced">Advanced</a></span>-->
 
-
-      </div>
+      </div><!-- End TypeAhead-->
 
 
 

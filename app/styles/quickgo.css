@@ -441,9 +441,79 @@ IMG.displayed {
 }
 
   /* type ahead search - stop the defaults from ebi-global.css*/
- div#typeaheadsearch{
-   margin: 20px;
-   display: inline;
+ /*div#typeaheadsearch{*/
+   /*margin: 20px;*/
+   /*display: inline;*/
+   /*/!*background-color: white;*!/*/
+/*}*/
+
+.resizedTextbox {width: 400px; height: 40px}
+
+div.typeaheadsearch{
+  margin: 20px;
+  display: inline;
+  text-decoration-color: black;
+  /*background-color: white;*/
 }
 
+
+div#typeaheadsearch
+ul {
+margin-top: -5px;
+height: auto;
+width: 100%;
+background-color: white;
+/*background-color: rgba(17, 17, 17, 0.4)*/
+}
+
+.oldie div#typeaheadsearch
+ul {
+background-color: white;
+/*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#66111111', EndColorStr='#66111111') !important*/
+}
+
+div#typeaheadsearch ul
+li {
+border-color: white;
+border-right: none;
+}
+
+div#typeaheadsearch ul li.active,
+div#typeaheadsearch ul li.active-trail {
+background-color: white
+}
+
+div#typeaheadsearch ul
+li.last {
+border-right: 0 none
+}
+
+div#typeaheadsearch ul li
+a {
+}
+
+div#typeaheadsearch ul li a,
+div#typeaheadsearch ul li a:link,
+div#typeaheadsearch ul li a:visited {
+border-bottom: none;
+color: black;
+}
+
+div#typeaheadsearch ul li.active a,
+div#typeaheadsearch ul li.active a:link,
+div#typeaheadsearch ul li.active-trail a:link,
+div#typeaheadsearch ul li.active a:visited,
+div#typeaheadsearch ul li.active-trail a:visited {
+padding-top: 2px;
+border-bottom: none;
+background-color: white
+}
+
+div#typeaheadsearch ul li a:hover,
+div#typeaheadsearch ul li a:focus,
+div#typeaheadsearch ul li a:active {
+border-bottom: none;
+color: black;
+background-color: white
+}
 
