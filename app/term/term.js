@@ -10,6 +10,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   console.log("Term Controller");
 
   $scope.isLoading=1;
+  $scope.termInformation=true;
 
   /*Parse the url to get the termid*/
   var pathVals =$location.path().split("/");
