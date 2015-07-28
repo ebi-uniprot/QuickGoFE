@@ -26,7 +26,7 @@
 
   <!-- Bootstrap CSS -->
   <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="bower_components/angular-busy/dist/angular-busy.css"/>
+  <!--<link rel="stylesheet" type="text/css" href="bower_components/angular-busy/dist/angular-busy.css"/>-->
 
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen">
 
   <!-- Used by term page-->
-  <link rel="stylesheet" type="text/css" href="styles/960_fluid_grid.css">
+  <!--<link rel="stylesheet" type="text/css" href="styles/960_fluid_grid.css">-->
 
   <!-- you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this -->
   <!-- also inform ES so we can host your colour palette file -->
@@ -130,6 +130,7 @@
   <script src="annotationsList/bookmark.js"></script>
   <script src="nav/feedback.js"></script>
   <script src="main/TypeaheadCtrl.js"></script>
+  <script src="nav/basket.js"></script>
 
   <!-- endbuild -->
 
@@ -208,49 +209,49 @@
       <!-- local-title -->
       <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
 
-      <div class="grid_9 alpha" id="local-title">
-        <h1><a ng-href="#/" accesskey="1" id="logo"><img title="QuickGO home" src="images/quickgo-logo.png" alt=""></a></h1>
+      <div class="grid_16 alpha" id="local-title">
+        <h4><a ng-href="#/" accesskey="1" id="logo"><img title="QuickGO home" src="images/quickgo-logo.png" alt=""></a>
 
-        <h4 class="title">A fast browser for Gene Ontology terms and annotations</h4>
+        A fast browser for Gene Ontology terms and annotations</h4>
 
       </div>
 
-      <!-- /local-title -->
 
+
+      <!-- /local-search -->
+      <!-- Include some example searchterms - keep them short and few! -->
+      <!--<div style="float: right; padding-top: 2em">-->
       <!-- local-search -->
       <!-- NB: if you do not have a local-search, delete the following div, and drop the class="grid_12 alpha" class from local-title above -->
 
       <!--<div class="grid_12 omega" ng-controller="SearchCtrl">-->
-      <div id="typeaheadsearch" class="grid_11 typeaheadsearch" ng-controller="TypeaheadCtrl">
+      <div id="search-area" class="clearfix typeaheadsearch grid_8" ng-controller="TypeaheadCtrl">
+      <!--<label>-->
 
-        <!-- /local-search -->
-        <!-- Include some example searchterms - keep them short and few! -->
-        <div style="float: right; padding-top: 2em">
-              <!--<label>-->
-             <div >
-                <input class="quickgo-content resizedTextbox" type="text" ng-model="searchText"
-                       placeholder="Enter search value"
-                       typeahead-on-select='onSelect($item, $model, $label)'
-                       typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
-                  typeahead-min-length="4" typeahead-wait="300">
-               <button class="btn quickgo-content" ng-click="showSearchResults(searchText)">Search</button>
-             </div>
-          <div>Examples: <a class="quickgo-link" href="#/search/catalytic">[catalytic]</a>, <a class="quickgo-link" href="#/search/GO:0003824">[GO:0003824]</a></div>
+      <input id="searchbox" class="quickgo-content" type="text" ng-model="searchText"
+             placeholder="Enter search value"
+             typeahead-on-select='onSelect($item, $model, $label)'
+             typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
+             typeahead-min-length="4" typeahead-wait="300">
 
-        </div>
+      <button class="btn quickgo-content search-btn" ng-click="showSearchResults(searchText)">Search</button>
+      <!--</div>-->
+      <!--<div>Examples: <a class="quickgo-link" href="#/search/catalytic">[catalytic]</a>, <a class="quickgo-link" href="#/search/GO:0003824">[GO:0003824]</a></div>-->
 
-        <!-- If your search is more complex than just a keyword search, you can link to an Advanced Search,
-             with whatever features you want available -->
-        <!-- todo populate <span class="adv"><a href="../search" id="adv-search" title="Advanced">Advanced</a></span>-->
+      </div>
 
-      </div><!-- End TypeAhead-->
+      <!-- If your search is more complex than just a keyword search, you can link to an Advanced Search,
+           with whatever features you want available -->
+      <!-- todo populate <span class="adv"><a href="../search" id="adv-search" title="Advanced">Advanced</a></span>-->
+
+    <!--</div>&lt;!&ndash; End TypeAhead&ndash;&gt;-->
 
 
 
       <!-- local-nav -->
 
-      <nav>
-        <ul class="grid_24" id="local-nav">
+      <nav ng-controller="BasketNavCtrl">
+        <ul class="grid_24" id="quickgo-nav">
           <li class="first"><a href="#/">Home</a></li>
           <li><a href="#/webservices">Web Services</a></li>
           <li><a href="#/dataset">Dataset</a></li>
@@ -261,18 +262,23 @@
                add them here, and give them a class of "functional". Remember: you'll need a class of "last" for
                whichever one will show up last...
                For example: -->
-          <!--<li class="functional last"><a href="#" class="icon icon-functional" data-icon="l">Login</a></li>-->
           <li class="functional"><a href="#/feedback" class="icon icon-generic" data-icon="\">Feedback</a></li>
-          <!--<li class="functional"><a href="#" class="icon icon-functional" data-icon="r">Share</a></li>-->
+          <li><a class="functional last icon icon-static" data-icon="b" id="basket-link" ng-click="showBasket()"> Basket &nbsp;<span id="basket"><strong>{{countBasket}}</strong></span></a></li>
         </ul>
       </nav>
 
       <!-- /local-nav -->
 
+      <!-- /local-title -->
+
+
     </div>
   </header>
 
-  <main id="content" class="grid_24 clearfix quickgo-content">
+
+
+
+  <main  class="grid_24 clearfix quickgo-content">
 
   <!-- Add your site or application content here -->
 

@@ -1,33 +1,32 @@
 <!-- header templates -->
 <div id="content" class="grid_24">
 
-  <div class="clearfix"></div>
-
   <!-- Sidebar -->
   <div ng-include src="'annotationsList/annotationSidebar.html'"></div>
 
   <!-- Main Content -->
-  <div id="annotationsMainContent" class="mainContent grid_19">
 
     <!-- Table heading content-->
-    <div class="grid_10">
+    <div class="container_24">
 
       <!-- Pagination Controls -->
-      <div class="paginationControls">
-        <div style="display: inline-block;">
-          <dir-pagination-controls  on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
-        </div>
-        <div class="pagHeader">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> results</strong></div>
-      </div>
-    </div>
+      <div class="grid_14">
+        <!--<div style="display: inline-block;">-->
+          <dir-pagination-controls  on-page-change="pageChanged(newPageNumber)" class="paginationControls"></dir-pagination-controls>
+        <!--</div>-->
+        <!--<span class="pagHeader">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> results</strong></span>-->
+        <span class="pagination-text">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> results</strong></span>
 
-    <!-- Basket Area-->
-    <div class="grid_14">
-      <br/>
-        <button class="btn quickgo-btn basket-btn" ng-click="showBasket()">
-          <element class="icon icon-static" data-icon="b"> Basket &nbsp;<span id="basket"><strong>{{countBasket}}</strong></span></element>
-        </button>
-    </div>
+        </div>
+    <!--</div>-->
+
+      <!-- Download button-->
+      <div class="clearfix grid_5">
+        <button class="btn quickgo-btn download-btn" ng-click="download()" >Download</button>
+      </div>
+
+    <!-- Results -->
+    <div class=" clearfix grid_19">
 
     <!-- Results Header-->
     <table  id="assignedByCount" class="two-colours" >
@@ -79,12 +78,13 @@
       <h5>No matching annotations have been found</h5>
     </div>
 
+    </div>
+
   </div>
   <div class="clearfix"></div>
-</div>
 
 <!-- Column display popup -->
-<div ng-include src="'views/annotation/columnDisplay.html'"></div>
+<!--<div ng-include src="'views/annotation/columnDisplay.html'"></div>-->
 
 <!-- Column display popup -->
 <!--<%@include file="extension.jsp"%>-->
@@ -100,3 +100,4 @@
   CFInstall.check({mode: 'overlay'})
 })</script>
 <![endif]-->
+</div>

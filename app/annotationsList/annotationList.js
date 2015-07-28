@@ -7,16 +7,14 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
                                               hardCodedDataService, targetDomainAndPort, filteringService) {
 
 
-  console.log("In the annotation list controller");
-  $scope.isSlim = 0;
-
-  $scope.annotationsPerPage=25;
-
   /**
    * Initialisation
    */
-  $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
 
+  //console.log("In the annotation list controller");
+  $scope.isSlim = 0;
+  $scope.annotationsPerPage=25;
+  $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
 
   //The filters from the advanced filters modal, taxon checkbox, and sidebar input boxes.
   //We may arrive at this page from the statistics page (or others) so will need to load the
@@ -27,50 +25,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   //The raw list of filters as they come back from the advanced filters modal
   $scope.advancedFilters = {};
 
-
   $scope.countBasket = basketService.basketQuantity();
   $scope.isBasketShow = false;
-  //$scope.rowsPerPage = 25; // this should match however many results your API puts on one page
-
-
-
   $scope.evidenceSetter="ecoAncestorsI";
-
   $rootScope.header = "QuickGO::Annotation List";
 
-
-  /**
-   * Have we come here from a bookmarkable link?
-   */
-  // Parse the query parameters and forward to the annotation page after populating the filtering service values
-  // It will be something like http://localhost:9000/#/bookmark/taxonomyId:9606,
-
-  /*Parse the url to get the filter parameters*/
-  //var advancedFilters = [];
-  //var pathVals =$location.path().split("/");
-  //var filterParms=pathVals[(pathVals.length-1)];
-  //var args = filterParms.split(",");
-  //
-  //var i=-1;
-  //for(i=0;i<args.length;i++) {
-  //
-  //  var singleArg = args[i];
-  //
-  //  if (singleArg != '') {
-  //    console.log(singleArg);
-  //    var components = singleArg.split(":");
-  //    var aFilter = {type: components[0], value: components[1]};
-  //    console.log("Bookmark.js -created aFilter", aFilter);
-  //    advancedFilters.push(aFilter);
-  //  }
-  //
-  //}
-  //
-  ////Save the passed in parameters to the
-  //filteringService.simpleAppliedFilters(advancedFilters,0); //0==not a slim
-
-
-  /*   */
   $scope.isLoading = 0;
   $scope.currentPage=1;
   getResultsPage(1);    //<--this is called instead by the page changed call
@@ -81,20 +40,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
   /**
-   * Page initialization over
-   */
-
-
-  /**
-   * Pick up the basket update event from the modal
-   */
-  $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
-
-
-  /**
    * ------------------------------------ Local methods --------------------------------------------------
    */
-
+  $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
 
   /**
    * Get the results page
@@ -154,13 +102,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
     // Post the filter request to the webservice
-
-    //var package = JSON.stringify({myString:'Tony'});
-    var name='Tony';
-    var data = 'myString='+name;
-
-    //$http.post(formattedURL, package).success(function(data) {
-
     var request = {
       method: 'POST',
       url: formattedURL,
@@ -170,8 +111,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
       data: filterRequest
     };
 
-
-    //data: {myString: 'Tony'}
 
     $http(request).success(function(data) {
 
@@ -200,7 +139,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   /**
    * ------------------------------------ $scope methods --------------------------------------------------
    */
-
 
   /**
    * Listen for update to the filters list (this is 'emit' from the Advanced Filters controller and the sidebar controller
@@ -258,33 +196,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     console.log("Page changed", newPage);
     if($scope.currentPage!=newPage) {
       getResultsPage(newPage);
+      $scope.currentPage=newPage;
     }
-  };
-
-
-
-  /**
-   * Show the basket modal on request
-   */
-  $scope.showBasket = function () {
-
-    var modalInstance = $modal.open({
-      templateUrl: 'basket/basketModal.html',
-      controller: 'BasketCtrl',
-      size: 'lg',
-      scope: $scope,
-      resolve: {
-        countBasket: function () {
-          return $scope.countBasket;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
   };
 
 
@@ -295,7 +208,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.addToBasket = function(termId, termName){
     var basketItem = {termId:termId, name:termName};
     console.log(basketService.addBasketItem(basketItem));
-    $scope.countBasket = basketService.getItems().length;
+    //$scope.countBasket = basketService.getItems().length;
+
+    $scope.$emit('basketUpdate', basketService.basketQuantity());
   };
 
 
@@ -309,11 +224,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
       controller: 'DownloadCtrl',
       size: 'med',
       scope: $scope
-      //resolve: {
-      //  countBasket: function () {
-      //    return $scope.countBasket;
-      //  }
-      //}
     });
 
     modalInstance.result.then(function () {
@@ -408,11 +318,13 @@ $scope.showOntologyGraph = function (termId, title) {
 
   };
 
-  /**
-   * ------------------------------------ End of AnnotationListCtrl Controller -----------------------------------------
-   */
+
 });
 
+
+/**
+ * ------------------------------------ End of AnnotationListCtrl Controller -----------------------------------------
+ */
 
 /**
  * ------------------------------------ Other Controllers --------------------------------------------------

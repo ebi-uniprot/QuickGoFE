@@ -3,7 +3,7 @@
 /* Top level container colours */
  .quickgo-content {
    background-color:white;
-   padding: 1%;
+   /*padding: 1%;*/
  }
 
 ul
@@ -39,12 +39,18 @@ border:none;
   cursor: pointer;
 }
 
+/* NAVIGATION         ---------------------------------------------------------------*/
+#quickgo-nav {
+  padding: 5px;
+}
 
 /* STRUCTURE         ---------------------------------------------------------------*/
 body {
   max-width: 100%;
   width: 100%;
   background-color: white;
+  line-height: normal;
+  font-size: small;
 }
 
 .text-container {
@@ -82,23 +88,29 @@ label {
   font-weight: normal;
 }
 
+/* TITLE         ---------------------------------------------------------------*/
+.title {
+  display: inline;
+}
+
+
 /* TABLES         ---------------------------------------------------------------*/
 
-table {
-  border-style: none none none none;
-}
+/*table {*/
+  /*border-style: none none none none;*/
+/*}*/
 
 th, td {
-  padding: 3px;
+  /*padding: 3px;*/
 }
 
-tr.even td, tr.even th{
-  background-color: #ccdab3;
-}
+/*tr.even td, tr.even th{*/
+  /*background-color: #ccdab3;*/
+/*}*/
 
-tr.odd td, tr.odd th{
-  background-color: firebrick;
-}
+/*tr.odd td, tr.odd th{*/
+  /*background-color: firebrick;*/
+/*}*/
 
 
 thead th:first-child {
@@ -123,46 +135,140 @@ td.aFilter {
   background-color: #defcfc;
 }
 
+/* TYPE-AHEAD       ------------------------------------------------------------------------------------------------*/
 
-/* BASKET         ---------------------------------------------------------------*/
-#basket {
+#searchbox {
+  width: 470px;
+  height: 40px;
+  margin: 2px;
+  border-color: #bce7e7;
+
+}
+
+#search-area{
+  margin: 7px;
+  padding: 3px;
+  /*display: block;*/
+  text-decoration-color: black;
+  border-color: #bce7e7;
+  float:right;
+  background-color: grey;
+}
+
+
+div#typeaheadsearch
+ul {
+  margin-top: -5px;
+  height: auto;
+  width: 100%;
   background-color: white;
-  padding: 5px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+
+  /*background-color: rgba(17, 17, 17, 0.4)*/
+}
+
+.oldie div#typeaheadsearch
+ul {
+  background-color: white;
+  /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#66111111', EndColorStr='#66111111') !important*/
+}
+
+div#typeaheadsearch ul
+li {
+  border-color: white;
+  border-right: none;
+}
+
+div#typeaheadsearch ul li.active,
+div#typeaheadsearch ul li.active-trail {
+  background-color: white
+}
+
+div#typeaheadsearch ul
+li.last {
+  border-right: 0 none
+}
+
+div#typeaheadsearch ul li
+a {
+}
+
+div#typeaheadsearch ul li a,
+div#typeaheadsearch ul li a:link,
+div#typeaheadsearch ul li a:visited {
+  border-bottom: none;
+  color: black;
+}
+
+div#typeaheadsearch ul li.active a,
+div#typeaheadsearch ul li.active a:link,
+div#typeaheadsearch ul li.active-trail a:link,
+div#typeaheadsearch ul li.active a:visited,
+div#typeaheadsearch ul li.active-trail a:visited {
+  padding-top: 2px;
+  border-bottom: none;
+  background-color: white
+}
+
+div#typeaheadsearch ul li a:hover,
+div#typeaheadsearch ul li a:focus,
+div#typeaheadsearch ul li a:active {
+  border-bottom: none;
+  color: black;
+  background-color: white
+}
+
+.search-btn {
+  float: none;
+}
+
+
+/* DOWNLOAD       ------------------------------------------------------------------------------------------------*/
+
+.download-btn {
+  /*display: inline-block;*/
+  /*vertical-align: top;*/
+  /*padding-top: 2px;*/
+  float: right;
+}
+
+/* BASKET         ------------------------------------------------------------------------------------------------*/
+#basket {
+  color: black;
+  background-color: white;
+  padding: 2px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+
 }
 
 .basket-btn {
-  float:right;
+  /*float:right;*/
+  /*vertical-align: top;*/
+}
+
+#basket-link {
+  /*background-color: #0000FF;*/
 }
 
 
 /* PAGINATION         ---------------------------------------------------------------*/
 
-/* Pagination Header*/
-.pagHeader {
+.pagination-text {
   display: inline-block;
   vertical-align: top;
   padding-top: 25px;
-}
-/* Pagination Header End*/
-
-
-/* Table Header*/
-.resultsHeader {
-  position: relative;
-  float: right;
-  padding: 6px 12px;
-  line-height: 1.42857143;
-  /*border: 1px solid #ddd;*/
-  /*box-sizing: border-box;*/
+  font-size: large;
 }
 
 .paginationControls {
   word-wrap: normal;
-  display: inline;
+  /*display: inline;*/
+  /*display: inline;*/
+  /*margin: 1px 0;*/
+  font-size: x-large;
+
 }
 
 .highlight-viewBy {
@@ -185,6 +291,15 @@ p.pos_indented {
   left: 50px;
 }
 
+/* Table Header*/
+.resultsHeader {
+  position: relative;
+  float: right;
+  padding: 6px 12px;
+  line-height: 1.42857143;
+  /*border: 1px solid #ddd;*/
+  /*box-sizing: border-box;*/
+}
 
 /* ADVANCED FILTER DIALOGUE --------------------------------------------------------------*/
 
@@ -447,73 +562,7 @@ IMG.displayed {
    /*/!*background-color: white;*!/*/
 /*}*/
 
-.resizedTextbox {width: 400px; height: 40px}
-
-div.typeaheadsearch{
-  margin: 20px;
-  display: inline;
-  text-decoration-color: black;
-  /*background-color: white;*/
-}
 
 
-div#typeaheadsearch
-ul {
-margin-top: -5px;
-height: auto;
-width: 100%;
-background-color: white;
-/*background-color: rgba(17, 17, 17, 0.4)*/
-}
 
-.oldie div#typeaheadsearch
-ul {
-background-color: white;
-/*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#66111111', EndColorStr='#66111111') !important*/
-}
-
-div#typeaheadsearch ul
-li {
-border-color: white;
-border-right: none;
-}
-
-div#typeaheadsearch ul li.active,
-div#typeaheadsearch ul li.active-trail {
-background-color: white
-}
-
-div#typeaheadsearch ul
-li.last {
-border-right: 0 none
-}
-
-div#typeaheadsearch ul li
-a {
-}
-
-div#typeaheadsearch ul li a,
-div#typeaheadsearch ul li a:link,
-div#typeaheadsearch ul li a:visited {
-border-bottom: none;
-color: black;
-}
-
-div#typeaheadsearch ul li.active a,
-div#typeaheadsearch ul li.active a:link,
-div#typeaheadsearch ul li.active-trail a:link,
-div#typeaheadsearch ul li.active a:visited,
-div#typeaheadsearch ul li.active-trail a:visited {
-padding-top: 2px;
-border-bottom: none;
-background-color: white
-}
-
-div#typeaheadsearch ul li a:hover,
-div#typeaheadsearch ul li a:focus,
-div#typeaheadsearch ul li a:active {
-border-bottom: none;
-color: black;
-background-color: white
-}
 
