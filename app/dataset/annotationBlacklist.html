@@ -1,9 +1,4 @@
-<div class="grid_24">
-
-  <!-- Basket Area-->
-  <button class="btn quickgo-btn" ng-click="showBasket()">
-    <element class="icon icon-static" data-icon="b"> Basket &nbsp;<span id="basket"><strong>{{countBasket}}</strong></span></element>
-  </button>
+<div class="container_24">
 
   <div class="text-container">
   <h3>Annotation Blacklist</h3>
@@ -69,7 +64,8 @@
 
   <div class="clearfix"><p></p></div>
 
-  <h4>The Currently Active Annotation Blacklist</h4>
+  <h4>The Currently Active Annotation Blacklist <img ng-show="isLoading" src="images/ajax-loader.gif" style="display: inline;"></h4>
+
   <tabset justified="true">
     <tab heading="Curated From IEA Pipeline Review">
       <table class="two-colours">

@@ -5,9 +5,12 @@ app.controller('AnnotationBlacklistCtrl', function($scope, $modal, basketService
 
   $scope.annotationBlacklist ={};
   $scope.myPromise = annotationBlacklist.query({});
+  $scope.isLoading = true;
+
   $scope.myPromise.$promise.then(function (data) {
     $scope.annotationBlacklist = data;
-    console.log("Annotation blacklist", $scope.annotationBlacklist);
+    $scope.isLoading = false;
+
   });
 
 
@@ -59,7 +62,7 @@ app.controller('AnnotationBlacklistCtrl', function($scope, $modal, basketService
    */
   $scope.addToBasket = function(termId){
 
-    $scope.isLoading = 1;
+    $scope.isLoading = true;
 
     //Look up the full termInformation to add it to the basket
     term.query({termId : termId}, function(termData){
@@ -74,9 +77,9 @@ app.controller('AnnotationBlacklistCtrl', function($scope, $modal, basketService
       $scope.$emit('basketUpdate', basketService.basketQuantity());
 
       //reload basketItems list
-      //$scope.basketItems = basketService.getItems();
-      $scope.isLoading = 0;
       $scope.countBasket = basketService.basketQuantity();
+      $scope.isLoading = false;
+
     });
 
   };
