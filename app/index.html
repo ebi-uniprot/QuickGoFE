@@ -228,13 +228,13 @@
       <div id="search-area" class="clearfix typeaheadsearch grid_8" ng-controller="TypeaheadCtrl">
       <!--<label>-->
 
-      <input id="searchbox" class="quickgo-content" type="text" ng-model="searchText"
+      <input id="searchbox" type="text" ng-model="searchText"
              placeholder="Enter search value"
              typeahead-on-select='onSelect($item, $model, $label)'
              typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
              typeahead-min-length="4" typeahead-wait="300">
 
-      <button class="btn quickgo-content search-btn" ng-click="showSearchResults(searchText)">Search</button>
+      <button class="btn search-btn" ng-click="showSearchResults(searchText)">Search</button>
       <!--</div>-->
       <!--<div>Examples: <a class="quickgo-link" href="#/search/catalytic">[catalytic]</a>, <a class="quickgo-link" href="#/search/GO:0003824">[GO:0003824]</a></div>-->
 
@@ -263,7 +263,7 @@
                whichever one will show up last...
                For example: -->
           <li class="functional"><a href="#/feedback" class="icon icon-generic" data-icon="\">Feedback</a></li>
-          <li><a class="functional last icon icon-static" data-icon="b" id="basket-link" ng-click="showBasket()"> Basket &nbsp;<span id="basket"><strong>{{countBasket}}</strong></span></a></li>
+          <li><a class="functional last icon icon-static" data-icon="b" ng-click="showBasket()"> Basket &nbsp;<span id="basket"><strong>{{countBasket}}</strong></span></a></li>
         </ul>
       </nav>
 
@@ -278,7 +278,7 @@
 
 
 
-  <main  class="grid_24 clearfix quickgo-content">
+  <main class="grid_24 clearfix quickgo-content">
 
   <!-- Add your site or application content here -->
 

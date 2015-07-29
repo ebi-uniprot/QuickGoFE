@@ -1,6 +1,5 @@
 /* Universal         ---------------------------------------------------------------*/
 
-/* Top level container colours */
  .quickgo-content {
    background-color:white;
  }
@@ -108,6 +107,7 @@ td.aFilter {
 /* TYPE-AHEAD       ------------------------------------------------------------------------------------------------*/
 
 #searchbox {
+  background-color:white;
   width: 470px;
   height: 40px;
   margin: 2px;
@@ -186,6 +186,7 @@ div#typeaheadsearch ul li a:active {
 
 .search-btn {
   float: none;
+  background-color:white;
 }
 
 
