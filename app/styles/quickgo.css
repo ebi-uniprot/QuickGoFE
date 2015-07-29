@@ -63,9 +63,9 @@ textarea.default {
   background-color: #bce7e7;
 }
 
-label {
-  font-weight: normal;
-}
+/*label {*/
+  /*font-weight: normal;*/
+/*}*/
 
 
 /* TABLES         ---------------------------------------------------------------*/
@@ -205,14 +205,6 @@ div#typeaheadsearch ul li a:active {
   word-wrap: normal;
   font-size: x-large;
 
-}
-
-.highlight-viewBy {
-  background-color: #defcfc;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
 }
 
 .select-viewBy:hover {
