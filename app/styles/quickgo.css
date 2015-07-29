@@ -226,28 +226,16 @@ div#typeaheadsearch ul li a:active {
 }
 
 /* ANNOTATION LIST  --------------------------------------------------------------------------------------------------*/
-
 p.pos_indented {
   left: 50px;
 }
 
-/* Table Header*/
-.resultsHeader {
-  position: relative;
-  float: right;
-  padding: 6px 12px;
-  line-height: 1.42857143;
-
-}
-
 /* ADVANCED FILTER DIALOGUE ------------------------------------------------------------------------------------------*/
-
 .indent1 {
   padding-left: 3em;
 }
 
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
-
 table.sidebar-section-applied {
   padding: 3px;
 }
@@ -257,7 +245,7 @@ div.sidebar-section {
   padding: 3px;
 }
 
-/* list of applied filters*/
+
 td.sidebar-appliedFilter {
   background-color: white;
 }
