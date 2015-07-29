@@ -1,4 +1,4 @@
-/* Universal         ---------------------------------------------------------------*/
+/* Universal         -------------------------------------------------------------------------------------------------*/
 
 .quickgo-content {
   background-color: white;
@@ -27,12 +27,12 @@ a.quickgo-link:hover {
   cursor: pointer;
 }
 
-/* NAVIGATION         ---------------------------------------------------------------*/
+/* NAVIGATION   ------------------------------------------------------------------------------------------------------*/
 #quickgo-nav {
   padding: 5px;
 }
 
-/* STRUCTURE         ---------------------------------------------------------------*/
+/* STRUCTURE  --------------------------------------------------------------------------------------------------------*/
 body {
   max-width: 100%;
   width: 100%;
@@ -49,7 +49,7 @@ body {
   max-width: 800px;
 }
 
-/* Default Form Elements */
+/* DEFAULT FORM ELEMENTS ---------------------------------------------------------------------------------------------*/
 textarea.default {
   width: 50em;
   height: 8em;
@@ -67,8 +67,13 @@ textarea.default {
   /*font-weight: normal;*/
 /*}*/
 
+/* GENERAL MODAL -----------------------------------------------------------------------------------------------------*/
+.quickgo-modal {
+  margin: 20px;
+}
 
-/* TABLES         ---------------------------------------------------------------*/
+
+/* TABLES   ----------------------------------------------------------------------------------------------------------*/
 
 thead th:first-child {
   border-top-left-radius: 5px;
@@ -90,7 +95,7 @@ td.aFilter {
   background-color: #defcfc;
 }
 
-/* TYPE-AHEAD       ------------------------------------------------------------------------------------------------*/
+/* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
 
 #searchbox {
   background-color: white;
@@ -174,13 +179,13 @@ div#typeaheadsearch ul li a:active {
   background-color: white;
 }
 
-/* DOWNLOAD       ------------------------------------------------------------------------------------------------*/
+/* DOWNLOAD   --------------------------------------------------------------------------------------------------------*/
 
 .download-btn {
   float: right;
 }
 
-/* BASKET         ------------------------------------------------------------------------------------------------*/
+/* BASKET    ---------------------------------------------------------------------------------------------------------*/
 #basket {
   color: black;
   background-color: white;
@@ -192,7 +197,7 @@ div#typeaheadsearch ul li a:active {
 
 }
 
-/* PAGINATION         ---------------------------------------------------------------*/
+/* PAGINATION   ------------------------------------------------------------------------------------------------------*/
 
 .pagination-text {
   display: inline-block;
@@ -207,12 +212,20 @@ div#typeaheadsearch ul li a:active {
 
 }
 
+.highlight-viewBy {
+  background-color: #defcfc;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 .select-viewBy:hover {
   background-color: #bce7e7;
   cursor: pointer;
 }
 
-/* ANNOTATION LIST         ---------------------------------------------------------------*/
+/* ANNOTATION LIST  --------------------------------------------------------------------------------------------------*/
 
 p.pos_indented {
   left: 50px;
@@ -227,13 +240,13 @@ p.pos_indented {
 
 }
 
-/* ADVANCED FILTER DIALOGUE --------------------------------------------------------------*/
+/* ADVANCED FILTER DIALOGUE ------------------------------------------------------------------------------------------*/
 
 .indent1 {
   padding-left: 3em;
 }
 
-/* ANNOTATION SIDEBAR         ---------------------------------------------------------------*/
+/* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
 
 table.sidebar-section-applied {
   padding: 3px;
@@ -273,10 +286,10 @@ textarea.sidebar {
 }
 
 .sidebar-padding {
-  margin: 4px;
+  margin: 2px;
 }
 
-/* SLIMMING PAGES      -------------------------------------------------------------------*/
+/* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
 
 li.slim {
   padding: 1%;
@@ -297,7 +310,7 @@ li.slim {
   font-size: 14pt;
 }
 
-/* Advanced Filters Modal*/
+/* ADVANCED FILTERS MODAL DIALOGUE ----------------------------------------------------------------------------------*/
 .content-margin-10 {
   margin: 10px;
 }
@@ -314,9 +327,8 @@ li.sub-1 {
   padding: 2px;
 }
 
-/* Advanced Filters Modal End*/
 
-/* Documentation*/
+/* DOCUMENTATION -----------------------------------------------------------------------------------------------------*/
 li.strong {
   font-weight: bold;
 }
@@ -325,33 +337,16 @@ p.strong {
   font-weight: bold;
 }
 
-/* Documentaion End*/
 
-/*  General Content*/
-.col-left {
-  float: left;
-}
-
-.col-right {
-  float: right;
-}
-
-span.entryview-name-nav {
-  border-left: 1px solid #FFFFFF;
-  background-color: #DEEFF5 line-height : 30 px;
-  height: 30px;
-  padding-left: 2px;
-  display: inline-block;
-  white-space: nowrap;
-  width: 100%;
-}
-
+/* ANCESTOR GRAPH  ---------------------------------------------------------------------------------------------------*/
 IMG.displayed {
   display: block;
   margin-left: auto;
   margin-right: auto
 }
 
+
+/* TOOLTIP -----------------------------------------------------------------------------------------------------------*/
 .wrapper {
   cursor: help;
   position: relative;
@@ -436,19 +431,6 @@ IMG.displayed {
   display: inline;
 }
 
-#left-control-col {
-  float: left;
-  width: 300px;
-}
-
-#right-control-col {
-  float: right;
-  width: 800px;
-}
-
-.quickgo-modal {
-  margin: 20px;
-}
 
 
 
