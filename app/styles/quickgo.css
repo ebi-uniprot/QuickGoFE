@@ -200,6 +200,12 @@ div#typeaheadsearch ul li a:active {
 
 /* PAGINATION   ------------------------------------------------------------------------------------------------------*/
 
+
+#pagination-area {
+  min-width: 250px;
+  display: inline;
+}
+
 .pagination-text {
   display: inline-block;
   vertical-align: top;

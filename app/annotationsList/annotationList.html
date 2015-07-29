@@ -6,100 +6,103 @@
 
   <!-- Main Content -->
 
-    <!-- Table heading content-->
-    <div class="container_24">
+  <!-- Table heading content-->
+  <div class="container_24">
 
 
+    <!-- Pagination Controls -->
+    <div id="pagination-area">
+      <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"
+                               class="paginationControls"></dir-pagination-controls>
+      <span class="pagination-text">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> results</strong></span>
+    </div>
 
-      <!-- Pagination Controls -->
-      <div class="grid_6">
-        <!--<div style="display: inline-block;">-->
-          <dir-pagination-controls  on-page-change="pageChanged(newPageNumber)" class="paginationControls"></dir-pagination-controls>
-        <!--</div>-->
-        <!--<span class="pagHeader">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> results</strong></span>-->
-        <span class="pagination-text">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> results</strong></span>
+    <!--<div class="grid_13" style="display: inline; float: left;">-->
+      <img ng-show="isLoading" src="images/ajax-loader.gif" style="position:relative; top: -50px;">
+    <!--</div>-->
 
-        </div>
-      <div class="grid_2" style="display: inline; float: left;"> <img ng-show="isLoading" src="images/ajax-loader.gif"></div>
-
-      <!-- Download button-->
-      <div class="clearfix grid_13">
-        <button class="btn quickgo-btn download-btn" ng-click="download()" >Download</button>
-      </div>
+    <!-- Download button-->
+    <!--<div class="clearfix grid_3">-->
+      <button class="btn quickgo-btn download-btn" ng-click="download()" style="position:relative; left: -30px";>Download</button>
+    <!--</div>-->
 
     <!-- Results -->
     <div class=" clearfix grid_19">
 
-    <!-- Results Header-->
-    <table  id="assignedByCount" class="two-colours" >
-      <tr>
-        <thead>
+      <!-- Results Header-->
+      <table id="assignedByCount" class="two-colours">
+        <tr>
+          <thead>
           <th ng-repeat="colHeading in annotationColumns">
             {{colHeading.value}}
           </th>
           <th ng-show="isSlim">Original GO Identifier</th>
           <th ng-show="isSlim">Original GO Term Name</th>
-        </thead>
-      </tr>
+          </thead>
+        </tr>
 
-      <!-- Results Repeat -->
-      <tr dir-paginate="goTuple in goList.annotationsList | itemsPerPage: 25" total-items="goList.numberAnnotations">
+        <!-- Results Repeat -->
+        <tr dir-paginate="goTuple in goList.annotationsList | itemsPerPage: 25" total-items="goList.numberAnnotations">
 
-        <td><a class="quickgo-link" ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a></td>
-        <td>{{goTuple.symbol}}</td>
-        <td>{{goTuple.qualifier}}</td>
-        <td style="white-space: nowrap;"><element class="icon icon-static" data-icon="b"  ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
-          <a class="quickgo-link" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</a>
-        </td>
-        <td>{{goTuple.termName}}</td>
-        <td>{{goTuple.aspect}}</td>
-        <td>
-          <a class="quickgo-link" ng-click="showEvidenceCodeOntologyGraph('{{goTuple.evidenceEco}}')">{{goTuple.evidenceEco}}</a>
-          &nbsp;<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">({{goTuple.evidenceGo}})</a>
-        </td>
-        <td><a class="quickgo-link"
-          ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}" target="_blank">{{goTuple.reference}}</a>
-        </td>
+          <td><a class="quickgo-link" ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
+          </td>
+          <td>{{goTuple.symbol}}</td>
+          <td>{{goTuple.qualifier}}</td>
+          <td style="white-space: nowrap;">
+            <element class="icon icon-static" data-icon="b"
+                     ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
+            <a class="quickgo-link" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</a>
+          </td>
+          <td>{{goTuple.termName}}</td>
+          <td>{{goTuple.aspect}}</td>
+          <td>
+            <a class="quickgo-link" ng-click="showEvidenceCodeOntologyGraph('{{goTuple.evidenceEco}}')">{{goTuple.evidenceEco}}</a>
+            &nbsp;<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#iea"
+                     target="_blank">({{goTuple.evidenceGo}})</a>
+          </td>
+          <td><a class="quickgo-link"
+                 ng-href="http://www.geneontology.org/cgi-bin/references.cgi#{{goTuple.reference}}" target="_blank">{{goTuple.reference}}</a>
+          </td>
 
-        <!-- "reference":"GO_REF:0000002", -->
-        <!-- http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000002  -->
-        <td><a ng-repeat="ref in goTuple.withList">
-                                  <a ng-href="{{ref | withUrlFilter}}" target="_blank">{{ref}}</a>
-                                  </a>
-        </td>
-        <td><a class="quickgo-link" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></td>
-        <td><a class="quickgo-link" ng-click="showAssignedBy(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
-        <td>{{goTuple.fullExtension}}</td>
-        <td ng-show="isSlim">{{goTuple.originalTermId}}</td>
-        <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
-      </tr>
-    </table>
+          <!-- "reference":"GO_REF:0000002", -->
+          <!-- http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000002  -->
+          <td><a ng-repeat="ref in goTuple.withList">
+            <a ng-href="{{ref | withUrlFilter}}" target="_blank">{{ref}}</a>
+          </a>
+          </td>
+          <td><a class="quickgo-link" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></td>
+          <td><a class="quickgo-link" ng-click="showAssignedBy(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
+          <td>{{goTuple.fullExtension}}</td>
+          <td ng-show="isSlim">{{goTuple.originalTermId}}</td>
+          <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
+        </tr>
+      </table>
 
-    <!-- if there are no results tell the user explicitly -->
-    <div ng-show="goList.numberAnnotations==0">
-      <h5>No matching annotations have been found</h5>
-    </div>
+      <!-- if there are no results tell the user explicitly -->
+      <div ng-show="goList.numberAnnotations==0">
+        <h5>No matching annotations have been found</h5>
+      </div>
 
     </div>
 
   </div>
   <div class="clearfix"></div>
 
-<!-- Column display popup -->
-<!--<div ng-include src="'views/annotation/columnDisplay.html'"></div>-->
+  <!-- Column display popup -->
+  <!--<div ng-include src="'views/annotation/columnDisplay.html'"></div>-->
 
-<!-- Column display popup -->
-<!--<%@include file="extension.jsp"%>-->
+  <!-- Column display popup -->
+  <!--<%@include file="extension.jsp"%>-->
 
-<!-- JavaScript at the bottom for fast page loading -->
+  <!-- JavaScript at the bottom for fast page loading -->
 
 
-<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
-     chromium.org/developers/how-tos/chrome-frame-getting-started -->
-<!--[if lt IE 7 ]>
-<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-<script>window.attachEvent('onload', function () {
-  CFInstall.check({mode: 'overlay'})
-})</script>
-<![endif]-->
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+  <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+  <script>window.attachEvent('onload', function () {
+    CFInstall.check({mode: 'overlay'})
+  })</script>
+  <![endif]-->
 </div>
