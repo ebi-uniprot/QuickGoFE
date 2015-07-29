@@ -3,7 +3,6 @@
 /* Top level container colours */
  .quickgo-content {
    background-color:white;
-   /*padding: 1%;*/
  }
 
 ul
@@ -15,18 +14,9 @@ a:hover, {
   text-decoration: none;
 }
 
-/*a:hover, a:focus{*/
-  /*text-decoration: dotted;*/
-/*}*/
-
 a.quickgo-link:hover{
   background:none!important;
-  /*border:none;*/
-  /*padding:0!important;*/
-  /*font: inherit;*/
-  /*/!*border is optional*!/*/
   border-bottom:1px solid #444;
-  /*cursor: pointer;*/
   border-bottom-style: solid;
   text-decoration: none;
 }
@@ -55,12 +45,10 @@ body {
 
 .text-container {
   max-width: 1000px;
-  /*margin-left: 3%*/
 }
 
 .text-container-800 {
   max-width: 800px;
-  /*margin-left: 3%*/
 }
 
 /* Default Form Elements */
@@ -81,7 +69,6 @@ textarea.default {
 #wrap {
   width:1000px;
   margin:0 auto;
-  /*background:#99c;*/
 }
 
 label {
@@ -96,22 +83,6 @@ label {
 
 /* TABLES         ---------------------------------------------------------------*/
 
-/*table {*/
-  /*border-style: none none none none;*/
-/*}*/
-
-th, td {
-  /*padding: 3px;*/
-}
-
-/*tr.even td, tr.even th{*/
-  /*background-color: #ccdab3;*/
-/*}*/
-
-/*tr.odd td, tr.odd th{*/
-  /*background-color: firebrick;*/
-/*}*/
-
 
 thead th:first-child {
   border-top-left-radius: 5px;
@@ -124,7 +95,6 @@ thead th:last-child {
 
 td.aFilter {
   font-weight:bold;
-  /*background: inherit;*/
 }
 
 .two-colours tr:nth-child(odd) {
@@ -148,7 +118,6 @@ td.aFilter {
 #search-area{
   margin: 7px;
   padding: 3px;
-  /*display: block;*/
   text-decoration-color: black;
   border-color: #bce7e7;
   float:right;
@@ -163,13 +132,11 @@ ul {
   width: 100%;
   background-color: white;
 
-  /*background-color: rgba(17, 17, 17, 0.4)*/
 }
 
 .oldie div#typeaheadsearch
 ul {
   background-color: white;
-  /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#66111111', EndColorStr='#66111111') !important*/
 }
 
 div#typeaheadsearch ul
@@ -225,9 +192,6 @@ div#typeaheadsearch ul li a:active {
 /* DOWNLOAD       ------------------------------------------------------------------------------------------------*/
 
 .download-btn {
-  /*display: inline-block;*/
-  /*vertical-align: top;*/
-  /*padding-top: 2px;*/
   float: right;
 }
 
@@ -264,9 +228,6 @@ div#typeaheadsearch ul li a:active {
 
 .paginationControls {
   word-wrap: normal;
-  /*display: inline;*/
-  /*display: inline;*/
-  /*margin: 1px 0;*/
   font-size: x-large;
 
 }
@@ -297,8 +258,7 @@ p.pos_indented {
   float: right;
   padding: 6px 12px;
   line-height: 1.42857143;
-  /*border: 1px solid #ddd;*/
-  /*box-sizing: border-box;*/
+
 }
 
 /* ADVANCED FILTER DIALOGUE --------------------------------------------------------------*/
@@ -311,27 +271,11 @@ p.pos_indented {
 
 /* ANNOTATION SIDEBAR         ---------------------------------------------------------------*/
 
-div#sidebar {
-  /*background-color: #70BDBD ;*/
-  /*background-color: rgba(112, 189, 189, 0.47) ;*/
-  /*padding: 1em;*/
-
-}
-
-div.sidebar-section-applied {
-  /*background-color: white;*/
-  background-color: #70BDBD ;
-  padding: 3px;
-}
-
 table.sidebar-section-applied {
-  /*background-color: white;*/
-  background-color: #70BDBD ;
   padding: 3px;
 }
 
 div.sidebar-section {
-  /*background-color: white;*/
   background-color: rgba(112, 189, 189, 0.47) ;
   padding: 3px;
 }
@@ -352,10 +296,8 @@ div.sidebar-content {
 
 
 textarea.sidebar {
-  /*width: 22em;*/
   height: 6em;
   width: 100%;
-  /*height:100%;*/
 }
 
 /* Highlight search term in search results*/
@@ -364,7 +306,6 @@ textarea.sidebar {
 }
 
 .quickButton {
-  /*color: #70BDBD;*/
   cursor: pointer;
   font-weight: bold;
 }
@@ -373,9 +314,6 @@ textarea.sidebar {
   margin: 4px;
 }
 
-/*h4.sidebar {*/
-  /*color: #996a44;*/
-/*}*/
 
 /* SLIMMING PAGES      -------------------------------------------------------------------*/
 
@@ -387,7 +325,6 @@ li.slim {
 #slimming {
   float:left;
   width:1000px;
-  /*background:#9c9;*/
 }
 
 #slimming-next{
@@ -542,25 +479,16 @@ IMG.displayed {
 #left-control-col {
   float:left;
   width:300px;
-  /*background:#9c9;*/
 }
 
 #right-control-col {
   float:right;
   width:800px;
-  /*background:#c9c;*/
 }
 
 .quickgo-modal {
   margin: 20px;
 }
-
-  /* type ahead search - stop the defaults from ebi-global.css*/
- /*div#typeaheadsearch{*/
-   /*margin: 20px;*/
-   /*display: inline;*/
-   /*/!*background-color: white;*!/*/
-/*}*/
 
 
 
