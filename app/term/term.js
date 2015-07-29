@@ -91,37 +91,11 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
 
   $scope.addItem = function(goId, termName){
     var basketItem = {goId:goId, termName:termName};
-    console.log(basketService.addBasketItem(basketItem));
-    $scope.countBasket =  basketService.basketQuantity();
 
     //Stop this item being added to the basket again
     $scope.allowAddToBasket = false;
     $scope.preventAddToBasket = true;
   }
-
-  /**
-   * Show the basket modal on request
-   */
-  $scope.showBasket = function () {
-
-    var modalInstance = $modal.open({
-      templateUrl: 'basket/basketModal.html',
-      controller: 'BasketCtrl',
-      size: 'lg',
-      scope: $scope,
-      resolve: {
-        countBasket: function () {
-          return $scope.countBasket;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    }, function () {
-      console.log('Modal dismissed at: ', new Date());
-    });
-  };
 
 
   /**
@@ -138,17 +112,14 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
 
 
   function setupBasketButton(termModel){
-    console.log("setup basket");
 
       //Control if the basket shows
       if(!basketService.containsItem(termId) && termModel.active == true){
         $scope.allowAddToBasket = true;
         $scope.preventAddToBasket = false;
-        console.log("display add to basket");
       }else{
         $scope.allowAddToBasket = false;
         $scope.preventAddToBasket = true;
-        console.log("already in basket or obsolete");
       }
   }
 
