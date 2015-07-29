@@ -119,8 +119,8 @@ app.controller('SearchResultCtrl', function($scope,  $location, $modal, searchfu
    */
   $scope.addToBasket = function(termId, termName){
     var basketItem = {termId:termId, name:termName};
-    console.log(basketService.addBasketItem(basketItem));
-    $scope.countBasket = basketService.getItems().length;
+    $scope.$emit('basketUpdate', basketService.basketQuantity());
+
   };
 
 

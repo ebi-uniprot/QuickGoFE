@@ -26,7 +26,7 @@ app.controller('GoTermHistoryCtrl', function($scope, $modal, basketService, goTe
 
     var basketItem = {termId: termId, name: termName};
     basketService.addBasketItem(basketItem);
-    $scope.countBasket = basketService.basketQuantity();
+    $scope.$emit('basketUpdate', basketService.basketQuantity());
 
   };
 

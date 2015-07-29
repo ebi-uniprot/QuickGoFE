@@ -27,12 +27,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   }
 
 
-  /**
-   * Show basket quantity
-   */
-  $scope.countBasket = basketService.basketQuantity();
-
-
   var termUrl = formattedURL+termId;
   console.log("Getting the termUrl", termUrl);
   /**

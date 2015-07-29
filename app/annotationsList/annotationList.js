@@ -25,8 +25,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   //The raw list of filters as they come back from the advanced filters modal
   $scope.advancedFilters = {};
 
-  $scope.countBasket = basketService.basketQuantity();
-  $scope.isBasketShow = false;
   $scope.evidenceSetter="ecoAncestorsI";
   $rootScope.header = "QuickGO::Annotation List";
 
@@ -212,6 +210,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     //$scope.countBasket = basketService.getItems().length;
 
     $scope.$emit('basketUpdate', basketService.basketQuantity());
+
   };
 
 

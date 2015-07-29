@@ -18,8 +18,6 @@ app.controller('AnnotationBlacklistCtrl', function($scope, $modal, basketService
    *  Basket Functionality -------------------------------------------------------------------------------------------/
    */
 
-  $scope.countBasket = basketService.basketQuantity();
-
   /**
    * Add an item to the basket
    * @type {Object|Array}
@@ -39,9 +37,6 @@ app.controller('AnnotationBlacklistCtrl', function($scope, $modal, basketService
 
       //Tell all listeners the number of basket items needs updating
       $scope.$emit('basketUpdate', basketService.basketQuantity());
-
-      //reload basketItems list
-      $scope.countBasket = basketService.basketQuantity();
       $scope.isLoading = false;
 
     });
