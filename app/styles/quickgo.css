@@ -75,6 +75,10 @@ textarea.default {
 
 /* TABLES   ----------------------------------------------------------------------------------------------------------*/
 
+table {
+  border-style: none none none none;
+}
+
 thead th:first-child {
   border-top-left-radius: 5px;
 }
