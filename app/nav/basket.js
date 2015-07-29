@@ -2,7 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketNavCtrl', function($scope, $log, $modal, basketService) {
+app.controller('BasketNavCtrl', function($scope, $log, $modal, $rootScope, basketService) {
 
   //$scope.countBasket=0;
 
@@ -11,10 +11,9 @@ app.controller('BasketNavCtrl', function($scope, $log, $modal, basketService) {
   /**
    * Pick up the basket update event from the modal
    */
-  $scope.$on('basketUpdate', function(event, data) {
+  $rootScope.$on('basketUpdate', function(event, data) {
     $scope.countBasket = basketService.basketQuantity();
   });
-
 
 
   /**
