@@ -1,11 +1,11 @@
 /* Universal         ---------------------------------------------------------------*/
 
- .quickgo-content {
-   background-color:white;
- }
+.quickgo-content {
+  background-color: white;
+}
 
-ul
-{
+/* Stop bullets points appearing, say for the filter by taxon list.*/
+ul {
   list-style-type: none;
 }
 
@@ -13,17 +13,16 @@ a:hover, {
   text-decoration: none;
 }
 
-a.quickgo-link:hover{
-  background:none!important;
-  border-bottom:1px solid #444;
+a.quickgo-link:hover {
+  background: none !important;
+  border-bottom: 1px solid #444;
   border-bottom-style: solid;
   text-decoration: none;
 }
 
-.pseudo-button{
-  background-color: #DEEFF5
-border:none;
-  padding:0!important;
+.pseudo-button {
+  background-color: #DEEFF5 border : none;
+  padding: 0 !important;
   font: inherit;
   cursor: pointer;
 }
@@ -56,18 +55,12 @@ textarea.default {
   height: 8em;
 }
 
-
 .quickgo-btn {
   background-color: #70BDBD;
 }
 
 .quickgo-btn:hover {
   background-color: #bce7e7;
-}
-
-#wrap {
-  width:1000px;
-  margin:0 auto;
 }
 
 label {
@@ -79,9 +72,7 @@ label {
   display: inline;
 }
 
-
 /* TABLES         ---------------------------------------------------------------*/
-
 
 thead th:first-child {
   border-top-left-radius: 5px;
@@ -91,9 +82,8 @@ thead th:last-child {
   border-top-right-radius: 5px;
 }
 
-
 td.aFilter {
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .two-colours tr:nth-child(odd) {
@@ -107,7 +97,7 @@ td.aFilter {
 /* TYPE-AHEAD       ------------------------------------------------------------------------------------------------*/
 
 #searchbox {
-  background-color:white;
+  background-color: white;
   width: 470px;
   height: 40px;
   margin: 2px;
@@ -115,15 +105,14 @@ td.aFilter {
 
 }
 
-#search-area{
+#search-area {
   margin: 7px;
   padding: 3px;
   text-decoration-color: black;
   border-color: #bce7e7;
-  float:right;
+  float: right;
   background-color: grey;
 }
-
 
 div#typeaheadsearch
 ul {
@@ -186,9 +175,8 @@ div#typeaheadsearch ul li a:active {
 
 .search-btn {
   float: none;
-  background-color:white;
+  background-color: white;
 }
-
 
 /* DOWNLOAD       ------------------------------------------------------------------------------------------------*/
 
@@ -207,7 +195,6 @@ div#typeaheadsearch ul li a:active {
   border-bottom-right-radius: 2px;
 
 }
-
 
 /* PAGINATION         ---------------------------------------------------------------*/
 
@@ -233,10 +220,9 @@ div#typeaheadsearch ul li a:active {
 }
 
 .select-viewBy:hover {
-  background-color: #bce7e7 ;
+  background-color: #bce7e7;
   cursor: pointer;
 }
-
 
 /* ANNOTATION LIST         ---------------------------------------------------------------*/
 
@@ -259,8 +245,6 @@ p.pos_indented {
   padding-left: 3em;
 }
 
-
-
 /* ANNOTATION SIDEBAR         ---------------------------------------------------------------*/
 
 table.sidebar-section-applied {
@@ -268,7 +252,7 @@ table.sidebar-section-applied {
 }
 
 div.sidebar-section {
-  background-color: rgba(112, 189, 189, 0.47) ;
+  background-color: rgba(112, 189, 189, 0.47);
   padding: 3px;
 }
 
@@ -277,15 +261,13 @@ td.sidebar-appliedFilter {
   background-color: white;
 }
 
-
 div.sidebar-content {
   background-color: white;
 }
 
 .quickTaxon:hover {
-  background-color: #bce7e7 ;
+  background-color: #bce7e7;
 }
-
 
 textarea.sidebar {
   height: 6em;
@@ -293,8 +275,8 @@ textarea.sidebar {
 }
 
 /* Highlight search term in search results*/
-.highlighted{
-  background-color:#FFFBCC;
+.highlighted {
+  background-color: #FFFBCC;
 }
 
 .quickButton {
@@ -306,29 +288,26 @@ textarea.sidebar {
   margin: 4px;
 }
 
-
 /* SLIMMING PAGES      -------------------------------------------------------------------*/
 
 li.slim {
   padding: 1%;
 }
 
-
 #slimming {
-  float:left;
-  width:1000px;
+  float: left;
+  width: 1000px;
 }
 
-#slimming-next{
-  float:right;
+#slimming-next {
+  float: right;
 }
 
-#slimming-proteinbox{
-  height:200px;
-  width:800px;
-  font-size:14pt;
+#slimming-proteinbox {
+  height: 200px;
+  width: 800px;
+  font-size: 14pt;
 }
-
 
 /* Advanced Filters Modal*/
 .content-margin-10 {
@@ -346,6 +325,7 @@ li.main {
 li.sub-1 {
   padding: 2px;
 }
+
 /* Advanced Filters Modal End*/
 
 /* Documentation*/
@@ -356,26 +336,27 @@ li.strong {
 p.strong {
   font-weight: bold;
 }
+
 /* Documentaion End*/
 
 /*  General Content*/
-.col-left {float: left;}
-
-.col-right {float: right;}
-
-
-
-span.entryview-name-nav {
-  border-left:1px solid #FFFFFF;
-  background-color: #DEEFF5
-  line-height:30px;
-  height:30px;
-  padding-left:2px;
-  display:inline-block;
-  white-space:nowrap;
-  width:100%;
+.col-left {
+  float: left;
 }
 
+.col-right {
+  float: right;
+}
+
+span.entryview-name-nav {
+  border-left: 1px solid #FFFFFF;
+  background-color: #DEEFF5 line-height : 30 px;
+  height: 30px;
+  padding-left: 2px;
+  display: inline-block;
+  white-space: nowrap;
+  width: 100%;
+}
 
 IMG.displayed {
   display: block;
@@ -467,15 +448,14 @@ IMG.displayed {
   display: inline;
 }
 
-
 #left-control-col {
-  float:left;
-  width:300px;
+  float: left;
+  width: 300px;
 }
 
 #right-control-col {
-  float:right;
-  width:800px;
+  float: right;
+  width: 800px;
 }
 
 .quickgo-modal {
