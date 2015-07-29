@@ -30,7 +30,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.evidenceSetter="ecoAncestorsI";
   $rootScope.header = "QuickGO::Annotation List";
 
-  $scope.isLoading = 0;
+  $scope.isLoading = true;
   $scope.currentPage=1;
   getResultsPage(1);    //<--this is called instead by the page changed call
 
@@ -53,7 +53,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     $scope.currentPage = pageNumber;
 
     console.log(targetDomainAndPort);
-    $scope.isLoading=1;
+    $scope.isLoading=true;
 
     var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?';  //&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
 
@@ -76,7 +76,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
 
-      $scope.isLoading=0;
+      $scope.isLoading=false;
     })
 
   }
@@ -87,6 +87,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * @param pageNumber
    */
   function getResultsPage(pageNumber) {
+    $scope.isLoading=true;
 
     //var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNames';
     var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNamesNotSpring';
@@ -120,7 +121,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
 
-      $scope.isLoading=0;
+      $scope.isLoading=false;
 
     })
 

@@ -9,8 +9,10 @@
     <!-- Table heading content-->
     <div class="container_24">
 
+
+
       <!-- Pagination Controls -->
-      <div class="grid_14">
+      <div class="grid_6">
         <!--<div style="display: inline-block;">-->
           <dir-pagination-controls  on-page-change="pageChanged(newPageNumber)" class="paginationControls"></dir-pagination-controls>
         <!--</div>-->
@@ -18,10 +20,10 @@
         <span class="pagination-text">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> results</strong></span>
 
         </div>
-    <!--</div>-->
+      <div class="grid_2" style="display: inline; float: left;"> <img ng-show="isLoading" src="images/ajax-loader.gif"></div>
 
       <!-- Download button-->
-      <div class="clearfix grid_5">
+      <div class="clearfix grid_13">
         <button class="btn quickgo-btn download-btn" ng-click="download()" >Download</button>
       </div>
 
