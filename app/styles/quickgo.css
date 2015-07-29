@@ -99,7 +99,7 @@ td.aFilter {
 
 #searchbox {
   background-color: white;
-  width: 470px;
+  width: 570px;
   height: 40px;
   margin: 2px;
   border-color: #bce7e7;
@@ -113,6 +113,7 @@ td.aFilter {
   border-color: #bce7e7;
   float: right;
   background-color: grey;
+  min-width: 660px;
 }
 
 div#typeaheadsearch
