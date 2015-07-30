@@ -26,7 +26,6 @@
 
   <!-- Bootstrap CSS -->
   <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-  <!--<link rel="stylesheet" type="text/css" href="bower_components/angular-busy/dist/angular-busy.css"/>-->
 
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
@@ -52,14 +51,11 @@
 
   <!-- Only has was I need -->
   <link rel="stylesheet" type="text/css" href="styles/quickgo.css">
-  <!--<link rel="stylesheet" type="text/css" href="styles/results-table.css">-->
-
 
   <!--<style type="text/css">-->
     <!--/* You have the option of setting a maximum width for your page, and making sure everything is centered */-->
     <!--/* body { max-width: 1600px; margin: 0 auto; } */-->
   <!--</style>-->
-
   <!-- end CSS-->
 
 
@@ -218,11 +214,13 @@
       <!-- local-search -->
       <div id="search-area" class="typeaheadsearch grid_16" ng-controller="TypeaheadCtrl">
 
-        <input id="searchbox" type="text" ng-model="searchText"
+        <input id="searchbox" type="text"
+               ng-model="searchText"
                placeholder="Enter search value"
                typeahead-on-select='onSelect($item, $model, $label)'
                typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
-               typeahead-min-length="4" typeahead-wait="300">
+               typeahead-min-length="3"
+               typeahead-wait="300">
 
         <button class="btn search-btn" ng-click="showSearchResults(searchText)">Search</button>
       </div>
