@@ -40,7 +40,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   /**
    * ------------------------------------ Local methods --------------------------------------------------
    */
-  $scope.$on('basketUpdate', function(event, data) { $scope.countBasket = data; });
+
 
   /**
    * Get the results page
