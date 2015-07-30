@@ -103,7 +103,7 @@ td.aFilter {
 
 #searchbox {
   background-color: white;
-  width: 570px;
+  width: 80%;
   height: 40px;
   margin: 2px;
   border-color: #bce7e7;
@@ -116,8 +116,8 @@ td.aFilter {
   text-decoration-color: black;
   border-color: #bce7e7;
   float: right;
-  background-color: grey;
-  min-width: 660px;
+  /*background-color: grey;*/
+  min-width: 60%;
 }
 
 div#typeaheadsearch
@@ -203,8 +203,6 @@ div#typeaheadsearch ul li a:active {
 }
 
 /* PAGINATION   ------------------------------------------------------------------------------------------------------*/
-
-
 #pagination-area {
   min-width: 250px;
   display: inline;
