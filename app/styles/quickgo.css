@@ -107,82 +107,41 @@ td.aFilter {
   height: 40px;
   margin: 2px;
   border-color: #bce7e7;
+}
 
+div.masthead ul.dropdown-menu li {
+  float: none;
+}
+
+div#local-masthead ul li a{
+  color: black;
+}
+
+div#local-masthead ul.dropdown-menu a{
+  background-color: azure;
+}
+
+div#search-area ul.dropdown-menu li.active a{
+  color: white;
+}
+
+div#search-area ul.dropdown-menu li a.ng-scope:hover {
+  color: white;
 }
 
 #search-area {
   margin: 7px;
   padding: 3px;
-  text-decoration-color: black;
   border-color: #bce7e7;
   float: right;
-  /*background-color: grey;*/
   min-width: 60%;
-}
-
-div#typeaheadsearch
-ul {
-  margin-top: -5px;
-  height: auto;
-  width: 100%;
-  background-color: white;
-
-}
-
-.oldie div#typeaheadsearch
-ul {
-  background-color: white;
-}
-
-div#typeaheadsearch ul
-li {
-  border-color: white;
-  border-right: none;
-}
-
-div#typeaheadsearch ul li.active,
-div#typeaheadsearch ul li.active-trail {
-  background-color: white
-}
-
-div#typeaheadsearch ul
-li.last {
-  border-right: 0 none
-}
-
-div#typeaheadsearch ul li
-a {
-}
-
-div#typeaheadsearch ul li a,
-div#typeaheadsearch ul li a:link,
-div#typeaheadsearch ul li a:visited {
-  border-bottom: none;
-  color: black;
-}
-
-div#typeaheadsearch ul li.active a,
-div#typeaheadsearch ul li.active a:link,
-div#typeaheadsearch ul li.active-trail a:link,
-div#typeaheadsearch ul li.active a:visited,
-div#typeaheadsearch ul li.active-trail a:visited {
-  padding-top: 2px;
-  border-bottom: none;
-  background-color: white
-}
-
-div#typeaheadsearch ul li a:hover,
-div#typeaheadsearch ul li a:focus,
-div#typeaheadsearch ul li a:active {
-  border-bottom: none;
-  color: black;
-  background-color: white
 }
 
 .search-btn {
   float: none;
   background-color: white;
 }
+
 
 /* DOWNLOAD   --------------------------------------------------------------------------------------------------------*/
 
