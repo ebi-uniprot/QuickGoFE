@@ -1,12 +1,8 @@
 <div class="Modal-box">
   <div id="basket-contents-show" style="top: 34px;">
-    <!--<img ng-show="isLoading" src="images/ajax-loader.gif">-->
     <img ng-src="{{imgdata}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >
-    <!--<img class="displayed" src="http://localhost:9080/{{graphImage.graphImageSrc}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >-->
 
     <map name="ontologygraphmap">
-      <!--<c:if test="${not fn:containsIgnoreCase(termGraphTitle, 'ECO:')}">-->
-      <!-- ng-hide="graphImage.termGraphTitle.contains('ECO')"-->
         <span  ng-repeat="layoutNode in graphImage.layoutNodes">
             <area shape="rect"
                   coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
