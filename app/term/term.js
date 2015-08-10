@@ -92,18 +92,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   }
 
 
-  /**
-   * Pick up the basket update event from the modal
-   */
-  $scope.$on('basketUpdate', function(event, data) {
-
-    console.log("Basket Update event has been called", event);
-    console.log("Basket Update event has been called", data);
-
-    $scope.countBasket = data;
-      setupBasketButton($scope.termModel);
-  });
-
 
   function setupBasketButton(termModel){
 
