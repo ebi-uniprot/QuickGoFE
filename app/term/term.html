@@ -5,7 +5,7 @@
   </div>
   <div class="clearfix"></div>
 
-
+<!-- Sidebar -->
   <div class="sidebarsubsection grid_5" style="position: fixed">
     <h3 class="first">
       <strong>Display</strong>
@@ -56,19 +56,15 @@
     </ul>
 
                 <span ng-show="termModel.goTerm">
-          <element data-icon="i" id="show-term-annotations" class="closed icon icon-functional button"
+          <element data-icon="i" id="show-term-annotations" class="closed icon icon-functional button selectable"
                    value="{{termModel.termId}}"
-                   style="cursor:pointer" ng-click="showTermAnnotations(termModel.termId)">Show annotations
+                   ng-click="showTermAnnotations(termModel.termId)">Show annotations
           </element>
         </span>
 
 
     <div id="add-to-basket-div">
-
-      <button class="btn quickgo-btn" ng-show="preventAddToBasket" disabled>Add to Basket</button>
-      <button class="btn quickgo-btn" ng-show="allowAddToBasket" ng-click="addItem(termModel.termId,termModel.name)">Add
-        to Basket
-      </button>
+      <button class="btn quickgo-btn" ng-disabled="preventAddToBasket" ng-click="addToBasket(termModel.termId,termModel.name)">Add to Basket</button>
     </div>
   </div>
 
