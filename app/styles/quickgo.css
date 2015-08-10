@@ -27,6 +27,10 @@ a.quickgo-link:hover {
   cursor: pointer;
 }
 
+.selectable {
+  cursor: pointer;
+}
+
 /* NAVIGATION   ------------------------------------------------------------------------------------------------------*/
 #quickgo-nav {
   padding: 5px;
