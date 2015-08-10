@@ -29,6 +29,8 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
 
   var termUrl = formattedURL+termId;
   console.log("Getting the termUrl", termUrl);
+
+
   /**
    * Get Term Data from WS
    */
@@ -37,7 +39,10 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
     $scope.isLoading=0;
     console.log("Got Term model", $scope.termModel);
 
-    setupBasketButton($scope.termModel);
+    //setupBasketButton($scope.termModel);
+    $scope.preventAddToBasket = basketService.containsItem(termId) || $scope.termModel.active == false;
+    console.log("The prevent add to basket is " + $scope.preventAddToBasket);
+
 
     //Set active show
     if($scope.termModel.active != true){
@@ -78,33 +83,19 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
 
 
   /**
-   * Add item to basket
-   * @param goId
-   * @param termName
+   * Add an item to the basket
+   * @type {Object|Array}
    */
+  $scope.addToBasket = function(termId, termName){
+    var basketItem = {termId:termId, name:termName};
+    console.log(basketService.addBasketItem(basketItem));
 
-  $scope.addItem = function(goId, termName){
-    var basketItem = {goId:goId, termName:termName};
+    $scope.$emit('basketUpdate', basketService.basketQuantity());
 
-    //Stop this item being added to the basket again
-    $scope.allowAddToBasket = false;
+    //Update the addToBasketButton
     $scope.preventAddToBasket = true;
-  }
 
-
-
-  function setupBasketButton(termModel){
-
-      //Control if the basket shows
-      if(!basketService.containsItem(termId) && termModel.active == true){
-        $scope.allowAddToBasket = true;
-        $scope.preventAddToBasket = false;
-      }else{
-        $scope.allowAddToBasket = false;
-        $scope.preventAddToBasket = true;
-      }
-  }
-
+  };
 
   // Control the scrolling to anchors from sidebar -> elements of the term page
   // https://docs.angularjs.org/api/ng/service/$anchorScroll
@@ -141,4 +132,16 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
     $location.path("annotations");
 
   }
+
+
+  /**
+   * There maybe a change to the basket list - deletion for example of the term currently displayed, so pick up these
+   * changes emitted from the basket code.
+   * Pick up the basket update event from the modal
+   */
+  $rootScope.$on('basketUpdate', function(event, data) {
+    $scope.preventAddToBasket = basketService.containsItem(termId) || $scope.termModel.active == false;
+  });
+
+
 });
