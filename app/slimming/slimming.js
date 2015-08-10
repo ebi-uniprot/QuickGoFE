@@ -252,7 +252,7 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
 
 
     var modalInstance = $modal.open({
-      templateUrl: 'modals/ancestorChartModal.html',
+      templateUrl: 'charts/ancestorChartModal.html',
       controller: 'AncestorChartCtrl',
       windowClass: 'app-modal-window',
       scope: $scope,

@@ -135,7 +135,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, $modal, searchfu
   $scope.showOntologyGraph = function (termId, title) {
 
     var modalInstance = $modal.open({
-      templateUrl: 'modals/ontologyGraphModal.html',
+      templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',
       scope: $scope,

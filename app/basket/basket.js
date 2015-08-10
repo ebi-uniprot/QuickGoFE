@@ -141,7 +141,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
     var modalInstance = $modal.open({
-      templateUrl: 'modals/ancestorChartModal.html',
+      templateUrl: 'charts/ancestorChartModal.html',
       controller: 'AncestorChartCtrl',
       windowClass: 'app-modal-window',
       scope: $scope,

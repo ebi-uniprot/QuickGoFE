@@ -280,7 +280,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 $scope.showOntologyGraph = function (termId, title) {
 
   var modalInstance = $modal.open({
-    templateUrl: 'modals/ontologyGraphModal.html',
+    templateUrl: 'charts/ontologyGraphModal.html',
     controller: 'OntologyGraphCtrl',
     windowClass: 'app-modal-window',
     scope: $scope,
@@ -305,7 +305,7 @@ $scope.showOntologyGraph = function (termId, title) {
   $scope.showEvidenceCodeOntologyGraph = function (ecoId) {
 
     var modalInstance = $modal.open({
-      templateUrl: 'modals/ontologyGraphModal.html',
+      templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',
       scope: $scope,

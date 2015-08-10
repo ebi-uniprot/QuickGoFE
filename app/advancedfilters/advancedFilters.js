@@ -144,7 +144,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
   $scope.showEvidenceCodeOntologyGraph = function (ecoId) {
 
     var modalInstance = $modal.open({
-      templateUrl: 'modals/ontologyGraphModal.html',
+      templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',
       scope: $scope,
