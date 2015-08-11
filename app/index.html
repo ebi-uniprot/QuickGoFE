@@ -200,34 +200,45 @@
     <div id="local-masthead" class="masthead grid_24 nomenu">
 
       <!-- WARNING message -->
-      <div style="background-color:#FFFBCC;"><element class="icon icon-generic" data-icon="l"></element>
-          BETA: For test only. Performance may be slow. Data may be limited or out of date.</div>
+      <div style="background-color:lightgrey;"><element class="icon icon-generic" data-icon="l"></element>
+          <strong>BETA: For test only. Performance may be slow. Data may be limited or out of date.</strong>
+      </div>
 
       <!-- local-title -->
       <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
+      <div class="quickgo-local-title grid_24" id="local-title">
 
-      <div class="grid_8 alpha quickgo-local-title" id="local-title">
-        <h5><a ng-href="#/" accesskey="1" id="logo"><img title="QuickGO home" src="images/quickgo-logo.png" alt=""></a>
-        &nbsp;Browse Gene Ontology terms and annotations</h5>
-      </div>
+        <!-- Logo -->
+        <div class="grid_2">
+          <a ng-href="#/" accesskey="1" id="logo"><img title="QuickGO home" src="images/quickgo-logo.png" alt=""></a>
+        </div>
 
-      <!-- local-search -->
-      <div id="search-area" class="typeaheadsearch grid_16" ng-controller="TypeaheadCtrl">
+        <!-- Title -->
+        <div class="grid_4">
+          <h5>Browse Gene Ontology terms and annotations</h5>
+        </div>
 
-        <input id="searchbox" type="text"
-               ng-model="searchText"
-               placeholder="Enter search value"
-               typeahead-on-select='onSelect($item, $model, $label)'
-               typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
-               typeahead-min-length="3"
-               typeahead-wait="300">
+        <!-- local-search -->
+        <div id="search-area" class="typeaheadsearch grid_16" ng-controller="TypeaheadCtrl">
 
-        <button class="btn search-btn" ng-click="showSearchResults(searchText)">Search</button>
+          <input id="searchbox" type="text"
+                 ng-model="searchText"
+                 placeholder="Enter search value"
+                 typeahead-on-select='onSelect($item, $model, $label)'
+                 typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
+                 typeahead-min-length="3"
+                 typeahead-wait="300">
+
+          <button class="btn search-btn" ng-click="showSearchResults(searchText)">Search</button>
+        </div>
+
+        <!--End local-title -->
       </div>
 
       <!-- local-nav -->
+
       <nav ng-controller="BasketNavCtrl">
-        <ul class="grid_24" id="local-nav quickgo-nav">
+        <ul class="grid_24 quickgo-nav" id="local-nav">
           <li class="first"><a href="#/">Home</a></li>
           <li><a href="#/webservices">Web Services</a></li>
           <li><a href="#/dataset">Dataset</a></li>
@@ -241,8 +252,8 @@
           <!--<li class="functional"><a href="#/feedback" class="icon icon-generic" data-icon="\">Feedback</a></li>-->
           <li><a href="#/feedback" class="icon icon-generic" data-icon="\">Feedback</a></li>
           <li><a class="functional last" href="" data-icon="b" ng-click="showBasket()"> Basket &nbsp;
-            <span id="basket"  ng-class="{'emptyBasket': countBasket==0, 'popBasket': countBasket>0}"><strong>{{countBasket}}</strong></span>
-          </a></li>
+            <span id="basket"  ng-class="{'emptyBasket': countBasket==0, 'popBasket': countBasket>0}"><strong>{{countBasket}}</strong></span>   </a>
+          </li>
 
         </ul>
       </nav>
