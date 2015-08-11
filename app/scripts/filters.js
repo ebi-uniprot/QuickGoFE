@@ -37,3 +37,17 @@ filtersModule.filter('referenceUrlFilter', function () {
     };
   });
 
+
+filtersModule.filter('shortenStringFilter', function () {
+  return function (input) {
+    if(input == undefined) return;
+
+
+    if (input.length>30) {
+      return input.substring(0,30)+"...";
+    }
+
+    return input;
+
+  };
+});
