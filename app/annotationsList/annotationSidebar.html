@@ -22,27 +22,43 @@
   <div>&nbsp;</div>
 
   <!-- FILTER BY TAXON-->
-  <div class="sidebar-section">
-  <h4>Filter By Taxon</h4>
-    <div class="sidebar-content">
+  <!--<div class="sidebar-section">-->
+  <!--Filter By Taxon-->
+    <!--<div class="sidebar-content">-->
 
-      <div ng-show="showInitialTaxons">
-        <ul>
-          <li ng-repeat="taxon in initialTaxonomies" title='{{taxon.name}}' class="quickTaxon">
-            <element class="selectable" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</element>
-          </li>
-        </ul>
-        <span class="quickButton" ng-click="showMore()">+Show more</span>
-      </div>
-      <div ng-show="showCommonTaxons">
-        <ul>
-          <li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}' class="quickTaxon">
-            <span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>
-          </li>
-        </ul>
-        <span class="quickButton" ng-click="showLess()">-Show less</span>
-      </div>
-    </div>
+      <!--<div ng-show="showInitialTaxons">-->
+        <!--<ul>-->
+          <!--<li ng-repeat="taxon in initialTaxonomies" title='{{taxon.name}}' class="quickTaxon">-->
+            <!--<element class="selectable" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</element>-->
+          <!--</li>-->
+        <!--</ul>-->
+        <!--<span class="quickButton" ng-click="showMore()">+Show more</span>-->
+      <!--</div>-->
+      <!--<div ng-show="showCommonTaxons">-->
+        <!--<ul>-->
+          <!--<li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}' class="quickTaxon">-->
+            <!--<span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>-->
+          <!--</li>-->
+        <!--</ul>-->
+        <!--<span class="quickButton" ng-click="showLess()">-Show less</span>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <div ng-show="showInitialTaxons">
+    <table class="quickTaxon">
+      <tr><th>Filter By Taxon <span class="quickButton showAllTaxons" ng-click="showMore()">+ More</span></th></tr>
+      <tr ng-repeat="taxon in initialTaxonomies">
+        <td class="quickTaxon selectable" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</td>
+      </tr>
+    </table>
+  </div>
+  <div ng-show="!showInitialTaxons">
+    <table class="quickTaxon">
+      <tr><th>Filter By Taxon <span class="quickButton showAllTaxons" ng-click="showLess()">- Less</span></th></tr>
+      <tr ng-repeat="taxon in mostCommonTaxonomies">
+        <td class="quickTaxon selectable" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</td>
+      </tr>
+    </table>
   </div>
 
   <div>&nbsp;</div>
@@ -50,7 +66,7 @@
 
   <!-- FILTER BY ID -->
   <div class="sidebar-section">
-    <h4>Filter By ID</h4>
+    <strong>Filter By ID</strong>
       <div class="sidebar-content">
         <div class="sidebar-padding"><label>Go Id:</label><textarea class="sidebar" ng-model="advancedFilters.text.goID"></textarea></div>
         <div class="sidebar-padding"><label>Gene Product:</label><textarea class="sidebar" ng-model="advancedFilters.text.gpID"></textarea></div>

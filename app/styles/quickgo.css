@@ -238,7 +238,7 @@ table.sidebar-section-applied {
 
 div.sidebar-section {
   background-color: rgba(112, 189, 189, 0.47);
-  padding: 3px;
+  padding: 2px;
 }
 
 
@@ -250,8 +250,12 @@ div.sidebar-content {
   background-color: white;
 }
 
-.quickTaxon:hover {
+td.quickTaxon:hover {
   background-color: #bce7e7;
+}
+
+table.quickTaxon {
+  border: 2px solid rgba(112, 189, 189, 0.47);
 }
 
 textarea.sidebar {
@@ -285,6 +289,12 @@ textarea.sidebar {
   font-size: 10px;
 }
 
+.showAllTaxons{
+  float: right;
+  font-weight: bold;
+  background-color: white;
+
+}
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
 
 li.slim {
