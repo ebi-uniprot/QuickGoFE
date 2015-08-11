@@ -96,11 +96,11 @@ td.aFilter {
 }
 
 .two-colours tr:nth-child(odd) {
-  background-color: #bce7e7;
+  background-color: #defcfc;  /*#bce7e7*/
 }
 
 .two-colours tr:nth-child(even) {
-  background-color: #defcfc;
+  background-color: white;
 }
 
 /* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
@@ -156,13 +156,21 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 #basket {
   color: black;
-  background-color: white;
   padding: 2px;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
 
+}
+
+.emptyBasket {
+  background-color: red;
+}
+
+
+.popBasket {
+  background-color: white;
 }
 
 /* PAGINATION   ------------------------------------------------------------------------------------------------------*/
