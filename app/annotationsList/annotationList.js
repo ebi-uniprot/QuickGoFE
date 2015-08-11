@@ -286,7 +286,7 @@ $scope.showOntologyGraph = function (termId, title) {
     scope: $scope,
     resolve: {
       graphModel: function () {
-        return {id:termId, name:title, scope:''};
+        return {id:termId, name:title, scope:'GO'};
       }
     }
   });
