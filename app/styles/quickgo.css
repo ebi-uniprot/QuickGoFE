@@ -269,6 +269,18 @@ textarea.sidebar {
   margin: 2px;
 }
 
+.removeFilter {
+  float:right;
+}
+
+#noFiltersMessage {
+  display: block;
+}
+
+#bookmarkable-link {
+  font-size: 10px;
+}
+
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
 
 li.slim {
