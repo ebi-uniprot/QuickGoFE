@@ -4,20 +4,19 @@
   <div class="sidebar-section">
   <h4>Applied filters</h4>
     </div>
-      <!--<ul style="float: left">-->
       <table class="sidebar-section-applied" ng-show="appliedFilters.length>0">
         <tr ng-repeat="filter in appliedFilters">
           <td class="sidebar-appliedFilter" ng-if="filter">
             {{filter.type}} : {{filter.value}}
-            <span style="float:right"> &nbsp;<img src="images/cross.png" ng-click="removeFilter(filter)"/></span>
+            <element class="removeFilter"> &nbsp;<img src="images/cross.png" ng-click="removeFilter(filter)"/></element>
           </td>
         </tr>
   </table>
 
-  <em class="sidebar-padding" style="display: block" ng-if="appliedFilters.length==0">No filters applied</em>
+  <em id="noFiltersMessage" class="sidebar-padding"  ng-if="appliedFilters.length==0">No filters applied</em>
   <button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>
   <element class='icon icon-generic' data-icon='L'>
-    <a class="quickgo-link" id="bookmarkable-link" style="font-size:10px;" ng-href="{{bookmarkableLink}}">Bookmark</a>
+    <a id="bookmarkable-link" class="quickgo-link" ng-href="{{bookmarkableLink}}">Bookmark</a>
   </element>
 
   <div>&nbsp;</div>
@@ -30,8 +29,7 @@
       <div ng-show="showInitialTaxons">
         <ul>
           <li ng-repeat="taxon in initialTaxonomies" title='{{taxon.name}}' class="quickTaxon">
-            <!--<input type="checkbox" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</input>-->
-            <span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>
+            <element class="selectable" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</element>
           </li>
         </ul>
         <span class="quickButton" ng-click="showMore()">+Show more</span>
