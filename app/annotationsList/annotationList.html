@@ -48,10 +48,12 @@
           </td>
           <td>{{goTuple.symbol}}</td>
           <td>{{goTuple.qualifier}}</td>
+
+          <!-- GO Identifier-->
           <td style="white-space: nowrap;">
-            <element class="icon icon-static" data-icon="b"
+            <element class="icon icon-static selectable" data-icon="b"
                      ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
-            <a class="quickgo-link" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</a>
+            <a class="quickgo-link selectable" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</a>
           </td>
           <!-- GO Term Name-->
           <td><element tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</td>
@@ -61,7 +63,7 @@
 
           <!-- Evidence -->
           <td>
-            <a class="quickgo-link" ng-click="showEvidenceCodeOntologyGraph('{{goTuple.evidenceEco}}')">{{goTuple.evidenceEco}}</a>
+            <a class="quickgo-link selectable" ng-click="showEvidenceCodeOntologyGraph('{{goTuple.evidenceEco}}')">{{goTuple.evidenceEco}}</a>
             &nbsp;<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#iea"
                      target="_blank">({{goTuple.evidenceGo}})</a>
           </td>
@@ -77,8 +79,12 @@
             <a ng-href="{{ref | withUrlFilter}}" target="_blank">{{ref}}</a>
           </a>
           </td>
-          <td><a class="quickgo-link" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></td>
-          <td><a class="quickgo-link" ng-click="showAssignedBy(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
+
+          <!-- Taxon-->
+          <td><a class="quickgo-link selectable" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></td>
+
+          <!-- Assigned By-->
+          <td><a class="quickgo-link selectable" ng-click="showAssignedBy(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
           <td>{{goTuple.fullExtension}}</td>
           <td ng-show="isSlim">{{goTuple.originalTermId}}</td>
           <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
