@@ -250,11 +250,11 @@ div.sidebar-content {
   background-color: white;
 }
 
-td.quickTaxon:hover {
+td.quickFilter:hover {
   background-color: #bce7e7;
 }
 
-table.quickTaxon {
+table.quickFilter {
   border: 2px solid rgba(112, 189, 189, 0.47);
 }
 
@@ -294,6 +294,12 @@ textarea.sidebar {
   font-weight: bold;
   background-color: white;
 
+}
+
+.filterCount {
+  float: right;
+  font-weight: bold;
+  background-color: white;
 }
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
 
