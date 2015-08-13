@@ -11,49 +11,49 @@
 
   <!-- Header information -->
   <div class="quickgo-text-container-large quickgo-hoz-header">
-      <table>
-        <tr>
-          <th>Name</th>
-          <td>{{termModel.name}}</td>
-        </tr>
-        <tr ng-show="termModel.goTerm">
-          <th>Ontology</th>
-          <td>{{termModel.aspectDescription}}</td>
-        </tr>
-        <tr>
-          <th>Definition</th>
-          <td>
-            {{termModel.definition}}
-            <li ng-repeat="xrefDef in termModel.definitionXrefs">
-              <a href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
-                 target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
-            </li>
-          </td>
-        </tr>
-        <tr ng-show="showRestrictions">
-          <th>Restrictions</th>
-          <td>
+    <table>
+      <tr>
+        <th>Name</th>
+        <td>{{termModel.name}}</td>
+      </tr>
+      <tr ng-show="termModel.goTerm">
+        <th>Ontology</th>
+        <td>{{termModel.aspectDescription}}</td>
+      </tr>
+      <tr>
+        <th>Definition</th>
+        <td>
+          {{termModel.definition}}
+          <li ng-repeat="xrefDef in termModel.definitionXrefs">
+            <a href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
+               target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
+          </li>
+        </td>
+      </tr>
+      <tr ng-show="showRestrictions">
+        <th>Restrictions</th>
+        <td>
 					<span style="background-color:#FFFBCC;">{{termModel.usage.description}}
 					<element ng-if="termModel.comment !=''">See comment below for further information.</element></span>
-          </td>
-        </tr>
-        <tr ng-if="termModel.comment !='' && termModel.comment !== null">
-          <th>Comment</th>
-          <td>{{termModel.comment}}</td>
-        </tr>
-        <tr ng-if="termModel.altIds.length>0">
-          <th>Secondary IDs</th>
-          <td id="secondariesColumn">{{termModel.altIdsString}}</td>
-        </tr>
-        <tr ng-if="termModel.goTerm">
-          <th>GONUTS</th>
-          <td><a href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
-            Wiki Page</a></td>
-        </tr>
-        <tr ng-if="termModel.credits.length>0">
-          <th>Acknowledgements</th>
-          <td>
-            <ul>
+        </td>
+      </tr>
+      <tr ng-if="termModel.comment !='' && termModel.comment !== null">
+        <th>Comment</th>
+        <td>{{termModel.comment}}</td>
+      </tr>
+      <tr ng-if="termModel.altIds.length>0">
+        <th>Secondary IDs</th>
+        <td id="secondariesColumn">{{termModel.altIdsString}}</td>
+      </tr>
+      <tr ng-if="termModel.goTerm">
+        <th>GONUTS</th>
+        <td><a href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
+          Wiki Page</a></td>
+      </tr>
+      <tr ng-if="termModel.credits.length>0">
+        <th>Acknowledgements</th>
+        <td>
+          <ul>
             <li ng-repeat="credit in termModel.credits">
               This term was created by the GO Consortium with support from
               <a ng-if="termModel.credit.code == 'BHF'" href="{{termModel.credit.url}}" target="_blank"><img
@@ -62,10 +62,10 @@
                 src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image"
                 style="width:90px;height:45px;"/></a>
             </li>
-            </ul>
-          </td>
-        </tr>
-      </table>
+          </ul>
+        </td>
+      </tr>
+    </table>
   </div>
   <!--  End of term information header-->
 
@@ -76,16 +76,18 @@
 
       <li>
 
-      <input type="checkbox" ng-model="showSynonyms" ng-disabled="termModel.synonyms.length==0">
-         <span class="term-section-view selectable" ng-click="scrollTo('termSynonyms')">Synonyms</span></a>
+        <input type="checkbox" ng-model="showSynonyms" ng-disabled="termModel.synonyms.length==0">
+        <span class="term-section-view selectable" ng-click="scrollTo('termSynonyms')">Synonyms</span></a>
       </li>
       <li><input type="checkbox" ng-model="showTaxonConstraints" ng-disabled="termModel.taxonConstraints.length==0">
         <span class="term-section-view selectable" ng-click="scrollTo('termTaxonConstraints')">Taxon Constraints</span>
       </li>
       <li><input type="checkbox" ng-model="showAnnotationGuidance" ng-disabled="termModel.guidelines.length==0">
-        <span class="term-section-view selectable" ng-click="scrollTo('termAnnotationGuidance')">Annotation Guidance</span>
+        <span class="term-section-view selectable"
+              ng-click="scrollTo('termAnnotationGuidance')">Annotation Guidance</span>
       </li>
-      <li><input type="checkbox" ng-model="showCrossOntologyRelations" ng-disabled="termModel.crossOntologyRelations.length==0">
+      <li><input type="checkbox" ng-model="showCrossOntologyRelations"
+                 ng-disabled="termModel.crossOntologyRelations.length==0">
         <span class="term-section-view selectable" ng-click="scrollTo('termCrossOntologyRelations')">Cross-Ontology Relations</span>
       </li>
       <li><input type="checkbox" ng-model="showGOSlims" ng-disabled="termModel.subsets.length==0">
@@ -127,7 +129,8 @@
     </span>
 
     <!-- Add to basket button-->
-    <button class="btn quickgo-btn" ng-disabled="preventAddToBasket" ng-click="addToBasket(termModel.termId,termModel.name)">
+    <button class="btn quickgo-btn" ng-disabled="preventAddToBasket"
+            ng-click="addToBasket(termModel.termId,termModel.name)">
       Add to Basket
     </button>
   </section>
@@ -137,179 +140,179 @@
   <!-- Main Content -->
   <div class="grid_18 text-container">
 
-      <div id="termSynonyms" ng-show="showSynonyms">
-        <h3>Synonyms</h3>
+    <div id="termSynonyms" ng-show="showSynonyms">
+      <h3>Synonyms</h3>
 
-        <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
-          of the relationship between the name and synonym given by the synonym scope.</p>
-        <table id="synonymsTableAccordian" class="two-colours">
-          <tr>
-            <th>Type</th>
-            <th>Synonym</th>
-          </tr>
-          <tr ng-repeat="synonym in termModel.synonyms">
-            <td>{{synonym.type}}</td>
-            <td>{{synonym.name}}</td>
-          </tr>
-        </table>
-      </div>
+      <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
+        of the relationship between the name and synonym given by the synonym scope.</p>
+      <table id="synonymsTableAccordian" class="two-colours">
+        <tr>
+          <th>Type</th>
+          <th>Synonym</th>
+        </tr>
+        <tr ng-repeat="synonym in termModel.synonyms">
+          <td>{{synonym.type}}</td>
+          <td>{{synonym.name}}</td>
+        </tr>
+      </table>
+    </div>
 
-      <!-- Taxon Constraints -->
-      <div id="termTaxonConstraints" ng-show="showTaxonConstraints">
-        <hr/>
-        <h3>Taxon Constraints</h3>
+    <!-- Taxon Constraints -->
+    <div id="termTaxonConstraints" ng-show="showTaxonConstraints">
+      <hr/>
+      <h3>Taxon Constraints</h3>
 
-        <p>The use of this term should conform to the following taxon constraints:</p>
-        <table id="taxonconstraintsTable" class="two-colours">
-          <tr>
-            <th>Taxon Rule</th>
-            <th>Ancestor GO ID</th>
-            <th>Ancestor GO Term Name</th>
-            <th>Relationship</th>
-            <th>Taxon ID</th>
-            <th>Taxon</th>
-            <th>Reference(s)</th>
-          </tr>
-          <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
-            <td>{{taxonconstraint.ruleId}}</td>
-            <td><a href="/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
-            <td>{{taxonconstraint.name}}</td>
-            <td>{{taxonconstraint.relationship.text}}</td>
-            <td>{{taxonconstraint.taxId}}</td>
-            <td>{{taxonconstraint.taxonName}}</td>
-            <td>
-              <li ng-repeat="source in taxonconstraint.sources">
-                <a href="{{source.url}}" target="_blank">{{source.pmid}}</a>
-              </li>
-            </td>
-          </tr>
-        </table>
-      </div>
+      <p>The use of this term should conform to the following taxon constraints:</p>
+      <table id="taxonconstraintsTable" class="two-colours">
+        <tr>
+          <th>Taxon Rule</th>
+          <th>Ancestor GO ID</th>
+          <th>Ancestor GO Term Name</th>
+          <th>Relationship</th>
+          <th>Taxon ID</th>
+          <th>Taxon</th>
+          <th>Reference(s)</th>
+        </tr>
+        <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
+          <td>{{taxonconstraint.ruleId}}</td>
+          <td><a href="/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
+          <td>{{taxonconstraint.name}}</td>
+          <td>{{taxonconstraint.relationship.text}}</td>
+          <td>{{taxonconstraint.taxId}}</td>
+          <td>{{taxonconstraint.taxonName}}</td>
+          <td>
+            <li ng-repeat="source in taxonconstraint.sources">
+              <a href="{{source.url}}" target="_blank">{{source.pmid}}</a>
+            </li>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-      <!-- Annotation Guidance -->
-      <div id="termAnnotationGuidance" ng-show="showAnnotationGuidance">
-        <hr class="term-section-toprule"/>
-        <h3>Annotation Guidance</h3>
+    <!-- Annotation Guidance -->
+    <div id="termAnnotationGuidance" ng-show="showAnnotationGuidance">
+      <hr class="term-section-toprule"/>
+      <h3>Annotation Guidance</h3>
 
-        <p>Usage of this term is subject to the following annotation guidelines:</p>
-        <table id="guidelineTable" class="two-colours">
-          <tr>
-            <th colspan="2">Annotation Guidelines</th>
-          </tr>
-          <tr ng-repeat="guideline in termModel.guidelines">
-            <td>{{guideline.title}}</td>
-            <td><a href="{{guideline.url}}" target="_blanket">Link</a></td>
-          </tr>
-        </table>
-      </div>
+      <p>Usage of this term is subject to the following annotation guidelines:</p>
+      <table id="guidelineTable" class="two-colours">
+        <tr>
+          <th colspan="2">Annotation Guidelines</th>
+        </tr>
+        <tr ng-repeat="guideline in termModel.guidelines">
+          <td>{{guideline.title}}</td>
+          <td><a href="{{guideline.url}}" target="_blanket">Link</a></td>
+        </tr>
+      </table>
+    </div>
 
-      <!-- Cross Ontology Relations -->
-      <div id="termCrossOntologyRelations" ng-show="showCrossOntologyRelations">
-        <h3>Cross-Ontology Relations</h3>
-        <table id="ontologyrelationsTable" class="two-colours">
-          <tr>
-            <th>Relation</th>
-            <th>Other Ontology</th>
-            <th>ID</th>
-            <th>Term</th>
-          </tr>
-          <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
-            <td>{{crossontology.relation}}</td>
-            <td>{{crossontology.otherNamespace}}</td>
-            <td><a href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
-            <td>{{crossontology.foreignTerm}}</td>
-          </tr>
-        </table>
-        </accordion-group>
-      </div>
+    <!-- Cross Ontology Relations -->
+    <div id="termCrossOntologyRelations" ng-show="showCrossOntologyRelations">
+      <h3>Cross-Ontology Relations</h3>
+      <table id="ontologyrelationsTable" class="two-colours">
+        <tr>
+          <th>Relation</th>
+          <th>Other Ontology</th>
+          <th>ID</th>
+          <th>Term</th>
+        </tr>
+        <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
+          <td>{{crossontology.relation}}</td>
+          <td>{{crossontology.otherNamespace}}</td>
+          <td><a href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
+          <td>{{crossontology.foreignTerm}}</td>
+        </tr>
+      </table>
+      </accordion-group>
+    </div>
 
-      <!-- GO Slims -->
-      <div id="termGOSlims" ng-show="showGOSlims">
-        <h3>GO Slims</h3>
+    <!-- GO Slims -->
+    <div id="termGOSlims" ng-show="showGOSlims">
+      <h3>GO Slims</h3>
 
-        <p>This term is present in the following GO Consortium-maintained GO slims:</p>
-        <table id="subsetsTable" class="two-colours">
-          <tr>
-            <th>GO slim name</th>
-            <th>Count of all terms</th>
-          </tr>
-          <tr ng-repeat="subset in termModel.subsets">
-            <td>{{subset.name}}</td>
-            <td>{{subset.termCount}}</td>
-          </tr>
-        </table>
-        </div>
+      <p>This term is present in the following GO Consortium-maintained GO slims:</p>
+      <table id="subsetsTable" class="two-colours">
+        <tr>
+          <th>GO slim name</th>
+          <th>Count of all terms</th>
+        </tr>
+        <tr ng-repeat="subset in termModel.subsets">
+          <td>{{subset.name}}</td>
+          <td>{{subset.termCount}}</td>
+        </tr>
+      </table>
+    </div>
 
-        <!-- Cross References-->
-        <div id="termCrossReferences" ng-show="showCrossReferences">
-          <h3>Cross-references</h3>
-          <tr>
-            <th>Database</th>
-            <th>ID</th>
-            <th>Description</th>
-          </tr>
-          <tr ng-repeat="xref in termModel.xrefs">
-            <td>{{xref.db}}</td>
-            <td>{{xref.id}}</td>
-            <td><a ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.name}}</a>
-            </td>
-          </tr>
-          </table>
-        </div>
+    <!-- Cross References-->
+    <div id="termCrossReferences" ng-show="showCrossReferences">
+      <h3>Cross-references</h3>
+      <tr>
+        <th>Database</th>
+        <th>ID</th>
+        <th>Description</th>
+      </tr>
+      <tr ng-repeat="xref in termModel.xrefs">
+        <td>{{xref.db}}</td>
+        <td>{{xref.id}}</td>
+        <td><a ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.name}}</a>
+        </td>
+      </tr>
+      </table>
+    </div>
 
-        <!-- show Replaces-->
-        <div id="termReplaces" ng-show="showReplaces">
-          <h3>Replaces</h3>
+    <!-- show Replaces-->
+    <div id="termReplaces" ng-show="showReplaces">
+      <h3>Replaces</h3>
 
-          <p>This term can be used instead of these obsolete terms:</p>
-          <table id="replacesTable" class="two-colours">
-            <tr>
-              <th>GO Identifier</th>
-              <th>GO Term Name</th>
-              <th>Reason</th>
-            </tr>
-            <tr ng-repeat="replacement in termModel.replaces">
-              <td><a href="/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
-              <td>{{replacement.child.name}}</td>
-              <td>{{replacement.typeof.description}} <a
-                href="/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
-              </td>
-            </tr>
-          </table>
-        </div>
+      <p>This term can be used instead of these obsolete terms:</p>
+      <table id="replacesTable" class="two-colours">
+        <tr>
+          <th>GO Identifier</th>
+          <th>GO Term Name</th>
+          <th>Reason</th>
+        </tr>
+        <tr ng-repeat="replacement in termModel.replaces">
+          <td><a href="/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
+          <td>{{replacement.child.name}}</td>
+          <td>{{replacement.typeof.description}} <a
+            href="/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-        <!-- Replaced By-->
-        <div id="termReplacedBy" ng-show="showReplacedBy">
-          <h3>Replaced</h3>
+    <!-- Replaced By-->
+    <div id="termReplacedBy" ng-show="showReplacedBy">
+      <h3>Replaced</h3>
 
-          <p>This term is obsolete. Try one of these terms:</p>
-          <table id="replacementsTable" class="two-colours">
-            <tr>
-              <th>Advice</th>
-              <th>GO Identifier</th>
-              <th>Ontology</th>
-              <th>GO Term Name</th>
-            </tr>
-            <tr ng-repeat="replacedby in termModel.replacements">
-              <td>{{replacedby.typeof.description}}</td>
-              <td><a href="/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
-              <td>{{replacedby.parent.aspectDescription}}</td>
-              <td>{{replacedby.parent.name}}</td>
-            </tr>
-          </table>
-        </div>
+      <p>This term is obsolete. Try one of these terms:</p>
+      <table id="replacementsTable" class="two-colours">
+        <tr>
+          <th>Advice</th>
+          <th>GO Identifier</th>
+          <th>Ontology</th>
+          <th>GO Term Name</th>
+        </tr>
+        <tr ng-repeat="replacedby in termModel.replacements">
+          <td>{{replacedby.typeof.description}}</td>
+          <td><a href="/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
+          <td>{{replacedby.parent.aspectDescription}}</td>
+          <td>{{replacedby.parent.name}}</td>
+        </tr>
+      </table>
+    </div>
 
-        <!-- Ancestors graph -->
-        <div id="ancestorChart" ng-show="ancestorChart" ng-controller="AncestorsGraphCtrl">
-          <h3>Ancestors Chart</h3>
-          <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong></h5>
-          <img ng-show="isLoading" src="images/ajax-loader.gif">
-          <img class="displayed"
-               ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
-               id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
+    <!-- Ancestors graph -->
+    <div id="ancestorChart" ng-show="ancestorChart" ng-controller="AncestorsGraphCtrl">
+      <h3>Ancestors Chart</h3>
+      <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong></h5>
+      <img ng-show="isLoading" src="images/ajax-loader.gif">
+      <img class="displayed"
+           ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
+           id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
 
 
-          <map name="ontologygraphmap">
+      <map name="ontologygraphmap">
         <span ng-repeat="layoutNode in graphImage.layoutNodes">
             <area shape="rect"
                   coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
@@ -327,273 +330,273 @@
                   tooltip-html-unsafe="{{tooltip}}" tooltip-placement="left">
           </div>
           </span>
-          </map>
+      </map>
+    </div>
+
+    <!-- Child Terms -->
+    <div id="childTerms" ng-show="childTerms">
+      <h3>Child Terms</h3>
+
+      <div ng-show="termModel.childTermsRelations == undefined">
+        Term {{termModel.termId}} has no children
+      </div>
+      <div ng-show="termModel.childTermsRelations.length > 0">
+        <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
+        <table class="two-colours">
+          <tr>
+            <th>Relationship to {{termModel.termId}}</th>
+            <th>Child Term</th>
+            <th>Child Term Name</th>
+          </tr>
+          <tr ng-repeat="childRelation in termModel.childTermsRelations">
+            <td>{{childRelation.typeOf}}</td>
+            <td><a ng-href="/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
+            <td>{{childRelation.name}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Co-occurring terms -->
+    <div id="coOcurring" ng-show="coOcurring">
+      <h3>Co-occurrence statistics</h3>
+
+      <p>These tables show the number of times the term listed in the
+        table has been co-annotated with {{termModel.termId}}. The terms are listed in
+        descending order of number of times the term has been co-annotated.
+        The table on the left is calculated using both electronic and
+        manual-evidenced annotations, while the table on the right is
+        calculated using only manual-evidenced annotations.</p>
+
+      <div id="allCoOccurringStats" class="grid_12">
+        <h5 ng-show="termModel.allCoOccurrenceStatsTerms.length == 0">
+          <element class='icon icon-generic' data-icon='l'>
+            No co-occurring statistics for {{termModel.termId}} based on the entire annotation set
+          </element>
+        </h5>
+        <div ng-show="termModel.allCoOccurrenceStatsTerms.length > 0">
+          <h5>Co-occurrence statistics for {{termModel.termId}} based on the entire annotation set</h5>
+          <table id="allCoOccurringStatsTable" class="two-colours">
+            <tr>
+              <th>Compared term</th>
+              <th>Aspect</th>
+              <th>Name</th>
+              <th>PR</th>
+              <th>S%</th>
+              <th>#Together</th>
+              <th>#Compared</th>
+            </tr>
+            <tr ng-repeat="allStat in termModel.allCoOccurrenceStatsTerms">
+              <td><a ng-href="/term/{{allStat.comparedTerm}}">{{allStat.comparedTerm}}</a></td>
+              <td>{{allStat.aspect}}</td>
+              <td>{{allStat.name}}</td>
+              <td>{{allStat.probabilityRatio}}</td>
+              <td>{{allStat.probabilitySimilarityRatio}}</td>
+              <td>{{allStat.together}}</td>
+              <td>{{allStat.compared}}</td>
+            </tr>
+            <tr>
+              <td colspan="5"><strong>Totals</strong></td>
+              <td>{{totalTogetherAllStats}}</td>
+              <td>{{totalComparedAllStats}}</td>
+            </tr>
+          </table>
         </div>
-
-        <!-- Child Terms -->
-        <div id="childTerms" ng-show="childTerms">
-          <h3>Child Terms</h3>
-
-          <div ng-show="termModel.childTermsRelations == undefined">
-            Term {{termModel.termId}} has no children
-          </div>
-          <div ng-show="termModel.childTermsRelations.length > 0">
-            <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
-            <table class="two-colours">
+        <div>
+        </div>
+        <div id="nonIEACoOccurringStats" class="grid_12">
+          <h5 ng-show="termModel.nonIEACOOccurrenceStatistics.length == 0">
+            <element class='icon icon-generic' data-icon='l'>
+              No co-occurring statistics for {{termModel.termId}} based on manual annotations
+            </element>
+          </h5>
+          <div ng-show="termModel.nonIEACOOccurrenceStatistics.length > 0">
+            <h5>Co-occurrence statistics for {{termModel.termId}} based on manual annotations only</h5>
+            <table id="nonIEACoOccurringStatsTable" class="two-colours">
               <tr>
-                <th>Relationship to {{termModel.termId}}</th>
-                <th>Child Term</th>
-                <th>Child Term Name</th>
+                <th>Compared term</th>
+                <th>Aspect</th>
+                <th>Name</th>
+                <th>PR</th>
+                <th>S%</th>
+                <th>#Together</th>
+                <th>#Compared</th>
               </tr>
-              <tr ng-repeat="childRelation in termModel.childTermsRelations">
-                <td>{{childRelation.typeOf}}</td>
-                <td><a ng-href="/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
-                <td>{{childRelation.name}}</td>
+              <tr ng-repeat="nonIEAStat in termModel.nonIEACOOccurrenceStatistics">
+                <td><a
+                  ng-href="/term/{{termModel.nonIEAStat.comparedTerm}}">{{termModel.nonIEAStat.comparedTerm}}</a>
+                </td>
+                <td>{{termModel.nonIEAStat.aspect}}</td>
+                <td>{{termModel.nonIEAStat.name}}</td>
+                <td>{{termModel.nonIEAStat.probabilityRatio}}</td>
+                <td>{{termModel.nonIEAStat.probabilitySimilarityRatio}}</td>
+                <td>{{termModel.nonIEAStat.together}}</td>
+                <td>{{termModel.nonIEAStat.compared}}</td>
+              </tr>
+
+              <tr>
+                <td colspan="5"><strong>Totals</strong></td>
+                <td>{{totalTogetherNonIEAStats}}</td>
+                <td>{{totalComparedNonIEAStats}}</td>
               </tr>
             </table>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Co-occurring terms -->
-        <div id="coOcurring" ng-show="coOcurring">
-          <h3>Co-occurrence statistics</h3>
+    <!-- Change log -->
+    <div id="termHistory" ng-show="termHistory">
+      <h3>Change Log</h3>
 
-          <p>These tables show the number of times the term listed in the
-            table has been co-annotated with {{termModel.termId}}. The terms are listed in
-            descending order of number of times the term has been co-annotated.
-            The table on the left is calculated using both electronic and
-            manual-evidenced annotations, while the table on the right is
-            calculated using only manual-evidenced annotations.</p>
+      <!-- The user can select what category types to see-->
+      <ul id="term-changelog-selection">
+        <li><input type="checkbox" ng-model="showCategoryTerm">Show Terms</li>
+        <li><input type="checkbox" ng-model="showCategoryDefinitions">Show Definitions</li>
+        <li><input type="checkbox" ng-model="showCategoryRelationships">Show Relationships</li>
+        <li><input type="checkbox" ng-model="showCategoryOther">Show Other</li>
+        <li><input type="checkbox" ng-model="showCategoryCrossReferences">Show Cross-References</li>
+        <li><input type="checkbox" ng-model="showCategoryObsoletions">Show Obsoletions</li>
 
-          <div id="allCoOccurringStats" class="grid_12">
-            <h5 ng-show="termModel.allCoOccurrenceStatsTerms.length == 0">
-              <element class='icon icon-generic' data-icon='l'>
-                No co-occurring statistics for {{termModel.termId}} based on the entire annotation set
-              </element>
-            </h5>
-            <div ng-show="termModel.allCoOccurrenceStatsTerms.length > 0">
-              <h5>Co-occurrence statistics for {{termModel.termId}} based on the entire annotation set</h5>
-              <table id="allCoOccurringStatsTable" class="two-colours">
-                <tr>
-                  <th>Compared term</th>
-                  <th>Aspect</th>
-                  <th>Name</th>
-                  <th>PR</th>
-                  <th>S%</th>
-                  <th>#Together</th>
-                  <th>#Compared</th>
-                </tr>
-                <tr ng-repeat="allStat in termModel.allCoOccurrenceStatsTerms">
-                  <td><a ng-href="/term/{{allStat.comparedTerm}}">{{allStat.comparedTerm}}</a></td>
-                  <td>{{allStat.aspect}}</td>
-                  <td>{{allStat.name}}</td>
-                  <td>{{allStat.probabilityRatio}}</td>
-                  <td>{{allStat.probabilitySimilarityRatio}}</td>
-                  <td>{{allStat.together}}</td>
-                  <td>{{allStat.compared}}</td>
-                </tr>
-                <tr>
-                  <td colspan="5"><strong>Totals</strong></td>
-                  <td>{{totalTogetherAllStats}}</td>
-                  <td>{{totalComparedAllStats}}</td>
-                </tr>
-              </table>
-            </div>
-            <div>
-            </div>
-            <div id="nonIEACoOccurringStats" class="grid_12">
-              <h5 ng-show="termModel.nonIEACOOccurrenceStatistics.length == 0">
-                <element class='icon icon-generic' data-icon='l'>
-                  No co-occurring statistics for {{termModel.termId}} based on manual annotations
-                </element>
-              </h5>
-              <div ng-show="termModel.nonIEACOOccurrenceStatistics.length > 0">
-                <h5>Co-occurrence statistics for {{termModel.termId}} based on manual annotations only</h5>
-                <table id="nonIEACoOccurringStatsTable" class="two-colours">
-                  <tr>
-                    <th>Compared term</th>
-                    <th>Aspect</th>
-                    <th>Name</th>
-                    <th>PR</th>
-                    <th>S%</th>
-                    <th>#Together</th>
-                    <th>#Compared</th>
-                  </tr>
-                  <tr ng-repeat="nonIEAStat in termModel.nonIEACOOccurrenceStatistics">
-                    <td><a
-                      ng-href="/term/{{termModel.nonIEAStat.comparedTerm}}">{{termModel.nonIEAStat.comparedTerm}}</a>
-                    </td>
-                    <td>{{termModel.nonIEAStat.aspect}}</td>
-                    <td>{{termModel.nonIEAStat.name}}</td>
-                    <td>{{termModel.nonIEAStat.probabilityRatio}}</td>
-                    <td>{{termModel.nonIEAStat.probabilitySimilarityRatio}}</td>
-                    <td>{{termModel.nonIEAStat.together}}</td>
-                    <td>{{termModel.nonIEAStat.compared}}</td>
-                  </tr>
+      </ul>
 
-                  <tr>
-                    <td colspan="5"><strong>Totals</strong></td>
-                    <td>{{totalTogetherNonIEAStats}}</td>
-                    <td>{{totalComparedNonIEAStats}}</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!--<div id="termHistoryTabs">-->
 
-        <!-- Change log -->
-        <div id="termHistory" ng-show="termHistory">
-          <h3>Change Log</h3>
+      <!--<accordion close-others="oneAtATime">-->
+      <!--<accordion-group heading="All changes" is-open="false"-->
+      <!--is-disabled="termModel.history.historyAll.length==0">-->
+      <!--<div id="allchanges">-->
+      <table id="allChangesTable" class="two-colours">
+        <tr>
+          <th>Timestamp</th>
+          <th>Action</th>
+          <th>Category</th>
+          <th>Detail</th>
+        </tr>
+        <tr ng-repeat="history in termModel.history.historyAll" ng-show="showChangeLogRow(history.category)">
+          <td>{{history.timestamp}}</td>
+          <td>{{history.actionString}}</td>
+          <td>{{history.category}}</td>
+          <td>{{history.text}}</td>
+        </tr>
+      </table>
+      <!--</div>-->
+      <!--</accordion-group>-->
+      <!--<accordion-group heading="Term" is-open="false" is-disabled="termModel.history.historyTerms.length==0">-->
+      <!--<div id="termchanges">-->
+      <!--<table id="termchangesTable" class="two-colours">-->
+      <!--<tr>-->
+      <!--<th>Timestamp</th>-->
+      <!--<th>Action</th>-->
+      <!--<th>Category</th>-->
+      <!--<th>Detail</th>-->
+      <!--</tr>-->
+      <!--<tr ng-repeat="history in termModel.history.historyTerms">-->
+      <!--<td>{{history.timestamp}}</td>-->
+      <!--<td>{{history.actionString}}</td>-->
+      <!--<td>{{history.category}}</td>-->
+      <!--<td>{{history.text}}</td>-->
+      <!--</tr>-->
+      <!--</table>-->
+      <!--</div>-->
+      <!--</accordion-group>-->
+      <!--<accordion-group heading="Definition/Synonyms" is-open="false"-->
+      <!--is-disabled="termModel.history.historyDefinitions.length==0">-->
+      <!--<div id="definitionchanges">-->
+      <!--<table id="definitionchangesTable" class="two-colours">-->
+      <!--<tr>-->
+      <!--<th>Timestamp</th>-->
+      <!--<th>Action</th>-->
+      <!--<th>Category</th>-->
+      <!--<th>Detail</th>-->
+      <!--</tr>-->
+      <!--<tr ng-repeat="history in termModel.history.historyDefinitions">-->
+      <!--<td>{{history.timestamp}}</td>-->
+      <!--<td>{{history.actionString}}</td>-->
+      <!--<td>{{history.category}}</td>-->
+      <!--<td>{{history.text}}</td>-->
+      <!--</tr>-->
+      <!--</table>-->
+      <!--</div>-->
+      <!--</accordion-group>-->
+      <!--<accordion-group heading="Relationships" is-open="false"-->
+      <!--is-disabled="termModel.history.historyRelations.length==0">-->
+      <!--<div id="relationshipschanges">-->
+      <!--<table id="relationshipschangesTable" class="two-colours">-->
+      <!--<tr>-->
+      <!--<th>Timestamp</th>-->
+      <!--<th>Action</th>-->
+      <!--<th>Category</th>-->
+      <!--<th>Detail</th>-->
+      <!--</tr>-->
+      <!--<tr ng-repeat="history in termModel.history.historyRelations">-->
+      <!--<td>{{history.timestamp}}</td>-->
+      <!--<td>{{history.actionString}}</td>-->
+      <!--<td>{{history.category}}</td>-->
+      <!--<td>{{history.text}}</td>-->
+      <!--</tr>-->
+      <!--</table>-->
+      <!--</div>-->
+      <!--</accordion-group>-->
+      <!--<accordion-group heading="Other" is-open="false" is-disabled="termModel.history.historyOther.length==0">-->
+      <!--<div id="otherchanges">-->
+      <!--<table id="otherchangesTable" class="two-colours">-->
+      <!--<tr>-->
+      <!--<th>Timestamp</th>-->
+      <!--<th>Action</th>-->
+      <!--<th>Category</th>-->
+      <!--<th>Detail</th>-->
+      <!--</tr>-->
+      <!--<tr ng-repeat="history in termModel.history.historyOther">-->
+      <!--<td>{{history.timestamp}}</td>-->
+      <!--<td>{{history.actionString}}</td>-->
+      <!--<td>{{history.category}}</td>-->
+      <!--<td>{{history.text}}</td>-->
+      <!--</tr>-->
+      <!--</table>-->
+      <!--</div>-->
+      <!--</accordion-group>-->
+      <!--<accordion-group heading="Cross-references" is-open="false"-->
+      <!--is-disabled="termModel.history.historyXRefs.length==0">-->
+      <!--<div id="xrefschanges">-->
+      <!--<table id="xrefschangesTable" class="two-colours">-->
+      <!--<tr>-->
+      <!--<th>Timestamp</th>-->
+      <!--<th>Action</th>-->
+      <!--<th>Category</th>-->
+      <!--<th>Detail</th>-->
+      <!--</tr>-->
+      <!--<tr ng-repeat="history in termModel.history.historyXRefs">-->
+      <!--<td>{{history.timestamp}}</td>-->
+      <!--<td>{{history.actionString}}</td>-->
+      <!--<td>{{history.category}}</td>-->
+      <!--<td>{{history.text}}</td>-->
+      <!--</tr>-->
+      <!--</table>-->
+      <!--</div>-->
+      <!--</accordion-group>-->
+      <!--<accordion-group heading="Obsoletions" is-open="false"-->
+      <!--is-disabled="termModel.history.historyObsoletions.length==0">-->
+      <!--<div id="obsoletionschanges">-->
+      <!--<table id="obsoletionschangesTable" class="two-colours">-->
+      <!--<tr>-->
+      <!--<th>Timestamp</th>-->
+      <!--<th>Action</th>-->
+      <!--<th>Category</th>-->
+      <!--<th>Detail</th>-->
+      <!--</tr>-->
+      <!--<tr ng-repeat="history in termModel.history.historyObsoletions">-->
+      <!--<td>{{history.timestamp}}</td>-->
+      <!--<td>{{history.actionString}}</td>-->
+      <!--<td>{{history.category}}</td>-->
+      <!--<td>{{history.text}}</td>-->
+      <!--</tr>-->
+      <!--</table>-->
+      <!--</div>-->
+      <!--</accordion-group>-->
+      <!--</accordion>-->
+      <!--</div>-->
 
-          <!-- The user can select what category types to see-->
-          <ul id="term-changelog-selection">
-            <li><input type="checkbox" ng-model="showCategoryTerm">Show Terms</li>
-            <li><input type="checkbox" ng-model="showCategoryDefinitions">Show Definitions</li>
-            <li><input type="checkbox" ng-model="showCategoryRelationships">Show Relationships</li>
-            <li><input type="checkbox" ng-model="showCategoryOther">Show Other</li>
-            <li><input type="checkbox" ng-model="showCategoryCrossReferences">Show Cross-References</li>
-            <li><input type="checkbox" ng-model="showCategoryObsoletions">Show Obsoletions</li>
-
-          </ul>
-
-          <!--<div id="termHistoryTabs">-->
-
-            <!--<accordion close-others="oneAtATime">-->
-              <!--<accordion-group heading="All changes" is-open="false"-->
-                               <!--is-disabled="termModel.history.historyAll.length==0">-->
-                <!--<div id="allchanges">-->
-                  <table id="allChangesTable" class="two-colours">
-                    <tr>
-                      <th>Timestamp</th>
-                      <th>Action</th>
-                      <th>Category</th>
-                      <th>Detail</th>
-                    </tr>
-                    <tr ng-repeat="history in termModel.history.historyAll" ng-show="showChangeLogRow(history.category)">
-                      <td>{{history.timestamp}}</td>
-                      <td>{{history.actionString}}</td>
-                      <td>{{history.category}}</td>
-                      <td>{{history.text}}</td>
-                    </tr>
-                  </table>
-                <!--</div>-->
-              <!--</accordion-group>-->
-              <!--<accordion-group heading="Term" is-open="false" is-disabled="termModel.history.historyTerms.length==0">-->
-                <!--<div id="termchanges">-->
-                  <!--<table id="termchangesTable" class="two-colours">-->
-                    <!--<tr>-->
-                      <!--<th>Timestamp</th>-->
-                      <!--<th>Action</th>-->
-                      <!--<th>Category</th>-->
-                      <!--<th>Detail</th>-->
-                    <!--</tr>-->
-                    <!--<tr ng-repeat="history in termModel.history.historyTerms">-->
-                      <!--<td>{{history.timestamp}}</td>-->
-                      <!--<td>{{history.actionString}}</td>-->
-                      <!--<td>{{history.category}}</td>-->
-                      <!--<td>{{history.text}}</td>-->
-                    <!--</tr>-->
-                  <!--</table>-->
-                <!--</div>-->
-              <!--</accordion-group>-->
-              <!--<accordion-group heading="Definition/Synonyms" is-open="false"-->
-                               <!--is-disabled="termModel.history.historyDefinitions.length==0">-->
-                <!--<div id="definitionchanges">-->
-                  <!--<table id="definitionchangesTable" class="two-colours">-->
-                    <!--<tr>-->
-                      <!--<th>Timestamp</th>-->
-                      <!--<th>Action</th>-->
-                      <!--<th>Category</th>-->
-                      <!--<th>Detail</th>-->
-                    <!--</tr>-->
-                    <!--<tr ng-repeat="history in termModel.history.historyDefinitions">-->
-                      <!--<td>{{history.timestamp}}</td>-->
-                      <!--<td>{{history.actionString}}</td>-->
-                      <!--<td>{{history.category}}</td>-->
-                      <!--<td>{{history.text}}</td>-->
-                    <!--</tr>-->
-                  <!--</table>-->
-                <!--</div>-->
-              <!--</accordion-group>-->
-              <!--<accordion-group heading="Relationships" is-open="false"-->
-                               <!--is-disabled="termModel.history.historyRelations.length==0">-->
-                <!--<div id="relationshipschanges">-->
-                  <!--<table id="relationshipschangesTable" class="two-colours">-->
-                    <!--<tr>-->
-                      <!--<th>Timestamp</th>-->
-                      <!--<th>Action</th>-->
-                      <!--<th>Category</th>-->
-                      <!--<th>Detail</th>-->
-                    <!--</tr>-->
-                    <!--<tr ng-repeat="history in termModel.history.historyRelations">-->
-                      <!--<td>{{history.timestamp}}</td>-->
-                      <!--<td>{{history.actionString}}</td>-->
-                      <!--<td>{{history.category}}</td>-->
-                      <!--<td>{{history.text}}</td>-->
-                    <!--</tr>-->
-                  <!--</table>-->
-                <!--</div>-->
-              <!--</accordion-group>-->
-              <!--<accordion-group heading="Other" is-open="false" is-disabled="termModel.history.historyOther.length==0">-->
-                <!--<div id="otherchanges">-->
-                  <!--<table id="otherchangesTable" class="two-colours">-->
-                    <!--<tr>-->
-                      <!--<th>Timestamp</th>-->
-                      <!--<th>Action</th>-->
-                      <!--<th>Category</th>-->
-                      <!--<th>Detail</th>-->
-                    <!--</tr>-->
-                    <!--<tr ng-repeat="history in termModel.history.historyOther">-->
-                      <!--<td>{{history.timestamp}}</td>-->
-                      <!--<td>{{history.actionString}}</td>-->
-                      <!--<td>{{history.category}}</td>-->
-                      <!--<td>{{history.text}}</td>-->
-                    <!--</tr>-->
-                  <!--</table>-->
-                <!--</div>-->
-              <!--</accordion-group>-->
-              <!--<accordion-group heading="Cross-references" is-open="false"-->
-                               <!--is-disabled="termModel.history.historyXRefs.length==0">-->
-                <!--<div id="xrefschanges">-->
-                  <!--<table id="xrefschangesTable" class="two-colours">-->
-                    <!--<tr>-->
-                      <!--<th>Timestamp</th>-->
-                      <!--<th>Action</th>-->
-                      <!--<th>Category</th>-->
-                      <!--<th>Detail</th>-->
-                    <!--</tr>-->
-                    <!--<tr ng-repeat="history in termModel.history.historyXRefs">-->
-                      <!--<td>{{history.timestamp}}</td>-->
-                      <!--<td>{{history.actionString}}</td>-->
-                      <!--<td>{{history.category}}</td>-->
-                      <!--<td>{{history.text}}</td>-->
-                    <!--</tr>-->
-                  <!--</table>-->
-                <!--</div>-->
-              <!--</accordion-group>-->
-              <!--<accordion-group heading="Obsoletions" is-open="false"-->
-                               <!--is-disabled="termModel.history.historyObsoletions.length==0">-->
-                <!--<div id="obsoletionschanges">-->
-                  <!--<table id="obsoletionschangesTable" class="two-colours">-->
-                    <!--<tr>-->
-                      <!--<th>Timestamp</th>-->
-                      <!--<th>Action</th>-->
-                      <!--<th>Category</th>-->
-                      <!--<th>Detail</th>-->
-                    <!--</tr>-->
-                    <!--<tr ng-repeat="history in termModel.history.historyObsoletions">-->
-                      <!--<td>{{history.timestamp}}</td>-->
-                      <!--<td>{{history.actionString}}</td>-->
-                      <!--<td>{{history.category}}</td>-->
-                      <!--<td>{{history.text}}</td>-->
-                    <!--</tr>-->
-                  <!--</table>-->
-                <!--</div>-->
-              <!--</accordion-group>-->
-            <!--</accordion>-->
-          <!--</div>-->
-
-        </div>
     </div>
   </div>
+</div>
