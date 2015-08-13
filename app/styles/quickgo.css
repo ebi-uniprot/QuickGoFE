@@ -46,7 +46,7 @@ a.quickgo-link:hover {
   background-color: white;
   padding: 10px;
   background-position:right;
-  background-image: url(images/bg1.png);
+  background-image: url(../images/bg1.png);
   background-repeat: no-repeat;
 }
 
