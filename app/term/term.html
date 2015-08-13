@@ -127,8 +127,8 @@
     </span>
 
     <!-- Add to basket button-->
-    <button class="btn quickgo-btn" ng-disabled="preventAddToBasket"
-            ng-click="addToBasket(termModel.termId,termModel.name)">Add to Basket
+    <button class="btn quickgo-btn" ng-disabled="preventAddToBasket" ng-click="addToBasket(termModel.termId,termModel.name)">
+      Add to Basket
     </button>
   </section>
 
@@ -365,7 +365,7 @@
             manual-evidenced annotations, while the table on the right is
             calculated using only manual-evidenced annotations.</p>
 
-          <div id="allCoOccurringStats" class="grid_6" style="overflow-x: auto">
+          <div id="allCoOccurringStats" class="grid_12">
             <h5 ng-show="termModel.allCoOccurrenceStatsTerms.length == 0">
               <element class='icon icon-generic' data-icon='l'>
                 No co-occurring statistics for {{termModel.termId}} based on the entire annotation set
@@ -373,7 +373,7 @@
             </h5>
             <div ng-show="termModel.allCoOccurrenceStatsTerms.length > 0">
               <h5>Co-occurrence statistics for {{termModel.termId}} based on the entire annotation set</h5>
-              <table id="allCoOccurringStatsTable" class="two-colours" style="font-size: 90%;">
+              <table id="allCoOccurringStatsTable" class="two-colours">
                 <tr>
                   <th>Compared term</th>
                   <th>Aspect</th>
@@ -401,7 +401,7 @@
             </div>
             <div>
             </div>
-            <div id="nonIEACoOccurringStats" class="grid_6" style="overflow-x: auto">
+            <div id="nonIEACoOccurringStats" class="grid_12">
               <h5 ng-show="termModel.nonIEACOOccurrenceStatistics.length == 0">
                 <element class='icon icon-generic' data-icon='l'>
                   No co-occurring statistics for {{termModel.termId}} based on manual annotations
@@ -409,7 +409,7 @@
               </h5>
               <div ng-show="termModel.nonIEACOOccurrenceStatistics.length > 0">
                 <h5>Co-occurrence statistics for {{termModel.termId}} based on manual annotations only</h5>
-                <table id="nonIEACoOccurringStatsTable" class="two-colours" style="font-size: 90%;">
+                <table id="nonIEACoOccurringStatsTable" class="two-colours">
                   <tr>
                     <th>Compared term</th>
                     <th>Aspect</th>
