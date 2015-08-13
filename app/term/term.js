@@ -134,6 +134,15 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   }
 
 
+
+  $scope.showCategoryTerm=true;
+  $scope.showCategoryDefinitions=true;
+  $scope.showCategoryRelationships=true;
+  $scope.showCategoryOther=true;
+  $scope.showCategoryCrossReferences=true;
+  $scope.showCategoryObsoletions=true;
+
+
   /**
    * There maybe a change to the basket list - deletion for example of the term currently displayed, so pick up these
    * changes emitted from the basket code.
@@ -143,5 +152,35 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
     $scope.preventAddToBasket = basketService.containsItem(termId) || $scope.termModel.active == false;
   });
 
+  $scope.showChangeLogRow = function(category) {
+    console.log("In show change log row");
+
+    if (category == 'TERM' && $scope.showCategoryTerm) {
+      return true;
+    }
+
+    if (category == 'DEFINITION' && $scope.showCategoryDefinitions) {
+      return true;
+    }
+
+    if ((category == 'RELATION' || category == 'SYNONYM') && $scope.showCategoryRelationships) {
+      return true;
+    }
+
+    if (category == 'OTHER' && $scope.showCategoryOther) {
+      return true;
+    }
+
+    if (category == 'XREF' && $scope.showCategoryCrossReferences) {
+      return true;
+    }
+
+    if (category == '???' && $scope.showCategoryObsoletions) {
+      return true;
+    }
+
+    return false;
+
+  }
 
 });
