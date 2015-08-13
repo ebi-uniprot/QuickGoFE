@@ -40,7 +40,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
     console.log("Got Term model", $scope.termModel);
 
     //setupBasketButton($scope.termModel);
-    $scope.preventAddToBasket = basketService.containsItem(termId) || $scope.termModel.active == false;
+    $scope.preventAddToBasket = basketService.containsItem($scope.termModel) || $scope.termModel.active == false;
     console.log("The prevent add to basket is " + $scope.preventAddToBasket);
 
 
