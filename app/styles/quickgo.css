@@ -34,6 +34,17 @@ a.quickgo-link:hover {
   cursor: pointer;
 }
 
+.gutter {
+  background: blue;
+}
+
+.central {
+  width:1200px;
+  background: pink;
+  margin: 0 auto;  /* Centres the content? */
+}
+
+
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 
 /* This section holds the our app title*/
@@ -338,6 +349,10 @@ textarea.sidebar {
 }
 /* TERM PAGE ----------------------------------------------------------------------------------------------------*/
 
+#termpage-addToBasket{
+  font-size: 20px;
+}
+
 .quickgo-hoz-header th{
   min-width: 265px;
   text-align: right;
@@ -397,6 +412,76 @@ textarea.sidebar {
   border-top-right-radius: 3px;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+
+#term-section {
+  width: 300px;
+  /*display: inline;*/
+  background: greenyellow;
+}
+
+#term-section-detail {
+   display: inline;
+   background: purple;
+   width: 0px;
+ }
+
+#term-section-test {
+  display: block;
+  clear: left;
+  background: grey;
+  width: 500px;
+}
+
+.term-section-nav-header {
+  border-bottom: 1px dotted #00709b;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+  border-bottom-color: rgb(0, 112, 155);
+}
+
+.term-section-header {
+  border-bottom: 2px solid #b9772e;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(185, 119, 46);
+}
+
+
+#term-show-annotations {
+
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 0 .1em;
+  outline: 0;
+  background-color: #1d8086;
+  /*background-image: -webkit-linear-gradient(top,#cfe8ef,#9acedd);*/
+  /*background-image: -moz-linear-gradient(top,#cfe8ef,#9acedd);*/
+  /*background-image: linear-gradient(top,#cfe8ef,#9acedd);*/
+  border: 1px solid #5caecd;
+  /*border-top-color: rgb(92, 174, 205);*/
+  border-top-style: solid;
+  border-top-width: 1px;
+  /*border-right-color: rgb(92, 174, 205);*/
+  border-right-style: solid;
+  border-right-width: 1px;
+  /*border-bottom-color: rgb(92, 174, 205);*/
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  /*border-left-color: rgb(92, 174, 205);*/
+  border-left-style: solid;
+  border-left-width: 1px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+  color: white;
+
+  /*Create a full sized border*/
+  /*border-bottom: 1px dotted #00709b;*/
+  /*border-bottom-width: 1px;*/
+  /*border-bottom-style: dotted;*/
+  /*border-bottom-color: rgb(0, 112, 155);*/
 }
 
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/

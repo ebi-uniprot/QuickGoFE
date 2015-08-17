@@ -1,21 +1,32 @@
 <div id="content" class="container_24">
   <img ng-show="isLoading" src="images/ajax-loader.gif">
 
+
+  <!-- Title section -->
+  <!--<div class="grid_6"></div>-->
+  <div class="grid_16 prefix_4 suffix_4">
+
   <!-- Check if it's obsolete -->
   <div class="alert" ng-show="isObsolete">
     <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
     <strong>This term is obsolete.</strong><br/>
     {{termModel.comment}}
   </div>
-  <h3 class="page-title">{{termModel.termId}}</h3>
+  <!--<button class="btn quickgo-btn" ng-disabled="preventAddToBasket"-->
+          <!--ng-click="addToBasket(termModel.termId,termModel.name)">Add to Basket-->
+  <!--</button>-->
+  <element id="termpage-addToBasket" class="icon icon-static selectable" data-icon="b"
+           ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
+  <h3 class="page-title" style="display: inline">{{termModel.termId}} {{termModel.name}}</h3>
+
+    </div>
+  <!-- End of title section -->
+
 
   <!-- Header information -->
-  <div class="quickgo-text-container-large quickgo-hoz-header">
+  <div class="grid_20 prefix_4">
+  <!--<div class="quickgo-hoz-header">-->
     <table>
-      <tr>
-        <th>Name</th>
-        <td>{{termModel.name}}</td>
-      </tr>
       <tr ng-show="termModel.goTerm">
         <th>Ontology</th>
         <td>{{termModel.aspectDescription}}</td>
@@ -66,12 +77,29 @@
         </td>
       </tr>
     </table>
+  <!--</div>-->
+
   </div>
-  <!--  End of term information header-->
+  <!-- Header Information End-->
+
+  <div class="grid_20 prefix_4 ">
+    <h3 class="term-section-nav-header">Display</h3>
+  </div>
+  <!--<div class="grid_8 suffix_4">-->
+    <!-- Show annotation link (pseudo button) -->
+    <!--<span ng-show="termModel.goTerm">-->
+      <!--<button id="term-show-annotations" data-icon="i" class="icon icon-functional term-section-nav-header button"-->
+               <!--ng-click="showTermAnnotations(termModel.termId)">Show annotations-->
+      <!--</button>-->
+    <!--<h3 class="term-section-nav-header">Show Annotations                                                           </h3>-->
+    <!--</span>-->
+
+  <!--</div>-->
+  <div class="clearfix"></div>
 
   <!-- Sidebar: Controls what gets displayed on the main page.-->
-  <section class="grid_4">
-    <h3>Display</h3>
+  <section class="grid_8 prefix_4">
+
     <ul id="term-section-nav">
 
       <li>
@@ -119,29 +147,22 @@
         <span class="pseudo-button term-section-view" ng-click="scrollTo('termHistory')">Change Log</span>
       </li>
     </ul>
-
-    <!-- Show annotation link (pseudo button) -->
-    <span ng-show="termModel.goTerm">
-      <element data-icon="i" id="show-term-annotations" class="closed icon icon-functional button selectable"
-               value="{{termModel.termId}}"
-               ng-click="showTermAnnotations(termModel.termId)">Show annotations
-      </element>
-    </span>
+    <button id="term-show-annotations" data-icon="i" class="icon icon-functional term-section-nav-header button"
+            ng-click="showTermAnnotations(termModel.termId)">Show annotations
+    </button>
 
     <!-- Add to basket button-->
-    <button class="btn quickgo-btn" ng-disabled="preventAddToBasket"
-            ng-click="addToBasket(termModel.termId,termModel.name)">
-      Add to Basket
-    </button>
+
   </section>
 
   <!--End of side bar information-->
 
   <!-- Main Content -->
-  <div class="grid_18 text-container">
+  <div class="grid_12">
+    <!--<div> Other information presented here</div>-->
 
     <div id="termSynonyms" ng-show="showSynonyms">
-      <h3>Synonyms</h3>
+      <h3 class="term-section-header">Synonyms</h3>
 
       <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
         of the relationship between the name and synonym given by the synonym scope.</p>
@@ -159,8 +180,7 @@
 
     <!-- Taxon Constraints -->
     <div id="termTaxonConstraints" ng-show="showTaxonConstraints">
-      <hr/>
-      <h3>Taxon Constraints</h3>
+      <h3 class="term-section-header">Taxon Constraints</h3>
 
       <p>The use of this term should conform to the following taxon constraints:</p>
       <table id="taxonconstraintsTable" class="two-colours">
@@ -191,8 +211,7 @@
 
     <!-- Annotation Guidance -->
     <div id="termAnnotationGuidance" ng-show="showAnnotationGuidance">
-      <hr class="term-section-toprule"/>
-      <h3>Annotation Guidance</h3>
+      <h3 class="term-section-header">Annotation Guidance</h3>
 
       <p>Usage of this term is subject to the following annotation guidelines:</p>
       <table id="guidelineTable" class="two-colours">
@@ -208,7 +227,7 @@
 
     <!-- Cross Ontology Relations -->
     <div id="termCrossOntologyRelations" ng-show="showCrossOntologyRelations">
-      <h3>Cross-Ontology Relations</h3>
+      <h3 class="term-section-header">Cross-Ontology Relations</h3>
       <table id="ontologyrelationsTable" class="two-colours">
         <tr>
           <th>Relation</th>
@@ -228,7 +247,7 @@
 
     <!-- GO Slims -->
     <div id="termGOSlims" ng-show="showGOSlims">
-      <h3>GO Slims</h3>
+      <h3 class="term-section-header">GO Slims</h3>
 
       <p>This term is present in the following GO Consortium-maintained GO slims:</p>
       <table id="subsetsTable" class="two-colours">
@@ -245,7 +264,7 @@
 
     <!-- Cross References-->
     <div id="termCrossReferences" ng-show="showCrossReferences">
-      <h3>Cross-references</h3>
+      <h3 class="term-section-header">Cross-references</h3>
       <tr>
         <th>Database</th>
         <th>ID</th>
@@ -262,7 +281,7 @@
 
     <!-- show Replaces-->
     <div id="termReplaces" ng-show="showReplaces">
-      <h3>Replaces</h3>
+      <h3 class="term-section-header">Replaces</h3>
 
       <p>This term can be used instead of these obsolete terms:</p>
       <table id="replacesTable" class="two-colours">
@@ -283,7 +302,7 @@
 
     <!-- Replaced By-->
     <div id="termReplacedBy" ng-show="showReplacedBy">
-      <h3>Replaced</h3>
+      <h3 class="term-section-header">Replaced</h3>
 
       <p>This term is obsolete. Try one of these terms:</p>
       <table id="replacementsTable" class="two-colours">
@@ -304,7 +323,7 @@
 
     <!-- Ancestors graph -->
     <div id="ancestorChart" ng-show="ancestorChart" ng-controller="AncestorsGraphCtrl">
-      <h3>Ancestors Chart</h3>
+      <h3 class="term-section-header">Ancestors Chart</h3>
       <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong></h5>
       <img ng-show="isLoading" src="images/ajax-loader.gif">
       <img class="displayed"
@@ -335,7 +354,7 @@
 
     <!-- Child Terms -->
     <div id="childTerms" ng-show="childTerms">
-      <h3>Child Terms</h3>
+      <h3 class="term-section-header">Child Terms</h3>
 
       <div ng-show="termModel.childTermsRelations == undefined">
         Term {{termModel.termId}} has no children
@@ -359,7 +378,7 @@
 
     <!-- Co-occurring terms -->
     <div id="coOcurring" ng-show="coOcurring">
-      <h3>Co-occurrence statistics</h3>
+      <h3 class="term-section-header">Co-occurrence statistics</h3>
 
       <p>These tables show the number of times the term listed in the
         table has been co-annotated with {{termModel.termId}}. The terms are listed in
@@ -447,7 +466,7 @@
 
     <!-- Change log -->
     <div id="termHistory" ng-show="termHistory">
-      <h3>Change Log</h3>
+      <h3 class="term-section-header">Change Log</h3>
 
       <!-- The user can select what category types to see-->
       <ul id="term-changelog-selection">
