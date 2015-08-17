@@ -442,6 +442,10 @@ li.section-disabled {
   border-bottom-color: rgb(185, 119, 46);
 }
 
+#term-show-annotations {
+  float: right;
+}
+
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
 
 li.slim {
