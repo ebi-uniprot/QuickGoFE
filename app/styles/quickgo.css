@@ -358,7 +358,11 @@ textarea.sidebar {
   padding-left: 5px;
   /*color: white;*/
   border-radius: 6px;
-  background-color: #1d8086;
+  background-color: #1d8086/*#1d8086;*/
+}
+
+li.section-disabled {
+  background-color: rgba(18, 80, 84, 0.24)!important;
 }
 
 #term-section-nav a{

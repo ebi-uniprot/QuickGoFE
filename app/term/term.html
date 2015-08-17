@@ -102,32 +102,37 @@
 
     <ul id="term-section-nav">
 
-      <li>
-
+      <li ng-class="{'section-disabled':termModel.synonyms.length==0}">
         <input type="checkbox" ng-model="showSynonyms" ng-disabled="termModel.synonyms.length==0">
         <span class="term-section-view selectable" ng-click="scrollTo('termSynonyms')">Synonyms</span></a>
       </li>
-      <li><input type="checkbox" ng-model="showTaxonConstraints" ng-disabled="termModel.taxonConstraints.length==0">
+      <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}">
+        <input type="checkbox" ng-model="showTaxonConstraints" ng-disabled="termModel.taxonConstraints.length==0">
         <span class="term-section-view selectable" ng-click="scrollTo('termTaxonConstraints')">Taxon Constraints</span>
       </li>
-      <li><input type="checkbox" ng-model="showAnnotationGuidance" ng-disabled="termModel.guidelines.length==0">
+      <li ng-class="{'section-disabled':termModel.guidelines.length==0}">
+        <input type="checkbox" ng-model="showAnnotationGuidance" ng-disabled="termModel.guidelines.length==0">
         <span class="term-section-view selectable"
               ng-click="scrollTo('termAnnotationGuidance')">Annotation Guidance</span>
       </li>
-      <li><input type="checkbox" ng-model="showCrossOntologyRelations"
-                 ng-disabled="termModel.crossOntologyRelations.length==0">
+      <li ng-class="{'section-disabled':termModel.crossOntologyRelations.length==0}">
+        <input type="checkbox" ng-model="showCrossOntologyRelations" ng-disabled="termModel.crossOntologyRelations.length==0">
         <span class="term-section-view selectable" ng-click="scrollTo('termCrossOntologyRelations')">Cross-Ontology Relations</span>
       </li>
-      <li><input type="checkbox" ng-model="showGOSlims" ng-disabled="termModel.subsets.length==0">
+      <li ng-class="{'section-disabled':termModel.subsets.length==0}">
+        <input type="checkbox" ng-model="showGOSlims" ng-disabled="termModel.subsets.length==0">
         <span class="term-section-view selectable" ng-click="scrollTo('termGOSlims')">GO Slims</span>
       </li>
-      <li><input type="checkbox" ng-model="showCrossReferences" ng-disabled="termModel.xrefs.length==0">
+      <li ng-class="{'section-disabled':termModel.xrefs.length==0}">
+        <input type="checkbox" ng-model="showCrossReferences" ng-disabled="termModel.xrefs.length==0">
         <span class="term-section-view selectable" ng-click="scrollTo('termCrossReferences')">Cross-References</span>
       </li>
-      <li><input type="checkbox" ng-model="showReplaces" ng-disabled="termModel.replaces.length==0">
+      <li ng-class="{'section-disabled':termModel.replaces.length==0}">
+        <input type="checkbox" ng-model="showReplaces" ng-disabled="termModel.replaces.length==0">
         <span class="term-section-view selectable" ng-click="scrollTo('termReplaces')">Replaces</span>
       </li>
-      <li><input type="checkbox" ng-model="showReplacedBy" ng-disabled="termModel.replacements.length==0">
+      <li ng-class="{'section-disabled':termModel.replacements.length==0}">
+        <input type="checkbox" ng-model="showReplacedBy" ng-disabled="termModel.replacements.length==0">
         <span class="term-section-view selectable" ng-click="scrollTo('termReplacedBy')">Replaced By</span>
       </li>
       <li>
