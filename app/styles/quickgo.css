@@ -350,6 +350,7 @@ textarea.sidebar {
 
 #term-section-nav {
   min-width: 270px;
+  /*position: fixed;*/
 }
 
 #term-section-nav li {
@@ -442,41 +443,42 @@ li.section-disabled {
 }
 
 
-#term-show-annotations {
+/*#term-show-annotations {*/
 
-  display: inline-block;
-  padding: 4px 10px;
-  margin: 0 .1em;
-  outline: 0;
-  background-color: #1d8086;
-  /*background-image: -webkit-linear-gradient(top,#cfe8ef,#9acedd);*/
-  /*background-image: -moz-linear-gradient(top,#cfe8ef,#9acedd);*/
-  /*background-image: linear-gradient(top,#cfe8ef,#9acedd);*/
-  border: 1px solid #5caecd;
-  /*border-top-color: rgb(92, 174, 205);*/
-  border-top-style: solid;
-  border-top-width: 1px;
-  /*border-right-color: rgb(92, 174, 205);*/
-  border-right-style: solid;
-  border-right-width: 1px;
-  /*border-bottom-color: rgb(92, 174, 205);*/
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  /*border-left-color: rgb(92, 174, 205);*/
-  border-left-style: solid;
-  border-left-width: 1px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  cursor: pointer;
-  color: white;
-
-  /*Create a full sized border*/
-  /*border-bottom: 1px dotted #00709b;*/
+  /*display: inline-block;*/
+  /*padding: 4px 10px;*/
+  /*margin: 0 .1em;*/
+  /*outline: 0;*/
+  /*background-color: #1d8086;*/
+  /*/!*background-image: -webkit-linear-gradient(top,#cfe8ef,#9acedd);*!/*/
+  /*/!*background-image: -moz-linear-gradient(top,#cfe8ef,#9acedd);*!/*/
+  /*/!*background-image: linear-gradient(top,#cfe8ef,#9acedd);*!/*/
+  /*border: 1px solid #5caecd;*/
+  /*/!*border-top-color: rgb(92, 174, 205);*!/*/
+  /*border-top-style: solid;*/
+  /*border-top-width: 1px;*/
+  /*/!*border-right-color: rgb(92, 174, 205);*!/*/
+  /*border-right-style: solid;*/
+  /*border-right-width: 1px;*/
+  /*/!*border-bottom-color: rgb(92, 174, 205);*!/*/
+  /*border-bottom-style: solid;*/
   /*border-bottom-width: 1px;*/
-  /*border-bottom-style: dotted;*/
-  /*border-bottom-color: rgb(0, 112, 155);*/
-}
+  /*/!*border-left-color: rgb(92, 174, 205);*!/*/
+  /*border-left-style: solid;*/
+  /*border-left-width: 1px;*/
+  /*-webkit-border-radius: 2px;*/
+  /*-moz-border-radius: 2px;*/
+  /*border-radius: 2px;*/
+  /*cursor: pointer;*/
+  /*color: white;*/
+
+  /*/!*Create a full sized border*!/*/
+  /*/!*border-bottom: 1px dotted #00709b;*!/*/
+  /*/!*border-bottom-width: 1px;*!/*/
+  /*/!*border-bottom-style: dotted;*!/*/
+  /*/!*border-bottom-color: rgb(0, 112, 155);*!/*/
+  /*float: right;*/
+/*}*/
 
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
 

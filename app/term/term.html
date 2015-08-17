@@ -4,7 +4,7 @@
 
   <!-- Title section -->
   <!--<div class="grid_6"></div>-->
-  <div class="grid_16 prefix_4 suffix_4">
+  <div class="grid_13 prefix_4">
 
   <!-- Check if it's obsolete -->
   <div class="alert" ng-show="isObsolete">
@@ -18,7 +18,11 @@
   <element id="termpage-addToBasket" class="icon icon-static selectable" data-icon="b"
            ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
   <h3 class="page-title" style="display: inline">{{termModel.termId}} {{termModel.name}}</h3>
-
+    </div>
+    <div class="grid_7">
+    <button id="term-show-annotations" data-icon="i" class="icon icon-functional btn quickgo-btn"
+            ng-click="showTermAnnotations(termModel.termId)">Show annotations
+    </button>
     </div>
   <!-- End of title section -->
 
@@ -152,9 +156,7 @@
         <span class="pseudo-button term-section-view" ng-click="scrollTo('termHistory')">Change Log</span>
       </li>
     </ul>
-    <button id="term-show-annotations" data-icon="i" class="icon icon-functional term-section-nav-header button"
-            ng-click="showTermAnnotations(termModel.termId)">Show annotations
-    </button>
+
 
     <!-- Add to basket button-->
 
@@ -623,4 +625,5 @@
 
     </div>
   </div>
+  <div class="clearfix"></div>
 </div>
