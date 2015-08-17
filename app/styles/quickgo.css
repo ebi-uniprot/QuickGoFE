@@ -34,16 +34,6 @@ a.quickgo-link:hover {
   cursor: pointer;
 }
 
-.gutter {
-  background: blue;
-}
-
-.central {
-  width:1200px;
-  background: pink;
-  margin: 0 auto;  /* Centres the content? */
-}
-
 
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 
