@@ -83,12 +83,13 @@ filteringModule.factory('filteringService', function() {
               //save all the value of the type as filters
               for (i = 0; i < res.length; i++) {
 
-                var aFilter = {type: property, value: res[i]};
-                filteringService.saveAppliedFilter(aFilter);
-
-                //Clear the content of the text box.
-                anInputType[property] = "";
+                if (res[i] != '') {
+                  var aFilter = {type: property, value: res[i]};
+                  filteringService.saveAppliedFilter(aFilter);
+                }
               }
+              //Clear the content of the text box.
+              anInputType[property] = "";
             }
           }
         }
@@ -127,7 +128,68 @@ filteringModule.factory('filteringService', function() {
         }
       }
     }
+
+    //Now we have some clearing up to do
+    remove_unrequiredFilters();
+
     return;
+  }
+
+
+  remove_unrequiredFilters = function(){
+
+    var foundGoRelationIsExact=false;
+    var foundGoId=false;
+    var foundEcoId=false;
+
+    //Remove goTermUse and goRelations if
+    var i;
+    for (i = 0; i < filters.length; i++) {
+
+      if(filters[i].type=='goID'){
+        foundGoId = true;
+      }
+
+      if(filters[i].type=='goTermUse' && filters[i].value=='exact'){
+        foundGoRelationIsExact = true;
+      }
+
+      if(filters[i].type=='ecoID'){
+        foundEcoId = true;
+      }
+
+    }
+
+    //Remove the default values for go terms if a value for go id has not been entered.
+    if(!foundGoId){
+      filters = remove_item(filters, 'goTermUse');
+      filters = remove_item(filters, 'goRelations');
+    }
+
+    if(foundGoRelationIsExact){
+      filters = remove_item(filters, 'goRelations');
+    }
+
+    if(!foundEcoId){
+      filters = remove_item(filters, 'ecoTermUse');
+    }
+
+    return;
+
+  }
+
+
+
+
+  remove_item = function (arr, value) {
+    var b = '';
+    for (b in arr) {
+      if (arr[b].type === value) {
+        arr.splice(b, 1);
+        break;
+      }
+    }
+    return arr;
   }
 
 
@@ -362,6 +424,10 @@ filteringModule.factory('filteringService', function() {
         }
       }
     }
+
+    //Now we have some clearing up to do
+    remove_unrequiredFilters();
+
   };
 
   /**

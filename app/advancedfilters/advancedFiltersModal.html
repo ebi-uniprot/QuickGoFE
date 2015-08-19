@@ -39,12 +39,8 @@
                   <input id="bhfucl" type="checkbox" ng-model="advancedFilters.boolean.gpSet.bhfucl"
                          ng-true-value="'BHF-UCL'">
                 </td>
-                <td><label for="bhfucl">
-                  BHF-UCL
-                </label>
-                </td>
+                <td>BHF-UCL</td>
                 <td>
-                  <label for="bhfucl">
                     The set of Cardiovascular-associated proteins being prioritised for annotation by the Cardiovascular Gene
                     Ontology
                     Annotation Initiative located at University College London
@@ -62,23 +58,30 @@
                 <td>
                   <input id="kruk" type="checkbox" ng-model="advancedFilters.boolean.gpSet.kruk" ng-true-value="'KRUK'">
                 </td>
-                <td><label for="kruk">KRUK</label>
-                </td>
-                <td><label for="kruk">
+                <td>KRUK</td>
+                <td>
                   The set of proteins associated with renal processes being prioritised for annotation by the EBI's Renal
-                  Gene Ontology
-                  Annotation Initiative</label>
+                  Gene Ontology Annotation Initiative</label>
                 </td>
                 <td><a href="http://www.ebi.ac.uk/GOA/kidney" target="_blank">http://www.ebi.ac.uk/GOA/kidney</a></td>
               </tr>
 
               <!-- Reference Genome -->
               <tr>
-                <td><input id="parkinsons" type="checkbox" ng-model="refgenome.Selected" value="ReferenceGenome"
+                <td><input id="parkinsons" type="checkbox" ng-model="advancedFilters.boolean.gpSet.parkinsons" ng-true-value="'parkinsons'"
                            name="sliming-proteinset-filter"/></td>
-                <td><label for="parkinsons">Parkinsons</label></td>
-                <td><label for="parkinsons">Parkinsons</label>
-                </td>
+                <td>Parkinson's</td>
+                <td>The set of Parkinson's Disease relevant proteins being prioritised for annotation by the Parkinson's
+                  Disease Gene Ontology Annotation Initiative located at University College London</td>
+                <td><a href="http://www.ucl.ac.uk/functional-gene-annotation/neurological"
+                       target="_blank"/>http://www.ucl.ac.uk/functional-gene-annotation/neurological</a></td>
+              </tr>
+              <tr>
+                <td><input id="ReferenceGenome" type="checkbox" ng-model="advancedFilters.boolean.gpSet.refgenome" ng-true-value="'ReferenceGenome'"></td>
+                <td>Reference Genome</label></td>
+                <td>The set of human proteins being comprehensively curated by the
+                  UniProt-GOA project as part of the GO Consortium's Reference Genome initiative</td>
+                <td><a href="http://www.geneontology.org/GO.refgenome.shtml" target="_blank">http://www.geneontology.org/GO.refgenome.shtml</a></td>
                 <td></td>
               </tr>
             </table>
@@ -149,20 +152,19 @@
 
             <li class="main"><strong>Select how you want to use the terms that you have chosen:</strong>
 
-            <section ng-init="advancedFilters.text.goTermUse='ancestor'">
+            <section>
               <ul>
-                <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="ancestor" ng-click="ensureGoRelations()"> Find annotations to <strong>descendants</strong> of these
+                <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="ancestor"> Find annotations to <strong>descendants</strong> of these
                   terms (annotations will display the original GO terms applied).
                 </li>
-                <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="slim" ng-click="ensureGoRelations()"> Use these terms as a <strong>GO slim</strong>.</li>
-                <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="exact" ng-click="removeGoRelations()"> Use these terms as an <strong>exact</strong> match.</li>
+                <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="slim"> Use these terms as a <strong>GO slim</strong>.</li>
+                <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="exact"> Use these terms as an <strong>exact</strong> match.</li>
               </ul>
             </section>
             </li>
 
           <!-- Select Relationship-->
-          <section ng-show="advancedFilters.text.goTermUse=='slim' || advancedFilters.text.goTermUse=='ancestor'"
-                   ng-init="advancedFilters.text.goRelations='IPO'">
+          <section ng-show="advancedFilters.text.goTermUse=='slim' || advancedFilters.text.goTermUse=='ancestor'">
             <li><strong>Select which relationship an annotated term should have to the terms above:</strong>
                <ul>
                 <li>Select which relationship an annotated term should have to the terms above:</li>
@@ -189,13 +191,13 @@
 
           <div id="aspectsArea">
 
-            <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.function"
+            <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.Function"
                                               ng-true-value="'Function'"> Molecular Function
             </div>
-            <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.process"
+            <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.Process"
                                               ng-true-value="'Process'"> Biological Process
             </div>
-            <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.component"
+            <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.Component"
                                               ng-true-value="'Component'">Cellular Component
             </div>
           </div>
@@ -216,7 +218,7 @@
             </thead>
             <tr>
               <td class="aFilter">
-                <input type="checkbox" id="ECO:0000352" ng-model="advancedFilters.boolean.ecoID.ECO0000352"
+                <input type="checkbox" id="ECO:0000352" ng-model="advancedFilters.boolean.ecoID[ecocode0000352]"
                        ng-true-value="'ECO:0000352'"> <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('ECO:0000352')">ECO:0000352</span>
               </td>
               <td>
@@ -227,7 +229,7 @@
 
             <tr>
               <td class="aFilter">
-                <input type="checkbox" id="ECO:0000269" ng-model="advancedFilters.boolean[evidenceSetter].ECO0000269"
+                <input type="checkbox" id="ECO:0000269" ng-model="advancedFilters.boolean.ecoID[ecocode0000269]"
                        ng-true-value="'ECO:0000269'">
                 <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('ECO:0000269')">ECO:0000269</span>
               </td>
@@ -236,22 +238,21 @@
               </td>
             </tr>
 
-            <tr>
-              <td class="aFilter">
-                <input type="checkbox" id="ECO:0000250" ng-model="advancedFilters.boolean.ecoID.ECO0000250"
-                       ng-true-value="'ECO:0000250'">
-                <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('ECO:0000269')">ECO:0000250</span>
-              </td>
-              <td>
-                <label for="ECO:0000250"> (TEST) TEST VERSION ONLY DO NO USE</label>
-              </td>
-            </tr>
-
+            <!--<tr>-->
+              <!--<td class="aFilter">-->
+                <!--<input type="checkbox" id="ECO:0000250" ng-model="advancedFilters.boolean.ecoID.ECO0000250"-->
+                       <!--ng-true-value="'ECO:0000250'">-->
+                <!--<span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('ECO:0000269')">ECO:0000250</span>-->
+              <!--</td>-->
+              <!--<td>-->
+                <!--<label for="ECO:0000250"> (TEST) TEST VERSION ONLY DO NO USE</label>-->
+              <!--</td>-->
+            <!--</tr>-->
 
             <tr ng-repeat="evidenceType in evidenceTypes">
               <td class="aFilter">
                 <input type="checkbox" id="{{evidenceType.ecoTerm}}"
-                       ng-model="advancedFilters.boolean[evidenceSetter][evidenceType.ecoTerm]"
+                       ng-model="advancedFilters.boolean.ecoID[evidenceType.ecoTerm]"
                        ng-true-value="'{{evidenceType.ecoTerm}}'">
                 <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('{{evidenceType.ecoTerm}}')">{{evidenceType.ecoTerm}}</span>
               </td>
@@ -263,14 +264,14 @@
           <br>
           Enter a list of ECO <strong>identifiers</strong> (ECO:nnnnnnn), separated by space, comma or newline
           characters:
-        <textarea class="default" ng-model="advancedFilters.text[evidenceSetter]"></textarea>
+        <textarea class="default" ng-model="advancedFilters.text.ecoID"></textarea>
 
           <br>
           <!-- Include Child Terms need to create a filter with values such as ecoAncestorsI : ECO:0000266 -->
           <!-- Option Exact match needs to create a filter with values such as ECOID : ECO:0000255-->
 
-          <br><input type="radio" ng-model="advancedFilters.boolean.ecoTermUse.ancestor" value="ancestor">Include Child Terms
-          <br><input type="radio" ng-model="advancedFilters.boolean.ecoTermUse.exact" value="exact"/>Exact match
+          <br><input type="radio" ng-model="advancedFilters.text.ecoTermUse" value="ancestor">Include Child Terms
+          <br><input type="radio" ng-model="advancedFilters.text.ecoTermUse" value="exact"/>Exact match
 
         </div>
       </tab>
