@@ -1,24 +1,21 @@
 <div class="grid_4" ng-controller="AnnotationSidebarCtrl">
 
   <!-- APPLIED FILTERS LIST-->
-  <!--<div class="sidebar-section">-->
   <table class="quickFilter">
-    <tr><th>Applied Filters<element class="filterCount" ng-if="appliedFilters.length==0">[None]</element>
-    <element class="filterCount" ng-if="appliedFilters.length>0">[{{appliedFilters.length}}]</element>
-
+    <tr>
+      <th>Applied Filters
+        <element class="filterCount" ng-if="appliedFilters.length==0">[None]</element>
+        <element class="filterCount" ng-if="appliedFilters.length>0">[{{appliedFilters.length}}]</element>
       </th>
-      <!--<table class="sidebar-section-applied" ng-show="appliedFilters.length>0">-->
         <tr ng-repeat="filter in appliedFilters">
           <td class="sidebar-appliedFilter" ng-if="filter">
             {{filter.type}} : {{filter.value}}
             <element class="removeFilter"> &nbsp;<img src="images/cross.png" ng-click="removeFilter(filter)"/></element>
           </td>
-        <!--</tr>-->
-  <!--</table>-->
+      </tr>
   </table>
   <button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>
 
-  <!--<em id="noFiltersMessage" class="sidebar-padding"  ng-if="appliedFilters.length==0">No filters applied</em>-->
 
   <element class='icon icon-generic' data-icon='L'>
     <a id="bookmarkable-link" class="quickgo-link" ng-href="{{bookmarkableLink}}">Bookmark</a>
@@ -27,28 +24,6 @@
   <div>&nbsp;</div>
 
   <!-- FILTER BY TAXON-->
-  <!--<div class="sidebar-section">-->
-  <!--Filter By Taxon-->
-    <!--<div class="sidebar-content">-->
-
-      <!--<div ng-show="showInitialTaxons">-->
-        <!--<ul>-->
-          <!--<li ng-repeat="taxon in initialTaxonomies" title='{{taxon.name}}' class="quickTaxon">-->
-            <!--<element class="selectable" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</element>-->
-          <!--</li>-->
-        <!--</ul>-->
-        <!--<span class="quickButton" ng-click="showMore()">+Show more</span>-->
-      <!--</div>-->
-      <!--<div ng-show="showCommonTaxons">-->
-        <!--<ul>-->
-          <!--<li ng-repeat="taxon in mostCommonTaxonomies" title='{{taxon.name}}' class="quickTaxon">-->
-            <!--<span ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</span>-->
-          <!--</li>-->
-        <!--</ul>-->
-        <!--<span class="quickButton" ng-click="showLess()">-Show less</span>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
   <div ng-show="showInitialTaxons">
     <table class="quickFilter">
       <tr><th>Filter By Taxon <span class="quickButton showAllTaxons" ng-click="showMore()">+ More</span></th></tr>
@@ -70,15 +45,6 @@
 
 
   <!-- FILTER BY ID -->
-  <!--<div class="sidebar-section">-->
-    <!--<label><strong>Filter By ID</strong></label>-->
-      <!--<div class="sidebar-content">-->
-        <!--<div class="sidebar-padding"><label>Go Id:</label><textarea class="sidebar" ng-model="advancedFilters.text.goID"></textarea></div>-->
-        <!--<div class="sidebar-padding"><label>Gene Product:</label><textarea class="sidebar" ng-model="advancedFilters.text.gpID"></textarea></div>-->
-        <!--<button class="btn quickgo-btn sidebar-padding" class="icon icon-functional button tooltipped" data-icon="1"-->
-            <!--ng-click="quickFilterById(advancedFilters)">Submit</button>-->
-    <!--</div>-->
-  <!--</div>-->
   <table class="quickFilter">
     <tr><th>Filter By ID</th></tr>
     <tr class="sidebar-padding"><td><label>Go Id:</label><textarea class="sidebar" ng-model="advancedFilters.text.goID"></textarea></td></tr>
