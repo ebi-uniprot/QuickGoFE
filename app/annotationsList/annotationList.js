@@ -247,6 +247,33 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
   }
 
+
+  /**
+   * Show the with_string modal on request
+   */
+  $scope.showWithString = function (target) {
+
+    console.log("Target of with string is ", target);
+    $scope.withString=target;
+
+    var modalInstance = $modal.open({
+      templateUrl: 'annotationsList/withStringModal.html',
+      controller: 'WithStringCtrl',
+      size: 'md',
+      scope: $scope,
+      resolve: {
+        fullString: function () {
+          return $scope.withString;
+        }
+      }
+    });
+
+    modalInstance.result.then(function () {
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
   /**
    * ------------------------------------ Filtering Sidebar Code --------------------------------------------------
    */
