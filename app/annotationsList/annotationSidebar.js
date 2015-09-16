@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 17/04/2015.
  */
-app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardCodedDataService, feDomainAndPort, $location) {
+app.controller('AnnotationSidebarCtrl', function($rootScope, $scope, filteringService, hardCodedDataService, feDomainAndPort, $location) {
 
 
   $scope.showInitialTaxons=1;
@@ -125,4 +125,18 @@ app.controller('AnnotationSidebarCtrl', function($scope, filteringService, hardC
     $scope.showCommonTaxons=0;
   }
 
+
+/**
+ * ------------------------------------ GO Ontology Graph Image --------------------------------------------------
+ */
+
+/**
+ * Listen to an update to the filters list that comes, and change the bookmark link appropriately
+ */
+  $rootScope.$on('filtersUpdate', function(event) {
+
+    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
   });
+
+});
+
