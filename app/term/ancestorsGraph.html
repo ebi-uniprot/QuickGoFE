@@ -13,7 +13,7 @@
         <span  ng-repeat="layoutNode in graphImage.layoutNodes">
             <area shape="rect"
                   coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
-                  href="/#/term/{{layoutNode.id}}"
+                  href="{{targetDomainAndPort}}/#/term/{{layoutNode.id}}"
                   alt="Term {{layoutNode.id}}"
                   title="{{layoutNode.id}} - Click for more information"
                   target="_blank">
