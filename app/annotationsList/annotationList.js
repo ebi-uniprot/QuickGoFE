@@ -209,9 +209,26 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     console.log(basketService.addBasketItem(basketItem));
     //$scope.countBasket = basketService.getItems().length;
 
+    //change the class of the basket icon to show the go term has been added to the basket.
+    //angular.element('goterm-'+termId).addClass("alllign");
+
     $scope.$emit('basketUpdate', basketService.basketQuantity());
 
   };
+
+  /**
+   * Check if the go term is in the basket
+   * @type {Object|Array}
+   */
+  $scope.isInBasket = function(termId){
+    console.log("Testing to see if this is in the basket", termId);
+
+    var isInBasket = basketService.containsGoTerm(termId);
+    console.log("is this item in the basket", isInBasket);
+
+     return !isInBasket;
+  };
+
 
 
   /**

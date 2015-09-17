@@ -109,5 +109,29 @@ basketModule.factory('basketService', function($cookieStore) {
     return false;
   }
 
+
+  /**
+   *
+   * @param searchGoId
+   * @returns {boolean}
+   */
+  basketList.containsGoTerm = function (termId){
+    console.log("does the basket contain? ", termId);
+    var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
+    console.log("size of cookie store is ", items.length);
+    var basketLen = -1;
+    var i;
+    for (i = 0, basketLen = items.length; i < basketLen; i++) {
+      console.log("Have found in the cookie store ", items[i]);
+      if (termId == items[i].termId) {
+        console.log("Found in cookie list")
+        return true;
+      }
+    }
+    console.log("Not found in cookie list")
+    return false;
+  }
+
+
   return basketList;
 });

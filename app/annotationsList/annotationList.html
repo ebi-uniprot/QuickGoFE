@@ -51,7 +51,7 @@
 
           <!-- GO Identifier-->
           <td style="white-space: nowrap;">
-            <element class="icon icon-static selectable" data-icon="b"
+            <element ng-show="isInBasket(goTuple.goId)" class="icon icon-static selectable" data-icon="b"
                      ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
             <a class="quickgo-link selectable" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</a>
           </td>
