@@ -2,7 +2,10 @@
  * Created by twardell on 02/02/2015.
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, basketService,
-                                    targetDomainAndPort, filteringService) {
+                                    targetDomainAndPort, feDomainAndPort, filteringService) {
+
+  $scope.feDomainAndPort=feDomainAndPort;
+  $scope.targetDomainAndPort=targetDomainAndPort;
 
   //Clear search term
   $scope.searchText ='';

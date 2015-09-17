@@ -8,6 +8,8 @@ app.controller('AncestorChartCtrl', function($scope, $http, $modalInstance, targ
   $scope.isLoading = 1;
   //$scope.basketList = basketList;
 
+  $scope.feDomainAndPort=feDomainAndPort;
+  $scope.targetDomainAndPort=targetDomainAndPort;
 
   //var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+goModel.id;   //single version
   var formattedURL=targetDomainAndPort+'/ws/graphmulti?ids='+chartRequest.ids;

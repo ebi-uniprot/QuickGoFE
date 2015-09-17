@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 02/02/2015.
  */
-app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDomainAndPort) {
+app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDomainAndPort, feDomainAndPort) {
 
   /**
    * Do stuff for ancestor graph
@@ -25,6 +25,7 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDo
   console.log("graphModel.id", $scope.graphModel);
 
   $scope.imageSource="";
+  $scope.feDomainAndPort=feDomainAndPort;
   $scope.targetDomainAndPort=targetDomainAndPort;
 
 
