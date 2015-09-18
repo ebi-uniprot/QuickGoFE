@@ -141,7 +141,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, $modal, searchfu
       scope: $scope,
       resolve: {
         graphModel: function () {
-          return {id:termId, name:title, scope:''};
+          return {id:termId, name:title, scope:'GO'};
         }
       }
     });
