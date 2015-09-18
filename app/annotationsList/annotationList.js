@@ -216,6 +216,19 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   };
 
+
+
+  /**
+   * Remove item from the basket
+   * @type {Object|Array}
+   */
+  $scope.removeFromBasket = function(termId, termName){
+    var basketItem = {termId:termId, name:termName};
+    console.log(basketService.removeBasketItem(basketItem));
+    $scope.$emit('basketUpdate', basketService.basketQuantity());
+
+  };
+
   /**
    * Check if the go term is in the basket
    * @type {Object|Array}
