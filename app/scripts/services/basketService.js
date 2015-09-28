@@ -25,7 +25,7 @@ basketModule.factory('basketService', function($cookieStore) {
       $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
       return items.length;
     }else{
-      console.log("item already exists in the basket");
+      //console.log("item already exists in the basket");
     }
 
 
@@ -52,16 +52,16 @@ basketModule.factory('basketService', function($cookieStore) {
   basketList.removeBasketItem = function (basketItem) {
     console.log("BASKET SERVICE: removeBasketItem");
 
-    console.log("Remove from cookie",basketItem);
+    //console.log("Remove from cookie",basketItem);
     var basketLen = -1;
 
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
-    console.log("items:: ", items);
+    //console.log("items:: ", items);
 
     var i;
     for (i = 0, basketLen = items.length; i < basketLen; i++) {
 
-      console.log("testing basket item ", i);
+      //console.log("testing basket item ", i);
 
       if (items[i].termId == basketItem.termId) {
         items.splice(i, 1);
@@ -80,8 +80,14 @@ basketModule.factory('basketService', function($cookieStore) {
     return items.length;
   }
 
+
+  /**
+   * ------------------------------ Return items in Basket from cookie store -------------------------------
+   *
+   * @returns {*|Object|Array}
+   */
   basketList.getItems = function(){
-    console.log("get items called");
+    //console.log("[basketService.js] Get items called");
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
     return items;
   }
@@ -93,19 +99,19 @@ basketModule.factory('basketService', function($cookieStore) {
    * @returns {boolean}
    */
   basketList.containsItem = function (searchGoId){
-    console.log("does the basket contain? ", searchGoId);
+    //console.log("does the basket contain? ", searchGoId);
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
-    console.log("size of cookie store is ", items.length);
+    //console.log("size of cookie store is ", items.length);
     var basketLen = -1;
     var i;
     for (i = 0, basketLen = items.length; i < basketLen; i++) {
-      console.log("Have found in the cookie store ", items[i]);
+      //console.log("Have found in the cookie store ", items[i]);
       if (searchGoId.termId == items[i].termId) {
-        console.log("Found in cookie list")
+        //console.log("Found in cookie list");
         return true;
       }
     }
-    console.log("Not found in cookie list")
+    //console.log("Not found in cookie list");
     return false;
   }
 
@@ -116,19 +122,19 @@ basketModule.factory('basketService', function($cookieStore) {
    * @returns {boolean}
    */
   basketList.containsGoTerm = function (termId){
-    console.log("does the basket contain? ", termId);
+    //console.log("does the basket contain? ", termId);
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
-    console.log("size of cookie store is ", items.length);
+    //console.log("size of cookie store is ", items.length);
     var basketLen = -1;
     var i;
     for (i = 0, basketLen = items.length; i < basketLen; i++) {
-      console.log("Have found in the cookie store ", items[i]);
+      //console.log("Have found in the cookie store ", items[i]);
       if (termId == items[i].termId) {
-        console.log("Found in cookie list")
+        //console.log("Found in cookie list");
         return true;
       }
     }
-    console.log("Not found in cookie list")
+    //console.log("Not found in cookie list");
     return false;
   }
 

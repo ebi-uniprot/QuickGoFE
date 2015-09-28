@@ -234,10 +234,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * @type {Object|Array}
    */
   $scope.isInBasket = function(termId){
-    console.log("Testing to see if this is in the basket", termId);
+    //console.log("Testing to see if this is in the basket", termId);
 
     var isInBasket = basketService.containsGoTerm(termId);
-    console.log("is this item in the basket", isInBasket);
+    //console.log("is this item in the basket", isInBasket);
 
      return !isInBasket;
   };

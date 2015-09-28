@@ -21,6 +21,8 @@ app.controller('BasketNavCtrl', function($scope, $log, $modal, $rootScope, baske
    */
   $scope.showBasket = function () {
 
+    console.log("Show basket");
+
     var modalInstance = $modal.open({
       templateUrl: 'basket/basketModal.html',
       controller: 'BasketCtrl',

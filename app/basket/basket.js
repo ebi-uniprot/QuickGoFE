@@ -6,8 +6,13 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
   $scope.basketItems = basketService.getItems();
-  console.log("The contents of the basket are ", $scope.basketItems);
+  //console.log("The contents of the basket are ", $scope.basketItems);
+
   $scope.isLoading = 0;
+
+  /**
+   * ------------------------------------ Remove item from basket -----------------------------------------
+   */
 
   $scope.removeItem = function(basketItem){
     console.log("REMOVE ITEM from BASKET");
@@ -24,6 +29,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
   /**
+   * ------------------------------------ Submit -----------------------------------------------------------
    * Iterate through ALL selectable elements
    * Create a list of selected ones
    * Pass that list to the filtering service.
@@ -114,6 +120,10 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
   }
 
 
+  /**
+   * ------------------------------------ Forward To Term --------------------------------------------------------------
+   */
+
   $scope.term = function(goId){
     $modalInstance.dismiss('forward');
     console.log("forward to term");
@@ -122,13 +132,13 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
   /**
+   * -------------------------------------------------------------------------------------------------------------------
    * Show the Ancestors graph image modal on request.
    * Turn the list of basket items into to comma delimited list
    */
   $scope.showAncestorGraph = function () {
 
-
-    //currentList = basketService.getItems();
+    console.log("[basket\basket.js] Show the Ancestor Graph")
 
     var k=0;
     var itemString="";
@@ -138,7 +148,6 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     }
 
     console.log("Item String", itemString);
-
 
     var modalInstance = $modal.open({
       templateUrl: 'charts/ancestorChartModal.html',
