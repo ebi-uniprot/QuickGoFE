@@ -39,6 +39,9 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
 
   $scope.advancedFilters.text.ecoTermUse="ancestor";
 
+  //To show or not show the all NOT button for qualifiers
+  $scope.showAllNotQualifiers = 0;
+
 
   /**
    * ---------------------------------------   Data loading Operations    --------------------------------------------
@@ -330,6 +333,40 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
     $location.path("annotations");
   }
 
+
+
+
+  $scope.selectAllNotQualifiers = function () {
+
+    for (qualifierCounter = 0; qualifierCounter < $scope.qualifiers.length; qualifierCounter++) {
+      console.log($scope.qualifiers[qualifierCounter]);
+
+      if ($scope.qualifiers[qualifierCounter].name.indexOf('NOT') != -1) {
+
+        var targetQualifier = $scope.qualifiers[qualifierCounter].qualifier;
+        console.log("setting qualifier", targetQualifier);
+        $scope.advancedFilters.boolean.qualifier[targetQualifier] = targetQualifier;
+      }
+    }
+
+    $scope.showAllNotQualifiers = 1;
+  }
+
+    $scope.deselectAllNotQualifiers = function () {
+
+      for (qualifierCounter = 0; qualifierCounter < $scope.qualifiers.length; qualifierCounter++) {
+        console.log($scope.qualifiers[qualifierCounter]);
+
+        if ($scope.qualifiers[qualifierCounter].name.indexOf('NOT') != -1) {
+
+          var targetQualifier = $scope.qualifiers[qualifierCounter].qualifier;
+          console.log("unsetting qualifier", targetQualifier);
+          $scope.advancedFilters.boolean.qualifier[targetQualifier] = '';
+        }
+      }
+
+      $scope.showAllNotQualifiers=0;
+  }
 
   /**
    * ------------------------------------ Evidence Code Graph Image --------------------------------------------------

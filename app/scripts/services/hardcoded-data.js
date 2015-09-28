@@ -71,8 +71,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {name:'contributes_to','qualifier':'contributes_to'},
     {name:'NOT | contributes_to','qualifier':'NOT|contributes_to'},
     {name:'colocalizes_with','qualifier':'colocalizes_with'},
-    {name:'NOT | colocalizes_with','qualifier':'NOT|colocalizes_with'},
-    {name:'NOT','qualifier':'NOT'}
+    {name:'NOT | colocalizes_with','qualifier':'NOT|colocalizes_with'}
   ];
 
 

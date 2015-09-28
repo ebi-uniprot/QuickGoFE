@@ -109,11 +109,12 @@
             <tr ng-repeat="aQualifier in qualifiers">
               <td>
                 <input type="checkbox" ng-model="advancedFilters.boolean.qualifier[aQualifier.qualifier]"
-                       ng-true-value="'{{aQualifier.qualifier}}'">
+                ng-true-value="'{{aQualifier.qualifier}}'">
                 &nbsp;&nbsp;{{aQualifier.name}}
               </td>
             </tr>
-
+            <tr ng-hide="showAllNotQualifiers"><td><input type="button" ng-click="selectAllNotQualifiers()" value="Select all NOT qualifiers"></td></tr>
+            <tr ng-show="showAllNotQualifiers"><td><input type="button" ng-click="deselectAllNotQualifiers()" value="Deselect all NOT qualifiers"></td></tr>
           </table>
         </div>
         </section>
