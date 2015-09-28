@@ -150,16 +150,17 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     console.log("Item String", itemString);
 
     var modalInstance = $modal.open({
-      templateUrl: 'charts/ancestorChartModal.html',
-      controller: 'AncestorChartCtrl',
+      templateUrl: 'charts/ontologyGraphModal.html',
+      controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',
       scope: $scope,
       resolve: {
-        chartRequest: function () {
-          return {ids:itemString};
+        graphModel: function () {
+          return {id:itemString, scope:'GO'};
         }
       }
     });
+
 
   };
 

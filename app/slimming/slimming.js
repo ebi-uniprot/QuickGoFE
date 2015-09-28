@@ -252,13 +252,13 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
 
 
     var modalInstance = $modal.open({
-      templateUrl: 'charts/ancestorChartModal.html',
-      controller: 'AncestorChartCtrl',
+      templateUrl: 'charts/ontologyGraphModal.html',
+      controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',
       scope: $scope,
       resolve: {
-        chartRequest: function () {
-          return {ids:itemString};
+        graphModel: function () {
+          return {id:itemString, scope:'GO'};
         }
       }
     });

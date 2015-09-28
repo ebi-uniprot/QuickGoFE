@@ -52,41 +52,4 @@ app.controller('GOSlimCtrl2', function($scope, $location, $window, $modal, baske
 
   }
 
-
-
-  /**
-   * Show the  graph image modal on request.
-   * Turn the list of advancedFilters into to comma delimited list
-   */
-  //$scope.showGraph = function () {
-  //
-  //  var terms = filteringService.returnListOfFilters($scope.advancedFilters);
-  //  console.log("Create a graph from the terms", terms)
-  //
-  //  var k=0;
-  //  var itemString="";
-  //  for(k=0;k<terms.length;k++ ){
-  //    itemString = itemString+terms[k].value;
-  //    itemString=itemString+',';
-  //  }
-  //
-  //  console.log("Item String", itemString);
-  //
-  //
-  //  var modalInstance = $modal.open({
-  //    templateUrl: 'modals/ancestorChartModal.html',
-  //    controller: 'AncestorChartCtrl',
-  //    windowClass: 'app-modal-window',
-  //    scope: $scope,
-  //    resolve: {
-  //      chartRequest: function () {
-  //        return {ids:itemString};
-  //      }
-  //    }
-  //  });
-  //
-  //};
-
-
-
 });
