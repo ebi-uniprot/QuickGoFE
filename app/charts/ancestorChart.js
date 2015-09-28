@@ -2,7 +2,7 @@
 /**
  * Created by twardell on 07/04/2015.
  */
-app.controller('AncestorChartCtrl', function($scope, $http, $modalInstance, targetDomainAndPort, chartRequest) {
+app.controller('AncestorChartCtrl', function($scope, $http, $modalInstance, feDomainAndPort, targetDomainAndPort, chartRequest) {
   console.log("IN THE ONTOLOGY GRAPH CONTROLLER");
   console.log("chartRequest ",chartRequest);
   $scope.isLoading = 1;
