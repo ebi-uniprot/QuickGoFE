@@ -272,6 +272,7 @@
     <!-- Cross References-->
     <div id="termCrossReferences" ng-show="showCrossReferences">
       <h3 class="term-section-header">Cross-references</h3>
+      <table id="termCrossReferencesTable" class="two-colours">
       <tr>
         <th>Database</th>
         <th>ID</th>
@@ -280,8 +281,7 @@
       <tr ng-repeat="xref in termModel.xrefs">
         <td>{{xref.db}}</td>
         <td>{{xref.id}}</td>
-        <td><a ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.name}}</a>
-        </td>
+        <td><a ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.name}}</a> </td>
       </tr>
       </table>
     </div>
