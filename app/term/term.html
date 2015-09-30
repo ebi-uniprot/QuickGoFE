@@ -15,8 +15,12 @@
   <!--<button class="btn quickgo-btn" ng-disabled="preventAddToBasket"-->
           <!--ng-click="addToBasket(termModel.termId,termModel.name)">Add to Basket-->
   <!--</button>-->
-  <element id="termpage-addToBasket" class="icon icon-static selectable" data-icon="b"
-           ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
+  <!--<element id="termpage-addToBasket" class="icon icon-static selectable" data-icon="b"-->
+           <!--ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>-->
+    <element ng-show="isInBasket(termModel.termId)" class="icon icon-static selectable" data-icon="b"
+             ng-click="addToBasket(termModel.termId, termModel.name, termModel.aspectDescription)"></element>
+    <element ng-hide="isInBasket(termModel.termId)" class="icon icon-static selectable" data-icon=">"
+             ng-click="removeFromBasket(termModel.termId)"></element>
   <h3 class="page-title" style="display: inline">{{termModel.termId}} {{termModel.name}}</h3>
     </div>
     <div class="grid_7 omega">

@@ -2,7 +2,7 @@
  * Created by twardell on 02/02/2015.
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, basketService,
-                                    targetDomainAndPort, feDomainAndPort, filteringService) {
+                                    targetDomainAndPort, feDomainAndPort, filteringService, quickGOHelperService) {
 
   $scope.feDomainAndPort=feDomainAndPort;
   $scope.targetDomainAndPort=targetDomainAndPort;
@@ -89,8 +89,12 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
    * Add an item to the basket
    * @type {Object|Array}
    */
-  $scope.addToBasket = function(termId, termName){
-    var basketItem = {termId:termId, name:termName};
+  $scope.addToBasket = function(termId, termName, termAspectName){
+
+    var aspect = quickGOHelperService.toAspectCode(termAspectName);
+
+
+    var basketItem = {termId:termId, name:termName, aspect:aspect};
     console.log(basketService.addBasketItem(basketItem));
 
     $scope.$emit('basketUpdate', basketService.basketQuantity());
@@ -99,6 +103,36 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
     $scope.preventAddToBasket = true;
 
   };
+
+
+  /**
+   * Remove item from the basket
+   * @type {Object|Array}
+   */
+  $scope.removeFromBasket = function(termId){
+    console.log(basketService.removeBasketItemById(termId));
+    $scope.$emit('basketUpdate', basketService.basketQuantity());
+
+  };
+
+  /**
+   * Check if the go term is in the basket
+   * @type {Object|Array}
+   */
+  $scope.isInBasket = function(termId){
+    //console.log("Testing to see if this is in the basket", termId);
+
+    var isInBasket = basketService.containsGoTerm(termId);
+    //console.log("is this item in the basket", isInBasket);
+
+    return !isInBasket;
+  };
+
+
+
+
+
+
 
   // Control the scrolling to anchors from sidebar -> elements of the term page
   // https://docs.angularjs.org/api/ng/service/$anchorScroll
