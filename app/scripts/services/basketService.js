@@ -44,6 +44,14 @@ basketModule.factory('basketService', function($cookieStore) {
   }
 
 
+  /*
+   * Refresh the basket completely
+   */
+  basketList.clearBasket = function () {
+    var emptyBasket = [];
+    $cookieStore.put('uk.ac.ebi.quickgo.basket', emptyBasket);
+  }
+
 
   /**
    * Remove an item from the basket
