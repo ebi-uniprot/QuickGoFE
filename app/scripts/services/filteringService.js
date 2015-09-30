@@ -466,6 +466,15 @@ filteringModule.factory('filteringService', function() {
 
 
 
+  /**
+   * Save the object to applied filters if it doesn't exist already
+   */
+  filteringService.saveValuesAsFilter=function(filtertype, aFilterValue) {
+
+    var aFilter = {type: filtertype, value: aFilterValue};
+    this.saveAppliedFilter(aFilter);
+  }
+
 
   /**
    * Save the object to applied filters if it doesn't exist already
