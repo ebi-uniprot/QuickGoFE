@@ -280,8 +280,8 @@
       </tr>
       <tr ng-repeat="xref in termModel.xrefs">
         <td>{{xref.db}}</td>
-        <td>{{xref.id}}</td>
-        <td><a ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.name}}</a> </td>
+        <td><a ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.id}}</a></td>
+        <td>{{xref.name}}</td>
       </tr>
       </table>
     </div>
@@ -370,7 +370,7 @@
         <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
         <table class="two-colours">
           <tr>
-            <th>Relationship to {{termModel.termId}}</th>
+            <th>Relationship to </br>{{termModel.termId}}</th>
             <th>Child Term</th>
             <th>Child Term Name</th>
           </tr>
@@ -472,17 +472,17 @@
     </div>
 
     <!-- Change log -->
-    <div id="termHistory" ng-show="termHistory">
+    <p id="termHistory" ng-show="termHistory">
       <h3 class="term-section-header">Change Log</h3>
-
+      <p>Show the following categories of data:</p>
       <!-- The user can select what category types to see-->
       <ul id="term-changelog-selection">
-        <li><input type="checkbox" ng-model="showCategoryTerm">Show Terms</li>
-        <li><input type="checkbox" ng-model="showCategoryDefinitions">Show Definitions</li>
-        <li><input type="checkbox" ng-model="showCategoryRelationships">Show Relationships</li>
-        <li><input type="checkbox" ng-model="showCategoryOther">Show Other</li>
-        <li><input type="checkbox" ng-model="showCategoryCrossReferences">Show Cross-References</li>
-        <li><input type="checkbox" ng-model="showCategoryObsoletions">Show Obsoletions</li>
+        <li><input type="checkbox" ng-model="showCategoryTerm">Terms</li>
+        <li><input type="checkbox" ng-model="showCategoryDefinitions">Definitions</li>
+        <li><input type="checkbox" ng-model="showCategoryRelationships">Relationships</li>
+        <li><input type="checkbox" ng-model="showCategoryOther">Other</li>
+        <li><input type="checkbox" ng-model="showCategoryCrossReferences">Cross-References</li>
+        <li><input type="checkbox" ng-model="showCategoryObsoletions">Obsoletions</li>
 
       </ul>
 
