@@ -13,14 +13,16 @@ basketModule.factory('basketService', function($cookieStore) {
    * Add an item to the basket
    */
   basketList.addBasketItem = function (basketItem) {
-    console.log("basket item is ", basketItem);
+    //console.log("basket item is ", basketItem);
 
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
     //items[items.length] = basketItem;
 
     //check the item isn't already isn't in the basket, and if it is don't add it.
     if(!this.containsItem(basketItem)){
-      console.log("current contents of basket",items);
+
+      //console.log("current contents of basket",items);
+
       items.push(basketItem);
       $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
       return items.length;
@@ -79,6 +81,36 @@ basketModule.factory('basketService', function($cookieStore) {
     }
     return items.length;
   }
+
+
+  /**
+   * Remove an item from the basket
+   * @param basketItem
+   */
+  basketList.removeBasketItemById = function (goId) {
+    console.log("BASKET SERVICE: removeBasketItem");
+
+    //console.log("Remove from cookie",basketItem);
+    var basketLen = -1;
+
+    var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
+    //console.log("items:: ", items);
+
+    var i;
+    for (i = 0, basketLen = items.length; i < basketLen; i++) {
+
+      //console.log("testing basket item ", i);
+
+      if (items[i].termId == goId) {
+        items.splice(i, 1);
+        basketLen--;
+      }
+      $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
+    }
+    return items.length;
+  }
+
+
 
   /*
    * Count quantity in the basket
