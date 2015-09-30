@@ -239,7 +239,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     var isInBasket = basketService.containsGoTerm(termId);
     //console.log("is this item in the basket", isInBasket);
 
-     return !isInBasket;
+    return !isInBasket;
   };
 
 
