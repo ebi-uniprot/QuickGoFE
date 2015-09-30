@@ -100,8 +100,10 @@
         <tr ng-repeat="blacklistentry in annotationBlacklist.blackListNotQualified">
           <td>{{blacklistentry.proteinAc}}</td>
           <td style="white-space: nowrap;">
-            <element class="icon icon-static" data-icon="b"
+            <element ng-show="isInBasket(blacklistentry.goId)" class="icon icon-static selectable" data-icon="b"
                      ng-click="addToBasket(blacklistentry.goId)"></element>
+            <element ng-hide="isInBasket(blacklistentry.goId)" class="icon icon-static selectable" data-icon=">"
+                     ng-click="removeFromBasket(blacklistentry.goId)"></element>
             <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a></td>
           <td>{{blacklistentry.reason}}</td>
         </tr>
@@ -118,8 +120,10 @@
         <tr ng-repeat="blacklistentry in annotationBlacklist.blackListUniProtCaution">
           <td>{{blacklistentry.proteinAc}}</td>
           <td style="white-space: nowrap;">
-            <element class="icon icon-static" data-icon="b"
+            <element ng-show="isInBasket(blacklistentry.goId)" class="icon icon-static selectable" data-icon="b"
                      ng-click="addToBasket(blacklistentry.goId)"></element>
+            <element ng-hide="isInBasket(blacklistentry.goId)" class="icon icon-static selectable" data-icon=">"
+                     ng-click="removeFromBasket(blacklistentry.goId)"></element>
             <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a></td>
           <td>{{blacklistentry.reason}}</td>
         </tr>
