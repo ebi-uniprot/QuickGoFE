@@ -4,7 +4,7 @@
 
   <!-- Title section -->
   <!--<div class="grid_6"></div>-->
-  <div class="grid_13 prefix_4">
+  <div class="grid_13 prefix_4 alpha">
 
   <!-- Check if it's obsolete -->
   <div class="alert" ng-show="isObsolete">
@@ -19,7 +19,7 @@
            ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
   <h3 class="page-title" style="display: inline">{{termModel.termId}} {{termModel.name}}</h3>
     </div>
-    <div class="grid_7">
+    <div class="grid_7 omega">
     <button id="term-show-annotations" data-icon="i" class="icon icon-functional btn quickgo-btn"
             ng-click="showTermAnnotations(termModel.termId)">Show annotations
     </button>
@@ -28,7 +28,7 @@
 
 
   <!-- Header information -->
-  <div class="grid_20 prefix_4">
+  <div class="grid_20 prefix_4 alpha omega">
   <!--<div class="quickgo-hoz-header">-->
     <table>
       <tr ng-show="termModel.goTerm">
@@ -86,7 +86,7 @@
   </div>
   <!-- Header Information End-->
 
-  <div class="grid_20 prefix_4 ">
+  <div class="grid_20 prefix_4 alpha omega">
     <h3 class="term-section-nav-header">Display</h3>
   </div>
   <!--<div class="grid_8 suffix_4">-->
