@@ -28,10 +28,23 @@ app.controller('AnnotationBlacklistCtrl', function($scope, $modal, basketService
 
     //Look up the full termInformation to add it to the basket
     term.query({termId : termId}, function(termData){
+      console.log("[annotationBlacklist] termData");
 
       var savedTermId = termData.termId;
       var savedName = termData.name;
-      var basketItem = {termId: savedTermId, name: savedName};
+
+      var aspect = '';
+      if(termData.aspectDescription == "Cellular Component"){
+        aspect = 'C';
+      }
+      if(termData.aspectDescription == "Molecular Function"){
+        aspect = 'F';
+      }
+      if(termData.aspectDescription == "Biological Process"){
+        aspect = 'P';
+      }
+
+      var basketItem = {termId: savedTermId, name: savedName, aspect: aspect};
 
       basketService.addBasketItem(basketItem);
 
