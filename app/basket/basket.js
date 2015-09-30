@@ -175,8 +175,6 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
       filteringService.saveValuesAsFilter('goID', $scope.basketItems[i].termId)
     }
 
-
-
     }
 
   /**
@@ -198,7 +196,32 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
     var text = '';
     for (i = 0; i < $scope.basketItems.length; i++) {
+
+      console.log("[basket.js] basketItems::", $scope.basketItems);
+
       text += $scope.basketItems[i].termId + "\t";
+
+      ////Get the aspect from the backend if empty in the basket model
+      //if($scope.basketItems[i].aspect=='' || $scope.basketItems[i].aspect == undefined) {
+      //  term.query({termId: $scope.basketItems[i].termId}, function (termData) {
+      //
+      //    var aspect = '';
+      //    if (termData.aspectDescription == "Cellular Component") {
+      //      aspect = 'C';
+      //    }
+      //    if (termData.aspectDescription == "Molecular Function") {
+      //      aspect = 'F';
+      //    }
+      //    if (termData.aspectDescription == "Biological Process") {
+      //      aspect = 'P';
+      //    }
+      //
+      //    text += aspect + "\t";
+      //
+      //  });
+      //}else{
+      //  text += $scope.basketItems[i].aspect + "\t";
+      //}
       text += $scope.basketItems[i].aspect + "\t";
       text += $scope.basketItems[i].name + "\n";
     }

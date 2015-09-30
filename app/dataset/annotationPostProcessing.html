@@ -36,19 +36,31 @@
   <tr>
   <tr ng-repeat="postProcessing in annotationPostProcessing.content">
     <td style="white-space: nowrap;">
-      <element class="icon icon-static" data-icon="b"  ng-click="addToBasket(postProcessing.originalGoId, postProcessing.originalTerm)"></element>
+      <!--<element class="icon icon-static" data-icon="b"  ng-click="addToBasket(postProcessing.originalGoId, postProcessing.originalTerm)"></element>-->
+      <element ng-show="isInBasket(postProcessing.originalGoId)" class="icon icon-static selectable" data-icon="b"
+               ng-click="addToBasket(postProcessing.originalGoId, postProcessing.originalTerm)"></element>
+      <element ng-hide="isInBasket(postProcessing.originalGoId)" class="icon icon-static selectable" data-icon=">"
+               ng-click="removeFromBasket(postProcessing.originalGoId)"></element>
       <a href="#/term/{{postProcessing.originalGoId}}">{{postProcessing.originalGoId}}</a></td>
     <td>{{postProcessing.originalTerm}}</td>
     <td>{{postProcessing.cleanupAction}}</td>
     <td>{{postProcessing.affectedTaxGroup}}</td>
     <td style="white-space: nowrap;">
-      <element class="icon icon-static" data-icon="b"  ng-click="addToBasket(postProcessing.substitutedGoId, postProcessing.substitutedTerm)"></element>
+      <!--<element class="icon icon-static" data-icon="b"  ng-click="addToBasket(postProcessing.substitutedGoId, postProcessing.substitutedTerm)"></element>-->
+      <element ng-show="isInBasket(postProcessing.substitutedGoId)" class="icon icon-static selectable" data-icon="b"
+               ng-click="addToBasket(postProcessing.substitutedGoId, postProcessing.substitutedTerm)"></element>
+      <element ng-hide="isInBasket(postProcessing.substitutedGoId)" class="icon icon-static selectable" data-icon=">"
+               ng-click="removeFromBasket(postProcessing.substitutedGoId)"></element>
       <a href="#/term/{{postProcessing.substitutedGoId}}">{{postProcessing.substitutedGoId}}</a></td>
     <td>{{postProcessing.substitutedTerm}}</td>
     <td>{{postProcessing.curatorNotes}}</td>
     <td>{{postProcessing.ruleId}}</td>
     <td style="white-space: nowrap;">
-      <element class="icon icon-static" data-icon="b"  ng-click="addToBasket(postProcessing.ancestorGoId, postProcessing.ancestorTerm)"></element>
+      <!--<element class="icon icon-static" data-icon="b"  ng-click="addToBasket(postProcessing.ancestorGoId, postProcessing.ancestorTerm)"></element>-->
+      <element ng-show="isInBasket(postProcessing.ancestorGoId)" class="icon icon-static selectable" data-icon="b"
+               ng-click="addToBasket(postProcessing.ancestorGoId, postProcessing.ancestorTerm)"></element>
+      <element ng-hide="isInBasket(postProcessing.ancestorGoId)" class="icon icon-static selectable" data-icon=">"
+               ng-click="removeFromBasket(postProcessing.ancestorGoId)"></element>
       <a href="#/term/{{postProcessing.ancestorGoId}}">{{postProcessing.ancestorGoId}}</a></td>
     <td>{{postProcessing.ancestorTerm}}</td>
     <td>{{postProcessing.relationship}}</td>
