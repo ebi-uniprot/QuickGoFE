@@ -52,13 +52,13 @@
           <!-- GO Identifier-->
           <td style="white-space: nowrap;">
             <element ng-show="isInBasket(goTuple.goId)" class="icon icon-static selectable" data-icon="b"
-                     ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>
+                     ng-click="addToBasket(goTuple.goId, goTuple.termName, goTuple.aspect)"></element>
             <element ng-hide="isInBasket(goTuple.goId)" class="icon icon-static selectable" data-icon=">"
                      ng-click="removeFromBasket(goTuple.goId, goTuple.termName)"></element>
             <a class="quickgo-link selectable" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</a>
           </td>
           <!-- GO Term Name-->
-          <td><element tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</td>
+          <td><element tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element></td>
 
           <!-- Aspect-->
           <td>{{goTuple.aspect}}</td>
