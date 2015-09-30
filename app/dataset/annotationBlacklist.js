@@ -28,7 +28,7 @@ app.controller('AnnotationBlacklistCtrl', function($scope, $modal, basketService
 
     //Look up the full termInformation to add it to the basket
     term.query({termId : termId}, function(termData){
-      console.log("[annotationBlacklist] termData");
+      //console.log("[annotationBlacklist] termData");
 
       var savedTermId = termData.termId;
       var savedName = termData.name;
@@ -55,6 +55,30 @@ app.controller('AnnotationBlacklistCtrl', function($scope, $modal, basketService
     });
 
   };
+
+  /**
+   * Remove item from the basket
+   * @type {Object|Array}
+   */
+  $scope.removeFromBasket = function(termId){
+    console.log(basketService.removeBasketItemById(termId));
+    $scope.$emit('basketUpdate', basketService.basketQuantity());
+
+  };
+
+  /**
+   * Check if the go term is in the basket
+   * @type {Object|Array}
+   */
+  $scope.isInBasket = function(termId){
+    console.log("Testing to see if this is in the basket", termId);
+
+    var isInBasket = basketService.containsGoTerm(termId);
+    console.log("is this item in the basket", isInBasket);
+
+    return !isInBasket;
+  };
+
 
 });
 
