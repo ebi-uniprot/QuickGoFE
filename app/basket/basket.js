@@ -2,7 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $modal, basketService, term ) {
+app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $modal, basketService, filteringService, term ) {
 
 
   $scope.basketItems = basketService.getItems();
@@ -163,6 +163,53 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
   };
+
+
+  /**
+   * -------------------------------------------------------------------------------------------------------------------
+   * Filter using basket go terms
+   */
+  $scope.filterUsingBasketTerms = function () {
+
+    for (i = 0; i < $scope.basketItems.length; i++) {
+      filteringService.saveValuesAsFilter('goID', $scope.basketItems[i].termId)
+    }
+
+
+
+    }
+
+  /**
+   * -------------------------------------------------------------------------------------------------------------------
+   * Clear basket
+   */
+  $scope.emptyBasket = function () {
+    $scope.basketItems = basketService.clearBasket();
+    $scope.basketItems = [];
+    $scope.$emit('basketUpdate', 0);
+  }
+
+  /**
+   * -------------------------------------------------------------------------------------------------------------------
+   * Export basket
+   */
+  $scope.exportBasket = function () {
+    $scope.basketItems;
+
+    var text = '';
+    for (i = 0; i < $scope.basketItems.length; i++) {
+      text += $scope.basketItems[i].termId + "\t";
+      text += $scope.basketItems[i].aspect + "\t";
+      text += $scope.basketItems[i].name + "\n";
+    }
+
+    var blob = new Blob([text], { type:"application/tsv;charset=utf-8;" });
+    var downloadLink = angular.element('<a></a>');
+    downloadLink.attr('href',window.URL.createObjectURL(blob));
+    downloadLink.attr('download', 'basket.tsv');
+    downloadLink[0].click();
+
+  }
 
 
   /**
