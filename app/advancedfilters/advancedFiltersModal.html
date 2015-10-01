@@ -52,6 +52,22 @@
                 </td>
               </tr>
 
+              <!-- Exosome -->
+              <tr>
+                <td>
+                  <input id="exosome" type="checkbox" ng-model="advancedFilters.boolean.gpSet.exosome"
+                         ng-true-value="'Exosome'">
+                </td>
+                <td>Exosome</td>
+                <td>
+                  The set of exosomal human proteins being prioritised for comprehensive annotation by the UniProt curators at the EBI.
+                </td>
+                <td>
+                  <a href="http://www.ebi.ac.uk/GOA/exosome"
+                     target="_blank"/>http://www.ebi.ac.uk/GOA/exosome</a>
+                </td>
+              </tr>
+
 
               <!-- Kruk -->
               <tr>
@@ -61,21 +77,23 @@
                 <td>KRUK</td>
                 <td>
                   The set of proteins associated with renal processes being prioritised for annotation by the EBI's Renal
-                  Gene Ontology Annotation Initiative</label>
+                  Gene Ontology Annotation Initiative
                 </td>
                 <td><a href="http://www.ebi.ac.uk/GOA/kidney" target="_blank">http://www.ebi.ac.uk/GOA/kidney</a></td>
               </tr>
 
-              <!-- Reference Genome -->
+              <!-- Parkinsons -->
               <tr>
-                <td><input id="parkinsons" type="checkbox" ng-model="advancedFilters.boolean.gpSet.parkinsons" ng-true-value="'parkinsons'"
-                           name="sliming-proteinset-filter"/></td>
+                <td><input id="parkinsons" type="checkbox" ng-model="advancedFilters.boolean.gpSet.parkinsons"
+                           ng-true-value="'ParkinsonsUK-UCL'"/></td>
                 <td>Parkinson's</td>
                 <td>The set of Parkinson's Disease relevant proteins being prioritised for annotation by the Parkinson's
                   Disease Gene Ontology Annotation Initiative located at University College London</td>
                 <td><a href="http://www.ucl.ac.uk/functional-gene-annotation/neurological"
                        target="_blank"/>http://www.ucl.ac.uk/functional-gene-annotation/neurological</a></td>
               </tr>
+
+              <!-- Reference Genome -->
               <tr>
                 <td><input id="ReferenceGenome" type="checkbox" ng-model="advancedFilters.boolean.gpSet.refgenome" ng-true-value="'ReferenceGenome'"></td>
                 <td>Reference Genome</label></td>
