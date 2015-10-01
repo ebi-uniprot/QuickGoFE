@@ -39,12 +39,12 @@
 
         <div>
 <br/>
-          <button class="btn quickgo-btn" ng-click="submit(basketModal)">Submit</button>
+          <button class="btn quickgo-btn" ng-click="submit(basketModal)">Add Terms</button>
           <button class="btn quickgo-btn" ng-click="ok()">Close</button>
-          <button class="btn quickgo-btn" ng-click="showAncestorGraph()">Display terms in Ancestor Chart</button>
+          <button class="btn quickgo-btn" ng-click="showAncestorGraph()">Display Terms in Ancestor Chart</button>
           <button class="btn quickgo-btn" ng-click="filterUsingBasketTerms()">Filter With Terms</button>
           <button class="btn quickgo-btn" ng-click="emptyBasket()">Clear</button>
-          <button class="btn quickgo-btn" ng-click="exportBasket()">Export</button>
+          <button class="btn quickgo-btn" ng-click="exportBasket()" ng-disabled="isBasketEmpty()">Export</button>
         </div>
 
       </form>

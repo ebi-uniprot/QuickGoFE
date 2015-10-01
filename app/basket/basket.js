@@ -195,18 +195,18 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
   $scope.exportBasket = function () {
     //$scope.basketItems;
 
-    var promises = [];
-    for (var i = 0; i < $scope.basketItems.length; i++) {
+    //var promises = [];
+    //for (var i = 0; i < $scope.basketItems.length; i++) {
+    //
+    //  if ($scope.basketItems[i].aspect == '' || $scope.basketItems[i].aspect == '?' || $scope.basketItems[i].aspect == undefined) {
+    //
+    //    $scope.basketItems[i].aspect = '';
+    //    callUpdate($scope.basketItems[i], i, promises);
+    //  }
+    //}
 
-      if ($scope.basketItems[i].aspect == '' || $scope.basketItems[i].aspect == '?' || $scope.basketItems[i].aspect == undefined) {
 
-        $scope.basketItems[i].aspect = '';
-        callUpdate($scope.basketItems[i], i, promises);
-      }
-    }
-
-
-    $q.all(promises).then(function() {
+    //$q.all(promises).then(function() {
       // called when all promises have been resolved
 
       //Create text version of basket now all have aspect
@@ -225,7 +225,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
       downloadLink.attr('href', window.URL.createObjectURL(blob));
       downloadLink.attr('download', 'basket.tsv');
       downloadLink[0].click();
-    });
+    //});
 
 
   };
@@ -252,6 +252,11 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     }
 
 
+
+
+  $scope.isBasketEmpty = function (){
+    return $scope.basketItems.length==0;
+  }
 
     /**
    * Close window
