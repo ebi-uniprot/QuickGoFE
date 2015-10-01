@@ -2,7 +2,8 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $modal, basketService, filteringService, term ) {
+app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $modal, $q, basketService,
+                                      filteringService, quickGOHelperService, term ) {
 
 
   $scope.basketItems = basketService.getItems();
@@ -25,7 +26,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     //Tell parent page this value has been updated.
     $scope.$emit('basketUpdate', basketService.basketQuantity());
 
-  }
+  };
 
 
   /**
@@ -117,7 +118,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
 
-  }
+  };
 
 
   /**
@@ -128,7 +129,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     $modalInstance.dismiss('forward');
     console.log("forward to term");
     $location.path("/term/"+goId); // path not hash
-  }
+  };
 
 
   /**
@@ -138,7 +139,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
    */
   $scope.showAncestorGraph = function () {
 
-    console.log("[basket\basket.js] Show the Ancestor Graph")
+    console.log("[basket\basket.js] Show the Ancestor Graph");
 
     var k=0;
     var itemString="";
@@ -175,7 +176,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
       filteringService.saveValuesAsFilter('goID', $scope.basketItems[i].termId)
     }
 
-    }
+    };
 
   /**
    * -------------------------------------------------------------------------------------------------------------------
@@ -185,57 +186,74 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     $scope.basketItems = basketService.clearBasket();
     $scope.basketItems = [];
     $scope.$emit('basketUpdate', 0);
-  }
+  };
 
   /**
    * -------------------------------------------------------------------------------------------------------------------
    * Export basket
    */
   $scope.exportBasket = function () {
-    $scope.basketItems;
+    //$scope.basketItems;
 
-    var text = '';
-    for (i = 0; i < $scope.basketItems.length; i++) {
+    var promises = [];
+    for (var i = 0; i < $scope.basketItems.length; i++) {
 
-      console.log("[basket.js] basketItems::", $scope.basketItems);
+      if ($scope.basketItems[i].aspect == '' || $scope.basketItems[i].aspect == '?' || $scope.basketItems[i].aspect == undefined) {
 
-      text += $scope.basketItems[i].termId + "\t";
-
-      ////Get the aspect from the backend if empty in the basket model
-      //if($scope.basketItems[i].aspect=='' || $scope.basketItems[i].aspect == undefined) {
-      //  term.query({termId: $scope.basketItems[i].termId}, function (termData) {
-      //
-      //    var aspect = '';
-      //    if (termData.aspectDescription == "Cellular Component") {
-      //      aspect = 'C';
-      //    }
-      //    if (termData.aspectDescription == "Molecular Function") {
-      //      aspect = 'F';
-      //    }
-      //    if (termData.aspectDescription == "Biological Process") {
-      //      aspect = 'P';
-      //    }
-      //
-      //    text += aspect + "\t";
-      //
-      //  });
-      //}else{
-      //  text += $scope.basketItems[i].aspect + "\t";
-      //}
-      text += $scope.basketItems[i].aspect + "\t";
-      text += $scope.basketItems[i].name + "\n";
+        $scope.basketItems[i].aspect = '';
+        callUpdate($scope.basketItems[i], i, promises);
+      }
     }
 
-    var blob = new Blob([text], { type:"application/tsv;charset=utf-8;" });
-    var downloadLink = angular.element('<a></a>');
-    downloadLink.attr('href',window.URL.createObjectURL(blob));
-    downloadLink.attr('download', 'basket.tsv');
-    downloadLink[0].click();
 
-  }
+    $q.all(promises).then(function() {
+      // called when all promises have been resolved
+
+      //Create text version of basket now all have aspect
+      var text = '';
+      for (i = 0; i < $scope.basketItems.length; i++) {
+
+        text += $scope.basketItems[i].termId + "\t";
+        text += $scope.basketItems[i].aspect + "\t";
+        text += $scope.basketItems[i].name + "\n";
+      }
 
 
-  /**
+      //Download blob
+      var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
+      var downloadLink = angular.element('<a></a>');
+      downloadLink.attr('href', window.URL.createObjectURL(blob));
+      downloadLink.attr('download', 'basket.tsv');
+      downloadLink[0].click();
+    });
+
+
+  };
+
+
+    /**
+     * Update the basket with the aspect if its missing
+     * @param x
+     * @param promises
+     */
+    function callUpdate(x, i, promises) {
+      var d = $q.defer();
+      //x.$update({stateId: $scope.states[i].id}, function() {
+      //  someFunction();
+      //  d.resolve(); // it may be appropriate to call resolve() before someFunction() depending on your case
+      //});
+
+      term.query({termId: x.termId}, function (termData) {
+        x.aspect = quickGOHelperService.toAspectCode(termData.aspectDescription);
+        d.resolve();
+      });
+
+      promises.push(d.promise);
+    }
+
+
+
+    /**
    * Close window
    */
   $scope.ok = function () {
