@@ -107,7 +107,7 @@ filteringModule.factory('filteringService', function() {
 
                 //Don't include de-selected values
                 if(aFilterValue!=false && aFilterValue !=undefined) {
-                  var aFilter = {type: filtertype, value: aFilterValue};
+                  var aFilter = {type: filtertype, value: aFilterKey};
                   filteringService.saveAppliedFilter(aFilter);
 
                 }else{
