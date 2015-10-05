@@ -16,7 +16,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.annotationsPerPage=25;
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
 
-  //The filters from the advanced filters modal, taxon checkbox, and sidebar input boxes.
+  //The filters from the advanced filters modal dialogue, taxon checkbox, and sidebar input boxes.
   //We may arrive at this page from the statistics page (or others) so will need to load the
   //selected filters at page initialisation time.
   $scope.appliedFilters = [];
@@ -146,7 +146,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
     //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
     $scope.appliedFilters = filteringService.getFilters();
-    console.log("Loaded applied filters", $scope.appliedFilters);
+    console.log("[annotationList.js] $scope notification of filtersUpdate", $scope.appliedFilters);
 
     //refresh the page
     getResultsPage(1);
@@ -160,7 +160,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
     //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
     $scope.appliedFilters = filteringService.getFilters();
-    console.log("Loaded applied filters", $scope.appliedFilters);
+    console.log("[annotationList.js] $rootScope notification of filtersUpdate", $scope.appliedFilters);
 
     //$scope.advancedFilters = data;
 
@@ -276,6 +276,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
   $scope.showTaxon = function(target) {
     $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
   }
+
 
 
   /**
