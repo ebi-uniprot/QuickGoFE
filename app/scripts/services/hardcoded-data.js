@@ -92,7 +92,8 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {refId:"GO_REF:0000003", display:"GO_REF:0000003", name:"EC2GO"},
     {refId:"GO_REF:0000020", display:"GO_REF:0000020", name:"HAMAP2GO"},
     {refId:"GO_REF:0000041", display:"GO_REF:0000041", name:"UniPathway2GO"},
-    {refId:"GO_REF:0000049", display:"GO_REF:0000049", name:"EnsemblFungi"}
+    {refId:"GO_REF:0000049", display:"GO_REF:0000049", name:"EnsemblFungi"},
+    {refId:"GO_REF:0000104", display:"GO_REF:0000104", name:"UniRule2GO"}
   ];
 
 
