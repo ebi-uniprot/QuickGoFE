@@ -76,16 +76,25 @@ filteringModule.factory('filteringService', function() {
 
             if (anInputType.hasOwnProperty(property)) {
 
+              //Split the input in text boxes by 'new line'
               var values = anInputType[property];
-              var res = values.split("\n");
+              var lines = values.split("\n");
               var i;
 
               //save all the value of the type as filters
-              for (i = 0; i < res.length; i++) {
+              for (i = 0; i < lines.length; i++) {
 
-                if (res[i] != '') {
-                  var aFilter = {type: property, value: res[i]};
-                  filteringService.saveAppliedFilter(aFilter);
+                //Within each line, split by whitespace into multiple values
+                var valuesInLine = lines[i].split(" ");
+
+                for( k=0; k<valuesInLine.length; k++) {
+
+                 //If not empty, save the value as a filter
+                  if (valuesInLine[k] != '') {
+
+                    var aFilter = {type: property, value: valuesInLine[k]};
+                    filteringService.saveAppliedFilter(aFilter);
+                  }
                 }
               }
               //Clear the content of the text box.

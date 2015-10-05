@@ -180,7 +180,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
 
     //Gene Product ID
     if(filters[i].type == 'gpID'){
-      $scope.advancedFilters.text.gpID+=filters[i].value;
+      $scope.advancedFilters.text.gpID+=filters[i].value + '\n';
         continue;
     }
 
@@ -241,24 +241,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
       continue;
     }
 
-    ////Evidence
-    //if(filters[i].type == 'ecoID'){
-    //
-    //  //requested taxon in hardcoded list, then populate boolean otherwise populate text
-    //  var ecoCounter;
-    //  var commonEco=false;
-    //  for (ecoCounter = 0; ecoCounter <  $scope.evidenceTypes.length; ecoCounter++){
-    //    if( $scope.evidenceTypes[ecoCounter].ecoTerm == filters[i].value){
-    //      $scope.advancedFilters.boolean.ecoID[filters[i].value] = true;
-    //      commonEco=true;
-    //    }
-    //  }
-    //
-    //  if(!commonEco){
-    //    $scope.advancedFilters.text.ecoID+=filters[i].value + '\n';
-    //  }
-    //  continue;
-    //}
+    //Evidence - this is dealt with during loading of evidences above
 
 
     //Reference
@@ -283,7 +266,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
       var commonTax=false;
       for (taxCounter = 0; taxCounter < $scope.mostCommonTaxonomies.length; taxCounter++){
         if($scope.mostCommonTaxonomies[taxCounter].taxId == filters[i].value){
-          //$scope.advancedFilters.boolean.taxon[filters[i].value] = filters[i].value;
           $scope.advancedFilters.boolean.taxon[filters[i].value] = true;
           console.log("[advancedFilters.js] setting taxon on ", $scope.advancedFilters.boolean.taxon[filters[i].value]);
           commonTax=true;
@@ -321,34 +303,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
 
     console.log("Submitted advancedFilters",$scope.advancedFilters);
     console.log("Submitted useSlim",$scope.useSlim);
-
-    //If a goid has not been selected then remove the defaults for ancestor and relationship from the submitted filters
-    //console.log("Clear the defaults for radio buttons in the advanced filters dialogue. ", $scope.advancedFilters);
-    //
-    //hasGoId=0;
-    //
-    //for(var input in $scope.advancedFilters.boolean) {
-    //
-    //  if ($scope.advancedFilters.boolean.hasOwnProperty(input)) {
-    //    if (input == 'goID') {
-    //      hasGoId = 1;
-    //    }
-    //  }
-    //}
-    //
-    //for(var input in $scope.advancedFilters.text) {
-    //
-    //  if ($scope.advancedFilters.text.hasOwnProperty(input)) {
-    //    if (input == 'goID' || input=='predefinedSlimSet') {
-    //      hasGoId = 1;
-    //    }
-    //  }
-    //}
-    //
-    //if(hasGoId==0){
-    //  delete $scope.advancedFilters.text.goTermUse;
-    //  delete $scope.advancedFilters.text.goRelations;
-    //}
 
 
     //Clear existing filters

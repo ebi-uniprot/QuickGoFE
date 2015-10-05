@@ -7,6 +7,12 @@ app.controller('AnnotationSidebarCtrl', function($rootScope, $scope, filteringSe
   $scope.showInitialTaxons=1;
   $scope.showCommonTaxons=0;
 
+  //Entities to hold the quick filters values entered into the sidebar.
+  $scope.quickFilters = {};
+  $scope.quickFilters.text = {};
+  $scope.quickFilters.text.goIDs = "";
+  $scope.quickFilters.text.gpIDs = "";
+
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.initialTaxonomies = hardCodedDataService.getInitialTaxonomies();
 
@@ -20,17 +26,20 @@ app.controller('AnnotationSidebarCtrl', function($rootScope, $scope, filteringSe
   /**
    * Notify the filtering service with the submitted data
    */
-  $scope.quickFilterById = function(advancedFilters){
+  $scope.quickFilterById = function(){
 
-    console.log("quickFilterById ", advancedFilters);
+    console.log("[annotationSidebar.js] quickFilterById ",$scope.quickFilters);
 
-    filteringService.populateAppliedFilters(advancedFilters,0); //0==not a slim
+    //Split the submitted values into individual values
+
+
+    filteringService.populateAppliedFilters($scope.quickFilters,0); //0==not a slim
 
     $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
 
     //Tell parent page this value has been updated.
 
-    $scope.$emit('filtersUpdate', advancedFilters);   //todo change this so is notification only
+    $scope.$emit('filtersUpdate', $scope.quickFilters);   //todo change this so is notification only
 
     $location.path("/annotations");
 
@@ -49,17 +58,10 @@ app.controller('AnnotationSidebarCtrl', function($rootScope, $scope, filteringSe
       filteringService.saveAppliedFilter(aFilter);
     }
 
-    //Check to see if this combination is in the advancedFilters list
-    // - if not, add it.
-    // - if so, remove it.
 
-
-    //filteringService.populateAppliedFilters(advancedFilters,0); //0==not a slim
-    //
     $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
-    //
-    //Tell parent page this value has been updated.
 
+    //Tell parent page this value has been updated.
     $scope.$emit('filtersUpdate', '');   //todo change this so is notification only
 
   }
