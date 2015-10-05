@@ -176,7 +176,12 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
       filteringService.saveValuesAsFilter('goID', $scope.basketItems[i].termId)
     }
 
-    };
+    //Let the annotation list code know we have updated the filters
+    $scope.$emit('filtersUpdate', 0);
+
+    //Goodbye
+    $modalInstance.dismiss('cancel');
+  };
 
   /**
    * -------------------------------------------------------------------------------------------------------------------
