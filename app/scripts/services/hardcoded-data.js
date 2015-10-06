@@ -79,7 +79,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {refId:"DOI*", display:"DOI", name:" Any Digital Object Identifier"},
     {refId:"GO_REF*", display:"GO_REF", name:"Any Gene Ontology Database references"},
     {refId:"PMID*", display:"PMID", name:"Any PubMed"},
-    {refId:"Reactome*", display: "Reactom", name:"Reactome - a curated knowledgebase of biological pathways"},
+    {refId:"Reactome*", display: "Reactome", name:"Reactome - a curated knowledgebase of biological pathways"},
     {refId:"GO_REF:0000037", display:"GO_REF:0000037", name:"UniProt Keywords2GO (UniProtKB/Swiss-Prot entries)"},
     {refId:"GO_REF:0000038", display:"GO_REF:0000038", name:"UniProt Keywords2GO (UniProtKB/TrEMBL entries)"},
     {refId:"GO_REF:0000039", display:"GO_REF:0000039", name:"UniProt Subcellular Location2GO (UniProtKB/Swiss-Prot entries)"},
