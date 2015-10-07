@@ -48,16 +48,33 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     }
 
     var goIdsTargets = $scope.input_terms.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
-    createBasketItemsForGoTerm(goIdsTargets);
 
-    //Clear the input text field
-    $scope.input_terms="";
+    var promises = []   // will hold an array of promises from picking up the aspect and name
+
+    createBasketItemsForGoTerm(goIdsTargets, promises);
+
+    console.log("[basket.js] promises content", promises);
+
+    //Wait unitil all the lookups for term id are finished and items are saved to the basket
+    $q.all(promises).then(function() {
+
+      console.log("[basket.js] time to tell the basket the contents have been updated.")
+      $scope.$emit('basketUpdate', basketService.basketQuantity());
+
+      //reload basketItems list
+      $scope.basketItems = basketService.getItems();
+
+      $scope.isLoading = 0;
+
+      //Clear the input text field
+      $scope.input_terms = "";
+    });
 
   };
 
 
   // Create GO Term filters from a list of tokens
-  createBasketItemsForGoTerm = function(tokens) {
+  createBasketItemsForGoTerm = function(tokens, promises) {
 
     for(var j=0; j<tokens.length; j++) {
 
@@ -65,31 +82,26 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
       var niceContent = tokens[j].match(/GO:\d{7}/);
 
       if (niceContent != null) {
-
         console.log("[filteringService.js] candidate for goid", niceContent[0]);
-
-        //Get the aspect information and then save the entity to the basket
-        term.query({termId : niceContent[0]}, function(termData){
-
-          var basketItem = {termId:  termData.termId, name: termData.name};
-          console.log("Adding basket item to basket ", basketItem);
-
-          basketService.addBasketItem(basketItem);
-
-          //Tell the value in the annotation list controller holding the number of basket items to update
-          var qtyInBasket = basketService.basketQuantity();
-          //console.log("the quantity in the basket is " + qtyInBasket);
-
-          //todo there should not be multiple emit messages
-          $scope.$emit('basketUpdate', basketService.basketQuantity());
-
-          //reload basketItems list
-          $scope.basketItems = basketService.getItems();
-
-          $scope.isLoading = 0;
-        });
+        var promise = asyncTermInfoLookup(niceContent[0]);
+        promises.push(promise);
       }
     }
+  }
+
+
+  function asyncTermInfoLookup(termId){
+
+    return term.query({termId :termId}, function(termData){
+
+      var basketItem = {termId:  termData.termId, name: termData.name};
+      console.log("Adding basket item to basket ", basketItem);
+
+      basketService.addBasketItem(basketItem);
+
+    });
+
+
   }
 
   /**
@@ -133,7 +145,6 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
       }
     });
 
-
   };
 
 
@@ -169,71 +180,29 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
    * Export basket
    */
   $scope.exportBasket = function () {
-    //$scope.basketItems;
 
-    //var promises = [];
-    //for (var i = 0; i < $scope.basketItems.length; i++) {
-    //
-    //  if ($scope.basketItems[i].aspect == '' || $scope.basketItems[i].aspect == '?' || $scope.basketItems[i].aspect == undefined) {
-    //
-    //    $scope.basketItems[i].aspect = '';
-    //    callUpdate($scope.basketItems[i], i, promises);
-    //  }
-    //}
+    var text = '';
+    for (i = 0; i < $scope.basketItems.length; i++) {
 
-
-    //$q.all(promises).then(function() {
-      // called when all promises have been resolved
-
-      //Create text version of basket now all have aspect
-      var text = '';
-      for (i = 0; i < $scope.basketItems.length; i++) {
-
-        text += $scope.basketItems[i].termId + "\t";
-        text += $scope.basketItems[i].aspect + "\t";
-        text += $scope.basketItems[i].name + "\n";
-      }
-
-
-      //Download blob
-      var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
-      var downloadLink = angular.element('<a></a>');
-      downloadLink.attr('href', window.URL.createObjectURL(blob));
-      downloadLink.attr('download', 'basket.tsv');
-      downloadLink[0].click();
-    //});
-
-
-  };
-
-
-    /**
-     * Update the basket with the aspect if its missing
-     * @param x
-     * @param promises
-     */
-    function callUpdate(x, i, promises) {
-      var d = $q.defer();
-      //x.$update({stateId: $scope.states[i].id}, function() {
-      //  someFunction();
-      //  d.resolve(); // it may be appropriate to call resolve() before someFunction() depending on your case
-      //});
-
-      term.query({termId: x.termId}, function (termData) {
-        x.aspect = quickGOHelperService.toAspectCode(termData.aspectDescription);
-        d.resolve();
-      });
-
-      promises.push(d.promise);
+      text += $scope.basketItems[i].termId + "\t";
+      text += $scope.basketItems[i].aspect + "\t";
+      text += $scope.basketItems[i].name + "\n";
     }
 
+    //Download blob
+    var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
+    var downloadLink = angular.element('<a></a>');
+    downloadLink.attr('href', window.URL.createObjectURL(blob));
+    downloadLink.attr('download', 'basket.tsv');
+    downloadLink[0].click();
+
+  };
 
 
 
   $scope.isBasketEmpty = function (){
     return $scope.basketItems.length==0;
   }
-
 
 
 
