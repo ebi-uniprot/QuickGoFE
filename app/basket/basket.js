@@ -55,7 +55,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
     console.log("[basket.js] promises content", promises);
 
-    //Wait unitil all the lookups for term id are finished and items are saved to the basket
+    //Wait until all the lookups for term id are finished and items are saved to the basket
     $q.all(promises).then(function() {
 
       console.log("[basket.js] time to tell the basket the contents have been updated.")
@@ -83,8 +83,10 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
       if (niceContent != null) {
         console.log("[filteringService.js] candidate for goid", niceContent[0]);
-        var promise = asyncTermInfoLookup(niceContent[0]);
-        promises.push(promise);
+        var resource = asyncTermInfoLookup(niceContent[0]);
+
+        //Save the promise for each async request to the list
+        promises.push(resource.$promise);
       }
     }
   }
