@@ -76,24 +76,30 @@ filteringModule.factory('filteringService', function() {
 
             if (anInputType.hasOwnProperty(property)) {
 
-              //Split the input in text boxes by 'new line'
+              //Split the input in text boxes by 'new line' and whitespace to get tokens
               var values = anInputType[property];
-              var lines = values.split("\n");
+              var tokens = values.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
               var i;
 
               //save all the value of the type as filters
-              for (i = 0; i < lines.length; i++) {
+              for (i = 0; i < tokens.length; i++) {
 
-                //Within each line, split by whitespace into multiple values
-                var valuesInLine = lines[i].split(" ");
-
-                for( k=0; k<valuesInLine.length; k++) {
-
-                 //If not empty, save the value as a filter
-                  if (valuesInLine[k] != '') {
-
-                    var aFilter = {type: property, value: valuesInLine[k]};
-                    filteringService.saveAppliedFilter(aFilter);
+                //Try and parse each content into best fit content
+                if( property =='goID') {
+                  createFilterForGoTerm(tokens);
+                }else{
+                  if(property == 'ecoID'){
+                    createFilterForEvidences(tokens);
+                  }else{
+                    if(property == 'reference'){
+                      createFilterForReferences(tokens);
+                    }else{
+                      if(property == 'taxon') {
+                        createFilterForTaxons(tokens);
+                      }else{
+                        createFilterForOther(property, tokens);
+                      }
+                    }
                   }
                 }
               }
@@ -143,6 +149,157 @@ filteringModule.factory('filteringService', function() {
 
     return;
   }
+
+
+
+  filteringService.populateQuickFilters = function(quickFilters){
+
+    //  $scope.quickFilters.text.goID = "";
+    //  $scope.quickFilters.text.gpID = "";
+
+
+    //// GO ids.
+
+    //Parse GO Ids
+    //1. split into tokens
+    var goIdsTargets = quickFilters.text.goID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
+    //var goIdsTargets = quickFilters.text.goID.match(/\S+/g);
+    console.log("[filteringService.js] ", goIdsTargets);
+
+    //2. Parse the content, use it if it matches target.
+    for(var j=0; j<goIdsTargets.length; j++) {
+
+      var niceContent = goIdsTargets[j].match(/GO:\d{7}/);
+
+      if (niceContent != null) {
+
+        console.log("[filteringService.js] candidate for goid", niceContent[0]);
+
+        var aFilter = {type: 'goID', value: niceContent[0]};
+        filteringService.saveAppliedFilter(aFilter);
+      }
+    }
+
+
+    ////Now parse the gene ids
+
+    //1. Split into tokens
+    var gpIdsTargets = quickFilters.text.gpID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
+
+    //2. Now remove punctuation marks etc and save as a filter
+    for(var j=0; j<gpIdsTargets.length; j++) {
+
+      var niceContent = gpIdsTargets[j].match(/[A-Za-z0-9]+/);
+
+      if (niceContent != null) {
+
+        console.log("[filteringService.js] candidate for gpid", niceContent[0]);
+
+        var aFilter = {type: 'gpID', value: niceContent[0]};
+        filteringService.saveAppliedFilter(aFilter);
+      }
+    }
+
+  }
+
+
+  createFilterForGoTerm = function(tokens) {
+
+    for(var j=0; j<tokens.length; j++) {
+
+      //Make as restrictive as possible
+      var niceContent = tokens[j].match(/GO:\d{7}/);
+
+      if (niceContent != null) {
+
+        console.log("[filteringService.js] candidate for goid", niceContent[0]);
+
+        var aFilter = {type: 'goID', value: niceContent[0]};
+        filteringService.saveAppliedFilter(aFilter);
+      }
+    }
+  }
+
+
+  createFilterForEvidences = function(tokens) {
+
+    for(var j=0; j<tokens.length; j++) {
+
+      //Make as restrictive as possible
+      var niceContent = tokens[j].match(/ECO:\d{7}/);
+
+      if (niceContent != null) {
+
+        console.log("[filteringService.js] candidate for ecoID", niceContent[0]);
+
+        var aFilter = {type: 'ecoID', value: niceContent[0]};
+        filteringService.saveAppliedFilter(aFilter);
+      }
+    }
+  }
+
+
+  createFilterForReferences = function(tokens) {
+
+    console.log("[filteringService.js] Filter for references", tokens);
+
+    for(var j=0; j<tokens.length; j++) {
+
+      //Make a checkable value
+      var upperCase = tokens[j].toUpperCase();
+
+      //Check obvious values
+      if(upperCase=='DOI*' || upperCase=='GO_REF*' || upperCase=='PMID*' || upperCase=='Reactome*'){
+        var aFilter = {type: 'reference', value: upperCase};
+        filteringService.saveAppliedFilter(aFilter);
+        continue;
+      }
+
+      //Otherwise we should have a GO:REF
+      var niceContent = upperCase.match(/GO_REF:\d{7}/);
+
+      if (niceContent != null) {
+
+        console.log("[filteringService.js] candidate for reference", niceContent[0]);
+
+        var aFilter = {type: 'reference', value: niceContent[0]};
+        filteringService.saveAppliedFilter(aFilter);
+      }
+    }
+  }
+
+
+  createFilterForTaxons = function(tokens){
+
+    for(var j=0; j<tokens.length; j++) {
+      var niceContent = tokens[j].match(/[0-9]+/);
+
+      if (niceContent != null) {
+
+        console.log("[filteringService.js] candidate for taxon", niceContent[0]);
+
+        var aFilter = {type: 'taxon', value: niceContent[0]};
+        filteringService.saveAppliedFilter(aFilter);
+      }
+    }
+  }
+
+
+  createFilterForOther = function(filterType, tokens){
+
+    for(var j=0; j<tokens.length; j++) {
+      var niceContent = tokens[j].match(/[A-Za-z0-9]+/);
+
+      if (niceContent != null) {
+
+        console.log("[filteringService.js] candidate for gpid", niceContent[0]);
+
+        var aFilter = {type: filterType, value: niceContent[0]};
+        filteringService.saveAppliedFilter(aFilter);
+      }
+    }
+  }
+
 
 
   remove_unrequiredFilters = function(){

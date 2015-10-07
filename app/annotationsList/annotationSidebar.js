@@ -10,8 +10,8 @@ app.controller('AnnotationSidebarCtrl', function($rootScope, $scope, filteringSe
   //Entities to hold the quick filters values entered into the sidebar.
   $scope.quickFilters = {};
   $scope.quickFilters.text = {};
-  $scope.quickFilters.text.goIDs = "";
-  $scope.quickFilters.text.gpIDs = "";
+  $scope.quickFilters.text.goID = "";
+  $scope.quickFilters.text.gpID = "";
 
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.initialTaxonomies = hardCodedDataService.getInitialTaxonomies();
@@ -30,10 +30,12 @@ app.controller('AnnotationSidebarCtrl', function($rootScope, $scope, filteringSe
 
     console.log("[annotationSidebar.js] quickFilterById ",$scope.quickFilters);
 
-    //Split the submitted values into individual values
+    //Save the quick filter values
+    filteringService.populateQuickFilters($scope.quickFilters);
 
-
-    filteringService.populateAppliedFilters($scope.quickFilters,0); //0==not a slim
+    //Clear the content of the quickFilters
+    $scope.quickFilters.text.goID = "";
+    $scope.quickFilters.text.gpID = "";
 
     $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
 
