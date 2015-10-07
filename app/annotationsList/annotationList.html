@@ -9,7 +9,6 @@
   <!-- Table heading content-->
   <div class="container_24">
 
-
     <!-- Pagination Controls -->
     <div id="pagination-area">
       <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"
@@ -17,14 +16,10 @@
       <span class="pagination-text">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong></span>
     </div>
 
-    <!--<div class="grid_13" style="display: inline; float: left;">-->
-      <img ng-show="isLoading" src="images/ajax-loader.gif" style="position:relative; top: -50px;">
-    <!--</div>-->
+    <img ng-show="isLoading" src="images/ajax-loader.gif" style="position:relative; top: -50px;">
 
     <!-- Download button-->
-    <!--<div class="clearfix grid_3">-->
       <button class="btn quickgo-btn download-btn" ng-click="download()" style="position:relative; left: -30px";>Download</button>
-    <!--</div>-->
 
     <!-- Results -->
     <div class=" clearfix grid_20">
@@ -76,11 +71,7 @@
           </td>
 
           <!-- With -->
-          <td><a class="quickgo-link" href="" ng-click="showWithString(goTuple.fullWith)" >{{goTuple.fullWith}}</a>
-          <!--<a ng-repeat="ref in goTuple.withList">-->
-            <!--<a ng-href="{{ref | withUrlFilter}}" target="_blank">{{ref}}</a>-->
-          <!--</a>-->
-          </td>
+          <td><a class="quickgo-link" href="" ng-click="showWithString(goTuple.fullWith)" >{{goTuple.fullWith}}</a></td>
 
           <!-- Taxon-->
           <td><a class="quickgo-link selectable" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></td>
