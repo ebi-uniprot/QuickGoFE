@@ -10,6 +10,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
   //console.log("The contents of the basket are ", $scope.basketItems);
 
   $scope.isLoading = 0;
+  $scope.input_terms='';
 
   /**
    * ------------------------------------ Remove item from basket -----------------------------------------
@@ -35,91 +36,61 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
    * Create a list of selected ones
    * Pass that list to the filtering service.
    */
-  $scope.submit = function(basketModal){
-    console.log("SUBMIT CALLED");
+  $scope.submit = function(){
 
     //Show loading screen
     $scope.isLoading = 1;
 
     //This method is entered even when close-> ok() is called
     //todo this is a hack to get round this -- fix it.
-    if(basketModal == undefined){
+    if($scope.input_terms == undefined){
       return;
     }
 
-    console.log("Content of the basketModal", basketModal);
-    // console.log("get the text area value", advancedFilters);
-    //filteringService.setFilters(advancedFilters);
-
-    //Tell parent page this value has been updated.
-
-    //$scope.$emit('filtersUpdate', advancedFilters);
-
-    //Now go back to the annotation list
-    //$modalInstance.dismiss('cancel');
-    //$location.path("annotations");
-
-    //parse the contents of the textbox
-    //iterate through elements found
-    //look up GO Term based on the id
-    //and save the resulting data to the basket.
-
-    basketModal.text = basketModal.text.replace(/\t/g, " ");   //tab
-    basketModal.text = basketModal.text.replace(/\n/g, " ");   //The linux
-    basketModal.text = basketModal.text.replace(/\r\n/g, " "); //Windows
-
-    console.log("content of basketModal after replace", basketModal);
-    var goIds = basketModal.text.split(" ");
-
-    console.log("content of goids", goIds);
-    console.log(goIds.length);
-
-    var k =-1;
-    for(k=0; k<goIds.length; k++){
-
-      console.log("Might add to the basket", goIds[k]);
-
-      var termId = goIds[k].trim();
-      if(termId=="")continue;
-
-      //Retrieval of term data is asynchronous
-      console.log("attempting query for termId", termId);
-      term.query({termId : termId}, function(termData){
-
-        console.log("found term data ", termData);
-
-        var savedTermId = termData.termId;
-        var savedName = termData.name;
-        console.log("saved term id ", savedTermId);
-        console.log("savedName ", savedName);
-
-        var basketItem = {termId: savedTermId, name: savedName};
-        console.log("Adding basket item to basket ", basketItem);
-
-        basketService.addBasketItem(basketItem);
-
-        //Tell the value in the annotation list controller holding the number of basket items to update
-        var qtyInBasket = basketService.basketQuantity();
-        console.log("the quantity in the basket is " + qtyInBasket);
-
-        $scope.$emit('basketUpdate', basketService.basketQuantity());
-
-        //reload basketItems list
-        $scope.basketItems = basketService.getItems();
-
-        $scope.isLoading = 0;
-      });
-
-
-    }
+    var goIdsTargets = $scope.input_terms.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
+    createBasketItemsForGoTerm(goIdsTargets);
 
     //Clear the input text field
-    $scope.basketModal.text="";
-
-
+    $scope.input_terms="";
 
   };
 
+
+  // Create GO Term filters from a list of tokens
+  createBasketItemsForGoTerm = function(tokens) {
+
+    for(var j=0; j<tokens.length; j++) {
+
+      //Make as restrictive as possible
+      var niceContent = tokens[j].match(/GO:\d{7}/);
+
+      if (niceContent != null) {
+
+        console.log("[filteringService.js] candidate for goid", niceContent[0]);
+
+        //Get the aspect information and then save the entity to the basket
+        term.query({termId : niceContent[0]}, function(termData){
+
+          var basketItem = {termId:  termData.termId, name: termData.name};
+          console.log("Adding basket item to basket ", basketItem);
+
+          basketService.addBasketItem(basketItem);
+
+          //Tell the value in the annotation list controller holding the number of basket items to update
+          var qtyInBasket = basketService.basketQuantity();
+          //console.log("the quantity in the basket is " + qtyInBasket);
+
+          //todo there should not be multiple emit messages
+          $scope.$emit('basketUpdate', basketService.basketQuantity());
+
+          //reload basketItems list
+          $scope.basketItems = basketService.getItems();
+
+          $scope.isLoading = 0;
+        });
+      }
+    }
+  }
 
   /**
    * ------------------------------------ Forward To Term --------------------------------------------------------------
@@ -262,6 +233,9 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
   $scope.isBasketEmpty = function (){
     return $scope.basketItems.length==0;
   }
+
+
+
 
     /**
    * Close window
