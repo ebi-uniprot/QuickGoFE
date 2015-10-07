@@ -154,55 +154,21 @@ filteringModule.factory('filteringService', function() {
 
   filteringService.populateQuickFilters = function(quickFilters){
 
-    //  $scope.quickFilters.text.goID = "";
-    //  $scope.quickFilters.text.gpID = "";
-
-
     //// GO ids.
-
-    //Parse GO Ids
     //1. split into tokens
     var goIdsTargets = quickFilters.text.goID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
-    //var goIdsTargets = quickFilters.text.goID.match(/\S+/g);
-    console.log("[filteringService.js] ", goIdsTargets);
+    console.log("[filteringService.js] Save quick filters for goIDs", goIdsTargets);
 
-    //2. Parse the content, use it if it matches target.
-    for(var j=0; j<goIdsTargets.length; j++) {
+    createFilterForGoTerm(goIdsTargets);
 
-      var niceContent = goIdsTargets[j].match(/GO:\d{7}/);
-
-      if (niceContent != null) {
-
-        console.log("[filteringService.js] candidate for goid", niceContent[0]);
-
-        var aFilter = {type: 'goID', value: niceContent[0]};
-        filteringService.saveAppliedFilter(aFilter);
-      }
-    }
-
-
-    ////Now parse the gene ids
-
+    ////Gene ids
     //1. Split into tokens
     var gpIdsTargets = quickFilters.text.gpID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
-
-    //2. Now remove punctuation marks etc and save as a filter
-    for(var j=0; j<gpIdsTargets.length; j++) {
-
-      var niceContent = gpIdsTargets[j].match(/[A-Za-z0-9]+/);
-
-      if (niceContent != null) {
-
-        console.log("[filteringService.js] candidate for gpid", niceContent[0]);
-
-        var aFilter = {type: 'gpID', value: niceContent[0]};
-        filteringService.saveAppliedFilter(aFilter);
-      }
-    }
-
+    createFilterForOther('gpID', gpIdsTargets);
   }
 
 
+  // Create GO Term filters from a list of tokens
   createFilterForGoTerm = function(tokens) {
 
     for(var j=0; j<tokens.length; j++) {
@@ -221,6 +187,7 @@ filteringModule.factory('filteringService', function() {
   }
 
 
+  // Create  filters from a list of tokens
   createFilterForEvidences = function(tokens) {
 
     for(var j=0; j<tokens.length; j++) {
@@ -238,7 +205,7 @@ filteringModule.factory('filteringService', function() {
     }
   }
 
-
+  // Create Reference filters from a list of tokens
   createFilterForReferences = function(tokens) {
 
     console.log("[filteringService.js] Filter for references", tokens);
@@ -269,6 +236,7 @@ filteringModule.factory('filteringService', function() {
   }
 
 
+  // Create Taxon filters from a list of tokens
   createFilterForTaxons = function(tokens){
 
     for(var j=0; j<tokens.length; j++) {
@@ -285,6 +253,7 @@ filteringModule.factory('filteringService', function() {
   }
 
 
+  // Create Other filters from a list of tokens, supplying the filter type key
   createFilterForOther = function(filterType, tokens){
 
     for(var j=0; j<tokens.length; j++) {
@@ -292,7 +261,7 @@ filteringModule.factory('filteringService', function() {
 
       if (niceContent != null) {
 
-        console.log("[filteringService.js] candidate for gpid", niceContent[0]);
+        console.log("[filteringService.js] candidate for other Filter type", niceContent[0]);
 
         var aFilter = {type: filterType, value: niceContent[0]};
         filteringService.saveAppliedFilter(aFilter);
