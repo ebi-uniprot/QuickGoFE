@@ -56,8 +56,15 @@ div#local-masthead {
 }
 
 #quickgo-local-logo{
-  min-width: 110px
+  min-width: 110px;
   min-height: 66px;
+  padding:10px;
+  margin-bottom:10px;
+}
+
+.subtitle{
+	padding-top: 10px;
+	margin-left: 20px;
 }
 
 /* NAVIGATION   ------------------------------------------------------------------------------------------------------*/
