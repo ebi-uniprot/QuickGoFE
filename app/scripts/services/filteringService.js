@@ -77,32 +77,32 @@ filteringModule.factory('filteringService', function() {
             if (anInputType.hasOwnProperty(property)) {
 
               //Split the input in text boxes by 'new line' and whitespace to get tokens
-              var values = anInputType[property];
-              var tokens = values.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
-              var i;
+              var value = anInputType[property];
+              //var tokens = values.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
+              //var i;
 
               //save all the value of the type as filters
-              for (i = 0; i < tokens.length; i++) {
+              //for (i = 0; i < tokens.length; i++) {
 
                 //Try and parse each content into best fit content
                 if( property =='goID') {
-                  createFilterForGoTerm(tokens);
+                  createFilterForGoTerm(value);
                 }else{
                   if(property == 'ecoID'){
-                    createFilterForEvidences(tokens);
+                    createFilterForEvidences(value);
                   }else{
                     if(property == 'reference'){
-                      createFilterForReferences(tokens);
+                      createFilterForReferences(value);
                     }else{
                       if(property == 'taxon') {
-                        createFilterForTaxons(tokens);
+                        createFilterForTaxons(value);
                       }else{
-                        createFilterForOther(property, tokens);
+                        createFilterForOther(property, value);
                       }
                     }
                   }
                 }
-              }
+              //}
               //Clear the content of the text box.
               anInputType[property] = "";
             }
@@ -156,25 +156,28 @@ filteringModule.factory('filteringService', function() {
 
     //// GO ids.
     //1. split into tokens
-    var goIdsTargets = quickFilters.text.goID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
-    console.log("[filteringService.js] Save quick filters for goIDs", goIdsTargets);
+    //var goIdsTargets = quickFilters.text.goID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
+    //var goIdsTargets = quickFilters.text.goID.split(/[^\w\d:]/);
+    //console.log("[filteringService.js] Save quick filters for goIDs", goIdsTargets);
 
-    createFilterForGoTerm(goIdsTargets);
+    createFilterForGoTerm(quickFilters.text.goID);
 
     ////Gene ids
     //1. Split into tokens
-    var gpIdsTargets = quickFilters.text.gpID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
-    createFilterForOther('gpID', gpIdsTargets);
+    //var gpIdsTargets = quickFilters.text.gpID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
+    createFilterForOther('gpID', quickFilters.text.gpID);
   }
 
 
   // Create GO Term filters from a list of tokens
-  createFilterForGoTerm = function(tokens) {
+  createFilterForGoTerm = function(value) {
+
+    var tokens = value.split(/[^\w\d:]/);
 
     for(var j=0; j<tokens.length; j++) {
 
       //Make as restrictive as possible
-      var niceContent = tokens[j].match(/GO:\d{7}/);
+      var niceContent = tokens[j].match(/^GO:\d{7}$/);
 
       if (niceContent != null) {
 
@@ -188,12 +191,14 @@ filteringModule.factory('filteringService', function() {
 
 
   // Create  filters from a list of tokens
-  createFilterForEvidences = function(tokens) {
+  createFilterForEvidences = function(value) {
+
+    var tokens = value.split(/[^\w\d:]/);
 
     for(var j=0; j<tokens.length; j++) {
 
       //Make as restrictive as possible
-      var niceContent = tokens[j].match(/ECO:\d{7}/);
+      var niceContent = tokens[j].match(/^ECO:\d{7}$/);
 
       if (niceContent != null) {
 
@@ -206,7 +211,10 @@ filteringModule.factory('filteringService', function() {
   }
 
   // Create Reference filters from a list of tokens
-  createFilterForReferences = function(tokens) {
+  createFilterForReferences = function(value) {
+
+    //var tokens = values.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
+    var tokens = value.split(/[^\w\d:\*]/);
 
     console.log("[filteringService.js] Filter for references", tokens);
 
@@ -215,7 +223,7 @@ filteringModule.factory('filteringService', function() {
       //Make a checkable value
       var upperCase = tokens[j].toUpperCase();
 
-      //Check obvious values
+      //Check obvious values - User will need
       if(upperCase=='DOI*' || upperCase=='GO_REF*' || upperCase=='PMID*' || upperCase=='Reactome*'){
         var aFilter = {type: 'reference', value: upperCase};
         filteringService.saveAppliedFilter(aFilter);
@@ -223,7 +231,7 @@ filteringModule.factory('filteringService', function() {
       }
 
       //Otherwise we should have a GO:REF
-      var niceContent = upperCase.match(/GO_REF:\d{7}/);
+      var niceContent = upperCase.match(/^GO_REF:\d{7}$/);
 
       if (niceContent != null) {
 
@@ -237,10 +245,12 @@ filteringModule.factory('filteringService', function() {
 
 
   // Create Taxon filters from a list of tokens
-  createFilterForTaxons = function(tokens){
+  createFilterForTaxons = function(value){
+
+    var tokens = value.split(/[^\w\d:]/);   //Even tho' will be only numbers, don't split on letters
 
     for(var j=0; j<tokens.length; j++) {
-      var niceContent = tokens[j].match(/[0-9]+/);
+      var niceContent = tokens[j].match(/^[0-9]+$/);
 
       if (niceContent != null) {
 
@@ -254,7 +264,9 @@ filteringModule.factory('filteringService', function() {
 
 
   // Create Other filters from a list of tokens, supplying the filter type key
-  createFilterForOther = function(filterType, tokens){
+  createFilterForOther = function(filterType, value){
+
+    var tokens = value.split(/[^\w\d:]/);
 
     for(var j=0; j<tokens.length; j++) {
       var niceContent = tokens[j].match(/[A-Za-z0-9]+/);
