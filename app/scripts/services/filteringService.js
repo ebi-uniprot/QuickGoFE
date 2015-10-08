@@ -78,7 +78,7 @@ filteringModule.factory('filteringService', function() {
 
               //Split the input in text boxes by 'new line' and whitespace to get tokens
               var values = anInputType[property];
-              var tokens = values.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
+              var tokens = values.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
               var i;
 
               //save all the value of the type as filters
@@ -156,14 +156,14 @@ filteringModule.factory('filteringService', function() {
 
     //// GO ids.
     //1. split into tokens
-    var goIdsTargets = quickFilters.text.goID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
+    var goIdsTargets = quickFilters.text.goID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
     console.log("[filteringService.js] Save quick filters for goIDs", goIdsTargets);
 
     createFilterForGoTerm(goIdsTargets);
 
     ////Gene ids
     //1. Split into tokens
-    var gpIdsTargets = quickFilters.text.gpID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
+    var gpIdsTargets = quickFilters.text.gpID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
     createFilterForOther('gpID', gpIdsTargets);
   }
 
