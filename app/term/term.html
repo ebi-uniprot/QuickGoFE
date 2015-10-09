@@ -44,7 +44,7 @@
         <td>
           {{termModel.definition}}
           <li ng-repeat="xrefDef in termModel.definitionXrefs">
-            <a href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
+            <a class="quickgo-link" href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
                target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
           </li>
         </td>
@@ -66,7 +66,7 @@
       </tr>
       <tr ng-if="termModel.goTerm">
         <th>GONUTS</th>
-        <td><a href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
+        <td><a class="quickgo-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
           Wiki Page</a></td>
       </tr>
       <tr ng-if="termModel.credits.length>0">
@@ -206,14 +206,14 @@
         </tr>
         <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
           <td>{{taxonconstraint.ruleId}}</td>
-          <td><a href="{{feDomainAndPort}}/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
+          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
           <td>{{taxonconstraint.name}}</td>
           <td>{{taxonconstraint.relationship.text}}</td>
           <td>{{taxonconstraint.taxId}}</td>
           <td>{{taxonconstraint.taxonName}}</td>
           <td>
             <li ng-repeat="source in taxonconstraint.sources">
-              <a href="{{source.url}}" target="_blank">{{source.pmid}}</a>
+              <a class="quickgo-link" href="{{source.url}}" target="_blank">{{source.pmid}}</a>
             </li>
           </td>
         </tr>
@@ -231,7 +231,7 @@
         </tr>
         <tr ng-repeat="guideline in termModel.guidelines">
           <td>{{guideline.title}}</td>
-          <td><a href="{{guideline.url}}" target="_blanket">Link</a></td>
+          <td><a class="quickgo-link" href="{{guideline.url}}" target="_blanket">Link</a></td>
         </tr>
       </table>
     </div>
@@ -249,7 +249,7 @@
         <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
           <td>{{crossontology.relation}}</td>
           <td>{{crossontology.otherNamespace}}</td>
-          <td><a href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
+          <td><a class="quickgo-link" href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
           <td>{{crossontology.foreignTerm}}</td>
         </tr>
       </table>
@@ -284,7 +284,7 @@
       </tr>
       <tr ng-repeat="xref in termModel.xrefs">
         <td>{{xref.db}}</td>
-        <td><a ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.id}}</a></td>
+        <td><a class="quickgo-link" ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.id}}</a></td>
         <td>{{xref.name}}</td>
       </tr>
       </table>
@@ -302,7 +302,7 @@
           <th>Reason</th>
         </tr>
         <tr ng-repeat="replacement in termModel.replaces">
-          <td><a href="{{feDomainAndPort}}/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
+          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
           <td>{{replacement.child.name}}</td>
           <td>{{replacement.typeof.description}} <a
             href="{{feDomainAndPort}}/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
@@ -325,7 +325,7 @@
         </tr>
         <tr ng-repeat="replacedby in termModel.replacements">
           <td>{{replacedby.typeof.description}}</td>
-          <td><a href="{{feDomainAndPort}}/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
+          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
           <td>{{replacedby.parent.aspectDescription}}</td>
           <td>{{replacedby.parent.name}}</td>
         </tr>
@@ -380,7 +380,7 @@
           </tr>
           <tr ng-repeat="childRelation in termModel.childTermsRelations">
             <td>{{childRelation.typeOf}}</td>
-            <td><a ng-href="{{feDomainAndPort}}/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
+            <td><a class="quickgo-link" ng-href="{{feDomainAndPort}}/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
             <td>{{childRelation.name}}</td>
           </tr>
         </table>
@@ -417,7 +417,7 @@
               <th>#Compared</th>
             </tr>
             <tr ng-repeat="allStat in termModel.allCoOccurrenceStatsTerms">
-              <td><a ng-href="{{feDomainAndPort}}/term/{{allStat.comparedTerm}}">{{allStat.comparedTerm}}</a></td>
+              <td><a class="quickgo-link" ng-href="{{feDomainAndPort}}/term/{{allStat.comparedTerm}}">{{allStat.comparedTerm}}</a></td>
               <td>{{allStat.aspect}}</td>
               <td>{{allStat.name}}</td>
               <td>{{allStat.probabilityRatio}}</td>
@@ -453,7 +453,7 @@
                 <th>#Compared</th>
               </tr>
               <tr ng-repeat="nonIEAStat in termModel.nonIEACOOccurrenceStatistics">
-                <td><a
+                <td><a class="quickgo-link"
                   ng-href="{{feDomainAndPort}}/term/{{termModel.nonIEAStat.comparedTerm}}">{{termModel.nonIEAStat.comparedTerm}}</a>
                 </td>
                 <td>{{termModel.nonIEAStat.aspect}}</td>
