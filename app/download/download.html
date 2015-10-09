@@ -4,8 +4,7 @@
   <h5>QuickGO Download</h5>
   <img ng-show="isLoading" src="images/ajax-loader.gif">
 
-
-  <form>
+ <form>
     <label class="bold-label">Format:</label>
     <select ng-model="selectedFormat"  ng-options="downloadFormat.format for downloadFormat in downloadFileFormats"></select>
     <br/>
@@ -14,11 +13,27 @@
     <input ng-model="selectedLimit" ng-bind="selectedLimit">
     <br/>
     <br/>
-    <!--<button class="btn quickgo-btn" ng-click="submit(selectedFormat,selectedLimit)">Submit</button>-->
-    <a target="_self" ng-href="{{url + '?' + queryString + '&limit=' + selectedLimit + '&format=' + selectedFormat.ext}}"
-       download="{{'QuickGO.'+selectedFormat.ext}}">Download</a>
-    <!--<button class="btn quickgo-btn" ng-click="close()">Close</button>-->
-  </form>
+    <!-- Version 1 -->
+    <button class="btn quickgo-btn" ng-click="submit(selectedFormat,selectedLimit)">Submit</button>
+  <!--<button class="btn quickgo-btn" ng-click="submit()">Submit</button>-->
+
+
+  <!-- version 2-->
+    <!--<a target="_self" ng-href="{{url + '?' + queryString + '&limit=' + selectedLimit + '&format=' + selectedFormat.ext}}"-->
+       <!--download="{{'QuickGO.'+selectedFormat.ext}}">Download</a>-->
+
+    <!-- Version 3 Download button with post-->
+    <!--{{download_target}}-->
+    <!--<form name="downloadForm" action="http://localhost:9080/ws/downloadPostNewNamesNotSpring" method="post" accept-charset="UTF-8"-->
+          <!--target="_self" enctype="application/x-www-form-urlencoded" novalidate>-->
+      <!--<input type="text" hidden="true" name="list" ng-model="filters">-->
+      <!--<input type="text" hidden="true" name="format" ng-model="selectedFormat.ext">-->
+      <!--<input type="text" hidden="true" name="limit" ng-model="selectedLimit">-->
+      <!--<input type="submit" class="btn quickgo-btn" value="Submit">-->
+    <!--</form>-->
+
+    <button class="btn quickgo-btn" ng-click="close()">Close</button>
+ </form>
 
   </div>
 
