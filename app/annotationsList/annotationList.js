@@ -43,44 +43,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
 
   /**
-   * Get the results page
-   * @param pageNumber
-   */
-  function getResultsPageY(pageNumber) {
-
-    $scope.currentPage = pageNumber;
-
-    console.log(targetDomainAndPort);
-    $scope.isLoading=true;
-
-    var formattedURL=targetDomainAndPort+'/ws/annotationfiltered?';  //&q=taxonomyId:9606&page='+ pageNumber +'&rows=25';
-
-    formattedURL=formattedURL+filteringService.createQueryString();
-    $scope.isSlim = filteringService.isSlimming();
-    if($scope.isSlim) {
-      formattedURL = formattedURL + filteringService.createSlimString();
-    }
-    console.log("Query url", formattedURL);
-
-
-
-    //todo - be able to post query so the length doesn't exceed parameter max
-    //Add page and rows parameters
-    formattedURL = formattedURL + '&page='+ pageNumber +'&rows='+ $scope.annotationsPerPage;
-
-    $http.get(formattedURL).success(function(data) {
-      console.log("got the response back ", data);
-      $scope.goList = data;
-
-      prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
-
-      $scope.isLoading=false;
-    })
-
-  }
-
-
-  /**
    * Get the results page - Post version
    * @param pageNumber
    */
