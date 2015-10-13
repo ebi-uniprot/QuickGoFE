@@ -1,4 +1,4 @@
-<div class="grid_4" ng-controller="AnnotationSidebarCtrl">
+<div class="grid_4" ng-controller="SidebarCtrl">
 
   <!-- APPLIED FILTERS LIST-->
   <table class="quickFilter">
@@ -10,7 +10,7 @@
         <tr ng-repeat="filter in appliedFilters">
           <td class="sidebar-appliedFilter" ng-if="filter">
             {{filter.type}} : {{filter.value}}
-            <element class="removeFilter" ng-if="filter.type!='goTermUse' && filter.type!='goRelations'"> &nbsp;<img src="images/cross.png" ng-click="removeFilter(filter)"/></element>
+            <element class="removeFilter" ng-if="filter.type!='goTermUse' && filter.type!='goRelations'"> &nbsp;<img src="../images/cross.png" ng-click="removeFilter(filter)"/></element>
           </td>
       </tr>
   </table>

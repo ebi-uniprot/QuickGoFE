@@ -83,7 +83,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
       $scope.isLoading=false;
 
-    })
+    });
 
   }
 
@@ -267,25 +267,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     });
   };
 
-  /**
-   * ------------------------------------ Filtering Sidebar Code --------------------------------------------------
-   */
 
-
-  /**
-   * Show the advanced filters modal on request
-   */
-  $scope.showAdvancedFilters = function () {
-
-    var modalInstance = $modal.open({
-      templateUrl: 'advancedfilters/advancedFiltersModal.html',
-      controller: 'AdvancedFiltersCtrl',
-      windowClass: 'app-modal-window',
-      scope: $scope
-
-    });
-
-  };
 
 
 

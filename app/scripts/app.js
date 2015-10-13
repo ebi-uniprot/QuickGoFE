@@ -88,7 +88,7 @@ var app = angular
         controller: 'GOSlimCtrl2'
       })
       .when('/statistics', {
-        templateUrl: 'annotationsList/statistics.html',
+        templateUrl: 'statistics/statistics.html',
         controller: 'StatisticsCtrl'
       })
       .when('/terms/P', {

@@ -1,7 +1,8 @@
 /**
  * Created by twardell on 17/04/2015.
  */
-app.controller('AnnotationSidebarCtrl', function($rootScope, $scope, filteringService, hardCodedDataService, feDomainAndPort, $location) {
+app.controller('SidebarCtrl', function($rootScope, $scope, $location, $modal, filteringService, hardCodedDataService,
+                                       feDomainAndPort) {
 
 
   $scope.showInitialTaxons=1;
@@ -128,6 +129,28 @@ app.controller('AnnotationSidebarCtrl', function($rootScope, $scope, filteringSe
     $scope.showInitialTaxons=1;
     $scope.showCommonTaxons=0;
   }
+
+
+  /**
+   * ------------------------------------ Filtering Sidebar Code --------------------------------------------------
+   */
+
+
+  /**
+   * Show the advanced filters modal on request
+   */
+  $scope.showAdvancedFilters = function () {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'advancedfilters/advancedFiltersModal.html',
+      controller: 'AdvancedFiltersCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope
+
+    });
+
+  };
+
 
 
 /**
