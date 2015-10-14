@@ -39,14 +39,6 @@ var app = angular
         templateUrl: 'annotationsList/annotationList.html',
         controller: 'AnnotationListCtrl'
       })
-      .when('/about', {
-        templateUrl: 'nav/about.html',
-        controller: 'AboutCtrl'
-      })
-      .when('/documentation', {
-        templateUrl: 'nav/documentation.html',
-        controller: 'DocumentationCtrl'
-      })
       .when('/webservices', {
         templateUrl: 'nav/webservices.html',
         controller: 'WebServicesCtrl'
@@ -130,12 +122,12 @@ var app = angular
   });
 
   //Developer test
-  app.value('targetDomainAndPort','http://localhost:9080');
+  // app.value('targetDomainAndPort','http://localhost:9080');
   app.value('feDomainAndPort','http://localhost:9000');
 
   //Production test
-  //app.value('targetDomainAndPort','http://www.ebi.ac.uk/QuickGO-Beta');
-  //app.value('feDomainAndPort','http://wwwdev.ebi.ac.uk/QuickGO-Test');
+  app.value('targetDomainAndPort','http://www.ebi.ac.uk/QuickGO-Beta');
+  // app.value('feDomainAndPort','http://wwwdev.ebi.ac.uk/QuickGO-Test');
 
 
 

@@ -84,8 +84,8 @@
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->
   <script src="bower_components/es5-shim/es5-shim.js"></script>
-  <!--<script src="bower_components/angular/angular.js"></script>-->
   <script src="bower_components/json3/lib/json3.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angularjs/angular.js"></script>
   <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -254,19 +254,11 @@
           <li class="first"><a href="#/">Home</a></li>
           <li><a href="#/webservices">Web Services</a></li>
           <li><a href="#/dataset">Dataset</a></li>
-          <li><a href="#/documentation">Documentation</a></li>
           <li><a href="#/help">Help</a></li>
-          <li><a href="#/about">About QuickGO</a></li>
-          <!-- If you need to include functional (as opposed to purely navigational) links in your local menu,
-               add them here, and give them a class of "functional". Remember: you'll need a class of "last" for
-               whichever one will show up last...
-               For example: -->
-          <!--<li class="functional"><a href="#/feedback" class="icon icon-generic" data-icon="\">Feedback</a></li>-->
-          <li><a href="#/feedback" class="icon icon-generic" data-icon="\">Feedback</a></li>
-          <li><a class="functional last" href="" data-icon="b" ng-click="showBasket()"> Basket &nbsp;
-            <span id="basket"  ng-class="{'emptyBasket': countBasket==0, 'popBasket': countBasket>0}"><strong>{{countBasket}}</strong></span>   </a>
+          <li class="functional last"><a href="" data-icon="b" ng-click="showBasket()"> Basket &nbsp;
+            <span id="basket"  ng-class="{'emptyBasket': countBasket==0, 'popBasket': countBasket>0}"><strong>{{countBasket}}</strong></span></a>
           </li>
-
+          <li class="functional first"><a href="#/feedback" class="icon icon-generic" data-icon="\">Contact</a></li>
         </ul>
       </nav>
 
