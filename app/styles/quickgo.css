@@ -51,6 +51,10 @@ a.quickgo-link:hover {
   border-radius: 6px;
 }
 
+#container section {
+  margin-bottom: 3em;
+}
+
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 
 /* This section holds the our app title*/

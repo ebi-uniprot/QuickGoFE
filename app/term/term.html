@@ -3,7 +3,7 @@
 
   <section id="container" class="grid_20">
   <!-- Title section -->
-  <section class="panel">
+  <section class="panel" id="overview">
 
     <!-- Check if it's obsolete -->
     <div class="alert" ng-show="isObsolete">
@@ -75,7 +75,7 @@
   <div>
     <!--<div> Other information presented here</div>-->
 
-    <div id="termSynonyms" ng-if="termModel.synonyms.length > 0">
+    <section id="termSynonyms" ng-if="termModel.synonyms.length > 0">
       <h3 class="term-section-header">Synonyms</h3>
 
       <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
@@ -90,7 +90,7 @@
           <td>{{synonym.name}}</td>
         </tr>
       </table>
-    </div>
+    </section>
 
     <!-- Taxon Constraints -->
     <section id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0">
@@ -124,7 +124,7 @@
     </section>
 
     <!-- Annotation Guidance -->
-    <div id="termAnnotationGuidance" ng-if="termModel.guidelines.length > 0">
+    <section id="termAnnotationGuidance" ng-if="termModel.guidelines.length > 0">
       <h3 class="term-section-header">Annotation Guidance</h3>
 
       <p>Usage of this term is subject to the following annotation guidelines:</p>
@@ -137,10 +137,10 @@
           <td><a class="quickgo-link" href="{{guideline.url}}" target="_blanket">Link</a></td>
         </tr>
       </table>
-    </div>
+    </section>
 
     <!-- Cross Ontology Relations -->
-    <div id="termCrossOntologyRelations" ng-if="termModel.crossOntologyRelations.length > 0">
+    <section id="termCrossOntologyRelations" ng-if="termModel.crossOntologyRelations.length > 0">
       <h3 class="term-section-header">Cross-Ontology Relations</h3>
       <table id="ontologyrelationsTable" class="two-colours">
         <tr>
@@ -157,10 +157,10 @@
         </tr>
       </table>
       </accordion-group>
-    </div>
+    </section>
 
     <!-- GO Slims -->
-    <div id="termGOSlims" ng-if="termModel.subsets.length > 0">
+    <section id="termGOSlims" ng-if="termModel.subsets.length > 0">
       <h3 class="term-section-header">GO Slims</h3>
 
       <p>This term is present in the following GO Consortium-maintained GO slims:</p>
@@ -174,10 +174,10 @@
           <td>{{subset.termCount}}</td>
         </tr>
       </table>
-    </div>
+    </section>
 
     <!-- Cross References-->
-    <div id="termCrossReferences" ng-if="termModel.xrefs.length > 0">
+    <section id="termCrossReferences" ng-if="termModel.xrefs.length > 0">
       <h3 class="term-section-header">Cross-references</h3>
       <table id="termCrossReferencesTable" class="two-colours">
       <tr>
@@ -191,10 +191,10 @@
         <td>{{xref.name}}</td>
       </tr>
       </table>
-    </div>
+    </section>
 
     <!-- show Replaces-->
-    <div id="termReplaces" ng-if="termModel.replaces.length > 0">
+    <section id="termReplaces" ng-if="termModel.replaces.length > 0">
       <h3 class="term-section-header">Replaces</h3>
 
       <p>This term can be used instead of these obsolete terms:</p>
@@ -212,10 +212,10 @@
           </td>
         </tr>
       </table>
-    </div>
+    </section>
 
     <!-- Replaced By-->
-    <div id="termReplacedBy" ng-if="termModel.replacements.length > 0">
+    <section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
       <h3 class="term-section-header">Replaced</h3>
 
       <p>This term is obsolete. Try one of these terms:</p>
@@ -233,10 +233,10 @@
           <td>{{replacedby.parent.name}}</td>
         </tr>
       </table>
-    </div>
+    </section>
 
     <!-- Ancestors graph -->
-    <div id="ancestorChart" ng-controller="AncestorsGraphCtrl">
+    <section id="ancestorChart" ng-controller="AncestorsGraphCtrl">
       <h3 class="term-section-header">Ancestors Chart</h3>
       <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong></h5>
       <img ng-show="isLoading" src="images/ajax-loader.gif">
@@ -264,10 +264,10 @@
           </div>
           </span>
       </map>
-    </div>
+    </section>
 
     <!-- Child Terms -->
-    <div id="childTerms" ng-if="termModel.childTermsRelations.length > 0">
+    <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0">
       <h3 class="term-section-header">Child Terms</h3>
       <div>
         <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
@@ -284,10 +284,10 @@
           </tr>
         </table>
       </div>
-    </div>
+    </section>
 
     <!-- Co-occurring terms -->
-    <div id="coOcurring">
+    <section id="coOcurring">
       <h3 class="term-section-header">Co-occurrence statistics</h3>
 
       <p>These tables show the number of times the term listed in the
@@ -372,10 +372,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- Change log -->
-    <div id="termHistory">
+    <section id="termHistory">
       <h3 class="term-section-header">Change Log</h3>
       <p>Show the following categories of data:</p>
       <!-- The user can select what category types to see-->
@@ -403,20 +403,19 @@
           <td>{{history.text}}</td>
         </tr>
       </table>
+    </section>
 
-
-    </div>
   </div>
   </section>
 
     <!-- Sidebar: Controls what gets displayed on the main page.-->
   <nav class="grid_4" id="term-section-nav">
     <ul>
-      <li>
-        <a class="term-section-view"  ng-click="toTheTop()">Top</a>
+      <li du-scrollspy="overview">
+        <a class="term-section-view" du-smooth-scroll="overview">Overview</a>
       </li>
       <li ng-class="{'section-disabled':termModel.synonyms.length==0}" du-scrollspy="termSynonyms">
-        <a class="term-section-view"  du-smooth-scroll="termSynonyms">Synonyms</a>
+        <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
       </li>
       <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}" du-scrollspy="termTaxonConstraints">
         <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>

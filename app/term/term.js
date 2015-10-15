@@ -130,12 +130,8 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
 
 
   /**
-  * Scroll to the top
+  * Deals with making the right nav menu fixed
   */
-  $scope.toTheTop = function() {
-    $document.scrollTopAnimated(0, 500);
-  }
-
   $document.on('scroll', function() {
     var container = angular.element($document[0].querySelector('#container'));
     if(container[0].getBoundingClientRect().top <= 10) {
