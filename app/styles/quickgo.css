@@ -1,5 +1,7 @@
 /* Universal         -------------------------------------------------------------------------------------------------*/
-
+a:hover {
+ cursor:pointer;
+}
 
 /* The dark green #1d8086*/
 
@@ -10,6 +12,7 @@
 /* Stop bullets points appearing, say for the filter by taxon list.*/
 ul {
   list-style-type: none;
+  padding-left: 9px;
 }
 
 a:hover, {
@@ -34,6 +37,19 @@ a.quickgo-link:hover {
   cursor: pointer;
 }
 
+.panel {
+  border-radius: 6px;
+  background-color: #f4f5f7;
+}
+
+.panel h3 {
+  border-bottom: none;
+}
+
+.credit-image {
+  max-height: 45px;
+  border-radius: 6px;
+}
 
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 
@@ -354,49 +370,10 @@ textarea.sidebar {
   text-align: right;
 }
 
-#term-section-nav {
-  padding-left: 0;
-}
-
-#term-section-nav li {
-  white-space: nowrap;
-  margin: 3px;
-  padding-left: 5px;
-  border-radius: 6px;
-  background-color: #1d8086;
-}
-
-li.section-disabled {
-  background-color: rgba(18, 80, 84, 0.24)!important;
-}
-
-#term-section-nav a{
-  border-bottom: 0;
-  /*color: white;*/
-  /*border-top-left-radius: 6px*/
-  /*border-bottom-left-radius: 6px;*/
-}
-
-/*#term-section-nav a:hover{*/
-  /*border-bottom: 0;*/
-  /*/!*color: white;*!/*/
-  /*/!*border-top-left-radius: 6px*!/*/
-  /*/!*border-bottom-left-radius: 6px;*!/*/
-/*}*/
-
-#term-section-nav input {
-  padding-right: 4px;
-  /*border-bottom: 0;*/
-
-}
-
-.term-section-view {
-  border-left: 1px solid white;
-  line-height: 30px;
-  height: 30px;
-  padding-left: 2px;
-  display: inline-block;
-  color: white;
+li.section-disabled a, li.section-disabled a:hover {
+  color: rgba(18, 80, 84, 0.24)!important;
+  cursor: default;
+  text-decoration: none;
 }
 
 
@@ -430,6 +407,10 @@ li.section-disabled {
   width: 500px;
 }
 
+#term-section-nav {
+  line-height: 2em;
+}
+
 .term-section-nav-header {
   border-bottom: 1px dotted #00709b;
   border-bottom-width: 1px;
@@ -442,10 +423,6 @@ li.section-disabled {
   border-bottom-width: 2px;
   border-bottom-style: solid;
   border-bottom-color: rgb(185, 119, 46);
-}
-
-#term-show-annotations {
-  float: right;
 }
 
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/

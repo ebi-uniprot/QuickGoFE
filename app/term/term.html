@@ -1,178 +1,81 @@
-<div id="content" class="container_24">
+<div id="content" class="container_24" role="main">
   <img ng-show="isLoading" src="images/ajax-loader.gif">
 
-
+  <section class="grid_20">
   <!-- Title section -->
-  <!--<div class="grid_6"></div>-->
-  <div class="grid_13 prefix_4 alpha">
+  <section class="panel">
 
-  <!-- Check if it's obsolete -->
-  <div class="alert" ng-show="isObsolete">
-    <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
-    <strong>This term is obsolete.</strong><br/>
-    {{termModel.comment}}
-  </div>
-  <!--<button class="btn quickgo-btn" ng-disabled="preventAddToBasket"-->
-          <!--ng-click="addToBasket(termModel.termId,termModel.name)">Add to Basket-->
-  <!--</button>-->
-  <!--<element id="termpage-addToBasket" class="icon icon-static selectable" data-icon="b"-->
-           <!--ng-click="addToBasket(goTuple.goId, goTuple.termName)"></element>-->
-    <element ng-show="isInBasket(termModel.termId)" class="icon icon-static selectable" data-icon="b"
-             ng-click="addToBasket(termModel.termId, termModel.name, termModel.aspectDescription)"></element>
-    <element ng-hide="isInBasket(termModel.termId)" class="icon icon-static selectable" data-icon=">"
-             ng-click="removeFromBasket(termModel.termId)"></element>
-  <h3 class="page-title" style="display: inline">{{termModel.termId}} {{termModel.name}}</h3>
+    <!-- Check if it's obsolete -->
+    <div class="alert" ng-show="isObsolete">
+      <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
+      <strong>This term is obsolete.</strong><br/>
+      {{termModel.comment}}
     </div>
-    <div class="grid_7 omega">
-    <button id="term-show-annotations" data-icon="i" class="icon icon-functional btn quickgo-btn"
+    <h2 class="page-title">
+      {{termModel.termId}}
+      <element ng-show="isInBasket(termModel.termId)" class="icon icon-static selectable" data-icon="b"
+    ng-click="addToBasket(termModel.termId, termModel.name, termModel.aspectDescription)"></element>
+      <element ng-hide="isInBasket(termModel.termId)" class="icon icon-static selectable" data-icon=">"
+     ng-click="removeFromBasket(termModel.termId)"></element>
+      <small ng-if="termModel.altIds.length>0">
+        <span id="secondariesColumn">{{termModel.altIdsString}}</span>
+      </small>     
+    </h2>
+    
+    <!-- Term name -->
+    <h3>{{termModel.name}}</h3>
+
+    <!-- Ontology -->
+    <p ng-show="termModel.goTerm">{{termModel.aspectDescription}}</p>
+
+    <!-- Definition -->
+    <p>
+      {{termModel.definition}}
+        <a ng-repeat="xrefDef in termModel.definitionXrefs" class="quickgo-link" href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
+           target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
+    </p>
+
+    <!-- Restrictions -->
+    <p ng-if="showRestrictions">
+      <span style="background-color:#FFFBCC;">{{termModel.usage.description}}
+      <element ng-if="termModel.comment !=''">See comment below for further information.</element></span>
+    </p>
+
+    <!-- Comments -->
+    <p ng-if="termModel.comment">{{termModel.comment}}</p>
+
+    <!-- GONUTS! -->
+    <p ng-if="termModel.goTerm">
+      <td><a class="quickgo-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
+        Wiki Page (GONUTS)</a></td>
+    </p>
+
+    <!-- Acknolwedgements -->
+    <p ng-if="termModel.credits.length > 0">
+        This term was created by the GO Consortium with support from: 
+          <span ng-repeat="credit in termModel.credits">
+            <a ng-if="credit.code == 'BHF'" href="{{credit.url}}" target="_blank"><img
+              src="https://www.bhf.org.uk/~/media/images/admin/logo/bhf-logo.png" alt="BHF image" class="credit-image"/></a>
+            <a ng-if="credit.code == 'KRUK'" href="{{credit.url}}" target="_blank"> <img
+              src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image"
+              class="credit-image"/></a>
+          </span>
+    </p>
+
+    <!-- Buttons -->
+    <button id="term-show-annotations" class="btn quickgo-btn"
             ng-click="showTermAnnotations(termModel.termId)">Show annotations
     </button>
-    </div>
+  </section>
   <!-- End of title section -->
 
-
-  <!-- Header information -->
-  <div class="grid_20 prefix_4 alpha omega">
-  <!--<div class="quickgo-hoz-header">-->
-    <table>
-      <tr ng-show="termModel.goTerm">
-        <th>Ontology</th>
-        <td>{{termModel.aspectDescription}}</td>
-      </tr>
-      <tr>
-        <th>Definition</th>
-        <td>
-          {{termModel.definition}}
-          <li ng-repeat="xrefDef in termModel.definitionXrefs">
-            <a class="quickgo-link" href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
-               target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
-          </li>
-        </td>
-      </tr>
-      <tr ng-show="showRestrictions">
-        <th>Restrictions</th>
-        <td>
-					<span style="background-color:#FFFBCC;">{{termModel.usage.description}}
-					<element ng-if="termModel.comment !=''">See comment below for further information.</element></span>
-        </td>
-      </tr>
-      <tr ng-if="termModel.comment !='' && termModel.comment !== null">
-        <th>Comment</th>
-        <td>{{termModel.comment}}</td>
-      </tr>
-      <tr ng-if="termModel.altIds.length>0">
-        <th>Secondary IDs</th>
-        <td id="secondariesColumn">{{termModel.altIdsString}}</td>
-      </tr>
-      <tr ng-if="termModel.goTerm">
-        <th>GONUTS</th>
-        <td><a class="quickgo-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
-          Wiki Page</a></td>
-      </tr>
-      <tr ng-if="termModel.credits.length>0">
-        <th>Acknowledgements</th>
-        <td>
-          <ul>
-            <li ng-repeat="credit in termModel.credits">
-              This term was created by the GO Consortium with support from
-              <a ng-if="termModel.credit.code == 'BHF'" href="{{termModel.credit.url}}" target="_blank"><img
-                src="http://www.bhf.org.uk/images/logo.jpg" alt="BHF image" style="width:50px;height:45px;"/></a>
-              <a ng-if="termModel.credit.code == 'KRUK'" href="{{termModel.credit.url}}" target="_blank"> <img
-                src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image"
-                style="width:90px;height:45px;"/></a>
-            </li>
-          </ul>
-        </td>
-      </tr>
-    </table>
-  <!--</div>-->
-
-  </div>
-  <!-- Header Information End-->
-
-  <div class="grid_20 prefix_4 alpha omega">
-    <h3 class="term-section-nav-header">Display</h3>
-  </div>
-  <!--<div class="grid_8 suffix_4">-->
-    <!-- Show annotation link (pseudo button) -->
-    <!--<span ng-show="termModel.goTerm">-->
-      <!--<button id="term-show-annotations" data-icon="i" class="icon icon-functional term-section-nav-header button"-->
-               <!--ng-click="showTermAnnotations(termModel.termId)">Show annotations-->
-      <!--</button>-->
-    <!--<h3 class="term-section-nav-header">Show Annotations                                                           </h3>-->
-    <!--</span>-->
-
-  <!--</div>-->
   <div class="clearfix"></div>
 
-  <!-- Sidebar: Controls what gets displayed on the main page.-->
-  <section class="grid_8 prefix_4 alpha">
-
-    <ul id="term-section-nav">
-
-      <li ng-class="{'section-disabled':termModel.synonyms.length==0}">
-        <input type="checkbox" ng-model="showSynonyms" ng-disabled="termModel.synonyms.length==0">
-        <span class="term-section-view selectable" ng-click="scrollTo('termSynonyms')">Synonyms</span></a>
-      </li>
-      <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}">
-        <input type="checkbox" ng-model="showTaxonConstraints" ng-disabled="termModel.taxonConstraints.length==0">
-        <span class="term-section-view selectable" ng-click="scrollTo('termTaxonConstraints')">Taxon Constraints</span>
-      </li>
-      <li ng-class="{'section-disabled':termModel.guidelines.length==0}">
-        <input type="checkbox" ng-model="showAnnotationGuidance" ng-disabled="termModel.guidelines.length==0">
-        <span class="term-section-view selectable"
-              ng-click="scrollTo('termAnnotationGuidance')">Annotation Guidance</span>
-      </li>
-      <li ng-class="{'section-disabled':termModel.crossOntologyRelations.length==0}">
-        <input type="checkbox" ng-model="showCrossOntologyRelations" ng-disabled="termModel.crossOntologyRelations.length==0">
-        <span class="term-section-view selectable" ng-click="scrollTo('termCrossOntologyRelations')">Cross-Ontology Relations</span>
-      </li>
-      <li ng-class="{'section-disabled':termModel.subsets.length==0}">
-        <input type="checkbox" ng-model="showGOSlims" ng-disabled="termModel.subsets.length==0">
-        <span class="term-section-view selectable" ng-click="scrollTo('termGOSlims')">GO Slims</span>
-      </li>
-      <li ng-class="{'section-disabled':termModel.xrefs.length==0}">
-        <input type="checkbox" ng-model="showCrossReferences" ng-disabled="termModel.xrefs.length==0">
-        <span class="term-section-view selectable" ng-click="scrollTo('termCrossReferences')">Cross-References</span>
-      </li>
-      <li ng-class="{'section-disabled':termModel.replaces.length==0}">
-        <input type="checkbox" ng-model="showReplaces" ng-disabled="termModel.replaces.length==0">
-        <span class="term-section-view selectable" ng-click="scrollTo('termReplaces')">Replaces</span>
-      </li>
-      <li ng-class="{'section-disabled':termModel.replacements.length==0}">
-        <input type="checkbox" ng-model="showReplacedBy" ng-disabled="termModel.replacements.length==0">
-        <span class="term-section-view selectable" ng-click="scrollTo('termReplacedBy')">Replaced By</span>
-      </li>
-      <li>
-        <input type="checkbox" ng-model="ancestorChart">
-        <span class="pseudo-button term-section-view" ng-click="scrollTo('ancestorChart')">Ancestor Chart</span>
-      </li>
-      <li ng-show="termModel.goTerm">
-        <input type="checkbox" ng-model="childTerms">
-        <span span class="pseudo-button term-section-view" ng-click="scrollTo('childTerms')">Child Terms</span>
-      </li>
-      <li>
-        <input type="checkbox" ng-model="coOcurring">
-        <span class="pseudo-button term-section-view" ng-click="scrollTo('coOcurring')">Co-occurring Terms</span>
-      </li>
-      <li>
-        <input type="checkbox" ng-model="termHistory">
-        <span class="pseudo-button term-section-view" ng-click="scrollTo('termHistory')">Change Log</span>
-      </li>
-    </ul>
-
-
-    <!-- Add to basket button-->
-
-  </section>
-
-  <!--End of side bar information-->
-
   <!-- Main Content -->
-  <div class="grid_12 omega">
+  <div>
     <!--<div> Other information presented here</div>-->
 
-    <div id="termSynonyms" ng-show="showSynonyms">
+    <div id="termSynonyms" ng-if="termModel.synonyms.length > 0">
       <h3 class="term-section-header">Synonyms</h3>
 
       <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
@@ -190,7 +93,7 @@
     </div>
 
     <!-- Taxon Constraints -->
-    <div id="termTaxonConstraints" ng-show="showTaxonConstraints">
+    <div id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0">
       <h3 class="term-section-header">Taxon Constraints</h3>
 
       <p>The use of this term should conform to the following taxon constraints:</p>
@@ -221,7 +124,7 @@
     </div>
 
     <!-- Annotation Guidance -->
-    <div id="termAnnotationGuidance" ng-show="showAnnotationGuidance">
+    <div id="termAnnotationGuidance" ng-if="termModel.guidelines.length > 0">
       <h3 class="term-section-header">Annotation Guidance</h3>
 
       <p>Usage of this term is subject to the following annotation guidelines:</p>
@@ -237,7 +140,7 @@
     </div>
 
     <!-- Cross Ontology Relations -->
-    <div id="termCrossOntologyRelations" ng-show="showCrossOntologyRelations">
+    <div id="termCrossOntologyRelations" ng-if="termModel.crossOntologyRelations.length > 0">
       <h3 class="term-section-header">Cross-Ontology Relations</h3>
       <table id="ontologyrelationsTable" class="two-colours">
         <tr>
@@ -257,7 +160,7 @@
     </div>
 
     <!-- GO Slims -->
-    <div id="termGOSlims" ng-show="showGOSlims">
+    <div id="termGOSlims" ng-if="termModel.subsets.length > 0">
       <h3 class="term-section-header">GO Slims</h3>
 
       <p>This term is present in the following GO Consortium-maintained GO slims:</p>
@@ -274,7 +177,7 @@
     </div>
 
     <!-- Cross References-->
-    <div id="termCrossReferences" ng-show="showCrossReferences">
+    <div id="termCrossReferences" ng-if="termModel.xrefs.length > 0">
       <h3 class="term-section-header">Cross-references</h3>
       <table id="termCrossReferencesTable" class="two-colours">
       <tr>
@@ -291,7 +194,7 @@
     </div>
 
     <!-- show Replaces-->
-    <div id="termReplaces" ng-show="showReplaces">
+    <div id="termReplaces" ng-if="termModel.replaces.length > 0">
       <h3 class="term-section-header">Replaces</h3>
 
       <p>This term can be used instead of these obsolete terms:</p>
@@ -312,7 +215,7 @@
     </div>
 
     <!-- Replaced By-->
-    <div id="termReplacedBy" ng-show="showReplacedBy">
+    <div id="termReplacedBy" ng-if="termModel.replacements.length > 0">
       <h3 class="term-section-header">Replaced</h3>
 
       <p>This term is obsolete. Try one of these terms:</p>
@@ -333,7 +236,7 @@
     </div>
 
     <!-- Ancestors graph -->
-    <div id="ancestorChart" ng-show="ancestorChart" ng-controller="AncestorsGraphCtrl">
+    <div id="ancestorChart" ng-controller="AncestorsGraphCtrl">
       <h3 class="term-section-header">Ancestors Chart</h3>
       <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong></h5>
       <img ng-show="isLoading" src="images/ajax-loader.gif">
@@ -364,13 +267,9 @@
     </div>
 
     <!-- Child Terms -->
-    <div id="childTerms" ng-show="childTerms">
+    <div id="childTerms" ng-if="termModel.childTermsRelations.length > 0">
       <h3 class="term-section-header">Child Terms</h3>
-
-      <div ng-show="termModel.childTermsRelations == undefined">
-        Term {{termModel.termId}} has no children
-      </div>
-      <div ng-show="termModel.childTermsRelations.length > 0">
+      <div>
         <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
         <table class="two-colours">
           <tr>
@@ -388,7 +287,7 @@
     </div>
 
     <!-- Co-occurring terms -->
-    <div id="coOcurring" ng-show="coOcurring">
+    <div id="coOcurring">
       <h3 class="term-section-header">Co-occurrence statistics</h3>
 
       <p>These tables show the number of times the term listed in the
@@ -454,14 +353,14 @@
               </tr>
               <tr ng-repeat="nonIEAStat in termModel.nonIEACOOccurrenceStatistics">
                 <td><a class="quickgo-link"
-                  ng-href="{{feDomainAndPort}}/term/{{termModel.nonIEAStat.comparedTerm}}">{{termModel.nonIEAStat.comparedTerm}}</a>
+                  ng-href="{{feDomainAndPort}}/term/{{nonIEAStat.comparedTerm}}">{{nonIEAStat.comparedTerm}}</a>
                 </td>
-                <td>{{termModel.nonIEAStat.aspect}}</td>
-                <td>{{termModel.nonIEAStat.name}}</td>
-                <td>{{termModel.nonIEAStat.probabilityRatio}}</td>
-                <td>{{termModel.nonIEAStat.probabilitySimilarityRatio}}</td>
-                <td>{{termModel.nonIEAStat.together}}</td>
-                <td>{{termModel.nonIEAStat.compared}}</td>
+                <td>{{nonIEAStat.aspect}}</td>
+                <td>{{nonIEAStat.name}}</td>
+                <td>{{nonIEAStat.probabilityRatio}}</td>
+                <td>{{nonIEAStat.probabilitySimilarityRatio}}</td>
+                <td>{{nonIEAStat.together}}</td>
+                <td>{{nonIEAStat.compared}}</td>
               </tr>
 
               <tr>
@@ -476,7 +375,7 @@
     </div>
 
     <!-- Change log -->
-    <div id="termHistory" ng-show="termHistory">
+    <div id="termHistory">
       <h3 class="term-section-header">Change Log</h3>
       <p>Show the following categories of data:</p>
       <!-- The user can select what category types to see-->
@@ -508,5 +407,50 @@
 
     </div>
   </div>
-  <div class="clearfix"></div>
+  </section>
+
+    <!-- Sidebar: Controls what gets displayed on the main page.-->
+  <section class="grid_4">
+    <ul id="term-section-nav">
+      <li ng-class="{'section-disabled':termModel.synonyms.length==0}">
+        <a class="term-section-view" ng-click="scrollTo('termSynonyms')">Synonyms</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}">
+        <a class="term-section-view" ng-click="scrollTo('termTaxonConstraints')">Taxon Constraints</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.guidelines.length==0}">
+        <a class="term-section-view"
+              ng-click="scrollTo('termAnnotationGuidance')">Annotation Guidance</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.crossOntologyRelations.length==0}">
+        <a class="term-section-view" ng-click="scrollTo('termCrossOntologyRelations')">Cross-Ontology Relations</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.subsets.length==0}">
+        <a class="term-section-view" ng-click="scrollTo('termGOSlims')">GO Slims</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.xrefs.length==0}">
+        <a class="term-section-view" ng-click="scrollTo('termCrossReferences')">Cross-References</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.replaces.length==0}">
+        <a class="term-section-view" ng-click="scrollTo('termReplaces')">Replaces</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.replacements.length==0}">
+        <a class="term-section-view" ng-click="scrollTo('termReplacedBy')">Replaced By</a>
+      </li>
+      <li>
+        <a class="term-section-view" ng-click="scrollTo('ancestorChart')">Ancestor Chart</a>
+      </li>
+      <li ng-show="termModel.goTerm">
+        <a span class="term-section-view" ng-click="scrollTo('childTerms')">Child Terms</a>
+      </li>
+      <li>
+        <a class="term-section-view" ng-click="scrollTo('coOcurring')">Co-occurring Terms</a>
+      </li>
+      <li>
+        <a class="term-section-view" ng-click="scrollTo('termHistory')">Change Log</a>
+      </li>
+    </ul>
+  </section>
+  <!--End of side bar information-->
+
 </div>
