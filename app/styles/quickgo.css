@@ -412,6 +412,21 @@ li.section-disabled a, li.section-disabled a:hover {
   line-height: 2em;
 }
 
+#term-section-nav.fixed {
+  position: fixed;
+  top:10px;
+}
+
+#term-section-nav li {
+  display: block;
+  padding-left: 1em;
+  border-left:2px solid #FFF;
+}
+
+#term-section-nav li.active {
+  border-left:2px solid #2980B9;
+}
+
 .term-section-nav-header {
   border-bottom: 1px dotted #00709b;
   border-bottom-width: 1px;

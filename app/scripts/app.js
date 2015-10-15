@@ -25,7 +25,8 @@ var app = angular
     'quickGoFeApp.FilteringModule',
     'quickGoFeApp.ServicesModule',
     "ui.bootstrap",
-    'cgBusy'
+    'cgBusy',
+    'duScroll'
   ]);
 
   app.config(function ($routeProvider) {

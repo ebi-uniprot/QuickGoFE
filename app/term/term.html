@@ -1,7 +1,7 @@
 <div id="content" class="container_24" role="main">
   <img ng-show="isLoading" src="images/ajax-loader.gif">
 
-  <section class="grid_20">
+  <section id="container" class="grid_20">
   <!-- Title section -->
   <section class="panel">
 
@@ -93,7 +93,7 @@
     </div>
 
     <!-- Taxon Constraints -->
-    <div id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0">
+    <section id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0">
       <h3 class="term-section-header">Taxon Constraints</h3>
 
       <p>The use of this term should conform to the following taxon constraints:</p>
@@ -121,7 +121,7 @@
           </td>
         </tr>
       </table>
-    </div>
+    </section>
 
     <!-- Annotation Guidance -->
     <div id="termAnnotationGuidance" ng-if="termModel.guidelines.length > 0">
@@ -410,47 +410,50 @@
   </section>
 
     <!-- Sidebar: Controls what gets displayed on the main page.-->
-  <section class="grid_4">
-    <ul id="term-section-nav">
-      <li ng-class="{'section-disabled':termModel.synonyms.length==0}">
-        <a class="term-section-view" ng-click="scrollTo('termSynonyms')">Synonyms</a>
+  <nav class="grid_4" id="term-section-nav">
+    <ul>
+      <li>
+        <a class="term-section-view"  ng-click="toTheTop()">Top</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}">
-        <a class="term-section-view" ng-click="scrollTo('termTaxonConstraints')">Taxon Constraints</a>
+      <li ng-class="{'section-disabled':termModel.synonyms.length==0}" du-scrollspy="termSynonyms">
+        <a class="term-section-view"  du-smooth-scroll="termSynonyms">Synonyms</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.guidelines.length==0}">
+      <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}" du-scrollspy="termTaxonConstraints">
+        <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.guidelines.length==0}" du-scrollspy="termAnnotationGuidance">
         <a class="term-section-view"
-              ng-click="scrollTo('termAnnotationGuidance')">Annotation Guidance</a>
+              du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.crossOntologyRelations.length==0}">
-        <a class="term-section-view" ng-click="scrollTo('termCrossOntologyRelations')">Cross-Ontology Relations</a>
+      <li ng-class="{'section-disabled':termModel.crossOntologyRelations.length==0}" du-scrollspy="termCrossOntologyRelations">
+        <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology...</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.subsets.length==0}">
-        <a class="term-section-view" ng-click="scrollTo('termGOSlims')">GO Slims</a>
+      <li ng-class="{'section-disabled':termModel.subsets.length==0}" du-scrollspy="termGOSlims">
+        <a class="term-section-view" du-smooth-scroll="termGOSlims">GO Slims</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.xrefs.length==0}">
-        <a class="term-section-view" ng-click="scrollTo('termCrossReferences')">Cross-References</a>
+      <li ng-class="{'section-disabled':termModel.xrefs.length==0}" du-scrollspy="termCrossReferences">
+        <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.replaces.length==0}">
-        <a class="term-section-view" ng-click="scrollTo('termReplaces')">Replaces</a>
+      <li ng-class="{'section-disabled':termModel.replaces.length==0}" du-scrollspy="termReplaces">
+        <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.replacements.length==0}">
-        <a class="term-section-view" ng-click="scrollTo('termReplacedBy')">Replaced By</a>
+      <li ng-class="{'section-disabled':termModel.replacements.length==0}" du-scrollspy="termReplacedBy">
+        <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
       </li>
-      <li>
-        <a class="term-section-view" ng-click="scrollTo('ancestorChart')">Ancestor Chart</a>
+      <li du-scrollspy="ancestorChart">
+        <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
       </li>
-      <li ng-show="termModel.goTerm">
-        <a span class="term-section-view" ng-click="scrollTo('childTerms')">Child Terms</a>
+      <li ng-class="{'section-disabled':termModel.childTermsRelations.length==0}" ng-show="termModel.goTerm" du-scrollspy="childTerms">
+        <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
       </li>
-      <li>
-        <a class="term-section-view" ng-click="scrollTo('coOcurring')">Co-occurring Terms</a>
+      <li du-scrollspy="coOcurring">
+        <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
       </li>
-      <li>
-        <a class="term-section-view" ng-click="scrollTo('termHistory')">Change Log</a>
+      <li du-scrollspy="termHistory">
+        <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
       </li>
     </ul>
-  </section>
+  </nav>
   <!--End of side bar information-->
 
 </div>

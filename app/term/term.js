@@ -2,7 +2,7 @@
  * Created by twardell on 02/02/2015.
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, basketService,
-                                    targetDomainAndPort, feDomainAndPort, filteringService, quickGOHelperService) {
+                                    targetDomainAndPort, feDomainAndPort, filteringService, quickGOHelperService, $document) {
 
   $scope.feDomainAndPort=feDomainAndPort;
   $scope.targetDomainAndPort=targetDomainAndPort;
@@ -129,23 +129,24 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   };
 
 
+  /**
+  * Scroll to the top
+  */
+  $scope.toTheTop = function() {
+    $document.scrollTopAnimated(0, 500);
+  }
 
-
-
-
-
-  // Control the scrolling to anchors from sidebar -> elements of the term page
-  // https://docs.angularjs.org/api/ng/service/$anchorScroll
-  $scope.scrollTo = function(id) {
-
-    var old = $location.hash();
-    $location.hash(id);
-    $anchorScroll();
-
-    //reset to old to keep any additional routing logic from kicking in
-    $location.hash(old);
-
-  };
+  $document.on('scroll', function() {
+    var container = angular.element($document[0].querySelector('#container'));
+    if(container[0].getBoundingClientRect().top <= 10) {
+      angular.element($document[0].querySelector('#term-section-nav')).addClass('fixed');
+    } else {
+      var nav = angular.element($document[0].querySelector('#term-section-nav'));
+      if(nav.hasClass('fixed')){
+        nav.removeClass('fixed');
+      }
+    }
+  });
 
 
   /**
