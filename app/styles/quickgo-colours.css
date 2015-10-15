@@ -18,7 +18,7 @@
 
 *** Primary Color:
 
-   var. 1 = #00709B = rgb(0,112,155)
+   var. 1 = #2980B9 = rgb(0,112,155)
    var. 2 = #1D5C74 = rgb(29,92,116)
    var. 3 = #004965 = rgb(0,73,101)
    var. 4 = #33A3CD = rgb(51,163,205)
@@ -43,7 +43,7 @@
 *** Complementary Color:
 
    var. 1 = #F78100 = rgb(247,129,0)
-   var. 2 = #B9772E = rgb(185,119,46)
+   var. 2 = #2C3E50 = rgb(185,119,46)
    var. 3 = #A15400 = rgb(161,84,0)
    var. 4 = #FBA13F = rgb(251,161,63)
    var. 5 = #FBB971 = rgb(251,185,113)
@@ -61,10 +61,11 @@
     your custom colour palette in a consistent manner */
 
 /* Links */
+a,
 a:link,
 a:visited,
 #clearSelection {
-  color: #00709B;
+  color: #2980B9;
   border-bottom: none;
 }
 
@@ -72,19 +73,19 @@ a:hover,
 a:focus,
 a:active,
 #clearSelection:hover {
-  color: #00709B;
+  color: #2980B9;
 }
 
 a.special:hover,
 a.special:focus,
-a.special:active {
-	color:#00709B;
-	border-bottom: 3px double #00709B;
+a.special:active, {
+	color:#2980B9;
+	border-bottom: 3px double #2980B9;
 	}
 
 
 a:link,
-#clearSelection { color: #00709B; }
+#clearSelection { color: #2980B9; }
 
 a:hover,
 a:focus,
@@ -98,34 +99,34 @@ a.special { background-color: #62D98E; }
 
 .icon-conceptual:before {
   font-size: 108%;
-  color: #00709B;
+  color: #2980B9;
 }
 
 .icon-functional:before {
   font-size: 108%;
-  color: #00709B; 
+  color: #2980B9; 
 }
 
 a.button.icon-functional:before{
   font-size: 108%;
-  color: #00709B;
+  color: #2980B9;
 }
 
 .icon-static:before {
   font-size: 108%;
-  color: #00709B;
+  color: #2980B9;
 }
 
 .icon-generic:before {
   font-size: 108%;
-  color: #00709B; 
+  color: #2980B9; 
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 { color: #B9772E; }
+h1, h2, h3, h4, h5, h6 { color: #2C3E50; }
 
 h3 {    
-  border-bottom: 1px dotted #00709B;;
+  border-bottom: 1px dotted #2980B9;;
 }
 
 h4.title{
@@ -145,7 +146,7 @@ h3 a:visited,
 h4 a:visited,
 h5 a:visited,
 h6 a:visited {
-	/*border-bottom-color: #00709B;*/
+	/*border-bottom-color: #2980B9;*/
   border-bottom:none;
 }
 
@@ -171,11 +172,11 @@ input.submit {
     border-right: 1px solid #004965;
     border-bottom: 1px solid #004965;
 	
-	background-image: -moz-linear-gradient(top, #00709B, #1D5C74); 
+	background-image: -moz-linear-gradient(top, #2980B9, #1D5C74); 
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #ccc),color-stop(1, #1D5C74)); 
-    background-image: -webkit-linear-gradient(#00709B, #1D5C74); 
-    background-image: linear-gradient(top, #00709B, #1D5C74);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#00709B', EndColorStr='#1D5C74');
+    background-image: -webkit-linear-gradient(#2980B9, #1D5C74); 
+    background-image: linear-gradient(top, #2980B9, #1D5C74);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2980B9', EndColorStr='#1D5C74');
 }
 
 /* Define the basic colour your local masthead */
@@ -185,7 +186,7 @@ div#local-masthead { background: #CAE7F3 top right no-repeat; }
 div#local-masthead ul li a:hover,
 div#local-masthead ul li a:focus,
 div#local-masthead ul li a:active {
-border-bottom: 3px solid #00709B;
+border-bottom: 3px solid #2980B9;
 }
 
 
@@ -250,12 +251,12 @@ a.button {
 
 
 ul.action-buttons-grouped.decorated {
-  border-bottom: 1px dotted #00709B;
+  border-bottom: 1px dotted #2980B9;
 }
 
 #basket a.button {
   color: #FFFFFF;
-  background-color: #00709B;
+  background-color: #2980B9;
   background-image:none;
 }
 
@@ -432,5 +433,5 @@ div.VAR_SEQ, div.MOD_RES, div.NON_STD, div.COMPBIAS, .MOTIF, div.SIGNAL, div.ZN_
 
 
 /*.filter-title {
-    color: #00709B;
+    color: #2980B9;
 }*/
