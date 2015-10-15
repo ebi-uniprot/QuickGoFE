@@ -374,6 +374,7 @@ li.section-disabled a, li.section-disabled a:hover {
   color: rgba(18, 80, 84, 0.24)!important;
   cursor: default;
   text-decoration: none;
+  border-bottom: none;
 }
 
 
