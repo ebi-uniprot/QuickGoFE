@@ -63,9 +63,11 @@
     </p>
 
     <!-- Buttons -->
-    <button id="term-show-annotations" class="btn quickgo-btn"
-            ng-click="showTermAnnotations(termModel.termId)">Show annotations
-    </button>
+    <p>
+      <button id="term-show-annotations" class="btn quickgo-btn"
+              ng-click="showTermAnnotations(termModel.termId)">Show annotations
+      </button>
+    </p>
   </section>
   <!-- End of title section -->
 
@@ -90,6 +92,57 @@
           <td>{{synonym.name}}</td>
         </tr>
       </table>
+    </section>
+
+    <!-- Ancestors graph -->
+    <section id="ancestorChart" ng-controller="AncestorsGraphCtrl">
+      <h3 class="term-section-header">Ancestors Chart</h3>
+      <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong></h5>
+      <img ng-show="isLoading" src="images/ajax-loader.gif">
+      <img class="displayed"
+           ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
+           id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
+
+
+      <map name="ontologygraphmap">
+        <span ng-repeat="layoutNode in graphImage.layoutNodes">
+            <area shape="rect"
+                  coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
+                  ng-href="{{feDomainAndPort}}/#/term/{{layoutNode.id}}"
+                  alt="Term {{layoutNode.id}}"
+                  title="{{layoutNode.id}} - Click for more information"
+                  target="_blank">
+          </span>
+        <span ng-repeat="legendNode in graphImage.legendNodes">
+          <div ng-mouseover="formattedTooltip(legendNode.topic)">
+            <area shape="rect"
+                  id="{{legendNode.topic}}"
+                  class="relationHelp"
+                  coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
+                  tooltip-html-unsafe="{{tooltip}}" tooltip-placement="left">
+          </div>
+          </span>
+      </map>
+    </section>
+
+    <!-- Child Terms -->
+    <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0">
+      <h3 class="term-section-header">Child Terms</h3>
+      <div>
+        <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
+        <table class="two-colours">
+          <tr>
+            <th>Relationship to </br>{{termModel.termId}}</th>
+            <th>Child Term</th>
+            <th>Child Term Name</th>
+          </tr>
+          <tr ng-repeat="childRelation in termModel.childTermsRelations">
+            <td>{{childRelation.typeOf}}</td>
+            <td><a class="quickgo-link" ng-href="{{feDomainAndPort}}/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
+            <td>{{childRelation.name}}</td>
+          </tr>
+        </table>
+      </div>
     </section>
 
     <!-- Taxon Constraints -->
@@ -119,6 +172,48 @@
               <a class="quickgo-link" href="{{source.url}}" target="_blank">{{source.pmid}}</a>
             </li>
           </td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- show Replaces-->
+    <section id="termReplaces" ng-if="termModel.replaces.length > 0">
+      <h3 class="term-section-header">Replaces</h3>
+
+      <p>This term can be used instead of these obsolete terms:</p>
+      <table id="replacesTable" class="two-colours">
+        <tr>
+          <th>GO Identifier</th>
+          <th>GO Term Name</th>
+          <th>Reason</th>
+        </tr>
+        <tr ng-repeat="replacement in termModel.replaces">
+          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
+          <td>{{replacement.child.name}}</td>
+          <td>{{replacement.typeof.description}} <a
+            href="{{feDomainAndPort}}/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Replaced By-->
+    <section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
+      <h3 class="term-section-header">Replaced</h3>
+
+      <p>This term is obsolete. Try one of these terms:</p>
+      <table id="replacementsTable" class="two-colours">
+        <tr>
+          <th>Advice</th>
+          <th>GO Identifier</th>
+          <th>Ontology</th>
+          <th>GO Term Name</th>
+        </tr>
+        <tr ng-repeat="replacedby in termModel.replacements">
+          <td>{{replacedby.typeof.description}}</td>
+          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
+          <td>{{replacedby.parent.aspectDescription}}</td>
+          <td>{{replacedby.parent.name}}</td>
         </tr>
       </table>
     </section>
@@ -191,99 +286,6 @@
         <td>{{xref.name}}</td>
       </tr>
       </table>
-    </section>
-
-    <!-- show Replaces-->
-    <section id="termReplaces" ng-if="termModel.replaces.length > 0">
-      <h3 class="term-section-header">Replaces</h3>
-
-      <p>This term can be used instead of these obsolete terms:</p>
-      <table id="replacesTable" class="two-colours">
-        <tr>
-          <th>GO Identifier</th>
-          <th>GO Term Name</th>
-          <th>Reason</th>
-        </tr>
-        <tr ng-repeat="replacement in termModel.replaces">
-          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
-          <td>{{replacement.child.name}}</td>
-          <td>{{replacement.typeof.description}} <a
-            href="{{feDomainAndPort}}/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Replaced By-->
-    <section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
-      <h3 class="term-section-header">Replaced</h3>
-
-      <p>This term is obsolete. Try one of these terms:</p>
-      <table id="replacementsTable" class="two-colours">
-        <tr>
-          <th>Advice</th>
-          <th>GO Identifier</th>
-          <th>Ontology</th>
-          <th>GO Term Name</th>
-        </tr>
-        <tr ng-repeat="replacedby in termModel.replacements">
-          <td>{{replacedby.typeof.description}}</td>
-          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
-          <td>{{replacedby.parent.aspectDescription}}</td>
-          <td>{{replacedby.parent.name}}</td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Ancestors graph -->
-    <section id="ancestorChart" ng-controller="AncestorsGraphCtrl">
-      <h3 class="term-section-header">Ancestors Chart</h3>
-      <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong></h5>
-      <img ng-show="isLoading" src="images/ajax-loader.gif">
-      <img class="displayed"
-           ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
-           id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
-
-
-      <map name="ontologygraphmap">
-        <span ng-repeat="layoutNode in graphImage.layoutNodes">
-            <area shape="rect"
-                  coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
-                  ng-href="{{feDomainAndPort}}/#/term/{{layoutNode.id}}"
-                  alt="Term {{layoutNode.id}}"
-                  title="{{layoutNode.id}} - Click for more information"
-                  target="_blank">
-          </span>
-        <span ng-repeat="legendNode in graphImage.legendNodes">
-          <div ng-mouseover="formattedTooltip(legendNode.topic)">
-            <area shape="rect"
-                  id="{{legendNode.topic}}"
-                  class="relationHelp"
-                  coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                  tooltip-html-unsafe="{{tooltip}}" tooltip-placement="left">
-          </div>
-          </span>
-      </map>
-    </section>
-
-    <!-- Child Terms -->
-    <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0">
-      <h3 class="term-section-header">Child Terms</h3>
-      <div>
-        <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
-        <table class="two-colours">
-          <tr>
-            <th>Relationship to </br>{{termModel.termId}}</th>
-            <th>Child Term</th>
-            <th>Child Term Name</th>
-          </tr>
-          <tr ng-repeat="childRelation in termModel.childTermsRelations">
-            <td>{{childRelation.typeOf}}</td>
-            <td><a class="quickgo-link" ng-href="{{feDomainAndPort}}/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
-            <td>{{childRelation.name}}</td>
-          </tr>
-        </table>
-      </div>
     </section>
 
     <!-- Co-occurring terms -->
@@ -417,8 +419,20 @@
       <li ng-class="{'section-disabled':termModel.synonyms.length==0}" du-scrollspy="termSynonyms">
         <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
       </li>
+      <li du-scrollspy="ancestorChart">
+        <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.childTermsRelations.length==0}" ng-show="termModel.goTerm" du-scrollspy="childTerms">
+        <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
+      </li>
       <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}" du-scrollspy="termTaxonConstraints">
         <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.replaces.length==0}" du-scrollspy="termReplaces">
+        <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.replacements.length==0}" du-scrollspy="termReplacedBy">
+        <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
       </li>
       <li ng-class="{'section-disabled':termModel.guidelines.length==0}" du-scrollspy="termAnnotationGuidance">
         <a class="term-section-view"
@@ -432,18 +446,6 @@
       </li>
       <li ng-class="{'section-disabled':termModel.xrefs.length==0}" du-scrollspy="termCrossReferences">
         <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
-      </li>
-      <li ng-class="{'section-disabled':termModel.replaces.length==0}" du-scrollspy="termReplaces">
-        <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
-      </li>
-      <li ng-class="{'section-disabled':termModel.replacements.length==0}" du-scrollspy="termReplacedBy">
-        <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
-      </li>
-      <li du-scrollspy="ancestorChart">
-        <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
-      </li>
-      <li ng-class="{'section-disabled':termModel.childTermsRelations.length==0}" ng-show="termModel.goTerm" du-scrollspy="childTerms">
-        <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
       </li>
       <li du-scrollspy="coOcurring">
         <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
