@@ -10,8 +10,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   //Clear search term
   $scope.searchText ='';
 
-  console.log("Term Controller");
-
   $scope.isLoading=1;
   $scope.termInformation=true;
 
@@ -31,8 +29,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
 
 
   var termUrl = formattedURL+termId;
-  console.log("Getting the termUrl", termUrl);
-
 
   /**
    * Get Term Data from WS
@@ -40,11 +36,9 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   $http.get(termUrl).success(function(data) {
     $scope.termModel = data;
     $scope.isLoading=0;
-    console.log("Got Term model", $scope.termModel);
 
     //setupBasketButton($scope.termModel);
     $scope.preventAddToBasket = basketService.containsItem($scope.termModel) || $scope.termModel.active == false;
-    console.log("The prevent add to basket is " + $scope.preventAddToBasket);
 
 
     //Set active show
@@ -187,7 +181,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $loca
   });
 
   $scope.showChangeLogRow = function(category) {
-    console.log("In show change log row");
 
     if (category == 'TERM' && $scope.showCategoryTerm) {
       return true;

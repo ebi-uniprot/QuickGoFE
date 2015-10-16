@@ -11,7 +11,6 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDo
     var pathVals =$location.path().split("/");
     var termId=pathVals[(pathVals.length-1)];
 
-  console.log("In AncestorsGraphCtrl");
   $scope.isLoading = 1;
   $scope.graphModel = {};
   $scope.graphModel.id =termId;
@@ -21,8 +20,6 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDo
   }else{
     $scope.isGoTerm=1;
   }
-
-  console.log("graphModel.id", $scope.graphModel);
 
   $scope.imageSource="";
   $scope.feDomainAndPort=feDomainAndPort;
@@ -39,10 +36,6 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDo
     formattedURL = targetDomainAndPort +'/ws/chartfull?ids='+ termId
     $scope.graphModel.scope='';
   }
-
-  console.log("Chart Full url fasdf", formattedURL);
-  console.log("boo");
-
 
   $http.get(formattedURL).success(function(data) {
     //console.log("got the response back ", data);

@@ -30,7 +30,6 @@ var app = angular
   ]);
 
   app.config(function ($routeProvider) {
-        console.log($routeProvider);
     $routeProvider
       .when('/', {
         templateUrl: 'main/start.html',
