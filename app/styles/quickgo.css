@@ -51,10 +51,15 @@ a.quickgo-link:hover {
 .credit-image {
   max-height: 45px;
   border-radius: 6px;
+  vertical-align: top;
 }
 
 #container section {
   margin-bottom: 3em;
+}
+
+.obsolete {
+  color: #999;
 }
 
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/

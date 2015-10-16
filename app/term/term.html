@@ -4,7 +4,7 @@
   <section id="container" class="grid_20">
   <!-- Title section -->
   <section class="panel" id="overview">
-
+    <section>
     <!-- Check if it's obsolete -->
     <div class="alert" ng-show="isObsolete">
       <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
@@ -17,9 +17,6 @@
     ng-click="addToBasket(termModel.termId, termModel.name, termModel.aspectDescription)"></element>
       <element ng-hide="isInBasket(termModel.termId)" class="icon icon-static selectable basket-btn" data-icon="b"
      ng-click="removeFromBasket(termModel.termId)">Remove</element>
-      <small ng-if="termModel.altIds.length>0">
-        <span id="secondariesColumn">{{termModel.altIdsString}}</span>
-      </small>     
     </h2>
     
     <!-- Term name -->
@@ -27,31 +24,51 @@
 
     <!-- Ontology -->
     <p ng-show="termModel.goTerm"><strong>{{termModel.aspectDescription}}</strong></p>
+    </section>
 
     <!-- Definition -->
-    <p>
-      {{termModel.definition}}
-        <a ng-repeat="xrefDef in termModel.definitionXrefs" class="quickgo-link" href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
-           target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
-    </p>
+    <section>
+      <h5>Description</h5>
+      <p>
+        {{termModel.definition}}
+          <a ng-repeat="xrefDef in termModel.definitionXrefs" class="quickgo-link" href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
+             target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
+      </p>
+    </section>
 
     <!-- Restrictions -->
-    <p ng-if="showRestrictions">
+    <section ng-if="showRestrictions">
+    <h5>Restrictions</h5>
+    <p>
       <span style="background-color:#FFFBCC;">{{termModel.usage.description}}
       <element ng-if="termModel.comment !=''">See comment below for further information.</element></span>
     </p>
+    </section>
 
     <!-- Comments -->
-    <p ng-if="termModel.comment">{{termModel.comment}}</p>
+    <section ng-if="termModel.comment">
+      <h5>Comments</h5>
+      <p>{{termModel.comment}}</p>
+    </section>
+
+    <section ng-if="termModel.altIds.length>0">
+    <h5>Secondary IDs</h5>
+    <p class="obsolete">{{termModel.altIdsString}}</p>
+    </section>
 
     <!-- GONUTS! -->
-    <p ng-if="termModel.goTerm">
+    <section ng-if="termModel.goTerm">
+    <h5>GONUTS</h5>
+    <p>
       <td><a class="quickgo-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
-        Wiki Page (GONUTS)</a></td>
+        Wiki Page</a></td>
     </p>
+    </section>
 
-    <!-- Acknolwedgements -->
-    <p ng-if="termModel.credits.length > 0">
+    <!-- Aknowledgements -->
+    <section ng-if="termModel.credits.length > 0">
+    <h5>Aknowledgements</h5>
+    <p>
         This term was created by the GO Consortium with support from: 
           <span ng-repeat="credit in termModel.credits">
             <a ng-if="credit.code == 'BHF'" href="{{credit.url}}" target="_blank"><img
@@ -61,6 +78,7 @@
               class="credit-image"/></a>
           </span>
     </p>
+    </section>
 
     <!-- Buttons -->
     <p>
