@@ -152,10 +152,8 @@ h6 a:visited {
 
 /* Table heading cells */
 th { 
-  background-color: #5caecd;
-  background-color: rgba(92, 174, 205, 1);
-  color: #ffffff;
-}
+  background-color: #ECF0F1;
+ }
 
 #results {
 	border: 2px solid #f1f1f1;

@@ -13,10 +13,10 @@
     </div>
     <h2 class="page-title">
       {{termModel.termId}}
-      <element ng-show="isInBasket(termModel.termId)" class="icon icon-static selectable" data-icon="b"
+      <element ng-show="isInBasket(termModel.termId)" class="icon icon-static selectable basket-btn" data-icon="b"
     ng-click="addToBasket(termModel.termId, termModel.name, termModel.aspectDescription)"></element>
-      <element ng-hide="isInBasket(termModel.termId)" class="icon icon-static selectable" data-icon=">"
-     ng-click="removeFromBasket(termModel.termId)"></element>
+      <element ng-hide="isInBasket(termModel.termId)" class="icon icon-static selectable basket-btn" data-icon="b"
+     ng-click="removeFromBasket(termModel.termId)">Remove</element>
       <small ng-if="termModel.altIds.length>0">
         <span id="secondariesColumn">{{termModel.altIdsString}}</span>
       </small>     
@@ -26,7 +26,7 @@
     <h3>{{termModel.name}}</h3>
 
     <!-- Ontology -->
-    <p ng-show="termModel.goTerm">{{termModel.aspectDescription}}</p>
+    <p ng-show="termModel.goTerm"><strong>{{termModel.aspectDescription}}</strong></p>
 
     <!-- Definition -->
     <p>
@@ -299,7 +299,7 @@
         manual-evidenced annotations, while the table on the right is
         calculated using only manual-evidenced annotations.</p>
 
-      <div id="allCoOccurringStats">
+      <div id="allCoOccurringStats" class="grid_12 alpha">
         <h5 ng-show="termModel.allCoOccurrenceStatsTerms.length == 0">
           <element class='icon icon-generic' data-icon='l'>
             No co-occurring statistics for {{termModel.termId}} based on the entire annotation set
@@ -335,7 +335,8 @@
         </div>
         <div>
         </div>
-        <div id="nonIEACoOccurringStats">
+      </div>
+        <div id="nonIEACoOccurringStats" class="grid_12 omega">
           <h5 ng-show="termModel.nonIEACOOccurrenceStatistics.length == 0">
             <element class='icon icon-generic' data-icon='l'>
               No co-occurring statistics for {{termModel.termId}} based on manual annotations
@@ -373,7 +374,6 @@
             </table>
           </div>
         </div>
-      </div>
     </section>
 
     <!-- Change log -->
