@@ -125,169 +125,6 @@
       </map>
     </section>
 
-    <!-- Child Terms -->
-    <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0">
-      <h3 class="term-section-header">Child Terms</h3>
-      <div>
-        <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
-        <table class="two-colours">
-          <tr>
-            <th>Relationship to </br>{{termModel.termId}}</th>
-            <th>Child Term</th>
-            <th>Child Term Name</th>
-          </tr>
-          <tr ng-repeat="childRelation in termModel.childTermsRelations">
-            <td>{{childRelation.typeOf}}</td>
-            <td><a class="quickgo-link" ng-href="{{feDomainAndPort}}/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
-            <td>{{childRelation.name}}</td>
-          </tr>
-        </table>
-      </div>
-    </section>
-
-    <!-- Taxon Constraints -->
-    <section id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0">
-      <h3 class="term-section-header">Taxon Constraints</h3>
-
-      <p>The use of this term should conform to the following taxon constraints:</p>
-      <table id="taxonconstraintsTable" class="two-colours">
-        <tr>
-          <th>Taxon Rule</th>
-          <th>Ancestor GO ID</th>
-          <th>Ancestor GO Term Name</th>
-          <th>Relationship</th>
-          <th>Taxon ID</th>
-          <th>Taxon</th>
-          <th>Reference(s)</th>
-        </tr>
-        <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
-          <td>{{taxonconstraint.ruleId}}</td>
-          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
-          <td>{{taxonconstraint.name}}</td>
-          <td>{{taxonconstraint.relationship.text}}</td>
-          <td>{{taxonconstraint.taxId}}</td>
-          <td>{{taxonconstraint.taxonName}}</td>
-          <td>
-            <li ng-repeat="source in taxonconstraint.sources">
-              <a class="quickgo-link" href="{{source.url}}" target="_blank">{{source.pmid}}</a>
-            </li>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- show Replaces-->
-    <section id="termReplaces" ng-if="termModel.replaces.length > 0">
-      <h3 class="term-section-header">Replaces</h3>
-
-      <p>This term can be used instead of these obsolete terms:</p>
-      <table id="replacesTable" class="two-colours">
-        <tr>
-          <th>GO Identifier</th>
-          <th>GO Term Name</th>
-          <th>Reason</th>
-        </tr>
-        <tr ng-repeat="replacement in termModel.replaces">
-          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
-          <td>{{replacement.child.name}}</td>
-          <td>{{replacement.typeof.description}} <a
-            href="{{feDomainAndPort}}/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Replaced By-->
-    <section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
-      <h3 class="term-section-header">Replaced</h3>
-
-      <p>This term is obsolete. Try one of these terms:</p>
-      <table id="replacementsTable" class="two-colours">
-        <tr>
-          <th>Advice</th>
-          <th>GO Identifier</th>
-          <th>Ontology</th>
-          <th>GO Term Name</th>
-        </tr>
-        <tr ng-repeat="replacedby in termModel.replacements">
-          <td>{{replacedby.typeof.description}}</td>
-          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
-          <td>{{replacedby.parent.aspectDescription}}</td>
-          <td>{{replacedby.parent.name}}</td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Annotation Guidance -->
-    <section id="termAnnotationGuidance" ng-if="termModel.guidelines.length > 0">
-      <h3 class="term-section-header">Annotation Guidance</h3>
-
-      <p>Usage of this term is subject to the following annotation guidelines:</p>
-      <table id="guidelineTable" class="two-colours">
-        <tr>
-          <th colspan="2">Annotation Guidelines</th>
-        </tr>
-        <tr ng-repeat="guideline in termModel.guidelines">
-          <td>{{guideline.title}}</td>
-          <td><a class="quickgo-link" href="{{guideline.url}}" target="_blanket">Link</a></td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Cross Ontology Relations -->
-    <section id="termCrossOntologyRelations" ng-if="termModel.crossOntologyRelations.length > 0">
-      <h3 class="term-section-header">Cross-Ontology Relations</h3>
-      <table id="ontologyrelationsTable" class="two-colours">
-        <tr>
-          <th>Relation</th>
-          <th>Other Ontology</th>
-          <th>ID</th>
-          <th>Term</th>
-        </tr>
-        <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
-          <td>{{crossontology.relation}}</td>
-          <td>{{crossontology.otherNamespace}}</td>
-          <td><a class="quickgo-link" href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
-          <td>{{crossontology.foreignTerm}}</td>
-        </tr>
-      </table>
-      </accordion-group>
-    </section>
-
-    <!-- GO Slims -->
-    <section id="termGOSlims" ng-if="termModel.subsets.length > 0">
-      <h3 class="term-section-header">GO Slims</h3>
-
-      <p>This term is present in the following GO Consortium-maintained GO slims:</p>
-      <table id="subsetsTable" class="two-colours">
-        <tr>
-          <th>GO slim name</th>
-          <th>Count of all terms</th>
-        </tr>
-        <tr ng-repeat="subset in termModel.subsets">
-          <td>{{subset.name}}</td>
-          <td>{{subset.termCount}}</td>
-        </tr>
-      </table>
-    </section>
-
-    <!-- Cross References-->
-    <section id="termCrossReferences" ng-if="termModel.xrefs.length > 0">
-      <h3 class="term-section-header">Cross-references</h3>
-      <table id="termCrossReferencesTable" class="two-colours">
-      <tr>
-        <th>Database</th>
-        <th>ID</th>
-        <th>Description</th>
-      </tr>
-      <tr ng-repeat="xref in termModel.xrefs">
-        <td>{{xref.db}}</td>
-        <td><a class="quickgo-link" ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.id}}</a></td>
-        <td>{{xref.name}}</td>
-      </tr>
-      </table>
-    </section>
-
     <!-- Co-occurring terms -->
     <section id="coOcurring">
       <h3 class="term-section-header">Co-occurrence statistics</h3>
@@ -376,6 +213,169 @@
         </div>
     </section>
 
+    <!-- Child Terms -->
+    <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0">
+      <h3 class="term-section-header">Child Terms</h3>
+      <div>
+        <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
+        <table class="two-colours">
+          <tr>
+            <th>Relationship to </br>{{termModel.termId}}</th>
+            <th>Child Term</th>
+            <th>Child Term Name</th>
+          </tr>
+          <tr ng-repeat="childRelation in termModel.childTermsRelations">
+            <td>{{childRelation.typeOf}}</td>
+            <td><a class="quickgo-link" ng-href="{{feDomainAndPort}}/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
+            <td>{{childRelation.name}}</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- Annotation Guidance -->
+    <section id="termAnnotationGuidance" ng-if="termModel.guidelines.length > 0">
+      <h3 class="term-section-header">Annotation Guidance</h3>
+
+      <p>Usage of this term is subject to the following annotation guidelines:</p>
+      <table id="guidelineTable" class="two-colours">
+        <tr>
+          <th colspan="2">Annotation Guidelines</th>
+        </tr>
+        <tr ng-repeat="guideline in termModel.guidelines">
+          <td>{{guideline.title}}</td>
+          <td><a class="quickgo-link" href="{{guideline.url}}" target="_blanket">Link</a></td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Taxon Constraints -->
+    <section id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0">
+      <h3 class="term-section-header">Taxon Constraints</h3>
+
+      <p>The use of this term should conform to the following taxon constraints:</p>
+      <table id="taxonconstraintsTable" class="two-colours">
+        <tr>
+          <th>Taxon Rule</th>
+          <th>Ancestor GO ID</th>
+          <th>Ancestor GO Term Name</th>
+          <th>Relationship</th>
+          <th>Taxon ID</th>
+          <th>Taxon</th>
+          <th>Reference(s)</th>
+        </tr>
+        <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
+          <td>{{taxonconstraint.ruleId}}</td>
+          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
+          <td>{{taxonconstraint.name}}</td>
+          <td>{{taxonconstraint.relationship.text}}</td>
+          <td>{{taxonconstraint.taxId}}</td>
+          <td>{{taxonconstraint.taxonName}}</td>
+          <td>
+            <li ng-repeat="source in taxonconstraint.sources">
+              <a class="quickgo-link" href="{{source.url}}" target="_blank">{{source.pmid}}</a>
+            </li>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- show Replaces-->
+    <section id="termReplaces" ng-if="termModel.replaces.length > 0">
+      <h3 class="term-section-header">Replaces</h3>
+
+      <p>This term can be used instead of these obsolete terms:</p>
+      <table id="replacesTable" class="two-colours">
+        <tr>
+          <th>GO Identifier</th>
+          <th>GO Term Name</th>
+          <th>Reason</th>
+        </tr>
+        <tr ng-repeat="replacement in termModel.replaces">
+          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
+          <td>{{replacement.child.name}}</td>
+          <td>{{replacement.typeof.description}} <a
+            href="{{feDomainAndPort}}/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Replaced By-->
+    <section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
+      <h3 class="term-section-header">Replaced</h3>
+
+      <p>This term is obsolete. Try one of these terms:</p>
+      <table id="replacementsTable" class="two-colours">
+        <tr>
+          <th>Advice</th>
+          <th>GO Identifier</th>
+          <th>Ontology</th>
+          <th>GO Term Name</th>
+        </tr>
+        <tr ng-repeat="replacedby in termModel.replacements">
+          <td>{{replacedby.typeof.description}}</td>
+          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
+          <td>{{replacedby.parent.aspectDescription}}</td>
+          <td>{{replacedby.parent.name}}</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Cross Ontology Relations -->
+    <section id="termCrossOntologyRelations" ng-if="termModel.crossOntologyRelations.length > 0">
+      <h3 class="term-section-header">Cross-Ontology Relations</h3>
+      <table id="ontologyrelationsTable" class="two-colours">
+        <tr>
+          <th>Relation</th>
+          <th>Other Ontology</th>
+          <th>ID</th>
+          <th>Term</th>
+        </tr>
+        <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
+          <td>{{crossontology.relation}}</td>
+          <td>{{crossontology.otherNamespace}}</td>
+          <td><a class="quickgo-link" href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
+          <td>{{crossontology.foreignTerm}}</td>
+        </tr>
+      </table>
+      </accordion-group>
+    </section>
+
+    <!-- GO Slims -->
+    <section id="termGOSlims" ng-if="termModel.subsets.length > 0">
+      <h3 class="term-section-header">GO Slims</h3>
+
+      <p>This term is present in the following GO Consortium-maintained GO slims:</p>
+      <table id="subsetsTable" class="two-colours">
+        <tr>
+          <th>GO slim name</th>
+          <th>Count of all terms</th>
+        </tr>
+        <tr ng-repeat="subset in termModel.subsets">
+          <td>{{subset.name}}</td>
+          <td>{{subset.termCount}}</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Cross References-->
+    <section id="termCrossReferences" ng-if="termModel.xrefs.length > 0">
+      <h3 class="term-section-header">Cross-references</h3>
+      <table id="termCrossReferencesTable" class="two-colours">
+      <tr>
+        <th>Database</th>
+        <th>ID</th>
+        <th>Description</th>
+      </tr>
+      <tr ng-repeat="xref in termModel.xrefs">
+        <td>{{xref.db}}</td>
+        <td><a class="quickgo-link" ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.id}}</a></td>
+        <td>{{xref.name}}</td>
+      </tr>
+      </table>
+    </section>
+
     <!-- Change log -->
     <section id="termHistory">
       <h3 class="term-section-header">Change Log</h3>
@@ -422,8 +422,15 @@
       <li du-scrollspy="ancestorChart">
         <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
       </li>
+      <li du-scrollspy="coOcurring">
+        <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
+      </li>
       <li ng-class="{'section-disabled':termModel.childTermsRelations.length==0}" ng-show="termModel.goTerm" du-scrollspy="childTerms">
         <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.guidelines.length==0}" du-scrollspy="termAnnotationGuidance">
+        <a class="term-section-view"
+              du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
       </li>
       <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}" du-scrollspy="termTaxonConstraints">
         <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>
@@ -434,10 +441,6 @@
       <li ng-class="{'section-disabled':termModel.replacements.length==0}" du-scrollspy="termReplacedBy">
         <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.guidelines.length==0}" du-scrollspy="termAnnotationGuidance">
-        <a class="term-section-view"
-              du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
-      </li>
       <li ng-class="{'section-disabled':termModel.crossOntologyRelations.length==0}" du-scrollspy="termCrossOntologyRelations">
         <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology...</a>
       </li>
@@ -446,9 +449,6 @@
       </li>
       <li ng-class="{'section-disabled':termModel.xrefs.length==0}" du-scrollspy="termCrossReferences">
         <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
-      </li>
-      <li du-scrollspy="coOcurring">
-        <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
       </li>
       <li du-scrollspy="termHistory">
         <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
