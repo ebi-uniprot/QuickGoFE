@@ -105,10 +105,11 @@ div#local-masthead ul.dropdown-menu {
 div#local-masthead ul.dropdown-menu li a, 
 div#local-masthead ul.dropdown-menu li a:link, 
 div#local-masthead ul.dropdown-menu li a:visited {
-  background-color: #329DE3;
+  background-color: #ECF0F1;
+  color:#333;
+  text-shadow:none;
   border-bottom: none;
   white-space: nowrap;
-  /*width: 400px;*/
   overflow: hidden;
   text-overflow: ellipsis;
 }
