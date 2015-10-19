@@ -4,7 +4,7 @@
   <!-- Sidebar -->
   <div ng-include src="'sidebar/Sidebar.html'"></div>
 
-  <div id="statisticsMainContent" class="mainContent grid_10">
+  <div id="statisticsMainContent" class="mainContent grid_16">
 
 
     <!-- Download menu -->
@@ -24,14 +24,14 @@
     <tabset>
       <!--<div id="statisticsTabs">-->
       <tab heading="Summary">
-        <div id="statsSummary">
+        <!--<div id="statsSummary">-->
           Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation
           set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed
           will alter accordingly.
           You can find full details of the datasets that comprise the full annotation set <a target="_blank" href=<c:url
                                                                                              value="/"/>dataset>here</a>
           .
-          <table style="width:30%">
+          <table style="width:100%">
             <tr>
               <td><strong>Number of annotations</strong></td>
               <td>{{stats.totalNumberAnnotations}}</td>
@@ -41,11 +41,11 @@
               <td>{{stats.totalNumberProteins}}</td>
             </tr>
           </table>
-        </div>
+        <!--</div>-->
       </tab>
       <tab heading="GO ID">
-        <div id="statsGOID">
-          <div class="grid_5">
+        <!--<div id="statsGOID">-->
+          <div class="grid_7">
             <h4>Count of Annotations per GO Identifier</h4>
             <table id="annotationsByGOID" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -62,7 +62,7 @@
               </tr>
             </table>
           </div>
-          <div class="grid_5">
+          <div class="grid_7">
             <h4>Count of Proteins per GO Identifier</h4>
             <table id="proteinsByGOID" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -79,11 +79,11 @@
               </tr>
             </table>
           </div>
-        </div>
+        <!--</div>-->
       </tab>
       <tab heading="Aspect">
-        <div id="statsAspect">
-          <div class="grid_5">
+        <!--<div id="statsAspect">-->
+          <div class="grid_7">
             <h4>Count of Annotations per Aspect</h4>
             <table id="annotationsByAspect" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -91,16 +91,14 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <!--<c:forEach var="annByAspect" items="${statsBean.annotationsPerAspect}">-->
               <tr ng-repeat="annByAspect in statsBean.annotationsPerAspect">
                 <td><strong>{{annByAspect.code}}</strong></td>
                 <td>{{annByAspect.percentage}}</td>
                 <td>{{annByAspect.count}}</td>
               </tr>
-              <!--</c:forEach>-->
             </table>
           </div>
-          <div class="grid_5">
+          <div class="grid_7">
             <h4>Count of Proteins per Aspect</h4>
             <table id="proteinsByAspect" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -115,11 +113,11 @@
               </tr>
             </table>
           </div>
-        </div>
+        <!--</div>-->
       </tab>
       <tab heading="Evidence">
-        <div id="statsEvidence">
-          <div class="grid_5">
+        <!--<div id="statsEvidence">-->
+          <div class="grid_7">
             <h4>Count of Annotations per Evidence</h4>
             <table id="annotationsByEvidence" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -136,7 +134,7 @@
               </tr>
             </table>
           </div>
-          <div class="grid_5">
+          <div class="grid_7">
             <h4>Count of Proteins per Evidence</h4>
             <table id="proteinsByEvidence" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -153,11 +151,11 @@
               </tr>
             </table>
           </div>
-        </div>
+        <!--</div>-->
       </tab>
       <tab heading="Reference">
-        <div id="statsReference">
-          <div class="grid_5">
+        <!--<div id="statsReference">-->
+          <div class="grid_7">
             <h4>Count of Annotations per Reference</h4>
             <table id="annotationsByReference" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -187,11 +185,11 @@
               </tr>
             </table>
           </div>
-        </div>
+        <!--</div>-->
       </tab>
       <tab heading="Taxon">
-        <div id="statsTaxon">
-          <div class="grid_5">
+        <!--<div id="statsTaxon">-->
+          <div class="grid_7">
             <h4>Count of Annotations per Taxon</h4>
             <table id="annotationsByTaxon" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -208,7 +206,7 @@
               </tr>
             </table>
           </div>
-          <div class="grid_5">
+          <div class="grid_7">
             <h4>Count of Proteins per Taxon</h4>
             <table id="proteinsByTaxon" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -225,11 +223,11 @@
               </tr>
             </table>
           </div>
-        </div>
+        <!--</div>-->
       </tab>
       <tab heading="Assigned By">
-        <div id="statsAssignedBy">
-          <div class="grid_5">
+        <!--<div id="statsAssignedBy">-->
+          <div class="grid_7">
             <h4>Count of Annotations per Assigned By</h4>
             <table id="annotationsByAssignedBy" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -245,7 +243,7 @@
             </table>
 
           </div>
-          <div class="grid_5">
+          <div class="grid_7">
             <h4>Count of Proteins per Assigned By</h4>
             <table id="proteinsByAssignedBy" class="two-colours" style="font-size: 90%;">
               <tr>
@@ -260,7 +258,7 @@
               </tr>
             </table>
           </div>
-        </div>
+        <!--</div>-->
       </tab>
     </tabset>
   </div>
