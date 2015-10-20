@@ -74,6 +74,7 @@ a:focus,
 a:active,
 #clearSelection:hover {
   color: #2980B9;
+  text-decoration: none;
 }
 
 a.special:hover,
