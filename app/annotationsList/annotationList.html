@@ -14,20 +14,15 @@
 
     <!-- Buttons -->
     <div class="grid_20">
-      <div class="btn-group">
-        <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
-        <button class="btn quickgo-btn icon-functional" data-icon="=" ng-click="showAdvancedFilters()">Advanced filters</button>  
-        <a class="btn quickgo-btn icon-functional" href="#/statistics" rel="nofollow" data-icon="z">Statistics</a>
-      </div>
-      <!-- Pagination Controls -->
-      <div class="btn-group">
-          <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
-      </div>
-          <span class="pagination-text">Page <strong>{{currentPage}}</strong> of <strong>{{totalItems}}</strong> annotations</strong></span>
+      <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
+      <button class="btn quickgo-btn icon-functional" data-icon="=" ng-click="showAdvancedFilters()">Advanced filters</button>  
+      <a class="btn quickgo-btn icon-functional" href="#/statistics" rel="nofollow" data-icon="z">Statistics</a>
+      <a class="btn quickgo-btn icon-generic" ng-href="{{bookmarkableLink}}" data-icon='L'>Bookmark</a>
+      <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
     </div>
 
     <!-- Results -->
-    <div class=" clearfix grid_20">
+    <div class="clearfix grid_20">
 
       <!-- Results Header-->
       <table id="assignedByCount" class="two-colours">
@@ -88,6 +83,8 @@
           <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
         </tr>
       </table>
+      <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+
 
       <!-- if there are no results tell the user explicitly -->
       <div ng-show="goList.numberAnnotations==0">

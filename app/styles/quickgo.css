@@ -346,17 +346,6 @@ textarea.sidebar {
   display: block;
 }
 
-#bookmarkable-link {
-  font-size: 10px;
-}
-
-.showAllTaxons{
-  float: right;
-  font-weight: bold;
-  background-color: white;
-
-}
-
 .filterCount {
   float: right;
   font-weight: bold;

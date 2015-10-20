@@ -1,7 +1,7 @@
 <div class="grid_4" ng-controller="SidebarCtrl">
 
   <!-- APPLIED FILTERS LIST-->
-  <table class="quickFilter">
+  <table class="quickFilter" ng-show="appliedFilters.length>0">
     <tr>
       <th>Applied Filters
         <element class="filterCount" ng-if="appliedFilters.length==0">[None]</element>
@@ -13,42 +13,44 @@
             <element class="removeFilter" ng-if="filter.type!='goTermUse' && filter.type!='goRelations'"> &nbsp;<img src="../images/cross.png" ng-click="removeFilter(filter)"/></element>
           </td>
       </tr>
+      <tfoot>
+        <tr><td>
+          <button class="btn quickgo-btn pull-right" ng-click="clearFilters()">Clear</button>
+        </td></tr>
+      </tfoot>
   </table>
-  <button class="btn quickgo-btn" ng-click="clearFilters()">Clear</button>
-
-
-  <element class='icon icon-generic' data-icon='L'>
-    <a id="bookmarkable-link" class="quickgo-link" ng-href="{{bookmarkableLink}}">Bookmark</a>
-  </element>
-
-  <div>&nbsp;</div>
+  
+  <hr>
 
   <!-- FILTER BY TAXON-->
   <div ng-show="showInitialTaxons">
-      <h5>Taxon</h5>
+      <h4>Taxon</h4>
       <ul ng-repeat="taxon in initialTaxonomies">
         <li class="quickFilter selectable"><a ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</a></li>
       </ul>
-      <span class="quickButton showAllTaxons"><a ng-click="showMore()">More</a></span>
+      <a class="pull-right" ng-click="showMore()">More</a>
   </div>
   <div ng-show="!showInitialTaxons">
       <h5>Taxon</h5>
       <ul ng-repeat="taxon in mostCommonTaxonomies">
         <li class="quickFilter selectable"><a ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</a></li>
       </ul>
-      <span class="quickButton showAllTaxons"><a ng-click="showLess()">Less</a></span>
+      <a class="pull-right" ng-click="showLess()">Less</a>
   </div>
 
   <div>&nbsp;</div>
 
+  <hr>
 
   <!-- FILTER BY ID -->
   <div>
-    <h5>Filter By ID</h5>
-    <label>Go Id:</label><textarea class="sidebar"        ng-model="quickFilters.text.goID"></textarea>
-    <label>Gene Product:</label><textarea class="sidebar" ng-model="quickFilters.text.gpID"></textarea>
-    <button class="btn quickgo-btn sidebar-padding" class="icon icon-functional button tooltipped" data-icon="1"
-      ng-click="quickFilterById()">Submit</button>
+    <h4>Filter By ID</h4>
+    <p>
+      <label>Go Id:</label><textarea class="sidebar"        ng-model="quickFilters.text.goID"></textarea>
+      <label>Gene Product:</label><textarea class="sidebar" ng-model="quickFilters.text.gpID"></textarea>
+      <button class="btn quickgo-btn sidebar-padding pull-right" class="icon icon-functional button tooltipped" data-icon="1"
+        ng-click="quickFilterById()">Submit</button>
+    </p>
   </div>
 
 </div>
