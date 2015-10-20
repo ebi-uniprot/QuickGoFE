@@ -9,17 +9,22 @@
   <!-- Table heading content-->
   <div class="container_24">
 
-    <!-- Pagination Controls -->
-    <div id="pagination-area">
-      <dir-pagination-controls on-page-change="pageChanged(newPageNumber)"
-                               class="paginationControls"></dir-pagination-controls>
-      <span class="pagination-text">Page <strong>{{currentPage}}</strong> of <strong>{{totalAnnotations}}</strong> annotations</strong></span>
-    </div>
 
     <img ng-show="isLoading" src="images/ajax-loader.gif" style="position:relative; top: -50px;">
 
-    <!-- Download button-->
-      <button class="btn quickgo-btn download-btn" ng-click="download()" style="position:relative; left: -30px";>Download</button>
+    <!-- Buttons -->
+    <div class="grid_20">
+      <div class="btn-group">
+        <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
+        <button class="btn quickgo-btn icon-functional" data-icon="=" ng-click="showAdvancedFilters()">Advanced filters</button>  
+        <a class="btn quickgo-btn icon-functional" href="#/statistics" rel="nofollow" data-icon="z">Statistics</a>
+      </div>
+      <!-- Pagination Controls -->
+      <div class="btn-group">
+          <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+      </div>
+          <span class="pagination-text">Page <strong>{{currentPage}}</strong> of <strong>{{totalItems}}</strong> annotations</strong></span>
+    </div>
 
     <!-- Results -->
     <div class=" clearfix grid_20">
@@ -37,7 +42,7 @@
         </tr>
 
         <!-- Results Repeat -->
-        <tr dir-paginate="goTuple in goList.annotationsList | itemsPerPage: 25" total-items="goList.numberAnnotations">
+        <tr ng-repeat="goTuple in goList.annotationsList">
 
           <td><a class="quickgo-link" ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
           </td>

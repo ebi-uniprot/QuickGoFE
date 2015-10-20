@@ -173,16 +173,11 @@ textarea.default {
   padding-left: 7px;
 }
 
-.quickgo-btn {
-  padding: 6px 12px;
+.quickgo-btn, a.quickgo-btn {
   border: 1px solid #2980B9;
-  border-radius: 3px;
   background-color: #329DE3;
   color: #FFF;
-  white-space: nowrap;
-  font-size: 14px;
   font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
-  line-height: 1.42857143;
 }
 
 .quickgo-btn:hover {
@@ -190,9 +185,9 @@ textarea.default {
   color: #FFF;
 }
 
-/*label {*/
-  /*font-weight: normal;*/
-/*}*/
+.quickgo-btn:before {
+  color: #FFF !important;
+}
 
 /* GENERAL MODAL -----------------------------------------------------------------------------------------------------*/
 .quickgo-modal {
@@ -266,13 +261,6 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   min-width: 60%;
 }
 
-
-/* DOWNLOAD   --------------------------------------------------------------------------------------------------------*/
-
-.download-btn {
-  float: right;
-}
-
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 #basket {
   color: black;
@@ -294,22 +282,12 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
 }
 
 /* PAGINATION   ------------------------------------------------------------------------------------------------------*/
-#pagination-area {
-  min-width: 250px;
-  display: inline;
-}
-
-.pagination-text {
-  display: inline-block;
+.results-buttons {
   vertical-align: top;
-  padding-top: 25px;
-  font-size: large;
 }
 
-.paginationControls {
-  word-wrap: normal;
-  font-size: x-large;
-
+.pagination {
+  margin: 0px !important;
 }
 
 .highlight-viewBy {
@@ -336,30 +314,9 @@ p.pos_indented {
 }
 
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
-table.sidebar-section-applied {
-  padding: 3px;
-}
-
-div.sidebar-section {
-  background-color: rgba(112, 189, 189, 0.47);
-  padding: 2px;
-}
-
 
 td.sidebar-appliedFilter {
   background-color: white;
-}
-
-div.sidebar-content {
-  background-color: white;
-}
-
-td.quickFilter:hover {
-  background-color: #bce7e7;
-}
-
-table.quickFilter {
-  border: 2px solid rgba(112, 189, 189, 0.47);
 }
 
 textarea.sidebar {

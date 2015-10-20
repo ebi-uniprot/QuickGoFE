@@ -18,7 +18,6 @@ var app = angular
     'ngTouch',
     'quickGoFeApp.wsService',
     'app.quickGo.filters',
-    'angularUtils.directives.dirPagination',
     'quickGoFeApp.BasketModule',
     'quickGoFeApp.HardCodedDataModule',
     'quickGoFeApp.WizardModule',
@@ -114,11 +113,6 @@ var app = angular
       .otherwise({
         redirectTo: '/'
       });
-  });
-
-  app.config(function(paginationTemplateProvider) {
-    //paginationTemplateProvider.setPath('scripts/directives/pagination/dirPagination.tpl.html');
-    paginationTemplateProvider.setPath('views/controls/quickgoDirPagination.tpl.html');
   });
 
   //Developer test

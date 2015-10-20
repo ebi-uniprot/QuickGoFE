@@ -25,50 +25,30 @@
 
   <!-- FILTER BY TAXON-->
   <div ng-show="showInitialTaxons">
-    <table class="quickFilter">
-      <tr><th>Filter By Taxon <span class="quickButton showAllTaxons" ng-click="showMore()">+ More</span></th></tr>
-      <tr ng-repeat="taxon in initialTaxonomies">
-        <td class="quickFilter selectable" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</td>
-      </tr>
-    </table>
+      <h5>Taxon</h5>
+      <ul ng-repeat="taxon in initialTaxonomies">
+        <li class="quickFilter selectable"><a ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</a></li>
+      </ul>
+      <span class="quickButton showAllTaxons"><a ng-click="showMore()">More</a></span>
   </div>
   <div ng-show="!showInitialTaxons">
-    <table class="quickFilter">
-      <tr><th>Filter By Taxon <span class="quickButton showAllTaxons" ng-click="showLess()">- Less</span></th></tr>
-      <tr ng-repeat="taxon in mostCommonTaxonomies">
-        <td class="quickFilter selectable" ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</td>
-      </tr>
-    </table>
+      <h5>Taxon</h5>
+      <ul ng-repeat="taxon in mostCommonTaxonomies">
+        <li class="quickFilter selectable"><a ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</a></li>
+      </ul>
+      <span class="quickButton showAllTaxons"><a ng-click="showLess()">Less</a></span>
   </div>
 
   <div>&nbsp;</div>
 
 
   <!-- FILTER BY ID -->
-  <table class="quickFilter">
-    <tr><th>Filter By ID</th></tr>
-    <tr class="sidebar-padding"><td><label>Go Id:</label><textarea class="sidebar"        ng-model="quickFilters.text.goID"></textarea></td></tr>
-    <tr class="sidebar-padding"><td><label>Gene Product:</label><textarea class="sidebar" ng-model="quickFilters.text.gpID"></textarea></td></tr>
-    <tr class="sidebar-padding"><td><button class="btn quickgo-btn sidebar-padding" class="icon icon-functional button tooltipped" data-icon="1"
-      ng-click="quickFilterById()">Submit</button></td></tr>
-  </table>
-
-
-<div>&nbsp;</div>
-<div><button class="btn quickgo-btn"
-         class="icon icon-functional button tooltipped" data-icon="f" ng-click="showAdvancedFilters()">Advanced filters</button>
-</div>
-<div>&nbsp;</div>
-
-<!-- SELECT VIEW BY-->
-  <div class="sidebar-section">
-    <label class="sidebar" style="padding: 4px;">View by</label>
-    <div class="sidebar-content">
-      <ul>
-        <li id="resultsTableView"><a class="quickButton quickgo-link" href="#/annotations" rel="nofollow">Results table</a></li>
-        <li id="statisticsView"><a class="quickButton quickgo-link" href="#/statistics" rel="nofollow">Statistics</a></li>
-      </ul>
-    </div>
+  <div>
+    <h5>Filter By ID</h5>
+    <label>Go Id:</label><textarea class="sidebar"        ng-model="quickFilters.text.goID"></textarea>
+    <label>Gene Product:</label><textarea class="sidebar" ng-model="quickFilters.text.gpID"></textarea>
+    <button class="btn quickgo-btn sidebar-padding" class="icon icon-functional button tooltipped" data-icon="1"
+      ng-click="quickFilterById()">Submit</button>
   </div>
 
 </div>

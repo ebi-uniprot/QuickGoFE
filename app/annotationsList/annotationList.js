@@ -13,7 +13,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   //console.log("In the annotation list controller");
   $scope.isSlim = 0;
-  $scope.annotationsPerPage=25;
+  $scope.maxSize=25;
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
 
   //The filters from the advanced filters modal dialogue, taxon checkbox, and sidebar input boxes.
@@ -30,11 +30,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   $scope.isLoading = true;
   $scope.currentPage=1;
-  getResultsPage(1);    //<--this is called instead by the page changed call
-
-  $scope.pagination = {
-    current: 1
-  };
+  getResultsPage();    //<--this is called instead by the page changed call
 
 
   /**
@@ -44,9 +40,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
 
   /**
    * Get the results page - Post version
-   * @param pageNumber
    */
-  function getResultsPage(pageNumber) {
+  function getResultsPage() {
     $scope.isLoading=true;
 
     //var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNames';
@@ -57,10 +52,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     //Create the object to send to the server
     var filterRequest = {};
     filterRequest.list =  filteringService.getFilters();
-    filterRequest.rows =  $scope.annotationsPerPage;
-    filterRequest.page = pageNumber;
+    filterRequest.rows =  $scope.maxSize;
+    filterRequest.page = $scope.currentPage;
     filterRequest.isSlim = filteringService.isSlimming();
 
+    console.log(filterRequest);
 
     // Post the filter request to the webservice
     var request = {
@@ -71,13 +67,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
       },
       data: filterRequest
     };
-
-
     $http(request).success(function(data) {
 
       console.log("got the response back ", data);
       $scope.goList = data;
-
 
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
 
@@ -92,8 +85,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * Put commas between the rather large numbers we can have here.
    */
   function prettyPrintNumberAnnotations(numberAnnotations){
-    $scope.totalAnnotations = numberAnnotations.toLocaleString();
-
+    $scope.totalItems = numberAnnotations.toLocaleString();
   }
 
 
@@ -153,12 +145,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    * @param newPage
    */
 
-  $scope.pageChanged = function(newPage) {
-    console.log("Page changed", newPage);
-    if($scope.currentPage!=newPage) {
-      getResultsPage(newPage);
-      $scope.currentPage=newPage;
-    }
+  $scope.pageChanged = function() {
+    getResultsPage();
   };
 
 
