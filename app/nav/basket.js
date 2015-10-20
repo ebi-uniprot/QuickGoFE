@@ -2,7 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketNavCtrl', function($scope, $log, $modal, $rootScope, basketService) {
+app.controller('BasketNavCtrl', function($scope, $log, $uibModal, $rootScope, basketService) {
 
   //$scope.countBasket=0;
 
@@ -23,7 +23,7 @@ app.controller('BasketNavCtrl', function($scope, $log, $modal, $rootScope, baske
 
     console.log("Show basket");
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'basket/basketModal.html',
       controller: 'BasketCtrl',
       size: 'lg',

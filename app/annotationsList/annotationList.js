@@ -3,7 +3,7 @@
  */
 
 
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal, $log, $location, $window, basketService,
+app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, basketService,
                                               hardCodedDataService, targetDomainAndPort, filteringService) {
 
 
@@ -199,7 +199,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    */
   $scope.download = function () {
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'download/download.html',
       controller: 'DownloadCtrl',
       size: 'med',
@@ -237,7 +237,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
     console.log("Target of with string is ", target);
     $scope.withString=target;
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'annotationsList/withStringModal.html',
       controller: 'WithStringCtrl',
       size: 'md',
@@ -266,7 +266,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
    */
   $scope.showAdvancedFilters = function () {
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'advancedfilters/advancedFiltersModal.html',
       controller: 'AdvancedFiltersCtrl',
       windowClass: 'app-modal-window',
@@ -287,7 +287,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $modal,
  */
 $scope.showOntologyGraph = function (termId, title) {
 
-  var modalInstance = $modal.open({
+  var modalInstance = $uibModal.open({
     templateUrl: 'charts/ontologyGraphModal.html',
     controller: 'OntologyGraphCtrl',
     windowClass: 'app-modal-window',
@@ -312,7 +312,7 @@ $scope.showOntologyGraph = function (termId, title) {
    */
   $scope.showEvidenceCodeOntologyGraph = function (ecoId) {
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',

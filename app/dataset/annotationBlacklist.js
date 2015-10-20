@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 02/03/2015.
  */
-app.controller('AnnotationBlacklistCtrl', function($scope, $modal, basketService, term, annotationBlacklist,
+app.controller('AnnotationBlacklistCtrl', function($scope, basketService, term, annotationBlacklist,
                                                    quickGOHelperService) {
 
   $scope.annotationBlacklist ={};

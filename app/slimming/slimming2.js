@@ -3,7 +3,7 @@
  */
 
 
-app.controller('GOSlimCtrl2', function($scope, $location, $window, $modal, basketService, wizardService, filteringService) {
+app.controller('GOSlimCtrl2', function($scope, $location, $window, basketService, wizardService, filteringService) {
 
   $scope.selectedItems=[];
 

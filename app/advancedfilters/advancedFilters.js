@@ -2,7 +2,7 @@
  * Created by twardell on 04/03/2015
  * This controller handles the creation and initial processing of the advanced filters modal.
  */
-app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $location, basketService, evidencetypes, withDBs,
+app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $uibModal, $location, basketService, evidencetypes, withDBs,
                                                assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets) {
 
 
@@ -364,7 +364,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $modal, $
    */
   $scope.showEvidenceCodeOntologyGraph = function (ecoId) {
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',

@@ -53,7 +53,7 @@
             <a class="quickgo-link selectable" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</a>
           </td>
           <!-- GO Term Name-->
-          <td><element tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element></td>
+          <td><element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element></td>
 
           <!-- Aspect-->
           <td>{{goTuple.aspect}}</td>

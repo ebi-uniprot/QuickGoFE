@@ -3,7 +3,7 @@
  */
 
 
-app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardCodedDataService, PreDefinedSlimSets,
+app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, hardCodedDataService, PreDefinedSlimSets,
                                       PreDefinedSlimSetDetail, term, basketService, wizardService, filteringService) {
 
 
@@ -251,7 +251,7 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $modal, hardC
     console.log("Item String", itemString);
 
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',

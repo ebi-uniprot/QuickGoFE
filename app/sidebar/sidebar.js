@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 17/04/2015.
  */
-app.controller('SidebarCtrl', function($rootScope, $scope, $location, $modal, filteringService, hardCodedDataService,
+app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringService, hardCodedDataService,
                                        feDomainAndPort) {
 
 

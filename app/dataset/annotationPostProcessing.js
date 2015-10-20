@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 03/03/2015.
  */
-app.controller('AnnotationPostProcessingCtrl', function($scope, $modal, basketService, annotationPostProcessing, term,
+app.controller('AnnotationPostProcessingCtrl', function($scope, basketService, annotationPostProcessing, term,
                                                         quickGOHelperService) {
 
   $scope.annotationPostProcessing ={};

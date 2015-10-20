@@ -2,7 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $modal, $q, basketService,
+app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $uibModal, $q, basketService,
                                       filteringService, quickGOHelperService, term ) {
 
 
@@ -135,7 +135,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
     console.log("Item String", itemString);
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',

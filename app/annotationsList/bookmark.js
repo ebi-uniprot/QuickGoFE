@@ -2,7 +2,7 @@
  * Created by twardell on 09/05/2015.
  */
 app.controller('BookmarkCtrl', function($scope, $location,  $window, filteringService,
-                                        $rootScope, $http, $modal, $log, basketService,
+                                        $rootScope, $http, $log, basketService,
                                         hardCodedDataService, targetDomainAndPort) {
 
   console.log("In the bookmark controller");

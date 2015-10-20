@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 02/02/2015.
  */
-app.controller('TermCtrl', function($rootScope, $scope, $http, $modal, $q, $location, $anchorScroll, basketService,
+app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
                                     targetDomainAndPort, feDomainAndPort, filteringService, quickGOHelperService, $document) {
 
   $scope.feDomainAndPort=feDomainAndPort;

@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 04/06/2015.
  */
-app.controller('SearchResultCtrl', function($scope,  $location, $modal, searchfull, basketService) {
+app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searchfull, basketService) {
 
 
   //This value holds the displayed total for the selected view by value
@@ -134,7 +134,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, $modal, searchfu
    */
   $scope.showOntologyGraph = function (termId, title) {
 
-    var modalInstance = $modal.open({
+    var modalInstance = $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',
