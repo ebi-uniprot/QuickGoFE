@@ -1,64 +1,41 @@
-<div id="content" class="container_12">
+<div id="content" class="container_24">
+  <h2>Search results</h2>
 
-  <div class="clearfix"></div>
-
-  <div class="grid_3">
-    <h3 class="page-title">Search Results <img ng-show="isLoading" src="images/ajax-loader.gif"></h3>
-    <ul>
+  <div class="grid_4">
+    <img ng-show="isLoading" src="images/ajax-loader.gif">
+    <ul class="filter-list">
       <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='entity'}" ng-model="x.viewBy"
-          ng-click="showResults('entity')">Entities ({{x.gpNumberResults}})
+          ng-click="showResults('entity')"><a>Entities ({{x.gpNumberResults}})</a>
       </li>
-      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='goID'}" ng-click="showResults('goID')">GO
-        Terms({{x.goNumberResults}})
+      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='goID'}" ng-click="showResults('goID')"><a>GO
+        Terms({{x.goNumberResults}})</a>
       </li>
       <ul>
         <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='bp'}" ng-click="showResults('bp')">
-          Biological Process ({{x.biologicalProcessNumberResults}})
+          <a>Biological Process ({{x.biologicalProcessNumberResults}})</a>
         </li>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='mf'}" ng-click="showResults('mf')">Molecular
-          Function ({{x.molecularFunctionNumberResults}})
+        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='mf'}" ng-click="showResults('mf')"><a>Molecular
+          Function ({{x.molecularFunctionNumberResults}})</a>
         </li>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='cc'}" ng-click="showResults('cc')">Cellular
-          Component ({{x.cellularComponentNumberResults}})
+        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='cc'}" ng-click="showResults('cc')"><a>Cellular
+          Component ({{x.cellularComponentNumberResults}})</a>
         </li>
-      <!--</ul>-->
-      <!--<li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoID'}" ng-click="showResults('ecoID')">ECO-->
-        <!--Terms ({{x.ecoID}})-->
-      <!--</li>-->
-      <!--<ul>-->
-        <!--<li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoManual'}"-->
-            <!--ng-click="showResults('ecoManual')">Experimental ({{x.expEcoTotalResults}})-->
-        <!--</li>-->
-        <!--<li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='ecoAutomatic'}"-->
-            <!--ng-click="showResults('ecoAutomatic')">Automatic ({{x.automaticEcoTotalResults}})-->
-        <!--</li>-->
-        <!--<li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='evidenceEco'}"-->
-            <!--ng-click="showResults('evidenceEco')">Evidence ({{x.evidenceEcoTotalResults}})-->
-        <!--</li>-->
       </ul>
     </ul>
   </div>
 
   <!-- Main Content -->
-  <div id="searchResultsMainContent" class="grid_9">
-
-    <!-- Table heading content-->
-    <div class="grid_6">
-
-      <div class="paginationControls">
-        <div style="display: inline-block;"><dir-pagination-controls
-        on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls></div>
-        <div style="display: inline-block;vertical-align: top; padding-top:25px;">Page <strong>{{currentPage}}</strong> of <strong>{{srcTotalNumberResults}}</strong> results</strong></div>
-      </div>
-    </div>
-
+  <div id="searchResultsMainContent" class="grid_20">
     <div>
+      <p>
+        <strong>{{srcTotalNumberResults}}</strong> results</strong>
+      </p>
       <table id="searchResults" class="two-colours">
         <tr>
           <th>ID</th>
           <th>Name</th>
         </tr>
-        <tr dir-paginate="searchResult in x.searchResults | itemsPerPage: 25" total-items="srcTotalNumberResults">
+        <tr ng-repeat="searchResult in x.searchResults">
 
           <td ng-show="x.viewBy=='entity'">{{searchResult.dbObjectId}}</td>
           <td ng-show="x.viewBy=='entity'" ng-bind-html="highlight(searchResult.dbObjectName)"></td>
@@ -69,6 +46,7 @@
           <td ng-show="x.viewBy!='entity'" ng-bind-html="highlight(searchResult.name)"></td>
         </tr>
       </table>
+      <uib-pagination total-items="srcTotalNumberResults" max-size="5" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination
     </div>
   </div>
   <div class="clearfix"></div>

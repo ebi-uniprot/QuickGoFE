@@ -25,15 +25,15 @@
   <!-- FILTER BY TAXON-->
   <div ng-show="showInitialTaxons">
       <h4>Taxon</h4>
-      <ul ng-repeat="taxon in initialTaxonomies">
-        <li class="quickFilter selectable"><a ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</a></li>
+      <ul class="filter-list">
+        <li ng-repeat="taxon in initialTaxonomies" class="quickFilter selectable"><a ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</a></li>
       </ul>
       <a class="pull-right" ng-click="showMore()">More</a>
   </div>
   <div ng-show="!showInitialTaxons">
       <h5>Taxon</h5>
-      <ul ng-repeat="taxon in mostCommonTaxonomies">
-        <li class="quickFilter selectable"><a ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</a></li>
+      <ul>
+        <li ng-repeat="taxon in mostCommonTaxonomies" class="quickFilter selectable"><a ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</a></li>
       </ul>
       <a class="pull-right" ng-click="showLess()">Less</a>
   </div>

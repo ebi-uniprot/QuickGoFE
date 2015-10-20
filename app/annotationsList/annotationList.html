@@ -1,5 +1,6 @@
 <!-- header templates -->
-<div id="content" class="grid_24">
+<div id="content" class="container_24">
+  <h2>Go annotations</h2>
 
   <!-- Sidebar -->
   <div ng-include src="'sidebar/Sidebar.html'"></div>
@@ -7,13 +8,11 @@
   <!-- Main Content -->
 
   <!-- Table heading content-->
-  <div class="container_24">
-
-
+  <div class="grid_20">
     <img ng-show="isLoading" src="images/ajax-loader.gif" style="position:relative; top: -50px;">
 
     <!-- Buttons -->
-    <div class="grid_20">
+    <div>
       <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
       <button class="btn quickgo-btn icon-functional" data-icon="=" ng-click="showAdvancedFilters()">Advanced filters</button>  
       <a class="btn quickgo-btn icon-functional" href="#/statistics" rel="nofollow" data-icon="z">Statistics</a>
@@ -22,7 +21,7 @@
     </div>
 
     <!-- Results -->
-    <div class="clearfix grid_20">
+    <div>
 
       <!-- Results Header-->
       <table id="assignedByCount" class="two-colours">

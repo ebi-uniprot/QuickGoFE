@@ -298,14 +298,13 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   border-bottom-right-radius: 5px;
 }
 
-.select-viewBy:hover {
-  background-color: #bce7e7;
-  cursor: pointer;
-}
-
 /* ANNOTATION LIST  --------------------------------------------------------------------------------------------------*/
 p.pos_indented {
   left: 50px;
+}
+
+.filter-list {
+  line-height: 2em;
 }
 
 /* ADVANCED FILTER DIALOGUE ------------------------------------------------------------------------------------------*/

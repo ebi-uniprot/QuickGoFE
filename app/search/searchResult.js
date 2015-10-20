@@ -9,7 +9,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
 
   console.log("Arrived is search results");
   $scope.isLoading = 1;
-  $scope.resultsPerPage=25;
+  $scope.maxSize=25;
   $scope.currentPage=1;
   $scope.viewBy = "goID";
 
@@ -19,13 +19,13 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
   $scope.searchTerm=pathVals[(pathVals.length-1)];
 
 
-  getResultsPage(1);    //<--this is called instead by the page changed call
+  getResultsPage();    //<--this is called instead by the page changed call
 
   $scope.pagination = {
     current: 1
   };
 
-  function getResultsPage(pageNumber) {
+  function getResultsPage() {
 
     $scope.isLoading = 1;
 
@@ -36,7 +36,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
     //Now do search for this
 
 
-    searchfull.query({text: $scope.searchTerm, page: pageNumber, rows: $scope.resultsPerPage, viewBy: $scope.viewBy}, function (result) {
+    searchfull.query({text: $scope.searchTerm, page: $scope.currentPage, rows: $scope.resultsPerPage, viewBy: $scope.viewBy}, function (result) {
       $scope.matches = [];
 
 
@@ -45,7 +45,6 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
       console.log("Populated matches", $scope.searchResults);
 
       $scope.isLoading = 0;
-      $scope.currentPage = pageNumber;
 
       //Populate the displayed number of search results
       if($scope.x.viewBy=='entity') {
@@ -78,11 +77,8 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
    * @param newPage
    */
 
-  $scope.pageChanged = function(newPage) {
-    console.log("Page changed", newPage);
-    if($scope.currentPage!=newPage) {
-      getResultsPage(newPage);
-    }
+  $scope.pageChanged = function() {
+    getResultsPage();
   };
 
 
@@ -91,7 +87,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
     console.log("View By changed", viewBy);
     if($scope.viewBy!=viewBy) {
       $scope.viewBy=viewBy
-      getResultsPage(1);
+      getResultsPage();
     }
   };
 
