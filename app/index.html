@@ -223,10 +223,10 @@
           <input id="searchbox" type="text"
                  ng-model="searchText"
                  placeholder="Enter search value"
-                 uib-typeahead-on-select='onSelect($item, $model, $label)'
+                 typeahead-on-select='onSelect($item, $model, $label)'
                  uib-typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
-                 uib-typeahead-min-length="3"
-                 uib-typeahead-wait="300">
+                 typeahead-min-length="3"
+                 typeahead-wait="300">
 
           <button class="btn quickgo-btn" ng-click="showSearchResults(searchText)">Search</button>
         </div>
