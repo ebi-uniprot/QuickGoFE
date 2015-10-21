@@ -1,6 +1,5 @@
 <div cg-busy="myPromise" class="container_24"></div>
 <h3>Dataset Statistics</h3>
-<img ng-show="isLoading" src="images/ajax-loader.gif">
 <h4>GO Term Information</h4>
 
 <p>QuickGO contains information for 41157 GO terms, as defined in the version of the GO definition file which was
@@ -9,7 +8,7 @@
 
 <h4>Annotation Updates</h4>
 
-<table id="assignedByCount" class="two-colours grid_12">
+<table id="assignedByCount" class="two-colours grid_12" cg-busy="dataSetPromise">
   <tr>
     <th>Assigned By</th>
     <th>No. of Annotations</th>

@@ -32,7 +32,7 @@
   </div>
   <div ng-show="!showInitialTaxons">
       <h5>Taxon</h5>
-      <ul>
+      <ul class="filter-list">
         <li ng-repeat="taxon in mostCommonTaxonomies" class="quickFilter selectable"><a ng-click="quickTax(taxon.taxId)">[{{taxon.taxId}}] {{taxon.title}}</a></li>
       </ul>
       <a class="pull-right" ng-click="showLess()">Less</a>

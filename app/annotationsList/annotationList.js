@@ -28,7 +28,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.evidenceSetter="ecoAncestorsI";
   $rootScope.header = "QuickGO::Annotation List";
 
-  $scope.isLoading = true;
   $scope.currentPage=1;
   getResultsPage();    //<--this is called instead by the page changed call
 
@@ -42,12 +41,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    * Get the results page - Post version
    */
   function getResultsPage() {
-    $scope.isLoading=true;
-
     //var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNames';
     var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNamesNotSpring';
-    console.log("formatted url", formattedURL);
-
 
     //Create the object to send to the server
     var filterRequest = {};
@@ -55,8 +50,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     filterRequest.rows =  $scope.maxSize;
     filterRequest.page = $scope.currentPage;
     filterRequest.isSlim = filteringService.isSlimming();
-
-    console.log(filterRequest);
 
     // Post the filter request to the webservice
     var request = {
@@ -67,15 +60,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       },
       data: filterRequest
     };
-    $http(request).success(function(data) {
-
-      console.log("got the response back ", data);
+    $scope.resultsPromise = $http(request);
+    $scope.resultsPromise.success(function(data) {
       $scope.goList = data;
 
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
-
-      $scope.isLoading=false;
-
     });
 
   }

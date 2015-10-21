@@ -9,7 +9,6 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
   $scope.basketItems = basketService.getItems();
   //console.log("The contents of the basket are ", $scope.basketItems);
 
-  $scope.isLoading = 0;
   $scope.input_terms='';
 
   /**
@@ -38,9 +37,6 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
    */
   $scope.submit = function(){
 
-    //Show loading screen
-    $scope.isLoading = 1;
-
     //This method is entered even when close-> ok() is called
     //todo this is a hack to get round this -- fix it.
     if($scope.input_terms == undefined){
@@ -56,15 +52,16 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     console.log("[basket.js] promises content", promises);
 
     //Wait until all the lookups for term id are finished and items are saved to the basket
-    $q.all(promises).then(function() {
+    $scope.basketPromises = $q.all(promises);
+
+
+    $scope.basketPromises.then(function() {
 
       console.log("[basket.js] time to tell the basket the contents have been updated.")
       $scope.$emit('basketUpdate', basketService.basketQuantity());
 
       //reload basketItems list
       $scope.basketItems = basketService.getItems();
-
-      $scope.isLoading = 0;
 
       //Clear the input text field
       $scope.input_terms = "";

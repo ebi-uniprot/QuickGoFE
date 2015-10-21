@@ -3,7 +3,6 @@
  */
 app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targetDomainAndPort, graphModel, feDomainAndPort) {
 
-  $scope.isLoading = 1;
   $scope.graphModel = graphModel;
   $scope.imageSource="";
   $scope.feDomainAndPort=feDomainAndPort;
@@ -14,21 +13,12 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targ
   console.log("Chart Full url", formattedURL);
 
 
-  $http.get(formattedURL).success(function(data) {
-    //console.log("got the response back ", data);
-    $scope.isLoading=0;
+  $scope.graphPromise = $http.get(formattedURL);
+
+  $scope.graphPromise.success(function(data) {
+    console.log('there');
     $scope.graphImage = data;
-
-
-    //Now get the image data
-    //chartURL=chartURL+'/'+$scope.graphImage.graphImageSrc;
-    //$http.get(chartURL).success(function(imgdata) {
-    //  //console.log("got the response back ", data);
-    //  //$scope.graphImageRaw = imgdata;
-    //});
-
     $scope.imageSource=targetDomainAndPort+$scope.graphImage.graphImageSrc;
-
   });
 
   /**

@@ -1,5 +1,4 @@
-<div id="content" class="container_24" role="main">
-  <img ng-show="isLoading" src="images/ajax-loader.gif">
+<div id="content" class="container_24" role="main" cg-busy="termPromise">
 
   <section id="container" class="grid_20">
   <!-- Title section -->
@@ -113,10 +112,9 @@
     </section>
 
     <!-- Ancestors graph -->
-    <section id="ancestorChart" ng-controller="AncestorsGraphCtrl">
+    <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise">
       <h3 class="term-section-header">Ancestors Chart</h3>
       <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong> {{termModel.name}}</h5>
-      <img ng-show="isLoading" src="images/ajax-loader.gif">
       <img class="displayed"
            ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
            id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">

@@ -4,16 +4,12 @@
 app.controller('DataSetCtrl', function($scope, annotationUpdates) {
 
   $scope.annotationUpdates = [];
-  $scope.isLoading = true;
 
-  $scope.myPromise=annotationUpdates.query();
+  $scope.dataSetPromise=annotationUpdates.query().$promise;
 
-  $scope.myPromise.$promise.then(function(data) {
-    $scope.isLoading = true;
-
+  $scope.dataSetPromise.then(function(data) {
     console.log("go annotation updates back", data);
     $scope.annotationUpdates = data;
-    $scope.isLoading = false;
   });
 
 

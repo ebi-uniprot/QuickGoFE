@@ -8,7 +8,6 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
   $scope.srcTotalNumberResults = 0;
 
   console.log("Arrived is search results");
-  $scope.isLoading = 1;
   $scope.maxSize=25;
   $scope.currentPage=1;
   $scope.viewBy = "goID";
@@ -26,46 +25,38 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
   };
 
   function getResultsPage() {
-
-    $scope.isLoading = 1;
-
-
-    console.log("doing a search with a view by value of ", $scope.viewBy);
-
-
     //Now do search for this
 
 
-    searchfull.query({text: $scope.searchTerm, page: $scope.currentPage, rows: $scope.resultsPerPage, viewBy: $scope.viewBy}, function (result) {
-      $scope.matches = [];
+    $scope.queryPromise = searchfull.query({text: $scope.searchTerm, page: $scope.currentPage, rows: $scope.resultsPerPage, viewBy: $scope.viewBy}).$promise;
+    $scope.queryPromise.then(
+      function (result) {
+        $scope.matches = [];
 
 
-      console.log("found suggested values data ", result);
-      $scope.x = result;
-      console.log("Populated matches", $scope.searchResults);
+        console.log("found suggested values data ", result);
+        $scope.x = result;
+        console.log("Populated matches", $scope.searchResults);
+        //Populate the displayed number of search results
+        if($scope.x.viewBy=='entity') {
+          $scope.srcTotalNumberResults = $scope.x.gpNumberResults;
+        }
 
-      $scope.isLoading = 0;
+        if($scope.x.viewBy=='goID') {
+          $scope.srcTotalNumberResults = $scope.x.goNumberResults;
+        }
 
-      //Populate the displayed number of search results
-      if($scope.x.viewBy=='entity') {
-        $scope.srcTotalNumberResults = $scope.x.gpNumberResults;
-      }
+        if($scope.x.viewBy=='bp') {
+          $scope.srcTotalNumberResults = $scope.x.biologicalProcessNumberOfResults;
+        }
 
-      if($scope.x.viewBy=='goID') {
-        $scope.srcTotalNumberResults = $scope.x.goNumberResults;
-      }
+        if($scope.x.viewBy=='mf') {
+          $scope.srcTotalNumberResults = $scope.x.molecularFunctionNumberOfResults;
+        }
 
-      if($scope.x.viewBy=='bp') {
-        $scope.srcTotalNumberResults = $scope.x.biologicalProcessNumberOfResults;
-      }
-
-      if($scope.x.viewBy=='mf') {
-        $scope.srcTotalNumberResults = $scope.x.molecularFunctionNumberOfResults;
-      }
-
-      if($scope.x.viewBy=='cc') {
-        $scope.srcTotalNumberResults = $scope.x.cellularComponentsNumberOfResults;
-      }
+        if($scope.x.viewBy=='cc') {
+          $scope.srcTotalNumberResults = $scope.x.cellularComponentsNumberOfResults;
+        }
 
     });
   }

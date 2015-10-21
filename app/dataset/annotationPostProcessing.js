@@ -28,8 +28,6 @@ app.controller('AnnotationPostProcessingCtrl', function($scope, basketService, a
 
       //Tell all listeners the number of basket items needs updating
       $scope.$emit('basketUpdate', basketService.basketQuantity());
-      $scope.isLoading = false;
-
     });
 
   };

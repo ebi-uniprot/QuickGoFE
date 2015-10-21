@@ -5,13 +5,9 @@ app.controller('AnnotationBlacklistCtrl', function($scope, basketService, term, 
                                                    quickGOHelperService) {
 
   $scope.annotationBlacklist ={};
-  $scope.myPromise = annotationBlacklist.query({});
-  $scope.isLoading = true;
-
-  $scope.myPromise.$promise.then(function (data) {
+  $scope.blackListPromise = annotationBlacklist.query({}).$promise;
+  $scope.blackListPromise.then(function (data) {
     $scope.annotationBlacklist = data;
-    $scope.isLoading = false;
-
   });
 
 
@@ -25,10 +21,10 @@ app.controller('AnnotationBlacklistCtrl', function($scope, basketService, term, 
    */
   $scope.addToBasket = function(termId){
 
-    $scope.isLoading = true;
-
     //Look up the full termInformation to add it to the basket
-    term.query({termId : termId}, function(termData){
+    $scope.addPromise = term.query({termId : termId}).$promise; 
+
+    $scope.addPromise.then(function(termData){
       //console.log("[annotationBlacklist] termData");
 
       var aspect =  quickGOHelperService.toAspectCode(termData.aspectDescription);
@@ -38,8 +34,6 @@ app.controller('AnnotationBlacklistCtrl', function($scope, basketService, term, 
 
       //Tell all listeners the number of basket items needs updating
       $scope.$emit('basketUpdate', basketService.basketQuantity());
-      $scope.isLoading = false;
-
     });
 
     //var basketItem = {termId: savedTermId, name: savedName, aspect: ''};

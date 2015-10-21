@@ -64,8 +64,8 @@
 
   <div class="clearfix"><p></p></div>
 
-  <h4>The Currently Active Annotation Blacklist <img ng-show="isLoading" src="images/ajax-loader.gif" style="display: inline;"></h4>
-
+  <h4>The Currently Active Annotation Blacklist</h4>
+  <div cg-busy="blackListPromise">
   <tabset justified="true">
     <tab heading="Curated From IEA Pipeline Review">
       <table class="two-colours">
@@ -136,6 +136,7 @@
       </table>
     </tab>
   </tabset>
+  </div>
   </div>
 </div>
 

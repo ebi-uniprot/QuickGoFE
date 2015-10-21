@@ -10,7 +10,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   //Clear search term
   $scope.searchText ='';
 
-  $scope.isLoading=1;
   $scope.termInformation=true;
 
   /*Parse the url to get the termid*/
@@ -33,9 +32,10 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   /**
    * Get Term Data from WS
    */
-  $http.get(termUrl).success(function(data) {
+  $scope.termPromise = $http.get(termUrl);
+
+  $scope.termPromise.success(function(data) {
     $scope.termModel = data;
-    $scope.isLoading=0;
 
     //setupBasketButton($scope.termModel);
     $scope.preventAddToBasket = basketService.containsItem($scope.termModel) || $scope.termModel.active == false;

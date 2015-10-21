@@ -11,7 +11,6 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDo
     var pathVals =$location.path().split("/");
     var termId=pathVals[(pathVals.length-1)];
 
-  $scope.isLoading = 1;
   $scope.graphModel = {};
   $scope.graphModel.id =termId;
 
@@ -37,9 +36,9 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDo
     $scope.graphModel.scope='';
   }
 
-  $http.get(formattedURL).success(function(data) {
+  $scope.chartPromise = $http.get(formattedURL);
+  $scope.chartPromise.success(function(data) {
     //console.log("got the response back ", data);
-    $scope.isLoading=0;
     $scope.graphImage = data;
 
     $scope.imageSource=targetDomainAndPort+$scope.graphImage.graphImageSrc;

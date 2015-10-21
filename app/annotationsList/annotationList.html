@@ -1,5 +1,5 @@
 <!-- header templates -->
-<div id="content" class="container_24">
+<div id="content" class="container_24" cg-busy="resultsPromise">
   <h2>Go annotations</h2>
 
   <!-- Sidebar -->
@@ -9,8 +9,6 @@
 
   <!-- Table heading content-->
   <div class="grid_20">
-    <img ng-show="isLoading" src="images/ajax-loader.gif" style="position:relative; top: -50px;">
-
     <!-- Buttons -->
     <div>
       <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>

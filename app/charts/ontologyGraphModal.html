@@ -1,7 +1,6 @@
 <div class="Modal-box">
-  <div id="basket-contents-show" style="top: 34px;">
+  <div id="basket-contents-show" style="top: 34px;" cg-busy="graphPromise">
     <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong></h5>
-    <img ng-show="isLoading" src="images/ajax-loader.gif">
     <img class="displayed" ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >
 
 

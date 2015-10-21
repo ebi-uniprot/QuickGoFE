@@ -1,8 +1,7 @@
-<div id="content" class="container_24">
+<div id="content" class="container_24" cg-busy="queryPromise">
   <h2>Search results</h2>
 
   <div class="grid_4">
-    <img ng-show="isLoading" src="images/ajax-loader.gif">
     <ul class="filter-list">
       <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='entity'}" ng-model="x.viewBy"
           ng-click="showResults('entity')"><a>Entities ({{x.gpNumberResults}})</a>

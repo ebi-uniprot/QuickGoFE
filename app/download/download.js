@@ -5,64 +5,18 @@
 app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location, targetDomainAndPort, filteringService,
                                             hardCodedDataService) {
 
-  console.log("download.js");
-  $scope.isLoading = 0;
-
   $scope.selectedLimit=1000;  //default
 
   $scope.downloadFileFormats=hardCodedDataService.getDownloadFileFormats();
   $scope.selectedFormat = $scope.downloadFileFormats[1] ; //default to gpad
 
-  //$scope.url = targetDomainAndPort+"/ws/downloadGetNewNamesNotSpring";
-  //$scope.queryString = filteringService.createQueryString();
-  //$scope.url_of_file = targetDomainAndPort+"/ws/downloadGetNewNamesNotSpring?"+;
-  //$scope.file_name = "QuickGO"+$scope.selectedFormat.ext;
-
   //New
 
-  //$scope.filters =  filteringService.getFilters();
 
   /**
    * process request and start download
    */
   $scope.submit = function(format,limit) {
-    console.log("Download SUBMIT CALLED", format);
-    $scope.isLoading = 1;
-
-    //var formattedURL=targetDomainAndPort+'/ws/downloadfiltered?';
-    //var formattedURL=targetDomainAndPort+'/ws/downloadGetNewNamesNotSpring?';
-    //formattedURL=formattedURL+filteringService.createQueryString();
-    //$scope.isSlim = filteringService.isSlimming();
-    //if($scope.isSlim) {
-    //  formattedURL = formattedURL + filteringService.createSlimString();
-    //}
-
-    //Add the limit requested by the user
-    //formattedURL = formattedURL + '&limit='+ limit;
-
-    //Add requested format to query string --- this prehaps should be in the filtering service,
-    //but its only going to be used for download
-    //formattedURL = formattedURL + '&format='+ format.ext;
-
-    //console.log("queryString = ", formattedURL);
-    //var fileName='download.'+format.ext;
-
-    //$http.get(formattedURL).success(function(data) {
-    //  //console.log("got the response back ", data);
-    //
-    //  downloadFile(fileName, data)
-    //
-    //  //Now forward to a URL that is served by the BE the list of result based on the filtering request
-    //  //which of course is supplied as part of the URL
-    //  //$location.path("#/annotations");    //todo - this one?
-    //
-    //
-    //  $scope.isLoading = 0;
-    //
-    //  //Close window
-    //  $scope.close();
-    //});
-
     var formattedURL = targetDomainAndPort+"/ws/downloadPostNewNamesNotSpring";
 
     var filterRequest = {};
@@ -82,14 +36,10 @@ app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location
     };
 
 
-    $http(request).success(function(data) {
+    $scope.downloadPromise = $http(request);
 
-      console.log("got the response back ", data);
-
+    $scope.downloadPromise.success(function(data) {
       downloadFile(fileName, data)
-
-      $scope.isLoading=false;
-
     });
 
   };
