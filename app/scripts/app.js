@@ -10,12 +10,10 @@
  */
 var app = angular
   .module('quickGoFeApp', [
-    'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch',
     'quickGoFeApp.wsService',
     'app.quickGo.filters',
     'quickGoFeApp.BasketModule',
@@ -117,11 +115,11 @@ var app = angular
 
   //Developer test
   // app.value('targetDomainAndPort','http://localhost:9080');
-  app.value('feDomainAndPort','http://localhost:9000');
+  // app.value('feDomainAndPort','http://localhost:9000');
 
   //Production test
   app.value('targetDomainAndPort','http://www.ebi.ac.uk/QuickGO-Beta');
-  // app.value('feDomainAndPort','http://wwwdev.ebi.ac.uk/QuickGO-Test');
+  app.value('feDomainAndPort','http://wwwdev.ebi.ac.uk/QuickGO-Test');
 
 
 

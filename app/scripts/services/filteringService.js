@@ -170,8 +170,7 @@ filteringModule.factory('filteringService', function() {
 
 
   // Create GO Term filters from a list of tokens
-  createFilterForGoTerm = function(value) {
-
+  filteringService.createFilterForGoTerm = function(value) {
     var tokens = value.split(/[^\w\d:]/);
 
     for(var j=0; j<tokens.length; j++) {
@@ -191,7 +190,7 @@ filteringModule.factory('filteringService', function() {
 
 
   // Create  filters from a list of tokens
-  createFilterForEvidences = function(value) {
+  filteringService.createFilterForEvidences = function(value) {
 
     var tokens = value.split(/[^\w\d:]/);
 
@@ -211,7 +210,7 @@ filteringModule.factory('filteringService', function() {
   }
 
   // Create Reference filters from a list of tokens
-  createFilterForReferences = function(value) {
+  filteringService.createFilterForReferences = function(value) {
 
     //var tokens = values.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
     var tokens = value.split(/[^\w\d:\*]/);
@@ -245,7 +244,7 @@ filteringModule.factory('filteringService', function() {
 
 
   // Create Taxon filters from a list of tokens
-  createFilterForTaxons = function(value){
+  filteringService.createFilterForTaxons = function(value){
 
     var tokens = value.split(/[^\w\d:]/);   //Even tho' will be only numbers, don't split on letters
 
@@ -264,7 +263,7 @@ filteringModule.factory('filteringService', function() {
 
 
   // Create Other filters from a list of tokens, supplying the filter type key
-  createFilterForOther = function(filterType, value){
+  filteringService.createFilterForOther = function(filterType, value){
 
     var tokens = value.split(/[^\w\d:]/);
 
@@ -283,7 +282,7 @@ filteringModule.factory('filteringService', function() {
 
 
 
-  remove_unrequiredFilters = function(){
+  filteringService.remove_unrequiredFilters = function(){
 
     var foundGoRelationIsExact=false;
     var foundGoId=false;
@@ -328,7 +327,7 @@ filteringModule.factory('filteringService', function() {
 
 
 
-  remove_item = function (arr, value) {
+  filteringService.remove_item = function (arr, value) {
     var b = '';
     for (b in arr) {
       if (arr[b].type === value) {

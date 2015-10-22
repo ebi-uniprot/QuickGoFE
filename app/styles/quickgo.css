@@ -27,7 +27,8 @@ a.quickgo-link:hover {
 }
 
 .pseudo-button {
-  background-color: #DEEFF5 border : none;
+  background-color: #DEEFF5;
+  border : none;
   padding: 0 !important;
   font: inherit;
   cursor: pointer;
