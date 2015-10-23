@@ -7,7 +7,6 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
   //This value holds the displayed total for the selected view by value
   $scope.srcTotalNumberResults = 0;
 
-  console.log("Arrived is search results");
   $scope.maxSize=25;
   $scope.currentPage=1;
   $scope.viewBy = "goID";
@@ -34,9 +33,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
         $scope.matches = [];
 
 
-        console.log("found suggested values data ", result);
         $scope.x = result;
-        console.log("Populated matches", $scope.searchResults);
         //Populate the displayed number of search results
         if($scope.x.viewBy=='entity') {
           $scope.srcTotalNumberResults = $scope.x.gpNumberResults;
@@ -47,16 +44,18 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
         }
 
         if($scope.x.viewBy=='bp') {
-          $scope.srcTotalNumberResults = $scope.x.biologicalProcessNumberOfResults;
+          $scope.srcTotalNumberResults = $scope.x.biologicalProcessNumberResults;
+          console.log($scope.x);
         }
 
         if($scope.x.viewBy=='mf') {
-          $scope.srcTotalNumberResults = $scope.x.molecularFunctionNumberOfResults;
+          $scope.srcTotalNumberResults = $scope.x.molecularFunctionNumberResults;
         }
 
         if($scope.x.viewBy=='cc') {
-          $scope.srcTotalNumberResults = $scope.x.cellularComponentsNumberOfResults;
+          $scope.srcTotalNumberResults = $scope.x.cellularComponentNumberResults;
         }
+
 
     });
   }
