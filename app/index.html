@@ -91,15 +91,20 @@
 
         <!-- local-search -->
         <div id="search-area" class="typeaheadsearch grid_16" ng-controller="TypeaheadCtrl">
-          <input id="searchbox" type="text"
-                 ng-model="searchText"
-                 placeholder="Enter search value"
-                 typeahead-on-select='onSelect($item, $model, $label)'
-                 uib-typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
-                 typeahead-min-length="3"
-                 typeahead-wait="300">
+          <form ng-submit="showSearchResults(searchText)">
+            <input id="searchbox" type="text"
+                   ng-model="searchText"
+                   placeholder="Enter search value"
+                   typeahead-focus-first="false"
+                   typeahead-on-select='onSelect($item, $model, $label)'
+                   uib-typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
+                   typeahead-min-length="3"
+                   typeahead-wait="300"
+                   ng-submit="showSearchResults(searchText)"
+                   autocomplete='off' >
 
-          <button class="btn quickgo-btn" ng-click="showSearchResults(searchText)">Search</button>
+            <button class="btn quickgo-btn" type="submit">Search</button>
+          </form>
         </div>
 
         <!--End local-title -->
