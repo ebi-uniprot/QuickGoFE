@@ -28,7 +28,8 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-scroll/angular-scroll.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-      'app/scripts/**/*.js',
+      'app/scripts/app.js',
+      'app/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
