@@ -165,10 +165,6 @@ textarea.default {
   display: inline-block;
 }
 
-.basket-btn:hover {
-  background-color: #2980B9;
-}
-
 .basket-btn:before {
   color: #FFF !important;
   padding-left: 7px;
@@ -181,14 +177,23 @@ textarea.default {
   font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
 }
 
-.quickgo-btn:hover {
-  background-color: #2980B9;
+.basket-btn:hover {
+  background-color: green !important;
   color: #FFF;
 }
 
 .quickgo-btn:before {
   color: #FFF !important;
 }
+
+.basket-btn.basket-added {
+  background-color: #2980B9;
+}
+
+.basket-btn.basket-added:hover {
+  background-color:red !important;
+}
+
 
 /* GENERAL MODAL -----------------------------------------------------------------------------------------------------*/
 .quickgo-modal {

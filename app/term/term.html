@@ -12,10 +12,7 @@
     </div>
     <h2 class="page-title">
       {{termModel.termId}}
-      <element ng-show="isInBasket(termModel.termId)" class="icon icon-static selectable basket-btn" data-icon="b"
-    ng-click="addToBasket(termModel.termId, termModel.name, termModel.aspectDescription)"></element>
-      <element ng-hide="isInBasket(termModel.termId)" class="icon icon-static selectable basket-btn" data-icon="b"
-     ng-click="removeFromBasket(termModel.termId)">Remove</element>
+      <basket-button termid="{{termModel.termId}}"></basket-button>
     </h2>
     
     <!-- Term name -->
