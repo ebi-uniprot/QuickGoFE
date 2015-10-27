@@ -78,7 +78,7 @@ div#local-masthead {
   /*background: linear-gradient(to right, white , #70BDBD); /!* Standard syntax *!/*/
   background-color: white;
   background-position:top right;
-  background-image: url(../images/bg3.png);
+  background-image: url(../images/bg4.png);
   background-repeat: no-repeat;
 }
 
@@ -102,13 +102,13 @@ div#local-masthead {
 
 
 /* Sort out autocomplete */
-div#local-masthead ul.dropdown-menu { 
+div#local-masthead ul.dropdown-menu {
   width: 80%;
 }
 
 
-div#local-masthead ul.dropdown-menu li a, 
-div#local-masthead ul.dropdown-menu li a:link, 
+div#local-masthead ul.dropdown-menu li a,
+div#local-masthead ul.dropdown-menu li a:link,
 div#local-masthead ul.dropdown-menu li a:visited {
   background-color: #ECF0F1;
   color:#333;
@@ -581,9 +581,3 @@ IMG.displayed {
 .action-buttons-grouped {
   display: inline;
 }
-
-
-
-
-
-
