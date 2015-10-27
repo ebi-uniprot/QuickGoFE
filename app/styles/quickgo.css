@@ -3,6 +3,10 @@ a:hover {
  cursor:pointer;
 }
 
+.text-nowrap {
+  white-space: nowrap;
+}
+
 /* The dark green #1d8086*/
 
 .quickgo-content {
@@ -158,16 +162,17 @@ textarea.default {
   background-color: #329DE3;
   border-radius: 30px;
   color:#FFF;
-  width:30px;
-  font-size: 16px;
-  height:30px;
-  line-height: 30px;
+  width:20px;
+  font-size: 10px;
+  height:20px;
+  line-height: 20px;
   display: inline-block;
 }
 
 .basket-btn:before {
   color: #FFF !important;
-  padding-left: 7px;
+  font-weight: lighter;
+  padding-left: 5px;
 }
 
 .quickgo-btn, a.quickgo-btn {
@@ -187,7 +192,7 @@ textarea.default {
 }
 
 .basket-btn.basket-added {
-  background-color: #2980B9;
+  background-color: green;
 }
 
 .basket-btn.basket-added:hover {

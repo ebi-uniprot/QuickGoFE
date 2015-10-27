@@ -42,12 +42,9 @@
           <td>{{goTuple.qualifier}}</td>
 
           <!-- GO Identifier-->
-          <td style="white-space: nowrap;">
-            <element ng-show="isInBasket(goTuple.goId)" class="icon icon-static selectable" data-icon="b"
-                     ng-click="addToBasket(goTuple.goId, goTuple.termName, goTuple.aspect)"></element>
-            <element ng-hide="isInBasket(goTuple.goId)" class="icon icon-static selectable" data-icon=">"
-                     ng-click="removeFromBasket(goTuple.goId, goTuple.termName)"></element>
+          <td class="text-nowrap">
             <a class="quickgo-link selectable" ng-click="showOntologyGraph(goTuple.goId, goTuple.termName)">{{goTuple.goId}}</a>
+            <basket-button termid="{{goTuple.goId}}"></basket-button>
           </td>
           <!-- GO Term Name-->
           <td><element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element></td>

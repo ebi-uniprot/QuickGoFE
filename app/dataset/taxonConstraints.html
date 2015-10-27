@@ -12,10 +12,9 @@
     </tr>
     <tr ng-repeat="taxonConstraint in taxonConstraints">
       <td>{{taxonConstraint.ruleId}}</td>
-      <td style="white-space: nowrap;">
-        <element class="icon icon-static" data-icon="b"
-                 ng-click="addToBasket(taxonConstraint.goId, taxonConstraint.name)"></element>
+      <td class="text-nowrap">
         <a href="#/term/{{taxonConstraint.goId}}">{{taxonConstraint.goId}}</a>
+        <basket-button termid="{{taxonConstraint.goId}}"></basket-button>
       </td>
       <td>{{taxonConstraint.name}}</td>
       <td>{{taxonConstraint.relationship}}</td>
