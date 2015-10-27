@@ -86,18 +86,18 @@ filteringModule.factory('filteringService', function() {
 
                 //Try and parse each content into best fit content
                 if( property =='goID') {
-                  createFilterForGoTerm(value);
+                  filteringService.createFilterForGoTerm(value);
                 }else{
                   if(property == 'ecoID'){
-                    createFilterForEvidences(value);
+                    filteringService.createFilterForEvidences(value);
                   }else{
                     if(property == 'reference'){
-                      createFilterForReferences(value);
+                      filteringService.createFilterForReferences(value);
                     }else{
                       if(property == 'taxon') {
-                        createFilterForTaxons(value);
+                        filteringService.createFilterForTaxons(value);
                       }else{
-                        createFilterForOther(property, value);
+                        filteringService.createFilterForOther(property, value);
                       }
                     }
                   }
@@ -145,7 +145,7 @@ filteringModule.factory('filteringService', function() {
     }
 
     //Now we have some clearing up to do
-    remove_unrequiredFilters();
+    filteringService.remove_unrequiredFilters();
 
     return;
   }
@@ -160,12 +160,12 @@ filteringModule.factory('filteringService', function() {
     //var goIdsTargets = quickFilters.text.goID.split(/[^\w\d:]/);
     //console.log("[filteringService.js] Save quick filters for goIDs", goIdsTargets);
 
-    createFilterForGoTerm(quickFilters.text.goID);
+    filteringService.createFilterForGoTerm(quickFilters.text.goID);
 
     ////Gene ids
     //1. Split into tokens
     //var gpIdsTargets = quickFilters.text.gpID.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
-    createFilterForOther('gpID', quickFilters.text.gpID);
+    filteringService.createFilterForOther('gpID', quickFilters.text.gpID);
   }
 
 
@@ -308,16 +308,16 @@ filteringModule.factory('filteringService', function() {
 
     //Remove the default values for go terms if a value for go id has not been entered.
     if(!foundGoId){
-      filters = remove_item(filters, 'goTermUse');
-      filters = remove_item(filters, 'goRelations');
+      filters = filteringService.remove_item(filters, 'goTermUse');
+      filters = filteringService.remove_item(filters, 'goRelations');
     }
 
     if(foundGoRelationIsExact){
-      filters = remove_item(filters, 'goRelations');
+      filters = filteringService.remove_item(filters, 'goRelations');
     }
 
     if(!foundEcoId){
-      filters = remove_item(filters, 'ecoTermUse');
+      filters = filteringService.remove_item(filters, 'ecoTermUse');
     }
 
     return;
@@ -572,7 +572,7 @@ filteringModule.factory('filteringService', function() {
     }
 
     //Now we have some clearing up to do
-    remove_unrequiredFilters();
+    filteringService.remove_unrequiredFilters();
 
   };
 
