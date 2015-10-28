@@ -7,8 +7,6 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
   $scope.basketItems = basketService.getItems();
-  //console.log("The contents of the basket are ", $scope.basketItems);
-
   $scope.input_terms='';
 
   /**
@@ -16,8 +14,6 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
    */
 
   $scope.removeItem = function(basketItem){
-    console.log("REMOVE ITEM from BASKET");
-
     basketService.removeBasketItem(basketItem);
 
     //update displayed list
@@ -63,7 +59,6 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
   $scope.term = function(goId){
     $modalInstance.dismiss('forward');
-    console.log("forward to term");
     $location.path("/term/"+goId); // path not hash
   };
 
@@ -74,18 +69,12 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
    * Turn the list of basket items into to comma delimited list
    */
   $scope.showAncestorGraph = function () {
-
-    console.log("[basket\basket.js] Show the Ancestor Graph");
-
     var k=0;
     var itemString="";
     for(k=0;k<$scope.basketItems.length;k++ ){
       itemString = itemString+$scope.basketItems[k].termId;
       itemString=itemString+',';
     }
-
-    console.log("Item String", itemString);
-
     var modalInstance = $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
@@ -148,22 +137,17 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     downloadLink.attr('href', window.URL.createObjectURL(blob));
     downloadLink.attr('download', 'basket.tsv');
     downloadLink[0].click();
-
   };
 
 
 
-  $scope.isBasketEmpty = function (){
-    return $scope.basketItems.length==0;
+  $scope.isBasketNotEmpty = function (){
+    return $scope.basketItems.length>0;
   }
 
+  $scope.close = function() {
+    $modalInstance.dismiss('cancel');    
+  }
 
-
-    /**
-   * Close window
-   */
-  $scope.ok = function () {
-    $modalInstance.dismiss('cancel');
-  };
 });
 

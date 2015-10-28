@@ -18,8 +18,6 @@ basketModule.factory('basketService', function($cookieStore, search) {
       items.push(basketItem);
       $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
       return items.length;
-    }else{
-      //console.log("item already exists in the basket");
     }
   }
 
@@ -70,7 +68,6 @@ basketModule.factory('basketService', function($cookieStore, search) {
   basketList.getItems = function(){
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
     var q = items.toString().replace(/,/g,encodeURIComponent(' OR '));
-    console.log(q);
     return search.query({query : q}, function(termData){
       return termData;
     });

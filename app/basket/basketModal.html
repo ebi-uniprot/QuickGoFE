@@ -1,16 +1,17 @@
 <div class="quickgo-modal" cg-busy="basketPromises">
-  <div id="basket-contents-show" style="top: 34px;">
-    <strong>Max 400 entries</strong>
-    <div id="filledBasketContents" style="display: block;">
+  <div id="basket-contents-show">
+    <a class="closeBox pull-right" id="closeDownloadMenu"  ng-click="close()">X</a>
 
+    <strong>Max 400 entries</strong>
       <!--Show message if the basket is empty-->
-      <div ng-show="basketItems.length==0">
+      <div ng-show="!isBasketNotEmpty()">
         <h3> Your basket is currently empty.</h3>
         <p>You can add a GO term to the Term Basket by clicking on the <element class="icon icon-static" data-icon="b"></element> icon that appears next to its identifier in QuickGO.</p>
       </div>
 
       <!--List GO Terms in the basket-->
-      <div id="basketTableDiv">
+      <div ng-show="isBasketNotEmpty()">
+      <div>
         <table id="basketTermsTable">
           <thead>
           <tr>
@@ -28,26 +29,26 @@
           </tbody>
         </table>
       </div>
-
-      <div class="clearfix"><p/></div>
-    </div>
-      <!-- Enter GO Terms Directly-->
-      Enter a list of terms to be added to your basket:
-      <form >
-      <textarea id="termsListToAdd" style="width:80%;height:55px" ng-model="input_terms"></textarea>
-
-        <div>
-<br/>
-          <button class="btn quickgo-btn" ng-click="submit()">Add Terms</button>
-          <button class="btn quickgo-btn" ng-click="ok()">Close</button>
-          <button class="btn quickgo-btn" ng-click="showAncestorGraph()">Display Terms in Ancestor Chart</button>
-          <button class="btn quickgo-btn" ng-click="filterUsingBasketTerms()">Filter With Terms</button>
-          <button class="btn quickgo-btn" ng-click="emptyBasket()">Clear</button>
-          <button class="btn quickgo-btn" ng-click="exportBasket()" ng-disabled="isBasketEmpty()">Export</button>
-        </div>
-
-      </form>
-
+      <div class="pull-right">
+        <button class="btn quickgo-btn" ng-click="showAncestorGraph()">Display Terms in Ancestor Chart</button>
+        <button class="btn quickgo-btn" ng-click="filterUsingBasketTerms()">Filter With Terms</button>
+        <button class="btn quickgo-btn" ng-click="emptyBasket()">Clear</button>
+        <button class="btn quickgo-btn" ng-click="exportBasket()">Export</button>
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+      </div>
+      <div>
+        <!-- Enter GO Terms Directly-->
+        <form>
+          <div class="form-group">
+            <label for="termsListToAdd">Enter a list of terms to be added to your basket:</label>
+            <textarea id="termsListToAdd" class="form-control" ng-model="input_terms" cols="5"></textarea>
+          </div>
+          <button class="btn quickgo-btn pull-right" ng-click="submit()">Add Terms</button>
+        </form>
+      </div>
+      <div class="clearfix"></div>
   </div><!--End of basket-->
 
 </div>
