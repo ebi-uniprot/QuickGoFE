@@ -37,10 +37,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.termPromise.success(function(data) {
     $scope.termModel = data;
 
-    //setupBasketButton($scope.termModel);
-    $scope.preventAddToBasket = basketService.containsItem($scope.termModel) || $scope.termModel.active == false;
-
-
     //Set active show
     if($scope.termModel.active != true){
       $scope.isObsolete = true;
@@ -77,50 +73,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   /**
    * ---------------------------------------------- Scope methods ----------------------------------------------------
    */
-
-
-  /**
-   * Add an item to the basket
-   * @type {Object|Array}
-   */
-  $scope.addToBasket = function(termId, termName, termAspectName){
-
-    var aspect = quickGOHelperService.toAspectCode(termAspectName);
-
-
-    var basketItem = {termId:termId, name:termName, aspect:aspect};
-    console.log(basketService.addBasketItem(basketItem));
-
-    $scope.$emit('basketUpdate', basketService.basketQuantity());
-
-    //Update the addToBasketButton
-    $scope.preventAddToBasket = true;
-
-  };
-
-
-  /**
-   * Remove item from the basket
-   * @type {Object|Array}
-   */
-  $scope.removeFromBasket = function(termId){
-    console.log(basketService.removeBasketItemById(termId));
-    $scope.$emit('basketUpdate', basketService.basketQuantity());
-
-  };
-
-  /**
-   * Check if the go term is in the basket
-   * @type {Object|Array}
-   */
-  $scope.isInBasket = function(termId){
-    //console.log("Testing to see if this is in the basket", termId);
-
-    var isInBasket = basketService.containsGoTerm(termId);
-    //console.log("is this item in the basket", isInBasket);
-
-    return !isInBasket;
-  };
 
 
   /**
@@ -161,24 +113,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
   }
 
-
-
-  $scope.showCategoryTerm=true;
-  $scope.showCategoryDefinitions=true;
-  $scope.showCategoryRelationships=true;
-  $scope.showCategoryOther=true;
-  $scope.showCategoryCrossReferences=true;
-  $scope.showCategoryObsoletions=true;
-
-
-  /**
-   * There maybe a change to the basket list - deletion for example of the term currently displayed, so pick up these
-   * changes emitted from the basket code.
-   * Pick up the basket update event from the modal
-   */
-  $rootScope.$on('basketUpdate', function(event, data) {
-    $scope.preventAddToBasket = basketService.containsItem(termId) || $scope.termModel.active == false;
-  });
 
   $scope.showChangeLogRow = function(category) {
 

@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 04/06/2015.
  */
-app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searchfull, basketService) {
+app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searchfull) {
 
 
   //This value holds the displayed total for the selected view by value
@@ -92,24 +92,6 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
       //console.log("highlight ", newText);
     return newText;
   }
-
-
-  /**
-   * --------------------------------------------------- Basket Code --------------------------------------------------
-   */
-
-
-  /**
-   * Add an item to the basket
-   * @type {Object|Array}
-   */
-  $scope.addToBasket = function(termId, termName){
-    var basketItem = {termId:termId, name:termName};
-    $scope.$emit('basketUpdate', basketService.basketQuantity());
-
-  };
-
-
 
   /**
    * --------------------------------------------------- Graph Code --------------------------------------------------

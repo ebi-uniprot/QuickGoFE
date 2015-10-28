@@ -8,22 +8,5 @@ app.controller('TaxonConstraintsCtrl', function($scope, basketService, taxonCons
     $scope.taxonConstraints = data;
   });
 
-
-  /**
-   *  Basket Functionality -------------------------------------------------------------------------------------------/
-   */
-  
-  /**
-   * Add an item to the basket
-   * @type {Object|Array}
-   */
-  $scope.addToBasket = function(termId, termName){
-
-    var basketItem = {termId: termId, name: termName};
-    basketService.addBasketItem(basketItem);
-    $scope.countBasket = basketService.basketQuantity();
-
-  };
-
 });
 

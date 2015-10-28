@@ -175,7 +175,8 @@ textarea.default {
   padding-left: 5px;
 }
 
-.quickgo-btn, a.quickgo-btn, .goSlims-btn {
+
+.quickgo-btn, a.quickgo-btn, .quickgo-btn:active, .quickgo-btn:visited, .quickgo-btn:focus {
   border: 1px solid #2980B9;
   background-color: #329DE3;
   color: #FFF;
@@ -185,13 +186,14 @@ textarea.default {
   margin-top: 10px;
 }
 
-<<<<<<< HEAD
-.quickgo-btn:hover, .goSlims-btn:hover {
+
+.quickgo-btn:hover {
   background-color: #2980B9;
-=======
+  color:#FFF;
+}
+
 .basket-btn:hover {
   background-color: green !important;
->>>>>>> origin/master
   color: #FFF;
 }
 

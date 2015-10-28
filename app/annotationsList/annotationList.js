@@ -3,7 +3,7 @@
  */
 
 
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, basketService,
+app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
                                               hardCodedDataService, targetDomainAndPort, filteringService) {
 
 
@@ -138,54 +138,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     getResultsPage();
   };
 
-
-  /**
-   * Add an item to the basket
-   * @type {Object|Array}
-   */
-  $scope.addToBasket = function(termId, termName, aspect){
-    var basketItem = {termId:termId, name:termName, aspect:aspect};
-    console.log(basketService.addBasketItem(basketItem));
-    //$scope.countBasket = basketService.getItems().length;
-
-    //change the class of the basket icon to show the go term has been added to the basket.
-    //angular.element('goterm-'+termId).addClass("alllign");
-
-    $scope.$emit('basketUpdate', basketService.basketQuantity());
-
-  };
-
-
-
-  /**
-   * Remove item from the basket
-   * @type {Object|Array}
-   */
-  $scope.removeFromBasket = function(termId, termName){
-    var basketItem = {termId:termId, name:termName};
-    console.log(basketService.removeBasketItem(basketItem));
-    $scope.$emit('basketUpdate', basketService.basketQuantity());
-
-  };
-
-  /**
-   * Check if the go term is in the basket
-   * @type {Object|Array}
-   */
-  $scope.isInBasket = function(termId){
-    //console.log("Testing to see if this is in the basket", termId);
-
-    var isInBasket = basketService.containsGoTerm(termId);
-    //console.log("is this item in the basket", isInBasket);
-
-    return !isInBasket;
-  };
-
-
-
-  /**
-   * Show the basket modal on request
-   */
   $scope.download = function () {
 
     var modalInstance = $uibModal.open({
