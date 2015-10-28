@@ -4,10 +4,9 @@
 
 var basketModule = angular.module('quickGoFeApp.BasketModule', []);
 
-basketModule.factory('basketService', function($cookieStore) {
+basketModule.factory('basketService', function($cookieStore, search) {
 
   var basketList = {};
-
 
   /*
    * Add an item to the basket
@@ -69,9 +68,12 @@ basketModule.factory('basketService', function($cookieStore) {
    * @returns {*|Object|Array}
    */
   basketList.getItems = function(){
-    //console.log("[basketService.js] Get items called");
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
-    return items;
+    var q = items.toString().replace(/,/g,encodeURIComponent(' OR '));
+    console.log(q);
+    return search.query({query : q}, function(termData){
+      return termData;
+    });
   }
 
 
