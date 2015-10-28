@@ -15,7 +15,7 @@
 
   <title ng-bind="header"></title>
   <meta name="description" content="EMBL-EBI"><!-- Describe what this page is about -->
-  <meta name="keywords" content="gene onotology, goa, bioinformatics, europe, institute"><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
+  <meta name="keywords" content="gene onotology, goa, bioinformatics, europe, institute, Biological Process, Molecular Function, Cellular Component"><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
   <meta name="author" content="EMBL-EBI"><!-- Your [project-name] here -->
 
   <!-- Mobile viewport optimized: j.mp/bplateviewport -->
@@ -90,6 +90,7 @@
         </div>
 
         <!-- local-search -->
+        <!--
         <div id="search-area" class="typeaheadsearch grid_16" ng-controller="TypeaheadCtrl">
           <form ng-submit="showSearchResults(searchText)">
             <input id="searchbox" type="text"
@@ -106,6 +107,7 @@
             <button class="btn quickgo-btn" type="submit">Search</button>
           </form>
         </div>
+      -->
 
         <!--End local-title -->
       </div>
@@ -247,6 +249,7 @@
 <script src="scripts/services/filteringService.js"></script>
 <script src="scripts/services/quickgoHelper.js"></script>
 <script src="basket/basket.js"></script>
+<script src="scripts/directives/basket.js"></script>
 <script src="scripts/controllers/annotationExtensionRelations.js"></script>
 <script src="scripts/cytoscape/min/AC_OETags.min.js"></script>
 <script src="scripts/cytoscape/min/cytoscapeweb.min.js"></script>

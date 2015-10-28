@@ -3,6 +3,10 @@ a:hover {
  cursor:pointer;
 }
 
+.text-nowrap {
+  white-space: nowrap;
+}
+
 /* The dark green #1d8086*/
 
 .quickgo-content {
@@ -158,31 +162,36 @@ textarea.default {
   background-color: #329DE3;
   border-radius: 30px;
   color:#FFF;
-  width:30px;
-  font-size: 16px;
-  height:30px;
-  line-height: 30px;
+  width:20px;
+  font-size: 10px;
+  height:20px;
+  line-height: 20px;
   display: inline-block;
-}
-
-.basket-btn:hover {
-  background-color: #2980B9;
 }
 
 .basket-btn:before {
   color: #FFF !important;
-  padding-left: 7px;
+  font-weight: lighter;
+  padding-left: 5px;
 }
 
-.quickgo-btn, a.quickgo-btn {
+.quickgo-btn, a.quickgo-btn, .goSlims-btn {
   border: 1px solid #2980B9;
   background-color: #329DE3;
   color: #FFF;
   font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
 }
+.goSlims-btn{
+  margin-top: 10px;
+}
 
-.quickgo-btn:hover {
+<<<<<<< HEAD
+.quickgo-btn:hover, .goSlims-btn:hover {
   background-color: #2980B9;
+=======
+.basket-btn:hover {
+  background-color: green !important;
+>>>>>>> origin/master
   color: #FFF;
 }
 
@@ -190,9 +199,59 @@ textarea.default {
   color: #FFF !important;
 }
 
+.basket-btn.basket-added {
+  background-color: green;
+}
+
+.basket-btn.basket-added:hover {
+  background-color:red !important;
+}
+
+
 /* GENERAL MODAL -----------------------------------------------------------------------------------------------------*/
 .quickgo-modal {
   margin: 20px;
+}
+
+/* Homepage   ----------------------------------------------------------------------------------------------------------*/
+
+.homePageBox{
+  padding: 30px;
+  text-align: center;
+}
+.homePageBox h2{
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+#searchTerms{
+  background-color: #006f91;
+  margin-bottom: 20px;
+  height: 180px;
+}
+#investigateGoSlims{
+  background-color: #006f91;
+  height: 180px;
+}
+#goAnnotations{
+  background-color: #00a9de;
+  height: 380px;
+}
+#goAnnotations img{
+  margin-top: 20px;
+}
+
+.homePageSubText, .homePageSubText a {
+  color: white;
+}
+
+.intro_text{
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+.intro_text p{
+  margin-top: 0;
+  margin-bottom: 1em;
 }
 
 
@@ -257,7 +316,7 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   margin: 7px;
   padding: 3px;
   border-color: #bce7e7;
-  float: right;
+
   min-width: 60%;
 }
 
