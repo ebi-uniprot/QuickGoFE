@@ -4,7 +4,7 @@
 
 
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
-                                              hardCodedDataService, targetDomainAndPort, filteringService) {
+                                              hardCodedDataService, filteringService, ENV) {
 
 
   /**
@@ -41,8 +41,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    * Get the results page - Post version
    */
   function getResultsPage() {
-    //var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNames';
-    var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNamesNotSpring';
+    var formattedURL=ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring';
 
     //Create the object to send to the server
     var filterRequest = {};

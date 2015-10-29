@@ -2,8 +2,8 @@
  * Created by twardell on 07/05/2015.
  */
 
-app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location, targetDomainAndPort, filteringService,
-                                            hardCodedDataService) {
+app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location, filteringService,
+                                            hardCodedDataService, ENV) {
 
   $scope.selectedLimit=1000;  //default
 
@@ -17,7 +17,7 @@ app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location
    * process request and start download
    */
   $scope.submit = function(format,limit) {
-    var formattedURL = targetDomainAndPort+"/ws/downloadPostNewNamesNotSpring";
+    var formattedURL = ENV.apiEndpoint+"/ws/downloadPostNewNamesNotSpring";
 
     var filterRequest = {};
     filterRequest.list =  filteringService.getFilters();

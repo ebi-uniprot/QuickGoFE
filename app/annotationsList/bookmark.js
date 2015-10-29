@@ -3,7 +3,7 @@
  */
 app.controller('BookmarkCtrl', function($scope, $location,  $window, filteringService,
                                         $rootScope, $http, $log, basketService,
-                                        hardCodedDataService, targetDomainAndPort) {
+                                        hardCodedDataService, ENV) {
 
   console.log("In the bookmark controller");
   console.log("The path we arrived here with is", $location.path())

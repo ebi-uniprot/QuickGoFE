@@ -2,10 +2,9 @@
  * Created by twardell on 02/02/2015.
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
-                                    targetDomainAndPort, feDomainAndPort, filteringService, quickGOHelperService, $document) {
+                                    ENV, filteringService, quickGOHelperService, $document) {
 
-  $scope.feDomainAndPort=feDomainAndPort;
-  $scope.targetDomainAndPort=targetDomainAndPort;
+  $scope.targetDomainAndPort=ENV.apiEndpoint;
 
   //Clear search term
   $scope.searchText ='';
@@ -15,7 +14,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   /*Parse the url to get the termid*/
   var pathVals =$location.path().split("/");
   var termId=pathVals[(pathVals.length-1)];
-  var formattedURL=targetDomainAndPort+'/ws/term/';
+  var formattedURL=ENV.apiEndpoint+'/ws/term/';
 
   $rootScope.header = "QuickGO::Term "+termId;
 

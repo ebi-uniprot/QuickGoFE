@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 16/03/2015.
  */
-app.controller('StatisticsCtrl', function($http, $scope, targetDomainAndPort, filteringService) {
+app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) {
 
  console.log("Statistics Controller");
 
@@ -17,8 +17,7 @@ app.controller('StatisticsCtrl', function($http, $scope, targetDomainAndPort, fi
   loadStatistics();
 
   function loadStatistics() {
-    //var formattedURL=targetDomainAndPort+'/ws/annotationPostNewNames';
-    var formattedURL = targetDomainAndPort + '/ws/statsPostNewNamesNotSpring';
+    var formattedURL =  ENV.apiEndpoint + '/ws/statsPostNewNamesNotSpring';
 
     //Create the object to send to the server
     var filterRequest = {};

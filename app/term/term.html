@@ -121,7 +121,7 @@
         <span ng-repeat="layoutNode in graphImage.layoutNodes">
             <area shape="rect"
                   coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
-                  ng-href="{{feDomainAndPort}}/#/term/{{layoutNode.id}}"
+                  ng-href="#/term/{{layoutNode.id}}"
                   alt="Term {{layoutNode.id}}"
                   title="{{layoutNode.id}} - Click for more information"
                   target="_blank">
@@ -168,7 +168,7 @@
               <th>#Compared</th>
             </tr>
             <tr ng-repeat="allStat in termModel.allCoOccurrenceStatsTerms">
-              <td><a class="quickgo-link" ng-href="{{feDomainAndPort}}/term/{{allStat.comparedTerm}}">{{allStat.comparedTerm}}</a></td>
+              <td><a class="quickgo-link" ng-href="#/term/{{allStat.comparedTerm}}">{{allStat.comparedTerm}}</a></td>
               <td>{{allStat.aspect}}</td>
               <td>{{allStat.name}}</td>
               <td>{{allStat.probabilityRatio}}</td>
@@ -206,7 +206,7 @@
               </tr>
               <tr ng-repeat="nonIEAStat in termModel.nonIEACOOccurrenceStatistics">
                 <td><a class="quickgo-link"
-                  ng-href="{{feDomainAndPort}}/term/{{nonIEAStat.comparedTerm}}">{{nonIEAStat.comparedTerm}}</a>
+                  ng-href="#/term/{{nonIEAStat.comparedTerm}}">{{nonIEAStat.comparedTerm}}</a>
                 </td>
                 <td>{{nonIEAStat.aspect}}</td>
                 <td>{{nonIEAStat.name}}</td>
@@ -239,7 +239,7 @@
           </tr>
           <tr ng-repeat="childRelation in termModel.childTermsRelations">
             <td>{{childRelation.typeOf}}</td>
-            <td><a class="quickgo-link" ng-href="{{feDomainAndPort}}/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
+            <td><a class="quickgo-link" ng-href="#/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
             <td>{{childRelation.name}}</td>
           </tr>
         </table>
@@ -279,7 +279,7 @@
         </tr>
         <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
           <td>{{taxonconstraint.ruleId}}</td>
-          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
+          <td><a class="quickgo-link" href="#/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
           <td>{{taxonconstraint.name}}</td>
           <td>{{taxonconstraint.relationship.text}}</td>
           <td>{{taxonconstraint.taxId}}</td>
@@ -305,10 +305,10 @@
           <th>Reason</th>
         </tr>
         <tr ng-repeat="replacement in termModel.replaces">
-          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
+          <td><a class="quickgo-link" href="#/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
           <td>{{replacement.child.name}}</td>
           <td>{{replacement.typeof.description}} <a
-            href="{{feDomainAndPort}}/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
+            href="#/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
           </td>
         </tr>
       </table>
@@ -328,7 +328,7 @@
         </tr>
         <tr ng-repeat="replacedby in termModel.replacements">
           <td>{{replacedby.typeof.description}}</td>
-          <td><a class="quickgo-link" href="{{feDomainAndPort}}/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
+          <td><a class="quickgo-link" href="#/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
           <td>{{replacedby.parent.aspectDescription}}</td>
           <td>{{replacedby.parent.name}}</td>
         </tr>

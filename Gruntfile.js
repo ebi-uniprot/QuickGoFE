@@ -16,7 +16,8 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    ngconstant: 'grunt-ng-constant'
   });
 
   // Configurable paths for the application
@@ -30,6 +31,29 @@ module.exports = function (grunt) {
 
     // Project settings
     yeoman: appConfig,
+
+    ngconstant: {
+      options: {
+        space: '  ',
+        name: 'config',
+        dest: '.tmp/scripts/config.js'
+      },
+      // Environment targets
+      dev: {
+        constants: {
+          ENV: {
+            apiEndpoint: 'http://localhost:9080'
+          }
+        }
+      },
+      prod: {
+        constants: {
+          ENV: {
+            apiEndpoint: 'http://www.ebi.ac.uk/QuickGO-Beta'
+          }
+        }
+      }
+    },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -404,13 +428,23 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
+  grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
+    } else if (target === 'remoteApi') {
+      return grunt.task.run([
+        'clean:server',
+        'ngconstant:prod',
+        'wiredep',
+        'concurrent:server',
+        'autoprefixer:server',
+        'connect:livereload',
+        'watch'
+      ]);
     }
-
     grunt.task.run([
       'clean:server',
+      'ngconstant:dev',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -435,6 +469,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:prod',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

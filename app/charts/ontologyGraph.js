@@ -1,14 +1,13 @@
 /**
  * Created by twardell on 07/04/2015.
  */
-app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targetDomainAndPort, graphModel, feDomainAndPort) {
+app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, graphModel, ENV) {
 
   $scope.graphModel = graphModel;
   $scope.imageSource="";
-  $scope.feDomainAndPort=feDomainAndPort;
-  $scope.targetDomainAndPort=targetDomainAndPort;
+  $scope.targetDomainAndPort=ENV.apiEndpoint;
 
-  var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
+  var formattedURL=ENV.apiEndpoint+'/ws/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
 
   console.log("Chart Full url", formattedURL);
 
@@ -18,7 +17,7 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $modalInstance, targ
   $scope.graphPromise.success(function(data) {
     console.log('there');
     $scope.graphImage = data;
-    $scope.imageSource=targetDomainAndPort+$scope.graphImage.graphImageSrc;
+    $scope.imageSource=ENV.apiEndpoint+$scope.graphImage.graphImageSrc;
   });
 
   /**

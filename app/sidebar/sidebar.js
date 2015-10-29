@@ -1,8 +1,7 @@
 /**
  * Created by twardell on 17/04/2015.
  */
-app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringService, hardCodedDataService,
-                                       feDomainAndPort) {
+app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringService, hardCodedDataService) {
 
 
   $scope.showInitialTaxons=1;
@@ -17,7 +16,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.initialTaxonomies = hardCodedDataService.getInitialTaxonomies();
 
-  $scope.bookmarkableLink = feDomainAndPort+"/#/annotations";
+  $scope.bookmarkableLink = "#/annotations";
 
 
   /**
@@ -38,7 +37,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
     $scope.quickFilters.text.goID = "";
     $scope.quickFilters.text.gpID = "";
 
-    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
+    $scope.bookmarkableLink = "#/annotations/"+filteringService.createBookmarkableString();
 
     //Tell parent page this value has been updated.
 
@@ -62,7 +61,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
     }
 
 
-    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
+    $scope.bookmarkableLink = "#/annotations/"+filteringService.createBookmarkableString();
 
     //Tell parent page this value has been updated.
     $scope.$emit('filtersUpdate', '');   //todo change this so is notification only
@@ -77,7 +76,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
 
     filteringService.removeFilter(filter);
 
-    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
+    $scope.bookmarkableLink = "#/annotations/"+filteringService.createBookmarkableString();
 
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersUpdate', filter);
@@ -93,7 +92,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
 
     filteringService.clearFilters();
 
-    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations";
+    $scope.bookmarkableLink = "#/annotations";
 
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersClear');
@@ -142,7 +141,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
  */
   $rootScope.$on('filtersUpdate', function(event) {
 
-    $scope.bookmarkableLink = feDomainAndPort+"/#/annotations/"+filteringService.createBookmarkableString();
+    $scope.bookmarkableLink = "#/annotations/"+filteringService.createBookmarkableString();
   });
 
 });

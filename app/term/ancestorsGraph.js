@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 02/02/2015.
  */
-app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDomainAndPort, feDomainAndPort) {
+app.controller('AncestorsGraphCtrl', function($scope, $http, $location, ENV) {
 
   /**
    * Do stuff for ancestor graph
@@ -21,18 +21,17 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDo
   }
 
   $scope.imageSource="";
-  $scope.feDomainAndPort=feDomainAndPort;
-  $scope.targetDomainAndPort=targetDomainAndPort;
+  $scope.targetDomainAndPort=ENV.apiEndpoint;
 
 
   //Get the graph from the server - scope is only applicable for eco terms
   //var formattedURL=targetDomainAndPort+'/ws/chartfull?ids='+ termId + termId.lastIndexOf('ECO', 0) === 0?"&scope=ECO":'';
   var formattedURL;
   if(termId.lastIndexOf('ECO', 0) === 0){
-    formattedURL = targetDomainAndPort +'/ws/chartfull?ids='+ termId + '&scope=ECO';
+    formattedURL = ENV.apiEndpoint +'/ws/chartfull?ids='+ termId + '&scope=ECO';
     $scope.graphModel.scope='ECO';
   }else{
-    formattedURL = targetDomainAndPort +'/ws/chartfull?ids='+ termId
+    formattedURL = ENV.apiEndpoint +'/ws/chartfull?ids='+ termId
     $scope.graphModel.scope='';
   }
 
@@ -41,7 +40,7 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, targetDo
     //console.log("got the response back ", data);
     $scope.graphImage = data;
 
-    $scope.imageSource=targetDomainAndPort+$scope.graphImage.graphImageSrc;
+    $scope.imageSource=ENV.apiEndpoint+$scope.graphImage.graphImageSrc;
 
   });
 

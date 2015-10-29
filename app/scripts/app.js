@@ -23,7 +23,8 @@ var app = angular
     'quickGoFeApp.ServicesModule',
     "ui.bootstrap",
     'cgBusy',
-    'duScroll'
+    'duScroll',
+    'config' 
   ]);
 
   app.config(function ($routeProvider) {
@@ -112,11 +113,3 @@ var app = angular
         redirectTo: '/'
       });
   });
-
-  //Developer test
-  // app.value('targetDomainAndPort','http://localhost:9080');
-  app.value('feDomainAndPort','http://localhost:9000');
-
-  //Production test
-  app.value('targetDomainAndPort','http://www.ebi.ac.uk/QuickGO-Beta');
-  // app.value('feDomainAndPort','http://wwwdev.ebi.ac.uk/QuickGO-Test');
