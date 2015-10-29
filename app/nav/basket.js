@@ -20,9 +20,6 @@ app.controller('BasketNavCtrl', function($scope, $log, $uibModal, $rootScope, ba
    * Show the basket modal on request
    */
   $scope.showBasket = function () {
-
-    console.log("Show basket");
-
     var modalInstance = $uibModal.open({
       templateUrl: 'basket/basketModal.html',
       controller: 'BasketCtrl',
@@ -37,8 +34,6 @@ app.controller('BasketNavCtrl', function($scope, $log, $uibModal, $rootScope, ba
 
     modalInstance.result.then(function (selectedItem) {
       $scope.selected = selectedItem;
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
     });
   };
 

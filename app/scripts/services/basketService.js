@@ -4,10 +4,9 @@
 
 var basketModule = angular.module('quickGoFeApp.BasketModule', []);
 
-basketModule.factory('basketService', function($cookieStore) {
+basketModule.factory('basketService', function($cookieStore, search) {
 
   var basketList = {};
-
 
   /*
    * Add an item to the basket
@@ -19,8 +18,6 @@ basketModule.factory('basketService', function($cookieStore) {
       items.push(basketItem);
       $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
       return items.length;
-    }else{
-      //console.log("item already exists in the basket");
     }
   }
 
@@ -69,9 +66,11 @@ basketModule.factory('basketService', function($cookieStore) {
    * @returns {*|Object|Array}
    */
   basketList.getItems = function(){
-    //console.log("[basketService.js] Get items called");
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
-    return items;
+    var q = items.toString().replace(/,/g,encodeURIComponent(' OR '));
+    return search.query({query : q}, function(termData){
+      return termData;
+    });
   }
 
 
