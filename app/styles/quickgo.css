@@ -218,7 +218,6 @@ textarea.default {
 /* Homepage   ----------------------------------------------------------------------------------------------------------*/
 
 .homePageBox{
-  padding: 30px;
   text-align: center;
 }
 .homePageBox h2{
@@ -256,6 +255,16 @@ textarea.default {
   margin-bottom: 1em;
 }
 
+.helpIcon{
+  float: right;
+  font-size: 1.5em;
+
+}
+html.fontface .helpIcon span::before{
+    color: white;
+    background-color: none;
+    border-radius: 30px;
+}
 
 /* TABLES   ----------------------------------------------------------------------------------------------------------*/
 
