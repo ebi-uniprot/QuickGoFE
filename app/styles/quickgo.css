@@ -256,9 +256,7 @@ textarea.default {
 }
 
 .helpIcon{
-  float: right;
   font-size: 1.5em;
-
 }
 html.fontface .helpIcon span::before{
     color: white;
