@@ -12,13 +12,14 @@
 
   <p>QuickGO is provided by the UniProt-GOA project at the EBI and incorporates annotations from the GO consortium and other specialist annotation groups</p>
   <p>
-    <strong>News:</strong> Latest release XXXXXXXXXX.   12345 additional terms added. (Releases are monthly)
+    <strong>News:</strong> Latest release XXXXXXXXXX. (Releases are weekly)
     <br /><strong>Latest statistics:</strong> Terms: 12345,  Annotations: 12345
   </p>
 </div>
 
 
 <div class="clearfix"></div>
+
 
 
 <div class="grid_10 push_2">
@@ -41,13 +42,13 @@
         <button class="btn quickgo-btn" type="submit">Search</button>
       </form>
     </div>
-    <span class="homePageSubText">e.g <a href="#/search/apoptosis">apoptosis</a>; <a href="#/term/GO:0006915">GO:0006915</a>; <a href="#/term/ECO:0000314">ECO:0000314</a>; <a href="#/search/tropomyosin">tropomyosin</a></span>
+    <span>e.g <a href="#/search/apoptosis">apoptosis</a>; <a href="#/term/GO:0006915">GO:0006915</a>; <a href="#/term/ECO:0000314">ECO:0000314</a>; <a href="#/search/tropomyosin">tropomyosin</a></span>
   </div>
 
   <div id="investigateGoSlims" class="panel homePageBox">
     <span class="helpIcon pull-right icon-generic" data-icon="i" uib-tooltip-html="slimsTooltip" tooltip-placement="left"></span>
-    <h2>Investigate GO slims</h2>
-    <span class="homePageSubText">Use predefined GO term sets or build your<br />own to get a broad overview of your data</span><br />
+    <h2><a ng-href="#/slimming">Investigate GO slims</a></h2>
+    <span>Use predefined GO term sets or build your<br />own to get a broad overview of your data</span><br />
     <a id="slims" ng-href="#/slimming"><button class="btn quickgo-btn " type="submit">Begin</button></a>
   </div>
 
@@ -57,13 +58,12 @@
 
 <div id="goAnnotations" class="grid_10 panel push_2 homePageBox">
   <span class="helpIcon pull-right icon-generic" data-icon="i" tooltip-placement="left" uib-tooltip-html="annoTooltip"></span>
-  <h2>Go Annotations</h2>
-  <span class="homePageSubText">View: <a ng-click="annotationList()">All</a>, <a ng-click="annotationList()">Human</a>, <a ng-click="annotationList()">Mouse</a>, <a ng-click="annotationList()">Coelacanth</a> ...</span>
+  <h2><a ng-click="annotationList()">Go Annotations</a></h2>
+  <span>View: <a ng-click="annotationList()">All</a>, <a ng-click="annotationList()">Human</a>, <a ng-click="annotationList()">Mouse</a>, <a ng-click="annotationList()">Coelacanth</a> ...</span>
   <img src="/images/goannotations.png" />
   <br />
-  <span class="homePageSubText">View, filter and retrieve the annotations available for various<br />gene products, taxonomic groups, projects or your own dataset</span>
+  <span>View, filter and retrieve the annotations available for various<br />gene products, taxonomic groups, projects or your own dataset</span>
 </div>
-
 
 
 

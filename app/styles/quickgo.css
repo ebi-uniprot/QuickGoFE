@@ -23,13 +23,6 @@ a:hover, {
   text-decoration: none;
 }
 
-a.quickgo-link:hover {
-  background: none !important;
-  border-bottom: 1px solid #444;
-  border-bottom-style: solid;
-  text-decoration: none;
-}
-
 .pseudo-button {
   background-color: #DEEFF5;
   border : none;
@@ -217,18 +210,31 @@ textarea.default {
 
 /* Homepage   ----------------------------------------------------------------------------------------------------------*/
 
+html, body {
+        height: 100%;
+    }
+
 .homePageBox{
   text-align: center;
 }
 .homePageBox h2{
   color: white;
-  font-weight: bold;
   text-align: center;
 }
+
+.homePageBox, .homePageBox h2 a,  .homePageBox a{
+  color: white;
+}
+
+.homePageBox a:hover{
+  border-bottom: 1px dotted white;
+}
+
+
 #searchTerms{
   background-color: #006f91;
   margin-bottom: 20px;
-  height: 180px;
+  min-height: 180px;
 }
 #investigateGoSlims{
   background-color: #006f91;
@@ -236,15 +242,14 @@ textarea.default {
 }
 #goAnnotations{
   background-color: #00a9de;
-  height: 380px;
+  min-height: 380px;
+  height: 100%;
 }
 #goAnnotations img{
   margin-top: 20px;
 }
 
-.homePageSubText, .homePageSubText a {
-  color: white;
-}
+
 
 .intro_text{
   margin-top: 1em;
@@ -263,6 +268,7 @@ html.fontface .helpIcon::before{
     background-color: none;
     border-radius: 30px;
 }
+
 
 
 /* TABLES   ----------------------------------------------------------------------------------------------------------*/
