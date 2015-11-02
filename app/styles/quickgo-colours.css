@@ -84,10 +84,6 @@ ul.action-buttons-grouped {
 	margin: 0;
 }
 
-.two-colours tr:nth-child(even) {
-	background-color: #DEEFF5;
-}
-
 #warning.icon-generic:before {
     color: black;
 }

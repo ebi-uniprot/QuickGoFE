@@ -7,8 +7,6 @@ a:hover {
   white-space: nowrap;
 }
 
-/* The dark green #1d8086*/
-
 .quickgo-content {
   background-color: white;
 }
@@ -21,14 +19,6 @@ ul {
 
 a:hover, {
   text-decoration: none;
-}
-
-.pseudo-button {
-  background-color: #DEEFF5;
-  border : none;
-  padding: 0 !important;
-  font: inherit;
-  cursor: pointer;
 }
 
 .selectable {
@@ -52,10 +42,6 @@ a:hover, {
   vertical-align: top;
 }
 
-#container section {
-  margin-bottom: 2em;
-}
-
 .obsolete {
   color: #999;
 }
@@ -65,16 +51,11 @@ a:hover, {
 /* This section holds the our app title*/
 
 div#local-masthead {
-  /*background: -webkit-linear-gradient(left, white , #70BDBD); /!* For Safari 5.1 to 6.0 *!/*/
-  /*background: -o-linear-gradient(right, white, #70BDBD); /!* For Opera 11.1 to 12.0 *!/*/
-  /*background: -moz-linear-gradient(right, white, #70BDBD); /!* For Firefox 3.6 to 15 *!/*/
-  /*background: linear-gradient(to right, white , #70BDBD); /!* Standard syntax *!/*/
   background-color: white;
   background-position:top right;
   background-image: url(../images/bg4.png);
   background-repeat: no-repeat;
 }
-
 
 #beta-message {
   background-color:lightgrey;
@@ -92,38 +73,6 @@ div#local-masthead {
 	margin-left: 20px;
 }
 
-
-
-/* Sort out autocomplete */
-div#local-masthead ul.dropdown-menu {
-  width: 80%;
-}
-
-
-div#local-masthead ul.dropdown-menu li a,
-div#local-masthead ul.dropdown-menu li a:link,
-div#local-masthead ul.dropdown-menu li a:visited {
-  background-color: #ECF0F1;
-  color:#333;
-  text-shadow:none;
-  border-bottom: none;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-div#local-masthead ul.dropdown-menu li a:hover {
-  background-color: #2980B9;
-  border-bottom: none;
-}
-
-/* NAVIGATION   ------------------------------------------------------------------------------------------------------*/
-.quickgo-nav {
-  padding: 5px;
-  background: black;
-  color: white;
-}
-
 /* STRUCTURE  --------------------------------------------------------------------------------------------------------*/
 body {
   max-width: 100%;
@@ -131,18 +80,6 @@ body {
   background-color: white;
   line-height: normal;
   font-size: small;
-}
-
-.text-container {
-  max-width: 1000px;
-}
-
-.text-container-800 {
-  max-width: 800px;
-}
-
-.quickgo-text-container-large {
-  max-width: 1400px;
 }
 
 /* DEFAULT FORM ELEMENTS ---------------------------------------------------------------------------------------------*/
@@ -168,30 +105,8 @@ textarea.default {
   padding-left: 5px;
 }
 
-
-.quickgo-btn, a.quickgo-btn, .quickgo-btn:active, .quickgo-btn:visited, .quickgo-btn:focus {
-  border: 1px solid #2980B9;
-  background-color: #329DE3;
-  color: #FFF;
-  font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
-}
-.goSlims-btn{
-  margin-top: 10px;
-}
-
-
-.quickgo-btn:hover {
-  background-color: #2980B9;
-  color:#FFF;
-}
-
 .basket-btn:hover {
   background-color: green !important;
-  color: #FFF;
-}
-
-.quickgo-btn:before {
-  color: #FFF !important;
 }
 
 .basket-btn.basket-added {
@@ -202,6 +117,21 @@ textarea.default {
   background-color:red !important;
 }
 
+.quickgo-btn, a.quickgo-btn, .quickgo-btn:active, .quickgo-btn:visited, .quickgo-btn:focus {
+  border: 1px solid #2980B9;
+  background-color: #329DE3;
+  color: #FFF;
+  font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
+}
+
+.quickgo-btn:hover {
+  background-color: #2980B9;
+  color:#FFF;
+}
+
+.quickgo-btn:before {
+  color: #FFF !important;
+}
 
 /* GENERAL MODAL -----------------------------------------------------------------------------------------------------*/
 .quickgo-modal {
@@ -209,10 +139,6 @@ textarea.default {
 }
 
 /* Homepage   ----------------------------------------------------------------------------------------------------------*/
-
-html, body {
-        height: 100%;
-    }
 
 .homePageBox{
   text-align: center;
@@ -222,14 +148,15 @@ html, body {
   text-align: center;
 }
 
-.homePageBox, .homePageBox h2 a,  .homePageBox a{
+.homePageBox,
+.homePageBox h2 a,
+.homePageBox a{
   color: white;
 }
 
 .homePageBox a:hover{
   border-bottom: 1px dotted white;
 }
-
 
 #searchTerms{
   background-color: #006f91;
@@ -243,13 +170,10 @@ html, body {
 #goAnnotations{
   background-color: #00a9de;
   min-height: 380px;
-  height: 100%;
 }
 #goAnnotations img{
   margin-top: 20px;
 }
-
-
 
 .intro_text{
   margin-top: 1em;
@@ -277,24 +201,12 @@ table {
   border-style: none none none none;
 }
 
-thead th:first-child {
-  border-top-left-radius: 5px;
-}
-
-thead th:last-child {
-  border-top-right-radius: 5px;
-}
-
 td.aFilter {
   font-weight: bold;
 }
 
 .two-colours tr:nth-child(odd) {
-  background-color: #defcfc;  /*#bce7e7*/
-}
-
-.two-colours tr:nth-child(even) {
-  background-color: white;
+  background-color: #defcfc;
 }
 
 
@@ -312,14 +224,6 @@ div.masthead ul.dropdown-menu li {
   float: none;
 }
 
-div#local-masthead ul li a{
-  color: black;
-}
-
-div#local-masthead ul.dropdown-menu a{
-  background-color: azure;
-}
-
 div#search-area ul.dropdown-menu li.active a{
   color: white;
 }
@@ -332,7 +236,6 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   margin: 7px;
   padding: 3px;
   border-color: #bce7e7;
-
   min-width: 60%;
 }
 
@@ -344,29 +247,25 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   border-top-right-radius: 2px;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
-
 }
 
 .emptyBasket {
   background-color: red;
 }
 
-
 .popBasket {
   background-color: white;
 }
 
 /* PAGINATION   ------------------------------------------------------------------------------------------------------*/
-.results-buttons {
-  vertical-align: top;
-}
+
 
 .pagination {
   margin: 0px !important;
 }
 
 .highlight-viewBy {
-  background-color: #defcfc;
+  background-color: #defcfc;  /* this colour needs to change as its the row highlight colour - Mark*/
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -374,17 +273,9 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
 }
 
 /* ANNOTATION LIST  --------------------------------------------------------------------------------------------------*/
-p.pos_indented {
-  left: 50px;
-}
 
 .filter-list {
   line-height: 2em;
-}
-
-/* ADVANCED FILTER DIALOGUE ------------------------------------------------------------------------------------------*/
-.indent1 {
-  padding-left: 3em;
 }
 
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
@@ -403,11 +294,6 @@ textarea.sidebar {
   background-color: #FFFBCC;
 }
 
-.quickButton {
-  cursor: pointer;
-  font-weight: bold;
-}
-
 .sidebar-padding {
   margin: 2px;
 }
@@ -416,20 +302,12 @@ textarea.sidebar {
   float:right;
 }
 
-#noFiltersMessage {
-  display: block;
-}
-
 .filterCount {
   float: right;
   font-weight: bold;
   background-color: white;
 }
 /* TERM PAGE ----------------------------------------------------------------------------------------------------*/
-
-#termpage-addToBasket{
-  font-size: 20px;
-}
 
 .quickgo-hoz-header th{
   min-width: 265px;
@@ -442,7 +320,6 @@ li.section-disabled a, li.section-disabled a:hover {
   text-decoration: none;
   border-bottom: none;
 }
-
 
 #term-changelog-selection li{
   display: inline;
@@ -457,21 +334,7 @@ li.section-disabled a, li.section-disabled a:hover {
 
 #term-section {
   width: 300px;
-  /*display: inline;*/
   background: greenyellow;
-}
-
-#term-section-detail {
-   display: inline;
-   background: purple;
-   width: 0px;
- }
-
-#term-section-test {
-  display: block;
-  clear: left;
-  background: grey;
-  width: 500px;
 }
 
 #term-section-nav {
@@ -493,13 +356,6 @@ li.section-disabled a, li.section-disabled a:hover {
   border-left:2px solid #2980B9;
 }
 
-.term-section-nav-header {
-  border-bottom: 1px dotted #00709b;
-  border-bottom-width: 1px;
-  border-bottom-style: dotted;
-  border-bottom-color: rgb(0, 112, 155);
-}
-
 .term-section-header {
   border-bottom: 1px solid #2C3E50;
   margin-bottom: .8em;
@@ -516,21 +372,7 @@ li.slim {
   width: 1000px;
 }
 
-#slimming-next {
-  float: right;
-}
-
-#slimming-proteinbox {
-  height: 200px;
-  width: 800px;
-  font-size: 14pt;
-}
-
 /* ADVANCED FILTERS MODAL DIALOGUE ----------------------------------------------------------------------------------*/
-.content-margin-10 {
-  margin: 10px;
-}
-
 .app-modal-window .modal-dialog {
   width: 90%;
 }
@@ -543,104 +385,11 @@ li.sub-1 {
   padding: 2px;
 }
 
-
-/* DOCUMENTATION -----------------------------------------------------------------------------------------------------*/
-li.strong {
-  font-weight: bold;
-}
-
-p.strong {
-  font-weight: bold;
-}
-
-
 /* ANCESTOR GRAPH  ---------------------------------------------------------------------------------------------------*/
 IMG.displayed {
   display: block;
   margin-left: auto;
   margin-right: auto
-}
-
-
-/* TOOLTIP -----------------------------------------------------------------------------------------------------------*/
-.wrapper {
-  cursor: help;
-  position: relative;
-  -webkit-transform: translateZ(0); /* webkit flicker fix */
-  -webkit-font-smoothing: antialiased; /* webkit text rendering fix */
-}
-
-.wrapper .tooltip {
-  background: #1496bb;
-  bottom: 100%;
-  color: #fff;
-  display: block;
-  left: -25px;
-  margin-bottom: 15px;
-  opacity: 0;
-  padding: 20px;
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
-  -webkit-transform: translateY(10px);
-  -moz-transform: translateY(10px);
-  -ms-transform: translateY(10px);
-  -o-transform: translateY(10px);
-  transform: translateY(10px);
-  -webkit-transition: all .25s ease-out;
-  -moz-transition: all .25s ease-out;
-  -ms-transition: all .25s ease-out;
-  -o-transition: all .25s ease-out;
-  transition: all .25s ease-out;
-  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
-  -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
-  -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
-  -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
-}
-
-/* This bridges the gap so you can mouse into the tooltip without it disappearing */
-.wrapper .tooltip:before {
-  bottom: -20px;
-  content: " ";
-  display: block;
-  height: 20px;
-  left: 0;
-  position: absolute;
-  width: 100%;
-}
-
-/* CSS Triangles - see Trevor's post */
-.wrapper .tooltip:after {
-  border-left: solid transparent 10px;
-  border-right: solid transparent 10px;
-  border-top: solid #1496bb 10px;
-  bottom: -10px;
-  content: " ";
-  height: 0;
-  left: 50%;
-  margin-left: -13px;
-  position: absolute;
-  width: 0;
-}
-
-.wrapper:hover .tooltip {
-  opacity: 1;
-  pointer-events: auto;
-  -webkit-transform: translateY(0px);
-  -moz-transform: translateY(0px);
-  -ms-transform: translateY(0px);
-  -o-transform: translateY(0px);
-  transform: translateY(0px);
-}
-
-/* IE can just show/hide with no transition */
-.lte8 .wrapper .tooltip {
-  display: none;
-}
-
-.lte8 .wrapper:hover .tooltip {
-  display: block;
 }
 
 .action-buttons-grouped {
