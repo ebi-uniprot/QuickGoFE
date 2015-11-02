@@ -258,11 +258,12 @@ textarea.default {
 .helpIcon{
   font-size: 1.5em;
 }
-html.fontface .helpIcon span::before{
+html.fontface .helpIcon::before{
     color: white;
     background-color: none;
     border-radius: 30px;
 }
+
 
 /* TABLES   ----------------------------------------------------------------------------------------------------------*/
 
