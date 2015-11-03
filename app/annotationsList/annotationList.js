@@ -4,7 +4,7 @@
 
 
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
-                                              hardCodedDataService, filteringService, ENV) {
+                                              hardCodedDataService, filteringService, ENV, $routeParams) {
 
 
   /**
@@ -31,7 +31,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.currentPage=1;
   getResultsPage();    //<--this is called instead by the page changed call
 
-
   /**
    * ------------------------------------ Local methods --------------------------------------------------
    */
@@ -49,6 +48,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     filterRequest.rows =  $scope.maxSize;
     filterRequest.page = $scope.currentPage;
     filterRequest.isSlim = filteringService.isSlimming();
+    console.log(filterRequest);
 
     // Post the filter request to the webservice
     var request = {
@@ -65,6 +65,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
     });
+    $scope.bookmarkableLink = filteringService.getBookmarkableString();
 
   }
 

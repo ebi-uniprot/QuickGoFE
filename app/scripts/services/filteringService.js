@@ -22,6 +22,8 @@ filteringModule.factory('filteringService', function() {
   var filteringService = {};
   var filters = [];
   var isSlimRequest = 0;
+  var bookmarkableLink = "#/annotations";
+
 
 
   filteringService.setFilters = function (filterList){
@@ -511,25 +513,20 @@ filteringModule.factory('filteringService', function() {
    * Turn the filters into a query string that can be used in the bookmarkable link
    * @returns {string}
    */
-  filteringService.createBookmarkableString =  function (){
+  filteringService.setBookmarkableString =  function (){
 
     var bookmarkString='';
-    //var queryType='';
     var typeString='';
     for (i = 0  ; i < filters.length; i++) {
-
       //Always add type
       bookmarkString=bookmarkString + filters[i].type  + ":";
       bookmarkString=bookmarkString + filters[i].value + ',';
-
     }
+    bookmarkableLink = '#annotations/' + bookmarkString;
+  }
 
-    //Place query parameter //todo do this?
-    //if(bookmarkString.length>0){
-    //  bookmarkString='q='+bookmarkString;
-    //}
-
-    return bookmarkString;
+  filteringService.getBookmarkableString = function() {
+    return bookmarkableLink;
   }
 
 

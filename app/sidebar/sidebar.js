@@ -16,8 +16,6 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.initialTaxonomies = hardCodedDataService.getInitialTaxonomies();
 
-  $scope.bookmarkableLink = "#/annotations";
-
 
   /**
    * ------------------------------------------------ Scope methods  -------------------------------------------------
@@ -37,7 +35,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
     $scope.quickFilters.text.goID = "";
     $scope.quickFilters.text.gpID = "";
 
-    $scope.bookmarkableLink = "#/annotations/"+filteringService.createBookmarkableString();
+    filteringService.setBookmarkableString();
 
     //Tell parent page this value has been updated.
 
@@ -61,7 +59,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
     }
 
 
-    $scope.bookmarkableLink = "#/annotations/"+filteringService.createBookmarkableString();
+    filteringService.setBookmarkableString();
 
     //Tell parent page this value has been updated.
     $scope.$emit('filtersUpdate', '');   //todo change this so is notification only
@@ -76,7 +74,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
 
     filteringService.removeFilter(filter);
 
-    $scope.bookmarkableLink = "#/annotations/"+filteringService.createBookmarkableString();
+    filteringService.setBookmarkableString();
 
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersUpdate', filter);
@@ -89,14 +87,11 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
    * @param filter
    */
   $scope.clearFilters=function() {
-
     filteringService.clearFilters();
-
-    $scope.bookmarkableLink = "#/annotations";
+    filteringService.setBookmarkableString();
 
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersClear');
-
   };
 
 
@@ -140,8 +135,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
  * Listen to an update to the filters list that comes, and change the bookmark link appropriately
  */
   $rootScope.$on('filtersUpdate', function(event) {
-
-    $scope.bookmarkableLink = "#/annotations/"+filteringService.createBookmarkableString();
+    filteringService.setBookmarkableString();
   });
 
 });

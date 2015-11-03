@@ -14,7 +14,12 @@
       <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
       <button class="btn quickgo-btn icon-functional" data-icon="f" ng-click="showAdvancedFilters()">Advanced filters</button>  
       <a class="btn quickgo-btn icon-functional" href="#/statistics" rel="nofollow" data-icon="z">Statistics</a>
-      <a class="btn quickgo-btn icon-generic" ng-href="{{bookmarkableLink}}" data-icon='L'>Bookmark</a>
+      <div class="btn-group" uib-dropdown>
+        <a class="btn quickgo-btn icon-generic dropdown-toggle" data-icon="L" uib-dropdown-toggle>Bookmark</a>
+        <ul class="uib-dropdown-menu">
+          <input value={{bookmarkableLink}} size="35">
+        </ul>
+      </div>
       <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
     </div>
 
