@@ -23,6 +23,14 @@ wsService.factory('term', ['$resource', 'ENV', function($resource, ENV){
   });
 }]);
 
+wsService.factory('getTermsService', ['$resource', 'ENV', function($resource, ENV){
+  return $resource(
+      ENV.apiEndpoint+'/ws/terms', 
+      {ids: '@id'}, 
+      {query: {method:'GET', isArray:true}}
+  );
+}]);
+
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/ws/dataset', {}, {
     query: {method:'GET', isArray:true, Cache:true}

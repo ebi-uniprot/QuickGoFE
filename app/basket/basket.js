@@ -3,10 +3,20 @@
  */
 
 app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $uibModal, $q, basketService,
-                                      filteringService, quickGOHelperService, term ) {
+                                      filteringService, quickGOHelperService, getTermsService ) {
 
 
-  $scope.basketItems = basketService.getItems();
+
+  loadBasketItems = function() {
+    var cookieItems = basketService.getItems();
+    console.log(cookieItems);
+    $scope.basketPromise = getTermsService.query({ids : cookieItems.toString()}).$promise;
+    $scope.basketPromise.then(function(termData){
+      $scope.basketItems = termData;
+    });
+  }
+
+  loadBasketItems();
   $scope.input_terms='';
 
   /**
@@ -17,7 +27,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     basketService.removeBasketItem(basketItem);
 
     //update displayed list
-    $scope.basketItems = basketService.getItems();
+    loadBasketItems();
 
     //Tell parent page this value has been updated.
     $scope.$emit('basketUpdate', basketService.basketQuantity());
@@ -47,7 +57,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     $scope.$emit('basketUpdate', basketService.basketQuantity());
 
     //reload basketItems list
-    $scope.basketItems = basketService.getItems();
+    loadBasketItems();
 
     //Clear the input text field
     $scope.input_terms = "";
@@ -142,7 +152,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
   $scope.isBasketNotEmpty = function (){
-    return $scope.basketItems.length>0;
+    return basketService.getItems().length>0;
   }
 
   $scope.close = function() {
