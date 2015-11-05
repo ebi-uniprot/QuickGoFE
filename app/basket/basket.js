@@ -3,16 +3,15 @@
  */
 
 app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $uibModal, $q, basketService,
-                                      filteringService, quickGOHelperService, getTermsService ) {
+                                      filteringService, quickGOHelperService, termService ) {
 
 
 
   loadBasketItems = function() {
     var cookieItems = basketService.getItems();
-    console.log(cookieItems);
-    $scope.basketPromise = getTermsService.query({ids : cookieItems.toString()}).$promise;
+    $scope.basketPromise = termService.getTerms(cookieItems.toString());
     $scope.basketPromise.then(function(termData){
-      $scope.basketItems = termData;
+      $scope.basketItems = termData.data;
     });
   }
 

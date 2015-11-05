@@ -48,7 +48,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     filterRequest.rows =  $scope.maxSize;
     filterRequest.page = $scope.currentPage;
     filterRequest.isSlim = filteringService.isSlimming();
-    console.log(filterRequest);
 
     // Post the filter request to the webservice
     var request = {
@@ -59,6 +58,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       },
       data: filterRequest
     };
+    console.log(request);
     $scope.resultsPromise = $http(request);
     $scope.resultsPromise.success(function(data) {
       $scope.goList = data;

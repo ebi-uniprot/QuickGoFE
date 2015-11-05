@@ -1,7 +1,3 @@
-/**
- * Created by twardell on 17/12/2014.
- */
-
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
 
@@ -17,18 +13,15 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($reso
   });
 }]);
 
-wsService.factory('term', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/term/:termId', {termId: '@id'}, {
-    query: {method:'GET'}
-  });
-}]);
-
-wsService.factory('getTermsService', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(
-      ENV.apiEndpoint+'/ws/terms', 
-      {ids: '@id'}, 
-      {query: {method:'GET', isArray:true}}
-  );
+wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
+  return {
+      getTerm : function(termId) { 
+        return $http.get(ENV.apiEndpoint+'/ws/term/' + termId);
+      },
+      getTerms : function(ids) {
+        return $http.get(ENV.apiEndpoint+'/ws/terms', {params: {ids: ids}});
+      }
+  }
 }]);
 
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
