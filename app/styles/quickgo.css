@@ -152,27 +152,39 @@ textarea.default {
 .homePageBox h2 a,
 .homePageBox a{
   color: white;
+    padding-top: 0px;
 }
 
 .homePageBox a:hover{
   border-bottom: 1px dotted white;
+
 }
 
 #searchTerms{
   background-color: #006f91;
   margin-bottom: 20px;
-  min-height: 180px;
+  min-height: 150px;
+  margin-top: 20px;
 }
 #investigateGoSlims{
-  background-color: #006f91;
-  height: 180px;
+  background-color: #00a9de;
+  min-height: 250px;
 }
 #goAnnotations{
   background-color: #00a9de;
-  min-height: 380px;
+  min-height: 250px;
 }
 #goAnnotations img{
-  margin-top: 20px;
+  margin-top: 0px;
+}
+
+#goAnnotations:hover{
+  cursor: pointer;
+  background-color: #006f91;
+}
+#investigateGoSlims:hover{
+  cursor: pointer;
+  background-color: #006f91;
 }
 
 .intro_text{
@@ -186,6 +198,7 @@ textarea.default {
 
 .helpIcon{
   font-size: 1.5em;
+  margin-top: 4px;
 }
 html.fontface .helpIcon::before{
     color: white;
@@ -214,10 +227,16 @@ td.aFilter {
 
 #searchbox {
   background-color: white;
-  width: 80%;
-  height: 40px;
+  width: 60%;
+  height: 33px;
   margin: 2px;
   border-color: #bce7e7;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+#search-area form{
+  text-align: center;
 }
 
 div.masthead ul.dropdown-menu li {
