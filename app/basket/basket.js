@@ -6,14 +6,14 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
                                       filteringService, quickGOHelperService, termService ) {
 
 
-  loadBasketItems = function() {
+  $scope.loadBasketItems = function() {
     $scope.basketPromise = basketService.getItems();
     $scope.basketPromise.then(function(d){
       $scope.basketItems = d.data;
     })
   }
 
-  loadBasketItems();
+  $scope.loadBasketItems();
   $scope.input_terms='';
 
   /**
@@ -24,7 +24,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
     basketService.removeBasketItem(basketItem);
 
     //update displayed list
-    loadBasketItems();
+    $scope.loadBasketItems();
 
     //Tell parent page this value has been updated.
     $scope.$emit('basketUpdate', basketService.basketQuantity());
@@ -54,7 +54,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
     $scope.$emit('basketUpdate', basketService.basketQuantity());
 
     //reload basketItems list
-    loadBasketItems();
+    $scope.loadBasketItems();
 
     //Clear the input text field
     $scope.input_terms = "";
