@@ -20,6 +20,9 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
       },
       getTerms : function(ids) {
         return $http.get(ENV.apiEndpoint+'/ws/terms', {params: {ids: ids}});
+      },
+      getStats : function(termId) {
+        return $http.get(ENV.apiEndpoint+'/ws/term/' + termId + '/stats');
       }
   }
 }]);
