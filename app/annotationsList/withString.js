@@ -2,7 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('WithStringCtrl', function($scope, $log, $modalInstance ) {
+app.controller('WithStringCtrl', function($scope, $log, $uibModalInstance ) {
 
 
   console.log("Got with string is ", $scope.withString);
@@ -23,7 +23,7 @@ app.controller('WithStringCtrl', function($scope, $log, $modalInstance ) {
    * Close window
    */
   $scope.ok = function () {
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 });
 

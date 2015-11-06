@@ -2,7 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $uibModal, $q, basketService,
+app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
                                       filteringService, quickGOHelperService, termService ) {
 
 
@@ -65,7 +65,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
    */
 
   $scope.term = function(goId){
-    $modalInstance.dismiss('forward');
+    $uibModalInstance.dismiss('forward');
     $location.path("/term/"+goId); // path not hash
   };
 
@@ -111,7 +111,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     $scope.$emit('filtersUpdate', 0);
 
     //Goodbye
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 
   /**
@@ -153,7 +153,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
   }
 
   $scope.close = function() {
-    $modalInstance.dismiss('cancel');    
+    $uibModalInstance.dismiss('cancel');    
   }
 
 });
