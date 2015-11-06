@@ -49,7 +49,10 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $uibModal
    */
 
   //Basket items are used by the go identifer tab
-  $scope.basketItems = basketService.getItems();
+  $scope.basketPromise = basketService.getItems();
+  $scope.basketPromise.then(function(d){
+    $scope.basketItems = d.data;
+  })
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.referenceList = hardCodedDataService.getFilterReferences();
   $scope.qualifiers = hardCodedDataService.getQualifiers();

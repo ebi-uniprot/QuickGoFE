@@ -6,13 +6,11 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
                                       filteringService, quickGOHelperService, termService ) {
 
 
-
   loadBasketItems = function() {
-    var cookieItems = basketService.getItems();
-    $scope.basketPromise = termService.getTerms(cookieItems.toString());
-    $scope.basketPromise.then(function(termData){
-      $scope.basketItems = termData.data;
-    });
+    $scope.basketPromise = basketService.getItems();
+    $scope.basketPromise.then(function(d){
+      $scope.basketItems = d.data;
+    })
   }
 
   loadBasketItems();
@@ -151,7 +149,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
   $scope.isBasketNotEmpty = function (){
-    return basketService.getItems().length>0;
+    return basketService.basketQuantity() > 0;
   }
 
   $scope.close = function() {

@@ -17,8 +17,10 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, ha
   /**
    * Get basket items
    */
-  $scope.basketList=basketService.getItems();
-
+  $scope.basketPromise = basketService.getItems();
+  $scope.basketPromise.then(function(d){
+    $scope.basketList = d.data;
+  })
   /**
    * Get predefined slim sets
    */
