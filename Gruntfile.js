@@ -49,7 +49,7 @@ module.exports = function (grunt) {
       prod: {
         constants: {
           ENV: {
-            apiEndpoint: 'http://www.ebi.ac.uk/QuickGO-Beta'
+            apiEndpoint: 'http://ves-hx-cf:8080/QuickGO-Beta'
           }
         }
       }
@@ -386,7 +386,8 @@ module.exports = function (grunt) {
             '.htaccess',
             '{,*/}*.html',
             'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'images/{,*/}*.*'
           ]
         }, {
           expand: true,
@@ -413,8 +414,6 @@ module.exports = function (grunt) {
       ],
       dist: [
         'copy:styles',
-        'imagemin',
-        'svgmin'
       ]
     },
 
