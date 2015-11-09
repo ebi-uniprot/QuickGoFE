@@ -109,6 +109,10 @@ var app = angular
         templateUrl: 'search/searchResult.html',
         controller: 'SearchResultCtrl'
       })
+      .when('/megasearch/:searchTerm', {
+        templateUrl: 'megasearch/megasearch.html',
+        controller: 'MegaSearchCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

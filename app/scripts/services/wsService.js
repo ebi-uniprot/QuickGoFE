@@ -27,6 +27,66 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   }
 }]);
 
+wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
+  return {
+      findTerms: function(searchTerm, limit) {
+        return $http.get(ENV.apiEndpoint + '/ws/search', 
+          {
+            params: {
+              query : searchTerm,
+              scope : 'eco,go',
+              limit : limit
+            }
+          });
+      },
+      findGeneProducts: function(searchTerm, limit) {
+        return $http.get(ENV.apiEndpoint + '/ws/search', 
+          {
+            params: {
+              query : searchTerm,
+              scope : 'protein',
+              limit : limit
+            }
+          });
+      },       
+      findPublications: function(searchTerm, limit) {
+        //TODO
+      },
+      findAnnotationsForTerm: function(searchTerm) {
+        var request = {
+          method: 'POST',
+          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            list: [{
+              type: "goID",
+              value: searchTerm
+            }]
+          }
+        };
+        return $http(request);
+      }, 
+      findAnnotationsForProduct: function(searchTerm) {
+        var request = {
+          method: 'POST',
+          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            list: [{
+              type: "gpID",
+              value: searchTerm
+            }]
+          }
+        };
+        return $http(request);
+      }
+  }
+}]);
+
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/ws/dataset', {}, {
     query: {method:'GET', isArray:true, Cache:true}
