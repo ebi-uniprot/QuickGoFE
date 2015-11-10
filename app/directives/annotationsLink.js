@@ -3,7 +3,7 @@ angular
 	.directive('annotationsLink', ['searchService', function(searchService) {
 		return {
 			restrict: 'E',
-			template: '<a class="annotations-link">{{annotationsCount}} annotations</a>',
+			template: '{{annotationsCount}} annotations',
 			scope: {},
 			link: function($scope, element, attrs, controller) {
 				var termId, productId;
@@ -11,14 +11,14 @@ angular
 				attrs.$observe('termid', function() {
 					termId = attrs.termid;
 					searchService.findAnnotationsForTerm(termId).then(function(d){
-						$scope.annotationsCount = d.data.numberAnnotations;
+						$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
 					});
 				});
 
 				attrs.$observe('productid', function() {
 					productId = attrs.productid;
 					searchService.findAnnotationsForProduct(productId).then(function(d){
-						$scope.annotationsCount = d.data.numberAnnotations;
+						$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
 					});
 				});
 			}

@@ -1,6 +1,8 @@
 app.controller('MegaSearchCtrl', function($scope,  $location, $routeParams, searchService) {
 
-	var limit = 5;
+	var limit = 10;
+
+	$scope.searchTerm = $routeParams.searchTerm;
 
 	//Look for matching GO terms
 	$scope.goTermsPromise = searchService.findTerms($routeParams.searchTerm, limit);

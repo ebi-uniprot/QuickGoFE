@@ -1,25 +1,27 @@
 <div id="content" class="container_24">
-  <h2>Search results</h2>
+  <h2 class="grid_20 push_2">Search results for "{{searchTerm}}"</h2>
 
   <div class="panel grid_20 push_2" cg-busy="goTermsPromise">
     <h3>GO Terms</h3>
     <ul class="results-list">
       <li ng-repeat="term in terms">
-        <a href="#/term/{{term.id}}">{{term.id}}</a> - {{term.name}} <annotations-link termid="{{term.id}}"></annotations-link>
+        <a href="#/term/{{term.id}}">{{term.id}}</a> <basket-button termid="{{term.id}}"></basket-button> - {{term.name}} <a href="#/annotations/filter?goID={{term.id}}"><annotations-link termid="{{term.id}}" class="annotations-link"></annotations-link></a>
       </li>
     </ul>
+    <p>
+      <a href="">Show all</a>
+    </p>
   </div>
 
   <div class="panel grid_20 push_2" cg-busy="gpPromise">
     <h3>Gene products</h3>
     <ul class="results-list">
       <li ng-repeat="prod in products">
-        <strong>{{prod.db_object_id}}</strong> - {{prod.description}} - ({{prod.taxon_name}}) <annotations-link productid="{{prod.db_object_id}}"></annotations-link>
+        <strong>{{prod.db_object_id}}</strong> - {{prod.description}} - ({{prod.taxon_name}}) <annotations-link productid="{{prod.db_object_id}}" class="annotations-link"></annotations-link>
       </li>
     </ul>
-  </div>
-
-  <div class="panel grid_20 push_2" cg-busy="publicationPromise">
-    <h3>Publications</h3>
+    <p>
+      <a href="">Show all</a>
+    </p>
   </div>
 </div>
