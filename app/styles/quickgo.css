@@ -119,8 +119,7 @@ textarea.default {
   background-color:red !important;
 }
 
-
-.annotations-link, .annotations-link:hover {
+.annotations-link, .annotations-link:link,  .annotations-link:visited {
   cursor: pointer;
   white-space: nowrap;
   background-color: #329DE3;
