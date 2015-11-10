@@ -49,7 +49,7 @@ module.exports = function (grunt) {
       prod: {
         constants: {
           ENV: {
-            apiEndpoint: 'http://ves-hx-cf:8080/QuickGO-Beta'
+            apiEndpoint: 'http://ves-hx-cf:8080/QuickGO/services'
           }
         }
       }
