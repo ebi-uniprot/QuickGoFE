@@ -91,29 +91,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   });
 
 
-  /**
-   * Take the user to the annotation list page, where the results are filtered only by this term id.
-   * @param termId
-   */
-  $scope.showTermAnnotations = function(termId){
-
-    console.log("filter annotations by term ", termId);
-
-    filteringService.clearFilters();
-
-    //Create model to hold the term id to be filtered
-    var advancedFilters = {};
-    advancedFilters.text = {};
-    advancedFilters.text.goID = termId;
-
-    filteringService.populateAppliedFilters(advancedFilters);
-
-    //Now go back to the annotation list
-    $location.path("annotations");
-
-  }
-
-
   $scope.showChangeLogRow = function(category) {
 
     if (category == 'TERM' && $scope.showCategoryTerm) {

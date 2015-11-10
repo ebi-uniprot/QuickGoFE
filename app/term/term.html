@@ -78,9 +78,9 @@
 
     <!-- Buttons -->
     <p>
-      <button id="term-show-annotations" class="btn quickgo-btn"
-              ng-click="showTermAnnotations(termModel.termId)">Show annotations
-      </button>
+      <a id="term-show-annotations" class="btn quickgo-btn"
+              href="#/annotations/filter?goID={{termModel.termId}}"><annotations-link termid="{{termModel.termId}}"></annotations-link>
+      </a>
     </p>
   </section>
   <!-- End of title section -->
