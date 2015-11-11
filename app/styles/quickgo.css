@@ -46,6 +46,17 @@ a:hover, {
   color: #999;
 }
 
+a.icon, a.icon:link, a.icon:active, a.icon:visited {
+  border-bottom: none !important;
+}
+a.icon:before {
+  color: #2980B9 !important;
+}
+
+a.icon:hover::before  {
+  color: #00742B !important;
+}
+
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 
 /* This section holds the our app title*/
@@ -344,10 +355,6 @@ textarea.sidebar {
 
 .sidebar-padding {
   margin: 2px;
-}
-
-.removeFilter {
-  float:right;
 }
 
 .filterCount {

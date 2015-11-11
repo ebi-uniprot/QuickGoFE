@@ -186,16 +186,6 @@ table#results .selectAllStatus td{
   float:right;
 }
 
-a:link.closeBox {
-  font-family: 'EBI-Functional';
-  color : #333333;
-}
-
-a.closeBox:LINK:HOVER {
-  color : #333333;
-  border-bottom: 0px;
-}
-
 
 /*.selectedColumn div.delete{*/
   /*height: 19px;*/

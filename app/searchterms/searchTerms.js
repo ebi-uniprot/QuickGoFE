@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 04/06/2015.
  */
-app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searchfull) {
+app.controller('SearchTermsCtrl', function($scope,  $location, $uibModal, searchfull, $routeParams) {
 
 
   //This value holds the displayed total for the selected view by value
@@ -12,10 +12,7 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
   $scope.viewBy = "goID";
 
 
-  //Parse the content of the url to use as the search expr
-  var pathVals =$location.path().split("/");
-  $scope.searchTerm=pathVals[(pathVals.length-1)];
-
+  $scope.searchTerm = $routeParams.searchTerm;
 
   getResultsPage();    //<--this is called instead by the page changed call
 
@@ -32,24 +29,19 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
       function (result) {
         $scope.matches = [];
 
-
         $scope.x = result;
         //Populate the displayed number of search results
-        if($scope.x.viewBy=='entity') {
-          $scope.srcTotalNumberResults = $scope.x.gpNumberResults;
-        }
-
         if($scope.x.viewBy=='goID') {
           $scope.srcTotalNumberResults = $scope.x.goNumberResults;
         }
 
         if($scope.x.viewBy=='bp') {
           $scope.srcTotalNumberResults = $scope.x.biologicalProcessNumberResults;
-          console.log($scope.x);
         }
 
         if($scope.x.viewBy=='mf') {
           $scope.srcTotalNumberResults = $scope.x.molecularFunctionNumberResults;
+          console.log($scope.x);
         }
 
         if($scope.x.viewBy=='cc') {
@@ -74,7 +66,6 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
 
 
   $scope.showResults= function(viewBy) {
-    console.log("View By changed", viewBy);
     if($scope.viewBy!=viewBy) {
       $scope.viewBy=viewBy
       getResultsPage();
@@ -89,7 +80,6 @@ app.controller('SearchResultCtrl', function($scope,  $location, $uibModal, searc
     }
 
   var newText =  text.replace(new RegExp($scope.searchTerm, 'gi'), "<span class='highlighted'>" + $scope.searchTerm + "</span>");
-      //console.log("highlight ", newText);
     return newText;
   }
 
