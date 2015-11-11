@@ -175,7 +175,10 @@ textarea.default {
   min-height: 250px;
 }
 #goAnnotations img{
-  margin-top: 0px;
+  margin-top: 10px;
+}
+#investigateGoSlims img{
+  margin-top: 10px;
 }
 
 #goAnnotations:hover{
