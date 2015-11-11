@@ -9,7 +9,12 @@
 <!-- I guess its important to have the form begin under the select so it doesn't get included in the returned actions-->
   <accordion>
 
-    <accordion-group heading="Biological Process Terms ({{slimTermBp.length}})">
+    <accordion-group>
+      <accordion-heading>
+          Biological Process Terms <span ng-if="slimTermBp.length">({{slimTermBp.length}})</span>
+      </accordion-heading>
+
+
       <button class="btn quickgo-btn" ng-click="selectAllBp()">Select All</button>
       <button class="btn quickgo-btn" ng-click="clearAllBp()">Clear All</button>
       <ul ng-repeat="aTerm in slimTermBp">
@@ -23,7 +28,12 @@
       </ul>
     </accordion-group>
 
-    <accordion-group heading="Molecular Function Terms ({{slimTermMf.length}})">
+    <accordion-group>
+      <accordion-heading>
+          Molecular Function Terms <span ng-if="slimTermMf.length">({{slimTermMf.length}})</span>
+      </accordion-heading>
+
+
       <button class="btn quickgo-btn" ng-click="selectAllMf()">Select All</button>
       <button class="btn quickgo-btn" ng-click="clearAllMf()">Clear All</button>
       <ul ng-repeat="aTerm in slimTermMf">
@@ -35,7 +45,11 @@
       </ul>
     </accordion-group>
 
-    <accordion-group heading="Cellular component Terms ({{slimTermCc.length}})">
+    <accordion-group>
+      <accordion-heading>
+          Cellular component Terms <span ng-if="slimTermCc.length">({{slimTermCc.length}})</span>
+      </accordion-heading>
+
       <button class="btn quickgo-btn" ng-click="selectAllCc()">Select All</button>
       <button class="btn quickgo-btn" ng-click="clearAllCc()">Clear All</button>
       <ul ng-repeat="aTerm in slimTermCc">
