@@ -105,13 +105,17 @@ var app = angular
         templateUrl: 'nav/feedback.html',
         controller: 'FeedbackCtrl'
       })
-      .when('/search/:searchTerm', {
-        templateUrl: 'search/searchResult.html',
-        controller: 'SearchResultCtrl'
-      })
       .when('/megasearch/:searchTerm', {
         templateUrl: 'megasearch/megasearch.html',
         controller: 'MegaSearchCtrl'
+      })
+      .when('/searchterms/:searchTerm', {
+        templateUrl: 'searchterms/searchTerms.html',
+        controller: 'SearchTermsCtrl'
+      })
+      .when('/searchproducts/:searchTerm', {
+        templateUrl: 'searchproducts/searchProducts.html',
+        controller: 'SearchProductsCtrl'
       })
       .otherwise({
         redirectTo: '/'

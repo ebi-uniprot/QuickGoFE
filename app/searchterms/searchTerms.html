@@ -1,11 +1,8 @@
 <div id="content" class="container_24" cg-busy="queryPromise">
-  <h2>Search results</h2>
+  <h2>Results for term "{{searchTerm}}"</h2>
 
   <div class="grid_4">
     <ul class="filter-list">
-      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='entity'}" ng-model="x.viewBy"
-          ng-click="showResults('entity')"><a>Entities ({{x.gpNumberResults}})</a>
-      </li>
       <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='goID'}" ng-click="showResults('goID')"><a>GO
         Terms({{x.goNumberResults}})</a>
       </li>
@@ -36,16 +33,14 @@
         </tr>
         <tr ng-repeat="searchResult in x.searchResults">
 
-          <td ng-show="x.viewBy=='entity'">{{searchResult.dbObjectId}}</td>
-          <td ng-show="x.viewBy=='entity'" ng-bind-html="highlight(searchResult.dbObjectName)"></td>
-          <td ng-show="x.viewBy!='entity'" class="text-nowrap">
+          <td class="text-nowrap">
             <span><a ng-click="showOntologyGraph(searchResult.id,searchResult.name)">{{searchResult.id}}</a></span>
             <basket-button termid="{{searchResult.id}}"></basket-button>
           </td>
-          <td ng-show="x.viewBy!='entity'" ng-bind-html="highlight(searchResult.name)"></td>
+          <td ng-bind-html="highlight(searchResult.name)"></td>
         </tr>
       </table>
-      <uib-pagination total-items="srcTotalNumberResults" max-size="5" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination
+      <uib-pagination total-items="srcTotalNumberResults" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
     </div>
   </div>
   <div class="clearfix"></div>

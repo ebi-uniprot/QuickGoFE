@@ -1,0 +1,32 @@
+<div id="content" class="container_24" cg-busy="queryPromise">
+  <h2>Results for gene product "{{searchTerm}}"</h2>
+
+  <!-- Main Content -->
+  <div id="searchResultsMainContent" class="grid_24">
+    <div>
+      <p>
+        <strong>{{srcTotalNumberResults}}</strong> results</strong>
+      </p>
+      <table id="searchResults" class="two-colours">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Taxon</th>
+          <th>Source</th>
+          <th>Annotations</th>
+        </tr>
+        <tr ng-repeat="searchResult in x.searchResults">
+          <td><a href="http://www.uniprot.org/uniprot/{{searchResult.dbObjectId}}" target="_blank">{{searchResult.dbObjectId}}</td>
+          <td ng-bind-html="highlight(searchResult.dbObjectName)"></td>
+          <td>{{searchResult.dbObjectType}}</td>
+          <td>{{searchResult.taxonName}}</td>
+          <td>{{searchResult.db}}</td>
+          <td><a href="#/annotations/filter?gpID={{searchResult.dbObjectId}}" class="annotations-link"><annotations-link productid="{{searchResult.dbObjectId}}"></annotations-link></a></td>
+        </tr>
+      </table>
+      <uib-pagination total-items="srcTotalNumberResults" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
