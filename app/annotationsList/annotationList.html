@@ -82,7 +82,7 @@
           <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
         </tr>
       </table>
-      <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+      <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
 
 
       <!-- if there are no results tell the user explicitly -->

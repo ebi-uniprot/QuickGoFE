@@ -11,7 +11,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    * Initialisation
    */
 
-  //console.log("In the annotation list controller");
   $scope.isSlim = 0;
   $scope.maxSize=25;
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
@@ -58,11 +57,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       },
       data: filterRequest
     };
-    console.log(request);
     $scope.resultsPromise = $http(request);
     $scope.resultsPromise.success(function(data) {
       $scope.goList = data;
-
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
     });
     $scope.bookmarkableLink = filteringService.getBookmarkableString();
@@ -89,7 +86,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
     //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
     $scope.appliedFilters = filteringService.getFilters();
-    console.log("[annotationList.js] $scope notification of filtersUpdate", $scope.appliedFilters);
 
     //refresh the page
     getResultsPage(1);
@@ -100,13 +96,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    * Listen to an update to the filters list that comes from the typeahead function
    */
   $rootScope.$on('filtersUpdate', function(event) {
-
     //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
     $scope.appliedFilters = filteringService.getFilters();
-    console.log("[annotationList.js] $rootScope notification of filtersUpdate", $scope.appliedFilters);
-
-    //$scope.advancedFilters = data;
-
     //refresh the page
     getResultsPage(1);
   });
@@ -120,7 +111,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
     //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
     $scope.appliedFilters = filteringService.getFilters();
-    console.log("Loaded applied filters after clearing all", $scope.appliedFilters);
 
     $scope.advancedFilters =  {};
 
@@ -154,7 +144,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
 
   $scope.showAssignedBy = function(target) {
-    console.log("show assigned by",target);
     if (target==='InterPro') {
       $window.open('http://www.ebi.ac.uk/interpro/', '_blank');
     }
@@ -175,7 +164,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    */
   $scope.showWithString = function (target) {
 
-    console.log("Target of with string is ", target);
     $scope.withString=target;
 
     var modalInstance = $uibModal.open({
@@ -280,5 +268,4 @@ $scope.showOntologyGraph = function (termId, title) {
  */
 
 app.controller('ColumnOrderCtrl', function() {
-  console.log("Column Controller");
 });
