@@ -10,7 +10,7 @@
         <tr ng-repeat="filter in appliedFilters">
           <td class="sidebar-appliedFilter" ng-if="filter">
             {{filter.type}} : {{filter.value}}
-            <element class="removeFilter" ng-if="filter.type!='goTermUse' && filter.type!='goRelations'"> &nbsp;<img src="../images/cross.png" ng-click="removeFilter(filter)"/></element>
+            <a class="icon icon-functional pull-right" data-icon="x" ng-if="filter.type!='goTermUse' && filter.type!='goRelations'" ng-click="removeFilter(filter)"></a>
           </td>
       </tr>
       <tfoot>
