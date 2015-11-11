@@ -1,6 +1,7 @@
 /* Universal         -------------------------------------------------------------------------------------------------*/
 a:hover {
  cursor:pointer;
+ text-decoration: none;
 }
 
 .text-nowrap {
@@ -15,10 +16,6 @@ a:hover {
 ul {
   list-style-type: none;
   padding-left: 9px;
-}
-
-a:hover, {
-  text-decoration: none;
 }
 
 .selectable {
@@ -46,7 +43,10 @@ a:hover, {
   color: #999;
 }
 
-a.icon, a.icon:link, a.icon:active, a.icon:visited {
+a.icon,
+a.icon:link,
+a.icon:active,
+a.icon:visited {
   border-bottom: none !important;
 }
 a.icon:before {
@@ -130,7 +130,9 @@ textarea.default {
   background-color:red !important;
 }
 
-.annotations-link, .annotations-link:link,  .annotations-link:visited {
+.annotations-link,
+.annotations-link:link,
+.annotations-link:visited {
   cursor: pointer;
   white-space: nowrap;
   background-color: #329DE3;
@@ -147,7 +149,11 @@ textarea.default {
 }
 
 
-.quickgo-btn, a.quickgo-btn, .quickgo-btn:active, .quickgo-btn:visited, .quickgo-btn:focus {
+.quickgo-btn,
+a.quickgo-btn,
+.quickgo-btn:active,
+.quickgo-btn:visited,
+.quickgo-btn:focus {
   border: 1px solid #2980B9;
   background-color: #329DE3;
   color: #FFF;
@@ -369,7 +375,8 @@ textarea.sidebar {
   text-align: right;
 }
 
-li.section-disabled a, li.section-disabled a:hover {
+li.section-disabled a, l
+i.section-disabled a:hover {
   color: rgba(18, 80, 84, 0.24)!important;
   cursor: default;
   text-decoration: none;
