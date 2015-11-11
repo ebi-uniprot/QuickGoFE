@@ -2,11 +2,18 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $uibModal, $q, basketService,
-                                      filteringService, quickGOHelperService, term ) {
+app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
+                                      filteringService, quickGOHelperService, termService ) {
 
 
-  $scope.basketItems = basketService.getItems();
+  $scope.loadBasketItems = function() {
+    $scope.basketPromise = basketService.getItems();
+    $scope.basketPromise.then(function(d){
+      $scope.basketItems = d.data;
+    })
+  }
+
+  $scope.loadBasketItems();
   $scope.input_terms='';
 
   /**
@@ -17,7 +24,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     basketService.removeBasketItem(basketItem);
 
     //update displayed list
-    $scope.basketItems = basketService.getItems();
+    $scope.loadBasketItems();
 
     //Tell parent page this value has been updated.
     $scope.$emit('basketUpdate', basketService.basketQuantity());
@@ -47,7 +54,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     $scope.$emit('basketUpdate', basketService.basketQuantity());
 
     //reload basketItems list
-    $scope.basketItems = basketService.getItems();
+    $scope.loadBasketItems();
 
     //Clear the input text field
     $scope.input_terms = "";
@@ -58,7 +65,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
    */
 
   $scope.term = function(goId){
-    $modalInstance.dismiss('forward');
+    $uibModalInstance.dismiss('forward');
     $location.path("/term/"+goId); // path not hash
   };
 
@@ -104,7 +111,7 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
     $scope.$emit('filtersUpdate', 0);
 
     //Goodbye
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 
   /**
@@ -142,11 +149,11 @@ app.controller('BasketCtrl', function($scope, $log, $modalInstance, $location, $
 
 
   $scope.isBasketNotEmpty = function (){
-    return $scope.basketItems.length>0;
+    return basketService.basketQuantity() > 0;
   }
 
   $scope.close = function() {
-    $modalInstance.dismiss('cancel');    
+    $uibModalInstance.dismiss('cancel');    
   }
 
 });

@@ -2,7 +2,7 @@
  * Created by twardell on 07/05/2015.
  */
 
-app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location, filteringService,
+app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $location, filteringService,
                                             hardCodedDataService, ENV) {
 
   $scope.selectedLimit=1000;  //default
@@ -49,7 +49,7 @@ app.controller('DownloadCtrl', function($scope, $http, $modalInstance, $location
    * Close window
    */
   $scope.close = function () {
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 
 

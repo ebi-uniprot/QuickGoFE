@@ -2,7 +2,7 @@
  * Created by twardell on 02/02/2015.
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
-                                    ENV, filteringService, quickGOHelperService, $document) {
+                                    ENV, filteringService, quickGOHelperService, $document, $routeParams, termService) {
 
   $scope.targetDomainAndPort=ENV.apiEndpoint;
 
@@ -11,10 +11,8 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
   $scope.termInformation=true;
 
-  /*Parse the url to get the termid*/
-  var pathVals =$location.path().split("/");
-  var termId=pathVals[(pathVals.length-1)];
-  var formattedURL=ENV.apiEndpoint+'/ws/term/';
+  var termId=$routeParams.goId;
+  // var formattedURL=ENV.apiEndpoint+'/ws/term/';
 
   $rootScope.header = "QuickGO::Term "+termId;
 
@@ -26,15 +24,15 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   }
 
 
-  var termUrl = formattedURL+termId;
+  // var termUrl = formattedURL+termId;
 
   /**
    * Get Term Data from WS
    */
-  $scope.termPromise = $http.get(termUrl);
+  $scope.termPromise = termService.getTerm(termId);
 
-  $scope.termPromise.success(function(data) {
-    $scope.termModel = data;
+  $scope.termPromise.then(function(data) {
+    $scope.termModel = data.data;
 
     //Set active show
     if($scope.termModel.active != true){
@@ -47,27 +45,30 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
       $scope.showRestrictions = true;
     }
 
-
-    //Set up statistics for co-occurring page
-    $scope.totalTogetherAllStats=0;
-    $scope.totalComparedAllStats=0;
-    var i=-1;
-    for(i=0; i< $scope.termModel.allCoOccurrenceStatsTerms.length; i++){
-      $scope.totalTogetherAllStats = $scope.totalTogetherAllStats + $scope.termModel.allCoOccurrenceStatsTerms[i].together;
-      $scope.totalComparedAllStats = $scope.totalTogetherAllStats + $scope.termModel.allCoOccurrenceStatsTerms[i].compared;
-    }
-
-    $scope.totalTogetherNonIEAStats=0;
-    $scope.totalComparedNonIEAStats=0;
-    var i=-1;
-    for(i=0; i< $scope.termModel.nonIEACOOccurrenceStatistics.length; i++){
-      $scope.totalTogetherNonIEAStats = $scope.totalTogetherNonIEAStats + $scope.termModel.nonIEACOOccurrenceStatistics[i].together;
-      $scope.totalComparedNonIEAStats = $scope.totalComparedNonIEAStats + $scope.termModel.nonIEACOOccurrenceStatistics[i].compared;
-    }
-
-
   });
 
+
+
+   // Set up statistics for co-occurring page
+  $scope.statsPromise = termService.getStats(termId);
+  $scope.statsPromise.then(function(d){
+    $scope.stats = d.data;
+    $scope.totalTogetherAllStats = 0,
+    $scope.totalComparedAllStats = 0,
+    $scope.totalTogetherNonIEAStats = 0,
+    $scope.totalComparedNonIEAStats = 0;
+
+    angular.forEach(d.data.allCoOccurrenceStatsTerms, function(val, key){
+      $scope.totalTogetherAllStats = $scope.totalTogetherAllStats + val.together;
+      $scope.totalComparedAllStats = $scope.totalTogetherAllStats + val.compared;
+    });
+
+    angular.forEach(d.data.nonIEACOOccurrenceStatistics, function(val, key){
+      $scope.totalTogetherNonIEAStats = $scope.totalTogetherNonIEAStats + val.together;
+      $scope.totalComparedNonIEAStats = $scope.totalComparedNonIEAStats + val.compared;
+    });
+
+  });
 
   /**
    * ---------------------------------------------- Scope methods ----------------------------------------------------
@@ -88,29 +89,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
       }
     }
   });
-
-
-  /**
-   * Take the user to the annotation list page, where the results are filtered only by this term id.
-   * @param termId
-   */
-  $scope.showTermAnnotations = function(termId){
-
-    console.log("filter annotations by term ", termId);
-
-    filteringService.clearFilters();
-
-    //Create model to hold the term id to be filtered
-    var advancedFilters = {};
-    advancedFilters.text = {};
-    advancedFilters.text.goID = termId;
-
-    filteringService.populateAppliedFilters(advancedFilters);
-
-    //Now go back to the annotation list
-    $location.path("annotations");
-
-  }
 
 
   $scope.showChangeLogRow = function(category) {

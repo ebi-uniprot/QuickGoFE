@@ -3,7 +3,7 @@ angular
 	.directive('basketButton', ['basketService', function(basketService) {
 		return {
 			restrict: 'E',
-			templateUrl: 'scripts/directives/basket.html',
+			templateUrl: 'directives/basket.html',
 			link: function($scope, element, attrs, controller) {
 				var termId;
 				$scope.hoverBasket = false ;

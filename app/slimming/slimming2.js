@@ -22,12 +22,15 @@ app.controller('GOSlimCtrl2', function($scope, $location, $window, basketService
 
 
   //$scope.selectedItems = $scope.selectedItems.concat(wizardService.getSelectedBasketTerms());
-  $scope.basketList = basketService.getItems();
-  angular.forEach($scope.basketList, function (aTerm) {
-    if(aTerm.Selected){
-      $scope.selectedItems.push(aTerm);
-    }
-  });
+  $scope.basketPromise = basketService.getItems();
+  $scope.basketPromise.then(function(d){
+    $scope.basketList = d.data;
+    angular.forEach($scope.basketList, function (aTerm) {
+      if(aTerm.Selected){
+        $scope.selectedItems.push(aTerm);
+      }
+    });
+  })
 
 
   console.log("selected items", $scope.selectedItems);

@@ -1,7 +1,3 @@
-/**
- * Created by twardell on 17/12/2014.
- */
-
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
 
@@ -17,10 +13,78 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($reso
   });
 }]);
 
-wsService.factory('term', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/term/:termId', {termId: '@id'}, {
-    query: {method:'GET'}
-  });
+wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
+  return {
+      getTerm : function(termId) { 
+        return $http.get(ENV.apiEndpoint+'/ws/term/' + termId);
+      },
+      getTerms : function(ids) {
+        return $http.get(ENV.apiEndpoint+'/ws/terms', {params: {ids: ids}});
+      },
+      getStats : function(termId) {
+        return $http.get(ENV.apiEndpoint+'/ws/term/' + termId + '/stats');
+      }
+  }
+}]);
+
+wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
+  return {
+      findTerms: function(searchTerm, limit) {
+        return $http.get(ENV.apiEndpoint + '/ws/search', 
+          {
+            params: {
+              query : searchTerm,
+              scope : 'eco,go',
+              limit : limit
+            }
+          });
+      },
+      findGeneProducts: function(searchTerm, limit) {
+        return $http.get(ENV.apiEndpoint + '/ws/search', 
+          {
+            params: {
+              query : searchTerm,
+              scope : 'protein',
+              limit : limit
+            }
+          });
+      },       
+      findPublications: function(searchTerm, limit) {
+        //TODO
+      },
+      findAnnotationsForTerm: function(searchTerm) {
+        var request = {
+          method: 'POST',
+          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            list: [{
+              type: "goID",
+              value: searchTerm
+            }]
+          }
+        };
+        return $http(request);
+      }, 
+      findAnnotationsForProduct: function(searchTerm) {
+        var request = {
+          method: 'POST',
+          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            list: [{
+              type: "gpID",
+              value: searchTerm
+            }]
+          }
+        };
+        return $http(request);
+      }
+  }
 }]);
 
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){

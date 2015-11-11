@@ -4,7 +4,7 @@
 
 
 app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, hardCodedDataService, PreDefinedSlimSets,
-                                      PreDefinedSlimSetDetail, term, basketService, wizardService, filteringService) {
+                                      PreDefinedSlimSetDetail, termService, basketService, wizardService, filteringService) {
 
 
   $scope.advancedFilters = {};
@@ -17,8 +17,10 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, ha
   /**
    * Get basket items
    */
-  $scope.basketList=basketService.getItems();
-
+  $scope.basketPromise = basketService.getItems();
+  $scope.basketPromise.then(function(d){
+    $scope.basketList = d.data;
+  })
   /**
    * Get predefined slim sets
    */
@@ -99,11 +101,11 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, ha
    * @param ownTermsList
    */
   $scope.addOwnTerms = function(ownTermsList){
-    var termData=term.query({termId : ownTermsList});
+    var termData=termService.getTerm(ownTermsList);
 
     //Parse list and add to predefined terms
     termData.$promise.then(function(data) {
-      $scope.ownTerms = $scope.ownTerms.concat(data);
+      $scope.ownTerms = $scope.ownTerms.concat(data.data);
 
       angular.forEach($scope.ownTerms, function (aTerm) {
         aTerm.Selected = true;

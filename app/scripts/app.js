@@ -93,7 +93,7 @@ var app = angular
         templateUrl: 'simplelist/cellularcomponent.html',
         controller: 'CellularComponentListCtrl'
       })
-      .when('/annotations/:filterParms', {
+      .when('/annotations/filter', {
         templateUrl: 'annotationsList/annotationList.html',
         controller: 'BookmarkCtrl'
       })
@@ -108,6 +108,10 @@ var app = angular
       .when('/search/:searchTerm', {
         templateUrl: 'search/searchResult.html',
         controller: 'SearchResultCtrl'
+      })
+      .when('/megasearch/:searchTerm', {
+        templateUrl: 'megasearch/megasearch.html',
+        controller: 'MegaSearchCtrl'
       })
       .otherwise({
         redirectTo: '/'

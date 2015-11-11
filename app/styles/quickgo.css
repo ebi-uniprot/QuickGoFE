@@ -88,6 +88,8 @@ textarea.default {
   height: 8em;
 }
 
+
+/* DIRECTIVES ---------------------------------------------------------------------------------------------*/
 .basket-btn {
   background-color: #329DE3;
   border-radius: 30px;
@@ -116,6 +118,23 @@ textarea.default {
 .basket-btn.basket-added:hover {
   background-color:red !important;
 }
+
+.annotations-link, .annotations-link:link,  .annotations-link:visited {
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: #329DE3;
+  color:#FFF;
+  padding:.2em .8em;
+  border-radius: 1em;
+}
+
+.annotations-link:hover {
+  opacity: .7;
+  color:#FFF;
+  border:none;
+  text-decoration: none;  
+}
+
 
 .quickgo-btn, a.quickgo-btn, .quickgo-btn:active, .quickgo-btn:visited, .quickgo-btn:focus {
   border: 1px solid #2980B9;
@@ -260,6 +279,13 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   border-color: #bce7e7;
   min-width: 60%;
 }
+
+/* RESULTS    ---------------------------------------------------------------------------------------------------------*/
+ul.results-list li {
+  line-height: 2em;
+  margin: .5em 0;
+}
+
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 #basket {

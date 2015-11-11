@@ -10,11 +10,11 @@
     manual-evidenced annotations, while the table on the right is
     calculated using only manual-evidenced annotations.</p>
   <div id="allCoOccurringStats" class="grid_6" style="overflow-x: auto">
-      <h5 ng-show="termModel.allCoOccurrenceStatsTerms.length == 0">
+      <h5 ng-show="stats.allCoOccurrenceStatsTerms.length == 0">
         <element class='icon icon-generic' data-icon='l'>
           No co-occurring statistics for {{termModel.termId}} based on the entire annotation set</element>
       </h5>
-    <div ng-show="termModel.allCoOccurrenceStatsTerms.length > 0">
+    <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
       <h5>Co-occurrence statistics for {{termModel.termId}} based on the entire annotation set</h5>
       <table id="allCoOccurringStatsTable" class="two-colours" style="font-size: 90%;">
         <tr>
@@ -26,7 +26,7 @@
           <th>#Together</th>
           <th>#Compared</th>
         </tr>
-          <tr ng-repeat="allStat in termModel.allCoOccurrenceStatsTerms">
+          <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms">
             <td><a ng-href="/term/{{allStat.comparedTerm}}">{{allStat.comparedTerm}}</a></td>
             <td>{{allStat.aspect}}</td><td>{{allStat.name}}</td><td>{{allStat.probabilityRatio}}</td>
             <td>{{allStat.probabilitySimilarityRatio}}</td><td>{{allStat.together}}</td>
@@ -38,12 +38,12 @@
     <div>
   </div>
   <div id="nonIEACoOccurringStats" class="grid_6" style="overflow-x: auto">
-      <h5 ng-show="termModel.nonIEACOOccurrenceStatistics.length == 0">
+      <h5 ng-show="stats.nonIEACOOccurrenceStatistics.length == 0">
         <element class='icon icon-generic' data-icon='l'>
           No co-occurring statistics for {{termModel.termId}} based on manual annotations
         </element>
       </h5>
-    <div ng-show="termModel.nonIEACOOccurrenceStatistics.length > 0">
+    <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
       <h5>Co-occurrence statistics for {{termModel.termId}} based on manual annotations only</h5>
       <table id="nonIEACoOccurringStatsTable" class="two-colours" style="font-size: 90%;">
         <tr>
@@ -55,14 +55,14 @@
           <th>#Together</th>
           <th>#Compared</th>
         </tr>
-          <tr ng-repeat="nonIEAStat in termModel.nonIEACOOccurrenceStatistics">
-            <td><a ng-href="/term/{{termModel.nonIEAStat.comparedTerm}}">{{termModel.nonIEAStat.comparedTerm}}</a></td>
-            <td>{{termModel.nonIEAStat.aspect}}</td>
-            <td>{{termModel.nonIEAStat.name}}</td>
-            <td>{{termModel.nonIEAStat.probabilityRatio}}</td>
-            <td>{{termModel.nonIEAStat.probabilitySimilarityRatio}}</td>
-            <td>{{termModel.nonIEAStat.together}}</td>
-            <td>{{termModel.nonIEAStat.compared}}</td>
+          <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics">
+            <td><a ng-href="/term/{{nonIEAStat.comparedTerm}}">{{nonIEAStat.comparedTerm}}</a></td>
+            <td>{{nonIEAStat.aspect}}</td>
+            <td>{{nonIEAStat.name}}</td>
+            <td>{{nonIEAStat.probabilityRatio}}</td>
+            <td>{{nonIEAStat.probabilitySimilarityRatio}}</td>
+            <td>{{nonIEAStat.together}}</td>
+            <td>{{nonIEAStat.compared}}</td>
           </tr>
 
         <tr><td colspan="5"><strong>Totals</strong></td><td>{{totalTogetherNonIEAStats}}</td><td>{{totalComparedNonIEAStats}}</td></tr>

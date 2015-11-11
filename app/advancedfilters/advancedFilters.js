@@ -2,7 +2,7 @@
  * Created by twardell on 04/03/2015
  * This controller handles the creation and initial processing of the advanced filters modal.
  */
-app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $uibModal, $location, basketService, evidencetypes, withDBs,
+app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibModal, $location, basketService, evidencetypes, withDBs,
                                                assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets) {
 
 
@@ -49,7 +49,10 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $uibModal
    */
 
   //Basket items are used by the go identifer tab
-  $scope.basketItems = basketService.getItems();
+  $scope.basketPromise = basketService.getItems();
+  $scope.basketPromise.then(function(d){
+    $scope.basketItems = d.data;
+  })
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.referenceList = hardCodedDataService.getFilterReferences();
   $scope.qualifiers = hardCodedDataService.getQualifiers();
@@ -292,7 +295,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $uibModal
    */
 
   $scope.cancel  = function(){
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
 
   }
 
@@ -315,7 +318,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $uibModal
     $scope.$emit('filtersUpdate', $scope.advancedFilters);   //todo change this so is notification only
 
     //Now go back to the annotation list
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
     $location.path("annotations");
   }
 
@@ -400,7 +403,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $modalInstance, $uibModal
    * Close window
    */
   $scope.ok = function () {
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 
 });
