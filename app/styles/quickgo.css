@@ -132,7 +132,7 @@ textarea.default {
   opacity: .7;
   color:#FFF;
   border:none;
-  text-decoration: none;  
+  text-decoration: none;
 }
 
 
@@ -202,11 +202,11 @@ textarea.default {
 
 #goAnnotations:hover{
   cursor: pointer;
-  background-color: #006f91;
+  background-color: #E89A4C;
 }
 #investigateGoSlims:hover{
   cursor: pointer;
-  background-color: #006f91;
+  background-color: #E89A4C;
 }
 
 .intro_text{
