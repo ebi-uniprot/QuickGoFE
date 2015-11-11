@@ -11,17 +11,6 @@ a:visited{
 a:hover,
 a:focus,
 a:active{
-  color: #2980B9;
-  text-decoration: none;
-}
-
-a:link{
-  color: #2980B9;
-}
-
-a:hover,
-a:focus,
-a:active{
   color: #00742B;
   border-bottom: 1px dotted #00742B;
 }
