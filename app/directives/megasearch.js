@@ -1,6 +1,6 @@
 angular
 	.module('quickGoFeApp')
-	.directive('megaSearch', ['$q', '$timeout', 'searchService', function($q, $timeout, searchService) {
+	.directive('megasearch', ['$q', '$timeout', 'searchService', function($q, $timeout, searchService) {
 		return {
 			restrict: 'AEC',
 			scope: {
