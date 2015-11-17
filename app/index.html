@@ -90,24 +90,12 @@
         </div>
 
         <!-- local-search -->
-        <!--
         <div id="search-area" class="typeaheadsearch grid_16" ng-controller="TypeaheadCtrl">
           <form ng-submit="showSearchResults(searchText)">
-            <input id="searchbox" type="text"
-                   ng-model="searchText"
-                   placeholder="Enter search value"
-                   typeahead-focus-first="false"
-                   typeahead-on-select='onSelect($item, $model, $label)'
-                   uib-typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
-                   typeahead-min-length="3"
-                   typeahead-wait="300"
-                   ng-submit="showSearchResults(searchText)"
-                   autocomplete='off' >
-
-            <button class="btn quickgo-btn" type="submit">Search</button>
+            <mega-search limit="5"></mega-search>
           </form>
         </div>
-      -->
+      
 
         <!--End local-title -->
       </div>
@@ -253,6 +241,7 @@
 <script src="basket/basket.js"></script>
 <script src="directives/basket.js"></script>
 <script src="directives/annotationsLink.js"></script>
+<script src="directives/megaSearch.js"></script>
 <script src="scripts/controllers/annotationExtensionRelations.js"></script>
 <script src="scripts/cytoscape/min/AC_OETags.min.js"></script>
 <script src="scripts/cytoscape/min/cytoscapeweb.min.js"></script>

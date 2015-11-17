@@ -130,22 +130,25 @@ textarea.default {
   background-color:red !important;
 }
 
-.annotations-link,
-.annotations-link:link,
-.annotations-link:visited {
-  cursor: pointer;
-  white-space: nowrap;
-  background-color: #329DE3;
-  color:#FFF;
-  padding:.2em .8em;
-  border-radius: 1em;
+mega-search {
+  display: block;
 }
 
-.annotations-link:hover {
+.annotations-link, .annotations-link:link,  .annotations-link:visited,
+.typeahead-box a.annotations-link, .typeahead-box a.annotations-link:link, .typeahead-box a.annotations-link:visited {
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: #329DE3 !important;
+  color:#FFF !important;
+  padding:.2em .8em !important;
+  border-bottom: none;
+  border-radius: 1em;
+  border-style: none !important;
+}
+
+.annotations-link:hover, .typeahead-box a.annotations-link:hover {
   opacity: .7;
   color:#FFF;
-  border:none;
-  text-decoration: none;
 }
 
 
@@ -266,7 +269,7 @@ td.aFilter {
 
 #searchbox {
   background-color: white;
-  width: 60%;
+  width: 80%;
   height: 33px;
   margin: 2px;
   border-color: #bce7e7;
@@ -298,9 +301,59 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
 }
 
 /* RESULTS    ---------------------------------------------------------------------------------------------------------*/
+.typeahead-box {
+  min-width:600px;
+  background: #FFF;
+  position: absolute;
+  z-index: 1000;
+  float:left;
+  border: 1px solid #ccc;
+  border: 1px solid rgb(0,0,0,.15);
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  background-clip: padding-box;
+}
+
+.typeahead-box p {
+  font-style: italic;
+  color:#333 !important;
+  text-shadow:none !important;
+  text-align: center;
+}
+
+.typeahead-box hr {
+  width: 90%;
+}
+
+.typeahead-box h3 {
+  border:none;
+}
+
+ul.results-list {
+  margin-top: 0;
+  background-color: transparent !important;
+}
+
 ul.results-list li {
+  display: block;
   line-height: 2em;
-  margin: .5em 0;
+  margin: .5em 1em;
+  border:none;
+  float: none !important;
+  white-space: nowrap;
+}
+
+.typeahead-box a, .typeahead-box a:link, .typeahead-box a:visited {
+  padding: 0 !important;
+  display: inline;
+  color:#2980B9 !important;
+  text-shadow: none !important;
+  border-bottom: 1px dotted #222 !important;
+}
+
+.typeahead-box a:hover {
+  background-color: transparent !important;
+  color: #00742B !important;
 }
 
 
