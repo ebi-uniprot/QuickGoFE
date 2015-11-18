@@ -1,6 +1,9 @@
-<input id="searchbox" type="text" autocomplete="off" ng-model="searchTerm" placeholder="{{prompt}}" ng-keydown="provideSuggestions()"/>
-<button class="btn quickgo-btn" type="submit">Search</button>
-<br/>
+<div class="input-group">
+  <input id="searchbox" type="text" autocomplete="off" ng-model="searchTerm" placeholder="{{prompt}}" ng-keydown="provideSuggestions()"/>
+  <div class="input-group-btn">
+    <button class="btn quickgo-btn" type="submit">Search</button>
+  </div>
+</div>
 
 <div class="items typeahead-box" ng-hide="!searchTerm.length">
   <div cg-busy="goTermsPromise">
