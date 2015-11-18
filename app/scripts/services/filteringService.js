@@ -517,11 +517,10 @@ filteringModule.factory('filteringService', function() {
 
     var bookmarkString='';
     var typeString='';
-    for (i = 0  ; i < filters.length; i++) {
-      //Always add type
-      bookmarkString=bookmarkString + filters[i].type  + ":";
-      bookmarkString=bookmarkString + filters[i].value + ',';
-    }
+    angular.forEach(filters, function(val){
+      bookmarkString=bookmarkString + val.type  + ":";
+      bookmarkString=bookmarkString + val.value + ',';
+    });
     bookmarkableLink = '#annotations/' + bookmarkString;
   }
 
