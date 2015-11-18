@@ -89,12 +89,12 @@
           <h5>Browse Gene Ontology terms and annotations</h5>
         </div>
 
-        <!-- local-search -->
-        <div id="search-area" class="typeaheadsearch grid_16" ng-controller="TypeaheadCtrl">
-          <form ng-submit="showSearchResults(searchText)">
-            <megasearch limit="5"></megasearch>
-          </form>
-        </div>
+      <!-- local-search -->
+      <div id="search-area" class="typeaheadsearch grid_16" ng-controller="TypeaheadCtrl" >
+        <form ng-submit="showSearchResults(searchText)" ng-show="location.path()!=='/'">
+          <megasearch limit="5"></megasearch>
+        </form>
+      </div>
       
 
         <!--End local-title -->

@@ -20,19 +20,9 @@
     <span class="helpIcon pull-right icon-generic" data-icon="i" uib-tooltip-html="termsTooltip" tooltip-placement="left"></span>
     <h2>Search for Terms</h2>
     <div id="search-area" class="typeaheadsearch" ng-controller="TypeaheadCtrl">
-      <form ng-submit="showSearchResults(searchText)">
-        <input id="searchbox" type="text"
-        ng-model="searchText"
-        placeholder="Enter search value"
-        typeahead-focus-first="false"
-        typeahead-on-select='onSelect($item, $model, $label)'
-        uib-typeahead="match.key + ' ' + match.value for match in provideSuggestions($viewValue)"
-        typeahead-min-length="3"
-        typeahead-wait="300"
-        ng-submit="showSearchResults(searchText)"
-        autocomplete='off' >
-        <button class="btn quickgo-btn" type="submit">Search</button>
-      </form>
+        <form ng-submit="showSearchResults(searchText)">
+          <megasearch limit="5"></megasearch>
+        </form>
     </div>
     <span>e.g <a href="#/search/apoptosis">apoptosis</a>; <a href="#/term/GO:0006915">GO:0006915</a>; <a href="#/term/ECO:0000314">ECO:0000314</a>; <a href="#/search/tropomyosin">tropomyosin</a></span>
   </div>
