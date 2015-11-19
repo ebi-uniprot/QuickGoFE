@@ -1,5 +1,5 @@
 <div class="input-group">
-  <input id="searchbox" type="text" autocomplete="off" ng-model="searchTerm" placeholder="{{prompt}}" ng-keydown="provideSuggestions()"/>
+  <input id="searchbox" type="text" autocomplete="off" ng-model="searchTerm" placeholder="{{prompt}}" ng-keydown="provideSuggestions($event.keyCode)"/>
   <div class="input-group-btn">
     <button class="btn quickgo-btn" type="submit">Search</button>
   </div>

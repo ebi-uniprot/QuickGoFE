@@ -11,10 +11,12 @@ angular
 
 				scope.timePromise;
 
-				scope.provideSuggestions = function() {
+				scope.provideSuggestions = function(keyCode) {
 					$timeout.cancel(scope.timePromise); //cancel previous request
 
-					if(!scope.searchTerm || scope.searchTerm.length <3){
+					if(keyCode === 27) {
+						reset();
+					} else if(!scope.searchTerm || scope.searchTerm.length <3){
 						return;
 					}
 
@@ -34,10 +36,14 @@ angular
 					} ,500);
 				}
 
-				window.onclick = function() {
+				var reset = function() {
 					scope.searchTerm = '';
 					scope.terms = [];
 					scope.products = [];
+				}
+
+				window.onclick = function() {
+					reset();
 					scope.$apply();
 				}
 
