@@ -1,6 +1,5 @@
-<div class="text-container">
+<div id="content">
   <h2>Explore Biology</h2>
-
   <p>Make a selection of terms below and submit to see their associated annotations
 
     <div class="slimsSelector grid_14 ">
@@ -56,9 +55,9 @@
 
 
 <div id="selectionHeader" data-spy="affix" data-offset-top="700">
-    <h3 class="grid_20 yourSelectionHeader">Your Selection: {{ (slimTermBp.length) + (slimTermMf.length) + (slimTermCc.length) }}  DEBUG:{{selectionTotal}}</h3>
+    <h3 class="grid_20 yourSelectionHeader">Your Selection: {{ (slimTermBp.length) + (slimTermMf.length) + (slimTermCc.length) }}  NewTotal:{{selectionTotal}}:</h3>
     <div class="slimsActionButtons grid_4 push 10">
-      <button class="btn quickgo-btn" ng-click="showGraph()">View Chart</button>
+      <button class="btn quickgo-btn icon-functional" ng-click="showGraph()" data-icon="h">View Chart</button>
       <!--  <button class="btn quickgo-btn" ng-click="nextSlimming(advancedFilters)">Submit</button> -->
       <button class="btn quickgo-btn" ng-click="viewAnnotations(advancedFilters)">Submit</button>
     </div>
@@ -67,7 +66,7 @@
 
     <div class="yourSelectionContainer grid_24 ">
       <div>
-        <h5 ng-class="{'sectionEmpty': !slimTermBp.length}">Biological Process Terms <span ng-if="slimTermBp.length">({{slimTermBp.length}})</span></h5>
+        <h5 ng-class="{'sectionEmpty': !slimTermBp.length}">Biological Process Terms <span ng-if="slimTermBp.length">({{slimTermBp.length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
         <!--        <button class="btn quickgo-btn" ng-click="selectAllBp()">Select All</button>
         <button class="btn quickgo-btn" ng-click="clearAllBp()">Clear All</button>
         -->
@@ -84,7 +83,7 @@
         <!--</span>-->
       </ul>
 
-      <h5 ng-class="{'sectionEmpty': !slimTermMf.length}">Molecular Function Terms <span ng-if="slimTermMf.length">({{slimTermMf.length}})</span></h5>
+      <h5 ng-class="{'sectionEmpty': !slimTermMf.length}">Molecular Function Terms <span ng-if="slimTermMf.length">({{slimTermMf.length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
       <!--
       <button class="btn quickgo-btn" ng-click="selectAllMf()">Select All</button>
       <button class="btn quickgo-btn" ng-click="clearAllMf()">Clear All</button>
@@ -101,7 +100,7 @@
       <!--</span>-->
     </ul>
 
-    <h5 ng-class="{'sectionEmpty': !slimTermCc.length}">Cellular component Terms <span ng-if="slimTermCc.length">({{slimTermCc.length}})</span></h5>
+    <h5 ng-class="{'sectionEmpty': !slimTermCc.length}">Cellular component Terms <span ng-if="slimTermCc.length">({{slimTermCc.length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
     <!--
     <button class="btn quickgo-btn" ng-click="selectAllCc()">Select All</button>
     <button class="btn quickgo-btn" ng-click="clearAllCc()">Clear All</button>
