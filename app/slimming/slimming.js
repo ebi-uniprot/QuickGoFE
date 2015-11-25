@@ -27,11 +27,13 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
     ];
 
-  $scope.slimTermBp=[];
-  $scope.slimTermMf=[];
-  $scope.slimTermCc=[];
+  $scope.selectedItems =[];
 
-
+  $scope.predefinedCheckboxes = {
+    BPcheckbox : true,
+    MFcheckbox : true,
+    CCcheckbox : true
+  };
 
   $scope.advancedFilters = {};
   /**
@@ -57,7 +59,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
    */
   $scope.ownTerms = wizardService.getOwnTerms();
   $scope.predefinedTerms = wizardService.getSelectedPredefinedTerms();
-  //$scope.selectedbasketTerms = wizardService.getSelectedBasketTerms();  //Modify basket contents directly
   $scope.selectedPreDefinedSlimSet = wizardService.getSelectedPredefinedSlimSet();
 
   if (!$scope.selectedPreDefinedSlimSet===undefined){
@@ -65,7 +66,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   }
 
   $scope.updatePredefinedSets = function() {
-    console.log('hhhhh');
     $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
     $scope.availablePredefinedTerms.$promise.then(function (data) {
       var predefinedSets = _.groupBy(data, 'aspectDescription');
@@ -73,6 +73,37 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       $scope.predefinedMF = predefinedSets['Molecular Function'];
       $scope.predefinedCC = predefinedSets['Cellular Component'];
     });
+  };
+
+
+  $scope.addPredefined = function() {
+    if($scope.predefinedCheckboxes.BPcheckbox) {
+      $scope.selectedItems = _.union($scope.selectedItems, $scope.predefinedBP);
+    } if($scope.predefinedCheckboxes.CCcheckbox) {
+      $scope.selectedItems = _.union($scope.selectedItems, $scope.predefinedCC);
+    } if($scope.predefinedCheckboxes.MFcheckbox) {
+      $scope.selectedItems = _.union($scope.selectedItems, $scope.predefinedMF);
+    }
+    $scope.selectedItems = _.uniq($scope.selectedItems);
+  }
+
+
+  $scope.getSelectedBPTerms = function() {
+    return _.filter($scope.selectedItems, function(item) {
+      return item.aspectDescription === 'Biological Process';
+    })
+  };
+
+  $scope.getSelectedMFTerms = function() {
+    return _.filter($scope.selectedItems, function(item) {
+      return item.aspectDescription === 'Molecular Function';
+    })
+  };
+
+  $scope.getSelectedCCTerms = function() {
+    return _.filter($scope.selectedItems, function(item) {
+      return item.aspectDescription === 'Cellular Component';
+    })
   };
 
   /**
@@ -121,7 +152,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   };
 
   $scope.getTotalCount = function () {
-    return $scope.slimTermBp.length + $scope.slimTermMf.length + $scope.slimTermCc.length;
+    return $scope.selectedItems;
   };
 
 

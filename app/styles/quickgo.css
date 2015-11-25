@@ -354,11 +354,6 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   margin-top: 30px;
 }
 
-.exploreBiologyButton{
-  float: right;
-  margin-top: 10px;
-}
-
 .sectionEmpty{
   color: #ccc;
 }
