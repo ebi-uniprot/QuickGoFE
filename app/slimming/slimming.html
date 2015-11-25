@@ -1,6 +1,5 @@
-<div class="text-container">
+<div id="content">
   <h2>Explore Biology</h2>
-
   <p>Make a selection of terms below and submit to see their associated annotations
 
     <div class="slimsSelector grid_14 ">
@@ -9,11 +8,12 @@
         <uib-tab heading="Predefined">
           <div class="selectContainer">
             <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets"
-            ng-change="showSlimSet()"></select>
+            ng-change="updatePredefinedSets()"></select>
             <ul>
-              <li ng-class="{'sectionEmpty': !slimTermBp.length}"><input ng-show="slimTermBp.length" type="checkbox" value="biologicalProcess" checked /> Biological Process terms <span ng-if="slimTermBp.length">({{slimTermBp.length}})</span></li>
-              <li ng-class="{'sectionEmpty': !slimTermMf.length}"><input ng-show="slimTermMf.length" type="checkbox" value="molecularFunction" checked /> Molecular Function terms <span ng-if="slimTermMf.length">({{slimTermMf.length}})</span></li>
-              <li ng-class="{'sectionEmpty': !slimTermCc.length}"><input ng-show="slimTermCc.length" type="checkbox" value="cellularComponent" checked /> Cellular Component terms <span ng-if="slimTermCc.length">({{slimTermCc.length}})</span></li>
+            {{predefinedSets['Biological Process'].length}}
+              <li ng-class="{'sectionEmpty': !predefinedBP.length}"><input ng-show="predefinedBP.length" type="checkbox" value="biologicalProcess" checked /> Biological Process terms <span ng-if="predefinedBP.length">({{predefinedBP.length}})</span></li>
+              <li ng-class="{'sectionEmpty': !predefinedMF.length}"><input ng-show="predefinedMF.length" type="checkbox" value="molecularFunction" checked /> Molecular Function terms <span ng-if="predefinedMF.length">({{predefinedMF.length}})</span></li>
+              <li ng-class="{'sectionEmpty': !predefinedCC.length}"><input ng-show="predefinedCC.length" type="checkbox" value="cellularComponent" checked /> Cellular Component terms <span ng-if="predefinedCC.length">({{predefinedCC.length}})</span></li>
             </ul>
           </div>
         </uib-tab>
@@ -42,23 +42,23 @@
       <button class="btn quickgo-btn exploreBiologyButton" ng-click="addOwnTerms(slimOwnTerms)">Add to selection</button>
     </div>
 
-    <div ng-class="{'additionalOptionsDeactivated': (!slimTermBp.length) || (!slimTermMf.length) || (!slimTermCc.length)}" class="slimsOptions grid_10">
+    <div ng-class="{'additionalOptionsDeactivated': getTotalCount() <= 0}" class="slimsOptions grid_10">
       <h3>Additional Options</h3>
       <h5>Restrict by Species</h5>
       <ul >
         <li ng-repeat="taxon in species">
-          <input ng-hide="(!slimTermBp.length) || (!slimTermMf.length) || (!slimTermCc.length)" type="checkbox"  checklist-value="{{taxon.id}}"> {{taxon.displayName}} ({{taxon.id}})<br />
+          <input ng-hide="getTotalCount() <= 0" type="checkbox"  checklist-value="{{taxon.id}}"> {{taxon.displayName}} ({{taxon.id}})<br />
         </li>
       </ul>
-      <textarea ng-disabled="(!slimTermBp.length) || (!slimTermMf.length) || (!slimTermCc.length)" class="small" placeholder=" Add your own Taxon ID(s)" ng-model="slimOwnTaxonID"></textarea>
+      <textarea ng-disabled="getTotalCount() <= 0" class="small" placeholder=" Add your own Taxon ID(s)" ng-model="slimOwnTaxonID"></textarea>
     </div>
 
 
 
 <div id="selectionHeader" data-spy="affix" data-offset-top="700">
-    <h3 class="grid_20 yourSelectionHeader">Your Selection: {{ (slimTermBp.length) + (slimTermMf.length) + (slimTermCc.length) }}  DEBUG:{{selectionTotal}}</h3>
+    <h3 class="grid_20 yourSelectionHeader">Your Selection: {{getTotalCount()}}</h3>
     <div class="slimsActionButtons grid_4 push 10">
-      <button class="btn quickgo-btn" ng-click="showGraph()">View Chart</button>
+      <button class="btn quickgo-btn icon-functional" ng-click="showGraph()" data-icon="h">View Chart</button>
       <!--  <button class="btn quickgo-btn" ng-click="nextSlimming(advancedFilters)">Submit</button> -->
       <button class="btn quickgo-btn" ng-click="viewAnnotations(advancedFilters)">Submit</button>
     </div>
@@ -67,7 +67,7 @@
 
     <div class="yourSelectionContainer grid_24 ">
       <div>
-        <h5 ng-class="{'sectionEmpty': !slimTermBp.length}">Biological Process Terms <span ng-if="slimTermBp.length">({{slimTermBp.length}})</span></h5>
+        <h5 ng-class="{'sectionEmpty': !slimTermBp.length}">Biological Process Terms <span ng-if="slimTermBp.length">({{slimTermBp.length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
         <!--        <button class="btn quickgo-btn" ng-click="selectAllBp()">Select All</button>
         <button class="btn quickgo-btn" ng-click="clearAllBp()">Clear All</button>
         -->
@@ -84,7 +84,7 @@
         <!--</span>-->
       </ul>
 
-      <h5 ng-class="{'sectionEmpty': !slimTermMf.length}">Molecular Function Terms <span ng-if="slimTermMf.length">({{slimTermMf.length}})</span></h5>
+      <h5 ng-class="{'sectionEmpty': !slimTermMf.length}">Molecular Function Terms <span ng-if="slimTermMf.length">({{slimTermMf.length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
       <!--
       <button class="btn quickgo-btn" ng-click="selectAllMf()">Select All</button>
       <button class="btn quickgo-btn" ng-click="clearAllMf()">Clear All</button>
@@ -101,7 +101,7 @@
       <!--</span>-->
     </ul>
 
-    <h5 ng-class="{'sectionEmpty': !slimTermCc.length}">Cellular component Terms <span ng-if="slimTermCc.length">({{slimTermCc.length}})</span></h5>
+    <h5 ng-class="{'sectionEmpty': !slimTermCc.length}">Cellular component Terms <span ng-if="slimTermCc.length">({{slimTermCc.length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
     <!--
     <button class="btn quickgo-btn" ng-click="selectAllCc()">Select All</button>
     <button class="btn quickgo-btn" ng-click="clearAllCc()">Clear All</button>

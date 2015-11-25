@@ -325,6 +325,7 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
 
 .selectContainer ul{
   margin-top: 10px;
+  min-height: 100px;
 }
 
 .slimsOptions{

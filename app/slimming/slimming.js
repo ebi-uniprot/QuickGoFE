@@ -3,7 +3,7 @@
  */
 
 
-app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, hardCodedDataService, PreDefinedSlimSets,
+app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, hardCodedDataService, PreDefinedSlimSets,
                                       PreDefinedSlimSetDetail, termService, basketService, wizardService, filteringService) {
 
 
@@ -26,6 +26,10 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, ha
       {id: 9913, displayName: 'Bos taurus'}
 
     ];
+
+  $scope.slimTermBp=[];
+  $scope.slimTermMf=[];
+  $scope.slimTermCc=[];
 
 
 
@@ -60,6 +64,17 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, ha
     $scope.showSlimSet();
   }
 
+  $scope.updatePredefinedSets = function() {
+    console.log('hhhhh');
+    $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
+    $scope.availablePredefinedTerms.$promise.then(function (data) {
+      var predefinedSets = _.groupBy(data, 'aspectDescription');
+      $scope.predefinedBP = predefinedSets['Biological Process'];
+      $scope.predefinedMF = predefinedSets['Molecular Function'];
+      $scope.predefinedCC = predefinedSets['Cellular Component'];
+    });
+  };
+
   /**
    * Load required slim set
    */
@@ -67,16 +82,8 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, ha
 
     console.log("showSlimSet Function running");
 
-    $scope.slimTermBp=[];
-    $scope.slimTermMf=[];
-    $scope.slimTermCc=[];
-    $scope.selectionTotal = ($scope.slimTermBp.length) + ($scope.slimTermMf.length) + ($scope.slimTermCc.length);
 
-console.log("$scope.selectionTotal: "+ $scope.selectionTotal);
 
-    $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
-    $scope.availablePredefinedTerms.$promise.then(function (data) {
-      $scope.availablePredefinedTerms = data;
 
 
       //On loading all the terms for a selected predefined set, set their selection to true as the default.
@@ -86,12 +93,7 @@ console.log("$scope.selectionTotal: "+ $scope.selectionTotal);
       $scope.advancedFilters.boolean = {};
       $scope.advancedFilters.boolean.goID = {};
 
-      var k=-1;
-      for(k=0; k<$scope.availablePredefinedTerms.length; k++){
-
-        //Save deach
-        var aTerm = $scope.availablePredefinedTerms[k];
-
+      angular.forEach($scope.availablePredefinedTerms, function(aTerm){
         if(aTerm.aspectDescription=='Biological Process'){
           $scope.slimTermBp.push(aTerm);
         }
@@ -104,7 +106,6 @@ console.log("$scope.selectionTotal: "+ $scope.selectionTotal);
           $scope.slimTermCc.push(aTerm);
         }
 
-
         //By default, all the Go Terms in the slim set are set to choosen, except for the root terms,
         // GO:0008150 biological process
         // GO:0003674 molecular_function
@@ -114,11 +115,13 @@ console.log("$scope.selectionTotal: "+ $scope.selectionTotal);
           $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
         }
 
-      }
+      });
 
       console.log("Loaded advanced filters = ",$scope.advancedFilters);
+  };
 
-    });
+  $scope.getTotalCount = function () {
+    return $scope.slimTermBp.length + $scope.slimTermMf.length + $scope.slimTermCc.length;
   };
 
 

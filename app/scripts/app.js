@@ -70,12 +70,8 @@ var app = angular
         controller: 'TermCtrl'
       })
       .when('/slimming', {
-        templateUrl: 'slimming/slimming1.html',
-        controller: 'GOSlimCtrl1'
-      })
-      .when('/slimming2', {
-        templateUrl: 'slimming/slimming2.html',
-        controller: 'GOSlimCtrl2'
+        templateUrl: 'slimming/slimming.html',
+        controller: 'GOSlimCtrl'
       })
       .when('/statistics', {
         templateUrl: 'statistics/statistics.html',
