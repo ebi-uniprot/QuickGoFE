@@ -98,10 +98,14 @@ textarea.default {
   width: 50em;
   height: 8em;
 }
-
+textarea.small {
+  width: 20em;
+  height: 4em;
+  margin-left: 10px;
+}
 
 /* DIRECTIVES ---------------------------------------------------------------------------------------------*/
-.basket-btn {
+.basket-btn, .chart-btn {
   background-color: #329DE3;
   border-radius: 30px;
   color:#FFF;
@@ -111,8 +115,12 @@ textarea.default {
   line-height: 20px;
   display: inline-block;
 }
+.chart-btn {
+  border-radius: 2px;
+  font-size: 12px;
+}
 
-.basket-btn:before {
+.basket-btn:before, .chart-btn:before {
   color: #FFF !important;
   font-weight: lighter;
   padding-left: 5px;
@@ -301,6 +309,62 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   border-color: #bce7e7;
   min-width: 60%;
 }
+
+/* Explore Biology    ---------------------------------------------------------------------------------------------------------*/
+
+.slimsSelector{
+  margin-left: 10px;
+}
+
+.selectContainer{
+  padding: 20px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.selectContainer ul{
+  margin-top: 10px;
+}
+
+.slimsOptions{
+
+}
+
+.slimsActionButtons{
+  margin-top: 30px;
+}
+
+.yourSelectionContainer{
+  border-top: 1px solid #ccc;
+  padding: 10px;
+}
+.yourSelectionContainer ul{
+  margin-left: 30px;
+}
+
+.yourSelectionContainer ul li{
+  margin-top: 3px;
+}
+
+
+.yourSelectionHeader{
+  border-bottom: none;
+  margin-top: 30px;
+}
+
+.exploreBiologyButton{
+  float: right;
+  margin-top: 10px;
+}
+
+.sectionEmpty{
+  color: #ccc;
+}
+.additionalOptionsDeactivated, .additionalOptionsDeactivated h3, .additionalOptionsDeactivated h5{
+  color: #ccc;
+}
+
 
 /* RESULTS    ---------------------------------------------------------------------------------------------------------*/
 .typeahead-box {
