@@ -7,6 +7,28 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, ha
                                       PreDefinedSlimSetDetail, termService, basketService, wizardService, filteringService) {
 
 
+  $scope.species = [
+      {id: 9606, displayName: 'Human'},
+      {id: 10090, displayName: 'Mouse'},
+      {id: 10116, displayName: 'Rat'},
+      {id: 40674, displayName: 'Mammalia'},
+      {id: 3398, displayName: 'Magnoliophyta (flowering plants)'},
+      {id: 2759, displayName: 'Eukaryota'},
+      {id: 1117, displayName: 'Cyanobacteria'},
+      {id: 3702, displayName: 'Arabidopsis'},
+      {id: 559292, displayName: 'Saccharomyces verevisiae'},
+      {id: 83333, displayName: 'Escherichia coli'},
+      {id: 6239, displayName: 'Caenorhabditis elegans'},
+      {id: 7955, displayName: 'Danio rerio'},
+      {id: 44689, displayName: 'Dictyostelium discoideum'},
+      {id: 7227, displayName: 'Drosophila melanogaster'},
+      {id: 9031, displayName: 'Gallus gallus'},
+      {id: 9913, displayName: 'Bos taurus'}
+
+    ];
+
+
+
   $scope.advancedFilters = {};
   /**
    * For display
@@ -43,10 +65,14 @@ app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, ha
    */
   $scope.showSlimSet = function() {
 
+    console.log("showSlimSet Function running");
+
     $scope.slimTermBp=[];
     $scope.slimTermMf=[];
     $scope.slimTermCc=[];
+    $scope.selectionTotal = ($scope.slimTermBp.length) + ($scope.slimTermMf.length) + ($scope.slimTermCc.length);
 
+console.log("$scope.selectionTotal: "+ $scope.selectionTotal);
 
     $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
     $scope.availablePredefinedTerms.$promise.then(function (data) {
