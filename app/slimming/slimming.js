@@ -3,7 +3,7 @@
  */
 
 
-app.controller('GOSlimCtrl1', function($scope, $location, $window, $uibModal, hardCodedDataService, PreDefinedSlimSets,
+app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, hardCodedDataService, PreDefinedSlimSets,
                                       PreDefinedSlimSetDetail, termService, basketService, wizardService, filteringService) {
 
 
