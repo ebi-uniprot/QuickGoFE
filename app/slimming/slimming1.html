@@ -53,12 +53,17 @@
       <textarea ng-disabled="(!slimTermBp.length) || (!slimTermMf.length) || (!slimTermCc.length)" class="small" placeholder=" Add your own Taxon ID(s)" ng-model="slimOwnTaxonID"></textarea>
     </div>
 
+
+
+<div id="selectionHeader" data-spy="affix" data-offset-top="700">
     <h3 class="grid_20 yourSelectionHeader">Your Selection: {{ (slimTermBp.length) + (slimTermMf.length) + (slimTermCc.length) }}  DEBUG:{{selectionTotal}}</h3>
     <div class="slimsActionButtons grid_4 push 10">
       <button class="btn quickgo-btn" ng-click="showGraph()">View Chart</button>
       <!--  <button class="btn quickgo-btn" ng-click="nextSlimming(advancedFilters)">Submit</button> -->
       <button class="btn quickgo-btn" ng-click="viewAnnotations(advancedFilters)">Submit</button>
     </div>
+</div>
+
 
     <div class="yourSelectionContainer grid_24 ">
       <div>
