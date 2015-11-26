@@ -1,6 +1,7 @@
 <div id="content">
   <h2>Explore Biology</h2>
   <p>Make a selection of terms below and submit to see their associated annotations
+    <uib-alert dismiss-on-timeout="2000" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
 
     <div class="slimsSelector grid_14 ">
 
@@ -26,14 +27,13 @@
         </ul>
         <button class="btn quickgo-btn pull-right" ng-click="addPredefined();addAlert()">Add to selection</button>
         <div class="clearfix"></div>
-          <uib-alert dismiss-on-timeout='2000' ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
         </div>
     </uib-tab>
 
     <uib-tab heading="Input your own">
     <div class="selectContainer">
       <strong>Enter one or more GO terms:</strong><br />
-      <textarea class="default" placeholder=" GO:0071555 etc" ng-model="$parent.$parent.slimOwnTerms"></textarea>
+      <textarea class="default" placeholder="e.g. GO:0008150, GO:0055085, GO:0006811, GO:0006520" ng-model="$parent.$parent.slimOwnTerms" ng-busy="ownTermPromise"></textarea>
       <button class="btn quickgo-btn pull-right" ng-click="addOwnTerms()">Add your Terms</button>
       <div class="clearfix"></div>
     </div>

@@ -12,14 +12,16 @@ GO:0008150
 GO:0055085
 GO:0006811
 GO:0006520
-GO:0008150,GO:0055085,GO:0006811,GO:0006520
+GO:0008150, GO:0055085, GO:0006811, GO:0006520
 GO:0008150 GO:0055085 GO:0006811 GO:0006520
 */
     $scope.alerts = [
     ];
 
     $scope.addAlert = function() {
-      $scope.alerts.push({type: 'success',msg: 'Terms added to Your Selection'});
+      $scope.alerts.push(
+        {type: 'success',msg: 'Terms added to Your Selection'}
+      );
     };
 
     $scope.closeAlert = function(index) {
@@ -108,15 +110,6 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
     $scope.selectedItems = _.uniq($scope.selectedItems);
   }
 
-  $scope.addOwn = function() {
-    if($scope.slimOwnTerms){
-  //    $scope.ownTermsList
-
-    }
-
-
-  }
-
   $scope.getSelectedBPTerms = function() {
     return _.filter($scope.selectedItems, function(item) {
       return item.aspectDescription === 'Biological Process';
@@ -189,31 +182,31 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
    * Add own terms to selectable list
    * @param ownTermsList
    */
-  $scope.addOwnTerms = function(){
+  $scope.addOwnTerms = function() {
+    var ownTerms = $scope.slimOwnTerms.replace( /\n/g, " " ).split(/[\s,]+/);
+    $scope.ownTermPromise = termService.getTerms(ownTerms.toString());
+    $scope.ownTermPromise.then(function(res) {
+      //Add items to scope
+      $scope.selectedItems = _.union($scope.selectedItems, _.filter(res.data, function(item){
+        return item.termId; //currently needed because service returns empty object if not found. Bad bad bad service. #GOA-1652
+      }));
 
-console.log($scope.slimOwnTerms);
+      //Display alerts
+      var missmatches = _.difference(ownTerms, _.pluck(res.data, 'termId'));
+      if(missmatches.length != ownTerms.length) {
+        $scope.alerts.push(
+          {type: 'success',msg: res.data.length + ' terms added to Your Selection.'}
+        );
+      }
+      if(missmatches.length > 0) {
+        $scope.alerts.push(
+          {type: 'warning',msg: missmatches + ' are not valid identifiers.'}
+        );
+      }
 
-    var termData = termService.getTerm($scope.slimOwnTerms);
-//var termData = termService.getTerm($);
-
-console.log("New:",termData);
-
-var ownTerms = $scope.slimOwnTerms.split(/[\s,]+/);
-
-//.split('\n').trim()
-
-console.log("ownTerms ",ownTerms);
-
-    //Parse list and add to predefined terms
-
-    // termData.$promise.then(function(data) {
-    //   $scope.ownTerms = $scope.ownTerms.concat(data.data);
-    //
-    //   angular.forEach($scope.ownTerms, function (aTerm) {
-    //     aTerm.Selected = true;
-    //   });
-    // });
-
+      //Clean up text area
+      $scope.slimOwnTerms = '';
+    });
   };
 
 
@@ -236,77 +229,6 @@ console.log("ownTerms ",ownTerms);
         }
       }
     }
-
-
-  };
-
-
-
-  /**
-   * Turn on and off the selection of all Biological Process Terms
-   * @param type
-   */
-  $scope.selectAllBp = function () {
-    angular.forEach($scope.slimTermBp, function (aTerm) {
-      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
-    });
-  };
-
-
-  /**
-   * Turn on and off the selection of all Biological Process Terms
-   * @param type
-   */
-  $scope.clearAllBp = function () {
-    angular.forEach($scope.slimTermBp, function (aTerm) {
-      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = undefined;
-    });
-  };
-
-
-
-  /**
-   * Turn on and off the selection of all Molecular Function Terms
-   * @param type
-   */
-  $scope.selectAllMf = function () {
-    angular.forEach($scope.slimTermMf, function (aTerm) {
-      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
-    });
-  };
-
-
-  /**
-   * Turn on and off the selection of all Molecular Function Terms
-   * @param type
-   */
-  $scope.clearAllMf = function () {
-    angular.forEach($scope.slimTermMf, function (aTerm) {
-      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = undefined;
-    });
-  };
-
-
-
-  /**
-   * Turn on and off the selection of all Cellular Component Terms
-   * @param type
-   */
-  $scope.selectAllCc = function () {
-    angular.forEach($scope.slimTermCc, function (aTerm) {
-      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
-    });
-  };
-
-
-  /**
-   * Turn on and off the selection of all Cellular Component Terms
-   * @param type
-   */
-  $scope.clearAllCc = function () {
-    angular.forEach($scope.slimTermCc, function (aTerm) {
-      $scope.advancedFilters.boolean.goID[[aTerm.termId]] = undefined;
-    });
   };
 
 
