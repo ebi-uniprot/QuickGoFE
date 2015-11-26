@@ -12,28 +12,29 @@
         <ul>
           {{predefinedSets['Biological Process'].length}}
           <li ng-class="{'sectionEmpty': !predefinedBP.length}">
-            <input id="bp-checkbox" ng-model="predefinedCheckboxes.BPcheckbox" ng-show="predefinedBP.length" type="checkbox" /> 
+            <input id="bp-checkbox" ng-model="predefinedCheckboxes.BPcheckbox" ng-show="predefinedBP.length" type="checkbox" />
             <label for="bp-checkbox">Biological Process terms <span ng-if="predefinedBP.length">({{predefinedBP.length}})</span></label>
           </li>
           <li ng-class="{'sectionEmpty': !predefinedMF.length}">
-            <input id="mf-checkbox" ng-model="predefinedCheckboxes.MFcheckbox" ng-show="predefinedMF.length" type="checkbox" /> 
+            <input id="mf-checkbox" ng-model="predefinedCheckboxes.MFcheckbox" ng-show="predefinedMF.length" type="checkbox" />
             <label for="mf-checkbox">Molecular Function terms <span ng-if="predefinedMF.length">({{predefinedMF.length}})</span></label>
           </li>
           <li ng-class="{'sectionEmpty': !predefinedCC.length}">
-            <input id="cc-checkbox" ng-model="predefinedCheckboxes.CCcheckbox" ng-show="predefinedCC.length" type="checkbox" /> 
+            <input id="cc-checkbox" ng-model="predefinedCheckboxes.CCcheckbox" ng-show="predefinedCC.length" type="checkbox" />
             <label for="cc-checkbox">Cellular Component terms <span ng-if="predefinedCC.length">({{predefinedCC.length}})</span></label>
           </li>
         </ul>
-        <button class="btn quickgo-btn pull-right" ng-click="addPredefined()">Add to selection</button>
+        <button class="btn quickgo-btn pull-right" ng-click="addPredefined();addAlert()">Add to selection</button>
         <div class="clearfix"></div>
-      </div>
+          <uib-alert dismiss-on-timeout='2000' ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+        </div>
     </uib-tab>
 
     <uib-tab heading="Input your own">
     <div class="selectContainer">
       <strong>Enter one or more GO terms:</strong><br />
-      <textarea class="default" placeholder=" GO:0071555 etc" ng-model="slimOwnTerms"></textarea>
-      <button class="btn quickgo-btn pull-right" ng-click="">Add to selection</button>
+      <textarea class="default" placeholder=" GO:0071555 etc" ng-model="$parent.$parent.slimOwnTerms"></textarea>
+      <button class="btn quickgo-btn pull-right" ng-click="addOwnTerms()">Add your Terms</button>
       <div class="clearfix"></div>
     </div>
   </uib-tab>
@@ -55,6 +56,7 @@
 
 </uib-tabset>
 </div>
+
 
 <div ng-class="{'additionalOptionsDeactivated': selectedItems.length <= 0}" class="slimsOptions grid_10">
   <h3>Additional Options</h3>

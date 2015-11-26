@@ -24,8 +24,9 @@ var app = angular
     "ui.bootstrap",
     'cgBusy',
     'duScroll',
-    'config' 
+    'config'
   ]);
+
 
   app.config(function ($routeProvider) {
     $routeProvider

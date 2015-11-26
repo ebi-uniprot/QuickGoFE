@@ -7,6 +7,26 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
                                       PreDefinedSlimSetDetail, termService, basketService, wizardService, filteringService) {
 
 
+/*
+GO:0008150
+GO:0055085
+GO:0006811
+GO:0006520
+GO:0008150,GO:0055085,GO:0006811,GO:0006520
+GO:0008150 GO:0055085 GO:0006811 GO:0006520
+*/
+    $scope.alerts = [
+    ];
+
+    $scope.addAlert = function() {
+      $scope.alerts.push({type: 'success',msg: 'Terms added to Your Selection'});
+    };
+
+    $scope.closeAlert = function(index) {
+      $scope.alerts.splice(index, 1);
+    };
+
+
   $scope.species = [
       {id: 9606, displayName: 'Human'},
       {id: 10090, displayName: 'Mouse'},
@@ -34,6 +54,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     MFcheckbox : true,
     CCcheckbox : true
   };
+
 
   $scope.advancedFilters = {};
   /**
@@ -87,6 +108,14 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     $scope.selectedItems = _.uniq($scope.selectedItems);
   }
 
+  $scope.addOwn = function() {
+    if($scope.slimOwnTerms){
+  //    $scope.ownTermsList
+
+    }
+
+
+  }
 
   $scope.getSelectedBPTerms = function() {
     return _.filter($scope.selectedItems, function(item) {
@@ -160,17 +189,31 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
    * Add own terms to selectable list
    * @param ownTermsList
    */
-  $scope.addOwnTerms = function(ownTermsList){
-    var termData=termService.getTerm(ownTermsList);
+  $scope.addOwnTerms = function(){
+
+console.log($scope.slimOwnTerms);
+
+    var termData = termService.getTerm($scope.slimOwnTerms);
+//var termData = termService.getTerm($);
+
+console.log("New:",termData);
+
+var ownTerms = $scope.slimOwnTerms.split(/[\s,]+/);
+
+//.split('\n').trim()
+
+console.log("ownTerms ",ownTerms);
 
     //Parse list and add to predefined terms
-    termData.$promise.then(function(data) {
-      $scope.ownTerms = $scope.ownTerms.concat(data.data);
 
-      angular.forEach($scope.ownTerms, function (aTerm) {
-        aTerm.Selected = true;
-      });
-    });
+    // termData.$promise.then(function(data) {
+    //   $scope.ownTerms = $scope.ownTerms.concat(data.data);
+    //
+    //   angular.forEach($scope.ownTerms, function (aTerm) {
+    //     aTerm.Selected = true;
+    //   });
+    // });
+
   };
 
 
