@@ -14,6 +14,7 @@ var app = angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
+    'ngAnimate',
     'quickGoFeApp.wsService',
     'app.quickGo.filters',
     'quickGoFeApp.BasketModule',

@@ -1,7 +1,8 @@
 <div id="content">
+    <uib-alert ng-repeat="alert in succesAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide" dismiss-on-timeout="3000">{{alert.msg}}</uib-alert>
+    <uib-alert ng-repeat="alert in otherAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide">{{alert.msg}}</uib-alert>
   <h2>Explore Biology</h2>
-  <p>Make a selection of terms below and submit to see their associated annotations
-    <uib-alert dismiss-on-timeout="2000" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+  <p>Make a selection of terms below and submit to see their associated annotations</p>
 
     <div class="slimsSelector grid_14 ">
 
@@ -45,11 +46,11 @@
 
     <ul>
       <li ng-repeat="basketItem in basketList">
-        <input type="checkbox" ng-model="advancedFilters.boolean.goID[[basketItem.termId]]"
-        ng-true-value="'{{basketItem.termId}}'"/> {{basketItem.termId}}&nbsp;{{basketItem.name}}
+        <input id="basket-{{basketItem.termId}}" type="checkbox" ng-model="basketSelection[basketItem.termId]"/> 
+        <label for="basket-{{basketItem.termId}}">{{basketItem.termId}}&nbsp;{{basketItem.name}}</label>
       </li>
     </ul>
-    <button class="btn quickgo-btn pull-right" ng-click="">Add to selection</button>
+    <button class="btn quickgo-btn pull-right" ng-click="addBasketTerms()">Add to selection</button>
     <div class="clearfix"></div>
   </div>
 </uib-tab>
@@ -75,7 +76,6 @@
   <h3 class="grid_20 yourSelectionHeader">Your Selection: {{selectedItems.length}}</h3>
   <div class="slimsActionButtons grid_4 push 10">
     <button class="btn quickgo-btn icon-functional" ng-click="showGraph()" data-icon="h">View Chart</button>
-    <!--  <button class="btn quickgo-btn" ng-click="nextSlimming(advancedFilters)">Submit</button> -->
     <button class="btn quickgo-btn" ng-click="viewAnnotations(advancedFilters)">Submit</button>
   </div>
 </div>

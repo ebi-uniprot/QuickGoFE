@@ -15,19 +15,8 @@ GO:0006520
 GO:0008150, GO:0055085, GO:0006811, GO:0006520
 GO:0008150 GO:0055085 GO:0006811 GO:0006520
 */
-    $scope.alerts = [
-    ];
-
-    $scope.addAlert = function() {
-      $scope.alerts.push(
-        {type: 'success',msg: 'Terms added to Your Selection'}
-      );
-    };
-
-    $scope.closeAlert = function(index) {
-      $scope.alerts.splice(index, 1);
-    };
-
+  $scope.succesAlerts = []; 
+  $scope.otherAlerts = [];
 
   $scope.species = [
       {id: 9606, displayName: 'Human'},
@@ -49,7 +38,8 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
 
     ];
 
-  $scope.selectedItems =[];
+  $scope.selectedItems = [];
+  $scope.basketSelection = {};
 
   $scope.predefinedCheckboxes = {
     BPcheckbox : true,
@@ -100,14 +90,15 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
 
 
   $scope.addPredefined = function() {
+    var predefinedItems = [];
     if($scope.predefinedCheckboxes.BPcheckbox) {
-      $scope.selectedItems = _.union($scope.selectedItems, $scope.predefinedBP);
+      predefinedItems = _.union(predefinedItems, $scope.predefinedBP);
     } if($scope.predefinedCheckboxes.CCcheckbox) {
-      $scope.selectedItems = _.union($scope.selectedItems, $scope.predefinedCC);
+      predefinedItems = _.union(predefinedItems, $scope.predefinedCC);
     } if($scope.predefinedCheckboxes.MFcheckbox) {
-      $scope.selectedItems = _.union($scope.selectedItems, $scope.predefinedMF);
+      predefinedItems = _.union(predefinedItems, $scope.predefinedMF);
     }
-    $scope.selectedItems = _.uniq($scope.selectedItems);
+    addItemsToSelection(predefinedItems);
   }
 
   $scope.getSelectedBPTerms = function() {
@@ -183,23 +174,16 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
    * @param ownTermsList
    */
   $scope.addOwnTerms = function() {
-    var ownTerms = $scope.slimOwnTerms.replace( /\n/g, " " ).split(/[\s,]+/);
+    var ownTerms = _.uniq($scope.slimOwnTerms.replace( /\n/g, " " ).split(/[\s,]+/));
     $scope.ownTermPromise = termService.getTerms(ownTerms.toString());
     $scope.ownTermPromise.then(function(res) {
       //Add items to scope
-      $scope.selectedItems = _.union($scope.selectedItems, _.filter(res.data, function(item){
+      addItemsToSelection(_.filter(res.data, function(item){
         return item.termId; //currently needed because service returns empty object if not found. Bad bad bad service. #GOA-1652
       }));
-
-      //Display alerts
       var missmatches = _.difference(ownTerms, _.pluck(res.data, 'termId'));
-      if(missmatches.length != ownTerms.length) {
-        $scope.alerts.push(
-          {type: 'success',msg: res.data.length + ' terms added to Your Selection.'}
-        );
-      }
       if(missmatches.length > 0) {
-        $scope.alerts.push(
+        $scope.otherAlerts.push(
           {type: 'warning',msg: missmatches + ' are not valid identifiers.'}
         );
       }
@@ -207,6 +191,38 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
       //Clean up text area
       $scope.slimOwnTerms = '';
     });
+  };
+
+
+  $scope.addBasketTerms = function() {
+    var items = _.filter(_.keys($scope.basketSelection), function(item){
+      return $scope.basketSelection[item];
+    });
+    termService.getTerms(items).then(function(res){
+      console.log(res.data);
+      addItemsToSelection(res.data);
+    });
+  };
+
+  var addItemsToSelection = function(itemsToAdd) {
+    var beforeItemCount = $scope.selectedItems.length;
+    var union = _.union($scope.selectedItems, itemsToAdd);
+    $scope.selectedItems = _.uniq(union, function(term){
+      return term.termId;
+    });
+    //Display alerts
+    var afterItemCount = $scope.selectedItems.length;
+    console.log(beforeItemCount, afterItemCount);
+    if(afterItemCount > beforeItemCount) {
+      $scope.succesAlerts.push(
+        {type: 'success',msg: (afterItemCount-beforeItemCount) + ' terms added to Your Selection.'}
+      );
+    }
+    if(itemsToAdd.length > (afterItemCount - beforeItemCount)) {
+      $scope.succesAlerts.push(
+        {type: 'info',msg:  (itemsToAdd.length - (afterItemCount - beforeItemCount)) + ' terms were already part of your selection.'}
+      );
+    }
   };
 
 
