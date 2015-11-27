@@ -255,6 +255,17 @@ html.fontface .helpIcon::before{
     border-radius: 30px;
 }
 
+.homepageInfo{
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff; /* F5F5F5*/
+  color: #999;
+}
+
+a.toolBoxLink{
+  border-bottom: none;
+}
+
 /* TABLES   ----------------------------------------------------------------------------------------------------------*/
 
 table {
