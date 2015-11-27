@@ -23,7 +23,6 @@ var app = angular
     'quickGoFeApp.FilteringModule',
     'quickGoFeApp.ServicesModule',
     "ui.bootstrap",
-    'cgBusy',
     'duScroll',
     'config'
   ]);
