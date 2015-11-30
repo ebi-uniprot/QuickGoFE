@@ -92,7 +92,7 @@
     <h4>Choose or input GO terms above to view your selection here</h4>
   </div>
   <div ng-if="selectedItems.length >= 1">
-    <h5 ng-class="{'sectionEmpty': !getSelectedMFTerms().length}">Molecular Function Terms <span ng-if="getSelectedMFTerms().length">({{getSelectedMFTerms().length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
+    <h5 ng-class="{'sectionEmpty': !getSelectedMFTerms().length}">Molecular Function Terms <span ng-if="getSelectedMFTerms().length">({{getSelectedMFTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
       <li ng-if="getSelectedMFTerms().length">
         <input type="checkbox" ng-click="selectAllMf()" checked> All
@@ -103,7 +103,7 @@
       </li>
     </ul>
 
-    <h5 ng-class="{'sectionEmpty': !getSelectedBPTerms().length}">Biological Process Terms <span ng-if="getSelectedBPTerms().length">({{getSelectedBPTerms().length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
+    <h5 ng-class="{'sectionEmpty': !getSelectedBPTerms().length}">Biological Process Terms <span ng-if="getSelectedBPTerms().length">({{getSelectedBPTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
       <li ng-if="getSelectedBPTerms().length">
         <input type="checkbox" ng-click="selectAllBp()" checked> All
@@ -114,7 +114,7 @@
       </li>
     </ul>
 
-    <h5 ng-class="{'sectionEmpty': !getSelectedCCTerms().length}">Cellular component Terms <span ng-if="getSelectedCCTerms().length">({{getSelectedCCTerms().length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
+    <h5 ng-class="{'sectionEmpty': !getSelectedCCTerms().length}">Cellular component Terms <span ng-if="getSelectedCCTerms().length">({{getSelectedCCTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
       <li ng-if="getSelectedCCTerms().length">
         <input type="checkbox" ng-click="selectAllCc()" checked> All
