@@ -99,6 +99,14 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
       predefinedItems = _.union(predefinedItems, $scope.predefinedMF);
     }
     addItemsToSelection(predefinedItems);
+    resetPredefined();
+  }
+
+  var resetPredefined = function() {
+      $scope.predefinedBP = [];
+      $scope.predefinedCC = [];
+      $scope.predefinedMF = [];
+      $scope.selectedPreDefinedSlimSet = '';
   }
 
   $scope.getSelectedBPTerms = function() {
