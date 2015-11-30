@@ -98,8 +98,8 @@
         <input type="checkbox" ng-click="selectAllMf()" checked> All
       </li>
       <li ng-repeat="aTerm in getSelectedMFTerms()">
-        <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"
-        ng-true-value="'{{aTerm.termId}}'"> {{aTerm.termId}} <basket-button termid="{{aTerm.termId}}"></basket-button> <span class="icon icon-functional chart-btn" data-icon="h"></span> {{aTerm.name}}
+        <input  type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"
+        ng-true-value="'{{aTerm.termId}}'"> <a href="/#/term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button> <span class="icon icon-functional chart-btn" data-icon="h"></span> {{aTerm.name}}
       </li>
     </ul>
 
@@ -110,7 +110,7 @@
       </li>
       <li ng-repeat="aTerm in getSelectedBPTerms()">
         <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"
-        ng-true-value="'{{aTerm.termId}}'"> {{aTerm.termId}} <basket-button termid="{{aTerm.termId}}"></basket-button> <span class="icon icon-functional chart-btn" data-icon="h"></span> {{aTerm.name}}
+        ng-true-value="'{{aTerm.termId}}'"> <a href="/#/term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button> <span class="icon icon-functional chart-btn" data-icon="h"></span> {{aTerm.name}}
       </li>
     </ul>
 
@@ -121,7 +121,7 @@
       </li>
       <li ng-repeat="aTerm in getSelectedCCTerms()">
         <input type="checkbox" ng-model="advancedFilters.boolean.goID[[aTerm.termId]]"
-        ng-true-value="'{{aTerm.termId}}'"> {{aTerm.termId}} <basket-button termid="{{aTerm.termId}}"></basket-button> <span class="icon icon-functional chart-btn" data-icon="h"></span> {{aTerm.name}}
+        ng-true-value="'{{aTerm.termId}}'"> <a href="/#/term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button> <span class="icon icon-functional chart-btn" data-icon="h"></span> {{aTerm.name}}
       </li>
     </ul>
   </div>
