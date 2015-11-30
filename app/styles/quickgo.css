@@ -194,6 +194,12 @@ a.quickgo-btn,
   color: #FFF !important;
 }
 
+.quickgo-btn.disabledButton{
+  border: 1px solid #ccc;
+  background-color: #ccc;
+  cursor: auto;
+}
+
 /* GENERAL MODAL -----------------------------------------------------------------------------------------------------*/
 .quickgo-modal {
   margin: 20px;

@@ -75,13 +75,22 @@
 <div id="selectionHeader" data-spy="affix" data-offset-top="700">
   <h3 class="grid_16 yourSelectionHeader">Your Selection: {{selectedItems.length}}</h3>
   <div class="slimsActionButtons grid_8">
-    <button class="btn quickgo-btn icon-functional" ng-click="showGraph()" data-icon="h">View Chart</button>
-    <button class="btn quickgo-btn" ng-click="viewAnnotations(advancedFilters)">Submit</button>
+    <span ng-if="selectedItems.length <= 0">
+      <button class="btn quickgo-btn icon-functional disabledButton" data-icon="h">View Chart</button>
+      <button class="btn quickgo-btn disabledButton" >Submit</button>
+    </span>
+    <span ng-if="selectedItems.length >= 1">
+      <button class="btn quickgo-btn icon-functional" ng-click="showGraph()" data-icon="h">View Chart</button>
+      <button class="btn quickgo-btn" ng-click="viewAnnotations(advancedFilters)">Submit</button>
+    </span>
   </div>
 </div>
 
 
 <div class="yourSelectionContainer grid_24 ">
+  <div ng-if="selectedItems.length <= 0" id="nothingYetSelected">
+    <h4>Choose or input GO terms above to view your selection here</h4>
+  </div>
   <div ng-if="selectedItems.length >= 1">
     <h5 ng-class="{'sectionEmpty': !getSelectedMFTerms().length}">Molecular Function Terms <span ng-if="getSelectedMFTerms().length">({{getSelectedMFTerms().length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
     <ul>
@@ -115,11 +124,5 @@
         ng-true-value="'{{aTerm.termId}}'"> {{aTerm.termId}} <basket-button termid="{{aTerm.termId}}"></basket-button> <span class="icon icon-functional chart-btn" data-icon="h"></span> {{aTerm.name}}
       </li>
     </ul>
-
-  </div>
-  <div ng-if="selectedItems.length <= 0" id="nothingYetSelected">
-<h4>Choose or input GO terms above to view your selection here</h4>
-
-
   </div>
 </div>
