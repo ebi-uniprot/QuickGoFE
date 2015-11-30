@@ -20,7 +20,6 @@ var app = angular
     'app.quickGo.filters',
     'quickGoFeApp.BasketModule',
     'quickGoFeApp.HardCodedDataModule',
-    'quickGoFeApp.WizardModule',
     'quickGoFeApp.FilteringModule',
     'quickGoFeApp.ServicesModule',
     "ui.bootstrap",

@@ -1,20 +1,7 @@
-/**
- * Created by twardell on 16/02/2015.
- */
-
-
 app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, hardCodedDataService, PreDefinedSlimSets,
-                                      PreDefinedSlimSetDetail, termService, basketService, wizardService, filteringService) {
+                                      PreDefinedSlimSetDetail, termService, basketService, filteringService) {
 
 
-/*
-GO:0008150
-GO:0055085
-GO:0006811
-GO:0006520
-GO:0008150, GO:0055085, GO:0006811, GO:0006520
-GO:0008150 GO:0055085 GO:0006811 GO:0006520
-*/
   $scope.succesAlerts = []; 
   $scope.otherAlerts = [];
 
@@ -49,10 +36,6 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
 
 
   $scope.advancedFilters = {};
-  /**
-   * For display
-   * @type {Array}
-   */
   $scope.availablePredefinedTerms = [];
 
   /**
@@ -62,22 +45,13 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
   $scope.basketPromise.then(function(d){
     $scope.basketList = d.data;
   })
+
   /**
    * Get predefined slim sets
    */
   $scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
-  /**
-   * Load already selected terms
-   */
-  $scope.ownTerms = wizardService.getOwnTerms();
-  $scope.predefinedTerms = wizardService.getSelectedPredefinedTerms();
-  $scope.selectedPreDefinedSlimSet = wizardService.getSelectedPredefinedSlimSet();
-
-  if (!$scope.selectedPreDefinedSlimSet===undefined){
-    $scope.showSlimSet();
-  }
-
+  // Predefined terms
   $scope.updatePredefinedSets = function() {
     $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
     $scope.availablePredefinedTerms.$promise.then(function (data) {
@@ -106,81 +80,10 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
       $scope.predefinedBP = [];
       $scope.predefinedCC = [];
       $scope.predefinedMF = [];
-      $scope.selectedPreDefinedSlimSet = '';
+      $scope.selectedPreDefinedSlimSet = ''
   }
 
-  $scope.getSelectedBPTerms = function() {
-    return _.filter($scope.selectedItems, function(item) {
-      return item.aspectDescription === 'Biological Process';
-    })
-  };
-
-  $scope.getSelectedMFTerms = function() {
-    return _.filter($scope.selectedItems, function(item) {
-      return item.aspectDescription === 'Molecular Function';
-    })
-  };
-
-  $scope.getSelectedCCTerms = function() {
-    return _.filter($scope.selectedItems, function(item) {
-      return item.aspectDescription === 'Cellular Component';
-    })
-  };
-
-  /**
-   * Load required slim set
-   */
-  $scope.showSlimSet = function() {
-
-    console.log("showSlimSet Function running");
-
-
-
-
-
-      //On loading all the terms for a selected predefined set, set their selection to true as the default.
-      //We are setting the name of the variable to be saved to be the termid, as well as the value it holds.
-
-      //Initialize
-      $scope.advancedFilters.boolean = {};
-      $scope.advancedFilters.boolean.goID = {};
-
-      angular.forEach($scope.availablePredefinedTerms, function(aTerm){
-        if(aTerm.aspectDescription=='Biological Process'){
-          $scope.slimTermBp.push(aTerm);
-        }
-
-        if(aTerm.aspectDescription=='Molecular Function'){
-          $scope.slimTermMf.push(aTerm);
-        }
-
-        if(aTerm.aspectDescription=='Cellular Component'){
-          $scope.slimTermCc.push(aTerm);
-        }
-
-        //By default, all the Go Terms in the slim set are set to choosen, except for the root terms,
-        // GO:0008150 biological process
-        // GO:0003674 molecular_function
-        // GO:0005575 cellular_component
-
-        if(aTerm.termId != 'GO:0008150' && aTerm.termId != 'GO:0003674' &&  aTerm.termId != 'GO:0005575') {
-          $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
-        }
-
-      });
-
-      console.log("Loaded advanced filters = ",$scope.advancedFilters);
-  };
-
-  $scope.getTotalCount = function () {
-    return $scope.selectedItems;
-  };
-
-
-  /**
-   * Add own terms to selectable list
-   * @param ownTermsList
-   */
+  // Own terms
   $scope.addOwnTerms = function() {
     var ownTerms = _.uniq($scope.slimOwnTerms.replace( /\n/g, " " ).split(/[\s,]+/));
     $scope.ownTermPromise = termService.getTerms(ownTerms.toString());
@@ -201,13 +104,12 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
     });
   };
 
-
+  // Basket terms
   $scope.addBasketTerms = function() {
     var items = _.filter(_.keys($scope.basketSelection), function(item){
       return $scope.basketSelection[item];
     });
     termService.getTerms(items).then(function(res){
-      console.log(res.data);
       addItemsToSelection(res.data);
     });
   };
@@ -220,7 +122,6 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
     });
     //Display alerts
     var afterItemCount = $scope.selectedItems.length;
-    console.log(beforeItemCount, afterItemCount);
     if(afterItemCount > beforeItemCount) {
       $scope.succesAlerts.push(
         {type: 'success',msg: (afterItemCount-beforeItemCount) + ' terms added to Your Selection.'}
@@ -234,27 +135,27 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
   };
 
 
-  /**
-   * Turn on and off the selection of al Biological Process Terms
-   * @param type
-   */
-  $scope.selectAll = function (type) {
-    console.log("selectClearAll called", type);
-
-    var k=-1;
-    for(k=0; k<$scope.availablePredefinedTerms.length; k++){
-      var aTerm = $scope.availablePredefinedTerms[k];
-
-      if(aTerm.aspectDescription==type) {
-        if ($scope.advancedFilters.boolean.goID[[aTerm.termId]] == aTerm.termId) {
-          $scope.advancedFilters.boolean.goID[[aTerm.termId]] = undefined;
-        } else {
-          $scope.advancedFilters.boolean.goID[[aTerm.termId]] = aTerm.termId;
-        }
-      }
-    }
+  $scope.getSelectedBPTerms = function() {
+    return _.filter($scope.selectedItems, function(item) {
+      return item.aspectDescription === 'Biological Process';
+    })
   };
 
+  $scope.getSelectedMFTerms = function() {
+    return _.filter($scope.selectedItems, function(item) {
+      return item.aspectDescription === 'Molecular Function';
+    })
+  };
+
+  $scope.getSelectedCCTerms = function() {
+    return _.filter($scope.selectedItems, function(item) {
+      return item.aspectDescription === 'Cellular Component';
+    })
+  };
+
+  $scope.getTotalCount = function () {
+    return $scope.selectedItems;
+  };
 
 
   /**
@@ -268,20 +169,6 @@ GO:0008150 GO:0055085 GO:0006811 GO:0006520
     $window.location.href= "#annotations";
 
   }
-
-  /**
-   * Save the entered information and use it to filter the results on the annotation list page,
-   * which we will forward to now
-   */
-  $scope.nextSlimming = function(advancedFilters){
-    console.log("Advanced filters in slimming one", advancedFilters);
-
-    filteringService.populateAppliedFilters(advancedFilters, 1);
-    //$window.location.href= "#annotations";
-    $location.path("slimming2");    //todo - this one?
-
-  }
-
 
   /**
    * Show the  graph image modal on request.
