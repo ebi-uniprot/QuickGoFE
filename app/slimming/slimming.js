@@ -158,6 +158,13 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   };
 
 
+  $scope.removeFromSelection = function(termId) {
+    $scope.selectedItems = _.filter($scope.selectedItems, function(term){
+      return term.termId != termId;
+    })
+  }
+
+
   /**
    * Save the entered information and use it to filter the results on the annotation list page,
    * which we will forward to now
