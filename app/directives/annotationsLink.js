@@ -10,16 +10,20 @@ angular
 
 				attrs.$observe('termid', function() {
 					termId = attrs.termid;
-					searchService.findAnnotationsForTerm(termId).then(function(d){
-						$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
-					});
+					if(termId) {
+						searchService.findAnnotationsForTerm(termId).then(function(d){
+							$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+						});
+					}
 				});
 
 				attrs.$observe('productid', function() {
 					productId = attrs.productid;
-					searchService.findAnnotationsForProduct(productId).then(function(d){
-						$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
-					});
+					if(productId) {
+						searchService.findAnnotationsForProduct(productId).then(function(d){
+							$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+						});
+					}
 				});
 			}
 		};
