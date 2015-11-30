@@ -395,8 +395,13 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
 .successMessage{
   background-color: red;
   color: white;
-
 }
+
+#nothingYetSelected h4{
+  color: #ccc;
+}
+
+
 
 /* RESULTS    ---------------------------------------------------------------------------------------------------------*/
 .typeahead-box {
