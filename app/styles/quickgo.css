@@ -131,13 +131,16 @@ textarea.small {
 }
 .chart-btn {
   border-radius: 2px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .basket-btn:before, .chart-btn:before {
   color: #FFF !important;
   font-weight: lighter;
   padding-left: 5px;
+}
+.chart-btn:before{
+  padding-left: 3px;
 }
 
 .basket-btn:hover {
