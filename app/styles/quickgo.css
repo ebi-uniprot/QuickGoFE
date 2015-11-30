@@ -72,6 +72,14 @@ a.icon:hover::before  {
     opacity: 0;
 }
 
+.ellipsis {
+  display: inline-block;
+  max-width:200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 /* This section holds the our app title*/
 
