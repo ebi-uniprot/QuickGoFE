@@ -90,7 +90,7 @@
         </div>
 
       <!-- local-search -->
-      <div id="search-area" class="typeaheadsearch grid_16" ng-controller="TypeaheadCtrl" >
+      <div id="search-area" class="typeaheadsearch grid_16" ng-controller="LocationCtrl" >
         <form ng-submit="showSearchResults(searchText)" ng-show="location.path()!=='/'">
           <megasearch limit="5"></megasearch>
         </form>
@@ -205,9 +205,8 @@
 <script src="/scripts/config.js"></script>
 <script src="main/main.js"></script>
 <script src="main/start.js"></script>
-<script src="main/TypeaheadCtrl.js"></script>
-<script src="megasearch/megasearch.js"></script>
-<script src="main/search.js"></script>
+<script src="main/LocationCtrl.js"></script>
+<script src="search/search.js"></script>
 <script src="slimming/slimming.js"></script>
 <script src="dataset/goTermHistory.js"></script>
 <script src="dataset/dataset.js"></script>

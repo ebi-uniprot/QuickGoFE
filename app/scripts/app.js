@@ -103,9 +103,9 @@ var app = angular
         templateUrl: 'nav/feedback.html',
         controller: 'FeedbackCtrl'
       })
-      .when('/megasearch/:searchTerm', {
-        templateUrl: 'megasearch/megasearch.html',
-        controller: 'MegaSearchCtrl'
+      .when('/search/:searchTerm', {
+        templateUrl: 'search/search.html',
+        controller: 'SearchCtrl'
       })
       .when('/searchterms/:searchTerm', {
         templateUrl: 'searchterms/searchTerms.html',

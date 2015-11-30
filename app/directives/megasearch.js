@@ -27,7 +27,7 @@ angular
 				}
 
 				scope.submitSearch = function() {
-				    $location.path("/megasearch/" + scope.searchTerm);
+				    $location.path("/search/" + scope.searchTerm);
 				}
 
 				var loadData = function() {
