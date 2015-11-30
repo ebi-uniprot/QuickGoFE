@@ -2,26 +2,6 @@
   <h2 class="grid_20 push_2">Search results for "{{searchTerm}}"</h2>
 
   <div class="panel grid_20 push_2" cg-busy="goTermsPromise">
-    <h3>GO Terms</h3>
-    <ul class="results-list">
-      <li ng-repeat="term in terms">
-        <a href="#/term/{{term.id}}">{{term.id}}</a> <basket-button termid="{{term.id}}"></basket-button> - {{term.name}} <a href="#/annotations/filter?goID={{term.id}}" class="annotations-link"><annotations-link termid="{{term.id}}"></annotations-link></a>
-      </li>
-    </ul>
-    <p>
-      <a href="#/searchterms/{{searchTerm}}">Show all</a>
-    </p>
-  </div>
-
-  <div class="panel grid_20 push_2" cg-busy="gpPromise">
-    <h3>Gene products</h3>
-    <ul class="results-list">
-      <li ng-repeat="prod in products">
-        <strong>{{prod.db_object_id}}</strong> - {{prod.description}} - ({{prod.taxon_name}}) <a href="#/annotations/filter?gpID={{prod.db_object_id}}" class="annotations-link"><annotations-link productid="{{prod.db_object_id}}"></annotations-link></a>
-      </li>
-    </ul>
-    <p>
-      <a href="#/searchproducts/{{searchTerm}}">Show all</a>
-    </p>
+    <megasearch limit="15" search-term="searchTerm" no-input="true"></megasearch>
   </div>
 </div>

@@ -1,11 +1,11 @@
-<div class="input-group">
+<div class="input-group" ng-hide="noInput">
   <input id="searchbox" type="text" autocomplete="off" ng-model="searchTerm" placeholder="{{prompt}}" ng-keydown="provideSuggestions($event.keyCode)"/>
   <div class="input-group-btn">
-    <button class="btn quickgo-btn" type="submit">Search</button>
+    <button class="btn quickgo-btn" type="submit" ng-click="submitSearch()">Search</button>
   </div>
 </div>
 
-<div class="items typeahead-box" ng-hide="!searchTerm.length">
+<div class="items" ng-hide="!searchTerm.length" ng-class="{'typeahead-box' : !noInput}">
   <div cg-busy="goTermsPromise">
     <h3>Terms</h3>
     <ul class="results-list" ng-show="terms.length > 0">

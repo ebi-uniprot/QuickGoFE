@@ -82,10 +82,8 @@ app.controller('SearchCtrl', function($scope, $location, search) {
    */
 
   $scope.showSearchResults = function (searchTerm) {
-
-    console.log("forwarding to search results");
-    $location.path("/search/"+searchTerm);
-
+    console.log('here');
+    $location.path("/megasearch/"+searchTerm);
   }
 
   //$scope.search = function() {
