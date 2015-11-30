@@ -46,7 +46,7 @@
 
     <ul>
       <li ng-repeat="basketItem in basketList">
-        <input id="basket-{{basketItem.termId}}" type="checkbox" ng-model="basketSelection[basketItem.termId]"/> 
+        <input id="basket-{{basketItem.termId}}" type="checkbox" ng-model="basketSelection[basketItem.termId]"/>
         <label for="basket-{{basketItem.termId}}">{{basketItem.termId}}&nbsp;{{basketItem.name}}</label>
       </li>
     </ul>
@@ -73,8 +73,8 @@
 
 
 <div id="selectionHeader" data-spy="affix" data-offset-top="700">
-  <h3 class="grid_20 yourSelectionHeader">Your Selection: {{selectedItems.length}}</h3>
-  <div class="slimsActionButtons grid_4 push 10">
+  <h3 class="grid_16 yourSelectionHeader">Your Selection: {{selectedItems.length}}</h3>
+  <div class="slimsActionButtons grid_8">
     <button class="btn quickgo-btn icon-functional" ng-click="showGraph()" data-icon="h">View Chart</button>
     <button class="btn quickgo-btn" ng-click="viewAnnotations(advancedFilters)">Submit</button>
   </div>
@@ -82,9 +82,7 @@
 
 
 <div class="yourSelectionContainer grid_24 ">
-  <div>
-
-
+  <div ng-if="selectedItems.length >= 1">
     <h5 ng-class="{'sectionEmpty': !getSelectedMFTerms().length}">Molecular Function Terms <span ng-if="getSelectedMFTerms().length">({{getSelectedMFTerms().length}})</span> <span class="icon icon-functional chart-btn" data-icon="h"></span></h5>
     <ul>
       <li ng-if="getSelectedMFTerms().length">
@@ -119,5 +117,9 @@
     </ul>
 
   </div>
+  <div ng-if="selectedItems.length <= 0">
+<h4 style="color:#ccc;">Choose or input GO terms above to view your slection here</h4>
 
+
+  </div>
 </div>

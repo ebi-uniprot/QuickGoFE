@@ -274,7 +274,7 @@ html.fontface .helpIcon::before{
   padding: 10px;
   margin-bottom: 10px;
   background-color: #fff; /* F5F5F5*/
-  color: #999;
+  color: #666;
 }
 
 a.toolBoxLink{
