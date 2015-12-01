@@ -35,7 +35,7 @@
 
           <td class="text-nowrap">
             <span><a href="/#/term/{{searchResult.id}}">{{searchResult.id}}</a></span>
-            <basket-button termid="{{searchResult.id}}"></basket-button> <span ng-click="showOntologyGraph(searchResult.id,searchResult.name)" class="icon icon-functional chart-btn selectable" data-icon="h"></span>
+            <basket-button termid="{{searchResult.id}}"></basket-button> <chart-icon searchResultId="{{searchResult.id}}" searchResultName="{{searchResult.name}}"></chart-icon> <span ng-click="showOntologyGraph(searchResult.id,searchResult.name)" class="icon icon-functional chart-btn selectable" data-icon="h"></span>
           </td>
           <td ng-bind-html="highlight(searchResult.name)"></td>
         </tr>
