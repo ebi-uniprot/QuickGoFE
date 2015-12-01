@@ -179,6 +179,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   }
 
+  $scope.clearSelection = function(){
+    $scope.selectedItems = [];
+  }
+
   /**
    * Show the  graph image modal on request.
    * Turn the list of advancedFilters into to comma delimited list

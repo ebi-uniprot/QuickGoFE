@@ -205,12 +205,6 @@ a.quickgo-btn,
   color: #FFF !important;
 }
 
-.quickgo-btn.disabledButton{
-  border: 1px solid #ccc;
-  background-color: #ccc;
-  cursor: auto;
-}
-
 /* GENERAL MODAL -----------------------------------------------------------------------------------------------------*/
 .quickgo-modal {
   margin: 20px;
@@ -370,10 +364,6 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
 
 .slimsOptions{
 
-}
-
-.slimsActionButtons{
-  margin-top: 30px;
 }
 
 .yourSelectionContainer{
