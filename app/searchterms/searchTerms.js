@@ -83,29 +83,5 @@ app.controller('SearchTermsCtrl', function($scope,  $location, $uibModal, search
     return newText;
   }
 
-  /**
-   * --------------------------------------------------- Graph Code --------------------------------------------------
-   */
-
-  /**
-   * Show the GO ontology graph image modal on request
-   */
-  $scope.showOntologyGraph = function (termId, title) {
-
-    var modalInstance = $uibModal.open({
-      templateUrl: 'charts/ontologyGraphModal.html',
-      controller: 'OntologyGraphCtrl',
-      windowClass: 'app-modal-window',
-      scope: $scope,
-      resolve: {
-        graphModel: function () {
-          return {id:termId, name:title, scope:'GO'};
-        }
-      }
-    });
-
-  };
-
-
 
 });
