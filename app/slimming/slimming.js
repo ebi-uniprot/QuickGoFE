@@ -80,6 +80,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       $scope.predefinedBP = [];
       $scope.predefinedCC = [];
       $scope.predefinedMF = [];
+      $scope.predefinedCheckboxes.BPcheckbox = true;
+      $scope.predefinedCheckboxes.CCcheckbox = true;
+      $scope.predefinedCheckboxes.MFcheckbox = true;
       $scope.selectedPreDefinedSlimSet = ''
   }
 
@@ -111,6 +114,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     });
     termService.getTerms(items).then(function(res){
       addItemsToSelection(res.data);
+    });
+    //reset selection
+    $scope.basketSelection = _.map($scope.basketSelection, function(key, val){
+      return {key: false};
     });
   };
 
@@ -196,20 +203,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
    * Turn the list of advancedFilters into to comma delimited list
    */
   $scope.showGraph = function () {
-
-    var terms = filteringService.returnListOfFilters($scope.advancedFilters);
-    console.log("Create a graph from the terms", terms)
-
-    var k=0;
-    var itemString="";
-    for(k=0;k<terms.length;k++ ){
-      itemString = itemString+terms[k].value;
-      itemString=itemString+',';
-    }
-
-    console.log("Item String", itemString);
-
-
     var modalInstance = $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
@@ -217,7 +210,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       scope: $scope,
       resolve: {
         graphModel: function () {
-          return {id:itemString, scope:'GO'};
+          return {id:_.pluck($scope.selectedItems, 'termId').toString(), scope:'GO'};
         }
       }
     });
