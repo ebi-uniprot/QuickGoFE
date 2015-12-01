@@ -127,12 +127,31 @@ textarea.small {
 }
 
 /* DIRECTIVES ---------------------------------------------------------------------------------------------*/
-.basket-btn, .chart-btn {
+.quickgo-btn,
+a.quickgo-btn,
+.quickgo-btn:active,
+.quickgo-btn:visited,
+.quickgo-btn:focus {
+  border: 1px solid #2980B9;
   background-color: #329DE3;
-  border-radius: 30px;
+  color: #FFF;
+  font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
+}
+
+.quickgo-btn:hover {
+  background-color: #2980B9;
+  color:#FFF;
+}
+
+.quickgo-btn:before {
+  color: #FFF !important;
+}
+
+.basket-btn, .chart-btn {
+  border-radius: 10px;
+  font-size: 10px;
   color:#FFF;
   width:20px;
-  font-size: 10px;
   height:20px;
   line-height: 20px;
   display: inline-block;
@@ -145,7 +164,8 @@ textarea.small {
 .basket-btn:before, .chart-btn:before {
   color: #FFF !important;
   font-weight: lighter;
-  padding-left: 5px;
+  text-align: center;
+  padding-left: 4px;
 }
 .chart-btn:before{
   padding-left: 3px;
@@ -184,26 +204,6 @@ mega-search {
   color:#FFF;
 }
 
-
-.quickgo-btn,
-a.quickgo-btn,
-.quickgo-btn:active,
-.quickgo-btn:visited,
-.quickgo-btn:focus {
-  border: 1px solid #2980B9;
-  background-color: #329DE3;
-  color: #FFF;
-  font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
-}
-
-.quickgo-btn:hover {
-  background-color: #2980B9;
-  color:#FFF;
-}
-
-.quickgo-btn:before {
-  color: #FFF !important;
-}
 
 /* GENERAL MODAL -----------------------------------------------------------------------------------------------------*/
 .quickgo-modal {
