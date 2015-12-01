@@ -36,7 +36,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
 
   $scope.advancedFilters = {};
-  $scope.availablePredefinedTerms = [];
 
   /**
    * Get basket items
@@ -169,10 +168,13 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
    * Save the entered information and use it to filter the results on the annotation list page,
    * which we will forward to now
    */
-  $scope.viewAnnotations = function(advancedFilters){
-    console.log("Advanced filters in slimming one", advancedFilters);
-
-    filteringService.populateAppliedFilters(advancedFilters, 1);
+  $scope.viewAnnotations = function(){
+    filteringService.clearFilters();
+    angular.forEach($scope.selectedItems, function(item){
+      filteringService.saveAppliedFilter({type: 'goID', value: item.termId});
+    });
+    filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
+    filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
     $window.location.href= "#annotations";
 
   }
