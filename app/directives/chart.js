@@ -1,32 +1,31 @@
 angular
 	.module('quickGoFeApp')
-	.directive('chartIcon', ['chartService', function(chartService) {
+	.directive('chartIcon', ['$http','$uibModal', function($http, $uibModal) {
 		return {
-      restrict: 'E',
+			restrict: 'E',
+			scope: {
+				termId: '=',
+				termName: '='
+			},
 			templateUrl: 'directives/chart.html',
-      replace: true
-    };
-}]);
-
-
-
-// 			link: function($scope, element, attrs, controller) {
-//
-//         attrs.$observe('termid', function() {
-//           termId = attrs.termid;
-//           $scope.inBasket = basketService.containsGoTerm(termId);
-//         });
-//
-// //$scope.showOntologyGraph = function (termId, title) {
-//         var modalInstance = $uibModal.open({
-//           templateUrl: 'charts/ontologyGraphModal.html',
-//           controller: 'OntologyGraphCtrl',
-//           windowClass: 'app-modal-window',
-//           scope: $scope,
-//           resolve: {
-//             graphModel: function () {
-//               return {id:termId, name:title, scope:'GO'};
-//             }
-//           }
-//         });
-// 		}
+			link: function(scope, element, attrs, controller) {
+				scope.createChart = function() {
+					var modalInstance = $uibModal.open({
+						templateUrl: 'charts/ontologyGraphModal.html',
+						controller: 'OntologyGraphCtrl',
+						windowClass: 'app-modal-window',
+						scope: scope,
+						resolve: {
+							graphModel: function() {
+								return {
+									id: scope.termId,
+									name: scope.termName,
+									scope: 'GO'
+								};
+							}
+						}
+					});
+				}
+			}
+		};
+	}]);
