@@ -27,6 +27,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   $scope.selectedItems = [];
   $scope.basketSelection = {};
+  $scope.selectedSpecies = {};
 
   $scope.predefinedCheckboxes = {
     BPcheckbox : true,
@@ -175,8 +176,15 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     });
     filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
     filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
-    $window.location.href= "#annotations";
+    
+    angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
+      console.log($scope.selectedSpecies[taxonId]);
+      if($scope.selectedSpecies[taxonId])
+        filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
+    });
 
+
+    $window.location.href= "#annotations";
   }
 
   $scope.clearSelection = function(){

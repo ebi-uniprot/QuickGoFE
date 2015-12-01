@@ -64,7 +64,7 @@
   <h5>Restrict by Species</h5>
   <ul >
     <li ng-repeat="taxon in species">
-      <input ng-hide="selectedItems.length <= 0" type="checkbox"  checklist-value="{{taxon.id}}"> {{taxon.displayName}} ({{taxon.id}})<br />
+      <input ng-hide="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[taxon.id]" checklist-value="{{taxon.id}}"> {{taxon.displayName}} ({{taxon.id}})<br />
     </li>
   </ul>
   <textarea ng-disabled="selectedItems.length <= 0" class="small" placeholder=" Add your own Taxon ID(s)" ng-model="slimOwnTaxonID"></textarea>
