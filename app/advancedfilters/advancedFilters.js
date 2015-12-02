@@ -205,15 +205,16 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
     if(filters[i].type == 'goID'){
 
       //Is the goID in the basket? if so show its selected.
-      var basketCounter;
+      //Xav: don't think this currently works as the promise hasn't been resolved at this point...
       var usedGoID = false;
-      for(basketCounter=0; basketCounter<$scope.basketItems.length; basketCounter++){
-        if($scope.basketItems[basketCounter].termId == filters[i].value ){
-          $scope.advancedFilters.boolean.goID[$scope.basketItems[basketCounter].termId]=true;
+      console.log($scope.basketItems);
+      angular.forEach($scope.basketItems, function(basketItem){
+        console.log(basketItem.termId,filters[i].value);
+        if(basketItem.termId === filters[i].value) {
+          $scope.advancedFilters.boolean.goID[basketItem.termId]=true;
           usedGoID = true;
-          break;
         }
-      }
+      });
 
       //If this filter value has been declared as a basket term then there is no need to continue.
       if(usedGoID){
