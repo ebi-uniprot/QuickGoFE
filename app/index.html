@@ -77,21 +77,21 @@
 
       <!-- local-title -->
       <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
-      <div id="local-title" class="quickgo-local-title grid_24" >
+      <div id="local-title" class="logo-title quickgo-local-title grid_24" ng-controller="LocationCtrl">
 
         <!-- Logo -->
-        <div class="grid_2">
-          <a ng-href="#/" accesskey="1" id="logo"><img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo.png" alt=""></a>
+        <div ng-class="{'grid_24': location.path() ==='/', 'grid_8' : location.path() !='/'}">
+          <a ng-href="#/" accesskey="1" id="logo">
+            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo.png">
+          </a>
+          <span><h1 ng-hide="location.path()!=='/'">Gene Ontology and annotations</h1></span>
         </div>
 
         <!-- Title -->
-        <div class="grid_4 subtitle">
-          <h5>Browse Gene Ontology terms and annotations</h5>
-        </div>
 
       <!-- local-search -->
-      <div id="search-area" class="typeaheadsearch grid_16" ng-controller="LocationCtrl" >
-        <form ng-submit="showSearchResults(searchText)" ng-show="location.path()!=='/'">
+      <div id="search-area" class="typeaheadsearch grid_16" ng-show="location.path()!=='/'">
+        <form ng-submit="showSearchResults(searchText)">
           <megasearch limit="5"></megasearch>
         </form>
       </div>
