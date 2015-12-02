@@ -596,6 +596,9 @@ li.slim {
   float: left;
   width: 1000px;
 }
+.viewChartButton{
+  margin-right: 10px;
+}
 
 /* ADVANCED FILTERS MODAL DIALOGUE ----------------------------------------------------------------------------------*/
 .app-modal-window .modal-dialog {

@@ -2,7 +2,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
                                       PreDefinedSlimSetDetail, termService, basketService, filteringService) {
 
 
-  $scope.succesAlerts = []; 
+  $scope.succesAlerts = [];
   $scope.otherAlerts = [];
 
   $scope.species = [
@@ -183,7 +183,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     });
     filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
     filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
-    
+
     angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
       console.log($scope.selectedSpecies[taxonId]);
       if($scope.selectedSpecies[taxonId])
@@ -214,8 +214,71 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
         }
       }
     });
-
   };
+
+  $scope.showGraphPreDef = function () {
+    var tempPredefinedItems = [];
+    if($scope.predefinedCheckboxes.BPcheckbox) {
+      tempPredefinedItems = _.union(tempPredefinedItems, $scope.predefinedBP);
+    } if($scope.predefinedCheckboxes.CCcheckbox) {
+      tempPredefinedItems = _.union(tempPredefinedItems, $scope.predefinedCC);
+    } if($scope.predefinedCheckboxes.MFcheckbox) {
+      tempPredefinedItems = _.union(tempPredefinedItems, $scope.predefinedMF);
+    }
+    var modalInstance = $uibModal.open({
+      templateUrl: 'charts/ontologyGraphModal.html',
+      controller: 'OntologyGraphCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope,
+      resolve: {
+        graphModel: function () {
+          return {
+            id:_.pluck(tempPredefinedItems, 'termId').toString(),
+            scope:'GO'
+          };
+        }
+      }
+    });
+  };
+
+$scope.showGraphOwnTerms = function () {
+  var tempOwnTerms = _.uniq($scope.slimOwnTerms.replace( /\n/g, " " ).split(/[\s,]+/));
+  var modalInstance = $uibModal.open({
+    templateUrl: 'charts/ontologyGraphModal.html',
+    controller: 'OntologyGraphCtrl',
+    windowClass: 'app-modal-window',
+    scope: $scope,
+    resolve: {
+      graphModel: function () {
+        return {
+          id:tempOwnTerms.toString(),
+          scope:'GO'
+        };
+      }
+    }
+  });
+};
+
+$scope.showGraphBasketItems = function () {
+  var tempItems = _.filter(_.keys($scope.basketSelection), function(item){
+    return $scope.basketSelection[item];
+  });
+
+  var modalInstance = $uibModal.open({
+    templateUrl: 'charts/ontologyGraphModal.html',
+    controller: 'OntologyGraphCtrl',
+    windowClass: 'app-modal-window',
+    scope: $scope,
+    resolve: {
+      graphModel: function () {
+        return {
+          id:tempItems.toString(),
+          scope:'GO'
+        };
+      }
+    }
+  });
+};
 
 
 });
