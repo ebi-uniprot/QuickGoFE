@@ -90,6 +90,10 @@ div#local-masthead {
   background-repeat: no-repeat;
 }
 
+#local-title.logo-title h1 {
+  color:#00abd8;
+}
+
 #beta-message {
   background-color:lightgrey;
 }
