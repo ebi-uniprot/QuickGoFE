@@ -4,6 +4,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   $scope.succesAlerts = [];
   $scope.otherAlerts = [];
+  $scope.availablePredefinedTerms = '';
 
   $scope.species = [
       {id: 9606, displayName: 'Human'},
@@ -83,7 +84,8 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       $scope.predefinedCheckboxes.BPcheckbox = true;
       $scope.predefinedCheckboxes.CCcheckbox = true;
       $scope.predefinedCheckboxes.MFcheckbox = true;
-      $scope.selectedPreDefinedSlimSet = ''
+      $scope.selectedPreDefinedSlimSet = '';
+      $scope.availablePredefinedTerms = ''
   }
 
   // Own terms
@@ -242,6 +244,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   };
 
 $scope.showGraphOwnTerms = function () {
+if($scope.slimOwnTerms){
   var tempOwnTerms = _.uniq($scope.slimOwnTerms.replace( /\n/g, " " ).split(/[\s,]+/));
   var modalInstance = $uibModal.open({
     templateUrl: 'charts/ontologyGraphModal.html',
@@ -257,6 +260,11 @@ $scope.showGraphOwnTerms = function () {
       }
     }
   });
+}else{
+  $scope.succesAlerts.push(
+    {type: 'info',msg:  'Please add terms first'}
+  );
+};
 };
 
 $scope.showGraphBasketItems = function () {

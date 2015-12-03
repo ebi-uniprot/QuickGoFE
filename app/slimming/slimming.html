@@ -26,11 +26,8 @@
             <label for="cc-checkbox">Cellular Component terms <span ng-if="predefinedCC.length">({{predefinedCC.length}})</span></label>
           </li>
         </ul>
-
-
-        <button class="btn quickgo-btn pull-right" ng-click="addPredefined();addAlert()">Add to selection</button>
-        <button class="btn quickgo-btn icon-functional pull-right viewChartButton" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
-
+        <button class="btn quickgo-btn pull-right" ng-disabled="availablePredefinedTerms.length == 0" ng-click="addPredefined();addAlert()">Add to selection</button>
+        <button class="btn quickgo-btn icon-functional pull-right viewChartButton" ng-disabled="availablePredefinedTerms.length == 0" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
         <div class="clearfix"></div>
         </div>
     </uib-tab>
@@ -55,7 +52,7 @@
         <label for="basket-{{basketItem.termId}}">{{basketItem.termId}}&nbsp;{{basketItem.name}}</label>
       </li>
     </ul>
-    
+
     <button class="btn quickgo-btn pull-right" ng-click="addBasketTerms()">Add to selection</button>
     <button class="btn quickgo-btn icon-functional pull-right viewChartButton" ng-click="showGraphBasketItems()" data-icon="h">View Chart</button>
     <div class="clearfix"></div>
