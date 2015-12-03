@@ -262,31 +262,37 @@ if($scope.slimOwnTerms){
   });
 }else{
   $scope.succesAlerts.push(
-    {type: 'info',msg:  'Please add terms first'}
+    {type: 'info',msg:  'Please add some term Id\'s first'}
   );
 };
 };
 
 $scope.showGraphBasketItems = function () {
+
   var tempItems = _.filter(_.keys($scope.basketSelection), function(item){
     return $scope.basketSelection[item];
   });
 
-  var modalInstance = $uibModal.open({
-    templateUrl: 'charts/ontologyGraphModal.html',
-    controller: 'OntologyGraphCtrl',
-    windowClass: 'app-modal-window',
-    scope: $scope,
-    resolve: {
-      graphModel: function () {
-        return {
-          id:tempItems.toString(),
-          scope:'GO'
-        };
-      }
-    }
-  });
+  if(tempItems.length >= 1){
+      var modalInstance = $uibModal.open({
+        templateUrl: 'charts/ontologyGraphModal.html',
+        controller: 'OntologyGraphCtrl',
+        windowClass: 'app-modal-window',
+        scope: $scope,
+        resolve: {
+          graphModel: function () {
+            return {
+              id:tempItems.toString(),
+              scope:'GO'
+            };
+          }
+        }
+      });
+    }else{
+      $scope.succesAlerts.push(
+        {type: 'info',msg:  'Please select some basket terms from the list first'}
+      );
+    };
 };
-
 
 });
