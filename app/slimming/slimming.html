@@ -4,7 +4,7 @@
   <h2>Explore Biology</h2>
   <p>Make a selection of terms below and submit to see their associated annotations</p>
 
-    <div class="slimsSelector grid_14 ">
+    <div class="slimsSelector grid_12 ">
 
       <uib-tabset>
       <uib-tab heading="Predefined GO slims">
@@ -63,15 +63,31 @@
 </div>
 
 
-<div ng-class="{'additionalOptionsDeactivated': selectedItems.length <= 0}" class="slimsOptions grid_10">
+<div ng-class="{'additionalOptionsDeactivated': selectedItems.length <= 0}" class="slimsOptions grid_12">
   <h3>Additional Options</h3>
-  <h5>Restrict by Species</h5>
-  <ul >
-    <li ng-repeat="taxon in species">
-      <input ng-hide="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[taxon.id]" checklist-value="{{taxon.id}}"> {{taxon.displayName}} ({{taxon.id}})<br />
-    </li>
-  </ul>
-  <textarea ng-disabled="selectedItems.length <= 0" class="small" placeholder=" Add your own Taxon ID(s)" ng-model="slimOwnTaxonID"></textarea>
+
+  <uib-accordion close-others="oneAtATime" >
+    <uib-accordion-group heading="Gene Product ID" is-open="true" is-disabled="status.isFirstDisabled" closeOthers="true">
+<!--      <ul>
+        <li ng-repeat="product in geneProducts">
+          <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[product.id]" checklist-value="{{product.id}}"> {{product.displayName}}
+        </li>
+      </ul>
+-->
+      <textarea ng-disabled="selectedItems.length <= 0" class="default" placeholder="Add your Gene Product ID(s)" ng-model="genProductID"></textarea>
+    </uib-accordion-group>
+
+    <uib-accordion-group heading="Restrict by Species" closeOthers="true" >
+      <ul >
+        <li ng-repeat="taxon in species">
+          <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[taxon.id]" checklist-value="{{taxon.id}}"> {{taxon.displayName}} ({{taxon.id}})<br />
+        </li>
+      </ul>
+      <textarea ng-disabled="selectedItems.length <= 0" class="small" placeholder=" Add your own Taxon ID(s)" ng-model="slimOwnTaxonID"></textarea>
+    </uib-accordion-group>
+
+  </uib-accordion>
+
 </div>
 
 

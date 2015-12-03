@@ -22,14 +22,14 @@ ul {
   cursor: pointer;
 }
 
-.panel {
+.quickgo-panel {
   border-radius: 6px;
   padding-top: 1em;
   padding-bottom: 1em;
   background-color: #f4f5f7;
 }
 
-.panel h3 {
+.quickgo-panel h3 {
   border-bottom: none;
 }
 
@@ -597,6 +597,14 @@ li.slim {
 }
 .viewChartButton{
   margin-right: 10px;
+}
+
+.panelzz-title{
+  font-size: 13px;
+}
+.panelzz-group .panelzz{
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 /* ADVANCED FILTERS MODAL DIALOGUE ----------------------------------------------------------------------------------*/

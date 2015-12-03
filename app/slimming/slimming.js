@@ -23,7 +23,14 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       {id: 7227, displayName: 'Drosophila melanogaster'},
       {id: 9031, displayName: 'Gallus gallus'},
       {id: 9913, displayName: 'Bos taurus'}
+    ];
 
+    $scope.geneProducts = [
+      {id: 'BHF-UCL', displayName: 'BHF-UCL'},
+      {id: 'Exosome', displayName: 'Exosome'},
+      {id: 'KRUK', displayName: 'KRUK'},
+      {id: 'ParkinsonsUK-UCL', displayName: 'Parkinsons UK - UCL'},
+      {id: 'ReferenceGenome', displayName: 'Reference Genome'}
     ];
 
   $scope.selectedItems = [];
@@ -36,6 +43,11 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     CCcheckbox : true
   };
 
+  $scope.oneAtATime = true;
+  $scope.status = {
+    isFirstOpen: true,
+    isFirstDisabled: false
+  };
 
   $scope.advancedFilters = {};
 
