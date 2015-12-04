@@ -8,15 +8,15 @@
 <div class="items" ng-hide="!searchTerm.length" ng-class="{'typeahead-box' : !noInput}">
   <div cg-busy="goTermsPromise">
     <h3>Terms</h3>
-    <ul class="results-list" ng-show="terms.length > 0">
-      <li ng-repeat="term in terms">
+    <ul class="results-list" ng-show="terms.results.length > 0">
+      <li ng-repeat="term in terms.results">
         <a ng-href="#/term/{{term.id}}">{{term.id}}</a> 
           <basket-button termid="{{term.id}}"></basket-button>
           <chart-icon term-id="term.id" term-name="term.name"></chart-icon>
            - {{term.name}} <a ng-href="#/annotations/filter?goID={{term.id}}" class="annotations-link"><annotations-link termid="{{term.id}}"></annotations-link></a>
       </li>
       <li>
-        <a ng-href="#/searchterms/{{searchTerm}}">Show all</a>
+        <a ng-href="#/searchterms/{{searchTerm}}">Show all {{terms.numberOfHits}} results</a>
       </li>
     </ul>
     <p ng-show="!terms || terms.length <= 0">

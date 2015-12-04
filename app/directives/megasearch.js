@@ -34,7 +34,7 @@ angular
 					//Look for matching GO terms
 					scope.goTermsPromise = searchService.findTerms(scope.searchTerm, scope.limit);
 					scope.goTermsPromise.then(function(res) {
-						scope.terms = res.data.go;
+						scope.terms = res.data;
 					});
 
 					//Look for Gene Products

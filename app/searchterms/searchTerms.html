@@ -2,36 +2,30 @@
   <h2>Results for term "{{searchTerm}}"</h2>
 
   <div class="grid_4">
-    <ul class="filter-list">
-      <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='goID'}" ng-click="showResults('goID')"><a>GO
-        Terms({{x.goNumberResults}})</a>
-      </li>
-      <ul>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='bp'}" ng-click="showResults('bp')">
-          <a>Biological Process ({{x.biologicalProcessNumberResults}})</a>
-        </li>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='mf'}" ng-click="showResults('mf')"><a>Molecular
-          Function ({{x.molecularFunctionNumberResults}})</a>
-        </li>
-        <li class="select-viewBy" ng-class="{'highlight-viewBy': x.viewBy=='cc'}" ng-click="showResults('cc')"><a>Cellular
-          Component ({{x.cellularComponentNumberResults}})</a>
-        </li>
-      </ul>
-    </ul>
+
+      <div ng-repeat="facet in results.facet.facetFields">
+        <h4 class="capitalize">{{facet.field}}</h4>
+        <ul>
+          <li ng-repeat="category in facet.categories" ng-click="applyFacet(facet.field.categories, category.key)" ng-switch="isSelected(facet.field, category.name)">
+            <strong ng-switch-when="true">{{category.name}} ({{category.count}})</strong>
+            <a ng-switch-when="false" ng-href="#/searchterms/{{searchTerm}}?filters={{getFilterUrl(facet.field, category.name)}}">{{category.name}} ({{category.count}})</a>
+          </li>
+        </ul>
+      </div>
   </div>
 
   <!-- Main Content -->
   <div id="searchResultsMainContent" class="grid_20">
     <div>
       <p>
-        <strong>{{srcTotalNumberResults}}</strong> results</strong>
+        <strong>{{results.numberOfHits}}</strong> results</strong>
       </p>
       <table id="searchResults" class="two-colours">
         <tr>
           <th>ID</th>
           <th>Name</th>
         </tr>
-        <tr ng-repeat="searchResult in x.searchResults">
+        <tr ng-repeat="searchResult in results.results">
 
           <td class="text-nowrap">
             <span><a href="/#/term/{{searchResult.id}}">{{searchResult.id}}</a></span>
@@ -41,7 +35,7 @@
           <td ng-bind-html="highlight(searchResult.name)"></td>
         </tr>
       </table>
-      <uib-pagination total-items="srcTotalNumberResults" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+      <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
     </div>
   </div>
   <div class="clearfix"></div>

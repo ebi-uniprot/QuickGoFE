@@ -108,11 +108,11 @@ var app = angular
       })
       .when('/searchterms/:searchTerm', {
         templateUrl: 'searchterms/searchTerms.html',
-        controller: 'SearchTermsCtrl'
+        controller: 'FacetSearchCtrl'
       })
       .when('/searchproducts/:searchTerm', {
         templateUrl: 'searchproducts/searchProducts.html',
-        controller: 'SearchProductsCtrl'
+        controller: 'FacetSearchCtrl'
       })
       .otherwise({
         redirectTo: '/'

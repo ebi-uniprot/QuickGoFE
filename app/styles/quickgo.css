@@ -80,6 +80,10 @@ a.icon:hover::before  {
   text-overflow: ellipsis;
 }
 
+.capitalize:first-letter {
+  text-transform: uppercase;
+}
+
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 /* This section holds the our app title*/
 
