@@ -98,6 +98,12 @@ div#local-masthead {
   color:#00abd8;
 }
 
+#local-title.logo-title .typeahead-box span {
+  margin: 0;
+  float: none;
+  display: inline-block;
+}
+
 #beta-message {
   background-color:lightgrey;
 }

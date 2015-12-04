@@ -11,7 +11,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   $scope.currentPage = 1;
 
   $scope.searchTerm = $routeParams.searchTerm;
-  filters = $routeParams.filters ? $routeParams.filters : '';
+  $scope.filters = $routeParams.filters ? $routeParams.filters : '';
 
   $scope.pagination = {
     current: 1
@@ -19,9 +19,9 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
 
   function getResultsPage() {
     if(isTermSearch) {
-      $scope.queryPromise = searchService.findTerms($scope.searchTerm, $scope.maxSize, $scope.currentPage, facets, filters);
+      $scope.queryPromise = searchService.findTerms($scope.searchTerm, $scope.maxSize, $scope.currentPage, facets, $scope.filters);
     } else {
-      $scope.queryPromise = searchService.findGeneProducts($scope.searchTerm, $scope.maxSize, $scope.currentPage, facets, filters);
+      $scope.queryPromise = searchService.findGeneProducts($scope.searchTerm, $scope.maxSize, $scope.currentPage, facets, $scope.filters);
     }
     $scope.queryPromise.then(
       function(result) {
@@ -32,14 +32,6 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   $scope.pageChanged = function() {
     getResultsPage();
   };
-
-  $scope.getFilterUrl = function(field, category) {
-    return  ((filters && filters.length > 0) ? filters + ',' : '') + field + ':' + category;
-  }
-
-  $scope.isSelected = function(field, category) {
-    return filters.indexOf(field + ':' + category) > -1;
-  }
 
   $scope.highlight = function(text) {
     if (!text) {
