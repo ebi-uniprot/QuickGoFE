@@ -465,6 +465,10 @@ ul.results-list li {
   color: #00742B !important;
 }
 
+#resultsSidebar{
+  max-height: 300px;
+  overflow: auto;
+}
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 #basket {
@@ -526,9 +530,7 @@ textarea.sidebar {
 }
 
 .filterCount {
-  float: right;
-  font-weight: bold;
-  background-color: white;
+  margin-left: 10px;
 }
 /* TERM PAGE ----------------------------------------------------------------------------------------------------*/
 
