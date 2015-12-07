@@ -4,7 +4,7 @@
   <!-- Sidebar -->
   <div ng-include src="'sidebar/Sidebar.html'"></div>
 
-  <div id="statisticsMainContent" class="mainContent grid_16">
+  <div id="statisticsMainContent" class="mainContent grid_20">
 
 
     <!-- Download menu -->
@@ -15,33 +15,33 @@
       </li>
     </ul>
 
-    <tabset>
+
+    <uib-tabset>
       <!--<div id="statisticsTabs">-->
-      <tab heading="Summary">
-        <!--<div id="statsSummary">-->
-          Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation
+      <uib-tab heading="Summary">
+        <div class="statsContent">
+          <span class="grid_12">
+          <p>Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation
           set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed
-          will alter accordingly.
-          You can find full details of the datasets that comprise the full annotation set <a target="_blank" href=<c:url
-                                                                                             value="/"/>dataset>here</a>
-          .
-          <table style="width:100%">
-            <tr>
-              <td><strong>Number of annotations</strong></td>
-              <td>{{stats.totalNumberAnnotations}}</td>
-            </tr>
-            <tr>
-              <td><strong>Number of distinct gene products</strong></td>
-              <td>{{stats.totalNumberProteins}}</td>
-            </tr>
-          </table>
-        <!--</div>-->
-      </tab>
-      <tab heading="GO ID">
-        <!--<div id="statsGOID">-->
-          <div class="grid_7">
-            <h4>Count of Annotations per GO Identifier</h4>
-            <table id="annotationsByGOID" class="two-colours" style="font-size: 90%;">
+          will alter accordingly.</p>
+          <p>You can find full details of the datasets that comprise the full annotation set <a target="_blank" href="/dataset">here</a>.</p>
+        </span>
+
+          <div class="grid_20">
+            <p>
+            <strong>Number of annotations:</strong> {{stats.totalNumberAnnotations}}<br />
+            <strong>Number of distinct gene products:</strong> {{stats.totalNumberProteins}}
+          </p>
+          </div>
+
+
+        </div>
+      </uib-tab>
+      <uib-tab heading="GO ID">
+        <div class="statsContent">
+          <div class="grid_10">
+            <h5>Annotations per GO ID</h5>
+            <table id="annotationsByGOID" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -49,16 +49,16 @@
                 <th>Count</th>
               </tr>
               <tr ng-repeat="annByGOID in statsBean.annotationsPerGOID">
-                <td><strong>GO:{{annByGOID.code}}</strong></td>
+                <td><a href="/#/term/GO:{{annByGOID.code}}" target="_blank">GO:{{annByGOID.code}}</a></td>
                 <td>{{annByGOID.name}}</td>
                 <td>{{annByGOID.percentage}}</td>
                 <td>{{annByGOID.count}}</td>
               </tr>
             </table>
           </div>
-          <div class="grid_7">
-            <h4>Count of Proteins per GO Identifier</h4>
-            <table id="proteinsByGOID" class="two-colours" style="font-size: 90%;">
+          <div class="grid_10 push_2">
+            <h5>Proteins per GO ID</h5>
+            <table id="proteinsByGOID" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -66,20 +66,20 @@
                 <th>Count</th>
               </tr>
               <tr ng-repeat="protByGOID in statsBean.proteinsPerGOID">
-                <td><strong>GO:{{protByGOID.code}}</strong></td>
+                <td><a href="/#/term/GO:{{protByGOID.code}}" target="_blank">GO:{{protByGOID.code}}</a></td>
                 <td>{{protByGOID.name}}</td>
                 <td>{{protByGOID.percentage}}</td>
                 <td>{{protByGOID.count}}</td>
               </tr>
             </table>
           </div>
-        <!--</div>-->
-      </tab>
-      <tab heading="Aspect">
-        <!--<div id="statsAspect">-->
-          <div class="grid_7">
-            <h4>Count of Annotations per Aspect</h4>
-            <table id="annotationsByAspect" class="two-colours" style="font-size: 90%;">
+        </div>
+      </uib-tab>
+      <uib-tab heading="Aspect">
+        <div class="statsContent">
+          <div class="grid_10">
+            <h5>Annotations per Aspect</h5>
+            <table id="annotationsByAspect" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>%</th>
@@ -92,9 +92,9 @@
               </tr>
             </table>
           </div>
-          <div class="grid_7">
-            <h4>Count of Proteins per Aspect</h4>
-            <table id="proteinsByAspect" class="two-colours" style="font-size: 90%;">
+          <div class="grid_10 push_2">
+            <h5>Proteins per Aspect</h5>
+            <table id="proteinsByAspect" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>%</th>
@@ -107,13 +107,13 @@
               </tr>
             </table>
           </div>
-        <!--</div>-->
-      </tab>
-      <tab heading="Evidence">
-        <!--<div id="statsEvidence">-->
-          <div class="grid_7">
-            <h4>Count of Annotations per Evidence</h4>
-            <table id="annotationsByEvidence" class="two-colours" style="font-size: 90%;">
+        </div>
+      </uib-tab>
+      <uib-tab heading="Evidence">
+        <div class="statsContent">
+          <div class="grid_10">
+            <h5>Annotations per Evidence</h5>
+            <table id="annotationsByEvidence" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -128,9 +128,9 @@
               </tr>
             </table>
           </div>
-          <div class="grid_7">
-            <h4>Count of Proteins per Evidence</h4>
-            <table id="proteinsByEvidence" class="two-colours" style="font-size: 90%;">
+          <div class="grid_10 push_2">
+            <h5>Proteins per Evidence</h5>
+            <table id="proteinsByEvidence" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -145,13 +145,13 @@
               </tr>
             </table>
           </div>
-        <!--</div>-->
-      </tab>
-      <tab heading="Reference">
-        <!--<div id="statsReference">-->
-          <div class="grid_7">
-            <h4>Count of Annotations per Reference</h4>
-            <table id="annotationsByReference" class="two-colours" style="font-size: 90%;">
+        </div>
+      </uib-tab>
+      <uib-tab heading="Reference">
+        <div class="statsContent">
+          <div class="grid_10">
+            <h5>Annotations per Reference</h5>
+            <table id="annotationsByReference" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>%</th>
@@ -164,9 +164,9 @@
               </tr>
             </table>
           </div>
-          <div class="grid_5">
-            <h4>Count of Proteins per Reference</h4>
-            <table id="proteinsByReference" class="two-colours" style="font-size: 90%;">
+          <div class="grid_10 push_2">
+            <h5>Proteins per Reference</h5>
+            <table id="proteinsByReference" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>%</th>
@@ -179,13 +179,13 @@
               </tr>
             </table>
           </div>
-        <!--</div>-->
-      </tab>
-      <tab heading="Taxon">
-        <!--<div id="statsTaxon">-->
-          <div class="grid_7">
-            <h4>Count of Annotations per Taxon</h4>
-            <table id="annotationsByTaxon" class="two-colours" style="font-size: 90%;">
+        </div>
+      </uib-tab>
+      <uib-tab heading="Taxon">
+        <div class="statsContent">
+          <div class="grid_10">
+            <h5>Annotations per Taxon</h5>
+            <table id="annotationsByTaxon" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -200,9 +200,9 @@
               </tr>
             </table>
           </div>
-          <div class="grid_7">
-            <h4>Count of Proteins per Taxon</h4>
-            <table id="proteinsByTaxon" class="two-colours" style="font-size: 90%;">
+          <div class="grid_10 push_2">
+            <h5>Proteins per Taxon</h5>
+            <table id="proteinsByTaxon" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>Name</th>
@@ -217,13 +217,13 @@
               </tr>
             </table>
           </div>
-        <!--</div>-->
-      </tab>
-      <tab heading="Assigned By">
-        <!--<div id="statsAssignedBy">-->
-          <div class="grid_7">
-            <h4>Count of Annotations per Assigned By</h4>
-            <table id="annotationsByAssignedBy" class="two-colours" style="font-size: 90%;">
+        </div>
+      </uib-tab>
+      <uib-tab heading="Assigned By">
+        <div class="statsContent">
+          <div class="grid_10">
+            <h5>Annotations per Assigned By</h5>
+            <table id="annotationsByAssignedBy" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>%</th>
@@ -237,9 +237,9 @@
             </table>
 
           </div>
-          <div class="grid_7">
-            <h4>Count of Proteins per Assigned By</h4>
-            <table id="proteinsByAssignedBy" class="two-colours" style="font-size: 90%;">
+          <div class="grid_10 push_2">
+            <h5>Proteins per Assigned By</h5>
+            <table id="proteinsByAssignedBy" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>%</th>
@@ -252,8 +252,8 @@
               </tr>
             </table>
           </div>
-        <!--</div>-->
-      </tab>
-    </tabset>
+        </div>
+      </uib-tab>
+    </uib-tabset>
   </div>
 </div>

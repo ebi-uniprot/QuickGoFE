@@ -533,6 +533,24 @@ textarea.sidebar {
   margin-left: 10px;
   margin-bottom: 5px;
 }
+
+
+/* Statistics PAGE ----------------------------------------------------------------------------------------------------*/
+
+
+.statsContent{
+  padding: 10px;
+
+}
+.statsContent div{
+  margin-top: 10px;
+}
+
+
+
+
+
+
 /* TERM PAGE ----------------------------------------------------------------------------------------------------*/
 
 .quickgo-hoz-header th{
