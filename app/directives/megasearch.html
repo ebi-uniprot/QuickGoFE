@@ -26,12 +26,12 @@
   <hr>
   <div cg-busy="gpPromise">
     <h3>Gene products</h3>
-    <ul class="results-list" ng-show="products.length > 0">
-      <li ng-repeat="prod in products">
-        <strong>{{prod.db_object_id}}</strong> - {{prod.description}} - ({{prod.taxon_name}}) <a ng-href="#/annotations/filter?gpID={{prod.db_object_id}}" class="annotations-link" ><annotations-link productid="{{prod.db_object_id}}"></annotations-link></a>
+    <ul class="results-list" ng-show="products.results.length > 0">
+      <li ng-repeat="prod in products.results">
+        <strong>{{prod.dbObjectId}}</strong> {{prod.dbObjectName}} <a ng-href="#/annotations/filter?gpID={{prod.db_object_id}}" class="annotations-link" ><annotations-link productid="{{prod.dbObjectId}}"></annotations-link></a>
       </li>
       <li>
-        <a ng-href="#/searchproducts/{{searchTerm}}">Show all</a>      
+        <a ng-href="#/searchproducts/{{searchTerm}}">Show all {{products.numberOfHits.toLocaleString()}} results</a>
       </li>
     </ul>
     <p ng-show="!products || products.length <= 0">

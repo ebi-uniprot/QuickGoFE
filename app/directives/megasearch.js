@@ -40,7 +40,7 @@ angular
 					//Look for Gene Products
 					scope.gpPromise = searchService.findGeneProducts(scope.searchTerm, scope.limit);
 					scope.gpPromise.then(function(res) {
-						scope.products = res.data.protein;
+						scope.products = res.data;
 					});
 					//Look for Publications					
 				}

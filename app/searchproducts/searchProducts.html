@@ -1,8 +1,7 @@
 <div id="content" class="container_24" cg-busy="queryPromise">
-  <h2>Results gene produc "{{searchTerm}}"</h2>
+  <h2>Results for gene product "{{searchTerm}}"</h2>
 
   <div class="grid_4">
-
       <div ng-repeat="facet in results.facet.facetFields">
         <facets endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm"></facets>
       </div>
