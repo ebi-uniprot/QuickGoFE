@@ -63,18 +63,22 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['newer:jshint:all', 'newer:jscs:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'karma']
+        tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
       },
+      compass: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        tasks: ['compass:server', 'postcss:server']
+      },      
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+        tasks: ['newer:copy:styles', 'postcss:server']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -162,6 +166,23 @@ module.exports = function (grunt) {
       }
     },
 
+    // Make sure code styles are up to par
+    jscs: {
+      options: {
+        config: '.jscsrc',
+        verbose: true
+      },
+      all: {
+        src: [
+          'Gruntfile.js',
+          '<%= yeoman.app %>/scripts/{,*/}*.js'
+        ]
+      },
+      test: {
+        src: ['test/spec/{,*/}*.js']
+      }
+    },
+
     // Empties folders to start fresh
     clean: {
       dist: {
@@ -178,13 +199,15 @@ module.exports = function (grunt) {
     },
 
     // Add vendor prefixed styles
-    autoprefixer: {
+    postcss: {
       options: {
-        browsers: ['last 1 version']
+        processors: [
+          require('autoprefixer')({browsers: ['last 1 version']})
+        ]
       },
       server: {
         options: {
-          map: true,
+          map: true
         },
         files: [{
           expand: true,
@@ -224,8 +247,41 @@ module.exports = function (grunt) {
               }
             }
           }
+      },
+      sass: {
+        src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },
+
+    // Compiles Sass to CSS and generates necessary files if requested
+    compass: {
+      options: {
+        sassDir: '<%= yeoman.app %>/styles',
+        cssDir: '.tmp/styles',
+        generatedImagesDir: '.tmp/images/generated',
+        imagesDir: '<%= yeoman.app %>/images',
+        javascriptsDir: '<%= yeoman.app %>/scripts',
+        fontsDir: '<%= yeoman.app %>/styles/fonts',
+        importPath: './bower_components',
+        httpImagesPath: '/images',
+        httpGeneratedImagesPath: '/images/generated',
+        httpFontsPath: '/styles/fonts',
+        relativeAssets: false,
+        assetCacheBuster: false,
+        raw: 'Sass::Script::Number.precision = 10\n'
+      },
+      dist: {
+        options: {
+          generatedImagesDir: '<%= yeoman.dist %>/images/generated'
+        }
+      },
+      server: {
+        options: {
+          sourcemap: true
+        }
+      }
+    },    
 
     // Renames files for browser caching purposes
     filerev: {
@@ -274,6 +330,7 @@ module.exports = function (grunt) {
         }
       }
     },
+
 
     // The following *-min tasks will produce minified files in the dist folder
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
@@ -407,13 +464,18 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
+        'compass:server',
         'copy:styles'
       ],
       test: [
+        'compass',
         'copy:styles'
       ],
       dist: [
+        'compass:dist',
         'copy:styles',
+        'imagemin',
+        'svgmin'
       ]
     },
 
@@ -436,7 +498,7 @@ module.exports = function (grunt) {
         'ngconstant:prod',
         'wiredep',
         'concurrent:server',
-        'autoprefixer:server',
+        'postcss:server',
         'connect:livereload',
         'watch'
       ]);
@@ -446,7 +508,7 @@ module.exports = function (grunt) {
       'ngconstant:dev',
       'wiredep',
       'concurrent:server',
-      'autoprefixer:server',
+      'postcss:server',
       'connect:livereload',
       'watch'
     ]);
@@ -462,7 +524,7 @@ module.exports = function (grunt) {
     'ngconstant:prod',
     'wiredep',
     'concurrent:test',
-    'autoprefixer',
+    'postcss',
     'connect:test',
     'karma'
   ]);
@@ -473,7 +535,7 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
-    'autoprefixer',
+    'postcss',
     'ngtemplates',
     'concat',
     'ngAnnotate',
