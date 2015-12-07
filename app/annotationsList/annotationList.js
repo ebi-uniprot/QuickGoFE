@@ -62,7 +62,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       $scope.goList = data;
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
     });
-    $scope.bookmarkableLink = filteringService.getBookmarkableString();
 
   }
 

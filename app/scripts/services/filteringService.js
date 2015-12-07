@@ -22,8 +22,6 @@ filteringModule.factory('filteringService', function() {
   var filteringService = {};
   var filters = [];
   var isSlimRequest = 0;
-  var bookmarkableLink = "#/annotations";
-
 
 
   filteringService.setFilters = function (filterList){
@@ -506,27 +504,6 @@ filteringModule.factory('filteringService', function() {
     return filters;
 
     }
-
-
-
-  /**
-   * Turn the filters into a query string that can be used in the bookmarkable link
-   * @returns {string}
-   */
-  filteringService.setBookmarkableString =  function (){
-
-    var bookmarkString='';
-    var typeString='';
-    angular.forEach(filters, function(val){
-      bookmarkString=bookmarkString + val.type  + ":";
-      bookmarkString=bookmarkString + val.value + ',';
-    });
-    bookmarkableLink = '#annotations/' + bookmarkString;
-  }
-
-  filteringService.getBookmarkableString = function() {
-    return bookmarkableLink;
-  }
 
 
   /**

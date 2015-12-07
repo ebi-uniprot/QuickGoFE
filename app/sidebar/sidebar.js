@@ -35,8 +35,6 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
     $scope.quickFilters.text.goID = "";
     $scope.quickFilters.text.gpID = "";
 
-    filteringService.setBookmarkableString();
-
     //Tell parent page this value has been updated.
 
     $scope.$emit('filtersUpdate', $scope.quickFilters);   //todo change this so is notification only
@@ -58,9 +56,6 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
       filteringService.saveAppliedFilter(aFilter);
     }
 
-
-    filteringService.setBookmarkableString();
-
     //Tell parent page this value has been updated.
     $scope.$emit('filtersUpdate', '');   //todo change this so is notification only
 
@@ -74,8 +69,6 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
 
     filteringService.removeFilter(filter);
 
-    filteringService.setBookmarkableString();
-
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersUpdate', filter);
 
@@ -88,7 +81,6 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
    */
   $scope.clearFilters=function() {
     filteringService.clearFilters();
-    filteringService.setBookmarkableString();
 
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersClear');
@@ -125,18 +117,6 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
   }
 
 
-
-
-/**
- * ------------------------------------ GO Ontology Graph Image --------------------------------------------------
- */
-
-/**
- * Listen to an update to the filters list that comes, and change the bookmark link appropriately
- */
-  $rootScope.$on('filtersUpdate', function(event) {
-    filteringService.setBookmarkableString();
-  });
 
 });
 
