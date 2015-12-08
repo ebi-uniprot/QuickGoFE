@@ -49,7 +49,7 @@
                 <th>Count</th>
               </tr>
               <tr ng-repeat="annByGOID in statsBean.annotationsPerGOID">
-                <td><a href="/#/term/GO:{{annByGOID.code}}" target="_blank">GO:{{annByGOID.code}}</a></td>
+                <td><a href="#/term/GO:{{annByGOID.code}}" target="_blank">GO:{{annByGOID.code}}</a></td>
                 <td>{{annByGOID.name}}</td>
                 <td>{{annByGOID.percentage}}</td>
                 <td>{{annByGOID.count}}</td>
@@ -66,7 +66,7 @@
                 <th>Count</th>
               </tr>
               <tr ng-repeat="protByGOID in statsBean.proteinsPerGOID">
-                <td><a href="/#/term/GO:{{protByGOID.code}}" target="_blank">GO:{{protByGOID.code}}</a></td>
+                <td><a href="#/term/GO:{{protByGOID.code}}" target="_blank">GO:{{protByGOID.code}}</a></td>
                 <td>{{protByGOID.name}}</td>
                 <td>{{protByGOID.percentage}}</td>
                 <td>{{protByGOID.count}}</td>
