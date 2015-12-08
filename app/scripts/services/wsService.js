@@ -29,23 +29,27 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
 
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
-      findTerms: function(searchTerm, limit) {
-        return $http.get(ENV.apiEndpoint + '/ws/search', 
+      findTerms: function(searchTerm, limit, page, facet, filters) {
+        return $http.get(ENV.apiEndpoint + '/search/ontology', 
           {
             params: {
               query : searchTerm,
-              scope : 'eco,go',
-              limit : limit
+              limit : limit,
+              page : page ? page : 1,
+              facet : facet ? facet : '',
+              filterQuery : filters ? filters : ''
             }
           });
       },
-      findGeneProducts: function(searchTerm, limit) {
-        return $http.get(ENV.apiEndpoint + '/ws/search', 
+      findGeneProducts: function(searchTerm, limit, page, facet, filters) {
+        return $http.get(ENV.apiEndpoint + '/search/geneproduct', 
           {
             params: {
               query : searchTerm,
-              scope : 'protein',
-              limit : limit
+              limit : limit,
+              page : page ? page : 1,
+              facet : facet ? facet : '',
+              filterQuery : filters ? filters : ''
             }
           });
       },       
@@ -147,6 +151,7 @@ wsService.factory('search', ['$resource', 'ENV', function($resource, ENV){
   });
 }]);
 
+//@deprecated
 wsService.factory('searchfull', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/ws/searchfull', {text: '@text',format:'JSON', page:'@page', row:'@rows', viewBy:'@viewBy'}, {
     query: {method:'GET'}

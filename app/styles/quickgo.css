@@ -80,6 +80,10 @@ a.icon:hover::before  {
   text-overflow: ellipsis;
 }
 
+.capitalize:first-letter {
+  text-transform: uppercase;
+}
+
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 /* This section holds the our app title*/
 
@@ -92,6 +96,12 @@ div#local-masthead {
 
 #local-title.logo-title h1 {
   color:#00abd8;
+}
+
+#local-title.logo-title .typeahead-box span {
+  margin: 0;
+  float: none;
+  display: inline-block;
 }
 
 #beta-message {
