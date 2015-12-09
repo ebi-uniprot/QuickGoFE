@@ -14,7 +14,7 @@
       {{termModel.termId}}
       <basket-button termid="{{termModel.termId}}"></basket-button>
     </h2>
-    
+
     <!-- Term name -->
     <h3>{{termModel.name}}</h3>
 
@@ -65,7 +65,7 @@
     <section ng-if="termModel.credits.length > 0">
     <h5>Aknowledgements</h5>
     <p>
-        This term was created by the GO Consortium with support from: 
+        This term was created by the GO Consortium with support from:
           <span ng-repeat="credit in termModel.credits">
             <a ng-if="credit.code == 'BHF'" href="{{credit.url}}" target="_blank"><img
               src="https://www.bhf.org.uk/~/media/images/admin/logo/bhf-logo.png" alt="BHF image" class="credit-image"/></a>
@@ -150,12 +150,12 @@
         calculated using only manual-evidenced annotations.</p>
 
       <div id="allCoOccurringStats">
-        <h5 ng-show="termModel.allCoOccurrenceStatsTerms.length == 0">
+        <h5 ng-show="stats.allCoOccurrenceStatsTerms.length == 0">
           <element class='icon icon-generic' data-icon='l'>
             No co-occurring statistics for {{termModel.termId}} based on the entire annotation set
           </element>
         </h5>
-        <div ng-show="termModel.allCoOccurrenceStatsTerms.length > 0">
+        <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
           <h5>Co-occurrence statistics for {{termModel.termId}} based on the entire annotation set</h5>
           <table id="allCoOccurringStatsTable" class="two-colours">
             <tr>
@@ -167,12 +167,12 @@
               <th>#Together</th>
               <th>#Compared</th>
             </tr>
-            <tr ng-repeat="allStat in termModel.allCoOccurrenceStatsTerms">
+            <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms">
               <td><a class="quickgo-link" ng-href="#/term/{{allStat.comparedTerm}}">{{allStat.comparedTerm}}</a></td>
               <td>{{allStat.aspect}}</td>
               <td>{{allStat.name}}</td>
               <td>{{allStat.probabilityRatio}}</td>
-              <td>{{allStat.probabilitySimilarityRatio}}</td>
+              <td>{{allStat.significance}}</td>
               <td>{{allStat.together}}</td>
               <td>{{allStat.compared}}</td>
             </tr>
@@ -187,12 +187,12 @@
         </div>
       </div>
         <div id="nonIEACoOccurringStats">
-          <h5 ng-show="termModel.nonIEACOOccurrenceStatistics.length == 0">
+          <h5 ng-show="stats.nonIEACOOccurrenceStatistics.length == 0">
             <element class='icon icon-generic' data-icon='l'>
               No co-occurring statistics for {{termModel.termId}} based on manual annotations
             </element>
           </h5>
-          <div ng-show="termModel.nonIEACOOccurrenceStatistics.length > 0">
+          <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
             <h5>Co-occurrence statistics for {{termModel.termId}} based on manual annotations only</h5>
             <table id="nonIEACoOccurringStatsTable" class="two-colours">
               <tr>
@@ -204,14 +204,14 @@
                 <th>#Together</th>
                 <th>#Compared</th>
               </tr>
-              <tr ng-repeat="nonIEAStat in termModel.nonIEACOOccurrenceStatistics">
+              <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics">
                 <td><a class="quickgo-link"
                   ng-href="#/term/{{nonIEAStat.comparedTerm}}">{{nonIEAStat.comparedTerm}}</a>
                 </td>
                 <td>{{nonIEAStat.aspect}}</td>
                 <td>{{nonIEAStat.name}}</td>
                 <td>{{nonIEAStat.probabilityRatio}}</td>
-                <td>{{nonIEAStat.probabilitySimilarityRatio}}</td>
+                <td>{{nonIEAStat.significance}}</td>
                 <td>{{nonIEAStat.together}}</td>
                 <td>{{nonIEAStat.compared}}</td>
               </tr>

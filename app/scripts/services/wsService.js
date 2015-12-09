@@ -15,14 +15,14 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($reso
 
 wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   return {
-      getTerm : function(termId) { 
+      getTerm : function(termId) {
         return $http.get(ENV.apiEndpoint+'/ws/term/' + termId);
       },
       getTerms : function(ids) {
         return $http.get(ENV.apiEndpoint+'/ws/terms', {params: {ids: ids}});
       },
       getStats : function(termId) {
-        return $http.get(ENV.apiEndpoint+'/ws/term/' + termId + '/stats');
+        return $http.get(ENV.apiEndpoint+'/ws/termcostats/' + termId);
       }
   }
 }]);
@@ -30,7 +30,7 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/ontology', 
+        return $http.get(ENV.apiEndpoint + '/search/ontology',
           {
             params: {
               query : searchTerm,
@@ -42,7 +42,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           });
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/geneproduct', 
+        return $http.get(ENV.apiEndpoint + '/search/geneproduct',
           {
             params: {
               query : searchTerm,
@@ -52,7 +52,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
               filterQuery : filters ? filters : ''
             }
           });
-      },       
+      },
       findPublications: function(searchTerm, limit) {
         //TODO
       },
@@ -71,7 +71,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           }
         };
         return $http(request);
-      }, 
+      },
       findAnnotationsForProduct: function(searchTerm) {
         var request = {
           method: 'POST',
