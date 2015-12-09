@@ -346,9 +346,9 @@
         <tr>
           <th colspan="2">Ontology Development Project</th>
         </tr>
-        <tr>
-          <td>{{termModel.plannedChanges.title}}</td>
-          <td><a class="quickgo-link" href="{{termModel.plannedChanges.url}}" target="_blanket">Link</a></td>
+        <tr ng-repeat="plannedChange in termModel.plannedChanges">
+          <td>{{plannedChange.title}}</td>
+          <td><a class="quickgo-link" href="{{plannedChange.url}}" target="_blanket">Link</a></td>
         </tr>
       </table>
     </section>
