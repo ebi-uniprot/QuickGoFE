@@ -3,30 +3,31 @@
 /* Color
 ===================================================*/
 
+/*
 // Common
-$white : #FFFFFF;
-$black : #000;
-$off-black: #333;
+//$white : #FFFFFF;
+//$black : #000;
+//$off-black: #333;
 
 //  Colour chart
-$primary1 : #2980B9; /* Button Blue */
-$primary2 : #2C3E50; /* Dark Blue */
-$primary3 : #ECF0F1; /* Grey used for table headers */
-
+//$primary1 : #2980B9; /* Button Blue */ /*
+//$primary2 : #2C3E50; /* Dark Blue */ /*
+//$primary3 : #ECF0F1; /* Grey used for table headers */ /*
+*/
 
 /* Links */
 a,
 a:link,
 a:visited{
-  color: $primary1;
+  color: #2980B9;
 
 }
 
 a:hover,
 a:focus,
 a:active{
-  color: $primary1;
-  border-bottom: 1px dotted $primary1;
+  color: #2980B9;
+  border-bottom: 1px dotted #2980B9;
 }
 
 .icon-conceptual:before,
@@ -35,17 +36,17 @@ a.button.icon-functional:before,
 .icon-static:before,
 .icon-generic:before{
   font-size: 108%;
-  color: $primary1;
+  color: #2980B9;
 }
 
 
 /* Headings */
 h1, h2, h3, h4, h5, h6{
-  color: $primary2;
+  color: #2C3E50;
 }
 
 h3 {
-  border-bottom: 1px dotted $primary1;
+  border-bottom: 1px dotted #2980B9;
 }
 
 h1 a:link,
@@ -65,14 +66,14 @@ h6 a:visited {
 
 /* Table heading cells */
 th {
-  background-color: $primary3;
+  background-color: #ECF0F1;
  }
 
 /* Colour the faux-underline for local menu items */
 div#local-masthead ul li a:hover,
 div#local-masthead ul li a:focus,
 div#local-masthead ul li a:active {
-border-bottom: 3px solid $primary1;
+border-bottom: 3px solid #2980B9;
 }
 
 /* Buttons */
@@ -88,5 +89,5 @@ ul.action-buttons-grouped {
 }
 
 #warning.icon-generic:before {
-    color: $black;
+    color: black;
 }
