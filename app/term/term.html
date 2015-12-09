@@ -348,7 +348,7 @@
         </tr>
         <tr ng-repeat="plannedChange in termModel.plannedChanges">
           <td>{{plannedChange.title}}</td>
-          <td><a class="quickgo-link" href="{{plannedChange.url}}" target="_blanket">Link</a></td>
+          <td><a class="quickgo-link" href="{{plannedChange.url}}" target="_blank">Link</a></td>
         </tr>
       </table>
     </section>
@@ -366,7 +366,7 @@
         <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
           <td>{{crossontology.relation}}</td>
           <td>{{crossontology.otherNamespace}}</td>
-          <td><a class="quickgo-link" href="{{crossontology.url}}" target="_blanket">{{crossontology.foreignID}}</a></td>
+          <td><a class="quickgo-link" href="{{crossontology.url}}" target="_blank">{{crossontology.foreignID}}</a></td>
           <td>{{crossontology.foreignTerm}}</td>
         </tr>
       </table>
