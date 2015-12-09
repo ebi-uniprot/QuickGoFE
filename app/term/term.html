@@ -335,6 +335,24 @@
       </table>
     </section>
 
+    <!-- GO Discussions AKA Planned Changes-->
+    <section id="goDiscussions" ng-if="termModel.plannedChanges.length > 0">
+      <h3 class="term-section-header">Annotation Guidance</h3>
+
+      <p>The GO editorial group is intending to improve the information provided in this area of the GO.
+        If you would like to be involved in discussions regarding this development activity, please email the GO Consortium.
+        Please note that it is still appropriate to use this term for curation or analysis purpose:</p>
+      <table id="plannedChangesTable" class="two-colours">
+        <tr>
+          <th colspan="2">Ontology Development Project</th>
+        </tr>
+        <tr>
+          <td>{{plannedChanges.title}}</td>
+          <td><a class="quickgo-link" href="{{plannedChanges.url}}" target="_blanket">Link</a></td>
+        </tr>
+      </table>
+    </section>
+
     <!-- Cross Ontology Relations -->
     <section id="termCrossOntologyRelations" ng-if="termModel.crossOntologyRelations.length > 0">
       <h3 class="term-section-header">Cross-Ontology Relations</h3>
