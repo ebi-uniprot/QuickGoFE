@@ -1,7 +1,7 @@
 angular
 	.module('quickGoFeApp')
-	.directive('megasearch', ['$q', '$timeout', 'searchService', '$location',
-		function($q, $timeout, searchService, $location) {
+	.directive('megasearch', ['$q', '$timeout', 'searchService', '$location', '$document',
+		function($q, $timeout, searchService, $location, $document) {
 		return {
 			restrict: 'AEC',
 			scope: {
@@ -51,12 +51,22 @@ angular
 					scope.products = [];
 				}
 
-				window.onclick = function() {
-					if(!scope.noInput) {
+				//Only close on click if it's open in a panel
+				if (!scope.noInput) {
+					$document.bind('click', function(event) {
+						var isAnchor = event.target.localName === 'a';
+
+						var isClickedElementChildOfPopup = elem[0]
+							.contains(event.target);
+
+						if (isClickedElementChildOfPopup && !isAnchor)
+							return;
+
 						reset();
 						scope.$apply();
-					}
+					});
 				}
+
 
 				if(scope.noInput) {
 					loadData();
