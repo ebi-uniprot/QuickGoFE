@@ -182,13 +182,13 @@
 
             <tr ng-repeat="evidenceModel in evidencesArray">
               <td class="aFilter">
-                <input type="checkbox" id="{{evidenceModel.ecoTerm}}"
-                       ng-model="advancedFilters.boolean.ecoID[evidenceModel.ecoTerm]"
-                       ng-checked="advancedFilters.boolean.ecoID[evidenceModel.ecoTerm]">
-                <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('{{evidenceModel.ecoTerm}}')">{{evidenceModel.ecoTerm}}</span>
+                <input type="checkbox" id="{{evidenceModel.ecoID}}"
+                       ng-model="advancedFilters.boolean.ecoID[evidenceModel.ecoID]"
+                       ng-checked="advancedFilters.boolean.ecoID[evidenceModel.ecoID]">
+                <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('{{evidenceModel.ecoID}}')">{{evidenceModel.ecoID}}</span>
               </td>
               <td>
-                <label for="{{evidenceModel.ecoTerm}}">({{evidenceModel.evidenceKey}}) {{evidenceModel.evidence}}</label>
+                <label for="{{evidenceModel.ecoID}}">({{evidenceModel.evidenceGOID}}) {{evidenceModel.evidenceName}}</label>
               </td>
             </tr>
           </table>

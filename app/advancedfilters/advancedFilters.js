@@ -76,24 +76,16 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
   var resultET = evidencetypes.query();
   resultET.$promise.then(function(data){
     $scope.evidenceTypes = data;
-    console.log("Got Evidence Types", $scope.evidenceTypes);
-
-    //Load filters containing evidenceTypes only after evidence types have been loaded.
-    //todo replace this with loading the evidenceTypes only once
-
-    var ecocode0000352 = {ecoTerm:'ECO:0000352', evidenceKey: 'IMP,IGI,IPI,IDA,IEP,EXP,ISS,TAS,NAS,ND,IC,RCA,IBA,IBD,IKR,IRD,ISA,ISM,ISO,IGC', evidence:'Manual Experimental'};
-    $scope.evidencesArray.push(ecocode0000352);
-
-    var ecocode0000269 = {ecoTerm:'ECO:0000269', evidenceKey: 'IDA,IMP,IPI,IGI,IEP,EXP', evidence:'Manual Experimental'};
-    $scope.evidencesArray.push(ecocode0000269);
+    $scope.evidenceTypes.sort(compare);       //The order of the evidence codes is important
 
     for (i = 0; i < $scope.evidenceTypes.length; i++) {
 
-      $scope.evidencesArray.push({ecoTerm:$scope.evidenceTypes[i].ecoTerm, evidenceKey: $scope.evidenceTypes[i].evidenceKey, evidence:$scope.evidenceTypes[i].evidence});
+      $scope.evidencesArray.push({ecoID:$scope.evidenceTypes[i].ecoID,
+                                  evidenceGOID: $scope.evidenceTypes[i].evidenceGOID,
+                                  evidenceName: $scope.evidenceTypes[i].evidenceName,
+                                  evidenceSortOrder: $scope.evidenceTypes[i].evidenceSortOrder});
 
     }
-
-    console.log("Got evidence types, found", $scope.evidencesArray);
 
     var i;
 
@@ -103,16 +95,12 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
       //Evidence
       if (filters[i].type == 'ecoID') {
 
-
-
         //requested taxon in hardcoded list, then populate boolean otherwise populate text
         var ecoCounter;
         var commonEco = false;
         for (ecoCounter = 0; ecoCounter < $scope.evidencesArray.length; ecoCounter++) {
 
-          console.log("Iterating evidence types, found", $scope.evidencesArray[ecoCounter].ecoTerm);
-
-          if ($scope.evidencesArray[ecoCounter].ecoTerm == filters[i].value) {
+          if ($scope.evidencesArray[ecoCounter].ecoID == filters[i].value) {
             console.log("Loading evidence with", filters[i].value);
             $scope.advancedFilters.boolean.ecoID[filters[i].value] = true;
             commonEco = true;
@@ -127,8 +115,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
       }
 
     }
-
-
 
   });
 
@@ -406,6 +392,16 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
   $scope.ok = function () {
     $uibModalInstance.dismiss('cancel');
   };
+
+  /**
+   * ---------------------------------------------- Sort Evidences ----------------------------------------------
+   */
+
+  function compare(a,b) {
+    console.log( b.evidenceSortOrder);
+    return a.evidenceSortOrder - b.evidenceSortOrder;
+  }
+
 
 });
 
