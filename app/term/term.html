@@ -27,10 +27,13 @@
       <h5>Description</h5>
       <p>
         {{termModel.definition}}
-          <a ng-repeat="xrefDef in termModel.definitionXrefs" class="quickgo-link" href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
-             target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
+          <span ng-repeat="xrefDef in termModel.definitionXrefs">
+            <a class="quickgo-link" href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
+             target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a> 
+          </span>
       </p>
     </section>
+
 
     <!-- Restrictions -->
     <section ng-if="showRestrictions">
