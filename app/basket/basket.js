@@ -3,7 +3,7 @@
  */
 
 app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
-                                      filteringService, quickGOHelperService, termService ) {
+                                      filteringService, quickGOHelperService, termService, $window) {
 
 
   $scope.loadBasketItems = function() {
@@ -102,16 +102,15 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Filter using basket go terms
    */
   $scope.filterUsingBasketTerms = function () {
-
-    for (i = 0; i < $scope.basketItems.length; i++) {
-      filteringService.saveValuesAsFilter('goID', $scope.basketItems[i].termId)
-    }
+    angular.forEach($scope.basketItems, function(item){
+      filteringService.saveValuesAsFilter('goID', item.termId);
+    });
 
     //Let the annotation list code know we have updated the filters
-    $scope.$emit('filtersUpdate', 0);
-
-    //Goodbye
+    $scope.$emit('filtersUpdate', 0); //Xav: is this required?
     $uibModalInstance.dismiss('cancel');
+
+    $window.location.href= "#annotations";
   };
 
   /**
@@ -131,12 +130,11 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
   $scope.exportBasket = function () {
 
     var text = '';
-    for (i = 0; i < $scope.basketItems.length; i++) {
-
-      text += $scope.basketItems[i].termId + "\t";
-      text += $scope.basketItems[i].aspect + "\t";
-      text += $scope.basketItems[i].name + "\n";
-    }
+    angular.forEach($scope.basketItems, function(item){
+      text += item.termId + "\t";
+      text += item.aspectDescription + "\t";
+      text += item.name + "\n";
+    });
 
     //Download blob
     var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
