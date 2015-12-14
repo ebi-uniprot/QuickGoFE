@@ -557,9 +557,18 @@ textarea.sidebar {
 }
 
 
+/* Web Servcies PAGE ----------------------------------------------------------------------------------------------------*/
 
+.webservices code{
+  margin: 10px;
+  padding: 10px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
 
-
+.webservices h4{
+  margin: 30px 0 10px 0;
+}
 
 /* TERM PAGE ----------------------------------------------------------------------------------------------------*/
 
