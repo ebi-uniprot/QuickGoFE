@@ -124,20 +124,45 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   // Basket terms
   $scope.addBasketTerms = function() {
     var items = _.filter(_.keys($scope.basketSelection), function(item){
+      console.log("basketselection",$scope.basketSelection);
+      console.log("Ticked item: ",item);
       return $scope.basketSelection[item];
     });
     termService.getTerms(items).then(function(res){
+      console.log(res.data);
       addItemsToSelection(res.data);
+      $scope.basketSelection = [];
+
+      // now make the items that exist in the selection, greyed out in the pick list
+
+
     });
     //reset selection
     $scope.basketSelection = _.map($scope.basketSelection, function(key, val){
       return {key: false};
     });
+
   };
+
+  // now make the items that exist in the selection, greyed out in the pick list
+var disableBasketItemsSelected = function(basketItemsList) {
+// first make them all active
+
+
+// compare them to the selectedItems list and deactive any that feature there
+
+
+
+};
+
+
+
 
   var addItemsToSelection = function(itemsToAdd) {
     var beforeItemCount = $scope.selectedItems.length;
+//    console.log(beforeItemCount);
     var union = _.union($scope.selectedItems, itemsToAdd);
+//    console.log(union);
     $scope.selectedItems = _.uniq(union, function(term){
       return term.termId;
     });
