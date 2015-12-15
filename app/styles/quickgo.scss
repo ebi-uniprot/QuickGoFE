@@ -517,6 +517,19 @@ ul.results-list li {
 
 .filter-list {
   line-height: 2em;
+  li {
+    padding:0 5px;
+    &.active {
+      border-left:2px green solid;
+      a, a:link, a:hover, a:visited {
+        font-weight:bold;
+        color: black;
+        border-bottom:none;
+        cursor:default;
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/

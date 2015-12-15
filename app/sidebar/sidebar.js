@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 17/04/2015.
  */
-app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringService, hardCodedDataService) {
+app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringService, hardCodedDataService, $routeParams) {
 
 
   $scope.showInitialTaxons=1;
@@ -15,6 +15,9 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
 
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.initialTaxonomies = hardCodedDataService.getInitialTaxonomies();
+
+  $scope.displayStats = $location.path().lastIndexOf('statistics') > 0;
+  console.log($scope.displayStats);
 
 
   /**

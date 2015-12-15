@@ -22,9 +22,6 @@ app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) 
     //Create the object to send to the server
     var filterRequest = {};
     filterRequest.list = filteringService.getFilters();
-    //filterRequest.rows = $scope.annotationsPerPage;
-    //filterRequest.page = pageNumber;
-    //filterRequest.isSlim = filteringService.isSlimming();
 
 
     // Post the filter request to the webservice
@@ -41,7 +38,6 @@ app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) 
     $scope.statsPromise = $http(request);
     $scope.statsPromise.success(function (data) {
 
-      console.log("got the stats response back ", data);
       $scope.stats = data;
       $scope.statsBean =  $scope.stats.statsBean;
     });
