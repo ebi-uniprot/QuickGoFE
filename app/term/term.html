@@ -29,7 +29,7 @@
         {{termModel.definition}}
           <span ng-repeat="xrefDef in termModel.definitionXrefs">
             <a class="quickgo-link" href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
-             target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a> 
+             target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
           </span>
       </p>
     </section>
@@ -272,7 +272,6 @@
       <p>The use of this term should conform to the following taxon constraints:</p>
       <table id="taxonconstraintsTable" class="two-colours">
         <tr>
-          <th>Taxon Rule</th>
           <th>Ancestor GO ID</th>
           <th>Ancestor GO Term Name</th>
           <th>Relationship</th>
@@ -281,10 +280,10 @@
           <th>Reference(s)</th>
         </tr>
         <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
-          <td>{{taxonconstraint.ruleId}}</td>
           <td><a class="quickgo-link" href="#/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
           <td>{{taxonconstraint.name}}</td>
-          <td>{{taxonconstraint.relationship.text}}</td>
+          <td ng-if="taxonconstraint.relationship == 'ONLY_IN_TAXON'">Only in Taxon</td>
+          <td ng-if="taxonconstraint.relationship != 'ONLY_IN_TAXON'">Never in Taxon</td>
           <td>{{taxonconstraint.taxId}}</td>
           <td>{{taxonconstraint.taxonName}}</td>
           <td>
