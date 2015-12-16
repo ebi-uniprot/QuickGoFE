@@ -2,9 +2,10 @@
 @import 'quickgo-colours';
 
 /* Universal         -------------------------------------------------------------------------------------------------*/
+
 a:hover {
- cursor:pointer;
- text-decoration: none;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .text-nowrap {
@@ -12,10 +13,11 @@ a:hover {
 }
 
 .quickgo-content {
-  background-color:$white;
+  background-color: $white;
 }
 
 /* Stop bullets points appearing, say for the filter by taxon list.*/
+
 ul {
   list-style-type: none;
   padding-left: 9px;
@@ -30,10 +32,9 @@ ul {
   padding-top: 1em;
   padding-bottom: 1em;
   background-color: $verylightgrey;
-}
-
-.quickgo-panel h3 {
-  border-bottom: none;
+  h3 {
+    border-bottom: none;
+  }
 }
 
 .credit-image {
@@ -46,38 +47,36 @@ ul {
   color: $midgrey;
 }
 
-a.icon,
-a.icon:link,
-a.icon:active,
-a.icon:visited {
+a.icon {
   border-bottom: none !important;
-}
-a.icon:before {
-  color: $primary1 !important;
+  &:link, &:active, &:visited {
+    border-bottom: none !important;
+  }
+  &:before {
+    color: $primary1 !important;
+  }
+  &:hover::before {
+    color: $ebigreen !important;
+  }
 }
 
-a.icon:hover::before  {
-  color: $ebigreen !important;
-}
-
-.alert.ng-hide-add,
-.alert.ng-hide-remove {
+.alert {
+  &.ng-hide-add, &.ng-hide-remove {
     -moz-transition: 0.5s linear all;
     -o-transition: 0.5s linear all;
     -webkit-transition: 0.5s linear all;
     transition: 0.5s linear all;
     display: block !important;
     opacity: 1;
-}
-
-
-.alert.ng-hide {
+  }
+  &.ng-hide {
     opacity: 0;
+  }
 }
 
 .ellipsis {
   display: inline-block;
-  max-width:200px;
+  max-width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -91,220 +90,270 @@ a.icon:hover::before  {
 /* This section holds the our app title*/
 
 div#local-masthead {
-  background-color:$white;
-  background-position:top right;
+  background-color: $white;
+  background-position: top right;
   background-image: url(../images/bg4.png);
   background-repeat: no-repeat;
 }
 
-#local-title.logo-title h1 {
-  color:$primary6;
-}
-
-#local-title.logo-title .typeahead-box span {
-  margin: 0;
-  float: none;
-  display: inline-block;
+#local-title.logo-title {
+  h1 {
+    color: $primary6;
+  }
+  .typeahead-box span {
+    margin: 0;
+    float: none;
+    display: inline-block;
+  }
 }
 
 #beta-message {
   background-color: $lightgrey;
 }
 
-#quickgo-local-logo{
+#quickgo-local-logo {
   min-width: 110px;
   min-height: 66px;
-  padding:10px;
-  margin-bottom:10px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 /* STRUCTURE  --------------------------------------------------------------------------------------------------------*/
+
 body {
   max-width: 100%;
   width: 100%;
-  background-color:$white;
+  background-color: $white;
   line-height: normal;
   font-size: small;
 }
 
 /* DEFAULT FORM ELEMENTS ---------------------------------------------------------------------------------------------*/
-textarea.default {
-  width: 100%;
-  height: 8em;
-}
-textarea.small {
-  width: 20em;
-  height: 4em;
-  margin-left: 10px;
+
+textarea {
+  &.default {
+    width: 100%;
+    height: 8em;
+  }
+  &.small {
+    width: 20em;
+    height: 4em;
+    margin-left: 10px;
+  }
 }
 
 /* DIRECTIVES ---------------------------------------------------------------------------------------------*/
-.quickgo-btn,
-a.quickgo-btn,
-.quickgo-btn:active,
-.quickgo-btn:visited,
-.quickgo-btn:focus {
+
+.quickgo-btn, a.quickgo-btn {
   border: 1px solid $primary1;
-  background-color: $primary6;
+  background-color: $quickgo-button;
   color: $white;
   font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
 }
 
-.quickgo-btn:hover {
-  background-color: $primary1;
-  color:$white;
+.quickgo-btn {
+  &:active, &:visited, &:focus {
+    border: 1px solid $primary1;
+    background-color: $quickgo-button;
+    color: $white;
+    font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
+  }
+  &:hover {
+    background-color: $primary1;
+    color: $white;
+  }
+  &:before {
+    color: $white!important;
+  }
 }
 
-.quickgo-btn:before {
-  color: $white !important;
-}
-
-.basket-btn, .chart-btn {
+.basket-btn {
   border-radius: 10px;
   font-size: 10px;
-  color:$white;
-  width:20px;
-  height:20px;
+  color: $white;
+  width: 20px;
+  height: 20px;
   line-height: 20px;
   display: inline-block;
 }
+
 .chart-btn {
+  border-radius: 10px;
+  font-size: 10px;
+  color: $white;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  display: inline-block;
   border-radius: 2px;
   font-size: 13px;
 }
 
-.basket-btn:before, .chart-btn:before {
-  color: $white !important;
+.basket-btn:before {
+  color: $white!important;
   font-weight: lighter;
   text-align: center;
   padding-left: 4px;
 }
-.chart-btn:before{
+
+.chart-btn:before {
+  color: $white!important;
+  font-weight: lighter;
+  text-align: center;
+  padding-left: 4px;
   padding-left: 3px;
 }
 
-.basket-btn:hover {
-  background-color: green !important;
-}
-
-.basket-btn.basket-added {
-  background-color: green;
-}
-
-.basket-btn.basket-added:hover {
-  background-color:red !important;
+.basket-btn {
+  &:hover {
+    background-color: green !important;
+  }
+  &.basket-added {
+    background-color: green;
+    &:hover {
+      background-color: red !important;
+    }
+  }
 }
 
 mega-search {
   display: block;
 }
 
-.annotations-link,
-.annotations-link:link,
-.annotations-link:visited,
-.typeahead-box a.annotations-link,
-.typeahead-box a.annotations-link:link,
-.typeahead-box a.annotations-link:visited {
+.annotations-link {
   cursor: pointer;
   white-space: nowrap;
-  background-color: $primary6 !important;
-  color:$white !important;
-  padding:.2em .8em !important;
+  background-color: $quickgo-button !important;
+  color: $white!important;
+  padding: .2em .8em !important;
   border-bottom: none;
   border-radius: 1em;
   border-style: none !important;
+  &:link, &:visited {
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: $quickgo-button !important;
+    color: $white!important;
+    padding: .2em .8em !important;
+    border-bottom: none;
+    border-radius: 1em;
+    border-style: none !important;
+  }
 }
 
-.annotations-link:hover,
-.typeahead-box a.annotations-link:hover {
+.typeahead-box a.annotations-link {
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: $quickgo-button !important;
+  color: $white!important;
+  padding: .2em .8em !important;
+  border-bottom: none;
+  border-radius: 1em;
+  border-style: none !important;
+  &:link, &:visited {
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: $quickgo-button !important;
+    color: $white!important;
+    padding: .2em .8em !important;
+    border-bottom: none;
+    border-radius: 1em;
+    border-style: none !important;
+  }
+}
+
+.annotations-link:hover, .typeahead-box a.annotations-link:hover {
   opacity: .7;
-  color:$white;
+  color: $white;
 }
-
 
 /* GENERAL MODAL -----------------------------------------------------------------------------------------------------*/
+
 .quickgo-modal {
   margin: 20px;
 }
 
 /* Homepage   ----------------------------------------------------------------------------------------------------------*/
 
-.homePageBox{
+.homePageBox {
   text-align: center;
-}
-.homePageBox h2{
-  color:$white;
-  text-align: center;
-}
-
-.homePageBox,
-.homePageBox h2 a,
-.homePageBox a{
-  color:$white;
+  h2 {
+    color: $white;
+    text-align: center;
+    a {
+      color: $white;
+      padding-top: 0px;
+    }
+  }
+  color: $white;
+  padding-top: 0px;
+  a {
+    color: $white;
     padding-top: 0px;
+    &:hover {
+      border-bottom: 1px dotted $white;
+    }
+  }
 }
 
-.homePageBox a:hover{
-  border-bottom: 1px dotted$white;
-
-}
-
-#searchTerms{
+#searchTerms {
   background-color: $primary7;
   margin-bottom: 20px;
   min-height: 150px;
   margin-top: 20px;
 }
-#investigateGoSlims{
+
+#investigateGoSlims {
   background-color: $primary6;
   min-height: 250px;
 }
-#goAnnotations{
+
+#goAnnotations {
   background-color: $primary6;
   min-height: 250px;
+  img {
+    margin-top: 10px;
+  }
 }
-#goAnnotations img{
+
+#investigateGoSlims img {
   margin-top: 10px;
 }
-#investigateGoSlims img{
-  margin-top: 10px;
-}
-#goAnnotations:hover{
-  cursor: pointer;
-  background-color: $primary5;
-}
-#investigateGoSlims:hover{
+
+#goAnnotations:hover, #investigateGoSlims:hover {
   cursor: pointer;
   background-color: $primary5;
 }
 
-.intro_text{
+.intro_text {
   margin-top: 1em;
   margin-bottom: 0;
-}
-.intro_text p{
-  margin-top: 0;
-  margin-bottom: 1em;
+  p {
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
 }
 
-.helpIcon{
+.helpIcon {
   font-size: 1.5em;
   margin-top: 4px;
 }
-html.fontface .helpIcon::before{
-    color:$white;
-    background-color: none;
-    border-radius: 30px;
+
+html.fontface .helpIcon::before {
+  color: $white;
+  background-color: none;
+  border-radius: 30px;
 }
 
-.homepageInfo{
+.homepageInfo {
   padding: 10px;
   margin-bottom: 10px;
-  background-color: $white; /* F5F5F5*/
+  background-color: $white;
+  /* F5F5F5*/
   color: $darkishgrey;
 }
 
-a.toolBoxLink{
+a.toolBoxLink {
   border-bottom: none;
 }
 
@@ -322,11 +371,10 @@ td.aFilter {
   background-color: $primary4;
 }
 
-
 /* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
 
 #searchbox {
-  background-color:$white;
+  background-color: $white;
   height: 34px;
   padding: 6px 12px;
   border: 1px solid $lightgrey;
@@ -334,74 +382,75 @@ td.aFilter {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   padding-left: 10px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   width: 100%;
 }
 
-div.masthead ul.dropdown-menu li {
-  float: none;
-}
-
-div#search-area ul.dropdown-menu li.active a{
-  color:$white;
-}
-
-div#search-area ul.dropdown-menu li a.ng-scope:hover {
-  color:$white;
+div {
+  &.masthead ul.dropdown-menu li {
+    float: none;
+  }
+  &#search-area ul.dropdown-menu li {
+    &.active a, a.ng-scope:hover {
+      color: $white;
+    }
+  }
 }
 
 #search-area {
   margin: 7px;
   padding: 3px;
-  border-color: $primary2;
+  border-color: $primary4;
   min-width: 60%;
 }
 
 /* Explore Biology    ---------------------------------------------------------------------------------------------------------*/
 
-.slimsSelector{
+.slimsSelector {
   margin-left: 10px;
 }
 
-.selectContainer{
+.selectContainer {
   padding: 20px;
   border-left: 1px solid $lightgrey;
   border-right: 1px solid $lightgrey;
   border-bottom: 1px solid $lightgrey;
+  ul {
+    margin-top: 10px;
+    min-height: 100px;
+  }
 }
 
-.selectContainer ul{
-  margin-top: 10px;
-  min-height: 100px;
-}
+.slimsOptions {}
 
-.yourSelectionContainer{
+.yourSelectionContainer {
   border-top: 1px solid $lightgrey;
   padding: 10px;
-}
-.yourSelectionContainer ul{
-  margin-left: 30px;
+  ul {
+    margin-left: 30px;
+    li {
+      margin-top: 3px;
+    }
+  }
 }
 
-.yourSelectionContainer ul li{
-  margin-top: 3px;
-}
-
-.yourSelectionHeader{
+.yourSelectionHeader {
   border-bottom: none;
   margin-top: 30px;
 }
 
-.sectionEmpty{
+.sectionEmpty {
   color: $lightgrey;
 }
-.additionalOptionsDeactivated,
-.additionalOptionsDeactivated h3,
-.additionalOptionsDeactivated h5{
+
+.additionalOptionsDeactivated {
   color: $lightgrey;
+  h3, h5 {
+    color: $lightgrey;
+  }
 }
 
 #selectionHeader.affix {
@@ -412,80 +461,83 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   border-bottom: 1px solid $lightgrey;
 }
 
-.successMessage{
+.successMessage {
   background-color: red;
-  color:$white;
+  color: $white;
 }
 
-#nothingYetSelected h4{
+#nothingYetSelected h4 {
   color: $lightgrey;
 }
 
-
 /* RESULTS    ---------------------------------------------------------------------------------------------------------*/
+
 .typeahead-box {
-  width:100%;
+  width: 100%;
   background: $white;
   position: absolute;
   z-index: 1000;
-  float:left;
+  float: left;
   border: 1px solid $lightgrey;
-  border: 1px solid rgba(0,0,0,.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
-  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
-}
-
-.typeahead-box p {
-  font-style: italic;
-  color:$darkgrey !important;
-  text-shadow:none !important;
-  text-align: center;
-}
-
-.typeahead-box hr {
-  width: 90%;
-}
-
-.typeahead-box h3 {
-  border:none;
+  p {
+    font-style: italic;
+    color: $darkgrey !important;
+    text-shadow: none !important;
+    text-align: center;
+  }
+  hr {
+    width: 90%;
+  }
+  h3 {
+    border: none;
+  }
 }
 
 ul.results-list {
   margin-top: 0;
   background-color: transparent !important;
+  li {
+    display: block;
+    line-height: 2em;
+    margin: .5em 1em;
+    border: none;
+    float: none !important;
+    white-space: nowrap;
+  }
 }
 
-ul.results-list li {
-  display: block;
-  line-height: 2em;
-  margin: .5em 1em;
-  border:none;
-  float: none !important;
-  white-space: nowrap;
-}
-
-.typeahead-box a, .typeahead-box a:link, .typeahead-box a:visited {
+.typeahead-box a {
   padding: 0 !important;
   display: inline;
-  color:$primary1 !important;
+  color: $primary1 !important;
   text-shadow: none !important;
   border-bottom: 1px dotted $darkgrey !important;
+  &:link, &:visited {
+    padding: 0 !important;
+    display: inline;
+    color: $primary1 !important;
+    text-shadow: none !important;
+    border-bottom: 1px dotted $darkgrey !important;
+  }
+  &:hover {
+    background-color: transparent !important;
+    color: $ebigreen !important;
+  }
 }
 
-.typeahead-box a:hover {
-  background-color: transparent !important;
-  color: $ebigreen !important;
-}
-
-#resultsSidebar{
+#resultsSidebar {
   max-height: 300px;
   overflow: auto;
 }
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
+
 #basket {
-  color: $black;
+  color: black;
   padding: 2px;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
@@ -498,18 +550,18 @@ ul.results-list li {
 }
 
 .popBasket {
-  background-color:$white;
+  background-color: $white;
 }
 
 /* PAGINATION   ------------------------------------------------------------------------------------------------------*/
-
 
 .pagination {
   margin: 0px !important;
 }
 
 .highlight-viewBy {
-  background-color: $primary4;  /* this colour needs to change as its the row highlight colour - Mark*/
+  background-color: $primary4;
+  /* this colour needs to change as its the row highlight colour - Mark*/
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -526,7 +578,7 @@ ul.results-list li {
       border-left:2px green solid;
       a, a:link, a:hover, a:visited {
         font-weight:bold;
-        color: $black;
+        color: black;
         border-bottom:none;
         cursor:default;
         text-decoration: none;
@@ -535,16 +587,20 @@ ul.results-list li {
   }
 }
 
+
+
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
 
 td.sidebar-appliedFilter {
-  background-color:$white;
+  background-color: $white;
 }
 
 textarea.sidebar {
   height: 6em;
   width: 100%;
 }
+
+/* Highlight search term in search results*/
 
 .highlighted {
   background-color: $yellowhighlight;
@@ -559,47 +615,44 @@ textarea.sidebar {
   margin-bottom: 5px;
 }
 
-
 /* Statistics PAGE ----------------------------------------------------------------------------------------------------*/
 
-.statsContent{
+.statsContent {
   padding: 10px;
-
+  div {
+    margin-top: 10px;
+  }
 }
-.statsContent div{
-  margin-top: 10px;
-}
-
 
 /* Web Servcies PAGE ----------------------------------------------------------------------------------------------------*/
 
-.webservices code{
-  margin: 10px;
-  padding: 10px;
-  margin-left: 20px;
-  margin-bottom: 20px;
-}
-
-.webservices h4{
-  margin: 30px 0 10px 0;
+.webservices {
+  code {
+    margin: 10px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  h4 {
+    margin: 30px 0 10px 0;
+  }
 }
 
 /* TERM PAGE ----------------------------------------------------------------------------------------------------*/
 
-.quickgo-hoz-header th{
+.quickgo-hoz-header th {
   min-width: 265px;
   text-align: right;
 }
 
-li.section-disabled a, l
-i.section-disabled a:hover {
-  color: rgba(18, 80, 84, 0.24)!important;
+li.section-disabled a, l i.section-disabled a:hover {
+  color: rgba(18, 80, 84, 0.24) !important;
   cursor: default;
   text-decoration: none;
   border-bottom: none;
 }
 
-#term-changelog-selection li{
+#term-changelog-selection li {
   display: inline;
   padding: 6px;
   margin: 5px;
@@ -612,21 +665,18 @@ i.section-disabled a:hover {
 
 #term-section-nav {
   line-height: 2em;
-}
-
-#term-section-nav.fixed {
-  position: fixed;
-  top:10px;
-}
-
-#term-section-nav li {
-  display: block;
-  padding-left: 1em;
-  border-left:2px solid $white;
-}
-
-#term-section-nav li.active {
-  border-left:2px solid $primary1;
+  &.fixed {
+    position: fixed;
+    top: 10px;
+  }
+  li {
+    display: block;
+    padding-left: 1em;
+    border-left: 2px solid $white;
+    &.active {
+      border-left: 2px solid $primary1;
+    }
+  }
 }
 
 .term-section-header {
@@ -644,28 +694,41 @@ li.slim {
   float: left;
   width: 1000px;
 }
-.viewChartButton{
+
+.viewChartButton {
   margin-right: 10px;
 }
 
+.panelzz-title {
+  font-size: 13px;
+}
+
+.panelzz-group .panelzz {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
 /* ADVANCED FILTERS MODAL DIALOGUE ----------------------------------------------------------------------------------*/
+
 .app-modal-window .modal-dialog {
   width: 90%;
 }
 
-li.main {
-  padding: 4px;
-}
-
-li.sub-1 {
-  padding: 2px;
+li {
+  &.main {
+    padding: 4px;
+  }
+  &.sub-1 {
+    padding: 2px;
+  }
 }
 
 /* ANCESTOR GRAPH  ---------------------------------------------------------------------------------------------------*/
+
 IMG.displayed {
   display: block;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
 }
 
 .action-buttons-grouped {
