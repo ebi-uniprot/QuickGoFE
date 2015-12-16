@@ -102,20 +102,14 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   // Own terms
   $scope.addOwnTerms = function() {
-    var ownTerms = _.uniq($scope.slimOwnTerms.replace( /\n/g, " " ).split(/[\s,]+/));
-    $scope.ownTermPromise = termService.getTerms(ownTerms.toString());
-    $scope.ownTermPromise.then(function(res) {
-      //Add items to scope
-      addItemsToSelection(_.filter(res.data, function(item){
-        return item.termId; //currently needed because service returns empty object if not found. Bad bad bad service. #GOA-1652
-      }));
-      var missmatches = _.difference(ownTerms, _.pluck(res.data, 'termId'));
-      if(missmatches.length > 0) {
+    $scope.ownTermPromise = basketService.validateTerms($scope.slimOwnTerms);
+    $scope.ownTermPromise.then(function(res){
+      addItemsToSelection(res.valid);
+      if(res.missmatches.length > 0) {
         $scope.otherAlerts.push(
-          {type: 'warning',msg: missmatches + ' are not valid identifiers.'}
+          {type: 'warning',msg: res.missmatches + ' are not valid identifiers.'}
         );
       }
-
       //Clean up text area
       $scope.slimOwnTerms = '';
     });
