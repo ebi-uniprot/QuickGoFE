@@ -1,3 +1,6 @@
+
+@import 'quickgo-colours';
+
 /* Universal         -------------------------------------------------------------------------------------------------*/
 a:hover {
  cursor:pointer;
@@ -9,7 +12,7 @@ a:hover {
 }
 
 .quickgo-content {
-  background-color: white;
+  background-color:$white;
 }
 
 /* Stop bullets points appearing, say for the filter by taxon list.*/
@@ -26,7 +29,7 @@ ul {
   border-radius: 6px;
   padding-top: 1em;
   padding-bottom: 1em;
-  background-color: #f4f5f7;
+  background-color: $verylightgrey;
 }
 
 .quickgo-panel h3 {
@@ -40,7 +43,7 @@ ul {
 }
 
 .obsolete {
-  color: #999;
+  color: $midgrey;
 }
 
 a.icon,
@@ -50,11 +53,11 @@ a.icon:visited {
   border-bottom: none !important;
 }
 a.icon:before {
-  color: #2980B9 !important;
+  color: $primary1 !important;
 }
 
 a.icon:hover::before  {
-  color: #00742B !important;
+  color: $ebigreen !important;
 }
 
 .alert.ng-hide-add,
@@ -88,14 +91,14 @@ a.icon:hover::before  {
 /* This section holds the our app title*/
 
 div#local-masthead {
-  background-color: white;
+  background-color:$white;
   background-position:top right;
   background-image: url(../images/bg4.png);
   background-repeat: no-repeat;
 }
 
 #local-title.logo-title h1 {
-  color:#00abd8;
+  color:$primary6;
 }
 
 #local-title.logo-title .typeahead-box span {
@@ -105,7 +108,7 @@ div#local-masthead {
 }
 
 #beta-message {
-  background-color:lightgrey;
+  background-color: $lightgrey;
 }
 
 #quickgo-local-logo{
@@ -119,7 +122,7 @@ div#local-masthead {
 body {
   max-width: 100%;
   width: 100%;
-  background-color: white;
+  background-color:$white;
   line-height: normal;
   font-size: small;
 }
@@ -141,25 +144,25 @@ a.quickgo-btn,
 .quickgo-btn:active,
 .quickgo-btn:visited,
 .quickgo-btn:focus {
-  border: 1px solid #2980B9;
-  background-color: #329DE3;
-  color: #FFF;
+  border: 1px solid $primary1;
+  background-color: $primary6;
+  color: $white;
   font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
 }
 
 .quickgo-btn:hover {
-  background-color: #2980B9;
-  color:#FFF;
+  background-color: $primary1;
+  color:$white;
 }
 
 .quickgo-btn:before {
-  color: #FFF !important;
+  color: $white !important;
 }
 
 .basket-btn, .chart-btn {
   border-radius: 10px;
   font-size: 10px;
-  color:#FFF;
+  color:$white;
   width:20px;
   height:20px;
   line-height: 20px;
@@ -171,7 +174,7 @@ a.quickgo-btn,
 }
 
 .basket-btn:before, .chart-btn:before {
-  color: #FFF !important;
+  color: $white !important;
   font-weight: lighter;
   text-align: center;
   padding-left: 4px;
@@ -196,21 +199,26 @@ mega-search {
   display: block;
 }
 
-.annotations-link, .annotations-link:link,  .annotations-link:visited,
-.typeahead-box a.annotations-link, .typeahead-box a.annotations-link:link, .typeahead-box a.annotations-link:visited {
+.annotations-link,
+.annotations-link:link,
+.annotations-link:visited,
+.typeahead-box a.annotations-link,
+.typeahead-box a.annotations-link:link,
+.typeahead-box a.annotations-link:visited {
   cursor: pointer;
   white-space: nowrap;
-  background-color: #329DE3 !important;
-  color:#FFF !important;
+  background-color: $primary6 !important;
+  color:$white !important;
   padding:.2em .8em !important;
   border-bottom: none;
   border-radius: 1em;
   border-style: none !important;
 }
 
-.annotations-link:hover, .typeahead-box a.annotations-link:hover {
+.annotations-link:hover,
+.typeahead-box a.annotations-link:hover {
   opacity: .7;
-  color:#FFF;
+  color:$white;
 }
 
 
@@ -225,34 +233,34 @@ mega-search {
   text-align: center;
 }
 .homePageBox h2{
-  color: white;
+  color:$white;
   text-align: center;
 }
 
 .homePageBox,
 .homePageBox h2 a,
 .homePageBox a{
-  color: white;
+  color:$white;
     padding-top: 0px;
 }
 
 .homePageBox a:hover{
-  border-bottom: 1px dotted white;
+  border-bottom: 1px dotted$white;
 
 }
 
 #searchTerms{
-  background-color: #006f91;
+  background-color: $primary7;
   margin-bottom: 20px;
   min-height: 150px;
   margin-top: 20px;
 }
 #investigateGoSlims{
-  background-color: #00a9de;
+  background-color: $primary6;
   min-height: 250px;
 }
 #goAnnotations{
-  background-color: #00a9de;
+  background-color: $primary6;
   min-height: 250px;
 }
 #goAnnotations img{
@@ -261,14 +269,13 @@ mega-search {
 #investigateGoSlims img{
   margin-top: 10px;
 }
-
 #goAnnotations:hover{
   cursor: pointer;
-  background-color: #E89A4C;
+  background-color: $primary5;
 }
 #investigateGoSlims:hover{
   cursor: pointer;
-  background-color: #E89A4C;
+  background-color: $primary5;
 }
 
 .intro_text{
@@ -285,7 +292,7 @@ mega-search {
   margin-top: 4px;
 }
 html.fontface .helpIcon::before{
-    color: white;
+    color:$white;
     background-color: none;
     border-radius: 30px;
 }
@@ -293,8 +300,8 @@ html.fontface .helpIcon::before{
 .homepageInfo{
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #fff; /* F5F5F5*/
-  color: #666;
+  background-color: $white; /* F5F5F5*/
+  color: $darkishgrey;
 }
 
 a.toolBoxLink{
@@ -312,17 +319,17 @@ td.aFilter {
 }
 
 .two-colours tr:nth-child(odd) {
-  background-color: #defcfc;
+  background-color: $primary4;
 }
 
 
 /* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
 
 #searchbox {
-  background-color: white;
+  background-color:$white;
   height: 34px;
   padding: 6px 12px;
-  border: 1px solid #CCC;
+  border: 1px solid $lightgrey;
   border-radius: 4px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
@@ -339,17 +346,17 @@ div.masthead ul.dropdown-menu li {
 }
 
 div#search-area ul.dropdown-menu li.active a{
-  color: white;
+  color:$white;
 }
 
 div#search-area ul.dropdown-menu li a.ng-scope:hover {
-  color: white;
+  color:$white;
 }
 
 #search-area {
   margin: 7px;
   padding: 3px;
-  border-color: #bce7e7;
+  border-color: $primary2;
   min-width: 60%;
 }
 
@@ -361,9 +368,9 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
 
 .selectContainer{
   padding: 20px;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-left: 1px solid $lightgrey;
+  border-right: 1px solid $lightgrey;
+  border-bottom: 1px solid $lightgrey;
 }
 
 .selectContainer ul{
@@ -371,12 +378,8 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   min-height: 100px;
 }
 
-.slimsOptions{
-
-}
-
 .yourSelectionContainer{
-  border-top: 1px solid #ccc;
+  border-top: 1px solid $lightgrey;
   padding: 10px;
 }
 .yourSelectionContainer ul{
@@ -387,46 +390,46 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
   margin-top: 3px;
 }
 
-
 .yourSelectionHeader{
   border-bottom: none;
   margin-top: 30px;
 }
 
 .sectionEmpty{
-  color: #ccc;
+  color: $lightgrey;
 }
-.additionalOptionsDeactivated, .additionalOptionsDeactivated h3, .additionalOptionsDeactivated h5{
-  color: #ccc;
+.additionalOptionsDeactivated,
+.additionalOptionsDeactivated h3,
+.additionalOptionsDeactivated h5{
+  color: $lightgrey;
 }
 
 #selectionHeader.affix {
   top: 0;
   width: 100%;
-  background-color: #ffffff;
-    z-index: 100;
-    border-bottom: 1px solid #cccccc;
+  background-color: $white;
+  z-index: 100;
+  border-bottom: 1px solid $lightgrey;
 }
 
 .successMessage{
   background-color: red;
-  color: white;
+  color:$white;
 }
 
 #nothingYetSelected h4{
-  color: #ccc;
+  color: $lightgrey;
 }
-
 
 
 /* RESULTS    ---------------------------------------------------------------------------------------------------------*/
 .typeahead-box {
   width:100%;
-  background: #FFF;
+  background: $white;
   position: absolute;
   z-index: 1000;
   float:left;
-  border: 1px solid #ccc;
+  border: 1px solid $lightgrey;
   border: 1px solid rgba(0,0,0,.15);
   border-radius: 4px;
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
@@ -435,7 +438,7 @@ div#search-area ul.dropdown-menu li a.ng-scope:hover {
 
 .typeahead-box p {
   font-style: italic;
-  color:#333 !important;
+  color:$darkgrey !important;
   text-shadow:none !important;
   text-align: center;
 }
@@ -465,14 +468,14 @@ ul.results-list li {
 .typeahead-box a, .typeahead-box a:link, .typeahead-box a:visited {
   padding: 0 !important;
   display: inline;
-  color:#2980B9 !important;
+  color:$primary1 !important;
   text-shadow: none !important;
-  border-bottom: 1px dotted #222 !important;
+  border-bottom: 1px dotted $darkgrey !important;
 }
 
 .typeahead-box a:hover {
   background-color: transparent !important;
-  color: #00742B !important;
+  color: $ebigreen !important;
 }
 
 #resultsSidebar{
@@ -495,7 +498,7 @@ ul.results-list li {
 }
 
 .popBasket {
-  background-color: white;
+  background-color:$white;
 }
 
 /* PAGINATION   ------------------------------------------------------------------------------------------------------*/
@@ -506,7 +509,7 @@ ul.results-list li {
 }
 
 .highlight-viewBy {
-  background-color: #defcfc;  /* this colour needs to change as its the row highlight colour - Mark*/
+  background-color: $primary4;  /* this colour needs to change as its the row highlight colour - Mark*/
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;
@@ -535,7 +538,7 @@ ul.results-list li {
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
 
 td.sidebar-appliedFilter {
-  background-color: white;
+  background-color:$white;
 }
 
 textarea.sidebar {
@@ -543,9 +546,8 @@ textarea.sidebar {
   width: 100%;
 }
 
-/* Highlight search term in search results*/
 .highlighted {
-  background-color: #FFFBCC;
+  background-color: $yellowhighlight;
 }
 
 .sidebar-padding {
@@ -559,7 +561,6 @@ textarea.sidebar {
 
 
 /* Statistics PAGE ----------------------------------------------------------------------------------------------------*/
-
 
 .statsContent{
   padding: 10px;
@@ -602,16 +603,11 @@ i.section-disabled a:hover {
   display: inline;
   padding: 6px;
   margin: 5px;
-  background-color: lightgrey;
+  background-color: $lightgrey;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
-}
-
-#term-section {
-  width: 300px;
-  background: greenyellow;
 }
 
 #term-section-nav {
@@ -626,15 +622,15 @@ i.section-disabled a:hover {
 #term-section-nav li {
   display: block;
   padding-left: 1em;
-  border-left:2px solid #FFF;
+  border-left:2px solid $white;
 }
 
 #term-section-nav li.active {
-  border-left:2px solid #2980B9;
+  border-left:2px solid $primary1;
 }
 
 .term-section-header {
-  border-bottom: 1px solid #2C3E50;
+  border-bottom: 1px solid $primary2;
   margin-bottom: .8em;
 }
 
@@ -650,14 +646,6 @@ li.slim {
 }
 .viewChartButton{
   margin-right: 10px;
-}
-
-.panelzz-title{
-  font-size: 13px;
-}
-.panelzz-group .panelzz{
-  padding-top: 0px;
-  padding-bottom: 0px;
 }
 
 /* ADVANCED FILTERS MODAL DIALOGUE ----------------------------------------------------------------------------------*/
