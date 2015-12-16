@@ -28,6 +28,7 @@ module.exports = function(config) {
       'bower_components/angular-scroll/angular-scroll.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-animate/angular-animate.js',
+      'app/**/*.html',
       '.tmp/scripts/config.js',
       'app/scripts/app.js',
       'app/**/*.js',
@@ -56,9 +57,17 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-ng-html2js-preprocessor'
     ],
 
+    preprocessors: {
+      'app/**/*.html': ["ng-html2js"]
+    },
+
+    ngHtml2JsPreprocessor: {
+      moduleName: "templates"
+    },
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: false,
