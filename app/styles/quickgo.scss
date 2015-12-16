@@ -485,7 +485,7 @@ ul.results-list li {
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 #basket {
-  color: black;
+  color: $black;
   padding: 2px;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
@@ -526,7 +526,7 @@ ul.results-list li {
       border-left:2px green solid;
       a, a:link, a:hover, a:visited {
         font-weight:bold;
-        color: black;
+        color: $black;
         border-bottom:none;
         cursor:default;
         text-decoration: none;
