@@ -5,7 +5,6 @@
 app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
                                       filteringService, quickGOHelperService, termService, $window) {
 
-
   $scope.loadBasketItems = function() {
     $scope.basketPromise = basketService.getItems();
     $scope.basketPromise.then(function(d){
@@ -38,26 +37,17 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Create a list of selected ones
    * Pass that list to the filtering service.
    */
-  $scope.submit = function(){
-
-    //This method is entered even when close-> ok() is called
-    //todo this is a hack to get round this -- fix it.
-    if($scope.input_terms == undefined){
-      return;
-    }
-
-    var goIdsTargets = $scope.input_terms.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+/);
-    angular.forEach(goIdsTargets, function(goId){
-      basketService.addBasketItem(goId);
-    })
-
-    $scope.$emit('basketUpdate', basketService.basketQuantity());
-
-    //reload basketItems list
-    $scope.loadBasketItems();
-
-    //Clear the input text field
-    $scope.input_terms = "";
+  $scope.submit = function() {
+    basketService.validateTerms($scope.input_terms).then(function(res) {
+      angular.forEach(res.valid, function(term) {
+        basketService.addBasketItem(term.termId);
+      });
+      $scope.$emit('basketUpdate', basketService.basketQuantity());
+      //reload basketItems list
+      $scope.loadBasketItems();
+      //Clear the input text field
+      $scope.input_terms = "";
+    });
   };
 
   /**

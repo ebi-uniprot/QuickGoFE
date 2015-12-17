@@ -4,7 +4,7 @@
 
 var basketModule = angular.module('quickGoFeApp.BasketModule', []);
 
-basketModule.factory('basketService', function($cookieStore, termService) {
+basketModule.factory('basketService', function($cookieStore, termService, $q) {
 
   var basketList = {};
 
@@ -79,6 +79,24 @@ basketModule.factory('basketService', function($cookieStore, termService) {
   basketList.containsGoTerm = function (termId){
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
     return items.indexOf(termId) > -1;
+  }
+
+  basketList.validateTerms = function(terms) {
+    var defer = $q.defer();
+
+    var ownTerms = _.uniq(terms.replace( /\n/g, " " ).split(/[\s,]+/));
+
+    termService
+      .getTerms(ownTerms.toString())
+      .then(function(res) {
+          var data = {};
+          data.valid = _.filter(res.data, function(item) {
+            return item; //filter out null values
+          });
+          data.missmatches = _.difference(ownTerms, _.pluck(res.data, 'termId'));
+          defer.resolve(data);
+      });
+    return defer.promise;
   }
 
 
