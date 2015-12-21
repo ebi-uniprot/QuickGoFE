@@ -9,13 +9,7 @@
 
 
     <!-- Download menu -->
-    <ul class="action-buttons-grouped decorated" id="resultActionStatsButtons">
-      <li id="downloadStatsItem">
-        <a id="download-stats-button" title="Download statistics" class="icon icon-functional button"
-           data-icon="=">Download</a>
-      </li>
-    </ul>
-
+    <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
 
     <uib-tabset>
       <!--<div id="statisticsTabs">-->
@@ -58,7 +52,7 @@
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per GO ID</h5>
+            <h5>Gene products per GO ID</h5>
             <table id="proteinsByGOID" class="two-colours">
               <tr>
                 <th>Code</th>
@@ -94,7 +88,7 @@
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Aspect</h5>
+            <h5>Gene products per Aspect</h5>
             <table id="proteinsByAspect" class="two-colours">
               <tr>
                 <th>Code</th>
@@ -130,7 +124,7 @@
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Evidence</h5>
+            <h5>Gene products per Evidence</h5>
             <table id="proteinsByEvidence" class="two-colours">
               <tr>
                 <th>Code</th>
@@ -166,7 +160,7 @@
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Reference</h5>
+            <h5>Gene products per Reference</h5>
             <table id="proteinsByReference" class="two-colours">
               <tr>
                 <th>Code</th>
@@ -202,7 +196,7 @@
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Taxon</h5>
+            <h5>Gene products per Taxon</h5>
             <table id="proteinsByTaxon" class="two-colours">
               <tr>
                 <th>Code</th>
@@ -239,7 +233,7 @@
 
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Assigned By</h5>
+            <h5>Gene products per Assigned By</h5>
             <table id="proteinsByAssignedBy" class="two-colours">
               <tr>
                 <th>Code</th>
