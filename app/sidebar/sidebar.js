@@ -119,7 +119,11 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
     $scope.showCommonTaxons=0;
   }
 
-
+$scope.annotationDisplayType = function(toDisplay) {
+    console.log("starting nav");
+    $('#bioView').hide();
+    $('#tabView').hide();
+    $('#'+toDisplay).show();
+  }
 
 });
-

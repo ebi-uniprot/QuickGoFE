@@ -17,75 +17,174 @@
     </div>
 
     <!-- Results -->
-    <div>
-
-      <!-- Results Header-->
-      <table id="assignedByCount" class="two-colours">
-        <tr>
-          <thead>
-          <th ng-repeat="colHeading in annotationColumns">
-            {{colHeading.value}}
-          </th>
-          <th ng-show="isSlim">Original GO Identifier</th>
-          <th ng-show="isSlim">Original GO Term Name</th>
-          </thead>
-        </tr>
-
-        <!-- Results Repeat -->
-        <tr ng-repeat="goTuple in goList.annotationsList">
-
-          <td><a class="quickgo-link" ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
-          </td>
-          <td>{{goTuple.symbol}}</td>
-          <td>{{goTuple.qualifier}}</td>
-
-          <!-- GO Identifier-->
-          <td class="text-nowrap">
-            <a href="#/term/{{searchResult.id}}">{{searchResult.id}}</a>
-            <a class="quickgo-link selectable" href="#/term/{{goTuple.goId}}">{{goTuple.goId}}</a>
-            <basket-button termid="{{goTuple.goId}}"></basket-button>
-            <chart-icon term-id="goTuple.goId" term-name="goTuple.termName"></chart-icon>
-          </td>
-          <!-- GO Term Name-->
-          <td><element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element></td>
-
-          <!-- Aspect-->
-          <td>{{goTuple.aspect}}</td>
-
-          <!-- Evidence: ECO:0000256  (IEA) -->
-          <td>
-            <a class="quickgo-link selectable" ng-click="showEvidenceCodeOntologyGraph(goTuple.evidenceEco)">{{goTuple.evidenceEco}}</a>
-            &nbsp;<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#iea"
-                     target="_blank">({{goTuple.evidenceGo}})</a>
-          </td>
-
-          <!-- Reference eg "GO_REF:0000002" -->
-          <td><a class="quickgo-link"
-                 ng-href="{{goTuple.reference | referenceUrlFilter}}" target="_blank">{{goTuple.reference}}</a>
-          </td>
-
-          <!-- With -->
-          <td><a class="quickgo-link ellipsis" ng-click="showWithString(goTuple.fullWith)" >{{goTuple.fullWith}}</a></td>
-
-          <!-- Taxon-->
-          <td><a class="quickgo-link selectable" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></td>
-
-          <!-- Assigned By-->
-          <td><a class="quickgo-link selectable" ng-click="showAssignedBy(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
-          <td>{{goTuple.fullExtension}}</td>
-          <td ng-show="isSlim">{{goTuple.originalTermId}}</td>
-          <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
-        </tr>
-      </table>
-      <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
 
 
-      <!-- if there are no results tell the user explicitly -->
-      <div ng-show="goList.numberAnnotations==0">
-        <h5>No matching annotations have been found</h5>
+
+
+      <div id="tabView">
+
+        <!-- Results Header-->
+        <table id="assignedByCount" class="two-colours">
+          <tr>
+            <thead>
+            <th ng-repeat="colHeading in annotationColumns">
+              {{colHeading.value}}
+            </th>
+            <th ng-show="isSlim">Original GO Identifier</th>
+            <th ng-show="isSlim">Original GO Term Name</th>
+            </thead>
+          </tr>
+
+          <!-- Results Repeat -->
+          <tr ng-repeat="goTuple in goList.annotationsList">
+
+            <td><a class="quickgo-link" ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
+            </td>
+            <td>{{goTuple.symbol}}</td>
+            <td>{{goTuple.qualifier}}</td>
+
+            <!-- GO Identifier-->
+            <td class="text-nowrap">
+              <a href="#/term/{{searchResult.id}}">{{searchResult.id}}</a>
+              <a class="quickgo-link selectable" href="#/term/{{goTuple.goId}}">{{goTuple.goId}}</a>
+              <basket-button termid="{{goTuple.goId}}"></basket-button>
+              <chart-icon term-id="goTuple.goId" term-name="goTuple.termName"></chart-icon>
+            </td>
+            <!-- GO Term Name-->
+            <td><element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element></td>
+
+            <!-- Aspect-->
+            <td>{{goTuple.aspect}}</td>
+
+            <!-- Evidence: ECO:0000256  (IEA) -->
+            <td>
+              <a class="quickgo-link selectable" ng-click="showEvidenceCodeOntologyGraph(goTuple.evidenceEco)">{{goTuple.evidenceEco}}</a>
+              &nbsp;<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#iea"
+                       target="_blank">({{goTuple.evidenceGo}})</a>
+            </td>
+
+            <!-- Reference eg "GO_REF:0000002" -->
+            <td><a class="quickgo-link"
+                   ng-href="{{goTuple.reference | referenceUrlFilter}}" target="_blank">{{goTuple.reference}}</a>
+            </td>
+
+            <!-- With -->
+            <td><a class="quickgo-link ellipsis" ng-click="showWithString(goTuple.fullWith)" >{{goTuple.fullWith}}</a></td>
+
+            <!-- Taxon-->
+            <td><a class="quickgo-link selectable" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></td>
+
+            <!-- Assigned By-->
+            <td><a class="quickgo-link selectable" ng-click="showAssignedBy(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
+            <td>{{goTuple.fullExtension}}</td>
+            <td ng-show="isSlim">{{goTuple.originalTermId}}</td>
+            <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
+          </tr>
+        </table>
+        <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
+
+
+        <!-- if there are no results tell the user explicitly -->
+        <div ng-show="goList.numberAnnotations==0">
+          <h5>No matching annotations have been found</h5>
+        </div>
+
       </div>
 
-    </div>
+
+
+
+      <div id="bioView">
+
+        <!-- Results Header-->
+        <table id="assignedByCount" class="two-colours">
+          <tr>
+            <thead>
+              <th>Annotation</th>
+              <th>Actions</th>
+              <th>Supporting evidence and links</th>
+            </thead>
+          </tr>
+
+          <!-- Results Repeat -->
+          <tr ng-repeat="goTuple in goList.annotationsList">
+
+            <td>The gene <a class="quickgo-link" ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.symbol}} ({{goTuple.protein}})</a>
+              <span ng-if="goTuple.qualifier == 'involved_in'">involved in </span>
+              <span ng-if="goTuple.qualifier == 'NOT|involved_in'">not involved in </span>
+              <span ng-if="goTuple.qualifier == 'part_of'">part of </span>
+              <span ng-if="goTuple.qualifier == 'NOT|part_of'">not a part of </span>
+              <span ng-if="goTuple.qualifier == 'enables'">enables </span>
+              <span ng-if="goTuple.qualifier == 'NOT|enables'">does not enable </span>
+              <span ng-if="goTuple.qualifier == 'contributes_to'">contributes to </span>
+              <span ng-if="goTuple.qualifier == 'NOT|contributes_to'">does not contribute to </span>
+              <span ng-if="goTuple.qualifier == 'colocalizes_with'">colocalizes with </span>
+              <span ng-if="goTuple.qualifier == 'NOT|colocalizes_with'">does not colocalize with </span>
+              <span ng-if="goTuple.aspect =='F'">molecular function</span>
+              <span ng-if="goTuple.aspect =='P'">biological process</span>
+              <span ng-if="goTuple.aspect =='C'">Cellular component</span> in
+              <a href="#/term/{{searchResult.id}}">
+                <element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element>
+              ({{searchResult.id}}</a><a class="quickgo-link selectable" href="#/term/{{goTuple.goId}}">{{goTuple.goId}})</a>
+            </td>
+            <td>
+              <basket-button termid="{{goTuple.goId}}"></basket-button>
+              <chart-icon term-id="goTuple.goId" term-name="goTuple.termName"></chart-icon>
+            </td>
+
+
+
+            <!-- Evidence: ECO:0000256  (IEA) -->
+            <td>
+                <button ng-click="toggleEvidenceDisplay(goTuple.$$hashKey)">Additional information</button>
+
+              <div ng-hide="evidenceDisplay[goTuple.$$hashKey] != true">
+                  <table id="biologistsView">
+                    <tr>
+                      <td>Show ontology map</td>
+                      <td><a class="quickgo-link selectable" ng-click="showEvidenceCodeOntologyGraph(goTuple.evidenceEco)">{{goTuple.evidenceEco}} <span class="icon icon-functional quickgo-btn chart-btn selectable" data-icon="h"></span></a></td>
+                    </tr>
+                    <tr>
+                      <td>Evidence</td>
+                      <td><a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#iea" target="_blank">({{goTuple.evidenceGo}}) <span class="icon icon-generic selectable" data-icon="x"></span></a></td>
+                    </tr>
+                    <tr>
+                      <td>Reference</td>
+                      <td><a class="quickgo-link" ng-href="{{goTuple.reference | referenceUrlFilter}}" target="_blank">{{goTuple.reference}} <span class="icon icon-generic selectable" data-icon="x"></span></a></td>
+                    </tr>
+                    <tr>
+                      <td>with...</td>
+                      <td><a class="quickgo-link ellipsis" ng-click="showWithString(goTuple.fullWith)" >{{goTuple.fullWith}}</a></td>
+                    </tr>
+                    <tr>
+                      <td>Taxon</td>
+                      <td><a class="quickgo-link selectable" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}} {{goTuple.taxonName}} <span class="icon icon-generic selectable" data-icon="x"></span></a></td>
+                    </tr>
+                    <tr>
+                      <td>Assigned by</td>
+                      <td><a class="quickgo-link selectable" ng-click="showAssignedBy(goTuple.assignedBy)">{{goTuple.assignedBy}} <span class="icon icon-generic selectable" data-icon="x"></span></a></td>
+                    </tr>
+                  </table>
+                </div>
+
+            </td>
+
+
+          </tr>
+        </table>
+        <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
+
+
+        <!-- if there are no results tell the user explicitly -->
+        <div ng-show="goList.numberAnnotations==0">
+          <h5>No matching annotations have been found</h5>
+        </div>
+
+      </div>
+
+
+
+
 
   </div>
   <div class="clearfix"></div>

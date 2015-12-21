@@ -2,7 +2,12 @@
 
   <h4>Display</h4>
   <ul class="filter-list">
-    <li ng-class="{'active' : !displayStats}"><a href="#/annotations">Annotations</a></li>
+    <li ng-class="{'active' : !displayStats}"><a href="#/annotations">Annotations</a>
+    <ul>
+      <li class="clickable" ng-click="annotationDisplayType('tabView')">Tabular</li>
+      <li class="clickable" ng-click="annotationDisplayType('bioView')">Biologists</li>
+    </ul>
+  </li>
     <li ng-class="{'active' : displayStats}"><a href="#/statistics">Statistics</a></li>
   </ul>
 
