@@ -3,7 +3,7 @@
 
 /* Universal         -------------------------------------------------------------------------------------------------*/
 
-a:hover, .clickable {
+a:hover {
   cursor: pointer;
   text-decoration: none;
 }
@@ -370,24 +370,6 @@ td.aFilter {
 .two-colours tr:nth-child(odd) {
   background-color: $primary4;
 }
-
-
-#biologistsView tr:nth-child(odd) {
-      background-color: $white;
-    }
-
-#biologistsView tr > td:first-child{
-  font-weight: bold;
-   background-color: $lightgrey;
- }
-
-#bioView{
-  display: none;
-}
-
-
-
-
 
 /* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
 

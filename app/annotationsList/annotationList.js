@@ -60,18 +60,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     $scope.resultsPromise = $http(request);
     $scope.resultsPromise.success(function(data) {
       $scope.goList = data;
-          console.log(data);
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
     });
 
   }
-
-  $scope.evidenceDisplay = {};
-  $scope.toggleEvidenceDisplay = function(id) {
-    $scope.evidenceDisplay[id] = ($scope.evidenceDisplay[id]) ? !$scope.evidenceDisplay[id] : true;
-  }
-
-  
 
 
   /**
