@@ -123,7 +123,7 @@
               <span ng-if="goTuple.aspect =='F'">molecular function</span>
               <span ng-if="goTuple.aspect =='P'">biological process</span>
               <span ng-if="goTuple.aspect =='C'">Cellular component</span> in
-              <a href="#/term/{{goTuple.goId}}">
+              <a href="#/term/{{searchResult.id}}">
                 <element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element>
               ({{searchResult.id}}</a><a class="quickgo-link selectable" href="#/term/{{goTuple.goId}}">{{goTuple.goId}})</a>
             </td>
@@ -132,6 +132,9 @@
               <chart-icon term-id="goTuple.goId" term-name="goTuple.termName"></chart-icon>
             </td>
 
+
+
+            <!-- Evidence: ECO:0000256  (IEA) -->
             <td>
                 <button ng-click="toggleEvidenceDisplay(goTuple.$$hashKey)">Additional information</button>
 
@@ -150,7 +153,7 @@
                       <td><a class="quickgo-link" ng-href="{{goTuple.reference | referenceUrlFilter}}" target="_blank">{{goTuple.reference}} <span class="icon icon-generic selectable" data-icon="x"></span></a></td>
                     </tr>
                     <tr>
-                      <td>with</td>
+                      <td>with...</td>
                       <td><a class="quickgo-link ellipsis" ng-click="showWithString(goTuple.fullWith)" >{{goTuple.fullWith}}</a></td>
                     </tr>
                     <tr>
