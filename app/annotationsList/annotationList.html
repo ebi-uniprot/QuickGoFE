@@ -110,10 +110,10 @@
           <tr ng-repeat="goTuple in goList.annotationsList">
 
             <td>The gene <a class="quickgo-link" ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.symbol}} ({{goTuple.protein}})</a>
-              <span ng-if="goTuple.qualifier == 'involved_in'">is involved in </span>
-              <span ng-if="goTuple.qualifier == 'NOT|involved_in'">is not involved in </span>
-              <span ng-if="goTuple.qualifier == 'part_of'">is part of </span>
-              <span ng-if="goTuple.qualifier == 'NOT|part_of'">is not a part of </span>
+              <span ng-if="goTuple.qualifier == 'involved_in'">involved in </span>
+              <span ng-if="goTuple.qualifier == 'NOT|involved_in'">not involved in </span>
+              <span ng-if="goTuple.qualifier == 'part_of'">part of </span>
+              <span ng-if="goTuple.qualifier == 'NOT|part_of'">not a part of </span>
               <span ng-if="goTuple.qualifier == 'enables'">enables </span>
               <span ng-if="goTuple.qualifier == 'NOT|enables'">does not enable </span>
               <span ng-if="goTuple.qualifier == 'contributes_to'">contributes to </span>
@@ -122,7 +122,7 @@
               <span ng-if="goTuple.qualifier == 'NOT|colocalizes_with'">does not colocalize with </span>
               <span ng-if="goTuple.aspect =='F'">molecular function</span>
               <span ng-if="goTuple.aspect =='P'">biological process</span>
-              <span ng-if="goTuple.aspect =='C'">cellular component</span> 
+              <span ng-if="goTuple.aspect =='C'">Cellular component</span> in
               <a href="#/term/{{goTuple.goId}}">
                 <element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element>
               ({{searchResult.id}}</a><a class="quickgo-link selectable" href="#/term/{{goTuple.goId}}">{{goTuple.goId}})</a>
