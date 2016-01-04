@@ -84,13 +84,13 @@
       <tab heading="GO Identifier">
         <ol>
           <li class="main">
-            <strong>Select the terms that you wish to use:</strong>
-
+            <span ng-show="basketItems.length>0"><strong>Select/Enter the terms that you wish to use:</strong></span>
+            <span ng-show="basketItems.length==0"><strong>Enter the terms that you wish to use:</strong></span>
             <!-- 3 choices -->
 
             <!-- Select from basket -->
             <ol style="list-style: disc">
-            <li class="sub-1" ng-show="basketItems.length>0">From your basket:
+            <li class="sub-1" ng-show="basketItems.length>0">Select from your basket:
               <ul>
                 <li ng-repeat="basketItem in basketItems">
                 <input type="checkbox" id="{{basketItem.termId}}"
@@ -100,7 +100,7 @@
                 </li>
               </ul>
             </li>
-            <li class="sub-1" ng-show="basketItems.length==0">No terms avaliable from the basket.</li>
+            <li class="sub-1" ng-show="basketItems.length==0">(No terms avaliable in your basket)</li>
 
             <!-- Enter list of GO identifiers-->
             <li class="sub-1">Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:
@@ -113,7 +113,6 @@
           <!-- How use-->
 
             <li class="main"><strong>Select how you want to use the terms that you have chosen:</strong>
-
             <section>
               <ul>
                 <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="ancestor"> Find annotations to <strong>descendants</strong> of these
@@ -126,24 +125,22 @@
             </li>
 
           <!-- Select Relationship-->
-          <section ng-show="advancedFilters.text.goTermUse=='slim' || advancedFilters.text.goTermUse=='ancestor'">
-            <li><strong>Select which relationship an annotated term should have to the terms above:</strong>
-               <ul>
-                <li>Select which relationship an annotated term should have to the terms above:</li>
-                <li><input type="radio" name="closure" value="I"
-                           ng-model="advancedFilters.text.goRelations">is_a only
-                </li>
-                <li><input type="radio" name="closure" value="IPO"
-                           ng-model="advancedFilters.text.goRelations">is_a, part_of
-                </li>
-
-                <li><input type="radio" name="closure" value="IPOR"
-                           ng-model="advancedFilters.text.goRelations">is_a, part_of,regulates
-                </li>
-              </ul>
-            </li>
-          </section>
-            </ol>
+          <li class="main"><strong>Select which relationship an annotated term should have to the terms above:</strong>
+            <section ng-show="advancedFilters.text.goTermUse=='slim' || advancedFilters.text.goTermUse=='ancestor'">
+                 <ul>
+                  <li><input type="radio" name="closure" value="I"
+                             ng-model="advancedFilters.text.goRelations"> "is a"
+                  </li>
+                  <li><input type="radio" name="closure" value="IPO"
+                             ng-model="advancedFilters.text.goRelations"> "is a", "part of"
+                  </li>
+                  <li><input type="radio" name="closure" value="IPOR"
+                             ng-model="advancedFilters.text.goRelations"> "is a", "part of", "regulates"
+                  </li>
+                </ul>
+            </section>
+          </li>
+        </ol>
       </tab>
 
       <tab heading="Aspect">
@@ -160,7 +157,7 @@
                                               ng-true-value="'Process'"> Biological Process
             </div>
             <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.Component"
-                                              ng-true-value="'Component'">Cellular Component
+                                              ng-true-value="'Component'"> Cellular Component
             </div>
           </div>
         </div>
@@ -201,8 +198,8 @@
           <!-- Include Child Terms need to create a filter with values such as ecoAncestorsI : ECO:0000266 -->
           <!-- Option Exact match needs to create a filter with values such as ECOID : ECO:0000255-->
 
-          <br><input type="radio" ng-model="advancedFilters.text.ecoTermUse" value="ancestor">Include Child Terms
-          <br><input type="radio" ng-model="advancedFilters.text.ecoTermUse" value="exact"/>Exact match
+          <br><input type="radio" ng-model="advancedFilters.text.ecoTermUse" value="ancestor"> Include Child Terms
+          <br><input type="radio" ng-model="advancedFilters.text.ecoTermUse" value="exact"/> Exact match
 
         </div>
       </tab>
@@ -311,11 +308,10 @@
 
   </div><!-- End of my tabs -->
 
-  <div>
+  <div class="advancedFiltersActionButtons">
       <button class="btn quickgo-btn" type="button" ng-click="cancel()">Cancel</button>
       <button class="btn quickgo-btn" type="button" ng-click="submit()">Submit</button>
     </div>
 
   <!--</form>-->
 </div>
-
