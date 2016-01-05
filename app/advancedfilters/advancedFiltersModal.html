@@ -84,8 +84,7 @@
       <tab heading="GO Identifier">
         <ol>
           <li class="main">
-            <span ng-show="basketItems.length>0"><strong>Select/Enter the terms that you wish to use:</strong></span>
-            <span ng-show="basketItems.length==0"><strong>Enter the terms that you wish to use:</strong></span>
+            <span ng-show="basketItems.length>0"><strong>Select/</strong></span><strong>Enter the terms that you wish to use:</strong>
             <!-- 3 choices -->
 
             <!-- Select from basket -->
@@ -108,7 +107,6 @@
               <textarea ng-model="advancedFilters.text.goID" class="default"></textarea>
             </li>
           </ol>
-
 
           <!-- How use-->
 
@@ -307,8 +305,8 @@
 
 
   </div><!-- End of my tabs -->
-
-  <div class="advancedFiltersActionButtons">
+<hr />
+  <div>
       <button class="btn quickgo-btn" type="button" ng-click="cancel()">Cancel</button>
       <button class="btn quickgo-btn" type="button" ng-click="submit()">Submit</button>
     </div>
