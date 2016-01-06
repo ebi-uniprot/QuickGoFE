@@ -377,7 +377,7 @@
         </tr>
       </table>
     </section>
-    
+
     <!-- GO Slims -->
     <section id="termGOSlims" ng-if="termModel.subsets.length > 0">
       <h3 class="term-section-header">GO Slims</h3>
@@ -415,32 +415,109 @@
     <!-- Change log -->
     <section id="termHistory">
       <h3 class="term-section-header">Change Log</h3>
-      <p>Show the following categories of data:</p>
-      <!-- The user can select what category types to see-->
-      <ul id="term-changelog-selection">
-        <li><input type="checkbox" ng-model="showCategoryTerm">Terms</li>
-        <li><input type="checkbox" ng-model="showCategoryDefinitions">Definitions</li>
-        <li><input type="checkbox" ng-model="showCategoryRelationships">Relationships</li>
-        <li><input type="checkbox" ng-model="showCategoryOther">Other</li>
-        <li><input type="checkbox" ng-model="showCategoryCrossReferences">Cross-References</li>
-        <li><input type="checkbox" ng-model="showCategoryObsoletions">Obsoletions</li>
+      <uib-tabset>
+        <uib-tab heading="All changes">
+          <table id="allChangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="history in termModel.history.historyAll" >
+              <td>{{history.timestamp}}</td>
+              <td>{{history.actionString}}</td>
+              <td>{{history.category}}</td>
+              <td>{{history.text}}</td>
+            </tr>
+          </table>
+        </uib-tab>
 
-      </ul>
+        <uib-tab heading="Term">
+          <table id="allChangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="history in termModel.history.historyTerms" >
+              <td>{{history.timestamp}}</td>
+              <td>{{history.actionString}}</td>
+              <td>{{history.category}}</td>
+              <td>{{history.text}}</td>
+            </tr>
+          </table>
+        </uib-tab>
 
-      <table id="allChangesTable" class="two-colours">
-        <tr>
-          <th>Timestamp</th>
-          <th>Action</th>
-          <th>Category</th>
-          <th>Detail</th>
-        </tr>
-        <tr ng-repeat="history in termModel.history.historyAll" ng-show="showChangeLogRow(history.category)">
-          <td>{{history.timestamp}}</td>
-          <td>{{history.actionString}}</td>
-          <td>{{history.category}}</td>
-          <td>{{history.text}}</td>
-        </tr>
-      </table>
+        <uib-tab heading="Definition / Synonyms">
+          <table id="allChangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="history in termModel.history.historyDefinitions" >
+              <td>{{history.timestamp}}</td>
+              <td>{{history.actionString}}</td>
+              <td>{{history.category}}</td>
+              <td>{{history.text}}</td>
+            </tr>
+          </table>
+        </uib-tab>
+
+        <uib-tab heading="Relationships">
+          <table id="allChangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="history in termModel.history.historyRelations" >
+              <td>{{history.timestamp}}</td>
+              <td>{{history.actionString}}</td>
+              <td>{{history.category}}</td>
+              <td>{{history.text}}</td>
+            </tr>
+          </table>
+        </uib-tab>
+
+        <uib-tab heading="Cross-references">
+          <table id="allChangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="history in termModel.history.historyXRefs" >
+              <td>{{history.timestamp}}</td>
+              <td>{{history.actionString}}</td>
+              <td>{{history.category}}</td>
+              <td>{{history.text}}</td>
+            </tr>
+          </table>
+        </uib-tab>
+
+        <uib-tab heading="Other">
+          <table id="allChangesTable" class="two-colours">
+            <tr>
+              <th>Timestamp</th>
+              <th>Action</th>
+              <th>Category</th>
+              <th>Detail</th>
+            </tr>
+            <tr ng-repeat="history in termModel.history.historyOther" >
+              <td>{{history.timestamp}}</td>
+              <td>{{history.actionString}}</td>
+              <td>{{history.category}}</td>
+              <td>{{history.text}}</td>
+            </tr>
+          </table>
+        </uib-tab>
+      </uib-tabset>
     </section>
 
   </div>

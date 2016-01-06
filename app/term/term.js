@@ -92,34 +92,4 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
     }
   });
 
-  $scope.showChangeLogRow = function(category) {
-
-    if (category == 'TERM' && $scope.showCategoryTerm) {
-      return true;
-    }
-
-    if (category == 'DEFINITION' && $scope.showCategoryDefinitions) {
-      return true;
-    }
-
-    if ((category == 'RELATION' || category == 'SYNONYM') && $scope.showCategoryRelationships) {
-      return true;
-    }
-
-    if (category == 'OTHER' && $scope.showCategoryOther) {
-      return true;
-    }
-
-    if (category == 'XREF' && $scope.showCategoryCrossReferences) {
-      return true;
-    }
-
-    if (category == '???' && $scope.showCategoryObsoletions) {
-      return true;
-    }
-
-    return false;
-
-  }
-
 });
