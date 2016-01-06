@@ -76,9 +76,9 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
 
   var references = [
-    {refId:"DOI*", display:"DOI", name:" Any Digital Object Identifier"},
-    {refId:"GO_REF*", display:"GO_REF", name:"Any Gene Ontology Database references"},
-    {refId:"PMID*", display:"PMID", name:"Any PubMed"},
+    {refId:"DOI*", display:"DOI*", name:"Digital Object Identifier"},
+    {refId:"GO_REF*", display:"GO_REF*", name:"Gene Ontology Database references"},
+    {refId:"PMID*", display:"PMID*", name:"PubMed"},
     {refId:"Reactome*", display: "Reactome", name:"Reactome - a curated knowledgebase of biological pathways"},
     {refId:"GO_REF:0000037", display:"GO_REF:0000037", name:"UniProt Keywords2GO (UniProtKB/Swiss-Prot entries)"},
     {refId:"GO_REF:0000038", display:"GO_REF:0000038", name:"UniProt Keywords2GO (UniProtKB/TrEMBL entries)"},
