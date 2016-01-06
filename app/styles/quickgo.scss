@@ -443,13 +443,7 @@ div {
   margin-top: 30px;
 }
 
-.sectionEmpty, .termObsolete {
-  color: $lightgrey;
-}
-
-
-
-.additionalOptionsDeactivated {
+.inactive {
   color: $lightgrey;
   h3, h5 {
     color: $lightgrey;
