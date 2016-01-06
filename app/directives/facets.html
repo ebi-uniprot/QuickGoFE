@@ -3,7 +3,7 @@
 <ul>
   <li ng-repeat="category in facet.categories" ng-click="applyFacet(facet.field.categories, category.key)" ng-switch="isSelected(facet.field, category.name)">
     <strong ng-switch-when="true">{{category.name}} ({{category.count}})</strong>
-    <a ng-switch-when="false" ng-href="#/{{endpoint}}/{{searchTerm}}?filters={{getFilterUrl(facet.field, category.name)}}">{{category.name}} ({{category.count}})</a>
+    <a ng-switch-when="false" ng-href="{{endpoint}}/{{searchTerm}}?filters={{getFilterUrl(facet.field, category.name)}}">{{category.name}} ({{category.count}})</a>
   </li>
 </ul>
 </div>
