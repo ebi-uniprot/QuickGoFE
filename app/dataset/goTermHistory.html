@@ -17,7 +17,7 @@
             <tr ng-repeat="aHistory in history.allChanges">
               <td>{{aHistory.timestamp}}</td>
               <td class="text-nowrap">
-                  <a target="_blank" href="term/{{aHistory.termID}}">{{aHistory.termID}}</a>
+                  <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a>
                   <basket-button termid="{{aHistory.termID}}"></basket-button>
                 </td>
               <td>{{aHistory.termName}}</td>
@@ -41,7 +41,7 @@
             <tr ng-repeat="aHistory in history.termsRecords">
               <td>{{aHistory.timestamp}}</td>
               <td class="text-nowrap">
-                <a target="_blank" href="term/{{aHistory.termID}}">{{aHistory.termID}}</a>
+                <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a>
                 <basket-button termid="{{aHistory.termID}}"></basket-button>
               </td>
               <td>{{aHistory.termName}}</td>
@@ -65,7 +65,7 @@
             <tr ng-repeat="aHistory in history.definitionRecords">
               <td>{{aHistory.timestamp}}</td>
               <td class="text-nowrap">
-                <a target="_blank" href="term/{{aHistory.termID}}">{{aHistory.termID}}</a>
+                <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a>
                 <basket-button termid="{{aHistory.termID}}"></basket-button>
               </td>
               <td>{{aHistory.termName}}</td>
@@ -90,7 +90,7 @@
             <tr ng-repeat="aHistory in history.relationsRecords">
               <td>{{aHistory.timestamp}}</td>
               <td class="text-nowrap">
-                <a target="_blank" href="term/{{aHistory.termID}}">{{aHistory.termID}}</a>
+                <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a>
                 <basket-button termid="{{aHistory.termID}}"></basket-button>
               </td>
               <td>{{aHistory.termName}}</td>
@@ -114,7 +114,7 @@
           <tr ng-repeat="aHistory in history.xrefRecords">
             <td>{{aHistory.timestamp}}</td>
             <td class="text-nowrap">
-                <a target="_blank" href="term/{{aHistory.termID}}">{{aHistory.termID}}</a>
+                <a target="_blank" href="#/term/{{aHistory.termID}}">{{aHistory.termID}}</a>
                 <basket-button termid="{{aHistory.termID}}"></basket-button>
               </td>
             <td>{{aHistory.termName}}</td>

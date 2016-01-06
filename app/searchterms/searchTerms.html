@@ -19,7 +19,7 @@
         <tr ng-repeat="searchResult in results.results">
 
           <td class="text-nowrap">
-            <span><a href="term/{{searchResult.id}}">{{searchResult.id}}</a></span>
+            <span><a href="#/term/{{searchResult.id}}">{{searchResult.id}}</a></span>
             <basket-button termid="{{searchResult.id}}"></basket-button>
             <chart-icon term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
           </td>

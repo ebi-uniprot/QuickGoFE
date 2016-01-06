@@ -15,7 +15,7 @@
     <tr ng-repeat="taxonConstraint in taxonConstraints">
       <td>{{taxonConstraint.ruleId}}</td>
       <td class="text-nowrap">
-        <a href="term/{{taxonConstraint.goId}}">{{taxonConstraint.goId}}</a>
+        <a href="#/term/{{taxonConstraint.goId}}">{{taxonConstraint.goId}}</a>
         <basket-button termid="{{taxonConstraint.goId}}"></basket-button>
       </td>
       <td>{{taxonConstraint.name}}</td>

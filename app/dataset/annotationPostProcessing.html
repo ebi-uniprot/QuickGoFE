@@ -36,21 +36,21 @@
   <tr>
   <tr ng-repeat="postProcessing in annotationPostProcessing.content">
     <td class="text-nowrap">
-      <a href="term/{{postProcessing.originalGoId}}">{{postProcessing.originalGoId}}</a>
+      <a href="#/term/{{postProcessing.originalGoId}}">{{postProcessing.originalGoId}}</a>
       <basket-button termid="{{postProcessing.originalGoId}}"></basket-button>
     </td>
     <td>{{postProcessing.originalTerm}}</td>
     <td>{{postProcessing.cleanupAction}}</td>
     <td>{{postProcessing.affectedTaxGroup}}</td>
     <td class="text-nowrap">
-      <a href="term/{{postProcessing.substitutedGoId}}">{{postProcessing.substitutedGoId}}</a>
+      <a href="#/term/{{postProcessing.substitutedGoId}}">{{postProcessing.substitutedGoId}}</a>
       <basket-button termid="{{postProcessing.substitutedGoId}}"></basket-button>
     </td>
     <td>{{postProcessing.substitutedTerm}}</td>
     <td>{{postProcessing.curatorNotes}}</td>
     <td>{{postProcessing.ruleId}}</td>
     <td class="text-nowrap">
-      <a href="term/{{postProcessing.ancestorGoId}}">{{postProcessing.ancestorGoId}}</a>
+      <a href="#/term/{{postProcessing.ancestorGoId}}">{{postProcessing.ancestorGoId}}</a>
       <basket-button termid="{{postProcessing.ancestorGoId}}"></basket-button>
     </td>
     <td>{{postProcessing.ancestorTerm}}</td>

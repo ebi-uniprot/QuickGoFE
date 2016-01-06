@@ -39,7 +39,6 @@
   <link rel="stylesheet" href="styles/quickgo-colours.css" type="text/css" media="screen">
   <link rel="stylesheet" type="text/css" href="styles/quickgo.css">
   <!-- endbuild -->
-  <base href="/"> 
 </head>
 
 <body class="level2"><!-- add any of your classes or IDs -->
@@ -82,7 +81,7 @@
 
         <!-- Logo -->
         <div ng-class="{'grid_23': location.path() ==='/', 'grid_8' : location.path() !='/'}">
-          <a ng-href="/" accesskey="1" id="logo">
+          <a ng-href="#/" accesskey="1" id="logo">
             <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo.png">
           </a>
           <span><h1 ng-hide="location.path()!=='/'">Gene Ontology and annotations</h1></span>
@@ -105,13 +104,13 @@
 
       <nav ng-controller="BasketNavCtrl">
         <ul class="grid_24 quickgo-nav" id="local-nav">
-          <li><a href="webservices">Web Services</a></li>
-          <li><a href="dataset">Dataset</a></li>
-          <li><a href="help">Help</a></li>
+          <li><a href="#/webservices">Web Services</a></li>
+          <li><a href="#/dataset">Dataset</a></li>
+          <li><a href="#/help">Help</a></li>
           <li class="functional last"><a href="" data-icon="b" ng-click="showBasket()"> Basket &nbsp;
             <span id="basket"  ng-class="{'emptyBasket': countBasket==0, 'popBasket': countBasket>0}"><strong>{{countBasket}}</strong></span></a>
           </li>
-          <li class="functional first"><a href="feedback" class="icon icon-generic" data-icon="\">Contact</a></li>
+          <li class="functional first"><a href="#/feedback" class="icon icon-generic" data-icon="\">Contact</a></li>
         </ul>
       </nav>
 
