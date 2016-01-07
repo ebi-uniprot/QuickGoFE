@@ -8,14 +8,14 @@
 
   <!-- APPLIED FILTERS LIST-->
   <h4>Applied Filters</h4>
-  <element class="filterCount" ng-if="appliedFilters.length==0">[None]</element>
-  <element class="filterCount" ng-if="appliedFilters.length>0">[{{appliedFilters.length}}]</element>
+  <element class="filter-count" ng-if="appliedFilters.length==0">[None]</element>
+  <element class="filter-count" ng-if="appliedFilters.length>0">[{{appliedFilters.length}}]</element>
 
-  <div id="resultsSidebar">
+  <div id="results-sidebar">
   <table class="quickFilter" ng-show="appliedFilters.length>0">
     <tr>
         <tr ng-repeat="filter in appliedFilters">
-          <td class="sidebar-appliedFilter" ng-if="filter">
+          <td class="sidebar-applied-filter" ng-if="filter">
             {{filter.type}} : {{filter.value}}
             <a class="icon icon-functional pull-right" data-icon="x" ng-if="filter.type!='goTermUse' && filter.type!='goRelations'" ng-click="removeFilter(filter)"></a>
           </td>

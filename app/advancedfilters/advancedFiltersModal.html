@@ -176,7 +176,7 @@
 
 
             <tr ng-repeat="evidenceModel in evidencesArray">
-              <td class="aFilter">
+              <td class="a-filter">
                 <input type="checkbox" id="{{evidenceModel.ecoID}}"
                        ng-model="advancedFilters.boolean.ecoID[evidenceModel.ecoID]"
                        ng-checked="advancedFilters.boolean.ecoID[evidenceModel.ecoID]">
@@ -222,7 +222,7 @@
           </tr>
           </thead>
           <tr ng-repeat="aRef in referenceList">
-            <td class="aFilter">
+            <td class="a-filter">
               <input type="checkbox" id="{{aRef.refId}}" ng-model="advancedFilters.boolean.reference[aRef.refId]"
                      ng-checked="advancedFilters.boolean.reference[aRef.refId]"> <strong>{{aRef.display}}</strong>
             </td>
@@ -243,7 +243,7 @@
           <th>Group</th>
           </thead>
           <tr ng-repeat="withDB in withDBs">
-            <td class="aFilter">
+            <td class="a-filter">
               <input type="checkbox" value="{{withDB.dbId}}" id="{{withDB.dbId}}"
                      ng-model="advancedFilters.boolean.with[withDB.dbId]"
                      ng-checked="advancedFilters.boolean.with[withDB.dbId]"> {{withDB.dbId}}
@@ -265,7 +265,7 @@
           <th>Title</th>
           </thead>
           <tr ng-repeat="taxon in mostCommonTaxonomies">
-            <td class="aFilter"><input type="checkbox" ng-model="advancedFilters.boolean.taxon[taxon.taxId]"
+            <td class="a-filter"><input type="checkbox" ng-model="advancedFilters.boolean.taxon[taxon.taxId]"
                        ng-checked="advancedFilters.boolean.taxon[taxon.taxId]">
               &nbsp;&nbsp;{{taxon.taxId}}
               </br>
@@ -289,7 +289,7 @@
           <th>Database</th>
           </thead>
           <tr ng-repeat="assignDB in assignDBs">
-            <td class="aFilter">
+            <td class="a-filter">
               <input type="checkbox" id="{{assignDB.dbId}}"
                                                          ng-model="advancedFilters.boolean.assignedby[assignDB.dbId]"
                                                        ng-checked="advancedFilters.boolean.assignedby[assignDB.dbId]"> {{assignDB.dbId}}

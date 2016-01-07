@@ -56,7 +56,7 @@ a.icon {
     color: $primary1 !important;
   }
   &:hover::before {
-    color: $ebigreen !important;
+    color: $ebi-green !important;
   }
 }
 
@@ -276,7 +276,7 @@ mega-search {
 
 /* Homepage   ----------------------------------------------------------------------------------------------------------*/
 
-.homePageBox {
+.startpoint-panel {
   text-align: center;
   h2 {
     color: $white;
@@ -297,19 +297,19 @@ mega-search {
   }
 }
 
-#searchTerms {
+#search-terms {
   background-color: $primary7;
   margin-bottom: 20px;
   min-height: 150px;
   margin-top: 20px;
 }
 
-#investigateGoSlims {
+#investigate-go-slims {
   background-color: $primary6;
   min-height: 250px;
 }
 
-#goAnnotations {
+#go-annotations {
   background-color: $primary6;
   min-height: 250px;
   img {
@@ -317,11 +317,11 @@ mega-search {
   }
 }
 
-#investigateGoSlims img {
+#investigate-go-slims img {
   margin-top: 10px;
 }
 
-#goAnnotations:hover, #investigateGoSlims:hover {
+#go-annotations:hover, #investigate-go-slims:hover {
   cursor: pointer;
   background-color: $primary5;
 }
@@ -335,27 +335,23 @@ mega-search {
   }
 }
 
-.helpIcon {
+.help-icon {
   font-size: 1.5em;
   margin-top: 4px;
 }
 
-html.fontface .helpIcon::before {
+html.fontface .help-icon::before {
   color: $white;
   background-color: none;
   border-radius: 30px;
 }
 
-.homepageInfo {
+.homepage-info {
   padding: 10px;
   margin-bottom: 10px;
   background-color: $white;
   /* F5F5F5*/
   color: $darkishgrey;
-}
-
-a.toolBoxLink {
-  border-bottom: none;
 }
 
 /* TABLES   ----------------------------------------------------------------------------------------------------------*/
@@ -364,7 +360,7 @@ table {
   border-style: none none none none;
 }
 
-td.aFilter {
+td.a-filter {
   font-weight: bold;
 }
 
@@ -410,11 +406,11 @@ div {
 
 /* Explore Biology    ---------------------------------------------------------------------------------------------------------*/
 
-.slimsSelector {
+.slims-selector {
   margin-left: 10px;
 }
 
-.selectContainer {
+.select-container {
   padding: 20px;
   border-left: 1px solid $lightgrey;
   border-right: 1px solid $lightgrey;
@@ -425,9 +421,7 @@ div {
   }
 }
 
-.slimsOptions {}
-
-.yourSelectionContainer {
+.your-selection-container {
   border-top: 1px solid $lightgrey;
   padding: 10px;
   ul {
@@ -438,7 +432,7 @@ div {
   }
 }
 
-.yourSelectionHeader {
+.your-selection-header {
   border-bottom: none;
   margin-top: 30px;
 }
@@ -450,7 +444,7 @@ div {
   }
 }
 
-#selectionHeader.affix {
+#selection-header.affix {
   top: 0;
   width: 100%;
   background-color: $white;
@@ -458,12 +452,7 @@ div {
   border-bottom: 1px solid $lightgrey;
 }
 
-.successMessage {
-  background-color: red;
-  color: $white;
-}
-
-#nothingYetSelected h4 {
+#nothing-yet-selected h4 {
   color: $lightgrey;
 }
 
@@ -522,11 +511,11 @@ ul.results-list {
   }
   &:hover {
     background-color: transparent !important;
-    color: $ebigreen !important;
+    color: $ebi-green !important;
   }
 }
 
-#resultsSidebar {
+#results-sidebar {
   max-height: 300px;
   overflow: auto;
 }
@@ -542,11 +531,11 @@ ul.results-list {
   border-bottom-right-radius: 2px;
 }
 
-.emptyBasket {
+.empty-basket {
   background-color: red;
 }
 
-.popBasket {
+.pop-basket {
   background-color: $white;
 }
 
@@ -554,15 +543,6 @@ ul.results-list {
 
 .pagination {
   margin: 0px !important;
-}
-
-.highlight-viewBy {
-  background-color: $primary4;
-  /* this colour needs to change as its the row highlight colour - Mark*/
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
 }
 
 /* ANNOTATION LIST  --------------------------------------------------------------------------------------------------*/
@@ -584,11 +564,9 @@ ul.results-list {
   }
 }
 
-
-
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
 
-td.sidebar-appliedFilter {
+td.sidebar-applied-filter {
   background-color: $white;
 }
 
@@ -600,21 +578,21 @@ textarea.sidebar {
 /* Highlight search term in search results*/
 
 .highlighted {
-  background-color: $yellowhighlight;
+  background-color: $yellow-highlight;
 }
 
 .sidebar-padding {
   margin: 2px;
 }
 
-.filterCount {
+.filter-count {
   margin-left: 10px;
   margin-bottom: 5px;
 }
 
 /* Statistics PAGE ----------------------------------------------------------------------------------------------------*/
 
-.statsContent {
+.stats-content {
   padding: 10px;
   div {
     margin-top: 10px;
@@ -696,17 +674,8 @@ li.slim {
   width: 1000px;
 }
 
-.viewChartButton {
+.view-chart-button {
   margin-right: 10px;
-}
-
-.panelzz-title {
-  font-size: 13px;
-}
-
-.panelzz-group .panelzz {
-  padding-top: 0px;
-  padding-bottom: 0px;
 }
 
 /* ADVANCED FILTERS MODAL DIALOGUE ----------------------------------------------------------------------------------*/
