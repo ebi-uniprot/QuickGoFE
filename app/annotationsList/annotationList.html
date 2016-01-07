@@ -41,8 +41,8 @@
 
           <!-- GO Identifier-->
           <td class="text-nowrap">
-            <a href="#/term/{{searchResult.id}}">{{searchResult.id}}</a>
-            <a class="quickgo-link selectable" href="#/term/{{goTuple.goId}}">{{goTuple.goId}}</a>
+            <a href="term/{{searchResult.id}}">{{searchResult.id}}</a>
+            <a class="quickgo-link selectable" href="term/{{goTuple.goId}}">{{goTuple.goId}}</a>
             <basket-button termid="{{goTuple.goId}}"></basket-button>
             <chart-icon term-id="goTuple.goId" term-name="goTuple.termName"></chart-icon>
           </td>
@@ -54,7 +54,7 @@
 
           <!-- Evidence: ECO:0000256  (IEA) -->
           <td>
-            <a class="quickgo-link selectable" href="#/term/{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>
+            <a class="quickgo-link selectable" href="term/{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>
             &nbsp;<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{goTuple.evidenceGo | lowercase}}"
                      target="_blank">({{goTuple.evidenceGo}})</a>
             <a class="quickgo-link selectable" ng-click="showEvidenceCodeOntologyGraph(goTuple.evidenceEco)">

@@ -79,7 +79,7 @@
           <td><a href="#" ng-click="getAssociatedAnnotations('dbObjectID','{{blacklistentry.proteinAc}}')">{{blacklistentry.proteinAc}}</a>
           </td>
           <td class="text-nowrap">
-            <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a>
+            <a href="term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a>
             <basket-button termid="{{blacklistentry.goId}}"></basket-button>
           </td>
           <td>{{blacklistentry.reason}}</td>
@@ -98,7 +98,7 @@
         <tr ng-repeat="blacklistentry in annotationBlacklist.blackListNotQualified">
           <td>{{blacklistentry.proteinAc}}</td>
           <td class="text-nowrap">
-            <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a>
+            <a href="term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a>
             <basket-button termid="{{blacklistentry.goId}}"></basket-button>
           </td>
           <td>{{blacklistentry.reason}}</td>
@@ -116,7 +116,7 @@
         <tr ng-repeat="blacklistentry in annotationBlacklist.blackListUniProtCaution">
           <td>{{blacklistentry.proteinAc}}</td>
           <td class="text-nowrap">
-            <a href="#/term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a>
+            <a href="term/{{blacklistentry.goId}}">{{blacklistentry.goId}}</a>
             <basket-button termid="{{blacklistentry.goId}}"></basket-button>
           </td>
           <td>{{blacklistentry.reason}}</td>
