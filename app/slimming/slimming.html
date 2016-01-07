@@ -4,11 +4,11 @@
   <h2>Explore Biology</h2>
   <p>Make a selection of terms below and submit to see their associated annotations</p>
 
-    <div class="slimsSelector grid_12 ">
+    <div class="slims-selector grid_12 ">
 
       <uib-tabset>
       <uib-tab heading="Predefined GO slims">
-      <div class="selectContainer">
+      <div class="select-container">
         <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets"
         ng-change="updatePredefinedSets()"></select>
         <ul>
@@ -27,23 +27,23 @@
           </li>
         </ul>
         <button class="btn quickgo-btn pull-right" ng-disabled="availablePredefinedTerms.length == 0" ng-click="addPredefined()">Add to selection</button>
-        <button class="btn quickgo-btn icon-functional pull-right viewChartButton" ng-disabled="availablePredefinedTerms.length == 0" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
+        <button class="btn quickgo-btn icon-functional pull-right view-chart-button" ng-disabled="availablePredefinedTerms.length == 0" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
         <div class="clearfix"></div>
         </div>
     </uib-tab>
 
     <uib-tab heading="Input your own">
-    <div class="selectContainer">
+    <div class="select-container">
       <strong>Enter one or more GO terms:</strong><br />
       <textarea class="default" placeholder="e.g. GO:0008150, GO:0055085, GO:0006811, GO:0006520" ng-model="$parent.$parent.slimOwnTerms" cg-busy="ownTermPromise"></textarea>
       <button class="btn quickgo-btn pull-right" ng-click="addOwnTerms()">Add your Terms</button>
-      <button class="btn quickgo-btn icon-functional pull-right viewChartButton" ng-click="showGraphOwnTerms()" data-icon="h">View Chart</button>
+      <button class="btn quickgo-btn icon-functional pull-right view-chart-button" ng-click="showGraphOwnTerms()" data-icon="h">View Chart</button>
       <div class="clearfix"></div>
     </div>
   </uib-tab>
 
   <uib-tab heading="Select from Basket">
-  <div class="selectContainer">
+  <div class="select-container">
     <strong>Choose terms from your basket </strong>&nbsp;({{basketList.length}}&nbsp;available)
 
     <ul>
@@ -54,7 +54,7 @@
     </ul>
 
     <button class="btn quickgo-btn pull-right" ng-click="addBasketTerms()">Add to selection</button>
-    <button class="btn quickgo-btn icon-functional pull-right viewChartButton" ng-click="showGraphBasketItems()" data-icon="h">View Chart</button>
+    <button class="btn quickgo-btn icon-functional pull-right view-chart-button" ng-click="showGraphBasketItems()" data-icon="h">View Chart</button>
     <div class="clearfix"></div>
   </div>
 </uib-tab>
@@ -63,7 +63,7 @@
 </div>
 
 
-<div ng-class="{'inactive': selectedItems.length <= 0}" class="slimsOptions grid_12">
+<div ng-class="{'inactive': selectedItems.length <= 0}" class="slims-options grid_12">
   <h3>Additional Options</h3>
 
   <uib-accordion close-others="oneAtATime" >
@@ -92,8 +92,8 @@
 
 
 
-<div id="selectionHeader" class="grid_24" data-spy="affix" data-offset-top="700">
-  <h3 class="yourSelectionHeader">
+<div id="selection-header" class="grid_24" data-spy="affix" data-offset-top="700">
+  <h3 class="your-selection-header">
     Your Selection: {{selectedItems.length}}
     <span class="pull-right">
         <button class="btn quickgo-btn icon-functional" ng-disabled="selectedItems.length <= 0" ng-click="showGraph()" data-icon="h">View Chart</button>
@@ -104,8 +104,8 @@
 </div>
 
 
-<div class="yourSelectionContainer grid_24 ">
-  <div ng-if="selectedItems.length <= 0" id="nothingYetSelected">
+<div class="your-selection-container grid_24 ">
+  <div ng-if="selectedItems.length <= 0" id="nothing-yet-selected">
     <h4>Choose or input GO terms above to view your selection here</h4>
   </div>
   <div ng-if="selectedItems.length >= 1">

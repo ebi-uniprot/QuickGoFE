@@ -1,17 +1,17 @@
 /** RESULTS TABLE
 ====================================*/
-.addRemoveColumn {
+.add-remove-column {
   font-family: 'EBI-Functional';
   color: #333333;
   cursor:pointer;
 }
 
-.addRemoveColumn:hover, .addRemoveColumn.hover {
+.add-remove-column:hover, .add-remove-column.hover {
   background-color:#ffffcc;
 }
 
 
-#resultsArea form, #resultsArea table {
+#results-area form, #results-area table {
   padding-left: 0;
   padding-top: 0;
   margin-left: 0;
@@ -42,7 +42,7 @@
   /*vertical-align: middle;*/
 /*}*/
 
-table, .tabsContent table {
+table, .tabs-content table {
   border-collapse: collapse;
   border-bottom: 1px dotted #F1F1F1;
   border-top: 2px solid #F1F1F1;
@@ -64,29 +64,29 @@ table, .tabsContent table {
 }
 
 
-table td,.page table th, .tabsContent table td, .tabsContent table th {
+table td,.page table th, .tabs-content table td, .tabs-content table th {
   padding: 0 0.5em;
   border-right: 1px dotted silver;
   border-left: 1px dotted silver;
 }
 
-table td.entryID {
+table td.entry-id {
   height: 3em;
 
 }
 
-table th.first-column, .tabsContent table th.first-column {
+table th.first-column, .tabs-content table th.first-column {
   width: 15em;
 }
 
-table.databaseTable td.first-column, .tabsContent table.databaseTable td.first-column{
+table.database-table td.first-column, .tabs-content table.database-table td.first-column{
   width: 19em;
   padding-right: 1em;
   text-align:right;
 
 }
 
-table tr th, .tabsContent table tr th {
+table tr th, .tabs-content table tr th {
   border: 1px solid #DEDEDE;
   padding-left: 4px;
   padding-right: 4px;
@@ -96,32 +96,32 @@ table tr th, .tabsContent table tr th {
   text-align: left;
 }
 
-table tr td, .tabsContent table tr td {
+table tr td, .tabs-content table tr td {
   padding:0.3em;
 }
 
-table#results tr td, .tabsContent table tr td{
+table#results tr td, .tabs-content table tr td{
   padding:2px 4px 1px;
 }
 
-table tr td:first-child, .tabsContent table tr td:first-child {
+table tr td:first-child, .tabs-content table tr td:first-child {
   border-left: none;
 }
 
-table tr td:last-child, .tabsContent table tr td:last-child {
+table tr td:last-child, .tabs-content table tr td:last-child {
   border-right: none;
 }
 
-table tr, .tabsContent table tr {
+table tr, .tabs-content table tr {
   border-top: 1px dotted silver;
   border-bottom: 1px dotted silver;
 }
 
-table tr:first-child, .tabsContent table tr:first-child {
+table tr:first-child, .tabs-content table tr:first-child {
   border-top: none;
 }
 
-table tr:last-child, .tabsContent table tr:last-child {
+table tr:last-child, .tabs-content table tr:last-child {
   border-bottom: none;
 }
 
@@ -133,7 +133,7 @@ table#results{
     word-wrap: break-word;*/
 }
 
-div#resultsArea {
+div#results-area {
   overflow-x: auto;
   width: 100%;
 }
@@ -143,12 +143,12 @@ div#resultsArea {
   background-color: #FFFFCC;
 }
 
-.selectAllStatus {
+.select-all-status {
   display:none;
   text-align: center;
 }
 
-table#results .selectAllStatus td{
+table#results .select-all-status td{
   padding-top:10px;
   padding-bottom:10px;
   background-color: #FFFFCC;
@@ -165,7 +165,7 @@ table#results .selectAllStatus td{
   top: 0px;
 }
 
-.statusShow{
+.status-show{
   margin-right: 10px;
   margin-left: 20px;
 }
@@ -177,12 +177,12 @@ table#results .selectAllStatus td{
   font-weight: bold;
 }
 
-.customizeColumnNamesList a{
+.customize-column-names-list a{
   cursor: pointer;
 }
 
-#closeCustomizeColumns{
-  postion:relative;
+#close-customize-columns{
+  position:relative;
   float:right;
 }
 
