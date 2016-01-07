@@ -101,7 +101,7 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        livereload: 35729
+        livereload: 35729,
       },
       livereload: {
         options: {
@@ -331,6 +331,22 @@ module.exports = function (grunt) {
       }
     },
 
+    replace: {
+      dist: {
+        options: {
+          patterns: [
+            {
+              match: /base href=\"\/\"/g,
+              replacement: 'base href="/QuickGO/"'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
+        ]
+      }
+    },
+
 
     // The following *-min tasks will produce minified files in the dist folder
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
@@ -545,7 +561,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'replace'
   ]);
 
   grunt.registerTask('default', [
