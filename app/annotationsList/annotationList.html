@@ -23,8 +23,9 @@
       <table id="assignedByCount" class="two-colours">
         <tr>
           <thead>
-          <th ng-repeat="colHeading in annotationColumns">
-            {{colHeading.value}}
+          <th ng-repeat="colHeading in annotationColumns" >
+            <span uib-tooltip-template="'{{colHeading.name}}.html'">
+            {{colHeading.value}}</span>
           </th>
           <th ng-show="isSlim">Original GO Identifier</th>
           <th ng-show="isSlim">Original GO Term Name</th>
@@ -92,6 +93,21 @@
 
   </div>
   <div class="clearfix"></div>
+
+<!-- Dynamicaly inserted tootltips for column headings -->
+<script type="text/ng-template" id="colGeneProductID.html"><span>The sequence IDs that have been annotated with GO Terms.</span></script>
+<script type="text/ng-template" id="colSymbol.html"><span>The symbols corresponding to the Gene Product ID. An officially approved gene symbol when available or other gene symbols or locus names.</span></script>
+<script type="text/ng-template" id="colQualifier.html"><span>Defines the relationship between Gene product and GO term.</span></script>
+<script type="text/ng-template" id="colGOIdentifier.html"><span>The unique, stable identifier of the GO term.</span></script>
+<script type="text/ng-template" id="colGOTermName.html"><span>The GO term name corresponding to the GO Identifier.</span></script>
+<script type="text/ng-template" id="colAspect.html"><span>The single letter initial of the ontology to which the GO term belongs. One of either F (Molecular Function), P (Biological Process) or C (Cellular Component).</span></script>
+<script type="text/ng-template" id="colEvidence.html"><span>GO terms are assigned to proteins based on different evidence. This is represented by an evidence code.</span></script>
+<script type="text/ng-template" id="colReference.html"><span>A PubMed reference or a GO_REF identifier which contains either the data supporting the annotation or details of the electronic method applied to generate the annotation.</span></script>
+<script type="text/ng-template" id="colWith.html"><span>An additional ID to support annotations using certain evidence codes (including IEA, IPI, IGI, IC and ISS evidences). E.g. UniProtKB:O00341, InterPro:IPROO1878 …</span></script>
+<script type="text/ng-template" id="colTaxon.html"><span>The taxonomic ID for the species being annotated.</span></script>
+<script type="text/ng-template" id="colAssignedBy.html"><span>The database which created the annotation. The GO annotation may not be copied without acknowledgement of the data source.</span></script>
+<script type="text/ng-template" id="colAnnotationExtension.html"><span>Annotation Extension</span></script>
+
 
   <!-- Column display popup -->
   <!--<div ng-include src="'views/annotation/columnDisplay.html'"></div>-->
