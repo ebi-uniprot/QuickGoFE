@@ -337,7 +337,7 @@ module.exports = function (grunt) {
           patterns: [
             {
               match: / href=\"\/\"/g,
-              replacement: 'base href="/QuickGO/"'
+              replacement: ' href="/QuickGO/"'
             }
           ]
         },
