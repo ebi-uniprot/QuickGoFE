@@ -704,3 +704,10 @@ IMG.displayed {
 .action-buttons-grouped {
   display: inline;
 }
+
+.chartTitle{
+  text-align:center;
+  font-weight: bold;
+  max-width: 100%;
+  overflow: auto;
+}

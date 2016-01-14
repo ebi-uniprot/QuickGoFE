@@ -1,11 +1,12 @@
 /**
  * Created by twardell on 07/04/2015.
  */
-app.controller('OntologyGraphCtrl', function($scope, $http, $uibModalInstance, graphModel, ENV) {
+app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalInstance, graphModel, ENV) {
 
   $scope.graphModel = graphModel;
   $scope.imageSource="";
   $scope.targetDomainAndPort=ENV.apiEndpoint;
+  $scope.imagePath="";
 
   var formattedURL=ENV.apiEndpoint+'/ws/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
 
@@ -58,6 +59,13 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $uibModalInstance, g
   $scope.ok = function () {
     $uibModalInstance.dismiss('cancel');
   };
+
+  $scope.newWindow = function () {
+    var imageLocation = $scope.targetDomainAndPort + "/ws/chart?ids=" + $scope.graphModel.id + "&scope=" + $scope.graphModel.scope;
+    console.log(imageLocation);
+    $window.open(imageLocation);
+  };
+
 
   /**
    * End

@@ -1,6 +1,6 @@
 <div class="Modal-box">
   <div id="basket-contents-show" style="top: 34px;" cg-busy="graphPromise">
-    <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong></h5>
+    <h5 class="chartTitle">IDs shown: {{graphModel.id}}&nbsp{{graphModel.name}}</h5>
     <img class="displayed" ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >
 
 
@@ -26,6 +26,8 @@
 
   </div><!--End of modal for ontology hierarchy-->
   <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
+
+    <button class="btn btn-primary" ng-click="newWindow()">View full size chart in new window</button>
+    <button class="btn btn-primary" ng-click="ok()">Close</button>
   </div>
 </div>
