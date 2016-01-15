@@ -24,7 +24,9 @@
 
     <!-- Definition -->
     <section>
-      <h5>Definition</h5>
+      <h5>Definition <span ng-if="termModel.goTerm" style="display:inline-block">(<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
+        GONUTS page</a>)</span></h5>
+
       <p>
         {{termModel.definition}}
           <span ng-repeat="xrefDef in termModel.definitionXrefs">
@@ -53,15 +55,6 @@
     <section ng-if="termModel.altIds.length>0">
     <h5>Secondary IDs</h5>
     <p class="obsolete">{{termModel.altIdsString}}</p>
-    </section>
-
-    <!-- GONUTS! -->
-    <section ng-if="termModel.goTerm">
-    <h5>GONUTS</h5>
-    <p>
-      <td><a class="quickgo-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
-        Wiki Page</a></td>
-    </p>
     </section>
 
     <!-- Aknowledgements -->

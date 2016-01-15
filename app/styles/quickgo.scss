@@ -661,6 +661,12 @@ li.section-disabled a, l i.section-disabled a:hover {
 
 section{
   margin-bottom: 2em;
+   h5 span, h5 span a{
+    font-size: 12px;
+    color: #2980B9;
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+  }
 }
 
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
@@ -705,9 +711,26 @@ IMG.displayed {
   display: inline;
 }
 
-.chartTitle{
-  text-align:center;
-  font-weight: bold;
-  max-width: 100%;
+.ancestor-list{
+  margin-top: 10px;
+  display: inline-block;
+  width: 60%;
+  max-width: 60%;
   overflow: auto;
+  margin-left: 20px;
+  height: 3em;
+  word-wrap: break-word;
+}
+.chart-actions{
+  display: inline-block;
+  text-align: right;
+  margin: 0px 10px 0px 10px;
+}
+
+.ancestor-chart-container{
+  overflow: auto;
+  width: 100%;
+}
+.ancestor-chart-container img{
+  max-width: none;
 }
