@@ -109,14 +109,14 @@ wsService.factory('taxonConstraints', ['$resource', 'ENV', function($resource, E
     });
 }]);
 
-wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/dataset/annotationBlacklist', {}, {
+wsService.factory('annotationPostProRules', ['$resource', 'ENV', function($resource, ENV){
+  return $resource(ENV.apiEndpoint+'/ws/other/annotationPostProRules', {}, {
     query: {method:'GET', Cache:true}
   });
 }]);
 
-wsService.factory('annotationPostProcessing', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/dataset/annotationPostProcessing', {}, {
+wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource, ENV){
+  return $resource(ENV.apiEndpoint+'/ws/dataset/annotationBlacklist', {}, {
     query: {method:'GET', Cache:true}
   });
 }]);

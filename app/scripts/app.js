@@ -61,10 +61,6 @@ var app = angular
         templateUrl: 'dataset/annotationBlacklist.html',
         controller: 'AnnotationBlacklistCtrl'
       })
-      .when('/dataset/annotationPostProcessing', {
-        templateUrl: 'dataset/annotationPostProcessing.html',
-        controller: 'AnnotationPostProcessingCtrl'
-      })
       .when('/help', {
         templateUrl: 'nav/help.html',
         controller: 'HelpCtrl'
@@ -116,6 +112,10 @@ var app = angular
       .when('/searchproducts/:searchTerm', {
         templateUrl: 'searchproducts/searchProducts.html',
         controller: 'FacetSearchCtrl'
+      })
+      .when('/other', {
+        templateUrl: 'other/other.html',
+        controller: 'OtherCtrl'
       })
       .otherwise({
         redirectTo: '/'

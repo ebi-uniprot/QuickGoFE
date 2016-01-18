@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="styles/quickgo-colours.css" type="text/css" media="screen">
   <link rel="stylesheet" type="text/css" href="styles/quickgo.css">
   <!-- endbuild -->
-  <base href="/"> 
+  <base href="/">
 </head>
 
 <body class="level2"><!-- add any of your classes or IDs -->
@@ -107,6 +107,7 @@
         <ul class="grid_24 quickgo-nav" id="local-nav">
           <li><a href="webservices">Web Services</a></li>
           <li><a href="dataset">Dataset</a></li>
+          <li><a href="other">Other</a></li>
           <li><a href="help">Help</a></li>
           <li class="functional last"><a href="" data-icon="b" ng-click="showBasket()"> Basket &nbsp;
             <span id="basket"  ng-class="{'empty-basket': countBasket==0, 'pop-basket': countBasket>0}"><strong>{{countBasket}}</strong></span></a>
@@ -213,7 +214,7 @@
 <script src="dataset/dataset.js"></script>
 <script src="dataset/taxonConstraints.js"></script>
 <script src="dataset/annotationBlacklist.js"></script>
-<script src="dataset/annotationPostProcessing.js"></script>
+<script src="other/other.js"></script>
 <script src="advancedfilters/advancedFilters.js"></script>
 <script src="download/download.js"></script>
 <script src="charts/ontologyGraph.js"></script>

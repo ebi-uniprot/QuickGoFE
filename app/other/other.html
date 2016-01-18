@@ -1,19 +1,29 @@
-<!-- Main Content-->
-<div class="text-container">
-<h3>Annotation Post-Processing</h3>
-<h4>Introduction</h4>
+<div cg-busy="myPromise" class="container_24"></div>
+<h2>Other Services</h2>
+
+  <h4>Annotation Post-processing</h4>
+
+<p>UniProt-GOA will be displaying some electronic annotations that have been subject to minor post-processing to
+  ensure taxonomic correctness of annotated GO terms. Details of the annotation post-processing can be found
+  <!--<a href="dataset/annotationPostProcessing">here</a>.</p>-->
+</p>
+
 <p>The table below describes the actions that UniProt-GOA carries out on automatic annotations supplied by the
   Ensembl, InterPro and UniProt groups for the UniProtKB GO annotation set.</p>
+
 <p>Conservative changes to particular annotation subsets are made by UniProt-GOA when the annotation originally
   supplied by the automatic annotation pipeline is incorrect for a UniProtKB protein and cannot be easily fixed by
   the annotation-contributing group without an unnecessarily high loss of correct annotations.</p>
+
 <p>Affected annotations are either individually filtered out of the UniProt-GOA annotation set or are conservatively
   changed to use an equivalent, correct GO term.</p>
+
 <p>UniProt-GOA only carries out such changes to automatic annotations sets when it is the group primarily responsible
   for supplying the data to the GO Consortium, and where the change to the annotation set at source is considered
   inappropriate. In many cases UniProt-GOA is best placed to make these changes for the UniProt annotations as it is
   able to consider taxonomic correctness of the annotated GO terms (e.g., for InterPro2GO annotations) or specific
   GO ontology requirements.</p>
+
 <p>All automatic annotations that are transformed by the UniProt-GOA processing will use a GO_REF reference that
   indicates to the user that such changes have occurred and which points users to this page. All of the changes
   described in the table below have been agreed to by the automatic annotation groups.</p>
@@ -34,7 +44,7 @@
     <th>Relationship</th>
     <th>Taxon Name</th>
   <tr>
-  <tr ng-repeat="postProcessing in annotationPostProcessing.content">
+  <tr ng-repeat="postProcessing in annotationPostProRules.content">
     <td class="text-nowrap">
       <a href="term/{{postProcessing.originalGoId}}">{{postProcessing.originalGoId}}</a>
       <basket-button termid="{{postProcessing.originalGoId}}"></basket-button>
