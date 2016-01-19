@@ -13,7 +13,7 @@
         <a ng-href="term/{{term.id}}">{{term.id}}</a>
           <basket-button termid="{{term.id}}"></basket-button>
           <chart-icon term-id="term.id" term-name="term.name"></chart-icon>
-           - {{term.name}} <a ng-href="annotations/filter?goID={{term.id}}" class="annotations-link"><annotations-link termid="{{term.id}}"></annotations-link></a>
+           - {{term.name}} <a ng-href="annotations/filter?id={{term.id}}" class="annotations-link"><annotations-link termid="{{term.id}}"></annotations-link></a>
       </li>
       <li>
         <a ng-href="searchterms/{{searchTerm}}">Show all {{terms.numberOfHits}} results</a>

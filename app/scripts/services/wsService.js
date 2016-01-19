@@ -72,6 +72,22 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         };
         return $http(request);
       },
+      findAnnotationsForECO: function(searchTerm) {
+        var request = {
+          method: 'POST',
+          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            list: [{
+              type: "ecoID",
+              value: searchTerm
+            }]
+          }
+        };
+        return $http(request);
+      },      
       findAnnotationsForProduct: function(searchTerm) {
         var request = {
           method: 'POST',
