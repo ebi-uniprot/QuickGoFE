@@ -77,7 +77,7 @@
       <textarea ng-disabled="selectedItems.length <= 0" class="default" placeholder="Add your Gene Product ID(s)" ng-model="genProductID"></textarea>
     </uib-accordion-group>
 
-    <uib-accordion-group heading="Restrict by Species" closeOthers="true" >
+    <uib-accordion-group heading="Restrict by Species" closeOthers="true" is-disabled="status.isFirstDisabled">
       <ul >
         <li ng-repeat="taxon in species">
           <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[taxon.id]" checklist-value="{{taxon.id}}"> {{taxon.displayName}} ({{taxon.id}})<br />
