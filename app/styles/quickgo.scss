@@ -661,6 +661,12 @@ li.section-disabled a, l i.section-disabled a:hover {
 
 section{
   margin-bottom: 2em;
+   h5 span, h5 span a{
+    font-size: 12px;
+    color: #2980B9;
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+  }
 }
 
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
@@ -703,4 +709,27 @@ IMG.displayed {
 
 .action-buttons-grouped {
   display: inline;
+}
+
+.ancestor-list{
+  margin-top: 10px;
+  display: inline-block;
+  width: 80%;
+  max-width: 80%;
+  overflow: auto;
+  margin-left: 20px;
+  height: 3em;
+  word-wrap: break-word;
+}
+.btn-ancestor{
+  float: right;
+  margin: 10px 10px 0 0;
+}
+
+.ancestor-chart-container{
+  overflow: auto;
+  width: 100%;
+}
+.ancestor-chart-container img{
+  max-width: none;
 }
