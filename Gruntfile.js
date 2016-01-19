@@ -106,19 +106,35 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
+          middleware: function (connect, options, middlewares) {
+            var modRewrite = require('connect-modrewrite');
+
+            // enable Angular's HTML5 mode
+            middlewares.unshift(modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png$ /index.html [L]']));
+
+            middlewares.push(
+              connect.static('.tmp')
+            );
+
+            middlewares.push(
               connect().use(
                 '/bower_components',
                 connect.static('./bower_components')
-              ),
+              )
+            );
+
+            middlewares.push(
               connect().use(
                 '/app/styles',
                 connect.static('./app/styles')
-              ),
+              )
+            );
+
+            middlewares.push(
               connect.static(appConfig.app)
-            ];
+            );
+
+            return middlewares;
           }
         }
       },
