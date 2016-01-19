@@ -1,17 +1,11 @@
 <div class="Modal-box">
   <div id="basket-contents-show" cg-busy="graphPromise">
-
-<div>
-
-    <div class="ancestor-list"><strong>Ancestors of:</strong>
-        {{graphModel.id}}&nbsp{{graphModel.name}}
+    <div>
+        <div class="ancestor-list"><strong>Ancestors of:</strong>
+            {{graphModel.id}}&nbsp{{graphModel.name}}
+        </div>
+          <button class="btn btn-primary btn-ancestor" ng-click="ok()">Close</button>
     </div>
-
-      <button class="btn btn-primary" ng-click="newWindow()">View full image in new window</button>
-      <button class="btn btn-primary" ng-click="ok()">Close</button>
-
-</div>
-
     <div class="ancestor-chart-container">
     <img class="displayed" ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >
 

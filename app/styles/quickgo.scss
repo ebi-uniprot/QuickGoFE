@@ -714,17 +714,16 @@ IMG.displayed {
 .ancestor-list{
   margin-top: 10px;
   display: inline-block;
-  width: 60%;
-  max-width: 60%;
+  width: 80%;
+  max-width: 80%;
   overflow: auto;
   margin-left: 20px;
   height: 3em;
   word-wrap: break-word;
 }
-.chart-actions{
-  display: inline-block;
-  text-align: right;
-  margin: 0px 10px 0px 10px;
+.btn-ancestor{
+  float: right;
+  margin: 10px 10px 0 0;
 }
 
 .ancestor-chart-container{
