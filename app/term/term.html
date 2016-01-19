@@ -24,7 +24,9 @@
 
     <!-- Definition -->
     <section>
-      <h5>Definition</h5>
+      <h5>Definition <span ng-if="termModel.goTerm" style="display:inline-block">(<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
+        GONUTS page</a>)</span></h5>
+
       <p>
         {{termModel.definition}}
           <span ng-repeat="xrefDef in termModel.definitionXrefs">
@@ -55,16 +57,7 @@
     <p class="obsolete">{{termModel.altIdsString}}</p>
     </section>
 
-    <!-- GONUTS! -->
-    <section ng-if="termModel.goTerm">
-    <h5>GONUTS</h5>
-    <p>
-      <td><a class="quickgo-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
-        Wiki Page</a></td>
-    </p>
-    </section>
-
-    <!-- Acknowledgement -->
+    <!-- Aknowledgements -->
     <section ng-if="termModel.credits.length > 0">
     <h5>Acknowledgement</h5>
     <p>
@@ -113,7 +106,7 @@
 
     <!-- Ancestors graph -->
     <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise">
-      <h3 class="term-section-header">Ancestors Chart</h3>
+      <h3 class="term-section-header">Ancestor Chart</h3>
       <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong> {{termModel.name}}</h5>
       <img class="displayed"
            ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
