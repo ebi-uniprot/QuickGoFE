@@ -45,8 +45,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   $scope.oneAtATime = true;
   $scope.status = {
-    isFirstOpen: true,
-    isFirstDisabled: true
+    isFirstOpen: true
   };
 
   $scope.advancedFilters = {};
@@ -173,7 +172,6 @@ var disableBasketItemsSelected = function(basketItemsList) {
         {type: 'info',msg:  (itemsToAdd.length - (afterItemCount - beforeItemCount)) + ' terms were already part of your selection.'}
       );
     }
-      $scope.status.isFirstDisabled = false;
   };
 
 
