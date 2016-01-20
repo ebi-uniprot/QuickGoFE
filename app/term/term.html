@@ -513,8 +513,39 @@
       </uib-tabset>
     </section>
 
+    <!--Blacklist-->
+    <!-- GO_ID   CATEGORY        ENTITY_TYPE     ENTITY_ID       TAXON_ID        ENTITY_NAME     ANCESTOR_GO_ID  REASON  METHOD_ID-->
+    <h3 class="term-section-header">Blacklist</h3>
+    <p>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
+      annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</p>
+    <section id="blacklist" ng-if="blacklist!=''">
+      <table class="two-colours">
+        <tr>
+          <th>Category</th>
+          <th>Entity Type</th>
+          <th>Entity ID</th>
+          <th>Taxon ID</th>
+          <th>Entity Name</th>
+          <th>Ancestor GO ID</th>
+          <th>Reason</th>
+          <th>Rule/Method ID</th>
+        </tr>
+        <tr ng-repeat="entry in blacklist">
+          <td>{{entry.category}}</td>
+          <td>{{entry.entityType}}</td>
+          <td>{{entry.proteinAc}}</td>
+          <td>{{entry.taxonId}}</td>
+          <td>{{entry.entityName}}</td>
+          <td>{{entry.ancestorGOID}}</td>
+          <td>{{entry.reason}}</td>
+          <td>{{entry.methodId}}</td>
+        </tr>
+      </table>
+    </section>
+
   </div>
   </section>
+
 
     <!-- Sidebar: Controls what gets displayed on the main page.-->
   <nav class="grid_4" id="term-section-nav">
@@ -557,6 +588,9 @@
       </li>
       <li du-scrollspy="termHistory">
         <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
+      </li>
+      <li ng-class="{'section-disabled':blacklist==''}" du-scrollspy="blacklist">
+        <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
       </li>
     </ul>
   </nav>

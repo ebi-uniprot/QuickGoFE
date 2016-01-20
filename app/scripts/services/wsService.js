@@ -23,7 +23,10 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/ws/termcostats/' + termId);
-      }
+      },
+      getBlacklist : function(termId) {
+      return $http.get(ENV.apiEndpoint+'/ws/term/blacklist/' + termId);
+    }
   }
 }]);
 
