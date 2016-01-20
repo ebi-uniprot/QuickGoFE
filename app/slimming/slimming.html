@@ -67,7 +67,7 @@
   <h3>Additional Options</h3>
 
   <uib-accordion close-others="oneAtATime" >
-    <uib-accordion-group heading="Gene Product ID" is-open="true" is-disabled="status.isFirstDisabled" closeOthers="true">
+    <uib-accordion-group heading="Gene Product ID" is-open="true" is-disabled="selectedItems.length <= 0" closeOthers="true">
 <!--      <ul>
         <li ng-repeat="product in geneProducts">
           <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[product.id]" checklist-value="{{product.id}}"> {{product.displayName}}
@@ -77,7 +77,7 @@
       <textarea ng-disabled="selectedItems.length <= 0" class="default" placeholder="Add your Gene Product ID(s)" ng-model="genProductID"></textarea>
     </uib-accordion-group>
 
-    <uib-accordion-group heading="Restrict by Species" closeOthers="true" >
+    <uib-accordion-group heading="Restrict by Species" closeOthers="true" is-disabled="selectedItems.length <= 0">
       <ul >
         <li ng-repeat="taxon in species">
           <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[taxon.id]" checklist-value="{{taxon.id}}"> {{taxon.displayName}} ({{taxon.id}})<br />

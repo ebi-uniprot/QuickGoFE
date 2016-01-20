@@ -45,8 +45,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   $scope.oneAtATime = true;
   $scope.status = {
-    isFirstOpen: true,
-    isFirstDisabled: false
+    isFirstOpen: true
   };
 
   $scope.advancedFilters = {};
@@ -165,6 +164,7 @@ var disableBasketItemsSelected = function(basketItemsList) {
     if(afterItemCount > beforeItemCount) {
       $scope.succesAlerts.push(
         {type: 'success',msg: (afterItemCount-beforeItemCount) + ' terms added to Your Selection.'}
+
       );
     }
     if(itemsToAdd.length > (afterItemCount - beforeItemCount)) {
