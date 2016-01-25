@@ -56,12 +56,16 @@ filteringModule.factory('filteringService', function() {
    */
   filteringService.populateAppliedFilters = function(data, isSlim){
 
-    isSlimRequest = isSlim;
-    console.log("In the filterService the slim is: ",isSlimRequest);
+    console.log("In the filterService.js the slim is: ",isSlim);
 
-    predefinedSlimSets = PreDefinedSlimSets.query();
+//    var predefinedSlimSets = PreDefinedSlimSets.query();
+//    console.log("predefinedSlimSets:", predefinedSlimSets);
 
-    console.log("predefinedSlimSets:", predefinedSlimSets);
+//    var predefinedSlimSetTerms = PreDefinedSlimSetDetail.query({setId: [isSlim]});
+//    console.log("predefinedSlimSetTerms :", predefinedSlimSetTerms);
+
+
+
 
     for(var inputType in data) {
 

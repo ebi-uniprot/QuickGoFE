@@ -292,6 +292,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
   $scope.submit = function(){
 
     console.log("Submitted advancedFilters",$scope.advancedFilters);
+//    console.log("Submitted selectedPreDefinedSlimSet: ",$scope.selectedPreDefinedSlimSet);
     console.log("Submitted selectedPreDefinedSlimSet: ",$scope.selectedPreDefinedSlimSet.subset);
 
 
