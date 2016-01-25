@@ -217,14 +217,22 @@ var disableBasketItemsSelected = function(basketItemsList) {
     filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
     filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
 
+    // Add gene products
+    // $scope.genProductID contains it. Create a function which splits 
+    // that string by comma, space and new line to optain a list.
+    // We can at some point add a service to check they exist (later!).
+    // Each of these ids should be then added via
+    // filteringService.saveAppliedFilter({type: 'gpID', value: ID_TO_BE_ADDED});
+
+
+    // Add taxons
     angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
       console.log($scope.selectedSpecies[taxonId]);
       if($scope.selectedSpecies[taxonId])
         filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
     });
 
-
-    $window.location.href= "#annotations";
+    $location.path('/annotations');
   }
 
   $scope.clearSelection = function(){
