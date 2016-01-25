@@ -217,6 +217,15 @@ var disableBasketItemsSelected = function(basketItemsList) {
     filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
     filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
 
+
+
+    // Add gene products
+    var geneProductsAdded = _.uniq($scope.genProductID.replace( /\n/g, " " ).split(/[\s,]+/));
+    angular.forEach((geneProductsAdded), function(geneProdId) {
+      filteringService.saveAppliedFilter({type: 'gpID', value: geneProdId});
+    });
+
+    // Add taxons
     angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
       console.log($scope.selectedSpecies[taxonId]);
       if($scope.selectedSpecies[taxonId])

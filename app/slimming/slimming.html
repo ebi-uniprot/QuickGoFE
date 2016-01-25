@@ -65,7 +65,6 @@
 
 <div ng-class="{'inactive': selectedItems.length <= 0}" class="slims-options grid_12">
   <h3>Additional Options</h3>
-
   <uib-accordion close-others="oneAtATime" >
     <uib-accordion-group heading="Gene Product ID" is-open="true" is-disabled="selectedItems.length <= 0" closeOthers="true">
 <!--      <ul>
@@ -74,7 +73,7 @@
         </li>
       </ul>
 -->
-      <textarea ng-disabled="selectedItems.length <= 0" class="default" placeholder="Add your Gene Product ID(s)" ng-model="genProductID"></textarea>
+      <textarea ng-disabled="selectedItems.length <= 0" class="default" placeholder="Add your Gene Product ID(s)" ng-model="$parent.$parent.$parent.genProductID"></textarea>
     </uib-accordion-group>
 
     <uib-accordion-group heading="Restrict by Species" closeOthers="true" is-disabled="selectedItems.length <= 0">
