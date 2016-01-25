@@ -217,13 +217,13 @@ var disableBasketItemsSelected = function(basketItemsList) {
     filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
     filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
 
-    // Add gene products
-    // $scope.genProductID contains it. Create a function which splits 
-    // that string by comma, space and new line to optain a list.
-    // We can at some point add a service to check they exist (later!).
-    // Each of these ids should be then added via
-    // filteringService.saveAppliedFilter({type: 'gpID', value: ID_TO_BE_ADDED});
 
+
+    // Add gene products
+    var geneProductsAdded = _.uniq($scope.genProductID.replace( /\n/g, " " ).split(/[\s,]+/));
+    angular.forEach((geneProductsAdded), function(geneProdId) {
+      filteringService.saveAppliedFilter({type: 'gpID', value: geneProdId});
+    });
 
     // Add taxons
     angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
@@ -232,7 +232,8 @@ var disableBasketItemsSelected = function(basketItemsList) {
         filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
     });
 
-    $location.path('/annotations');
+
+    $window.location.href= "#annotations";
   }
 
   $scope.clearSelection = function(){

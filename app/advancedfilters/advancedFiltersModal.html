@@ -101,6 +101,9 @@
             </li>
             <li class="sub-1" ng-show="basketItems.length==0">(No terms avaliable in your basket)</li>
 
+            <li>Use a predefined GO term set: <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in $parent.$parent.predefinedSlimSets"
+            ng-change="updatePredefinedSets()"></select></li>
+
             <!-- Enter list of GO identifiers-->
             <li class="sub-1">Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:
               <br />
