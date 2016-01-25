@@ -292,13 +292,14 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
   $scope.submit = function(){
 
     console.log("Submitted advancedFilters",$scope.advancedFilters);
-    console.log("Submitted useSlim",$scope.useSlim);
+    console.log("Submitted selectedPreDefinedSlimSet: ",$scope.selectedPreDefinedSlimSet.subset);
+
 
 
     //Clear existing filters
     filteringService.clearFilters();
 
-    filteringService.populateAppliedFilters( $scope.advancedFilters,  $scope.useSlim);
+    filteringService.populateAppliedFilters( $scope.advancedFilters,  $scope.selectedPreDefinedSlimSet.subset);
 
     //Tell annotations list this value has been updated.
 
@@ -404,4 +405,3 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
 
 
 });
-
