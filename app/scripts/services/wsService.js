@@ -110,6 +110,20 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   }
 }]);
 
+wsService.factory('dbXrefService', ['$http', function($http){
+  return {
+    getDbXrefs: function() {
+      return $http.get('https://s3.amazonaws.com/go-public/metadata/db-xrefs.json', {cache: true});
+    },
+    getGenericLink: function(name, xrefs) {
+      var match = _.find(xrefs, function(xref){
+        return xref.database === name || _.contains(xref.synonyms, name);
+      });
+      return match.generic_urls[0];
+    }
+  };
+}])
+
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/ws/dataset', {}, {
     query: {method:'GET', isArray:true, Cache:true}
