@@ -56,17 +56,6 @@ filteringModule.factory('filteringService', function() {
    */
   filteringService.populateAppliedFilters = function(data, isSlim){
 
-    console.log("In the filterService.js the slim is: ",isSlim);
-
-//    var predefinedSlimSets = PreDefinedSlimSets.query();
-//    console.log("predefinedSlimSets:", predefinedSlimSets);
-
-//    var predefinedSlimSetTerms = PreDefinedSlimSetDetail.query({setId: [isSlim]});
-//    console.log("predefinedSlimSetTerms :", predefinedSlimSetTerms);
-
-
-
-
     for(var inputType in data) {
 
       if (data.hasOwnProperty(inputType)) {
