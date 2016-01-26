@@ -141,14 +141,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     });
   };
 
-
-  $scope.showAssignedBy = function(database, id) {
-    dbXrefService.getDbXrefs().then(function(xrefs) {
-      $window.open(dbXrefService.getGenericLink(database, xrefs.data));
-    });
-  }
-
-
   $scope.showTaxon = function(target) {
     $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
   }

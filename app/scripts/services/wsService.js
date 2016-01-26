@@ -120,6 +120,12 @@ wsService.factory('dbXrefService', ['$http', function($http){
         return xref.database === name || _.contains(xref.synonyms, name);
       });
       return match.generic_urls[0];
+    },
+    getLinkforId: function(name, id, xrefs) {
+      var match = _.find(xrefs, function(xref){
+        return xref.database === name || _.contains(xref.synonyms, name);
+      });
+      return match.entity_types[0].url_syntax.replace('[example_id]', id);
     }
   };
 }])

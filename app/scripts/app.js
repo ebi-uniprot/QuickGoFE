@@ -27,6 +27,20 @@ var app = angular
     'config'
   ]);
 
+  app.run(function($rootScope, dbXrefService, $window){
+    $rootScope.followLinkToGeneric = function(database) {
+      dbXrefService.getDbXrefs().then(function(xrefs) {
+        $window.open(dbXrefService.getGenericLink(database, xrefs.data));
+      });
+    }
+
+    $rootScope.followLinkToEntry = function(database, id) {
+      dbXrefService.getDbXrefs().then(function(xrefs) {
+        $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
+      });
+    }
+  });
+
 
   app.config(function ($routeProvider, $locationProvider) {
 

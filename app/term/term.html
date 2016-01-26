@@ -399,7 +399,7 @@
       </tr>
       <tr ng-repeat="xref in termModel.xrefs">
         <td>{{xref.db}}</td>
-        <td><a class="quickgo-link" ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.id}}</a></td>
+        <td><a ng-click="followLinkToEntry(xref.db, xref.id)" target="_blank">{{xref.id}}</a></td>
         <td>{{xref.name}}</td>
       </tr>
       </table>

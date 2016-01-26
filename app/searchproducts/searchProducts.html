@@ -23,7 +23,7 @@
           <th>Annotations</th>
         </tr>
         <tr ng-repeat="searchResult in results.results">
-          <td><a href="http://www.uniprot.org/uniprot/{{searchResult.dbObjectId}}" target="_blank">{{searchResult.dbObjectId}}</td>
+          <td><a ng-click="followLinkToEntry(searchResult.db, searchResult.dbObjectId)" target="_blank">{{searchResult.dbObjectId}}</td>
           <td ng-bind-html="highlight(searchResult.dbObjectName)"></td>
           <td>{{searchResult.dbObjectType}}</td>
           <td>{{searchResult.taxonName}}</td>

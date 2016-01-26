@@ -34,8 +34,7 @@
 
         <!-- Results Repeat -->
         <tr ng-repeat="goTuple in goList.annotationsList">
-
-          <td><a class="quickgo-link" ng-href="http://www.uniprot.org/uniprot/{{goTuple.protein}}" target="_blank">{{goTuple.protein}}</a>
+          <td><a ng-click="followLinkToEntry(goTuple.database, goTuple.protein)" target="_blank">{{goTuple.protein}}</a>
           </td>
           <td>{{goTuple.symbol}}</td>
           <td>{{goTuple.qualifier}}</td>
@@ -69,13 +68,14 @@
           </td>
 
           <!-- With -->
+          {{goTuple}}
           <td><a class="quickgo-link ellipsis" ng-click="showWithString(goTuple.fullWith)" >{{goTuple.fullWith}}</a></td>
 
           <!-- Taxon-->
           <td><a class="quickgo-link selectable" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></td>
 
           <!-- Assigned By-->
-          <td><a class="quickgo-link selectable" ng-click="showAssignedBy(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
+          <td><a class="quickgo-link selectable" ng-click="followLinkToGeneric(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
           <td>{{goTuple.fullExtension}}</td>
           <td ng-show="isSlim">{{goTuple.originalTermId}}</td>
           <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
