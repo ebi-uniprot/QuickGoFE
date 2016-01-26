@@ -3,7 +3,7 @@
  * This controller handles the creation and initial processing of the advanced filters modal.
  */
 app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibModal, $location, basketService, evidencetypes, withDBs,
-                                               assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets) {
+                                               assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail) {
 
 
   $scope.advancedFilters = {};
@@ -281,29 +281,35 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
    * ---------------------------------------   Button related functions   --------------------------------------------
    */
 
+   $scope.updatePredefinedSets = function() {
+     $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
+     $scope.availablePredefinedTerms.$promise.then(function (data) {
+       console.log("list updated: ",$scope.availablePredefinedTerms);
+     });
+   };
+
+
   $scope.cancel  = function(){
     $uibModalInstance.dismiss('cancel');
 
   }
+
 
   /**
    * Notify the filtering service with the submitted data
    */
   $scope.submit = function(){
 
-    console.log("Submitted advancedFilters",$scope.advancedFilters);
-//    console.log("Submitted selectedPreDefinedSlimSet: ",$scope.selectedPreDefinedSlimSet);
-    console.log("Submitted selectedPreDefinedSlimSet: ",$scope.selectedPreDefinedSlimSet.subset);
-
-
-
     //Clear existing filters
     filteringService.clearFilters();
 
-    filteringService.populateAppliedFilters( $scope.advancedFilters,  $scope.selectedPreDefinedSlimSet.subset);
+    angular.forEach($scope.availablePredefinedTerms, function(item){
+      filteringService.saveAppliedFilter({type: 'goID', value: item.termId});
+    });
+
+    filteringService.populateAppliedFilters( $scope.advancedFilters,  $scope.availablePredefinedTerms);
 
     //Tell annotations list this value has been updated.
-
     $scope.$emit('filtersUpdate', $scope.advancedFilters);   //todo change this so is notification only
 
     //Now go back to the annotation list
