@@ -56,11 +56,12 @@
           <!-- Evidence: ECO:0000256  (IEA) -->
           <td>
             <a class="quickgo-link selectable" href="#/term/{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>
-            &nbsp;<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{goTuple.evidenceGo | lowercase}}"
+
+            <a class="quickgo-icon selectable" ng-click="showEvidenceCodeOntologyGraph(goTuple.evidenceEco)">
+              <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a>
+
+            <a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{goTuple.evidenceGo | lowercase}}"
                      target="_blank">({{goTuple.evidenceGo}})</a>
-            <a class="quickgo-link selectable" ng-click="showEvidenceCodeOntologyGraph(goTuple.evidenceEco)">
-              <span class="icon icon-functional quickgo-btn chart-btn selectable" data-icon="h"></span>
-            </a>
           </td>
 
           <!-- Reference eg "GO_REF:0000002" -->
