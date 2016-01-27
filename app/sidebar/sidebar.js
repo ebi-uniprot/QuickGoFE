@@ -84,6 +84,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
    */
   $scope.clearFilters=function() {
     filteringService.clearFilters();
+    console.log('here');
 
     //send an update to the annotation list to refresh itself
     $scope.$emit('filtersClear');

@@ -44,4 +44,14 @@ app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) 
 
   }
 
+  $scope.$on('filtersUpdate', function(event) {
+    loadStatistics();
+  });
+
+  $scope.$on('filtersClear', function(event) {
+    $scope.appliedFilters = filteringService.getFilters();
+    $scope.advancedFilters =  {};
+    loadStatistics();
+  });
+
 });
