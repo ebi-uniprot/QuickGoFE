@@ -150,26 +150,17 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Show the with_string modal on request
    */
-  $scope.showWithString = function (target) {
+  $scope.showWithList = function (withList) {
 
-    $scope.withString=target;
+    $scope.withList = withList;
 
     var modalInstance = $uibModal.open({
       templateUrl: 'annotationsList/withStringModal.html',
       controller: 'WithStringCtrl',
       size: 'md',
-      scope: $scope,
-      resolve: {
-        fullString: function () {
-          return $scope.withString;
-        }
-      }
+      scope: $scope
     });
 
-    modalInstance.result.then(function () {
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
   };
 
 

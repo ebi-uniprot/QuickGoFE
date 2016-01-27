@@ -9,6 +9,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
   var hardCodedService = {};
 
   var annotationColumns = [
+    {'name': 'colDatabase', 'value':'Database'},
     {'name': 'colGeneProductID', 'value': 'Gene Product ID'},
     {'name': 'colSymbol', 'value': 'Symbol'},
     {'name': 'colQualifier', 'value': 'Qualifier'},

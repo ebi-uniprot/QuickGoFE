@@ -34,6 +34,7 @@
 
         <!-- Results Repeat -->
         <tr ng-repeat="goTuple in goList.annotationsList">
+          <td>{{goTuple.database}}</td>
           <td><a ng-click="followLinkToEntry(goTuple.database, goTuple.protein)" target="_blank">{{goTuple.protein}}</a>
           </td>
           <td>{{goTuple.symbol}}</td>
@@ -70,7 +71,7 @@
 
           <!-- With -->
           {{goTuple}}
-          <td><a class="quickgo-link ellipsis" ng-click="showWithString(goTuple.fullWith)" >{{goTuple.fullWith}}</a></td>
+          <td><a class="quickgo-link ellipsis" ng-click="showWithList(goTuple.withList)" >{{goTuple.fullWith}}</a></td>
 
           <!-- Taxon-->
           <td><a class="quickgo-link selectable" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></td>

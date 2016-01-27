@@ -1,14 +1,14 @@
 <div class="quickgo-modal">
 
-  <table class="two-colours">
-    <tr><th>With / From</th></tr>
-    <tr ng-repeat="result in results">
-
-      <td ng-repeat="element in result">
-        <a class="quickgo-link" ng-href="{{element | withUrlFilter}}" target="_blank">{{element}}</a>&nbsp;
-      </td>
-    </tr>
-  </table>
+    <div ng-repeat="orItems in withList">
+      <p ng-repeat="element in orItems.connectedXrefs" class="text-center">
+        <a ng-click="followLinkToGeneric(element.database)" target="_blank">{{element.database}}</a>:<a ng-click="followLinkToEntry(element.database, element.signature)" target="_blank">{{element.signature}}</a>
+        <strong ng-show="!$last">AND</strong>
+      </p>
+      <p class="text-center" ng-show="!$last">
+        <strong>OR</strong>
+      </p>
+    </div>
 
   <div class="modal-footer">
     <button class="btn quickgo-btn" type="button" ng-click="ok()">OK</button>
