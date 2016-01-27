@@ -15,15 +15,17 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
+          <th>Aspect</th>
         </tr>
         <tr ng-repeat="searchResult in results.results">
 
           <td class="text-nowrap">
-            <span><a href="#/term/{{searchResult.id}}">{{searchResult.id}}</a></span>
+            <span><a href="term/{{searchResult.id}}">{{searchResult.id}}</a></span>
             <basket-button termid="{{searchResult.id}}"></basket-button>
             <chart-icon term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
           </td>
           <td ng-bind-html="highlight(searchResult.name)"></td>
+          <td>{{searchResult.aspectDescription}}</td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>

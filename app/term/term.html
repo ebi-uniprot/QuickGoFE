@@ -59,7 +59,7 @@
 
     <!-- Aknowledgements -->
     <section ng-if="termModel.credits.length > 0">
-    <h5>Aknowledgements</h5>
+    <h5>Acknowledgement</h5>
     <p>
         This term was created by the GO Consortium with support from:
           <span ng-repeat="credit in termModel.credits">
@@ -75,7 +75,7 @@
     <!-- Buttons -->
     <p>
       <a id="term-show-annotations" class="btn quickgo-btn"
-              href="#/annotations/filter?goID={{termModel.termId}}"><annotations-link termid="{{termModel.termId}}"></annotations-link>
+              href="annotations/filter?id={{termModel.termId}}"><annotations-link termid="{{termModel.termId}}"></annotations-link>
       </a>
     </p>
   </section>
@@ -117,7 +117,7 @@
         <span ng-repeat="layoutNode in graphImage.layoutNodes">
             <area shape="rect"
                   coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
-                  ng-href="#/term/{{layoutNode.id}}"
+                  ng-href="term/{{layoutNode.id}}"
                   alt="Term {{layoutNode.id}}"
                   title="{{layoutNode.id}} - Click for more information"
                   target="_blank">
@@ -147,7 +147,7 @@
           </tr>
           <tr ng-repeat="childRelation in termModel.childTermsRelations">
             <td>{{childRelation.typeOf}}</td>
-            <td><a class="quickgo-link" ng-href="#/term/{{childRelation.id}}">{{childRelation.id}}</a></td>
+            <td><a class="quickgo-link" ng-href="term/{{childRelation.id}}">{{childRelation.id}}</a></td>
             <td>{{childRelation.name}}</td>
           </tr>
         </table>
@@ -185,7 +185,7 @@
               <th>#Compared</th>
             </tr>
             <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms">
-              <td><a class="quickgo-link" ng-href="#/term/{{allStat.compare}}">{{allStat.compare}}</a></td>
+              <td><a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a></td>
               <td>{{allStat.aspect}}</td>
               <td>{{allStat.name}}</td>
               <td>{{allStat.probabilityRatio}}</td>
@@ -223,7 +223,7 @@
               </tr>
               <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics">
                 <td><a class="quickgo-link"
-                  ng-href="#/term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
+                  ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
                 </td>
                 <td>{{nonIEAStat.aspect}}</td>
                 <td>{{nonIEAStat.name}}</td>
@@ -261,7 +261,7 @@
           <th>Reference(s)</th>
         </tr>
         <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
-          <td><a class="quickgo-link" href="#/term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
+          <td><a class="quickgo-link" href="term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
           <td>{{taxonconstraint.name}}</td>
           <td ng-if="taxonconstraint.relationship == 'ONLY_IN_TAXON'">Only in Taxon</td>
           <td ng-if="taxonconstraint.relationship != 'ONLY_IN_TAXON'">Never in Taxon</td>
@@ -289,10 +289,10 @@
           <th>Reason</th>
         </tr>
         <tr ng-repeat="replacement in termModel.replaces">
-          <td><a class="quickgo-link" href="#/term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
+          <td><a class="quickgo-link" href="term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
           <td>{{replacement.child.name}}</td>
           <td>{{replacement.typeof.description}} <a
-            href="#/term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
+            href="term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
           </td>
         </tr>
       </table>
@@ -312,7 +312,7 @@
         </tr>
         <tr ng-repeat="replacedby in termModel.replacements">
           <td>{{replacedby.typeof.description}}</td>
-          <td><a class="quickgo-link" href="#/term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
+          <td><a class="quickgo-link" href="term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
           <td>{{replacedby.parent.aspectDescription}}</td>
           <td>{{replacedby.parent.name}}</td>
         </tr>
@@ -399,7 +399,7 @@
       </tr>
       <tr ng-repeat="xref in termModel.xrefs">
         <td>{{xref.db}}</td>
-        <td><a class="quickgo-link" ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.id}}</a></td>
+        <td><a ng-click="followLinkToEntry(xref.db, xref.id)" target="_blank">{{xref.id}}</a></td>
         <td>{{xref.name}}</td>
       </tr>
       </table>
@@ -513,8 +513,39 @@
       </uib-tabset>
     </section>
 
+    <!--Blacklist-->
+    <!-- GO_ID   CATEGORY        ENTITY_TYPE     ENTITY_ID       TAXON_ID        ENTITY_NAME     ANCESTOR_GO_ID  REASON  METHOD_ID-->
+    <h3 class="term-section-header">Blacklist</h3>
+    <p>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
+      annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</p>
+    <section id="blacklist" ng-if="blacklist!=''">
+      <table class="two-colours">
+        <tr>
+          <th>Category</th>
+          <th>Entity Type</th>
+          <th>Entity ID</th>
+          <th>Taxon ID</th>
+          <th>Entity Name</th>
+          <th>Ancestor GO ID</th>
+          <th>Reason</th>
+          <th>Rule/Method ID</th>
+        </tr>
+        <tr ng-repeat="entry in blacklist">
+          <td>{{entry.category}}</td>
+          <td>{{entry.entityType}}</td>
+          <td>{{entry.proteinAc}}</td>
+          <td>{{entry.taxonId}}</td>
+          <td>{{entry.entityName}}</td>
+          <td>{{entry.ancestorGOID}}</td>
+          <td>{{entry.reason}}</td>
+          <td>{{entry.methodId}}</td>
+        </tr>
+      </table>
+    </section>
+
   </div>
   </section>
+
 
     <!-- Sidebar: Controls what gets displayed on the main page.-->
   <nav class="grid_4" id="term-section-nav">
@@ -557,6 +588,9 @@
       </li>
       <li du-scrollspy="termHistory">
         <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
+      </li>
+      <li ng-class="{'section-disabled':blacklist==''}" du-scrollspy="blacklist">
+        <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
       </li>
     </ul>
   </nav>

@@ -144,7 +144,7 @@
         <tr ng-repeat="xref in termModel.xrefs">
           <td>{{xref.db}}</td>
           <td>{{xref.id}}</td>
-          <td><a ng-href="http://www.ebi.ac.uk/interpro/entry/{{xref.id}}" target="_blank">{{xref.name}}</a></td>
+          <td><a ng-href="followLinkToEntry(xref.db, xref.id)" target="_blank">{{xref.name}}</a></td>
         </tr>
       </table>
     </accordion-group>

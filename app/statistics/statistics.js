@@ -39,7 +39,7 @@ app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) 
     $scope.statsPromise.success(function (data) {
 
       $scope.stats = data;
-      $scope.statsBean =  $scope.stats.statsBean;
+      //$scope.statsBean =  $scope.stats.statsBean;
     });
 
   }

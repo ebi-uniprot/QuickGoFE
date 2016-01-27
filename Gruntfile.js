@@ -101,24 +101,40 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        livereload: 35729
+        livereload: 35729,
       },
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
-            return [
-              connect.static('.tmp'),
+          middleware: function (connect, options, middlewares) {
+            var modRewrite = require('connect-modrewrite');
+
+            // enable Angular's HTML5 mode
+            middlewares.unshift(modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png$ /index.html [L]']));
+
+            middlewares.push(
+              connect.static('.tmp')
+            );
+
+            middlewares.push(
               connect().use(
                 '/bower_components',
                 connect.static('./bower_components')
-              ),
+              )
+            );
+
+            middlewares.push(
               connect().use(
                 '/app/styles',
                 connect.static('./app/styles')
-              ),
+              )
+            );
+
+            middlewares.push(
               connect.static(appConfig.app)
-            ];
+            );
+
+            return middlewares;
           }
         }
       },
@@ -328,6 +344,22 @@ module.exports = function (grunt) {
         patterns: {
           js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
         }
+      }
+    },
+
+    replace: {
+      dist: {
+        options: {
+          patterns: [
+            {
+              match: / href=\"\/\"/g,
+              replacement: ' href="http://wwwdev.ebi.ac.uk/QuickGO/"'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
+        ]
       }
     },
 
@@ -545,7 +577,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'replace'
   ]);
 
   grunt.registerTask('default', [

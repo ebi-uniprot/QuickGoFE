@@ -9,13 +9,7 @@
 
 
     <!-- Download menu -->
-    <ul class="action-buttons-grouped decorated" id="resultActionStatsButtons">
-      <li id="downloadStatsItem">
-        <a id="download-stats-button" title="Download statistics" class="icon icon-functional button"
-           data-icon="=">Download</a>
-      </li>
-    </ul>
-
+    <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
 
     <uib-tabset>
       <!--<div id="statisticsTabs">-->
@@ -25,13 +19,13 @@
           <p>Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation
           set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed
           will alter accordingly.</p>
-          <p>You can find full details of the datasets that comprise the full annotation set <a target="_blank" href="#/dataset">here</a>.</p>
+          <p>You can find full details of the datasets that comprise the full annotation set <a target="_blank" href="dataset">here</a>.</p>
         </span>
 
           <div class="grid_20">
             <p>
             <strong>Number of annotations:</strong> {{stats.totalNumberAnnotations}}<br />
-            <strong>Number of distinct gene products:</strong> {{stats.totalNumberProteins}}
+            <strong>Number of distinct gene products:</strong> {{stats.totalNumberGeneProducts}}
           </p>
           </div>
 
@@ -49,16 +43,16 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="annByGOID in statsBean.annotationsPerGOID">
-                <td><a href="#/term/GO:{{annByGOID.code}}" target="_blank">GO:{{annByGOID.code}}</a></td>
+              <tr ng-repeat="annByGOID in stats.annotationsPerGOID">
+                <td><a href="term/{{annByGOID.statisticTupleKey}}" target="_blank">{{annByGOID.statisticTupleKey}}</a></td>
                 <td>{{annByGOID.name}}</td>
-                <td>{{annByGOID.percentage}}</td>
-                <td>{{annByGOID.count}}</td>
+                <td>{{annByGOID.statisticTuplePercentage}}</td>
+                <td>{{annByGOID.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per GO ID</h5>
+            <h5>Gene products per GO ID</h5>
             <table id="proteinsByGOID" class="two-colours">
               <tr>
                 <th>Code</th>
@@ -66,11 +60,11 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="protByGOID in statsBean.proteinsPerGOID">
-                <td><a href="#/term/GO:{{protByGOID.code}}" target="_blank">GO:{{protByGOID.code}}</a></td>
+              <tr ng-repeat="protByGOID in stats.geneProductsPerGOID">
+                <td><a href="term/{{protByGOID.statisticTupleKey}}" target="_blank">{{protByGOID.statisticTupleKey}}</a></td>
                 <td>{{protByGOID.name}}</td>
-                <td>{{protByGOID.percentage}}</td>
-                <td>{{protByGOID.count}}</td>
+                <td>{{protByGOID.statisticTuplePercentage}}</td>
+                <td>{{protByGOID.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
@@ -86,25 +80,25 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="annByAspect in statsBean.annotationsPerAspect">
-                <td><strong>{{annByAspect.code}}</strong></td>
-                <td>{{annByAspect.percentage}}</td>
-                <td>{{annByAspect.count}}</td>
+              <tr ng-repeat="annByAspect in stats.annotationsPerAspect">
+                <td><strong>{{annByAspect.statisticTupleKey}}</strong></td>
+                <td>{{annByAspect.statisticTuplePercentage}}</td>
+                <td>{{annByAspect.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Aspect</h5>
+            <h5>Gene products per Aspect</h5>
             <table id="proteinsByAspect" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="protByAspect in statsBean.proteinsPerAspect">
-                <td><strong>{{protByAspect.code}}</strong></td>
-                <td>{{protByAspect.percentage}}</td>
-                <td>{{protByAspect.count}}</td>
+              <tr ng-repeat="protByAspect in stats.geneProductsPerAspect">
+                <td><strong>{{protByAspect.statisticTupleKey}}</strong></td>
+                <td>{{protByAspect.statisticTuplePercentage}}</td>
+                <td>{{protByAspect.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
@@ -121,16 +115,16 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="annByEvidence in statsBean.annotationsPerEvidence">
-                <td><strong>{{annByEvidence.code}}</strong></td>
+              <tr ng-repeat="annByEvidence in stats.annotationsPerEvidence">
+                <td><strong>{{annByEvidence.statisticTupleKey}}</strong></td>
                 <td>{{annByEvidence.name}}</td>
-                <td>{{annByEvidence.percentage}}</td>
-                <td>{{annByEvidence.count}}</td>
+                <td>{{annByEvidence.statisticTuplePercentage}}</td>
+                <td>{{annByEvidence.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Evidence</h5>
+            <h5>Gene products per Evidence</h5>
             <table id="proteinsByEvidence" class="two-colours">
               <tr>
                 <th>Code</th>
@@ -138,11 +132,11 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="protByEvidence in statsBean.proteinsPerEvidence">
-                <td><strong>{{protByEvidence.code}}</strong></td>
+              <tr ng-repeat="protByEvidence in stats.geneProductsPerEvidence">
+                <td><strong>{{protByEvidence.statisticTupleKey}}</strong></td>
                 <td>{{protByEvidence.name}}</td>
-                <td>{{protByEvidence.percentage}}</td>
-                <td>{{protByEvidence.count}}</td>
+                <td>{{protByEvidence.statisticTuplePercentage}}</td>
+                <td>{{protByEvidence.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
@@ -158,25 +152,25 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="annByReference in statsBean.annotationsPerReference">
-                <td><strong>{{annByReference.code}}</strong></td>
-                <td>{{annByReference.percentage}}</td>
-                <td>{{annByReference.count}}</td>
+              <tr ng-repeat="annByReference in stats.annotationsPerReference">
+                <td><strong>{{annByReference.statisticTupleKey}}</strong></td>
+                <td>{{annByReference.statisticTuplePercentage}}</td>
+                <td>{{annByReference.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Reference</h5>
+            <h5>Gene products per Reference</h5>
             <table id="proteinsByReference" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="protByReference in statsBean.proteinsPerReference">
-                <td><strong>{{protByReference.code}}</strong></td>
-                <td>{{protByReference.percentage}}</td>
-                <td>{{protByReference.count}}</td>
+              <tr ng-repeat="protByReference in stats.geneProductsPerReference">
+                <td><strong>{{protByReference.statisticTupleKey}}</strong></td>
+                <td>{{protByReference.statisticTuplePercentage}}</td>
+                <td>{{protByReference.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
@@ -193,16 +187,16 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="annByTaxon in statsBean.annotationsPerTaxon">
-                <td><strong>{{annByTaxon.code}}</strong></td>
+              <tr ng-repeat="annByTaxon in stats.annotationsPerTaxon">
+                <td><strong>{{annByTaxon.statisticTupleKey}}</strong></td>
                 <td>{{annByTaxon.name}}</td>
-                <td>{{annByTaxon.percentage}}</td>
-                <td>{{annByTaxon.count}}</td>
+                <td>{{annByTaxon.statisticTuplePercentage}}</td>
+                <td>{{annByTaxon.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Taxon</h5>
+            <h5>Gene products per Taxon</h5>
             <table id="proteinsByTaxon" class="two-colours">
               <tr>
                 <th>Code</th>
@@ -210,11 +204,11 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="protByTaxon in statsBean.proteinsPerTaxon">
-                <td><strong>{{protByTaxon.code}}</strong></td>
+              <tr ng-repeat="protByTaxon in stats.geneProductsPerTaxon">
+                <td><strong>{{protByTaxon.statisticTupleKey}}</strong></td>
                 <td>{{protByTaxon.name}}</td>
-                <td>{{protByTaxon.percentage}}</td>
-                <td>{{protByTaxon.count}}</td>
+                <td>{{protByTaxon.statisticTuplePercentage}}</td>
+                <td>{{protByTaxon.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>
@@ -230,26 +224,26 @@
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="annByAssignedBy in statsBean.annotationsPerAssignedBy">
-                <td><strong>{{annByAssignedBy.code}}</strong></td>
-                <td>{{annByAssignedBy.percentage}}</td>
-                <td>{{annByAssignedBy.count}}</td>
+              <tr ng-repeat="annByAssignedBy in stats.annotationsPerAssignedBy">
+                <td><strong>{{annByAssignedBy.statisticTupleKey}}</strong></td>
+                <td>{{annByAssignedBy.statisticTuplePercentage}}</td>
+                <td>{{annByAssignedBy.statisticTupleHits}}</td>
               </tr>
             </table>
 
           </div>
           <div class="grid_10 push_2">
-            <h5>Proteins per Assigned By</h5>
+            <h5>Gene products per Assigned By</h5>
             <table id="proteinsByAssignedBy" class="two-colours">
               <tr>
                 <th>Code</th>
                 <th>%</th>
                 <th>Count</th>
               </tr>
-              <tr ng-repeat="protByAssignedBy in statsBean.proteinsPerAssignedBy">
-                <td><strong>{{protByAssignedBy.code}}</strong></td>
-                <td>{{protByAssignedBy.percentage}}</td>
-                <td>{{protByAssignedBy.count}}</td>
+              <tr ng-repeat="protByAssignedBy in stats.geneProductsPerAssignedBy">
+                <td><strong>{{protByAssignedBy.statisticTupleKey}}</strong></td>
+                <td>{{protByAssignedBy.statisticTuplePercentage}}</td>
+                <td>{{protByAssignedBy.statisticTupleHits}}</td>
               </tr>
             </table>
           </div>

@@ -4,7 +4,7 @@
 
 
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
-                                              hardCodedDataService, filteringService, ENV, $routeParams) {
+                                              hardCodedDataService, dbXrefService, filteringService, ENV, $routeParams) {
 
 
   /**
@@ -140,17 +140,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       $log.info('Download modal dismissed at: ' + new Date());
     });
   };
-
-
-  $scope.showAssignedBy = function(target) {
-    if (target==='InterPro') {
-      $window.open('http://www.ebi.ac.uk/interpro/', '_blank');
-    }
-    if (target==='GOC') {
-      $window.open('http://geneontology.org/', '_blank');
-    }
-  }
-
 
   $scope.showTaxon = function(target) {
     $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');

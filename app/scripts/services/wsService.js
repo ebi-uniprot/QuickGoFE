@@ -23,7 +23,10 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/ws/termcostats/' + termId);
-      }
+      },
+      getBlacklist : function(termId) {
+      return $http.get(ENV.apiEndpoint+'/ws/term/blacklist/' + termId);
+    }
   }
 }]);
 
@@ -72,6 +75,22 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         };
         return $http(request);
       },
+      findAnnotationsForECO: function(searchTerm) {
+        var request = {
+          method: 'POST',
+          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            list: [{
+              type: "ecoID",
+              value: searchTerm
+            }]
+          }
+        };
+        return $http(request);
+      },      
       findAnnotationsForProduct: function(searchTerm) {
         var request = {
           method: 'POST',
@@ -91,6 +110,26 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   }
 }]);
 
+wsService.factory('dbXrefService', ['$http', function($http){
+  return {
+    getDbXrefs: function() {
+      return $http.get('https://s3.amazonaws.com/go-public/metadata/db-xrefs.json', {cache: true});
+    },
+    getGenericLink: function(name, xrefs) {
+      var match = _.find(xrefs, function(xref){
+        return xref.database === name || _.contains(xref.synonyms, name);
+      });
+      return match.generic_urls[0];
+    },
+    getLinkforId: function(name, id, xrefs) {
+      var match = _.find(xrefs, function(xref){
+        return xref.database === name || _.contains(xref.synonyms, name);
+      });
+      return match.entity_types[0].url_syntax.replace('[example_id]', id);
+    }
+  };
+}])
+
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/ws/dataset', {}, {
     query: {method:'GET', isArray:true, Cache:true}
@@ -109,14 +148,14 @@ wsService.factory('taxonConstraints', ['$resource', 'ENV', function($resource, E
     });
 }]);
 
-wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/dataset/annotationBlacklist', {}, {
+wsService.factory('annotationPostProRules', ['$resource', 'ENV', function($resource, ENV){
+  return $resource(ENV.apiEndpoint+'/ws/other/annotationPostProRules', {}, {
     query: {method:'GET', Cache:true}
   });
 }]);
 
-wsService.factory('annotationPostProcessing', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/dataset/annotationPostProcessing', {}, {
+wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource, ENV){
+  return $resource(ENV.apiEndpoint+'/ws/dataset/annotationBlacklist', {}, {
     query: {method:'GET', Cache:true}
   });
 }]);

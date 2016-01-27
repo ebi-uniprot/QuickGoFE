@@ -23,12 +23,12 @@
           <th>Annotations</th>
         </tr>
         <tr ng-repeat="searchResult in results.results">
-          <td><a href="http://www.uniprot.org/uniprot/{{searchResult.dbObjectId}}" target="_blank">{{searchResult.dbObjectId}}</td>
+          <td><a ng-click="followLinkToEntry(searchResult.db, searchResult.dbObjectId)" target="_blank">{{searchResult.dbObjectId}}</td>
           <td ng-bind-html="highlight(searchResult.dbObjectName)"></td>
           <td>{{searchResult.dbObjectType}}</td>
           <td>{{searchResult.taxonName}}</td>
           <td>{{searchResult.db}}</td>
-          <td><a href="#/annotations/filter?gpID={{searchResult.dbObjectId}}" class="annotations-link"><annotations-link productid="{{searchResult.dbObjectId}}"></annotations-link></a></td>
+          <td><a href="annotations/filter?gpID={{searchResult.dbObjectId}}" class="annotations-link"><annotations-link productid="{{searchResult.dbObjectId}}"></annotations-link></a></td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>

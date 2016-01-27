@@ -27,8 +27,25 @@ var app = angular
     'config'
   ]);
 
+  app.run(function($rootScope, dbXrefService, $window){
+    $rootScope.followLinkToGeneric = function(database) {
+      dbXrefService.getDbXrefs().then(function(xrefs) {
+        $window.open(dbXrefService.getGenericLink(database, xrefs.data));
+      });
+    }
 
-  app.config(function ($routeProvider) {
+    $rootScope.followLinkToEntry = function(database, id) {
+      dbXrefService.getDbXrefs().then(function(xrefs) {
+        $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
+      });
+    }
+  });
+
+
+  app.config(function ($routeProvider, $locationProvider) {
+
+    $locationProvider.html5Mode(true);
+
     $routeProvider
       .when('/', {
         templateUrl: 'main/start.html',
@@ -57,10 +74,6 @@ var app = angular
       .when('/dataset/annotationBlacklist', {
         templateUrl: 'dataset/annotationBlacklist.html',
         controller: 'AnnotationBlacklistCtrl'
-      })
-      .when('/dataset/annotationPostProcessing', {
-        templateUrl: 'dataset/annotationPostProcessing.html',
-        controller: 'AnnotationPostProcessingCtrl'
       })
       .when('/help', {
         templateUrl: 'nav/help.html',
@@ -113,6 +126,10 @@ var app = angular
       .when('/searchproducts/:searchTerm', {
         templateUrl: 'searchproducts/searchProducts.html',
         controller: 'FacetSearchCtrl'
+      })
+      .when('/other', {
+        templateUrl: 'other/other.html',
+        controller: 'OtherCtrl'
       })
       .otherwise({
         redirectTo: '/'

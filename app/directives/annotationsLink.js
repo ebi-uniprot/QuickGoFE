@@ -11,9 +11,15 @@ angular
 				attrs.$observe('termid', function() {
 					termId = attrs.termid;
 					if(termId) {
-						searchService.findAnnotationsForTerm(termId).then(function(d){
-							$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
-						});
+						if(termId.startsWith('GO')) {
+							searchService.findAnnotationsForTerm(termId).then(function(d){
+								$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+							});
+						} else if (termId.startsWith('ECO')) {
+							searchService.findAnnotationsForECO(termId).then(function(d){
+								$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+							});
+						}
 					}
 				});
 

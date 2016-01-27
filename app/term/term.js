@@ -47,8 +47,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
   });
 
-
-
    // Set up statistics for co-occurring page
   $scope.statsPromise = termService.getStats(termId);
   $scope.statsPromise.then(function(d){
@@ -68,6 +66,14 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
       $scope.totalComparedNonIEAStats = $scope.totalComparedNonIEAStats + val.compared;
     });
 
+  });
+
+
+  // Set up blacklist for selected term
+  $scope.blacklistPromise = termService.getBlacklist(termId);
+  $scope.blacklistPromise.then(function(d){
+    console.log("Blacklist returned for term", d);
+      $scope.blacklist = d.data;
   });
 
   /**
