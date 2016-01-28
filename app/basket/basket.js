@@ -99,8 +99,8 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
     //Let the annotation list code know we have updated the filters
     $scope.$emit('filtersUpdate', 0); //Xav: is this required?
     $uibModalInstance.dismiss('cancel');
+    $location.path("annotations");
 
-    $window.location.href= "#annotations";
   };
 
   /**
@@ -141,8 +141,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
   }
 
   $scope.close = function() {
-    $uibModalInstance.dismiss('cancel');    
+    $uibModalInstance.dismiss('cancel');
   }
 
 });
-

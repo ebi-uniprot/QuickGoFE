@@ -234,7 +234,8 @@ var disableBasketItemsSelected = function(basketItemsList) {
     });
 
 
-    $window.location.href= "#annotations";
+
+    $location.path("annotations");
   }
 
   $scope.clearSelection = function(){
