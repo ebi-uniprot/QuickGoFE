@@ -35,7 +35,7 @@
         <!-- Results Repeat -->
         <tr ng-repeat="goTuple in goList.annotationsList">
           <td>{{goTuple.database}}</td>
-          <td><a ng-click="followLinkToEntry(goTuple.database, goTuple.protein)" target="_blank">{{goTuple.protein}}</a>
+          <td><a ng-click="followLinkToEntry(goTuple.database, goTuple.geneProductId)" target="_blank">{{goTuple.geneProductId}}</a>
           </td>
           <td>{{goTuple.symbol}}</td>
           <td>{{goTuple.qualifier}}</td>
