@@ -27,8 +27,12 @@
             <span uib-tooltip-template="'{{colHeading.name}}.html'">
             {{colHeading.value}}</span>
           </th>
-          <th ng-show="isSlim">Original GO Identifier</th>
-          <th ng-show="isSlim">Original GO Term Name</th>
+          <th ng-show="showSlimColumns">
+            <span uib-tooltip-template="'colOrigID.html'">Original GO Identifier</span>
+          </th>
+          <th ng-show="showSlimColumns">
+            <span uib-tooltip-template="'colOrigName.html'">Original GO Term Name</span>
+          </th>
           </thead>
         </tr>
 
@@ -79,8 +83,8 @@
           <!-- Assigned By-->
           <td><a class="quickgo-link selectable" ng-click="followLinkToGeneric(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
           <td>{{goTuple.fullExtension}}</td>
-          <td ng-show="isSlim">{{goTuple.originalTermId}}</td>
-          <td ng-show="isSlim">{{goTuple.originalTermName}}</td>
+          <td ng-show="showSlimColumns"><a href="term/{{goTuple.originalTermId}}">{{goTuple.originalTermId}}</a></td>
+          <td ng-show="showSlimColumns">{{goTuple.originalTermName}}</td>
         </tr>
       </table>
       <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
@@ -97,6 +101,7 @@
   <div class="clearfix"></div>
 
 <!-- Dynamicaly inserted tootltips for column headings -->
+<script type="text/ng-template" id="colDatabase.html"><span>The souce database of the annotation</span></script>
 <script type="text/ng-template" id="colGeneProductID.html"><span>The sequence IDs that have been annotated with GO Terms.</span></script>
 <script type="text/ng-template" id="colSymbol.html"><span>The symbols corresponding to the Gene Product ID. An officially approved gene symbol when available or other gene symbols or locus names.</span></script>
 <script type="text/ng-template" id="colQualifier.html"><span>Defines the relationship between Gene product and GO term.</span></script>
@@ -109,6 +114,8 @@
 <script type="text/ng-template" id="colTaxon.html"><span>The taxonomic ID for the species being annotated.</span></script>
 <script type="text/ng-template" id="colAssignedBy.html"><span>The database which created the annotation. The GO annotation may not be copied without acknowledgement of the data source.</span></script>
 <script type="text/ng-template" id="colAnnotationExtension.html"><span>Annotation Extension</span></script>
+<script type="text/ng-template" id="colOrigID.html"><span>The orginal GO ID</span></script>
+<script type="text/ng-template" id="colOrigName.html"><span>Original name of the slim</span></script>
 
 
   <!-- Column display popup -->
