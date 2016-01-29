@@ -21,6 +21,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.appliedFilters = [];
   $scope.appliedFilters = filteringService.getFilters();
 
+  //Search filters applied to see if the flag for "slim" is set. If true, extra columns will be shown
+  $scope.showSlimColumns = _.find($scope.appliedFilters, function(rw){ return rw.value == "slim" });
+
   //The raw list of filters as they come back from the advanced filters modal
   $scope.advancedFilters = {};
 
@@ -62,7 +65,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       $scope.goList = data;
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
     });
-
+    $scope.showSlimColumns = _.find($scope.appliedFilters, function(rw){ return rw.value == "slim" });
   }
 
 
@@ -115,7 +118,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     $scope.advancedFilters =  {};
 
     //refresh the page
-    $scope.currentPage=1;    
+    $scope.currentPage=1;
     getResultsPage(1);
   });
 

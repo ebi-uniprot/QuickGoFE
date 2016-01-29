@@ -20,13 +20,10 @@
             <a class="icon icon-functional pull-right" data-icon="x" ng-if="filter.type!='goTermUse' && filter.type!='goRelations'" ng-click="removeFilter(filter)"></a>
           </td>
       </tr>
-      <tfoot>
-        <tr><td>
-          <button class="btn quickgo-btn pull-right" ng-click="clearFilters()">Clear</button>
-        </td></tr>
-      </tfoot>
   </table>
 </div>
+<button ng-show="appliedFilters.length>0" class="btn quickgo-btn pull-right" ng-click="clearFilters()">Clear</button>
+<br />
   <hr>
 
   <!-- FILTER BY TAXON-->
