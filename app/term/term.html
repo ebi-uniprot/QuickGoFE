@@ -155,92 +155,99 @@
     </section>
 
 
-    <!-- Co-occurring terms -->
+    <!-- Co-occurring statistics -->
     <section id="coOcurring">
       <h3 class="term-section-header">Co-occurrence statistics</h3>
 
       <p>These tables show the number of times the term listed in the
         table has been co-annotated with {{termModel.termId}}. The terms are listed in
         descending order of number of times the term has been co-annotated.
-        The table on the left is calculated using both electronic and
-        manual-evidenced annotations, while the table on the right is
-        calculated using only manual-evidenced annotations.</p>
+        The initial table is calculated using both electronic and
+        manual-evidenced annotations. The other tab is calculated using only manual-evidenced annotations.</p>
 
-      <div id="allCoOccurringStats">
-        <h5 ng-show="stats.allCoOccurrenceStatsTerms.length == 0">
-          <element class='icon icon-generic' data-icon='l'>
-            No co-occurring statistics for {{termModel.termId}} based on the entire annotation set
-          </element>
-        </h5>
-        <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
-          <h5>Co-occurrence statistics for {{termModel.termId}} based on the entire annotation set</h5>
-          <table id="allCoOccurringStatsTable" class="two-colours">
-            <tr>
-              <th>Compared term</th>
-              <th>Aspect</th>
-              <th>Name</th>
-              <th>PR</th>
-              <th>S%</th>
-              <th>#Together</th>
-              <th>#Compared</th>
-            </tr>
-            <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms">
-              <td><a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a></td>
-              <td>{{allStat.aspect}}</td>
-              <td>{{allStat.name}}</td>
-              <td>{{allStat.probabilityRatio}}</td>
-              <td>{{allStat.significance}}</td>
-              <td>{{allStat.together}}</td>
-              <td>{{allStat.compared}}</td>
-            </tr>
-            <tr>
-              <td colspan="5"><strong>Totals</strong></td>
-              <td>{{totalTogetherAllStats}}</td>
-              <td>{{totalComparedAllStats}}</td>
-            </tr>
-          </table>
-        </div>
-        <div>
-        </div>
-      </div>
-        <div id="nonIEACoOccurringStats">
-          <h5 ng-show="stats.nonIEACOOccurrenceStatistics.length == 0">
-            <element class='icon icon-generic' data-icon='l'>
-              No co-occurring statistics for {{termModel.termId}} based on manual annotations
-            </element>
-          </h5>
-          <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
-            <h5>Co-occurrence statistics for {{termModel.termId}} based on manual annotations only</h5>
-            <table id="nonIEACoOccurringStatsTable" class="two-colours">
-              <tr>
-                <th>Compared term</th>
-                <th>Aspect</th>
-                <th>Name</th>
-                <th>PR</th>
-                <th>S%</th>
-                <th>#Together</th>
-                <th>#Compared</th>
-              </tr>
-              <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics">
-                <td><a class="quickgo-link"
-                  ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
-                </td>
-                <td>{{nonIEAStat.aspect}}</td>
-                <td>{{nonIEAStat.name}}</td>
-                <td>{{nonIEAStat.probabilityRatio}}</td>
-                <td>{{nonIEAStat.significance}}</td>
-                <td>{{nonIEAStat.together}}</td>
-                <td>{{nonIEAStat.compared}}</td>
-              </tr>
 
-              <tr>
-                <td colspan="5"><strong>Totals</strong></td>
-                <td>{{totalTogetherNonIEAStats}}</td>
-                <td>{{totalComparedNonIEAStats}}</td>
-              </tr>
-            </table>
+        <uib-tabset>
+          <uib-tab heading="Based on Entire Annotation set">
+            <div id="allCoOccurringStats">
+              <h5 ng-show="stats.allCoOccurrenceStatsTerms.length == 0">
+                <element class='icon icon-generic' data-icon='l'>
+                  No co-occurring statistics for {{termModel.termId}} based on the entire annotation set
+                </element>
+              </h5>
+            <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
+              <h5>Co-occurrence statistics for {{termModel.termId}} based on the entire annotation set</h5>
+              <table id="allCoOccurringStatsTable" class="two-colours">
+                <tr>
+                  <th>Compared term</th>
+                  <th>Aspect</th>
+                  <th>Name</th>
+                  <th>PR</th>
+                  <th>S%</th>
+                  <th>#Together</th>
+                  <th>#Compared</th>
+                </tr>
+                <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms">
+                  <td><a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a></td>
+                  <td>{{allStat.aspect}}</td>
+                  <td>{{allStat.name}}</td>
+                  <td>{{allStat.probabilityRatio}}</td>
+                  <td>{{allStat.significance}}</td>
+                  <td>{{allStat.together}}</td>
+                  <td>{{allStat.compared}}</td>
+                </tr>
+                <tr>
+                  <td colspan="5"><strong>Totals</strong></td>
+                  <td>{{totalTogetherAllStats}}</td>
+                  <td>{{totalComparedAllStats}}</td>
+                </tr>
+              </table>
+            </div>
           </div>
-        </div>
+          </uib-tab>
+
+          <uib-tab heading="Based on Manual Annotations only">
+            <div id="nonIEACoOccurringStats">
+              <h5 ng-show="stats.nonIEACOOccurrenceStatistics.length == 0">
+                <element class='icon icon-generic' data-icon='l'>
+                  No co-occurring statistics for {{termModel.termId}} based on manual annotations
+                </element>
+              </h5>
+              <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
+                <h5>Co-occurrence statistics for {{termModel.termId}} based on manual annotations only</h5>
+                <table id="nonIEACoOccurringStatsTable" class="two-colours">
+                  <tr>
+                    <th>Compared term</th>
+                    <th>Aspect</th>
+                    <th>Name</th>
+                    <th>PR</th>
+                    <th>S%</th>
+                    <th>#Together</th>
+                    <th>#Compared</th>
+                  </tr>
+                  <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics">
+                    <td><a class="quickgo-link"
+                      ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
+                    </td>
+                    <td>{{nonIEAStat.aspect}}</td>
+                    <td>{{nonIEAStat.name}}</td>
+                    <td>{{nonIEAStat.probabilityRatio}}</td>
+                    <td>{{nonIEAStat.significance}}</td>
+                    <td>{{nonIEAStat.together}}</td>
+                    <td>{{nonIEAStat.compared}}</td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5"><strong>Totals</strong></td>
+                    <td>{{totalTogetherNonIEAStats}}</td>
+                    <td>{{totalComparedNonIEAStats}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </uib-tab>
+        </uib-tabset>
+
     </section>
 
 
