@@ -23,16 +23,10 @@
       <table id="assignedByCount" class="two-colours">
         <tr>
           <thead>
-          <th ng-repeat="colHeading in annotationColumns" >
-            <span uib-tooltip-template="'{{colHeading.name}}.html'">
-            {{colHeading.value}}</span>
-          </th>
-          <th ng-show="showSlimColumns">
-            <span uib-tooltip-template="'colOrigID.html'">Original GO Identifier</span>
-          </th>
-          <th ng-show="showSlimColumns">
-            <span uib-tooltip-template="'colOrigName.html'">Original GO Term Name</span>
-          </th>
+            <th ng-repeat="colHeading in annotationColumns" ng-show="colHeading.slimCol == false || (colHeading.slimCol == true && showSlimColumns)">
+              <span uib-tooltip-template="'{{colHeading.name}}.html'">
+              {{colHeading.value}}</span>
+            </th>
           </thead>
         </tr>
 
@@ -53,6 +47,10 @@
           </td>
           <!-- GO Term Name-->
           <td><element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element></td>
+
+          <!-- Slim columns -->
+          <td ng-show="showSlimColumns"><a href="term/{{goTuple.originalTermId}}">{{goTuple.originalTermId}}</a></td>
+          <td ng-show="showSlimColumns">{{goTuple.originalTermName}}</td>
 
           <!-- Aspect-->
           <td>{{goTuple.aspect}}</td>
@@ -83,8 +81,6 @@
           <!-- Assigned By-->
           <td><a class="quickgo-link selectable" ng-click="followLinkToGeneric(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
           <td>{{goTuple.fullExtension}}</td>
-          <td ng-show="showSlimColumns"><a href="term/{{goTuple.originalTermId}}">{{goTuple.originalTermId}}</a></td>
-          <td ng-show="showSlimColumns">{{goTuple.originalTermName}}</td>
         </tr>
       </table>
       <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
