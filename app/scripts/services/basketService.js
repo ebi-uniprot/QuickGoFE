@@ -45,7 +45,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q) {
    */
   basketList.removeBasketItem = function (basketItem) {
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
-    items.splice(items.indexOf(basketItem), 1);
+    items.splice(items.indexOf(basketItem.termId), 1);
     $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
     return items.length;
   }
