@@ -52,8 +52,8 @@ var app = angular
         controller: 'StartCtrl'
       })
       .when('/annotations', {
-        templateUrl: 'annotationsList/annotationList.html',
-        controller: 'AnnotationListCtrl'
+        templateUrl: 'annotationsList/annotations.html',
+        controller: 'Annotations'
       })
       .when('/webservices', {
         templateUrl: 'nav/webservices.html',
@@ -87,10 +87,6 @@ var app = angular
         templateUrl: 'slimming/slimming.html',
         controller: 'GOSlimCtrl'
       })
-      .when('/statistics', {
-        templateUrl: 'statistics/statistics.html',
-        controller: 'StatisticsCtrl'
-      })
       .when('/terms/P', {
         templateUrl: 'simplelist/ontologyTerms.html',
         controller: 'OntologyTermsCtrl'
@@ -103,10 +99,10 @@ var app = angular
         templateUrl: 'simplelist/cellularcomponent.html',
         controller: 'CellularComponentListCtrl'
       })
-      .when('/annotations/filter', {
-        templateUrl: 'annotationsList/annotationList.html',
-        controller: 'BookmarkCtrl'
-      })
+      // .when('/annotations/filter', {
+      //   templateUrl: 'annotationsList/annotationList.html',
+      //   controller: 'BookmarkCtrl'
+      // })
       .when('/annotationExtensionRelations', {
         templateUrl: 'views/annotationExtensionRelations.html',
         controller: 'AnnotationExtensionRelationsCtrl'

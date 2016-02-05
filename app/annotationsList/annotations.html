@@ -1,0 +1,18 @@
+<!-- header templates -->
+<div id="content" class="container_24" cg-busy="resultsPromise">
+  <h2>GO annotations</h2>
+
+  <!-- Sidebar -->
+  <div ng-include src="'sidebar/Sidebar.html'"></div>
+
+  <!-- Main Content -->
+
+  <!-- Table heading content-->
+  <div class="grid_20">
+  	 <uib-tabset>
+		<uib-tab heading="Annotations"><div ng-include="'annotationsList/annotationList.html'"></div></uib-tab>
+		<uib-tab heading="Statistics"><div ng-include="'statistics/statistics.html'"></div></uib-tab>
+  	 </uib-tabset>
+
+  </div>
+</div>

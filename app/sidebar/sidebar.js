@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 17/04/2015.
  */
-app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringService, hardCodedDataService, $routeParams) {
+app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringService, $uibModal, hardCodedDataService, $routeParams) {
 
 
   $scope.showInitialTaxons=1;
@@ -13,16 +13,31 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
   $scope.quickFilters.text.goID = "";
   $scope.quickFilters.text.gpID = "";
 
+  $scope.appliedFilters = [];
+  $scope.appliedFilters = filteringService.getFilters();
+
+
   $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
   $scope.initialTaxonomies = hardCodedDataService.getInitialTaxonomies();
-
-  $scope.displayStats = $location.path().lastIndexOf('statistics') > 0;
-  console.log($scope.displayStats);
-
 
   /**
    * ------------------------------------------------ Scope methods  -------------------------------------------------
    */
+
+  /**
+   * Show the advanced filters modal on request
+   */
+  $scope.showAdvancedFilters = function () {
+
+    var modalInstance = $uibModal.open({
+      templateUrl: 'advancedfilters/advancedFiltersModal.html',
+      controller: 'AdvancedFiltersCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope
+
+    });
+
+  };
 
   /**
    * Notify the filtering service with the submitted data
@@ -40,7 +55,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
 
     //Tell parent page this value has been updated.
 
-    $scope.$emit('filtersUpdate', $scope.quickFilters);   //todo change this so is notification only
+    $rootScope.$emit('filtersUpdate', $scope.quickFilters);   //todo change this so is notification only
 
     $location.path("/annotations");
 
@@ -60,8 +75,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
     }
 
     //Tell parent page this value has been updated.
-    $scope.$emit('filtersUpdate', '');   //todo change this so is notification only
-
+    $rootScope.$emit('filtersUpdate', '');   //todo change this so is notification only
   }
 
   /**
@@ -73,7 +87,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
     filteringService.removeFilter(filter);
 
     //send an update to the annotation list to refresh itself
-    $scope.$emit('filtersUpdate', filter);
+    $rootScope.$emit('filtersUpdate', filter);
 
   };
 
@@ -84,10 +98,10 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
    */
   $scope.clearFilters=function() {
     filteringService.clearFilters();
-    console.log('here');
-
     //send an update to the annotation list to refresh itself
-    $scope.$emit('filtersClear');
+    $scope.appliedFilters = filteringService.getFilters();
+
+    $rootScope.$emit('filtersClear');
   };
 
 

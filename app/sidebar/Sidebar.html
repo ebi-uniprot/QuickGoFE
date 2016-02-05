@@ -1,30 +1,23 @@
 <div class="grid_4" ng-controller="SidebarCtrl">
-
-  <h4>Display</h4>
-  <ul class="filter-list">
-    <li ng-class="{'active' : !displayStats}"><a href="annotations">Annotations</a></li>
-    <li ng-class="{'active' : displayStats}"><a href="statistics">Statistics</a></li>
-  </ul>
-
+  
   <!-- APPLIED FILTERS LIST-->
-  <h4>Applied Filters</h4>
-  <element class="filter-count" ng-if="appliedFilters.length==0">[None]</element>
-  <element class="filter-count" ng-if="appliedFilters.length>0">[{{appliedFilters.length}}]</element>
-
-  <div id="results-sidebar">
-  <table class="quickFilter" ng-show="appliedFilters.length>0">
-    <tr>
-        <tr ng-repeat="filter in appliedFilters">
-          <td class="sidebar-applied-filter" ng-if="filter">
-            {{filter.type}} : {{filter.value}}
-            <a class="icon icon-functional pull-right" data-icon="x" ng-if="filter.type!='goTermUse' && filter.type!='goRelations'" ng-click="removeFilter(filter)"></a>
-          </td>
-      </tr>
-  </table>
-</div>
-<button ng-show="appliedFilters.length>0" class="btn quickgo-btn pull-right" ng-click="clearFilters()">Clear</button>
-<br />
-  <hr>
+  <div ng-if="appliedFilters.length > 0">
+    <h4>Applied Filters</h4>
+    <div id="results-sidebar">
+      <table class="quickFilter" ng-show="appliedFilters.length>0">
+        <tr>
+            <tr ng-repeat="filter in appliedFilters">
+              <td class="sidebar-applied-filter" ng-if="filter">
+                {{filter.type}} : {{filter.value}}
+                <a class="icon icon-functional pull-right" data-icon="x" ng-if="filter.type!='goTermUse' && filter.type!='goRelations'" ng-click="removeFilter(filter)"></a>
+              </td>
+          </tr>
+      </table>
+    </div>
+    <a ng-show="appliedFilters.length>0" class="pull-right" ng-click="clearFilters()">Clear all</a>
+    <br />
+      <hr>
+  </div>
 
   <!-- FILTER BY TAXON-->
   <div ng-show="showInitialTaxons">
@@ -50,11 +43,17 @@
   <div>
     <h4>Filter By</h4>
     <p>
-      <label>GO ID:</label><textarea class="sidebar"        ng-model="quickFilters.text.goID"></textarea>
-      <label>Gene Product ID:</label><textarea class="sidebar" ng-model="quickFilters.text.gpID"></textarea>
+      <label>GO ID:</label><input ng-model="quickFilters.text.goID"/>
+      <label>Gene Product ID:</label><input ng-model="quickFilters.text.gpID"/>
+    </p>
       <button class="btn quickgo-btn sidebar-padding pull-right" class="icon icon-functional button" data-icon="1"
         ng-click="quickFilterById()">Submit</button>
-    </p>
+    <div class="clear"></div>
   </div>
+
+
+  <hr>
+
+  <button class="btn quickgo-btn icon-functional" data-icon="f" ng-click="showAdvancedFilters()">Advanced filters</button>  
 
 </div>

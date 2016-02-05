@@ -2,7 +2,7 @@
  * Created by twardell on 04/03/2015
  * This controller handles the creation and initial processing of the advanced filters modal.
  */
-app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibModal, $location, basketService, evidencetypes, withDBs,
+app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $uibModalInstance, $uibModal, $location, basketService, evidencetypes, withDBs,
                                                assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail) {
 
 
@@ -29,6 +29,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
   $scope.advancedFilters.text.taxon = "";
   $scope.advancedFilters.text.gpID = "";
   $scope.advancedFilters.text.goID = "";
+  $scope.advancedFilters.text.reference = "";
   $scope.advancedFilters.text.goTermUse="ancestor";
   $scope.advancedFilters.text.goRelations="IPO";
   $scope.advancedFilters.text.ecoID="";
@@ -310,7 +311,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $uibModalInstance, $uibMo
     filteringService.populateAppliedFilters( $scope.advancedFilters,  $scope.availablePredefinedTerms);
 
     //Tell annotations list this value has been updated.
-    $scope.$emit('filtersUpdate', $scope.advancedFilters);   //todo change this so is notification only
+    $rootScope.$emit('filtersUpdate', $scope.advancedFilters);   //todo change this so is notification only
 
     //Now go back to the annotation list
     $uibModalInstance.dismiss('cancel');
