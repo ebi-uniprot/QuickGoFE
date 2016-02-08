@@ -5,6 +5,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   $scope.succesAlerts = [];
   $scope.otherAlerts = [];
   $scope.availablePredefinedTerms = '';
+  $scope.rootTermMFID = "GO:0003674";
+  $scope.rootTermBPID = "GO:0008150";
+  $scope.rootTermCCID = "GO:0005575";
 
   $scope.species = [
       {id: 9606, displayName: 'Human'},
@@ -67,10 +70,57 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   $scope.updatePredefinedSets = function() {
     $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
     $scope.availablePredefinedTerms.$promise.then(function (data) {
+
+      // remove the 3 root terms
+      var data = _.without(data, _.findWhere(data, {name: 'molecular_function'} ));
+      var data = _.without(data, _.findWhere(data, {name: 'biological_process'} ));
+      var data = _.without(data, _.findWhere(data, {name: 'cellular_component'} ));
+
       var predefinedSets = _.groupBy(data, 'aspectDescription');
       $scope.predefinedBP = predefinedSets['Biological Process'];
       $scope.predefinedMF = predefinedSets['Molecular Function'];
       $scope.predefinedCC = predefinedSets['Cellular Component'];
+    });
+  };
+
+  $scope.addRootTerm = function(sourceCheckBox){
+    $scope.addThisRootTerm = "";
+    if(sourceCheckBox == "rootTermMF"){
+      if($scope.rootTermMF){
+        $scope.addThisRootTerm = "GO:0003674";
+      }else {
+        removeTerm("GO:0003674");
+      }
+    }
+
+    if(sourceCheckBox == "rootTermBP"){
+      if($scope.rootTermBP){
+        $scope.addThisRootTerm = "GO:0008150";
+      }else {
+        removeTerm("GO:0008150");
+      }
+    }
+
+    if(sourceCheckBox == "rootTermCC"){
+      if($scope.rootTermCC){
+        $scope.addThisRootTerm = "GO:0005575";
+      }else {
+        removeTerm("GO:0005575");
+      }
+    }
+
+    // Now lets add the Root term
+    $scope.rootTermsPromise = basketService.validateTerms($scope.addThisRootTerm);
+    $scope.rootTermsPromise.then(function(res){
+      addItemsToSelection(res.valid);
+      $scope.addThisRootTerm = "";
+    });
+
+  }
+
+  var removeTerm = function(termID){
+    $scope.selectedItems = _.filter($scope.selectedItems, function(term){
+      return term.termId != termID;
     });
   };
 
@@ -103,6 +153,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   $scope.addOwnTerms = function() {
     $scope.ownTermPromise = basketService.validateTerms($scope.slimOwnTerms);
     $scope.ownTermPromise.then(function(res){
+      console.log("res.valid: ",res.valid);
       addItemsToSelection(res.valid);
       if(res.missmatches.length > 0) {
         $scope.otherAlerts.push(
