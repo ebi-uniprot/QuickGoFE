@@ -1,8 +1,4 @@
-/**
- * Created by twardell on 04/03/2015
- * This controller handles the creation and initial processing of the advanced filters modal.
- */
-app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $uibModalInstance, $uibModal, $location, basketService, evidencetypes, withDBs,
+app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, basketService, evidencetypes, withDBs,
                                                assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail) {
 
 
@@ -290,11 +286,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $uibModalInst
    };
 
 
-  $scope.cancel  = function(){
-    $uibModalInstance.dismiss('cancel');
-
-  }
-
 
   /**
    * Notify the filtering service with the submitted data
@@ -314,10 +305,33 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $uibModalInst
     $rootScope.$emit('filtersUpdate', $scope.advancedFilters);   //todo change this so is notification only
 
     //Now go back to the annotation list
-    $uibModalInstance.dismiss('cancel');
     $location.path("annotations");
+    updateFilters();
   }
 
+  var updateFilters = function() {
+    var filters = filteringService.getFilters();
+    var counts = _.countBy(filters, function(d){
+      return d.type;
+    });
+    $scope.taxonFilterCount = counts['taxon'];
+    $scope.productFilterCount = counts['gpID'];
+    $scope.termFilterCount = counts['goID'];
+    $scope.productFilterCount = counts['gpID'];
+    $scope.advancedFilter = '';    
+  }
+
+
+  $scope.cancel = function() {
+    $scope.advancedFilter = '';
+  }
+
+  $scope.clearFilters=function() {
+    filteringService.clearFilters();
+    $scope.appliedFilters = filteringService.getFilters();
+    $rootScope.$emit('filtersClear');
+    updateFilters();
+  };
 
 
 
@@ -394,13 +408,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $uibModalInst
     console.log("Removing go relations");
     delete $scope.advancedFilters.text.goRelations;
   }
-
-  /**
-   * Close window
-   */
-  $scope.ok = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
 
   /**
    * ---------------------------------------------- Sort Evidences ----------------------------------------------

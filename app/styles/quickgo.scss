@@ -165,6 +165,11 @@ textarea {
   &:before {
     color: $white!important;
   }
+  &.btn-default {
+    background-color: $verylightgrey;
+    color: $black;
+    border-color: $lightgrey;
+  }
 }
 
 .basket-btn {
@@ -547,6 +552,20 @@ ul.results-list {
 
 /* ANNOTATION LIST  --------------------------------------------------------------------------------------------------*/
 
+.advanced-filter-content {
+  border-top: 1px solid #ccc;
+  padding-top:.5em;
+  margin-bottom:2em;
+}
+
+.advanced-filter-content.ng-hide-add, .advanced-filter-content.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.advanced-filter-content.ng-hide {
+  opacity: 0;
+}
+
 .buttons-under-tabs {
   margin-top: 1.5em;
 }
@@ -576,10 +595,6 @@ ul.results-list {
 }
 
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
-
-td.sidebar-applied-filter {
-  background-color: $white;
-}
 
 textarea.sidebar {
   height: 6em;

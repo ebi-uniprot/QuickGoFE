@@ -1,0 +1,354 @@
+<div class="grid_23" ng-controller="AdvancedFiltersCtrl">  
+  <ul class="list-inline">
+    <li>Filter by:</li>
+    <li>
+      <button type="button" class="btn btn-default quickgo-btn" ng-click="advancedFilter = (advancedFilter === 'taxon' ? ''  : 'taxon')">
+        Taxon <span class="caret"></span><br>
+        <small ng-show="taxonFilterCount"><span ng-bind="taxonFilterCount"></span> selected</small>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="btn btn-default quickgo-btn" ng-click="advancedFilter = (advancedFilter === 'product' ? ''  : 'product')">
+        Gene Product ID <span class="caret"></span><br>
+        <small ng-show="productFilterCount"><span ng-bind="productFilterCount"></span> selected</small>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="btn btn-default quickgo-btn" ng-click="advancedFilter = (advancedFilter === 'term' ? ''  : 'term')">
+        GO identifiers <span class="caret"></span><br>
+        <small ng-show="termFilterCount"><span ng-bind="termFilterCount"></span> selected</small>
+      </button>
+    </li>
+
+     <li>
+      <button type="button" class="btn btn-default quickgo-btn" ng-click="advancedFilter = (advancedFilter === 'more' ? ''  : 'more')">
+        More filters <span class="caret"></span><br>
+        <small ng-show="moreFilterCount"><span ng-bind="moreFilterCount"></span> selected</small>
+      </button>
+    </li>
+    <li><a ng-click="clearFilters()">Clear all</a></li>
+  </ul>
+
+
+      
+
+<!-- TAXON -->
+<div ng-show="advancedFilter === 'taxon'" class="advanced-filter-content">
+  <h4>Taxon</h4>
+
+    <table class="two-colours">
+      <thead>
+        <th>Taxon</th>
+        <th>Title</th>
+      </thead>
+      <tr ng-repeat="taxon in mostCommonTaxonomies">
+        <td class="a-filter"><input type="checkbox" ng-model="advancedFilters.boolean.taxon[taxon.taxId]"
+         ng-checked="advancedFilters.boolean.taxon[taxon.taxId]">
+         &nbsp;&nbsp;{{taxon.taxId}}</td>
+        <td>{{taxon.title}}</td>
+      </tr>
+    </table>
+    <p>Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for
+  other taxonomic groups</p>
+  <textarea class="default" ng-model="advancedFilters.text.taxon" placeholder="9606,100090,10116,..."></textarea>
+  <div class="pull-right">
+    <button class="btn quickgo-btn" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn quickgo-btn" type="button" ng-click="submit()">Submit</button>
+  </div>
+</div>
+
+<!-- PRODUCT ID -->
+<div ng-show="advancedFilter === 'product'"  class="advanced-filter-content">
+  <h4>Gene product ID</h4>
+  <section>
+    <p>Find annotations for a defined set of gene or gene product identifiers. To restrict the annotations enter a list of IDs in the text box below, separated by commas, spaces or newlines.
+      There is no limit on the number of identifiers that can be entered into this box.</p>
+
+      <textarea class="default" ng-model="advancedFilters.text.gpID" placeholder="A0A000 etc"></textarea>
+    </section>
+
+
+    <section class="text-container"> <!-- 4 choices -->
+      <h5>OR select a list of gene products:</h5>
+
+      <table class="two-colours">
+
+        <thead>
+          <tr>
+            <th></th>
+            <th>Identifier</th>
+            <th>Project</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+
+        <tr ng-repeat="gpSet in geneProductSets">
+          <td>
+            <input id="gpSet.value" type="checkbox" ng-model="advancedFilters.boolean.gpSet[gpSet.value]"
+            ng-checked="advancedFilters.boolean.gpSet[gpSet.value]">
+          </td>
+          <td>{{gpSet.name}}</td>
+          <td>{{gpSet.description}}</td>
+          <td>
+            <a ng-href="gpSet.link"
+            target="_blank"/>{{gpSet.link}}</a>
+          </td>
+        </tr>
+      </table>
+    </section>
+    <div class="pull-right">
+      <button class="btn quickgo-btn" type="button" ng-click="cancel()">Cancel</button>
+      <button class="btn quickgo-btn" type="button" ng-click="submit()">Submit</button>
+    </div>
+  </div>
+
+
+<!-- GO ID -->
+<div ng-show="advancedFilter === 'term'"  class="advanced-filter-content">
+<h4>GO term ID</h4>
+<ol>
+  <li class="main">
+    <strong ng-show="basketItems.length>0">Select/</strong><strong>Enter the terms that you wish to use:</strong>
+    <!-- 3 choices -->
+
+    <!-- Select from basket -->
+    <ol style="list-style: disc">
+      <li class="sub-1" ng-show="basketItems.length>0">Select from your basket:
+        <ul>
+          <li ng-repeat="basketItem in basketItems">
+            <input type="checkbox" id="{{basketItem.termId}}"
+            ng-model="advancedFilters.boolean.goID[basketItem.termId]"
+            ng-checked="advancedFilters.boolean.goID[basketItem.termId]">
+            <label for="{{basketItem.termId}}">{{basketItem.termId}} {{basketItem.name}}</label>
+          </li>
+        </ul>
+      </li>
+      <li class="sub-1" ng-show="basketItems.length==0">(No terms avaliable in your basket)</li>
+
+      <li>Use a predefined GO term set: <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in $parent.$parent.predefinedSlimSets"
+        ng-change="updatePredefinedSets()"></select></li>
+
+        <!-- Enter list of GO identifiers-->
+        <li class="sub-1">Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:
+          <br />
+          <textarea ng-model="advancedFilters.text.goID" class="default"></textarea>
+        </li>
+      </ol>
+
+      <!-- How use-->
+
+      <li class="main"><strong>Select how you want to use the terms that you have chosen:</strong>
+        <section>
+          <ul>
+            <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="ancestor"> Find annotations to <strong>descendants</strong> of these
+              terms (annotations will display the original GO terms applied).
+            </li>
+            <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="slim"> Use these terms as a <strong>GO slim</strong>.</li>
+            <li><input type="radio" ng-model="advancedFilters.text.goTermUse" value="exact"> Use these terms as an <strong>exact</strong> match.</li>
+          </ul>
+        </section>
+      </li>
+
+      <!-- Select Relationship-->
+      <li class="main"><strong>Select which relationship an annotated term should have to the terms above:</strong>
+        <section ng-show="advancedFilters.text.goTermUse=='slim' || advancedFilters.text.goTermUse=='ancestor'">
+         <ul>
+          <li><input type="radio" name="closure" value="I"
+           ng-model="advancedFilters.text.goRelations"> "is a"
+         </li>
+         <li><input type="radio" name="closure" value="IPO"
+           ng-model="advancedFilters.text.goRelations"> "is a", "part of"
+         </li>
+         <li><input type="radio" name="closure" value="IPOR"
+           ng-model="advancedFilters.text.goRelations"> "is a", "part of", "regulates"
+         </li>
+       </ul>
+     </section>
+   </li>
+  </ol>
+  <div class="pull-right">
+    <button class="btn quickgo-btn" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn quickgo-btn" type="button" ng-click="submit()">Submit</button>
+  </div>
+</div>
+
+<!-- OTHER FILTERS -->
+ <div ng-show="advancedFilter === 'more'"  class="advanced-filter-content">
+    <h4>Qualifier</h4>
+    <section>
+      <p>The Qualifier column in a GO annotation is used for flags that modify the interpretation of an annotation.</p>
+      <p>Further details on the usage of the qualifier column can be found <a
+        href="http://www.geneontology.org/page/go-annotation-conventions#qual" target="_blank">here</a>.</p>
+
+        <div id="qualifierArea">
+          <table class="two-colours">
+            <thead>
+              <tr>
+                <th>Qualifier</th>
+              </tr>
+            </thead>
+            <tr ng-repeat="aQualifier in qualifiers">
+              <td>
+                <label>
+                  <input type="checkbox" ng-model="advancedFilters.boolean.qualifier[aQualifier.qualifier]"
+                  ng-checked="advancedFilters.boolean.qualifier[aQualifier.qualifier]">
+                  &nbsp;&nbsp;{{aQualifier.name}}
+                </label>
+              </td>
+            </tr>
+            <tr ng-hide="showAllNotQualifiers"><td><input type="button" ng-click="selectAllNotQualifiers()" value="Select all NOT qualifiers"></td></tr>
+            <tr ng-show="showAllNotQualifiers"><td><input type="button" ng-click="deselectAllNotQualifiers()" value="Deselect all NOT qualifiers"></td></tr>
+          </table>
+        </div>
+      </section>
+
+      <hr>
+
+      <h4>Aspect</h4>
+      <div>
+        You can use the check boxes below to limit the scope of the returned annotation set to terms from one or more
+        specific ontologies:
+
+        <div id="aspectsArea">
+
+          <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.Function"
+            ng-true-value="'Function'"> Molecular Function
+          </div>
+          <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.Process"
+            ng-true-value="'Process'"> Biological Process
+          </div>
+          <div style="display:block"><input type="checkbox" ng-model="advancedFilters.boolean.aspect.Component"
+            ng-true-value="'Component'"> Cellular Component
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <h4>Evidence</h4>
+      <div>
+        <p>A full description of evidence codes and their usage can be found <a
+          href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
+
+          <table class="two-colours">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Coverage</th>
+              </tr>
+            </thead>
+
+
+            <tr ng-repeat="evidenceModel in evidencesArray">
+              <td class="a-filter">
+                <input type="checkbox" id="{{evidenceModel.ecoID}}"
+                ng-model="advancedFilters.boolean.ecoID[evidenceModel.ecoID]"
+                ng-checked="advancedFilters.boolean.ecoID[evidenceModel.ecoID]">
+                <span class="pseudo-link" ng-click="showEvidenceCodeOntologyGraph('{{evidenceModel.ecoID}}')">{{evidenceModel.ecoID}}</span>
+              </td>
+              <td>
+                <label for="{{evidenceModel.ecoID}}">({{evidenceModel.evidenceGOID}}) {{evidenceModel.evidenceName}}</label>
+              </td>
+            </tr>
+          </table>
+          <br>
+          Enter a list of ECO <strong>identifiers</strong> (ECO:nnnnnnn), separated by space, comma or newline
+          characters:
+          <textarea class="default" ng-model="advancedFilters.text.ecoID"></textarea>
+
+          <br>
+          <!-- Include Child Terms need to create a filter with values such as ecoAncestorsI : ECO:0000266 -->
+          <!-- Option Exact match needs to create a filter with values such as ECOID : ECO:0000255-->
+
+          <br><input type="radio" ng-model="advancedFilters.text.ecoTermUse" value="ancestor"> Include Child Terms
+          <br><input type="radio" ng-model="advancedFilters.text.ecoTermUse" value="exact"/> Exact match
+
+        </div>
+
+        <hr>
+
+        <h4>Reference</h4>
+        <div>
+          <p>If you want to find annotations that cite one or more specific references, you can enter them in this text
+            box
+            (with or without a daliase prefix):</p>
+            <textarea class="default" ng-model="advancedFilters.text.reference"></textarea>
+
+            <p>Alternatively (or in addition), you can find annotations that cite a particular type of reference by
+              selecting
+              the appropriate check box(es) below: </p>
+              <p>* Any matches will be displayed</p>
+              <table class="two-colours">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Name</th>
+                  </tr>
+                </thead>
+                <tr ng-repeat="aRef in referenceList">
+                  <td class="a-filter">
+                    <input type="checkbox" id="{{aRef.refId}}" ng-model="advancedFilters.boolean.reference[aRef.refId]"
+                    ng-checked="advancedFilters.boolean.reference[aRef.refId]"> <strong>{{aRef.display}}</strong>
+                  </td>
+                  <td>
+                    <label for="{{aRef.refId}}"> {{aRef.name}}</label>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <hr>
+
+            <h4>With</h4>
+            <div>
+              <p>* Any matches will be displayed</p>
+              <table class="two-colours">
+                <thead>
+                  <th>Annotation</th>
+                  <th>Group</th>
+                </thead>
+                <tr ng-repeat="withDB in withDBs">
+                  <td class="a-filter">
+                    <input type="checkbox" value="{{withDB.dbId}}" id="{{withDB.dbId}}"
+                    ng-model="advancedFilters.boolean.with[withDB.dbId]"
+                    ng-checked="advancedFilters.boolean.with[withDB.dbId]"> {{withDB.dbId}}
+                  </td>
+                  <td>
+                    <label for="{{withDB.dbId}}">{{withDB.xrefDaliase}}</label>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <hr>
+            <h4>Assigned by</h4>
+            <div>
+              Select annotation from:
+              <table class="two-colours">
+                <thead>
+                  <th>Db</th>
+                  <th>Daliase</th>
+                </thead>
+                <tr ng-repeat="assignDB in assignDBs">
+                  <td class="a-filter">
+                    <input type="checkbox" id="{{assignDB.dbId}}"
+                    ng-model="advancedFilters.boolean.assignedby[assignDB.dbId]"
+                    ng-checked="advancedFilters.boolean.assignedby[assignDB.dbId]"> {{assignDB.dbId}}
+                  </td>
+                  <td>
+                    <label for="{{assignDB.dbId}}">{{assignDB.xrefDaliase}}</label>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <hr>
+
+            <h4>Annotation Extension</h4>
+            <div>TBC</div>
+    <div class="pull-right">
+      <button class="btn quickgo-btn" type="button" ng-click="cancel()">Cancel</button>
+      <button class="btn quickgo-btn" type="button" ng-click="submit()">Submit</button>
+    </div>
+</div>
+
+</div>

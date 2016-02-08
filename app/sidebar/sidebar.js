@@ -24,20 +24,9 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
    * ------------------------------------------------ Scope methods  -------------------------------------------------
    */
 
-  /**
-   * Show the advanced filters modal on request
-   */
-  $scope.showAdvancedFilters = function () {
-
-    var modalInstance = $uibModal.open({
-      templateUrl: 'advancedfilters/advancedFiltersModal.html',
-      controller: 'AdvancedFiltersCtrl',
-      windowClass: 'app-modal-window',
-      scope: $scope
-
-    });
-
-  };
+  $rootScope.$on('filtersUpdate', function(){
+    $scope.appliedFilters = filteringService.getFilters();
+  });
 
   /**
    * Notify the filtering service with the submitted data
