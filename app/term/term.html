@@ -141,14 +141,14 @@
         <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
         <table class="two-colours">
           <tr>
-            <th>Relationship to </br>{{termModel.termId}}</th>
             <th>Child Term</th>
             <th>Child Term Name</th>
+            <th>Relationship to </br>{{termModel.termId}}</th>
           </tr>
           <tr ng-repeat="childRelation in termModel.childTermsRelations">
-            <td>{{childRelation.typeOf}}</td>
             <td><a class="quickgo-link" ng-href="term/{{childRelation.id}}">{{childRelation.id}}</a></td>
             <td>{{childRelation.name}}</td>
+            <td>{{childRelation.typeOf}}</td>
           </tr>
         </table>
       </div>
