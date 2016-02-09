@@ -67,12 +67,6 @@
   <h3>Additional Options</h3>
   <uib-accordion close-others="oneAtATime" >
     <uib-accordion-group heading="Gene Product ID" is-open="true" is-disabled="selectedItems.length <= 0" closeOthers="true">
-<!--      <ul>
-        <li ng-repeat="product in geneProducts">
-          <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[product.id]" checklist-value="{{product.id}}"> {{product.displayName}}
-        </li>
-      </ul>
--->
       <textarea ng-disabled="selectedItems.length <= 0" class="default" placeholder="Add your Gene Product ID(s)" ng-model="$parent.$parent.$parent.genProductID"></textarea>
     </uib-accordion-group>
 
@@ -88,7 +82,6 @@
   </uib-accordion>
 
 </div>
-
 
 
 <div id="selection-header" class="grid_24" data-spy="affix" data-offset-top="700">
@@ -108,10 +101,38 @@
     <h4>Choose or input GO terms above to view your selection here</h4>
   </div>
   <div ng-if="selectedItems.length >= 1">
+
+    <h5>Optional root terms:</h5>
+    <ul>
+      <li ng-class="{'section-disabled': !rootTermMF }">
+        <input type="checkbox" ng-model="$parent.$parent.rootTermMF" ng-change="addRootTerm('rootTermMF')">
+        <a href="term/{{rootTermMFID}}" target="_blank">{{rootTermMFID}}</a>
+        <basket-button termid="{{rootTermMFID}}"></basket-button>
+        <chart-icon term-id="rootTermMFID" term-name="molecular_function"></chart-icon>
+        Molecular Function
+      </li>
+      <li ng-class="{'section-disabled': !rootTermBP }">
+        <input type="checkbox" ng-model="$parent.$parent.rootTermBP" ng-change="addRootTerm('rootTermBP')">
+        <a href="term/{{rootTermBPID}}" target="_blank">{{rootTermBPID}}</a>
+        <basket-button termid="{{rootTermBPID}}"></basket-button>
+        <chart-icon term-id="rootTermBPID" term-name="biological_process"></chart-icon>
+        Biological Process
+      </li>
+      <li ng-class="{'section-disabled': !rootTermCC }">
+        <input type="checkbox" ng-model="$parent.$parent.rootTermCC" ng-change="addRootTerm('rootTermCC')">
+        <a href="term/{{rootTermCCID}}" target="_blank">{{rootTermCCID}}</a>
+        <basket-button termid="{{rootTermCCID}}"></basket-button>
+        <chart-icon term-id="rootTermCCID" term-name="cellular_component"></chart-icon>
+        Cellular Component
+      </li>
+    </ul>
+
+
     <h5 ng-class="{'inactive': !getSelectedMFTerms().length}">Molecular Function Terms <span ng-if="getSelectedMFTerms().length">({{getSelectedMFTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
       <li ng-repeat="aTerm in getSelectedMFTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
-        <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button>
+        <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a>
+        <basket-button termid="{{aTerm.termId}}"></basket-button>
         <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
         {{aTerm.name}} <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
       </li>
@@ -126,7 +147,7 @@
       </li>
     </ul>
 
-    <h5 ng-class="{'inactive': !getSelectedCCTerms().length}">Cellular component Terms <span ng-if="getSelectedCCTerms().length">({{getSelectedCCTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
+    <h5 ng-class="{'inactive': !getSelectedCCTerms().length}">Cellular Component Terms <span ng-if="getSelectedCCTerms().length">({{getSelectedCCTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
       <li ng-repeat="aTerm in getSelectedCCTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
         <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button>

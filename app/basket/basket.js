@@ -20,7 +20,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    */
 
   $scope.removeItem = function(basketItem){
-    basketService.removeBasketItem(basketItem);
+    basketService.removeBasketItem(basketItem.termId);
 
     //update displayed list
     $scope.loadBasketItems();

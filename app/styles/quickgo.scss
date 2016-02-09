@@ -627,7 +627,7 @@ textarea.sidebar {
   text-align: right;
 }
 
-li.section-disabled a, l i.section-disabled a:hover {
+li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
   color: rgba(18, 80, 84, 0.24) !important;
   cursor: default;
   text-decoration: none;
