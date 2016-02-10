@@ -47,7 +47,7 @@
     <ul>
       <li ng-repeat="basketItem in basketList">
         <input id="basket-{{basketItem.termId}}" type="checkbox" ng-model="basketSelection[basketItem.termId]"/>
-        <span for="basket-{{basketItem.termId}}"><strong>{{basketItem.termId}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</span>
+        <label for="basket-{{basketItem.termId}}"><strong>{{basketItem.termId}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
       </li>
     </ul>
 
@@ -83,8 +83,8 @@
 
 
 <div id="selection-header" class="grid_24" data-spy="affix" data-offset-top="700">
-  <uib-alert ng-repeat="alert in succesAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide">{{alert.msg}}</uib-alert>
-  <uib-alert ng-repeat="alert in otherAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide">{{alert.msg}}</uib-alert>
+  <uib-alert ng-repeat="alert in succesAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide alert-info-half">{{alert.msg}}</uib-alert>
+  <uib-alert ng-repeat="alert in otherAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide alert-info-half">{{alert.msg}}</uib-alert>
 
   <h3 ng-class="{'inactive': selectedItems.length <= 0}" class="your-selection-header">
     Your Selection: {{selectedItems.length}}
