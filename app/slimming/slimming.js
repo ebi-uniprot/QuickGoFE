@@ -156,6 +156,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       console.log("res.valid: ",res.valid);
       addItemsToSelection(res.valid);
       if(res.missmatches.length > 0) {
+        $scope.otherAlerts = [];
         $scope.otherAlerts.push(
           {type: 'warning',msg: res.missmatches + ' are not valid identifiers.'}
         );
@@ -212,15 +213,11 @@ var disableBasketItemsSelected = function(basketItemsList) {
     });
     //Display alerts
     var afterItemCount = $scope.selectedItems.length;
-    if(afterItemCount > beforeItemCount) {
-      $scope.succesAlerts.push(
-        {type: 'success',msg: (afterItemCount-beforeItemCount) + ' terms added to Your Selection.'}
 
-      );
-    }
     if(itemsToAdd.length > (afterItemCount - beforeItemCount)) {
+      $scope.succesAlerts = [];
       $scope.succesAlerts.push(
-        {type: 'info',msg:  (itemsToAdd.length - (afterItemCount - beforeItemCount)) + ' terms were already part of your selection.'}
+        {type: 'info',msg:  (itemsToAdd.length - (afterItemCount - beforeItemCount)) + ' terms were already part of your selection. ' + (afterItemCount-beforeItemCount) + ' new term(s) were added.'}
       );
     }
   };
