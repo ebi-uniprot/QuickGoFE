@@ -3,6 +3,10 @@
 
 /* Universal         -------------------------------------------------------------------------------------------------*/
 
+label {
+    font-weight: normal !important;
+}
+
 a:hover {
   cursor: pointer;
   text-decoration: none;
@@ -84,6 +88,11 @@ a.icon {
 
 .capitalize:first-letter {
   text-transform: uppercase;
+}
+
+.y-scroll-200 {
+  overflow-y: auto;
+  height: 200px;
 }
 
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
@@ -554,8 +563,10 @@ ul.results-list {
 
 .advanced-filter-content {
   border-top: 1px solid #ccc;
+  font-size: 13px;
   padding-top:.5em;
   margin-bottom:2em;
+  min-width: 480px;
 }
 
 .advanced-filter-content.ng-hide-add, .advanced-filter-content.ng-hide-remove {

@@ -30,9 +30,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
   $scope.advancedFilters.text.goRelations="IPO";
   $scope.advancedFilters.text.ecoID="";
 
-  //Setup the fixed eco codes
-  //$scope.ecocode0000352='ECO:0000352'
-  //$scope.ecocode0000269='ECO:0000269';
   $scope.evidencesArray = [];
 
   $scope.advancedFilters.text.ecoTermUse="ancestor";
