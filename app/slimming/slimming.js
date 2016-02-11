@@ -242,21 +242,15 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
     // if item was originally in the basketTermsInSelection then add it back into the basket options
     if(_.indexOf($scope.basketTermsInSelection, termId) >= 0){
-      termService.getTerms(termId).then(function(res){
-        function mergeObjects(arr1, arr2, prop) {
-            _.each(arr2, function(arr2obj) {
-                var arr1obj = _.find(arr1, function(arr1obj) {
-                    return arr1obj[prop] === arr2obj[prop];
-                });
-                arr1obj ? _.extend(arr1obj, arr2obj) : arr1.push(arr2obj);
-            });
-        }
-        mergeObjects($scope.basketList, res.data, 'termId');
-      });
+       termService.getTerm(termId).then(function(res){
+         $scope.basketList.push(res.data);
+       });
+
       // now remove the relocated item from the temporary basketTermsInSelection
       $scope.basketTermsInSelection = _.filter($scope.basketTermsInSelection, function(term){
         return term != termId;
       })
+
     }
   }
 
