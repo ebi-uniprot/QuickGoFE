@@ -4,6 +4,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   $scope.succesAlerts = [];
   $scope.otherAlerts = [];
+  $scope.basketTermsInSelection = [];
   $scope.availablePredefinedTerms = '';
   $scope.rootTermMFID = "GO:0003674";
   $scope.rootTermBPID = "GO:0008150";
@@ -166,22 +167,27 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     });
   };
 
+
+
   // Basket terms
   $scope.addBasketTerms = function() {
     var items = _.filter(_.keys($scope.basketSelection), function(item){
-      console.log("basketselection",$scope.basketSelection);
-      console.log("Ticked item: ",item);
+
+      // add to the basketTermsInSelection for safe keeping
+      $scope.basketTermsInSelection.push(item);
+
+      // remove item from the basketList
+      $scope.basketList = _.filter($scope.basketList, function(term){
+        return term.termId != item;
+      })
       return $scope.basketSelection[item];
     });
+
     termService.getTerms(items).then(function(res){
-      console.log(res.data);
       addItemsToSelection(res.data);
       $scope.basketSelection = [];
-
-      // now make the items that exist in the selection, greyed out in the pick list
-
-
     });
+
     //reset selection
     $scope.basketSelection = _.map($scope.basketSelection, function(key, val){
       return {key: false};
@@ -189,25 +195,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   };
 
-  // now make the items that exist in the selection, greyed out in the pick list
-var disableBasketItemsSelected = function(basketItemsList) {
-// first make them all active
-
-
-// compare them to the selectedItems list and deactive any that feature there
-
-
-
-};
-
-
-
-
   var addItemsToSelection = function(itemsToAdd) {
     var beforeItemCount = $scope.selectedItems.length;
-//    console.log(beforeItemCount);
     var union = _.union($scope.selectedItems, itemsToAdd);
-//    console.log(union);
     $scope.selectedItems = _.uniq(union, function(term){
       return term.termId;
     });
@@ -221,7 +211,6 @@ var disableBasketItemsSelected = function(basketItemsList) {
       );
     }
   };
-
 
   $scope.getSelectedBPTerms = function() {
     return _.filter($scope.selectedItems, function(item) {
@@ -245,13 +234,25 @@ var disableBasketItemsSelected = function(basketItemsList) {
     return $scope.selectedItems;
   };
 
-
   $scope.removeFromSelection = function(termId) {
+    // Remove from selected items
     $scope.selectedItems = _.filter($scope.selectedItems, function(term){
       return term.termId != termId;
     })
-  }
 
+    // if item was originally in the basketTermsInSelection then add it back into the basket options
+    if(_.indexOf($scope.basketTermsInSelection, termId) >= 0){
+       termService.getTerm(termId).then(function(res){
+         $scope.basketList.push(res.data);
+       });
+
+      // now remove the relocated item from the temporary basketTermsInSelection
+      $scope.basketTermsInSelection = _.filter($scope.basketTermsInSelection, function(term){
+        return term != termId;
+      })
+
+    }
+  }
 
   /**
    * Save the entered information and use it to filter the results on the annotation list page,
@@ -264,8 +265,6 @@ var disableBasketItemsSelected = function(basketItemsList) {
     });
     filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
     filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
-
-
 
     // Add gene products
     if($scope.genProductID){
