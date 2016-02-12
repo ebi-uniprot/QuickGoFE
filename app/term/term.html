@@ -110,8 +110,6 @@
     <!-- Ancestors graph -->
     <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise">
       <h3 class="term-section-header">Ancestor Chart</h3>
-      <!-- View this chart full size:<chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> -->
-      <!-- <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong> {{termModel.name}}</h5> -->
       <chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size
       <img class="displayed"
            ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
