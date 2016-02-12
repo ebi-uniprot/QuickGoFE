@@ -585,6 +585,9 @@
       <li ng-class="{'section-disabled':termModel.replacements.length==0}" du-scrollspy="termReplacedBy">
         <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
       </li>
+      <li ng-class="{'section-disabled':termModel.plannedChanges.length==0}" du-scrollspy="goDiscussions">
+        <a class="term-section-view" du-smooth-scroll="goDiscussions" >GO Discussions</a>
+      </li>
       <li ng-class="{'section-disabled':termModel.crossOntologyRelations.length==0}" du-scrollspy="termCrossOntologyRelations">
         <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology...</a>
       </li>
