@@ -39,8 +39,11 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
     $scope.downloadPromise = $http(request);
 
     $scope.downloadPromise.success(function(data) {
-      downloadFile(fileName, data)
+      downloadFile(fileName, data);
+      $uibModalInstance.dismiss('cancel');
     });
+
+
 
   };
 
