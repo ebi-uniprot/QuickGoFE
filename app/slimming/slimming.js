@@ -221,7 +221,7 @@ var disableBasketItemsSelected = function(basketItemsList) {
 
     // Add gene products
     if($scope.genProductID){
-      var geneProductsAdded = _.uniq($scope.genProductID.replace( /\n/g, " " ).split(/[\s,]+/));
+      var geneProductsAdded = stringService.getTextareaItemsAsArray($scope.genProductID);
       angular.forEach((geneProductsAdded), function(geneProdId) {
         filteringService.saveAppliedFilter({type: 'gpID', value: geneProdId});
       });
@@ -287,7 +287,7 @@ var disableBasketItemsSelected = function(basketItemsList) {
 
 $scope.showGraphOwnTerms = function () {
 if($scope.slimOwnTerms){
-  var tempOwnTerms = _.uniq($scope.slimOwnTerms.replace( /\n/g, " " ).split(/[\s,]+/));
+  var tempOwnTerms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
   var modalInstance = $uibModal.open({
     templateUrl: 'charts/ontologyGraphModal.html',
     controller: 'OntologyGraphCtrl',

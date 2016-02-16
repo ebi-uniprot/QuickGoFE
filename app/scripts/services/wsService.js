@@ -30,6 +30,15 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   }
 }]);
 
+
+wsService.factory('stringService', [function(){
+  return {
+    getTextareaItemsAsArray : function(str) {
+      return _.uniq(str.replace( /\n/g, " " ).split(/[\s,]+/));
+    }
+  }
+}])
+
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
@@ -62,7 +71,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findAnnotationsForTerm: function(searchTerm) {
         var request = {
           method: 'POST',
-          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          url: ENV.apiEndpoint + '/ws/ ',
           headers: {
             'Content-Type': 'application/json'
           },
