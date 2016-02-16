@@ -1,6 +1,4 @@
 <div id="content">
-    <uib-alert ng-repeat="alert in succesAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide" dismiss-on-timeout="3000">{{alert.msg}}</uib-alert>
-    <uib-alert ng-repeat="alert in otherAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide">{{alert.msg}}</uib-alert>
   <h2>Explore Biology</h2>
   <p>Make a selection of terms below and submit to see their associated annotations</p>
 
@@ -35,7 +33,7 @@
     <uib-tab heading="Input your own">
     <div class="select-container">
       <strong>Enter one or more GO terms:</strong><br />
-      <textarea class="default" placeholder="e.g. GO:0008150, GO:0055085, GO:0006811, GO:0006520" ng-model="$parent.$parent.slimOwnTerms" cg-busy="ownTermPromise"></textarea>
+      <textarea class="default" placeholder="e.g. GO:0008150, GO:0055085, GO:0006811, GO:0006520" ng-model="$parent.$parent.slimOwnTerms" cg-busy="ownTermPromise"> </textarea>
       <button class="btn quickgo-btn pull-right" ng-click="addOwnTerms()">Add your Terms</button>
       <button class="btn quickgo-btn icon-functional pull-right view-chart-button" ng-click="showGraphOwnTerms()" data-icon="h">View Chart</button>
       <div class="clearfix"></div>
@@ -49,7 +47,7 @@
     <ul>
       <li ng-repeat="basketItem in basketList">
         <input id="basket-{{basketItem.termId}}" type="checkbox" ng-model="basketSelection[basketItem.termId]"/>
-        <label for="basket-{{basketItem.termId}}">{{basketItem.termId}}&nbsp;{{basketItem.name}}</label>
+        <label for="basket-{{basketItem.termId}}"><strong>{{basketItem.termId}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
       </li>
     </ul>
 
@@ -67,12 +65,6 @@
   <h3>Additional Options</h3>
   <uib-accordion close-others="oneAtATime" >
     <uib-accordion-group heading="Gene Product ID" is-open="true" is-disabled="selectedItems.length <= 0" closeOthers="true">
-<!--      <ul>
-        <li ng-repeat="product in geneProducts">
-          <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[product.id]" checklist-value="{{product.id}}"> {{product.displayName}}
-        </li>
-      </ul>
--->
       <textarea ng-disabled="selectedItems.length <= 0" class="default" placeholder="Add your Gene Product ID(s)" ng-model="$parent.$parent.$parent.genProductID"></textarea>
     </uib-accordion-group>
 
@@ -90,9 +82,11 @@
 </div>
 
 
-
 <div id="selection-header" class="grid_24" data-spy="affix" data-offset-top="700">
-  <h3 class="your-selection-header">
+  <uib-alert ng-repeat="alert in succesAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide alert-info-half">{{alert.msg}}</uib-alert>
+  <uib-alert ng-repeat="alert in otherAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide alert-info-half">{{alert.msg}}</uib-alert>
+
+  <h3 ng-class="{'inactive': selectedItems.length <= 0}" class="your-selection-header">
     Your Selection: {{selectedItems.length}}
     <span class="pull-right">
         <button class="btn quickgo-btn icon-functional" ng-disabled="selectedItems.length <= 0" ng-click="showGraph()" data-icon="h">View Chart</button>
@@ -108,10 +102,38 @@
     <h4>Choose or input GO terms above to view your selection here</h4>
   </div>
   <div ng-if="selectedItems.length >= 1">
+
+    <h5>Optional root terms:</h5>
+    <ul>
+      <li ng-class="{'section-disabled': !rootTermMF }" ng-hide="!getSelectedMFTerms().length">
+        <input type="checkbox" ng-model="$parent.$parent.rootTermMF" ng-change="addRootTerm('rootTermMF')">
+        <a href="term/{{rootTermMFID}}" target="_blank">{{rootTermMFID}}</a>
+        <basket-button termid="{{rootTermMFID}}"></basket-button>
+        <chart-icon term-id="rootTermMFID" term-name="molecular_function"></chart-icon>
+        Molecular Function
+      </li>
+      <li ng-class="{'section-disabled': !rootTermBP }" ng-hide="!getSelectedBPTerms().length">
+        <input type="checkbox" ng-model="$parent.$parent.rootTermBP" ng-change="addRootTerm('rootTermBP')">
+        <a href="term/{{rootTermBPID}}" target="_blank">{{rootTermBPID}}</a>
+        <basket-button termid="{{rootTermBPID}}"></basket-button>
+        <chart-icon term-id="rootTermBPID" term-name="biological_process"></chart-icon>
+        Biological Process
+      </li>
+      <li ng-class="{'section-disabled': !rootTermCC }" ng-hide="!getSelectedCCTerms().length">
+        <input type="checkbox" ng-model="$parent.$parent.rootTermCC" ng-change="addRootTerm('rootTermCC')">
+        <a href="term/{{rootTermCCID}}" target="_blank">{{rootTermCCID}}</a>
+        <basket-button termid="{{rootTermCCID}}"></basket-button>
+        <chart-icon term-id="rootTermCCID" term-name="cellular_component"></chart-icon>
+        Cellular Component
+      </li>
+    </ul>
+
+
     <h5 ng-class="{'inactive': !getSelectedMFTerms().length}">Molecular Function Terms <span ng-if="getSelectedMFTerms().length">({{getSelectedMFTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
-      <li ng-repeat="aTerm in getSelectedMFTerms()" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
-        <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button>
+      <li ng-repeat="aTerm in getSelectedMFTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
+        <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a>
+        <basket-button termid="{{aTerm.termId}}"></basket-button>
         <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
         {{aTerm.name}} <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
       </li>
@@ -119,16 +141,16 @@
 
     <h5 ng-class="{'inactive': !getSelectedBPTerms().length}">Biological Process Terms <span ng-if="getSelectedBPTerms().length">({{getSelectedBPTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
-      <li ng-repeat="aTerm in getSelectedBPTerms()" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
+      <li ng-repeat="aTerm in getSelectedBPTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
         <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button>
         <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
         {{aTerm.name}} <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
       </li>
     </ul>
 
-    <h5 ng-class="{'inactive': !getSelectedCCTerms().length}">Cellular component Terms <span ng-if="getSelectedCCTerms().length">({{getSelectedCCTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
+    <h5 ng-class="{'inactive': !getSelectedCCTerms().length}">Cellular Component Terms <span ng-if="getSelectedCCTerms().length">({{getSelectedCCTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
-      <li ng-repeat="aTerm in getSelectedCCTerms()" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
+      <li ng-repeat="aTerm in getSelectedCCTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
         <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button>
         <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
         {{aTerm.name}} <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>

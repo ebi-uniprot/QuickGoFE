@@ -78,6 +78,10 @@ a.icon {
   }
 }
 
+.alert-info-half{
+  width: 49%;
+}
+
 .ellipsis {
   display: inline-block;
   max-width: 200px;
@@ -230,6 +234,10 @@ textarea {
   }
 }
 
+.icon-disabled{
+  background-color: $lightgrey;
+  border:1px solid $lightgrey;
+}
 mega-search {
   display: block;
 }
@@ -657,7 +665,7 @@ textarea.sidebar {
   text-align: right;
 }
 
-li.section-disabled a, l i.section-disabled a:hover {
+li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
   color: rgba(18, 80, 84, 0.24) !important;
   cursor: default;
   text-decoration: none;

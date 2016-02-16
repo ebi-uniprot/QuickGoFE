@@ -4,7 +4,11 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   $scope.succesAlerts = [];
   $scope.otherAlerts = [];
+  $scope.basketTermsInSelection = [];
   $scope.availablePredefinedTerms = '';
+  $scope.rootTermMFID = "GO:0003674";
+  $scope.rootTermBPID = "GO:0008150";
+  $scope.rootTermCCID = "GO:0005575";
 
   $scope.species = [
       {id: 9606, displayName: 'Human'},
@@ -67,10 +71,57 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   $scope.updatePredefinedSets = function() {
     $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
     $scope.availablePredefinedTerms.$promise.then(function (data) {
+
+      // remove the 3 root terms
+      var data = _.without(data, _.findWhere(data, {name: 'molecular_function'} ));
+      var data = _.without(data, _.findWhere(data, {name: 'biological_process'} ));
+      var data = _.without(data, _.findWhere(data, {name: 'cellular_component'} ));
+
       var predefinedSets = _.groupBy(data, 'aspectDescription');
       $scope.predefinedBP = predefinedSets['Biological Process'];
       $scope.predefinedMF = predefinedSets['Molecular Function'];
       $scope.predefinedCC = predefinedSets['Cellular Component'];
+    });
+  };
+
+  $scope.addRootTerm = function(sourceCheckBox){
+    $scope.addThisRootTerm = "";
+    if(sourceCheckBox == "rootTermMF"){
+      if($scope.rootTermMF){
+        $scope.addThisRootTerm = "GO:0003674";
+      }else {
+        removeTerm("GO:0003674");
+      }
+    }
+
+    if(sourceCheckBox == "rootTermBP"){
+      if($scope.rootTermBP){
+        $scope.addThisRootTerm = "GO:0008150";
+      }else {
+        removeTerm("GO:0008150");
+      }
+    }
+
+    if(sourceCheckBox == "rootTermCC"){
+      if($scope.rootTermCC){
+        $scope.addThisRootTerm = "GO:0005575";
+      }else {
+        removeTerm("GO:0005575");
+      }
+    }
+
+    // Now lets add the Root term
+    $scope.rootTermsPromise = basketService.validateTerms($scope.addThisRootTerm);
+    $scope.rootTermsPromise.then(function(res){
+      addItemsToSelection(res.valid);
+      $scope.addThisRootTerm = "";
+    });
+
+  }
+
+  var removeTerm = function(termID){
+    $scope.selectedItems = _.filter($scope.selectedItems, function(term){
+      return term.termId != termID;
     });
   };
 
@@ -103,8 +154,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   $scope.addOwnTerms = function() {
     $scope.ownTermPromise = basketService.validateTerms($scope.slimOwnTerms);
     $scope.ownTermPromise.then(function(res){
+      console.log("res.valid: ",res.valid);
       addItemsToSelection(res.valid);
       if(res.missmatches.length > 0) {
+        $scope.otherAlerts = [];
         $scope.otherAlerts.push(
           {type: 'warning',msg: res.missmatches + ' are not valid identifiers.'}
         );
@@ -114,22 +167,27 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     });
   };
 
+
+
   // Basket terms
   $scope.addBasketTerms = function() {
     var items = _.filter(_.keys($scope.basketSelection), function(item){
-      console.log("basketselection",$scope.basketSelection);
-      console.log("Ticked item: ",item);
+
+      // add to the basketTermsInSelection for safe keeping
+      $scope.basketTermsInSelection.push(item);
+
+      // remove item from the basketList
+      $scope.basketList = _.filter($scope.basketList, function(term){
+        return term.termId != item;
+      })
       return $scope.basketSelection[item];
     });
+
     termService.getTerms(items).then(function(res){
-      console.log(res.data);
       addItemsToSelection(res.data);
       $scope.basketSelection = [];
-
-      // now make the items that exist in the selection, greyed out in the pick list
-
-
     });
+
     //reset selection
     $scope.basketSelection = _.map($scope.basketSelection, function(key, val){
       return {key: false};
@@ -137,43 +195,22 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   };
 
-  // now make the items that exist in the selection, greyed out in the pick list
-var disableBasketItemsSelected = function(basketItemsList) {
-// first make them all active
-
-
-// compare them to the selectedItems list and deactive any that feature there
-
-
-
-};
-
-
-
-
   var addItemsToSelection = function(itemsToAdd) {
     var beforeItemCount = $scope.selectedItems.length;
-//    console.log(beforeItemCount);
     var union = _.union($scope.selectedItems, itemsToAdd);
-//    console.log(union);
     $scope.selectedItems = _.uniq(union, function(term){
       return term.termId;
     });
     //Display alerts
     var afterItemCount = $scope.selectedItems.length;
-    if(afterItemCount > beforeItemCount) {
-      $scope.succesAlerts.push(
-        {type: 'success',msg: (afterItemCount-beforeItemCount) + ' terms added to Your Selection.'}
 
-      );
-    }
     if(itemsToAdd.length > (afterItemCount - beforeItemCount)) {
+      $scope.succesAlerts = [];
       $scope.succesAlerts.push(
-        {type: 'info',msg:  (itemsToAdd.length - (afterItemCount - beforeItemCount)) + ' terms were already part of your selection.'}
+        {type: 'info',msg:  (itemsToAdd.length - (afterItemCount - beforeItemCount)) + ' terms were already part of your selection. ' + (afterItemCount-beforeItemCount) + ' new term(s) were added.'}
       );
     }
   };
-
 
   $scope.getSelectedBPTerms = function() {
     return _.filter($scope.selectedItems, function(item) {
@@ -197,13 +234,25 @@ var disableBasketItemsSelected = function(basketItemsList) {
     return $scope.selectedItems;
   };
 
-
   $scope.removeFromSelection = function(termId) {
+    // Remove from selected items
     $scope.selectedItems = _.filter($scope.selectedItems, function(term){
       return term.termId != termId;
     })
-  }
 
+    // if item was originally in the basketTermsInSelection then add it back into the basket options
+    if(_.indexOf($scope.basketTermsInSelection, termId) >= 0){
+       termService.getTerm(termId).then(function(res){
+         $scope.basketList.push(res.data);
+       });
+
+      // now remove the relocated item from the temporary basketTermsInSelection
+      $scope.basketTermsInSelection = _.filter($scope.basketTermsInSelection, function(term){
+        return term != termId;
+      })
+
+    }
+  }
 
   /**
    * Save the entered information and use it to filter the results on the annotation list page,
@@ -216,8 +265,6 @@ var disableBasketItemsSelected = function(basketItemsList) {
     });
     filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
     filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
-
-
 
     // Add gene products
     if($scope.genProductID){

@@ -20,7 +20,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    */
 
   $scope.removeItem = function(basketItem){
-    basketService.removeBasketItem(basketItem);
+    basketService.removeBasketItem(basketItem.termId);
 
     //update displayed list
     $scope.loadBasketItems();
@@ -56,7 +56,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
 
   $scope.term = function(goId){
     $uibModalInstance.dismiss('forward');
-    $location.path("/term/"+goId); // path not hash
+    $location.path("term/"+goId); // path not hash
   };
 
 

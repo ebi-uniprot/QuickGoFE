@@ -12,19 +12,19 @@
     </div>
     <h2 class="page-title">
       {{termModel.termId}}
-      <basket-button termid="{{termModel.termId}}"></basket-button>
+      <basket-button termid="{{termModel.termId}}" icondisabled="{{!termModel.active}}"></basket-button>
     </h2>
 
     <!-- Term name -->
     <h3>{{termModel.name}}</h3>
 
     <!-- Ontology -->
-    <p ng-show="termModel.goTerm"><strong>{{termModel.aspectDescription}}</strong></p>
+    <p ng-show="isGoTerm"><strong>{{termModel.aspectDescription}}</strong></p>
     </section>
 
     <!-- Definition -->
     <section>
-      <h5>Definition <span ng-if="termModel.goTerm" style="display:inline-block">(<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
+      <h5>Definition <span ng-if="isGoTerm" style="display:inline-block">(<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.termId}}" target="_blank">{{termModel.termId}}
         GONUTS page</a>)</span></h5>
 
       <p>
@@ -105,9 +105,9 @@
     </section>
 
     <!-- Ancestors graph -->
-    <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise">
+    <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise" ng-show="!isObsolete">
       <h3 class="term-section-header">Ancestor Chart</h3>
-      <h5 style="text-align:center"><strong>{{graphModel.id}}&nbsp{{graphModel.name}}</strong> {{termModel.name}}</h5>
+      <span ng-show="!isObsolete"><chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size</span>
       <img class="displayed"
            ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
            id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
@@ -135,20 +135,20 @@
     </section>
 
     <!-- Child Terms -->
-    <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0">
+    <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0" ng-hide="!isGoTerm || isObsolete">
       <h3 class="term-section-header">Child Terms</h3>
       <div>
         <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
         <table class="two-colours">
           <tr>
-            <th>Relationship to </br>{{termModel.termId}}</th>
             <th>Child Term</th>
             <th>Child Term Name</th>
+            <th>Relationship to </br>{{termModel.termId}}</th>
           </tr>
           <tr ng-repeat="childRelation in termModel.childTermsRelations">
-            <td>{{childRelation.typeOf}}</td>
             <td><a class="quickgo-link" ng-href="term/{{childRelation.id}}">{{childRelation.id}}</a></td>
             <td>{{childRelation.name}}</td>
+            <td>{{childRelation.typeOf}}</td>
           </tr>
         </table>
       </div>
@@ -156,7 +156,7 @@
 
 
     <!-- Co-occurring statistics -->
-    <section id="coOcurring">
+    <section id="coOcurring" ng-hide="!isGoTerm || isObsolete">
       <h3 class="term-section-header">Co-occurrence statistics</h3>
 
       <p>These tables show the number of times the term listed in the
@@ -175,7 +175,6 @@
                 </element>
               </h5>
             <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
-              <h5>Co-occurrence statistics for {{termModel.termId}} based on the entire annotation set</h5>
               <table id="allCoOccurringStatsTable" class="two-colours">
                 <tr>
                   <th>Compared term</th>
@@ -213,7 +212,6 @@
                 </element>
               </h5>
               <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
-                <h5>Co-occurrence statistics for {{termModel.termId}} based on manual annotations only</h5>
                 <table id="nonIEACoOccurringStatsTable" class="two-colours">
                   <tr>
                     <th>Compared term</th>
@@ -522,10 +520,11 @@
 
     <!--Blacklist-->
     <!-- GO_ID   CATEGORY        ENTITY_TYPE     ENTITY_ID       TAXON_ID        ENTITY_NAME     ANCESTOR_GO_ID  REASON  METHOD_ID-->
-    <h3 class="term-section-header">Blacklist</h3>
-    <p>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
-      annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</p>
-    <section id="blacklist" ng-if="blacklist!=''">
+    <section id="blacklist" ng-if="blacklist!=''" ng-hide="!isGoTerm">
+      <h3 class="term-section-header">Blacklist</h3>
+      <p>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
+        annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</p>
+
       <table class="two-colours">
         <tr>
           <th>Category</th>
@@ -563,13 +562,13 @@
       <li ng-class="{'section-disabled':termModel.synonyms.length==0}" du-scrollspy="termSynonyms">
         <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
       </li>
-      <li du-scrollspy="ancestorChart">
+      <li du-scrollspy="ancestorChart" ng-hide="isObsolete">
         <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.childTermsRelations.length==0}" ng-show="termModel.goTerm" du-scrollspy="childTerms">
+      <li ng-class="{'section-disabled':termModel.childTermsRelations.length==0}" ng-hide="!isGoTerm || isObsolete" du-scrollspy="childTerms">
         <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
       </li>
-      <li du-scrollspy="coOcurring">
+      <li ng-hide="!isGoTerm || isObsolete" du-scrollspy="coOcurring">
         <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurrence statistics</a>
       </li>
       <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}" du-scrollspy="termTaxonConstraints">
@@ -580,6 +579,9 @@
       </li>
       <li ng-class="{'section-disabled':termModel.replacements.length==0}" du-scrollspy="termReplacedBy">
         <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
+      </li>
+      <li ng-class="{'section-disabled':termModel.plannedChanges.length==0}" du-scrollspy="goDiscussions">
+        <a class="term-section-view" du-smooth-scroll="goDiscussions" >GO Discussions</a>
       </li>
       <li ng-class="{'section-disabled':termModel.crossOntologyRelations.length==0}" du-scrollspy="termCrossOntologyRelations">
         <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology...</a>
@@ -596,7 +598,7 @@
       <li du-scrollspy="termHistory">
         <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
       </li>
-      <li ng-class="{'section-disabled':blacklist==''}" du-scrollspy="blacklist">
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':blacklist==''}" du-scrollspy="blacklist">
         <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
       </li>
     </ul>

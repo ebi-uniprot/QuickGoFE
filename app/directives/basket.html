@@ -1,5 +1,6 @@
-<span 
-	class="icon selectable quickgo-btn basket-btn ng-class:{'basket-added': inBasket, 'icon-generic': !hoverBasket, 'icon-functional': hoverBasket}" 
+<span
+	class="icon selectable quickgo-btn basket-btn"
+	ng-class="{'basket-added': inBasket, 'icon-generic': !hoverBasket, 'icon-functional': hoverBasket, 'icon-disabled': (iconDisabledStatus === 'true')}"
 	data-icon="{{getDataIcon()}}"
 	ng-mouseenter="hoverBasket = true"
 	ng-mouseleave="hoverBasket = false">

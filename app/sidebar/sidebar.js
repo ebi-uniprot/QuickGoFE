@@ -46,7 +46,7 @@ app.controller('SidebarCtrl', function($rootScope, $scope, $location, filteringS
 
     $rootScope.$emit('filtersUpdate', $scope.quickFilters);   //todo change this so is notification only
 
-    $location.path("/annotations");
+    $location.path("annotations");
 
   }
 
