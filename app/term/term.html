@@ -12,14 +12,11 @@
     </div>
     <h2 class="page-title">
       {{termModel.termId}}
-      <basket-button termid="{{termModel.termId}}"></basket-button>
+      <basket-button termid="{{termModel.termId}}" icondisabled="{{!termModel.active}}"></basket-button>
     </h2>
 
     <!-- Term name -->
     <h3>{{termModel.name}}</h3>
-
-
-
 
     <!-- Ontology -->
     <p ng-show="isGoTerm"><strong>{{termModel.aspectDescription}}</strong></p>
@@ -108,9 +105,9 @@
     </section>
 
     <!-- Ancestors graph -->
-    <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise">
+    <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise" ng-show="!isObsolete">
       <h3 class="term-section-header">Ancestor Chart</h3>
-      <chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size
+      <span ng-show="!isObsolete"><chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size</span>
       <img class="displayed"
            ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
            id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
@@ -138,7 +135,7 @@
     </section>
 
     <!-- Child Terms -->
-    <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0">
+    <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0" ng-hide="!isGoTerm || isObsolete">
       <h3 class="term-section-header">Child Terms</h3>
       <div>
         <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
@@ -159,7 +156,7 @@
 
 
     <!-- Co-occurring statistics -->
-    <section id="coOcurring" ng-hide="!isGoTerm">
+    <section id="coOcurring" ng-hide="!isGoTerm || isObsolete">
       <h3 class="term-section-header">Co-occurrence statistics</h3>
 
       <p>These tables show the number of times the term listed in the
@@ -178,7 +175,6 @@
                 </element>
               </h5>
             <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
-              <h5>Co-occurrence statistics for {{termModel.termId}} based on the entire annotation set</h5>
               <table id="allCoOccurringStatsTable" class="two-colours">
                 <tr>
                   <th>Compared term</th>
@@ -216,7 +212,6 @@
                 </element>
               </h5>
               <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
-                <h5>Co-occurrence statistics for {{termModel.termId}} based on manual annotations only</h5>
                 <table id="nonIEACoOccurringStatsTable" class="two-colours">
                   <tr>
                     <th>Compared term</th>
@@ -567,13 +562,13 @@
       <li ng-class="{'section-disabled':termModel.synonyms.length==0}" du-scrollspy="termSynonyms">
         <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
       </li>
-      <li du-scrollspy="ancestorChart">
+      <li du-scrollspy="ancestorChart" ng-hide="isObsolete">
         <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.childTermsRelations.length==0}" ng-show="isGoTerm" du-scrollspy="childTerms">
+      <li ng-class="{'section-disabled':termModel.childTermsRelations.length==0}" ng-hide="!isGoTerm || isObsolete" du-scrollspy="childTerms">
         <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
       </li>
-      <li  ng-hide="!isGoTerm" du-scrollspy="coOcurring">
+      <li ng-hide="!isGoTerm || isObsolete" du-scrollspy="coOcurring">
         <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurrence statistics</a>
       </li>
       <li ng-class="{'section-disabled':termModel.taxonConstraints.length==0}" du-scrollspy="termTaxonConstraints">

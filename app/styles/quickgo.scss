@@ -220,6 +220,10 @@ textarea {
   }
 }
 
+.icon-disabled{
+  background-color: $lightgrey;
+  border:1px solid $lightgrey;
+}
 mega-search {
   display: block;
 }
