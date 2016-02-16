@@ -37,7 +37,7 @@
     <td class="text-nowrap">
       <a href="term/{{searchResult.id}}">{{searchResult.id}}</a>
       <a class="quickgo-link selectable" href="term/{{goTuple.goId}}">{{goTuple.goId}}</a>
-      <basket-button termid="{{goTuple.goId}}"></basket-button>
+      <basket-button termid="{{goTuple.goId}}" icondisabled="{{goTuple.isObsolete}}"></basket-button>
       <chart-icon term-id="goTuple.goId" term-name="goTuple.termName"></chart-icon>
     </td>
     <!-- GO Term Name-->
