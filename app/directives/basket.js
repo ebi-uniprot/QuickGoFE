@@ -16,9 +16,6 @@ angular
 
 				attrs.$observe('icondisabled', function() {
 					$scope.iconDisabledStatus = attrs.icondisabled;
-					console.log("attrs :",attrs);
-					console.log("attrs.icondisabled :",attrs.icondisabled);
-					console.log("$scope.iconDisabledStatus :",$scope.iconDisabledStatus);
 				});
 
 				element.bind('click', function() {
