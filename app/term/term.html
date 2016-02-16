@@ -12,14 +12,11 @@
     </div>
     <h2 class="page-title">
       {{termModel.termId}}
-      <basket-button termid="{{termModel.termId}}"></basket-button>
+      <basket-button termid="{{termModel.termId}}" icondisabled="{{!termModel.active}}"></basket-button>
     </h2>
 
     <!-- Term name -->
     <h3>{{termModel.name}}</h3>
-
-
-
 
     <!-- Ontology -->
     <p ng-show="isGoTerm"><strong>{{termModel.aspectDescription}}</strong></p>
@@ -110,7 +107,7 @@
     <!-- Ancestors graph -->
     <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise">
       <h3 class="term-section-header">Ancestor Chart</h3>
-      <chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size
+      <span ng-show="!isObsolete"><chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size</span>
       <img class="displayed"
            ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
            id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
