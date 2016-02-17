@@ -3,5 +3,6 @@
  */
 app.controller('HelpCtrl', function() {
 
+console.log("help new");
 
 });

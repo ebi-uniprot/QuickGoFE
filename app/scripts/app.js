@@ -76,7 +76,19 @@ var app = angular
         controller: 'AnnotationBlacklistCtrl'
       })
       .when('/help', {
-        templateUrl: 'nav/help.html',
+        templateUrl: 'help/help.html',
+        controller: 'HelpCtrl'
+      })
+      .when('/help/searching', {
+        templateUrl: 'help/searching.html',
+        controller: 'HelpCtrl'
+      })
+      .when('/help/slims', {
+        templateUrl: 'help/slims.html',
+        controller: 'HelpCtrl'
+      })
+      .when('/help/faq', {
+        templateUrl: 'help/faq.html',
         controller: 'HelpCtrl'
       })
       .when('/term/:goId', {
