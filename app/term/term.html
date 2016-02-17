@@ -88,10 +88,7 @@
     <!--<div> Other information presented here</div>-->
 
     <section id="termSynonyms" ng-if="termModel.synonyms.length > 0">
-      <h3 class="term-section-header">Synonyms</h3>
-
-      <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
-        of the relationship between the name and synonym given by the synonym scope.</p>
+      <h3 class="term-section-header"><span uib-tooltip-template="'synonyms.html'" tooltip-placement="top-right">Synonyms</span></h3>
       <table id="synonymsTableAccordian" class="two-colours">
         <tr>
           <th>Type</th>
@@ -136,9 +133,8 @@
 
     <!-- Child Terms -->
     <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0" ng-hide="!isGoTerm || isObsolete">
-      <h3 class="term-section-header">Child Terms</h3>
+      <h3 class="term-section-header"><span uib-tooltip-template="'childterms.html'" tooltip-placement="top-right">Child Terms</span></h3>
       <div>
-        <p>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}:</p>
         <table class="two-colours">
           <tr>
             <th>Child Term</th>
@@ -157,15 +153,7 @@
 
     <!-- Co-occurring statistics -->
     <section id="coOcurring" ng-hide="!isGoTerm || isObsolete">
-      <h3 class="term-section-header">Co-occurrence statistics</h3>
-
-      <p>These tables show the number of times the term listed in the
-        table has been co-annotated with {{termModel.termId}}. The terms are listed in
-        descending order of number of times the term has been co-annotated.
-        The initial table is calculated using both electronic and
-        manual-evidenced annotations. The other tab is calculated using only manual-evidenced annotations.</p>
-
-
+      <h3 class="term-section-header"><span uib-tooltip-template="'co-occurring.html'" tooltip-placement="top-right">Co-occurrence statistics</span></h3>
         <uib-tabset>
           <uib-tab heading="Based on Entire Annotation set">
             <div id="allCoOccurringStats">
@@ -521,9 +509,8 @@
     <!--Blacklist-->
     <!-- GO_ID   CATEGORY        ENTITY_TYPE     ENTITY_ID       TAXON_ID        ENTITY_NAME     ANCESTOR_GO_ID  REASON  METHOD_ID-->
     <section id="blacklist" ng-if="blacklist!=''" ng-hide="!isGoTerm">
-      <h3 class="term-section-header">Blacklist</h3>
-      <p>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
-        annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</p>
+      <h3 class="term-section-header"><span uib-tooltip-template="'blacklist.html'" tooltip-placement="top-right">Blacklist</span></h3>
+
 
       <table class="two-colours">
         <tr>
@@ -606,3 +593,10 @@
   <!--End of side bar information-->
 
 </div>
+
+<script type="text/ng-template" id="synonyms.html"><span>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
+  of the relationship between the name and synonym given by the synonym scope.</span></script>
+<script type="text/ng-template" id="co-occurring.html"><span>These tables show the number of times the term listed in the table has been co-annotated.</span></script>
+<script type="text/ng-template" id="childterms.html"><span>This table lists all terms that are direct descendants (child terms) of {{termModel.termId}}</span></script>
+<script type="text/ng-template" id="blacklist.html"><span>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
+  annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</span></script>
