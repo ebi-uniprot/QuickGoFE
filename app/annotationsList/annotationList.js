@@ -10,7 +10,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Initialisation
    */
-
   $scope.isSlim = 0;
   $scope.maxSize=25;
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
@@ -81,18 +80,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    * ------------------------------------ $scope methods --------------------------------------------------
    */
 
-  /**
-   * Listen for update to the filters list (this is 'emit' from the Advanced Filters controller and the sidebar controller
-   */
-  $scope.$on('filtersUpdate', function(event) {
-
-    //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
-    $scope.appliedFilters = filteringService.getFilters();
-
-    //refresh the page
-    getResultsPage(1);
-  });
-
 
   /**
    * Listen to an update to the filters list that comes from the typeahead function
@@ -110,13 +97,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Listen for clearing of the filters list (this is 'emit' from the Advanced Filters controller and the sidebar controller
    */
-  $scope.$on('filtersClear', function(event) {
+  $rootScope.$on('filtersClear', function(event) {
 
     //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
     $scope.appliedFilters = filteringService.getFilters();
 
     $scope.advancedFilters =  {};
-
     //refresh the page
     $scope.currentPage=1;
     getResultsPage(1);
@@ -164,27 +150,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       controller: 'WithStringCtrl',
       size: 'md',
       scope: $scope
-    });
-
-  };
-
-
-  /**
-   * ------------------------------------ Filtering Sidebar Code --------------------------------------------------
-   */
-
-
-  /**
-   * Show the advanced filters modal on request
-   */
-  $scope.showAdvancedFilters = function () {
-
-    var modalInstance = $uibModal.open({
-      templateUrl: 'advancedfilters/advancedFiltersModal.html',
-      controller: 'AdvancedFiltersCtrl',
-      windowClass: 'app-modal-window',
-      scope: $scope
-
     });
 
   };

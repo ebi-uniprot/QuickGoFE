@@ -3,6 +3,10 @@
 
 /* Universal         -------------------------------------------------------------------------------------------------*/
 
+label {
+    font-weight: normal !important;
+}
+
 a:hover {
   cursor: pointer;
   text-decoration: none;
@@ -90,6 +94,11 @@ a.icon {
   text-transform: uppercase;
 }
 
+.y-scroll-200 {
+  overflow-y: auto;
+  height: 200px;
+}
+
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 /* This section holds the our app title*/
 
@@ -168,6 +177,11 @@ textarea {
   }
   &:before {
     color: $white!important;
+  }
+  &.btn-default {
+    background-color: $verylightgrey;
+    color: $black;
+    border-color: $lightgrey;
   }
 }
 
@@ -555,6 +569,26 @@ ul.results-list {
 
 /* ANNOTATION LIST  --------------------------------------------------------------------------------------------------*/
 
+.advanced-filter-content {
+  border-top: 1px solid #ccc;
+  font-size: 13px;
+  padding-top:.5em;
+  margin-bottom:2em;
+  min-width: 480px;
+}
+
+.advanced-filter-content.ng-hide-add, .advanced-filter-content.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.advanced-filter-content.ng-hide {
+  opacity: 0;
+}
+
+.buttons-under-tabs {
+  margin-top: 1.5em;
+}
+
 .filter-list {
   line-height: 2em;
   li {
@@ -580,10 +614,6 @@ ul.results-list {
 }
 
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
-
-td.sidebar-applied-filter {
-  background-color: $white;
-}
 
 textarea.sidebar {
   height: 6em;

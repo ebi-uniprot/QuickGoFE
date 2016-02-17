@@ -4,7 +4,7 @@
 
 var basketModule = angular.module('quickGoFeApp.BasketModule', []);
 
-basketModule.factory('basketService', function($cookieStore, termService, $q) {
+basketModule.factory('basketService', function($cookieStore, termService, $q, stringService) {
 
   var basketList = {};
 
@@ -84,7 +84,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q) {
   basketList.validateTerms = function(terms) {
     var defer = $q.defer();
 
-    var ownTerms = _.uniq(terms.replace( /\n/g, " " ).split(/[\s,]+/));
+    var ownTerms = stringService.getTextareaItemsAsArray(terms);
 
     termService
       .getTerms(ownTerms.toString())

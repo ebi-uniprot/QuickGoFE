@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 16/03/2015.
  */
-app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) {
+app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filteringService) {
 
  console.log("Statistics Controller");
 
@@ -44,11 +44,11 @@ app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) 
 
   }
 
-  $scope.$on('filtersUpdate', function(event) {
+  $rootScope.$on('filtersUpdate', function(event) {
     loadStatistics();
   });
 
-  $scope.$on('filtersClear', function(event) {
+  $rootScope.$on('filtersClear', function(event) {
     $scope.appliedFilters = filteringService.getFilters();
     $scope.advancedFilters =  {};
     loadStatistics();

@@ -56,96 +56,49 @@ filteringModule.factory('filteringService', function() {
    */
   filteringService.populateAppliedFilters = function(data, isSlim){
 
-    for(var inputType in data) {
+    var filters = [];
+    angular.forEach(data, function(filter, type){
+      angular.forEach(filter, function(add, id){
+        if(add) {
+          filteringService.saveAppliedFilter({type: type, value:id});
+        } 
+      });
+    });
+    // return filters;
 
-      if (data.hasOwnProperty(inputType)) {
+    // for(var inputType in data) {
 
-        //Don't process the following, input fields; text area etc
-        if (inputType == 'ignore') {
-          continue;
-        }
+    //   if (data.hasOwnProperty(inputType)) {
 
-        //Input fields; text area etc
-        if (inputType == 'text') {
-          var anInputType = data[inputType];
+    //     //Checkboxes; radio buttons; select boxes etc
+    //       var anInputType = data[inputType];
 
-          //parse content
-          for (var property in anInputType) {
+    //       for (var filtertype in anInputType) {
+    //         if (anInputType.hasOwnProperty(filtertype)) {
+    //           var filterKeys = anInputType[filtertype];
 
-            if (anInputType.hasOwnProperty(property)) {
+    //           for (var aFilterKey in filterKeys) {
+    //             var aFilterValue = filterKeys[aFilterKey];
 
-              //Split the input in text boxes by 'new line' and whitespace to get tokens
-              var value = anInputType[property];
-              //var tokens = values.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]|\s+|,|;|\.|\|/);
-              //var i;
+    //             //Don't include de-selected values
+    //             if(aFilterValue!=false && aFilterValue !=undefined) {
+    //               var aFilter = {type: filtertype, value: aFilterKey};
+    //               filteringService.saveAppliedFilter(aFilter);
 
-              //save all the value of the type as filters
-              //for (i = 0; i < tokens.length; i++) {
+    //             }else{
+    //               var aFilter = {type: filtertype, value: aFilterValue};
+    //               filteringService.removeFilter(aFilter);
+    //             }
+    //           }
+    //         }
+    //       }
+    //   }
+    // }
 
-                //Try and parse each content into best fit content
-                if( property =='goID') {
-                  filteringService.createFilterForGoTerm(value);
-                }else{
-                  if(property == 'ecoID'){
-                    filteringService.createFilterForEvidences(value);
-                  }else{
-                    if(property == 'reference'){
-                      filteringService.createFilterForReferences(value);
-                    }else{
-                      if(property == 'taxon') {
-                        filteringService.createFilterForTaxons(value);
-                      }else{
-                        filteringService.createFilterForOther(property, value);
-                      }
-                    }
-                  }
-                }
-              //}
-              //Clear the content of the text box.
-              anInputType[property] = "";
-            }
-          }
-        }
+    // //Now we have some clearing up to do
+    // filteringService.remove_unrequiredFilters();
 
-        //Checkboxes; radio buttons; select boxes etc
-        if (inputType == 'boolean') {
-          var anInputType = data[inputType];
-
-          for (var filtertype in anInputType) {
-            if (anInputType.hasOwnProperty(filtertype)) {
-              var filterKeys = anInputType[filtertype];
-
-              for (var aFilterKey in filterKeys) {
-                var aFilterValue = filterKeys[aFilterKey];
-
-                //Don't include de-selected values
-                if(aFilterValue!=false && aFilterValue !=undefined) {
-                  var aFilter = {type: filtertype, value: aFilterKey};
-                  filteringService.saveAppliedFilter(aFilter);
-
-                }else{
-                  var aFilter = {type: filtertype, value: aFilterValue};
-                  filteringService.removeFilter(aFilter);
-                }
-              }
-            }
-          }
-        }
-
-        //Have to deal with drop down selects like this atm.
-        if(inputType == 'predefinedSlimSet'){
-          var anInputType = data[inputType];
-          var value = anInputType['subset'];
-          var aFilter = {type: 'goSlim', value: value};
-          filteringService.saveAppliedFilter(aFilter);
-        }
-      }
-    }
-
-    //Now we have some clearing up to do
-    filteringService.remove_unrequiredFilters();
-
-    return;
+    // return;
   }
 
 
