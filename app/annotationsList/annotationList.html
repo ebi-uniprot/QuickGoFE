@@ -7,23 +7,16 @@
 
 <!-- Results -->
 <div>
-
 <!-- Results Header-->
 <table id="assignedByCount" class="two-colours">
 <tr>
   <thead>
-    <th ng-repeat="colHeading in annotationColumns" >
+    <th ng-repeat="colHeading in annotationColumns" ng-show="colHeading.slimCol == false || (colHeading.slimCol == true && showSlimColumns)">
       <span uib-tooltip-template="'{{colHeading.name}}.html'">
         {{colHeading.value}}</span>
-      </th>
-      <th ng-show="showSlimColumns">
-        <span uib-tooltip-template="'colOrigID.html'">Original GO Identifier</span>
-      </th>
-      <th ng-show="showSlimColumns">
-        <span uib-tooltip-template="'colOrigName.html'">Original GO Term Name</span>
-      </th>
-    </thead>
-  </tr>
+    </th>
+  </thead>
+</tr>
 
   <!-- Results Repeat -->
   <tr ng-repeat="goTuple in goList.annotationsList">
