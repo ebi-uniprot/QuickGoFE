@@ -3,7 +3,7 @@
     <li>Filter by:</li>
 
     <!-- TAXON -->
-    <li uib-dropdown auto-close="disabled">
+    <li uib-dropdown auto-close="outsideClick">
       <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
         Taxon <span class="caret"></span><br>
         <small>{{countElements(filters.taxon)}} selected</small>
@@ -36,7 +36,7 @@
     </li>
 
     <!-- GENE PRODUCTS -->
-    <li uib-dropdown auto-close="disabled">
+    <li uib-dropdown auto-close="outsideClick">
       <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
         Gene products <span class="caret"></span><br>
         <small>{{countElements(filters.gpID)}} selected</small>
@@ -70,7 +70,7 @@
       </li>
 
       <!-- GO TERMS -->
-      <li uib-dropdown auto-close="disabled">
+      <li uib-dropdown auto-close="outsideClick">
         <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
           GO terms <span class="caret"></span><br>
           <small>{{countElements(filters.goID)}} selected</small>
@@ -141,7 +141,7 @@
       </li>
 
       <!-- ASPECT -->
-      <li uib-dropdown auto-close="disabled">
+      <li uib-dropdown auto-close="outsideClick">
         <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
         Aspect <span class="caret"></span><br>
           <small>{{countElements(filters.aspect)}} selected</small>
@@ -163,7 +163,7 @@
       </li>
 
     <!-- QUALIFIER -->
-    <li uib-dropdown auto-close="disabled">
+    <li uib-dropdown auto-close="outsideClick">
       <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
         Qualifier <span class="caret"></span><br>
           <small>{{countElements(filters.qualifier)}} selected</small>
@@ -189,7 +189,7 @@
       </li>
 
       <!-- EVIDENCE -->
-      <li uib-dropdown auto-close="disabled">
+      <li uib-dropdown auto-close="outsideClick">
         <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
           Evidence <span class="caret"></span><br>
           <small>{{countElements(filters.ecoID)}} selected</small>
@@ -233,7 +233,7 @@
         </li>
 
         <!-- REFERENCE -->
-        <li uib-dropdown auto-close="disabled">
+        <li uib-dropdown auto-close="outsideClick">
           <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
             Reference <span class="caret"></span><br>
             <small>{{countElements(filters.reference)}} selected</small>
@@ -264,13 +264,20 @@
 
 
       <!-- WITH -->
-      <li uib-dropdown auto-close="disabled">
+      <li uib-dropdown auto-close="outsideClick">
       <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
         With <span class="caret"></span><br>
             <small>{{countElements(filters.with)}} selected</small>
       </button>
       <div class="advanced-filter-content"  uib-dropdown-menu>
         <form>
+            <div class="form-group">
+              <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
+            </div>
+            <div class="form-group">
+              <button class="btn quickgo-btn" type="button" ng-click="addWith()">Add</button>
+            </div>
+            <hr>
             <ul>
               <li ng-repeat="withDB in withDBs" class="checkbox">
                   <label for="{{withDB.dbId}}">
@@ -285,7 +292,7 @@
       </div>            
 
       <!-- ASSIGNED BY -->
-      <li uib-dropdown auto-close="disabled">
+      <li uib-dropdown auto-close="outsideClick">
         <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
           Assigned by <span class="caret"></span><br>
           <small>{{countElements(filters.assignedby)}} selected</small>
@@ -307,7 +314,7 @@
       </li>
 
       <!-- ANNOTATION EXTENSION -->
-      <li uib-dropdown auto-close="disabled">
+      <li uib-dropdown auto-close="outsideClick">
         <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
           Annotation extension <span class="caret"></span><br>
           <small>{{countElements(filters.annotationExtension)}} selected</small>

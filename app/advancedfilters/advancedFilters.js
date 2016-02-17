@@ -151,6 +151,16 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
   }
 
 
+  $scope.addWith = function() {
+    var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
+    angular.forEach(withs, function(withId){
+      $scope.filters.with[withId] = true;
+    });
+    $scope.updateFilters();
+    $scope.withTextArea = '';
+  }
+
+
   $scope.updateFilters = function() {
     //Clear existing filters
     filteringService.clearFilters();
