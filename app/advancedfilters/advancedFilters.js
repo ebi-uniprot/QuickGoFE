@@ -37,8 +37,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
     // Get Evidence Types   
     var resultET = evidencetypes.query();
     resultET.$promise.then(function(data){
-      var evidenceTypes = data;
-      evidenceTypes.sort(compare);       
+      var evidenceTypes = _.sortBy(data, 'evidenceGOID');
       //The order of the evidence codes is important
       angular.forEach(evidenceTypes, function(evidenceType){
         $scope.filters.ecoID[evidenceType.ecoID] = false;
@@ -60,14 +59,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
     // Get With DBs
     var resultWDB = withDBs.query();
     resultWDB.$promise.then(function(data){
-      var withDBs = data;
-      withDBs.sort(function comparewithDBs(a,b) {
-        if (a.dbId < b.dbId)
-          return -1;
-        if (a.dbId > b.dbId)
-          return 1;
-        return 0;
-      });
+      var withDBs = _.sortBy(data, 'dbId');
       angular.forEach(withDBs, function(withDB){
         $scope.filters.with[withDB.dbId] = false;
         $scope.withNames[withDB.dbId] = withDB.xrefDatabase;
@@ -208,11 +200,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
     return _.filter(elements, function(el) {
       return el === true;
     }).length;
-  }
-
-  function compare(a,b) {
-    // console.log( b.evidenceSortOrder);
-    return a.evidenceSortOrder - b.evidenceSortOrder;
   }
 
   initialiseFilters();
