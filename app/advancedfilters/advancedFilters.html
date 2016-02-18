@@ -306,11 +306,11 @@
         <form>
           <div class="y-scroll-400">
           <ul>
-            <li ng-repeat="assignDB in assignDBs" class="checkbox">
+            <li ng-repeat="(dbId,val) in filters.assignedby" class="checkbox">
               <label>
                 <input type="checkbox"
-                ng-model="filters.assignedby[assignDB.dbId]" ng-change="updateFilters()"> <strong>{{assignDB.dbId}}</strong>
-                {{assignDB.xrefDatabase}}
+                ng-model="filters.assignedby[dbId]" ng-change="updateFilters()"> <strong>{{dbId}}</strong>
+                {{assignNames[dbId]}}
               </label>
             </li>
           </ul>

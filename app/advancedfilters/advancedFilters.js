@@ -7,6 +7,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
   $scope.evidences = {};
   $scope.refNames = {};
   $scope.withNames = {};
+  $scope.assignNames = {};
 
   var initialiseFilters = function() {
     $scope.filters = {
@@ -76,16 +77,13 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
     // Get Assigned DBs
     var resultADB = assignDBs.query();
     resultADB.$promise.then(function(data){
-      $scope.assignDBs = data;
-      $scope.assignDBs.sort(function comparewithDBs(a,b) {
-        if (a.dbId < b.dbId)
-          return -1;
-        if (a.dbId > b.dbId)
-          return 1;
-        return 0;
+      var assignDBs = _.sortBy(data, 'dbId');
+      angular.forEach(assignDBs, function(assignDB){
+        $scope.filters.assignedby[assignDB.dbId] = false;
+        $scope.assignNames[assignDB.dbId] = assignDB.xrefDatabase;
       });
     });
-
+    console.log('Filters:', $scope.filters);
   }
 
   $scope.useSlim = 0;
