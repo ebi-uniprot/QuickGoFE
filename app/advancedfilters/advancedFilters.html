@@ -12,17 +12,16 @@
         <form>
         <div class="form-group">
           <ul>
-            <li ng-repeat="taxon in mostCommonTaxonomies" class="checkbox">
+            <li ng-repeat="(taxId, value) in filters.taxon" class="checkbox">
               <label>
-                <input type="checkbox" ng-change="updateFilters()" ng-model="filters.taxon[taxon.taxId]">
-                <strong>{{taxon.title}}</strong> ({{taxon.taxId}})
+                <input type="checkbox" ng-change="updateFilters()" ng-model="filters.taxon[taxId]">
+                {{taxId}} <strong>{{taxonNames[taxId]}}</strong>
               </label>
             </li>
           </ul>
         </div>
         <div class="form-group">
           <p>...or enter taxon identifiers:</p>
-          <a ng-repeat="taxonId in preferredTaxons(filters.taxon)" href="remove">{{taxonId}}</a>
           <textarea ng-model="taxonTextArea" placeholder="9606,100090,10116,..." class="form-control"></textarea>
           <p class="pull-right"><small>Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for
         other taxonomic groups</small></p>
@@ -43,7 +42,14 @@
       <div class="advanced-filter-content" uib-dropdown-menu>
         <form>
           <div class="form-group">
-            <span ng-repeat="(gpID, value) in filters.gpID">{{gpID}}</span>
+            <ul>
+              <li ng-repeat="(gpID, value) in filters.gpID" class="checkbox">
+                <label>
+                  <input type="checkbox" ng-change="updateFilters()" ng-model="filters.gpID[gpID]">
+                  {{gpID}}
+                </label>
+              </li>
+            </ul>
           </div>
           <div class="form-group">
             <textarea ng-model="gpTextArea" placeholder="A0A000, etc" class="form-control" rows="3"></textarea>
@@ -171,11 +177,11 @@
               
               <div class="form-group y-scroll-200">
                 <ul>
-                  <li ng-repeat="evidenceModel in evidencesArray" class="checkbox">
+                  <li ng-repeat="(ecoID, val) in filters.ecoID" class="checkbox">
                       <label>
-                        <input type="checkbox" ng-model="filters.ecoID[evidenceModel.ecoID]" ng-change="updateFilters()">
-                        <a ng-click="showEvidenceCodeOntologyGraph('{{evidenceModel.ecoID}}')">{{evidenceModel.ecoID}}</a>
-                      <strong>({{evidenceModel.evidenceGOID}})</strong> {{evidenceModel.evidenceName}}
+                        <input type="checkbox" ng-model="filters.ecoID[ecoID]" ng-change="updateFilters()">
+                        <a ng-click="showEvidenceCodeOntologyGraph('{{ecoID}}')">{{ecoID}}</a>
+                      <strong>{{evidences  [ecoID].evidenceGOID}}</strong> {{evidences[ecoID].evidenceName}}
                       </label>
                   </li>
                 </ul>
@@ -226,7 +232,7 @@
           </label>
         </div>
         <div class="form-group">
-          <button type="button" class="btn btn-primary quickgo-btn" ng-click="selectAllNotQualifiers()" ng-hide="showAllNotQualifiers">Select all NOT qualifier</button>
+          <button type="button" class="btn btn-primary quickgo-btn" ng-click="selectAllNotQualifiers()" ng-hide="showAllNotQualifiers">Select all NOT qualifiers</button>
         </div>
         <p>Further details on the usage of the qualifier column can be found <a
           href="http://www.geneontology.org/page/go-annotation-conventions#qual" target="_blank">here</a>.</p>
@@ -249,10 +255,10 @@
           <hr>
           <div class="y-scroll-200">
             <ul>
-              <li ng-repeat="aRef in referenceList" class="checkbox">
+              <li ng-repeat="(refId, value) in filters.reference" class="checkbox">
                 <label>
-                  <input type="checkbox" ng-model="filters.reference[aRef.refId]" ng-change="updateFilters()"> <strong>{{aRef.display}}</strong>
-                  {{aRef.name}}
+                  <input type="checkbox" ng-model="filters.reference[refId]" ng-change="updateFilters()"> <strong>{{refId}}</strong>
+                  {{refNames[refId]}}
                 </label>
               </td>
             </li>
@@ -278,11 +284,11 @@
           <hr>
           <div class="y-scroll-200">
             <ul>
-              <li ng-repeat="withDB in withDBs" class="checkbox">
-                <label for="{{withDB.dbId}}">
-                  <input type="checkbox" ng-model="filters.with[withDB.dbId]" ng-change="updateFilters()"> 
-                  <strong>{{withDB.dbId}}</strong>
-                  {{withDB.xrefDatabase}}
+              <li ng-repeat="(withID, value) in filters.with" class="checkbox">
+                <label >
+                  <input type="checkbox" ng-model="filters.with[withID]" ng-change="updateFilters()"> 
+                  <strong>{{withID}}</strong>
+                  {{withNames[withID]}}
                 </label>
               </li>
             </ul>
