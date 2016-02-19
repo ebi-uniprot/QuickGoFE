@@ -71,7 +71,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findAnnotationsForTerm: function(searchTerm) {
         var request = {
           method: 'POST',
-          url: ENV.apiEndpoint + '/ws/ ',
+          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
           headers: {
             'Content-Type': 'application/json'
           },

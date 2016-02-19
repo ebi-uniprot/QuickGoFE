@@ -2,7 +2,82 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
  assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail, stringService) {
 
 
-  $scope.evidencesArray = [];
+  //Define objects to take values
+  $scope.taxonNames = {};
+  $scope.evidences = {};
+  $scope.refNames = {};
+  $scope.withNames = {};
+  $scope.assignNames = {};
+
+  var initialiseFilters = function() {
+    $scope.filters = {
+      taxon:{},
+      gpSet:{},
+      gpID:{},
+      reference:{},
+      goID:{},
+      aspect:{},
+      qualifier:{},
+      ecoID:{},
+      ecoTermUse:'ancestor',
+      goTermUse:'ancestor',
+      goRelations:'I',
+      with:{},
+      assignedby:{},
+      gptype:{}
+    };
+
+    // Taxons
+    var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+    angular.forEach(mostCommonTaxonomies, function(taxon){
+      $scope.filters.taxon[taxon.taxId] = false;
+      $scope.taxonNames[taxon.taxId] = taxon.title;
+    });
+
+    // Get Evidence Types   
+    var resultET = evidencetypes.query();
+    resultET.$promise.then(function(data){
+      var evidenceTypes = _.sortBy(data, 'evidenceGOID');
+      //The order of the evidence codes is important
+      angular.forEach(evidenceTypes, function(evidenceType){
+        $scope.filters.ecoID[evidenceType.ecoID] = false;
+        $scope.evidences[evidenceType.ecoID] = {
+          evidenceGOID: evidenceType.evidenceGOID,
+          evidenceName: evidenceType.evidenceName,
+          evidenceSortOrder: evidenceType.evidenceSortOrder
+        };
+      });
+    });
+
+    //References
+    var referenceList = hardCodedDataService.getFilterReferences();
+    angular.forEach(referenceList, function(ref){
+      $scope.filters.reference[ref.refId] = false;
+      $scope.refNames[ref.refId] = ref.name;
+    });
+
+    // Get With DBs
+    var resultWDB = withDBs.query();
+    resultWDB.$promise.then(function(data){
+      var withDBs = _.sortBy(data, 'dbId');
+      angular.forEach(withDBs, function(withDB){
+        $scope.filters.with[withDB.dbId] = false;
+        $scope.withNames[withDB.dbId] = withDB.xrefDatabase;
+      });
+    });
+
+    // Get Assigned DBs
+    var resultADB = assignDBs.query();
+    resultADB.$promise.then(function(data){
+      var assignDBs = _.sortBy(data, 'dbId');
+      angular.forEach(assignDBs, function(assignDB){
+        $scope.filters.assignedby[assignDB.dbId] = false;
+        $scope.assignNames[assignDB.dbId] = assignDB.xrefDatabase;
+      });
+    });
+    console.log('Filters:', $scope.filters);
+  }
+
   $scope.useSlim = 0;
   $scope.showAllNotQualifiers = 0;
   var filters = filteringService.getFilters();
@@ -12,8 +87,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
   $scope.basketPromise.then(function(d){
     $scope.basketItems = d.data;
   })
-  $scope.mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
-  $scope.referenceList = hardCodedDataService.getFilterReferences();
+
   $scope.qualifiers = hardCodedDataService.getQualifiers();
   $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
 
@@ -22,71 +96,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
   resultPSS.$promise.then(function(data){
     $scope.predefinedSlimSets = data;
   });
-
-  // Get Evidence Types   
-  var resultET = evidencetypes.query();
-  resultET.$promise.then(function(data){
-    $scope.evidenceTypes = data;
-    $scope.evidenceTypes.sort(compare);       
-    //The order of the evidence codes is important
-
-    angular.forEach($scope.evidenceTypes, function(evidenceType){
-      $scope.evidencesArray.push({ecoID:evidenceType.ecoID,
-        evidenceGOID: evidenceType.evidenceGOID,
-        evidenceName: evidenceType.evidenceName,
-        evidenceSortOrder: evidenceType.evidenceSortOrder});
-    });
-  });
-
-  // Get With DBs
-  
-  var resultWDB = withDBs.query();
-  resultWDB.$promise.then(function(data){
-    $scope.withDBs = data;
-    $scope.withDBs.sort(function comparewithDBs(a,b) {
-      if (a.dbId < b.dbId)
-        return -1;
-      if (a.dbId > b.dbId)
-        return 1;
-      return 0;
-    });
-  });
-
-
-
-  /**
-   * Get Assigned DBs
-   */
-   var resultADB = assignDBs.query();
-   resultADB.$promise.then(function(data){
-    $scope.assignDBs = data;
-    $scope.assignDBs.sort(function comparewithDBs(a,b) {
-      if (a.dbId < b.dbId)
-        return -1;
-      if (a.dbId > b.dbId)
-        return 1;
-      return 0;
-    });
-  });
-
-  //Define objects to take values
-  $scope.filters = {
-    taxon:{},
-    gpSet:{},
-    gpID:{},
-    reference:{},
-    goID:{},
-    aspect:{},
-    qualifier:{},
-    ecoID:{},
-    ecoTermUse:'ancestor',
-    goTermUse:'ancestor',
-    goRelations:'I',
-    with:{},
-    assignedby:{},
-    gptype:{}
-  };
-
 
 
   $scope.addTaxons = function() {
@@ -97,10 +106,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
     $scope.updateFilters();
     $scope.taxonTextArea = '';
   }
-
-  $scope.preferredTaxons = function(taxons) {
-    return _.difference(_.keys(taxons), _.pluck($scope.mostCommonTaxonomies, 'taxId'));
-  };
 
   $scope.addGPs = function() {
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
@@ -177,9 +182,8 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
 
   $scope.clearFilters=function() {
     filteringService.clearFilters();
-    $scope.filters = filteringService.getFilters();
+    initialiseFilters();
     $rootScope.$emit('filtersClear');
-    $scope.updateFilters();
   };
 
 
@@ -198,9 +202,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
     }).length;
   }
 
-  function compare(a,b) {
-    // console.log( b.evidenceSortOrder);
-    return a.evidenceSortOrder - b.evidenceSortOrder;
-  }
+  initialiseFilters();
 
 });

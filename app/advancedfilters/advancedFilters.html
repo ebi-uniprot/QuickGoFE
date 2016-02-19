@@ -5,25 +5,23 @@
     <!-- TAXON -->
     <li uib-dropdown auto-close="outsideClick">
       <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-        Taxon <span class="caret"></span><br>
-        <small>{{countElements(filters.taxon)}} selected</small>
+        Taxon <small>({{countElements(filters.taxon)}})</small> <span class="caret"></span>
       </button>
       <!-- TAXON -->
       <div class="advanced-filter-content" uib-dropdown-menu>
         <form>
         <div class="form-group">
           <ul>
-            <li ng-repeat="taxon in mostCommonTaxonomies" class="checkbox">
+            <li ng-repeat="(taxId, value) in filters.taxon" class="checkbox">
               <label>
-                <input type="checkbox" ng-change="updateFilters()" ng-model="filters.taxon[taxon.taxId]">
-                <strong>{{taxon.title}}</strong> ({{taxon.taxId}})
+                <input type="checkbox" ng-change="updateFilters()" ng-model="filters.taxon[taxId]">
+                {{taxId}} <strong>{{taxonNames[taxId]}}</strong>
               </label>
             </li>
           </ul>
         </div>
         <div class="form-group">
           <p>...or enter taxon identifiers:</p>
-          <a ng-repeat="taxonId in preferredTaxons(filters.taxon)" href="remove">{{taxonId}}</a>
           <textarea ng-model="taxonTextArea" placeholder="9606,100090,10116,..." class="form-control"></textarea>
           <p class="pull-right"><small>Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for
         other taxonomic groups</small></p>
@@ -38,14 +36,20 @@
     <!-- GENE PRODUCTS -->
     <li uib-dropdown auto-close="outsideClick">
       <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-        Gene products <span class="caret"></span><br>
-        <small>{{countElements(filters.gpID)}} selected</small>
+        Gene products <small>({{countElements(filters.gpID)}})</small> <span class="caret"></span>
       </button>
       <!-- PRODUCT ID -->
       <div class="advanced-filter-content" uib-dropdown-menu>
         <form>
           <div class="form-group">
-            <span ng-repeat="(gpID, value) in filters.gpID">{{gpID}}</span>
+            <ul>
+              <li ng-repeat="(gpID, value) in filters.gpID" class="checkbox">
+                <label>
+                  <input type="checkbox" ng-change="updateFilters()" ng-model="filters.gpID[gpID]">
+                  {{gpID}}
+                </label>
+              </li>
+            </ul>
           </div>
           <div class="form-group">
             <textarea ng-model="gpTextArea" placeholder="A0A000, etc" class="form-control" rows="3"></textarea>
@@ -72,8 +76,7 @@
       <!-- GO TERMS -->
       <li uib-dropdown auto-close="outsideClick">
         <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-          GO terms <span class="caret"></span><br>
-          <small>{{countElements(filters.goID)}} selected</small>
+          GO terms <small>({{countElements(filters.goID)}})</small> <span class="caret"></span><br>
         </button>
         <!-- GO ID -->
         <div class="advanced-filter-content"  uib-dropdown-menu>
@@ -143,8 +146,7 @@
       <!-- ASPECT -->
       <li uib-dropdown auto-close="outsideClick">
         <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-        Aspect <span class="caret"></span><br>
-          <small>{{countElements(filters.aspect)}} selected</small>
+        Aspect <small>({{countElements(filters.aspect)}})</small> <span class="caret"></span><br>
         </button>
         <!-- GO ID -->
         <div class="advanced-filter-content"  uib-dropdown-menu>
@@ -161,38 +163,10 @@
           </form>
         </div>
       </li>
-
-    <!-- QUALIFIER -->
-    <li uib-dropdown auto-close="outsideClick">
-      <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-        Qualifier <span class="caret"></span><br>
-          <small>{{countElements(filters.qualifier)}} selected</small>
-      </button>
-      <!-- GO ID -->
-      <div class="advanced-filter-content"  uib-dropdown-menu>
-        <form>
-          <p>The Qualifier column in a GO annotation is used for flags that modify the interpretation of an annotation.</p>
-
-                <div ng-repeat="aQualifier in qualifiers" class="checkbox">
-                  <label>
-                    <input type="checkbox" ng-model="filters.qualifier[aQualifier.qualifier]" ng-change="updateFilters()">
-                    {{aQualifier.name}}
-                  </label>
-                </div>
-                <div class="form-group">
-                  <button type="button" class="btn btn-primary quickgo-btn" ng-click="selectAllNotQualifiers()" ng-hide="showAllNotQualifiers">Select all NOT qualifier</button>
-                </div>
-          <p>Further details on the usage of the qualifier column can be found <a
-            href="http://www.geneontology.org/page/go-annotation-conventions#qual" target="_blank">here</a>.</p>
-          </form>
-        </div>
-      </li>
-
       <!-- EVIDENCE -->
       <li uib-dropdown auto-close="outsideClick">
         <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-          Evidence <span class="caret"></span><br>
-          <small>{{countElements(filters.ecoID)}} selected</small>
+          Evidence <small>({{countElements(filters.ecoID)}})</small> <span class="caret"></span><br>
         </button>
         <!-- GO ID -->
         <div class="advanced-filter-content"  uib-dropdown-menu>
@@ -203,11 +177,11 @@
               
               <div class="form-group y-scroll-200">
                 <ul>
-                  <li ng-repeat="evidenceModel in evidencesArray" class="checkbox">
+                  <li ng-repeat="(ecoID, val) in filters.ecoID" class="checkbox">
                       <label>
-                        <input type="checkbox" ng-model="filters.ecoID[evidenceModel.ecoID]" ng-change="updateFilters()">
-                        <a ng-click="showEvidenceCodeOntologyGraph('{{evidenceModel.ecoID}}')">{{evidenceModel.ecoID}}</a>
-                      <strong>({{evidenceModel.evidenceGOID}})</strong> {{evidenceModel.evidenceName}}
+                        <input type="checkbox" ng-model="filters.ecoID[ecoID]" ng-change="updateFilters()">
+                        <a ng-click="showEvidenceCodeOntologyGraph('{{ecoID}}')">{{ecoID}}</a>
+                      <strong>{{evidences  [ecoID].evidenceGOID}}</strong> {{evidences[ecoID].evidenceName}}
                       </label>
                   </li>
                 </ul>
@@ -232,100 +206,119 @@
           </div>
         </li>
 
-        <!-- REFERENCE -->
-        <li uib-dropdown auto-close="outsideClick">
-          <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-            Reference <span class="caret"></span><br>
-            <small>{{countElements(filters.reference)}} selected</small>
+        <li>
+          <button type="button" class="btn btn-default quickgo-btn" ng-click="showMore = (showMore? false : true)">
+            More <span class="caret"></span>
           </button>
-          <!-- GO ID -->
-          <div class="advanced-filter-content"  uib-dropdown-menu>
-            <form>
-              <div class="form-group">
-                <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
-              </div>
-              <div class="form-group">
-                <button class="btn quickgo-btn" type="button" ng-click="addReferences()">Add</button>
-              </div>
-              <hr>
-              <ul>
-                <li ng-repeat="aRef in referenceList" class="checkbox">
-                  <label>
-                    <input type="checkbox" ng-model="filters.reference[aRef.refId]" ng-change="updateFilters()"> <strong>{{aRef.display}}</strong>
-                    {{aRef.name}}
-                  </label>
-                </td>
-              </li>
-            </ul>
-            <p>*: Any matches will be displayed</p>
-          </form>
-        </div>
-      </li>
-
-
-      <!-- WITH -->
-      <li uib-dropdown auto-close="outsideClick">
-      <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-        With <span class="caret"></span><br>
-            <small>{{countElements(filters.with)}} selected</small>
-      </button>
-      <div class="advanced-filter-content"  uib-dropdown-menu>
-        <form>
-            <div class="form-group">
-              <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
-            </div>
-            <div class="form-group">
-              <button class="btn quickgo-btn" type="button" ng-click="addWith()">Add</button>
-            </div>
-            <hr>
-            <ul>
-              <li ng-repeat="withDB in withDBs" class="checkbox">
-                  <label for="{{withDB.dbId}}">
-                    <input type="checkbox" ng-model="filters.with[withDB.dbId]" ng-change="updateFilters()"> 
-                    <strong>{{withDB.dbId}}</strong>
-                  {{withDB.xrefDatabase}}</label>
-                </td>
-              </li>
-            </ul>
-            <p>* Any matches will be displayed</p>
-        </form>
-      </div>            
-
-      <!-- ASSIGNED BY -->
-      <li uib-dropdown auto-close="outsideClick">
-        <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-          Assigned by <span class="caret"></span><br>
-          <small>{{countElements(filters.assignedby)}} selected</small>
-        </button>
-        <!-- GO ID -->
-        <div class="advanced-filter-content"  uib-dropdown-menu>
-          <form>
-          <ul>
-            <li ng-repeat="assignDB in assignDBs" class="checkbox">
-                <label>
-                  <input type="checkbox"
-                ng-model="filters.assignedby[assignDB.dbId]" ng-change="updateFilters()"> <strong>{{assignDB.dbId}}</strong>
-                {{assignDB.xrefDatabase}}</label>
-              </td>
-            <li>
-          </ul>
-          </form>
-        </div>
-      </li>
-
-      <!-- ANNOTATION EXTENSION -->
-      <li uib-dropdown auto-close="outsideClick">
-        <button type="button" class="btn btn-default quickgo-btn" uib-dropdown-toggle>
-          Annotation extension <span class="caret"></span><br>
-          <small>{{countElements(filters.annotationExtension)}} selected</small>
-        </button>
-        <!-- GO ID -->
-        <div class="advanced-filter-content"  uib-dropdown-menu>
-          <form>TBC</form>
-        </div>
-      </li>
+        </li>
 
       <li><a ng-click="clearFilters()">Clear all</a></li>
   </ul>
+
+  <div ng-show="showMore" class="inset-panel">
+  <hr>
+  <!-- QUALIFIER -->
+  <div class="grid_6">
+    <h5>Qualifier <small>({{countElements(filters.qualifier)}})</small></h5>
+    <!-- GO ID -->
+    <div>
+      <form>
+        <p>The Qualifier column in a GO annotation is used for flags that modify the interpretation of an annotation.</p>
+
+        <div ng-repeat="aQualifier in qualifiers" class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="filters.qualifier[aQualifier.qualifier]" ng-change="updateFilters()">
+            {{aQualifier.name}}
+          </label>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-primary quickgo-btn" ng-click="selectAllNotQualifiers()" ng-hide="showAllNotQualifiers">Select all NOT qualifiers</button>
+        </div>
+        <p>Further details on the usage of the qualifier column can be found <a
+          href="http://www.geneontology.org/page/go-annotation-conventions#qual" target="_blank">here</a>.</p>
+        </form>
+      </div>
+    </div>
+
+    <!-- REFERENCE -->
+    <div class="grid_6">
+      <h5>Reference <small>({{countElements(filters.reference)}})</small></h5>
+      <!-- GO ID -->
+      <div>
+        <form>
+          <div class="form-group">
+            <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
+          </div>
+          <div class="form-group">
+            <button class="btn quickgo-btn" type="button" ng-click="addReferences()">Add</button>
+          </div>
+          <hr>
+          <div class="y-scroll-200">
+            <ul>
+              <li ng-repeat="(refId, value) in filters.reference" class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="filters.reference[refId]" ng-change="updateFilters()"> <strong>{{refId}}</strong>
+                  {{refNames[refId]}}
+                </label>
+              </td>
+            </li>
+          </ul>
+        </div>
+        <p>*: Any matches will be displayed</p>
+      </form>
+      </div>
+    </div>
+
+
+    <!-- WITH -->
+    <div class="grid_6">
+      <h5>With/From <small>({{countElements(filters.with)}})</small></h5>
+      <div>
+        <form>
+          <div class="form-group">
+            <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
+          </div>
+          <div class="form-group">
+            <button class="btn quickgo-btn" type="button" ng-click="addWith()">Add</button>
+          </div>
+          <hr>
+          <div class="y-scroll-200">
+            <ul>
+              <li ng-repeat="(withID, value) in filters.with" class="checkbox">
+                <label >
+                  <input type="checkbox" ng-model="filters.with[withID]" ng-change="updateFilters()"> 
+                  <strong>{{withID}}</strong>
+                  {{withNames[withID]}}
+                </label>
+              </li>
+            </ul>
+          </div>
+          <p>* Any matches will be displayed</p>
+        </form>
+      </div>
+    </div>        
+
+    <!-- ASSIGNED BY -->
+    <div class="grid_6">
+      <h5>Assigned by <small>({{countElements(filters.assignedby)}})</small></h5>
+      <!-- GO ID -->
+      <div>
+        <form>
+          <div class="y-scroll-400">
+          <ul>
+            <li ng-repeat="(dbId,val) in filters.assignedby" class="checkbox">
+              <label>
+                <input type="checkbox"
+                ng-model="filters.assignedby[dbId]" ng-change="updateFilters()"> <strong>{{dbId}}</strong>
+                {{assignNames[dbId]}}
+              </label>
+            </li>
+          </ul>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
     
 </div>
