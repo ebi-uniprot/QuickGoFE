@@ -3,11 +3,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
 
 
   //Define objects to take values
-  $scope.taxonNames = {};
-  $scope.evidences = {};
-  $scope.refNames = {};
-  $scope.withNames = {};
-  $scope.assignNames = {};
+  $scope.namesMap = {};
 
   var initialiseFilters = function() {
     $scope.filters = {
@@ -31,7 +27,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
     var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
     angular.forEach(mostCommonTaxonomies, function(taxon){
       $scope.filters.taxon[taxon.taxId] = false;
-      $scope.taxonNames[taxon.taxId] = taxon.title;
+      $scope.namesMap[taxon.taxId] = taxon.title;
     });
 
     // Get Evidence Types   
@@ -41,7 +37,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
       //The order of the evidence codes is important
       angular.forEach(evidenceTypes, function(evidenceType){
         $scope.filters.ecoID[evidenceType.ecoID] = false;
-        $scope.evidences[evidenceType.ecoID] = {
+        $scope.namesMap[evidenceType.ecoID] = {
           evidenceGOID: evidenceType.evidenceGOID,
           evidenceName: evidenceType.evidenceName,
           evidenceSortOrder: evidenceType.evidenceSortOrder
@@ -53,7 +49,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
     var referenceList = hardCodedDataService.getFilterReferences();
     angular.forEach(referenceList, function(ref){
       $scope.filters.reference[ref.refId] = false;
-      $scope.refNames[ref.refId] = ref.name;
+      $scope.namesMap[ref.refId] = ref.name;
     });
 
     // Get With DBs
@@ -62,7 +58,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
       var withDBs = _.sortBy(data, 'dbId');
       angular.forEach(withDBs, function(withDB){
         $scope.filters.with[withDB.dbId] = false;
-        $scope.withNames[withDB.dbId] = withDB.xrefDatabase;
+        $scope.namesMap[withDB.dbId] = withDB.xrefDatabase;
       });
     });
 
@@ -72,7 +68,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
       var assignDBs = _.sortBy(data, 'dbId');
       angular.forEach(assignDBs, function(assignDB){
         $scope.filters.assignedby[assignDB.dbId] = false;
-        $scope.assignNames[assignDB.dbId] = assignDB.xrefDatabase;
+        $scope.namesMap[assignDB.dbId] = assignDB.xrefDatabase;
       });
     });
     console.log('Filters:', $scope.filters);

@@ -15,7 +15,7 @@
             <li ng-repeat="(taxId, value) in filters.taxon" class="checkbox">
               <label>
                 <input type="checkbox" ng-change="updateFilters()" ng-model="filters.taxon[taxId]">
-                {{taxId}} <strong>{{taxonNames[taxId]}}</strong>
+                {{taxId}} <strong>{{namesMap[taxId]}}</strong>
               </label>
             </li>
           </ul>
@@ -181,7 +181,7 @@
                       <label>
                         <input type="checkbox" ng-model="filters.ecoID[ecoID]" ng-change="updateFilters()">
                         <a ng-click="showEvidenceCodeOntologyGraph('{{ecoID}}')">{{ecoID}}</a>
-                      <strong>{{evidences  [ecoID].evidenceGOID}}</strong> {{evidences[ecoID].evidenceName}}
+                      <strong>{{namesMap[ecoID].evidenceGOID}}</strong> {{namesMap[ecoID].evidenceName}}
                       </label>
                   </li>
                 </ul>
@@ -258,7 +258,7 @@
               <li ng-repeat="(refId, value) in filters.reference" class="checkbox">
                 <label>
                   <input type="checkbox" ng-model="filters.reference[refId]" ng-change="updateFilters()"> <strong>{{refId}}</strong>
-                  {{refNames[refId]}}
+                  {{namesMap[refId]}}
                 </label>
               </td>
             </li>
@@ -288,7 +288,7 @@
                 <label >
                   <input type="checkbox" ng-model="filters.with[withID]" ng-change="updateFilters()"> 
                   <strong>{{withID}}</strong>
-                  {{withNames[withID]}}
+                  {{namesMap[withID]}}
                 </label>
               </li>
             </ul>
@@ -310,7 +310,7 @@
               <label>
                 <input type="checkbox"
                 ng-model="filters.assignedby[dbId]" ng-change="updateFilters()"> <strong>{{dbId}}</strong>
-                {{assignNames[dbId]}}
+                {{namesMap[dbId]}}
               </label>
             </li>
           </ul>
