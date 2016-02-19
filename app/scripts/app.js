@@ -83,6 +83,34 @@ var app = angular
         templateUrl: 'help/searching.html',
         controller: 'HelpCtrl'
       })
+      .when('/help/searching#q1', {
+        templateUrl: 'help/searching.html#q1',
+        controller: 'HelpCtrl'
+      })
+      .when('/help/searching#q2', {
+        templateUrl: 'help/searching.html#q2',
+        controller: 'HelpCtrl'
+      })
+      .when('/help/searching#q3', {
+        templateUrl: 'help/searching.html#q3',
+        controller: 'HelpCtrl'
+      })
+      .when('/help/searching#q4', {
+        templateUrl: 'help/searching.html#q4',
+        controller: 'HelpCtrl'
+      })
+      .when('/help/searching#q5', {
+        templateUrl: 'help/searching.html#q5',
+        controller: 'HelpCtrl'
+      })
+      .when('/help/searching#q6', {
+        templateUrl: 'help/searching.html#q6',
+        controller: 'HelpCtrl'
+      })
+      .when('/help/searching#q7', {
+        templateUrl: 'help/searching.html#q7',
+        controller: 'HelpCtrl'
+      })
       .when('/help/slims', {
         templateUrl: 'help/slims.html',
         controller: 'HelpCtrl'
