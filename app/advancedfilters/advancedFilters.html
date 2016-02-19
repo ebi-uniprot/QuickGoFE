@@ -125,7 +125,7 @@
                 </li>
 
                 <!-- Select Relationship-->
-                <li ng-show="advancedFilters.text.goTermUse=='slim' || advancedFilters.text.goTermUse=='ancestor'"><strong>Select which relationship an annotated term should have to the terms above:</strong>
+                <li ng-show="filters.goTermUse=='slim' || filters.goTermUse=='ancestor'"><strong>Select which relationship an annotated term should have to the terms above:</strong>
                   <ul>
                      <li class="checkbox"><input type="radio" name="closure" value="I"
                       ng-model="filters.goRelations" ng-change="updateFilters()"> "is a"
@@ -223,7 +223,7 @@
     <!-- GO ID -->
     <div>
       <form>
-        <p>The Qualifier column in a GO annotation is used for flags that modify the interpretation of an annotation.</p>
+        <p>The qualifier column specifies the relationship between the annotated gene product and the GO term.</p>
 
         <div ng-repeat="aQualifier in qualifiers" class="checkbox">
           <label>
