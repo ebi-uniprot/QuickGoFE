@@ -125,16 +125,16 @@
                 </li>
 
                 <!-- Select Relationship-->
-                <li ng-show="filters.goTermUse=='slim' || filters.goTermUse=='ancestor'"><strong>Select which relationship an annotated term should have to the terms above:</strong>
+                <li ng-show="filters.goTermUse=='slim' || filters.goTermUse=='ancestor'"><strong>Select which relationship an annotated term should have to the terms above <a href="http://geneontology.org/page/ontology-relations" target="_blank">(more info)</a>:</strong>
                   <ul>
                      <li class="checkbox"><input type="radio" name="closure" value="I"
-                      ng-model="filters.goRelations" ng-change="updateFilters()"> "is a"
+                      ng-model="filters.goRelations" ng-change="updateFilters()"> is_a
                     </li>
                     <li class="checkbox"><input type="radio" name="closure" value="IPO"
-                      ng-model="filters.goRelations" ng-change="updateFilters()"> "is a", "part of"
+                      ng-model="filters.goRelations" ng-change="updateFilters()"> is_a, part_of
                     </li>
                     <li class="checkbox"><input type="radio" name="closure" value="IPOR"
-                      ng-model="filters.goRelations" ng-change="updateFilters()"> "is a", "part of", "regulates"
+                      ng-model="filters.goRelations" ng-change="updateFilters()"> is_a, part_of, regulates
                     </li>
                     </ul>
                 </li>
