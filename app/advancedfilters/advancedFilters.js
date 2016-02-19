@@ -30,6 +30,16 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
       $scope.namesMap[taxon.taxId] = taxon.title;
     });
 
+    //Basket items
+    basketService.getItems().then(function(d){
+      var data = d.data;
+      angular.forEach(data, function(goTerm){
+        $scope.filters.goID[goTerm.termId] = false;
+        $scope.namesMap[goTerm.termId] = goTerm.name;        
+      });
+    });
+
+
     // Get Evidence Types   
     var resultET = evidencetypes.query();
     resultET.$promise.then(function(data){
@@ -79,11 +89,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
   var filters = filteringService.getFilters();
 
   // GET DATA
-  $scope.basketPromise = basketService.getItems();
-  $scope.basketPromise.then(function(d){
-    $scope.basketItems = d.data;
-  })
-
   $scope.qualifiers = hardCodedDataService.getQualifiers();
   $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
 

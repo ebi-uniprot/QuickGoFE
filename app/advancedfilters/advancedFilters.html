@@ -85,20 +85,18 @@
             <li >
               <strong ng-show="basketItems.length>0">Select/</strong><strong>Enter the terms that you wish to use:</strong>
               <!-- 3 choices -->
+              <div class="y-scroll-200">
+                <ul>
+                  <li ng-repeat="(basketId, value) in filters.goID" class="checkbox">
+                    <label><input type="checkbox" ng-model="filters.goID[basketId]"
+                    ng-change="updateFilters()">
+                    {{basketId}} {{namesMap[basketId]}}</label>
+                  </li>
+                </ul>
+              </div>
 
               <!-- Select from basket -->
               <ol style="list-style: disc">
-                <li  ng-show="basketItems.length>0" class="form-group">Select from your basket:
-                  <ul>
-                    <li ng-repeat="basketItem in basketItems" class="checkbox">
-                      <label><input type="checkbox" ng-model="filters.goID[basketItem.termId]"
-                      ng-change="updateFilters()">
-                      {{basketItem.termId}} {{basketItem.name}}</label>
-                    </li>
-                  </ul>
-                </li>
-                <li class="sub-1" ng-show="basketItems.length==0" class="form-group">(No terms avaliable in your basket)</li>
-
                 <li class="form-group">Use a predefined GO term set: <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets"
                   ng-change="updatePredefinedSets()"></select>
                 </li>
