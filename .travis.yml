@@ -4,6 +4,6 @@ node_js:
 before_script:
   - 'rm -rf node_modules'
   - 'rm -rf bower_components'
-  - 'npm install -g bower grunt-cli'
+  - 'npm install -g bower grunt grunt-cli'
   - 'bower install'
   - 'gem install compass'
