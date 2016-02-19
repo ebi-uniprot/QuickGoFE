@@ -5,7 +5,7 @@ angular
 		return {
 			restrict: 'AEC',
 			scope: {
-				searchTerm: '=',
+				searchTerm: '=?',
 				noInput: '=?',
 				limit: '@'
 			},
