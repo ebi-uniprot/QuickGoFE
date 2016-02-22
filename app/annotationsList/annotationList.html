@@ -11,15 +11,55 @@
 <table id="assignedByCount" class="two-colours">
 <tr>
   <thead>
+    <th>Temp ID</th>
     <th ng-repeat="colHeading in annotationColumns" ng-show="colHeading.slimCol == false || (colHeading.slimCol == true && showSlimColumns)">
       <span uib-tooltip-template="'{{colHeading.name}}.html'">
         {{colHeading.value}}</span>
     </th>
   </thead>
 </tr>
-
+<!--
+{
+"geneProductId":"A0A000",
+"symbol":"moeA5",
+"qualifier":"enables",
+"goId":"GO:0003824",
+"termName":"catalytic activity",
+"aspect":"F",
+"evidenceGo":"IEA",
+"evidenceEco":"ECO:0000256",
+"reference":"GO_REF:0000002",
+"taxon":35758,
+"assignedBy":"InterPro",
+"database":"UniProtKB",
+"date":"20160130",
+"name":null,
+"synonym":null,
+"type":null,
+"taxonName":null,
+"sequence":0,
+"originalTermId":"GO:0003824",
+"originalTermName":"catalytic activity",
+"termIDSlimmingToString":null,
+"termIDSlimmingTo":null,
+"termNameSlimmingTo":null,
+"fullExtension":"",
+"fullWith":"InterPro:IPR015421|InterPro:IPR015422",
+"withList":[{"connectedXrefs":[{"database":"InterPro","signature":"IPR015421"}]},
+{"connectedXrefs":[{"database":"InterPro","signature":"IPR015422"}]}],"extensionList":null} -->
   <!-- Results Repeat -->
-  <tr ng-repeat="goTuple in goList.annotationsList">
+  <tr ng-repeat="goTuple in row = (goList.annotationsList)"
+  ng-class="{'duplicate-slim-top' : row[$index].id === row[$index +1].id ,'duplicate-slim-bottom' : row[$index].id === row[$index -1].id}">
+
+
+
+
+
+    <!-- <td>{{bingo[$index].id}}</td>
+    <td>{{bingo[$index +1].id}}</td> -->
+    <!-- <td ng-show="bingo[$index].id === bingo[$index +1].id">Found a REPEAT</td>
+    <td ng-show="bingo[$index].id === bingo[$index -1].id">Found a REPEAT</td> -->
+
     <td>{{goTuple.database}}</td>
     <td><a ng-click="followLinkToEntry(goTuple.database, goTuple.geneProductId)" target="_blank">{{goTuple.geneProductId}}</a>
     </td>
@@ -35,6 +75,9 @@
     </td>
     <!-- GO Term Name-->
     <td><element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element></td>
+
+    <td ng-show="showSlimColumns"><a href="term/{{goTuple.originalTermId}}">{{goTuple.originalTermId}}</a></td>
+    <td ng-show="showSlimColumns">{{goTuple.originalTermName}}</td>
 
     <!-- Aspect-->
     <td>{{goTuple.aspect}}</td>
@@ -65,8 +108,7 @@
      <!-- Assigned By-->
      <td><a class="quickgo-link selectable" ng-click="followLinkToGeneric(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></td>
      <td>{{goTuple.fullExtension}}</td>
-     <td ng-show="showSlimColumns"><a href="term/{{goTuple.originalTermId}}">{{goTuple.originalTermId}}</a></td>
-     <td ng-show="showSlimColumns">{{goTuple.originalTermName}}</td>
+
    </tr>
  </table>
  <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>

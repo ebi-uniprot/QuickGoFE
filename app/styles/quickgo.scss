@@ -401,6 +401,19 @@ td.a-filter {
 
 .two-colours tr:nth-child(odd) {
   background-color: $primary4;
+  &.duplicate-slim-top{
+    border-top: solid 2px red;
+    border-left: solid 2px red;
+    border-right: solid 2px red;
+    background-color: #FFE3E3;
+  }
+  &.duplicate-slim-bottom{
+    border-bottom: solid 2px red;
+    border-left: solid 2px red;
+    border-right: solid 2px red;
+    background-color: #FFE3E3;
+  }
+
 }
 
 /* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
@@ -741,6 +754,24 @@ li.slim {
 .view-chart-button {
   margin-right: 10px;
 }
+
+.duplicate-slim{
+  background-color: red;
+}
+
+.duplicate-slim-top{
+  border-top: solid 2px red;
+  border-left: solid 2px red;
+  border-right: solid 2px red;
+  background-color: #FFE3E3;
+}
+.duplicate-slim-bottom{
+  border-bottom: solid 2px red;
+  border-left: solid 2px red;
+  border-right: solid 2px red;
+  background-color: #FFE3E3;
+}
+
 
 /* ADVANCED FILTERS MODAL DIALOGUE ----------------------------------------------------------------------------------*/
 
