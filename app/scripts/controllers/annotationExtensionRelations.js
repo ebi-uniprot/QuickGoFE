@@ -152,7 +152,7 @@ app.controller('AnnotationExtensionRelationsCtrl', function( $scope, ENV) {
 
     //$.getJSON("GValidate", "service=ann_ext&action=getRelations&format=graph", callback);
     //$.getJSON("GValidate", "http://www.ebi.ac.uk/QuickGO/GValidate?service=ann_ext&action=getRelations&format=graph", callback);
-    $.getJSON(ENV.apiEndpoint+"/ws/annotationExtensionRelations", "", callback);
+    $.getJSON(ENV.apiEndpoint+"/annotationExtensionRelations", "", callback);
 
   }
 

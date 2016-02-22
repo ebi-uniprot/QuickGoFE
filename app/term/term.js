@@ -12,7 +12,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.termInformation=true;
 
   var termId=$routeParams.goId;
-  // var formattedURL=ENV.apiEndpoint+'/ws/term/';
+  // var formattedURL=ENV.apiEndpoint+'/term/';
 
   $rootScope.header = "QuickGO::Term "+termId;
 
