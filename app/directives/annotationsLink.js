@@ -14,10 +14,12 @@ angular
 						if(termId.startsWith('GO')) {
 							searchService.findAnnotationsForTerm(termId).then(function(d){
 								$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+								showHide($scope.annotationsCount);
 							});
 						} else if (termId.startsWith('ECO')) {
 							searchService.findAnnotationsForECO(termId).then(function(d){
 								$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+								showHide($scope.annotationsCount);
 							});
 						}
 					}
@@ -28,9 +30,16 @@ angular
 					if(productId) {
 						searchService.findAnnotationsForProduct(productId).then(function(d){
 							$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+							showHide($scope.annotationsCount);
 						});
 					}
 				});
+
+				var showHide = function(n) {
+					if(n == 0) {
+						element.parent().addClass('ng-hide');
+					}
+				}
 			}
 		};
 	}]);
