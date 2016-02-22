@@ -5,3 +5,5 @@ before_script:
   - 'npm install bower grunt-cli -g'
   - 'bower install'
   - 'gem install compass'
+notifications:
+  slack: quickgo:1Nu7WlcecKOsojoVtjvw9Lx3
