@@ -17,7 +17,7 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
    * process request and start download
    */
   $scope.submit = function(format,limit) {
-    var formattedURL = ENV.apiEndpoint+"/ws/downloadPostNewNamesNotSpring";
+    var formattedURL = ENV.apiEndpoint+"/downloadPostNewNamesNotSpring";
 
     var filterRequest = {};
     filterRequest.list =  filteringService.getFilters();

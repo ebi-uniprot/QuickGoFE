@@ -17,7 +17,7 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filter
   loadStatistics();
 
   function loadStatistics() {
-    var formattedURL =  ENV.apiEndpoint + '/ws/statsPostNewNamesNotSpring';
+    var formattedURL =  ENV.apiEndpoint + '/statsPostNewNamesNotSpring';
 
     //Create the object to send to the server
     var filterRequest = {};

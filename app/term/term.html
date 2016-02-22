@@ -109,7 +109,7 @@
       <h3 class="term-section-header">Ancestor Chart</h3>
       <span ng-show="!isObsolete"><chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size</span>
       <img class="displayed"
-           ng-src="{{targetDomainAndPort}}/ws/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
+           ng-src="{{targetDomainAndPort}}/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}"
            id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
 
 

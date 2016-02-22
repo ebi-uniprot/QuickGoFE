@@ -8,7 +8,7 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalIn
   $scope.targetDomainAndPort=ENV.apiEndpoint;
   $scope.imagePath="";
 
-  var formattedURL=ENV.apiEndpoint+'/ws/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
+  var formattedURL=ENV.apiEndpoint+'/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
 
   console.log("Chart Full url", formattedURL);
 
@@ -61,7 +61,7 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalIn
   };
 
   $scope.newWindow = function () {
-    var imageLocation = $scope.targetDomainAndPort + "/ws/chart?ids=" + $scope.graphModel.id + "&scope=" + $scope.graphModel.scope;
+    var imageLocation = $scope.targetDomainAndPort + "/chart?ids=" + $scope.graphModel.id + "&scope=" + $scope.graphModel.scope;
     console.log(imageLocation);
     $window.open(imageLocation);
   };

@@ -41,7 +41,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    * Get the results page - Post version
    */
   function getResultsPage() {
-    var formattedURL=ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring';
+    var formattedURL=ENV.apiEndpoint + '/annotationPostNewNamesNotSpring';
 
     //Create the object to send to the server
     var filterRequest = {};
