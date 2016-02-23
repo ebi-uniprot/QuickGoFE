@@ -34,7 +34,8 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
       basketService.getItems().then(function(d){
         var data = d.data;
         angular.forEach(data, function(goTerm){
-          $scope.filters.goID[goTerm.termId] = false;
+          $scope.filters.goID[goTerm.termId] = ($scope.filters.goID[goTerm.termId])
+                                              ? $scope.filters.goID[goTerm.termId] : false;
           $scope.namesMap[goTerm.termId] = goTerm.name;
         });
       });
@@ -46,7 +47,8 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
         var evidenceTypes = _.sortBy(data, 'evidenceGOID');
         //The order of the evidence codes is important
         angular.forEach(evidenceTypes, function(evidenceType){
-          $scope.filters.ecoID[evidenceType.ecoID] = false;
+          ($scope.filters.ecoID[evidenceType.ecoID]) = ($scope.filters.ecoID[evidenceType.ecoID])
+                                                    ? $scope.filters.ecoID[evidenceType.ecoID] : false;
           $scope.namesMap[evidenceType.ecoID] = {
             evidenceGOID: evidenceType.evidenceGOID,
             evidenceName: evidenceType.evidenceName,
@@ -81,12 +83,21 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
           $scope.namesMap[assignDB.dbId] = assignDB.xrefDatabase;
         });
       });
+
+      // Override filters
+      var filters = filteringService.getFilters();
+      angular.forEach(filters, function(d){
+        if(_.contains( ['ecoTermUse','goTermUse','goRelations'], d.type )) {
+          $scope.filters[d.type] = d.value;
+        } else {
+          $scope.filters[d.type][d.value] = true;
+        }
+      });
+
       // console.log('Filters:', $scope.filters);
     }
 
-    $scope.useSlim = 0;
     $scope.showAllNotQualifiers = 0;
-    var filters = filteringService.getFilters();
 
     // GET DATA
     $scope.qualifiers = hardCodedDataService.getQualifiers();
