@@ -165,7 +165,7 @@
             <p>A full description of evidence codes and their usage can be found <a
               href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
 
-              <div class="form-group y-scroll-200">
+              <div class="form-group y-scroll-200 inset-panel">
                 <ul>
                   <li ng-repeat="(ecoID, val) in filters.ecoID" class="checkbox">
                       <label>
@@ -236,7 +236,7 @@
       <!-- GO ID -->
       <div>
         <form>
-          <div class="y-scroll-200">
+          <div class="y-scroll-200 inset-panel">
             <ul>
               <li ng-repeat="(refId, value) in filters.reference" class="checkbox">
                 <label>
@@ -265,7 +265,7 @@
       <h5>With/From <small>({{countElements(filters.with)}})</small></h5>
       <div>
         <form>
-          <div class="y-scroll-200">
+          <div class="y-scroll-200 inset-panel">
             <ul>
               <li ng-repeat="(withID, value) in filters.with" class="checkbox">
                 <label >
@@ -294,7 +294,7 @@
       <!-- GO ID -->
       <div>
         <form>
-          <div class="y-scroll-400">
+          <div class="y-scroll-400 inset-panel">
           <ul>
             <li ng-repeat="(dbId,val) in filters.assignedby" class="checkbox">
               <label>
