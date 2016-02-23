@@ -10,7 +10,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Initialisation
    */
-  $scope.isSlim = 0;
   $scope.maxSize=25;
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
 
@@ -48,8 +47,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     filterRequest.list =  filteringService.getFilters();
     filterRequest.rows =  $scope.maxSize;
     filterRequest.page = $scope.currentPage;
-    // filterRequest.isSlim = filteringService.isSlimming();
-
+    console.log(filterRequest.list);
     // Post the filter request to the webservice
     var request = {
       method: 'POST',
