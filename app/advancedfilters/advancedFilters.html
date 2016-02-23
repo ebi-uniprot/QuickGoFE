@@ -1,4 +1,4 @@
-<div class="grid_23" ng-controller="AdvancedFiltersCtrl">  
+<div class="grid_23" ng-controller="AdvancedFiltersCtrl">
   <ul class="list-inline">
     <li>Filter by:</li>
 
@@ -81,11 +81,8 @@
         <!-- GO ID -->
         <div class="advanced-filter-content"  uib-dropdown-menu>
           <form>
-          <ol>
-            <li >
-              <strong ng-show="basketItems.length>0">Select/</strong><strong>Enter the terms that you wish to use:</strong>
               <!-- 3 choices -->
-              <div class="y-scroll-200">
+              <div class="y-scroll-200 inset-panel">
                 <ul>
                   <li ng-repeat="(basketId, value) in filters.goID" class="checkbox">
                     <label><input type="checkbox" ng-model="filters.goID[basketId]"
@@ -94,25 +91,21 @@
                   </li>
                 </ul>
               </div>
+              <div class="form-group">
+                <p>
+                  Add your own identifiers:
+                </p>
+                <textarea class="form-group form-control" placeholder="GO:0016021, GO:0016022, ..." ng-model="goTermsTextArea" class="default"></textarea>
+                <div class="form-group">
+                  <button class="btn quickgo-btn" type="button" ng-click="addGoTerms()">Add</button>
+                </div>
+              </div>
+              <div class="form-group">...or a predefined GO term set: <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets"
+                ng-change="updatePredefinedSets()"></select>
+              </div>
 
-              <!-- Select from basket -->
-              <ol style="list-style: disc">
-                <li class="form-group">Use a predefined GO term set: <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets"
-                  ng-change="updatePredefinedSets()"></select>
-                </li>
-
-                  <!-- Enter list of GO identifiers-->
-                  <li class="form-group">Enter a list of GO identifiers (GO:nnnnnnn), separated by space, comma or newline characters:
-                    <textarea class="form-group form-control" placeholder="GO:0016021, GO:0016022, ..." ng-model="goTermsTextArea" class="default"></textarea>
-                    <div class="form-group">
-                      <button class="btn quickgo-btn" type="button" ng-click="addGoTerms()">Add</button>
-                    </div>
-                  </li>
-                </ol>
-
-                <!-- How use-->
-
-                <li><strong>Select how you want to use the terms that you have chosen:</strong>
+                <hr>
+                <div><strong>Select how you want to use the terms that you have chosen:</strong>
                     <ul>
                       <li class="checkbox"><input type="radio" ng-model="filters.goTermUse" value="ancestor" ng-change="updateFilters()"> Find annotations to <strong>descendants</strong> of these
                         terms (annotations will display the original GO terms applied).
@@ -120,10 +113,10 @@
                       <li class="checkbox"><input type="radio" ng-model="filters.goTermUse" value="slim" ng-change="updateFilters()"> Use these terms as a <strong>GO slim</strong>.</li>
                       <li class="checkbox"><input type="radio" ng-model="filters.goTermUse" value="exact" ng-change="updateFilters()"> Use these terms as an <strong>exact</strong> match.</li>
                     </ul>
-                </li>
-
+                </div>
+                <hr>
                 <!-- Select Relationship-->
-                <li ng-show="filters.goTermUse=='slim' || filters.goTermUse=='ancestor'"><strong>Select which relationship an annotated term should have to the terms above <a href="http://geneontology.org/page/ontology-relations" target="_blank">(more info)</a>:</strong>
+                <div ng-show="filters.goTermUse=='slim' || filters.goTermUse=='ancestor'"><strong>Select which relationship an annotated term should have to the terms above <a href="http://geneontology.org/page/ontology-relations" target="_blank">(more info)</a>:</strong>
                   <ul>
                      <li class="checkbox"><input type="radio" name="closure" value="I"
                       ng-model="filters.goRelations" ng-change="updateFilters()"> is_a
@@ -135,8 +128,7 @@
                       ng-model="filters.goRelations" ng-change="updateFilters()"> is_a, part_of, regulates
                     </li>
                     </ul>
-                </li>
-            </ol>
+                </div>
            </form>
         </div>
       </li>
@@ -172,7 +164,7 @@
           <form>
             <p>A full description of evidence codes and their usage can be found <a
               href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
-              
+
               <div class="form-group y-scroll-200">
                 <ul>
                   <li ng-repeat="(ecoID, val) in filters.ecoID" class="checkbox">
@@ -244,13 +236,6 @@
       <!-- GO ID -->
       <div>
         <form>
-          <div class="form-group">
-            <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
-          </div>
-          <div class="form-group">
-            <button class="btn quickgo-btn" type="button" ng-click="addReferences()">Add</button>
-          </div>
-          <hr>
           <div class="y-scroll-200">
             <ul>
               <li ng-repeat="(refId, value) in filters.reference" class="checkbox">
@@ -263,6 +248,13 @@
           </ul>
         </div>
         <p>*: Any matches will be displayed</p>
+        <hr>
+        <div class="form-group">
+          <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn quickgo-btn" type="button" ng-click="addReferences()">Add</button>
+        </div>
       </form>
       </div>
     </div>
@@ -273,28 +265,28 @@
       <h5>With/From <small>({{countElements(filters.with)}})</small></h5>
       <div>
         <form>
-          <div class="form-group">
-            <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
-          </div>
-          <div class="form-group">
-            <button class="btn quickgo-btn" type="button" ng-click="addWith()">Add</button>
-          </div>
-          <hr>
           <div class="y-scroll-200">
             <ul>
               <li ng-repeat="(withID, value) in filters.with" class="checkbox">
                 <label >
-                  <input type="checkbox" ng-model="filters.with[withID]" ng-change="updateFilters()"> 
+                  <input type="checkbox" ng-model="filters.with[withID]" ng-change="updateFilters()">
                   <strong>{{withID}}</strong>
                   {{namesMap[withID]}}
                 </label>
               </li>
             </ul>
           </div>
+          <hr>
           <p>* Any matches will be displayed</p>
+          <div class="form-group">
+            <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
+          </div>
+          <div class="form-group">
+            <button class="btn quickgo-btn" type="button" ng-click="addWith()">Add</button>
+          </div>
         </form>
       </div>
-    </div>        
+    </div>
 
     <!-- ASSIGNED BY -->
     <div class="grid_6">
@@ -318,5 +310,5 @@
     </div>
     <div class="clearfix"></div>
   </div>
-    
+
 </div>
