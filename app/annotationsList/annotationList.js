@@ -22,7 +22,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
   //Search filters applied to see if the flag for "slim" is set. If true, extra columns will be shown
   $scope.showSlimColumns = _.find($scope.appliedFilters, function(rw){ return rw.value == "slim" });
-console.log("$scope.showSlimColumns :",$scope.showSlimColumns);
+
   //The raw list of filters as they come back from the advanced filters modal
   $scope.advancedFilters = {};
 
