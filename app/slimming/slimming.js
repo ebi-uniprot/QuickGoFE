@@ -1,5 +1,5 @@
 app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, hardCodedDataService, PreDefinedSlimSets,
-                                      PreDefinedSlimSetDetail, termService, basketService, filteringService) {
+                                      PreDefinedSlimSetDetail, termService, basketService, filteringService, stringService) {
 
 
   $scope.succesAlerts = [];
