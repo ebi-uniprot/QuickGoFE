@@ -17,7 +17,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
         ecoID:{},
         ecoTermUse:'ancestor',
         goTermUse:'ancestor',
-        goRelations:'I',
+        goRelations:'IPO',
         with:{},
         assignedby:{},
         gptype:{}
