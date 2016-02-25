@@ -511,7 +511,7 @@
 
     <!--Blacklist-->
     <!-- GO_ID   CATEGORY        ENTITY_TYPE     ENTITY_ID       TAXON_ID        ENTITY_NAME     ANCESTOR_GO_ID  REASON  METHOD_ID-->
-    <section id="blacklist" ng-if="blacklist!=''" ng-hide="!isGoTerm">
+    <section id="blacklist" ng-if="termWithBlacklist!=''" ng-hide="!isGoTerm">
       <h3 class="term-section-header"><span uib-tooltip-template="'blacklist.html'" tooltip-placement="top-right">Blacklist</span></h3>
 
 
@@ -526,7 +526,7 @@
           <th>Reason</th>
           <th>Rule/Method ID</th>
         </tr>
-        <tr ng-repeat="entry in blacklist">
+        <tr ng-repeat="entry in termWithBlacklist.blacklist">
           <td>{{entry.category}}</td>
           <td>{{entry.entityType}}</td>
           <td>{{entry.proteinAc}}</td>
@@ -588,7 +588,7 @@
       <li du-scrollspy="termHistory">
         <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':blacklist==''}" du-scrollspy="blacklist">
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':termWithBlacklist==''}" du-scrollspy="blacklist">
         <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
       </li>
     </ul>

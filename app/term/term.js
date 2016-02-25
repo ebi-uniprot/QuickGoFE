@@ -73,7 +73,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.blacklistPromise = termService.getBlacklist(termId);
   $scope.blacklistPromise.then(function(d){
     console.log("Blacklist returned for term", d);
-      $scope.blacklist = d.data;
+      $scope.termWithBlacklist = d.data;
   });
 
   /**
