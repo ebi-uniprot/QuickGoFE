@@ -22,6 +22,7 @@ var app = angular
     'quickGoFeApp.HardCodedDataModule',
     'quickGoFeApp.FilteringModule',
     'quickGoFeApp.ServicesModule',
+    'quickGoFeApp.errorHandling',
     "ui.bootstrap",
     'duScroll',
     'config'
@@ -42,9 +43,12 @@ var app = angular
   });
 
 
-  app.config(function ($routeProvider, $locationProvider) {
+  app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
     $locationProvider.html5Mode(true);
+
+    $httpProvider.interceptors.push('httpErrorResponseInterceptor');
+    console.log($httpProvider);
 
     $routeProvider
       .when('/', {
@@ -99,10 +103,10 @@ var app = angular
         templateUrl: 'simplelist/cellularcomponent.html',
         controller: 'CellularComponentListCtrl'
       })
-      // .when('/annotations/filter', {
-      //   templateUrl: 'annotationsList/annotationList.html',
-      //   controller: 'BookmarkCtrl'
-      // })
+      .when('/annotations/filter', {
+        templateUrl: 'annotationsList/annotationList.html',
+        controller: 'BookmarkCtrl'
+      })
       .when('/annotationExtensionRelations', {
         templateUrl: 'views/annotationExtensionRelations.html',
         controller: 'AnnotationExtensionRelationsCtrl'

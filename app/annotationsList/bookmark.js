@@ -6,19 +6,18 @@ app.controller('BookmarkCtrl', function($scope, $routeParams,  $location, filter
   filteringService.clearFilters();
   var advancedFilters = [];
 
-  angular.forEach($routeParams, function(val, key){
-      var aFilter = {type: key, value: val};
-      if(aFilter.type === 'id') {
-      	if(aFilter.value.startsWith('GO:')) {
-      		aFilter.type = 'goId';
-      	} else if (aFilter.value.startsWith('ECO:')) {
-      		aFilter.type = 'ecoId';
+  angular.forEach($routeParams, function(val, type){
+      if(type === 'id') {
+      	if(val.startsWith('GO:')) {
+          filteringService.saveValuesAsFilter('goID', val);
+      	} else if (val.startsWith('ECO:')) {
+          filteringService.saveValuesAsFilter('ecoID', val);
       	}
+      } else {
+        filteringService.saveValuesAsFilter(type, val);        
       }
-      advancedFilters.push(aFilter);
   });
 
-  filteringService.simpleAppliedFilters(advancedFilters,0); //0==not a slim
 
   //Go to annotation list page
   $location.path('/annotations');
