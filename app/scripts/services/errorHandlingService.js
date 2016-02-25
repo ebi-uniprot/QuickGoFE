@@ -12,7 +12,7 @@ errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location',
             $location.path('/404');
             break;
           default:
-            $location.path('/error');
+            $location.path('/404');
         }
 
         return $q.reject(response);

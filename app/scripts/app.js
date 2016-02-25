@@ -131,6 +131,9 @@ var app = angular
         templateUrl: 'other/other.html',
         controller: 'OtherCtrl'
       })
+      .when('/404', {
+        templateUrl: 'errors/404.html'
+      })
       .otherwise({
         redirectTo: '/'
       });
