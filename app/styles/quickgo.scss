@@ -583,6 +583,30 @@ ul.results-list {
   overflow: auto;
 }
 
+.aspect-icon{
+  background-color: $white;
+  border: 1px solid $lightgrey;
+  border-radius: 30px;
+  padding: 3px 5px 3px 5px;
+  font-weight: bold;
+  margin-right: 2px;
+  color: $darkishgrey;
+}
+.td-no-icon{
+  padding-top: 15px;
+}
+
+.go-term{
+  width: 100%;
+  &.slim-repeat{
+    margin: 10px 0px 10px 0px;
+  }
+}
+
+.results-table th span{
+  font-weight: bold;
+}
+
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 
 #basket {

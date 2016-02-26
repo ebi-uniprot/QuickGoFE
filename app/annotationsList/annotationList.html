@@ -8,112 +8,84 @@
 <!-- Results -->
 <div>
 <!-- Results Header-->
-<table id="assignedByCount" class="two-colours">
-<tr>
-  <thead>
-    <th ng-repeat="colHeading in annotationColumns" ng-show="colHeading.slimCol == false || (colHeading.slimCol == true && showSlimColumns)">
-      <span uib-tooltip-template="'{{colHeading.name}}.html'">
-        {{colHeading.value}}</span>
-    </th>
-  </thead>
-</tr>
+<table id="assignedByCount" class="two-colours results-table">
+  <tr>
+    <thead>
+      <th ng-repeat="colHeading in annotationColumns" ng-show="colHeading.slimCol == false || (colHeading.slimCol == true && showSlimColumns)">
+        <span uib-tooltip-template="'{{colHeading.name}}.html'">
+          {{colHeading.value}}</span>
+      </th>
+    </thead>
+  </tr>
 
-  <!-- Results Repeat -->
-  <tr ng-repeat="goTuple in row = (goList.annotationsList)"
-  ng-class="{'duplicate-slim-top' : row[$index].id === row[$index +1].id ,'duplicate-slim-bottom' : row[$index].id === row[$index -1].id}"
-  ng-if="row[$index].id != row[$index -1].id">
+  <tr ng-repeat="annotation in annotations">
 
-    <!-- <td>{{bingo[$index].id}}</td>
-    <td>{{bingo[$index +1].id}}</td> -->
-    <!-- <td ng-show="bingo[$index].id === bingo[$index +1].id">Found a REPEAT</td>
-    <td ng-show="bingo[$index].id === bingo[$index -1].id">Found a REPEAT</td> -->
+    <td class="td-no-icon">
+      <a ng-click="followLinkToEntry(annotation.database, annotation.geneProductId)" target="_blank">{{annotation.database}}:{{annotation.geneProductId}}
+    </td>
 
-    <td><span ng-hide="row[$index].id === row[$index -1].id">{{goTuple.database}}</span></td>
-    <td><span ng-hide="row[$index].id === row[$index -1].id"><a ng-click="followLinkToEntry(goTuple.database, goTuple.geneProductId)" target="_blank">{{goTuple.geneProductId}}</span></a></td>
-    <td><span ng-hide="row[$index].id === row[$index -1].id">{{goTuple.symbol}}</span></td>
-    <td><span ng-hide="row[$index].id === row[$index -1].id">{{goTuple.qualifier}}</span></td>
+    <td class="td-no-icon">{{annotation.symbol}}</td>
+    <td class="td-no-icon">{{annotation.qualifier}}</td>
 
     <!-- GO Identifier-->
     <td class="text-nowrap">
-      <table class="no-table-styling">
-        <tr>
-          <td>
-            <a href="term/{{searchResult.id}}">{{searchResult.id}}</a>
-            <a class="quickgo-link selectable" href="term/{{goTuple.goId}}">{{goTuple.goId}}</a>
-            <basket-button termid="{{goTuple.goId}}" icondisabled="{{goTuple.isObsolete}}"></basket-button>
-            <chart-icon term-id="goTuple.goId" term-name="goTuple.termName"></chart-icon>
-          </td>
-        </tr>
-
-
-        <tr ng-if="row[$index].id === row[$index +1].id" class="repeated-slim-section">
-          <td>
-            <a href="term/{{searchResult.id}}">{{searchResult.id}}</a>
-            <a class="quickgo-link selectable" href="term/{{goTuple.goId}}">{{row[$index +1].goId}}</a>
-            <basket-button termid="{{row[$index +1].goId}}" icondisabled="{{row[$index +1].isObsolete}}"></basket-button>
-            <chart-icon term-id="row[$index +1].goId" term-name="row[$index +1].termName"></chart-icon>
-          </td>
-        </tr>
-
-
-
-    </table>
-    </td>
-    <!-- GO Term Name-->
-    <td>
-      <table class="no-table-styling">
-        <tr>
-          <td>
-            <element uib-tooltip="{{goTuple.termName}}">{{goTuple.termName | shortenStringFilter}}</element>
-          </td>
-        </tr>
-        <tr ng-if="row[$index].id === row[$index +1].id" class="repeated-slim-section">
-          <td>
-
-
-              <element uib-tooltip="{{row[$index +1].termName}}">{{row[$index +1].termName | shortenStringFilter}}</element>
-
-        </td>
-      </tr>
-    </table>
+      <div class="go-term">
+        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon">{{annotation.aspect}}</span>
+        <a class="quickgo-link selectable" href="term/{{annotation.goId}}">{{annotation.goId}}</a>
+        <basket-button termid="{{annotation.goId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
+        <chart-icon term-id="annotation.goId" term-name="annotation.termName"></chart-icon>
+        <element uib-tooltip="{{annotation.termName}}">{{annotation.termName | shortenStringFilter}}</element>
+      </div>
+      <div ng-repeat="slimRepeat in annotation.slimsList" class="go-term slim-repeat">
+        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon">{{slimRepeat.aspect}}</span>
+        <a class="quickgo-link selectable" href="term/{{slimRepeat.goId}}">{{slimRepeat.goId}}</a>
+        <basket-button termid="{{slimRepeat.goId}}" icondisabled="{{slimRepeat.isObsolete}}"></basket-button>
+        <chart-icon term-id="slimRepeat.goId" term-name="slimRepeat.termName"></chart-icon>
+        <element uib-tooltip="{{slimRepeat.termName}}">{{slimRepeat.termName | shortenStringFilter}}</element>
+      </div>
     </td>
 
-    <td ng-show="showSlimColumns"><span ng-hide="row[$index].id === row[$index -1].id"><a href="term/{{goTuple.originalTermId}}">{{goTuple.originalTermId}}</a></span></td>
-    <td ng-show="showSlimColumns"><span ng-hide="row[$index].id === row[$index -1].id">{{goTuple.originalTermName}}</span></td>
-
-    <!-- Aspect-->
-    <td><span ng-hide="row[$index].id === row[$index -1].id">{{goTuple.aspect}}</span></td>
+    <td ng-show="showSlimColumns" class="text-nowrap">
+      <a href="term/{{annotation.originalTermId}}">{{annotation.originalTermId}}</a>
+      <basket-button termid="{{annotation.originalTermId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
+      <chart-icon term-id="annotation.originalTermId" term-name="annotation.originalTermName"></chart-icon>
+      {{annotation.originalTermName | shortenStringFilter}}
+    </td>
 
     <!-- Evidence: ECO:0000256  (IEA) -->
-    <td><span ng-hide="row[$index].id === row[$index -1].id">
+    <td class="text-nowrap">
 
-      <a class="quickgo-link selectable" href="/term/{{goTuple.evidenceEco}}">{{goTuple.evidenceEco}}</a>
+      <a class="quickgo-link selectable" href="/term/{{annotation.evidenceEco}}">{{annotation.evidenceEco}}</a>
 
-      <a class="quickgo-icon selectable" ng-click="showEvidenceCodeOntologyGraph(goTuple.evidenceEco)">
-        <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a>
-
-        <a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{goTuple.evidenceGo | lowercase}}" target="_blank">({{goTuple.evidenceGo}})</a>
-      </span></td>
+      <a class="quickgo-icon selectable" ng-click="showEvidenceCodeOntologyGraph(annotation.evidenceEco)">
+        <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a> (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{annotation.evidenceGo | lowercase}}" target="_blank">{{annotation.evidenceGo}}</a>)
+    </td>
 
       <!-- Reference eg "GO_REF:0000002" -->
-      <td><span ng-hide="row[$index].id === row[$index -1].id"><a class="quickgo-link"
-       ng-href="{{goTuple.reference | referenceUrlFilter}}" target="_blank">{{goTuple.reference}}</a></span></td>
+    <td class="td-no-icon">
+      <a class="quickgo-link" ng-href="{{annotation.reference | referenceUrlFilter}}" target="_blank">{{annotation.reference}}</a>
+    </td>
 
-     <!-- With -->
-
-     <td><span ng-hide="row[$index].id === row[$index -1].id"><a class="quickgo-link ellipsis" ng-click="showWithList(goTuple.withList)" >{{goTuple.fullWith}}</a></span></td>
+    <!-- With -->
+    <td class="td-no-icon">
+          <span ng-if="annotation.withList.length == 1" ng-repeat="item in annotation.withList">
+            <span ng-repeat="element in item.connectedXrefs">
+             <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(element.database, element.signature)" target="_blank">{{element.database}}:{{element.signature}}</a>
+           </span>
+          </span>
+          <a ng-if="annotation.withList.length >= 2" class="quickgo-link ellipsis" ng-click="showWithList(annotation.withList)">{{annotation.fullWith}}</a>
+     </td>
 
      <!-- Taxon-->
-     <td><span ng-hide="row[$index].id === row[$index -1].id"><a class="quickgo-link selectable" ng-click="showTaxon(goTuple.taxon)">{{goTuple.taxon}}</a></span></td>
+     <td class="td-no-icon"><a class="quickgo-link selectable" ng-click="showTaxon(annotation.taxon)">{{annotation.taxon}}</a></td>
 
      <!-- Assigned By-->
-     <td><span ng-hide="row[$index].id === row[$index -1].id"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(goTuple.assignedBy)">{{goTuple.assignedBy}}</a></span></td>
-     <td><span ng-hide="row[$index].id === row[$index -1].id">{{goTuple.fullExtension}}</span></td>
-
+     <td class="td-no-icon"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(annotation.assignedBy)">{{annotation.assignedBy}}</a></td>
+     <td class="td-no-icon">{{annotation.fullExtension}}</td>
    </tr>
  </table>
- <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
 
+ <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
 
  <!-- if there are no results tell the user explicitly -->
   <div ng-show="goList.numberAnnotations==0">
@@ -130,7 +102,7 @@
 <script type="text/ng-template" id="colQualifier.html"><span>Defines the relationship between Gene product and GO term.</span></script>
 <script type="text/ng-template" id="colGOIdentifier.html"><span>The unique, stable identifier of the GO term.</span></script>
 <script type="text/ng-template" id="colGOTermName.html"><span>The GO term name corresponding to the GO Identifier.</span></script>
-<script type="text/ng-template" id="colAspect.html"><span>The single letter initial of the ontology to which the GO term belongs. One of either F (Molecular Function), P (Biological Process) or C (Cellular Component).</span></script>
+<script type="text/ng-template" id="colAspect.html"><span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span></script>
 <script type="text/ng-template" id="colEvidence.html"><span>GO terms are assigned to proteins based on different evidence. This is represented by an evidence code.</span></script>
 <script type="text/ng-template" id="colReference.html"><span>A PubMed reference or a GO_REF identifier which contains either the data supporting the annotation or details of the electronic method applied to generate the annotation.</span></script>
 <script type="text/ng-template" id="colWith.html"><span>An additional ID to support annotations using certain evidence codes (including IEA, IPI, IGI, IC and ISS evidences). E.g. UniProtKB:O00341, InterPro:IPROO1878 …</span></script>
