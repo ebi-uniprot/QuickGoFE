@@ -871,3 +871,40 @@ IMG.displayed {
 .help-page ol ol {
   list-style-type: lower-roman;
 }
+
+
+
+/* Help pages  ---------------------------------------------------------------------------------------------------*/
+
+
+
+.help-point-panel {
+  background-color: $primary8;
+  min-height: 220px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  h3 {
+    color: $darkishgrey;
+    text-align: center;
+    a {
+      color: $darkishgrey;
+      padding-top: 0px;
+    }
+  }
+  color: $darkishgrey;
+
+  padding-top: 0px;
+  a {
+    color: $darkishgrey;
+    padding-top: 0px;
+    &:hover {
+      border-bottom: 1px solid $white;
+
+    }
+  }
+  ul {
+    margin-left: 30px;
+    margin-top: 30px;
+  }
+}

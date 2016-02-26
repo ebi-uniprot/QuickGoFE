@@ -1,0 +1,25 @@
+<div class="grid_23 text-container help-page" id="content">
+<h2>Help - FAQs</h2>
+
+<ul>
+  <li><a ng-click="scrollTo('q1')">Can I download annotations for a list of gene products?</a></li>
+  <li><a ng-click="scrollTo('q2')">How do I see only manual annotations (i.e. exclude all electronic annotations)?</a></li>
+
+</ul>
+
+
+<h4 id="q1">Can I download annotations for a list of gene products?</h4>
+    <p>Firstly, open the Annotation Download page linked from the QuickGO home page ('Search and Filter GO annotation sets'). This page will show a table in which all the GO annotations available from UniProt-GOA are displayed.</p>
+    <p>This annotation set can be filtered by specifying gene product accession numbers. To do this click on the 'Filter' button in the Annotation Toolbar (top right-hand toolbar), select the 'ID' tab and enter a list of accessions into the text box (separated by space, tab, new line or comma). Click on 'Submit' at the bottom of the window and QuickGO will display the first 25 annotations by default, this can be increased using the 'Page size' drop-down menu.</p>
+    <p>Example Query: To retrieve annotations for UniProtKB accessions: <code>P10415, P10417, P49950, Q00709, O02718</code></p>
+    <p>See the QuickGO display for this example query</p>
+    <p>Statistics on different aspects of the annotation set can be viewed by clicking the 'Statistics' button in the Annotation Toolbar.</p>
+    <p>Finally, users have the option of downloading the displayed annotations by clicking on the 'Download' button in  the Annotation Toolbar. Several download formats are available. Ensure the download limit is set to the number of annotations in the set, this value is displayed in the summary tab of the 'Statistics' section or in the top left of the Annotation Download table.
+
+<h4 id="q2">How do I see only manual annotations (i.e. exclude all electronic annotations)?</h4>
+    <p>Firstly, open the Annotation Download page, linked from the QuickGO home page ('Search and Filter GO annotation sets'). This page will show a table in which all the GO annotations available from UniProt-GOA are displayed.</p>
+    <p>This annotation set can be filtered by specifying the evidence code used to create an annotation. To do this, click on the 'Filter' button in the Annotation Toolbar and select the 'Evidence' tab. Users can choose to view annotations which have applied only 'Manual experimental' or 'Manual all' evidence codes by using the appropriate tick box or, alternatively, users can choose any of the evidence codes individually. Click on 'Submit' at the bottom of the window to see the filtered annotations.</p>
+    <p>Example query: Find all annotations which use only 'Manual experimental' evidence codes; IDA, IMP, IGI, IPI and IEP</p>
+
+
+</div>
