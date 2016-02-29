@@ -1,15 +1,10 @@
-<div id="content" class="container_12" cg-busy="statsPromise">
-  <h2>GO annotations statistics</h2>
-
-  <div class="clearfix"></div>
-  <!-- Sidebar -->
-  <div ng-include src="'sidebar/Sidebar.html'"></div>
-
-  <div id="statisticsMainContent" class="mainContent grid_20">
-
+<div id="content" class="container_12" cg-busy="statsPromise" ng-controller="StatisticsCtrl">
 
     <!-- Download menu -->
+    <div class="buttons-under-tabs">
     <!-- <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button> -->
+    <h4>Annotation statistics</h4>
+    </div>
 
     <uib-tabset>
       <!--<div id="statisticsTabs">-->
@@ -250,5 +245,4 @@
         </div>
       </uib-tab>
     </uib-tabset>
-  </div>
 </div>

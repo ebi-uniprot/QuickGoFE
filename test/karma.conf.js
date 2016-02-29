@@ -28,6 +28,7 @@ module.exports = function(config) {
       'bower_components/angular-scroll/angular-scroll.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-animate/angular-animate.js',
+      'bower_components/underscore/underscore-min.js',
       'app/**/*.html',
       '.tmp/scripts/config.js',
       'app/scripts/app.js',

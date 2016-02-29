@@ -22,6 +22,7 @@ var app = angular
     'quickGoFeApp.HardCodedDataModule',
     'quickGoFeApp.FilteringModule',
     'quickGoFeApp.ServicesModule',
+    'quickGoFeApp.errorHandling',
     "ui.bootstrap",
     'duScroll',
     'config'
@@ -42,9 +43,12 @@ var app = angular
   });
 
 
-  app.config(function ($routeProvider, $locationProvider) {
+  app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 
     $locationProvider.html5Mode(true);
+
+    $httpProvider.interceptors.push('httpErrorResponseInterceptor');
+    console.log($httpProvider);
 
     $routeProvider
       .when('/', {
@@ -52,8 +56,8 @@ var app = angular
         controller: 'StartCtrl'
       })
       .when('/annotations', {
-        templateUrl: 'annotationsList/annotationList.html',
-        controller: 'AnnotationListCtrl'
+        templateUrl: 'annotationsList/annotations.html',
+        controller: 'Annotations'
       })
       .when('/webservices', {
         templateUrl: 'nav/webservices.html',
@@ -86,10 +90,6 @@ var app = angular
       .when('/slimming', {
         templateUrl: 'slimming/slimming.html',
         controller: 'GOSlimCtrl'
-      })
-      .when('/statistics', {
-        templateUrl: 'statistics/statistics.html',
-        controller: 'StatisticsCtrl'
       })
       .when('/terms/P', {
         templateUrl: 'simplelist/ontologyTerms.html',
@@ -130,6 +130,9 @@ var app = angular
       .when('/other', {
         templateUrl: 'other/other.html',
         controller: 'OtherCtrl'
+      })
+      .when('/404', {
+        templateUrl: 'errors/404.html'
       })
       .otherwise({
         redirectTo: '/'

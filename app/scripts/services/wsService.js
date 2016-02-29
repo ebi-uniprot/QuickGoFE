@@ -2,13 +2,13 @@ var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
 
 wsService.factory('PreDefinedSlimSets', ['$resource', 'ENV', function($resource, ENV){
-    return $resource(ENV.apiEndpoint+'/ws/predefinedslims', {}, {
+    return $resource(ENV.apiEndpoint+'/predefinedslims', {}, {
       query: {method:'GET', isArray:true, Cache:true}
     });
   }]);
 
 wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/predefinedSetTerms/:setId', {setId: '@id'}, {
+  return $resource(ENV.apiEndpoint+'/predefinedSetTerms/:setId', {setId: '@id'}, {
     query: {method:'GET', isArray:true}
   });
 }]);
@@ -16,19 +16,28 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($reso
 wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   return {
       getTerm : function(termId) {
-        return $http.get(ENV.apiEndpoint+'/ws/term/' + termId);
+        return $http.get(ENV.apiEndpoint+'/term/' + termId);
       },
       getTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/ws/terms', {params: {ids: ids}});
+        return $http.get(ENV.apiEndpoint+'/terms', {params: {ids: ids}});
       },
       getStats : function(termId) {
-        return $http.get(ENV.apiEndpoint+'/ws/termcostats/' + termId);
+        return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
       },
       getBlacklist : function(termId) {
-      return $http.get(ENV.apiEndpoint+'/ws/term/blacklist/' + termId);
+      return $http.get(ENV.apiEndpoint+'/term/' + termId + '/blacklist');
     }
   }
 }]);
+
+
+wsService.factory('stringService', [function(){
+  return {
+    getTextareaItemsAsArray : function(str) {
+      return _.uniq(str.replace( /\n/g, " " ).split(/[\s,]+/));
+    }
+  }
+}])
 
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
@@ -62,7 +71,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findAnnotationsForTerm: function(searchTerm) {
         var request = {
           method: 'POST',
-          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -78,7 +87,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findAnnotationsForECO: function(searchTerm) {
         var request = {
           method: 'POST',
-          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -90,11 +99,11 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           }
         };
         return $http(request);
-      },      
+      },
       findAnnotationsForProduct: function(searchTerm) {
         var request = {
           method: 'POST',
-          url: ENV.apiEndpoint + '/ws/annotationPostNewNamesNotSpring',
+          url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -131,68 +140,68 @@ wsService.factory('dbXrefService', ['$http', function($http){
 }])
 
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/dataset', {}, {
+  return $resource(ENV.apiEndpoint+'/dataset', {}, {
     query: {method:'GET', isArray:true, Cache:true}
   });
 }]);
 
 wsService.factory('goTermHistory', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/dataset/goTermHistory', {from:'@from', to:'@to', limit:'@limit'}, {
+  return $resource(ENV.apiEndpoint+'/dataset/goTermHistory', {from:'@from', to:'@to', limit:'@limit'}, {
     query: {method:'GET', Cache:true}
   });
 }]);
 
 wsService.factory('taxonConstraints', ['$resource', 'ENV', function($resource, ENV){
-    return $resource(ENV.apiEndpoint+'/ws/dataset/taxonConstraints', {}, {
+    return $resource(ENV.apiEndpoint+'/dataset/taxonConstraints', {}, {
       query: {method:'GET', isArray:true, Cache:true}
     });
 }]);
 
 wsService.factory('annotationPostProRules', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/other/annotationPostProRules', {}, {
+  return $resource(ENV.apiEndpoint+'/other/annotationPostProRules', {}, {
     query: {method:'GET', Cache:true}
   });
 }]);
 
 wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/dataset/annotationBlacklist', {}, {
+  return $resource(ENV.apiEndpoint+'/dataset/annotationBlacklist', {}, {
     query: {method:'GET', Cache:true}
   });
 }]);
 
 wsService.factory('evidencetypes', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/evidencetypes', {}, {
+  return $resource(ENV.apiEndpoint+'/evidencetypes', {}, {
     query: {method:'GET',  isArray:true, Cache:true}
   });
 }]);
 
 wsService.factory('withDBs', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/withdbs', {}, {
+  return $resource(ENV.apiEndpoint+'/withdbs', {}, {
     query: {method:'GET',  isArray:true, Cache:true}
   });
 }]);
 
 wsService.factory('assignDBs', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/assigneddbs', {}, {
+  return $resource(ENV.apiEndpoint+'/assigneddbs', {}, {
     query: {method:'GET',  isArray:true, Cache:true}
   });
 }]);
 
 wsService.factory('ontologies', ['$resource', 'ENV', function($resource, ENV) {
-  return $resource(ENV.apiEndpoint + '/ws/terms/:ontology', {ontology: '@ontology'}, {
+  return $resource(ENV.apiEndpoint + '/terms/:ontology', {ontology: '@ontology'}, {
     query: {method: 'GET', Cache: true}
   });
 }]);
 
 wsService.factory('search', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/search', {query: '@query', format:'JSON'}, {
+  return $resource(ENV.apiEndpoint+'/search', {query: '@query', format:'JSON'}, {
     query: {method:'GET'}
   });
 }]);
 
 //@deprecated
 wsService.factory('searchfull', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/ws/searchfull', {text: '@text',format:'JSON', page:'@page', row:'@rows', viewBy:'@viewBy'}, {
+  return $resource(ENV.apiEndpoint+'/searchfull', {text: '@text',format:'JSON', page:'@page', row:'@rows', viewBy:'@viewBy'}, {
     query: {method:'GET'}
   });
 }]);
