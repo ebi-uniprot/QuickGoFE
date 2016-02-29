@@ -9,15 +9,11 @@ hardCodedModule.factory('hardCodedDataService', function() {
   var hardCodedService = {};
 
   var annotationColumns = [
-    {'name': 'colDatabase', 'value':'Database', 'slimCol':false},
-    {'name': 'colGeneProductID', 'value': 'Gene Product ID', 'slimCol':false},
+    {'name': 'colDatabase', 'value':'Gene Product', 'slimCol':false},
     {'name': 'colSymbol', 'value': 'Symbol', 'slimCol':false},
     {'name': 'colQualifier', 'value': 'Qualifier', 'slimCol':false},
-    {'name': 'colGOIdentifier', 'value': 'GO Identifier', 'slimCol':false},
-    {'name': 'colGOTermName', 'value': 'GO Term Name', 'slimCol':false},
-    {'name': 'colOrigID', 'value': 'Original GO Identifier', 'slimCol':true},
-    {'name': 'colOrigName', 'value': 'Original GO Term Name', 'slimCol':true},
-    {'name': 'colAspect', 'value': 'Aspect', 'slimCol':false},
+    {'name': 'colGOIdentifier', 'value': 'GO Term', 'slimCol':false},
+    {'name': 'colOrigID', 'value': 'Original GO Term', 'slimCol':true},
     {'name': 'colEvidence', 'value': 'Evidence', 'slimCol':false},
     {'name': 'colReference', 'value': 'Reference', 'slimCol':false},
     {'name': 'colWith', 'value': 'With', 'slimCol':false},

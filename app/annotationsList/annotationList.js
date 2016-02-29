@@ -59,11 +59,26 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     $scope.resultsPromise = $http(request);
     $scope.resultsPromise.success(function(data) {
       $scope.goList = data;
+      $scope.goListProcessed = preProcess($scope.goList);
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
     });
     $scope.showSlimColumns = _.find($scope.appliedFilters, function(rw){ return rw.value == "slim" });
   }
 
+  function preProcess(data){
+    $scope.annotations =[];
+    var lastAnnotation;
+    angular.forEach(data.annotationsList, function(tempAnnotation){
+      if(lastAnnotation && (tempAnnotation.id === lastAnnotation.id)){
+          lastAnnotation.slimsList.push(tempAnnotation);
+      } else {
+          $scope.annotations.push(tempAnnotation)
+      }
+      lastAnnotation = tempAnnotation;
+      (lastAnnotation.slimsList) ? '' : lastAnnotation.slimsList = [];
+    });
+
+  }
 
   /**
    * Put commas between the rather large numbers we can have here.

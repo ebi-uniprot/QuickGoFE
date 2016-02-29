@@ -401,7 +401,35 @@ td.a-filter {
 
 .two-colours tr:nth-child(odd) {
   background-color: $primary4;
+  &.duplicate-slim-top{
+    // border-top: solid 2px red;
+    // border-left: solid 2px red;
+    // border-right: solid 2px red;
+    // background-color: #FFE3E3;
+  }
+  &.duplicate-slim-bottom{
+    // border-bottom: solid 2px red;
+    // border-left: solid 2px red;
+    // border-right: solid 2px red;
+    // background-color: #FFE3E3;
+  }
+
 }
+
+
+
+.no-table-styling, .no-table-styling tr:nth-child(odd), .no-table-styling td{
+  border-collapse: separate;
+  width: auto;
+  background-color: inherit;
+  margin: 0px;
+  border: 0px;
+  padding: 0px 0px 10px 0px;
+}
+.no-table-styling td:first-child{
+  height: 30px;
+}
+
 
 /* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
 
@@ -553,6 +581,30 @@ ul.results-list {
 #results-sidebar {
   max-height: 300px;
   overflow: auto;
+}
+
+.aspect-icon{
+  background-color: $white;
+  border: 1px solid $lightgrey;
+  border-radius: 30px;
+  padding: 3px 5px 3px 5px;
+  font-weight: bold;
+  margin-right: 2px;
+  color: $darkishgrey;
+}
+.td-no-icon{
+  padding-top: 15px;
+}
+
+.go-term{
+  width: 100%;
+  &.slim-repeat{
+    margin: 10px 0px 10px 0px;
+  }
+}
+
+.results-table th span{
+  font-weight: bold;
 }
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
@@ -742,6 +794,28 @@ li.slim {
   margin-right: 10px;
 }
 
+.duplicate-slim{
+  background-color: red;
+}
+
+.duplicate-slim-top{
+  // border-top: solid 2px red;
+  // border-left: solid 2px red;
+  // border-right: solid 2px red;
+  // background-color: #FFE3E3;
+}
+.duplicate-slim-bottom{
+  // border-bottom: solid 2px red;
+  // border-left: solid 2px red;
+  // border-right: solid 2px red;
+  // background-color: #FFE3E3;
+}
+.repeated-slim-section{
+  padding-top: 5px;
+
+}
+
+
 /* ADVANCED FILTERS MODAL DIALOGUE ----------------------------------------------------------------------------------*/
 
 .app-modal-window .modal-dialog {
@@ -796,4 +870,41 @@ IMG.displayed {
 
 .help-page ol ol {
   list-style-type: lower-roman;
+}
+
+
+
+/* Help pages  ---------------------------------------------------------------------------------------------------*/
+
+
+
+.help-point-panel {
+  background-color: $primary8;
+  min-height: 220px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  h3 {
+    color: $darkishgrey;
+    text-align: center;
+    a {
+      color: $darkishgrey;
+      padding-top: 0px;
+    }
+  }
+  color: $darkishgrey;
+
+  padding-top: 0px;
+  a {
+    color: $darkishgrey;
+    padding-top: 0px;
+    &:hover {
+      border-bottom: 1px solid $white;
+
+    }
+  }
+  ul {
+    margin-left: 30px;
+    margin-top: 30px;
+  }
 }
