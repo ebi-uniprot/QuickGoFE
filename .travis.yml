@@ -10,5 +10,7 @@ before_script:
   - 'npm install'
   - 'bower install'
   - 'gem install compass'
+script:
+  - 'npm run test'
 notifications:
   slack: quickgo:1Nu7WlcecKOsojoVtjvw9Lx3

@@ -75,7 +75,7 @@ module.exports = function (grunt) {
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'postcss:server']
-      },      
+      },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'postcss:server']
@@ -297,7 +297,7 @@ module.exports = function (grunt) {
           sourcemap: true
         }
       }
-    },    
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -532,6 +532,7 @@ module.exports = function (grunt) {
         'concurrent:server',
         'postcss:server',
         'connect:livereload',
+        'test',
         'watch'
       ]);
     }
@@ -583,7 +584,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'test',
     'build'
   ]);
 };
