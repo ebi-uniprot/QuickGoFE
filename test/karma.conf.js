@@ -52,14 +52,17 @@ module.exports = function(config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS'
+      'Firefox'
     ],
 
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
       'karma-jasmine',
-      'karma-ng-html2js-preprocessor'
+      'karma-ng-html2js-preprocessor',
+      'karma-spec-reporter',
+      'karma-chrome-launcher',
+      'karma-firefox-launcher'
     ],
 
     preprocessors: {
@@ -69,6 +72,9 @@ module.exports = function(config) {
     ngHtml2JsPreprocessor: {
       moduleName: "templates"
     },
+
+    reporters: ['spec'],
+
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: false,
@@ -77,7 +83,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_ERROR,
 
     // Uncomment the following lines if you are using grunt's server to run the tests
     // proxies: {

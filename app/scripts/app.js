@@ -48,7 +48,6 @@ var app = angular
     $locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('httpErrorResponseInterceptor');
-    console.log($httpProvider);
 
     $routeProvider
       .when('/', {

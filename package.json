@@ -22,7 +22,7 @@
     "grunt-filerev": "^2.1.2",
     "grunt-google-cdn": "^0.4.3",
     "grunt-jscs": "^2.4.0",
-    "grunt-karma": "*",
+    "grunt-karma": "^0.12.1",
     "grunt-newer": "^1.1.0",
     "grunt-ng-annotate": "^0.9.2",
     "grunt-ng-constant": "^1.1.0",
@@ -31,17 +31,22 @@
     "grunt-svgmin": "^2.0.0",
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
+    "jasmine-core": "^2.4.1",
     "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.0",
-    "karma-jasmine": "*",
-    "karma-ng-html2js-preprocessor": "^0.2.0",
-    "karma-phantomjs-launcher": "*",
+    "karma": "^0.13.21",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.7",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-spec-reporter": "0.0.24",
+    "phantomjs-prebuilt": "^2.1.4",
     "time-grunt": "^1.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "karma start test/karma.conf.js"
   }
 }
