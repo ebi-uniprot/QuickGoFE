@@ -59,7 +59,8 @@ module.exports = function(config) {
     plugins: [
       'karma-phantomjs-launcher',
       'karma-jasmine',
-      'karma-ng-html2js-preprocessor'
+      'karma-ng-html2js-preprocessor',
+      'karma-spec-reporter'
     ],
 
     preprocessors: {
@@ -69,6 +70,9 @@ module.exports = function(config) {
     ngHtml2JsPreprocessor: {
       moduleName: "templates"
     },
+
+    reporters: ['spec'],
+
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: false,
