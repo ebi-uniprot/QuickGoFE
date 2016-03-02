@@ -68,12 +68,32 @@
 
     <!-- With -->
     <td class="td-no-icon">
-          <span ng-if="annotation.withList.length == 1" ng-repeat="item in annotation.withList">
-            <span ng-repeat="element in item.connectedXrefs">
-             <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(element.database, element.signature)" target="_blank">{{element.database}}:{{element.signature}}</a>
-           </span>
+      <!-- B7Z025 -->
+
+
+      <span ng-if="annotation.withList.length === 1">
+        <!-- single item, so build direct link -->
+        <span ng-repeat="item in annotation.withList">
+          <span ng-if="item.connectedXrefs.length === 1" ng-repeat="element in item.connectedXrefs">
+            <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(element.database, element.signature)" target="_blank">{{element.database}}:{{element.signature}}</a>
           </span>
-          <a ng-if="annotation.withList.length >= 2" class="quickgo-link ellipsis" ng-click="showWithList(annotation.withList)">{{annotation.fullWith}}</a>
+        </span>
+        <!-- special case for building up with commas -->
+        <span ng-repeat="item in annotation.withList" ng-if="item.connectedXrefs.length > 1">
+            <span ng-repeat="subItem in item">
+              <span ng-repeat="element in subItem">
+                <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(element.database, element.signature)" target="_blank">{{element.database}}:{{element.signature}}</a>
+                <span ng-show="!$last">,</span>
+              </span>
+            </span>
+        </span>
+      </span>
+
+      <!-- multiple links, so modal required -->
+      <span ng-if="annotation.withList.length > 1">
+        <a ng-if="annotation.withList.length >= 2" class="quickgo-link ellipsis" ng-click="showWithList(annotation.withList)">{{annotation.fullWith}}</a>
+      </span>
+
      </td>
 
      <!-- Taxon-->
