@@ -75,14 +75,14 @@
         <!-- single item, so build direct link -->
         <span ng-repeat="item in annotation.withList">
           <span ng-if="item.connectedXrefs.length === 1" ng-repeat="element in item.connectedXrefs">
-            <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(element.database, element.signature)" target="_blank">{{element.database}}:{{element.signature}}</a>
+            <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(element.db, element.id)" target="_blank">{{element.db}}:{{element.id}}</a>
           </span>
         </span>
         <!-- special case for building up with commas -->
         <span ng-repeat="item in annotation.withList" ng-if="item.connectedXrefs.length > 1">
             <span ng-repeat="subItem in item">
               <span ng-repeat="element in subItem">
-                <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(element.database, element.signature)" target="_blank">{{element.database}}:{{element.signature}}</a>
+                <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(element.db, element.id)" target="_blank">{{element.db}}:{{element.id}}</a>
                 <span ng-show="!$last">,</span>
               </span>
             </span>
