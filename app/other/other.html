@@ -31,16 +31,12 @@
 <h4>The Currently Active Post-Processing Rules</h4>
 <table class="two-colours">
   <tr>
-    <th>Original GO ID</th>
-    <th>Original GO Term Name</th>
+    <th>Original Term</th>
     <th>Cleanup Action</th>
     <th>Affected Taxonomic Group</th>
-    <th>Substituted GO ID</th>
-    <th>Substituted GO Term Name</th>
+    <th>Substituted Term</th>
     <th>Curator Notes</th>
-    <th>Taxon Rule</th>
-    <th>Ancestor GO ID</th>
-    <th>Ancestor GO Term Name</th>
+    <th>Ancestor Term</th>
     <th>Relationship</th>
     <th>Taxon Name</th>
   <tr>
@@ -48,22 +44,24 @@
     <td class="text-nowrap">
       <a href="term/{{postProcessing.originalGoId}}">{{postProcessing.originalGoId}}</a>
       <basket-button termid="{{postProcessing.originalGoId}}"></basket-button>
+      <chart-icon term-id="postProcessing.originalGoId" term-name="postProcessing.originalTerm"></chart-icon>
+      <element uib-tooltip="{{postProcessing.originalTerm}}">{{postProcessing.originalTerm | shortenStringFilter}}</element>
     </td>
-    <td>{{postProcessing.originalTerm}}</td>
     <td>{{postProcessing.cleanupAction}}</td>
     <td>{{postProcessing.affectedTaxGroup}}</td>
     <td class="text-nowrap">
       <a href="term/{{postProcessing.substitutedGoId}}">{{postProcessing.substitutedGoId}}</a>
       <basket-button termid="{{postProcessing.substitutedGoId}}"></basket-button>
+      <chart-icon term-id="postProcessing.substitutedGoId" term-name="postProcessing.substitutedTerm"></chart-icon>
+      <element uib-tooltip="{{postProcessing.substitutedTerm}}">{{postProcessing.substitutedTerm | shortenStringFilter}}</element>
     </td>
-    <td>{{postProcessing.substitutedTerm}}</td>
     <td>{{postProcessing.curatorNotes}}</td>
-    <td>{{postProcessing.ruleId}}</td>
     <td class="text-nowrap">
       <a href="term/{{postProcessing.ancestorGoId}}">{{postProcessing.ancestorGoId}}</a>
       <basket-button termid="{{postProcessing.ancestorGoId}}"></basket-button>
+      <chart-icon term-id="postProcessing.ancestorGoId" term-name="postProcessing.ancestorTerm"></chart-icon>
+      <element uib-tooltip="{{postProcessing.ancestorTerm}}">{{postProcessing.ancestorTerm | shortenStringFilter}}</element>
     </td>
-    <td>{{postProcessing.ancestorTerm}}</td>
     <td>{{postProcessing.relationship}}</td>
     <td>{{postProcessing.taxonName}}</td>
   </tr>
