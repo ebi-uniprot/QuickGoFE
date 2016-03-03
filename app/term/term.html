@@ -344,7 +344,7 @@
                 </tr>
                 <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms">
                   <td width="70%">
-                    <span uib-tooltip-template="'colAspect.html'" class="aspect-icon" ng-class="{aspectF : searchResult.aspect === 'F', aspectP : searchResult.aspect === 'P',aspectC : searchResult.aspect === 'C' }">{{allStat.aspect}}</span>
+                    <span uib-tooltip-template="'colAspect.html'" class="aspect-icon" ng-class="{aspectF : allStat.aspect === 'F', aspectP : allStat.aspect === 'P',aspectC : allStat.aspect === 'C' }">{{allStat.aspect}}</span>
                     <a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a>
                     <basket-button termid="{{allStat.compare}}"></basket-button>
                     <chart-icon term-id="allStat.compare" term-name="allStat.name"></chart-icon>
