@@ -20,7 +20,7 @@
 
           <td class="text-nowrap">
 
-            <span uib-tooltip-template="'colAspect.html'" class="aspect-icon" ng-class="{aspectF : searchResult.aspect === 'F', aspectP : searchResult.aspect === 'P',aspectC : searchResult.aspect === 'C' }" >{{searchResult.aspect}}</span>
+            <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{searchResult.aspect}}">{{searchResult.aspect}}</span>
             <span><a href="term/{{searchResult.id}}">{{searchResult.id}}</a></span>
             <basket-button termid="{{searchResult.id}}"></basket-button>
             <chart-icon term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
