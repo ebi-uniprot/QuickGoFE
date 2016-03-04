@@ -13,19 +13,21 @@
       </p>
       <table id="searchResults" class="two-colours">
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Aspect</th>
+          <th>Term</th>
+
         </tr>
         <tr ng-repeat="searchResult in results.results">
 
           <td class="text-nowrap">
+
+            <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{searchResult.aspect}}">{{searchResult.aspect}}</span>
             <span><a href="term/{{searchResult.id}}">{{searchResult.id}}</a></span>
             <basket-button termid="{{searchResult.id}}"></basket-button>
             <chart-icon term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
+            <span ng-bind-html="highlight(searchResult.name)">{{searchResult.name}}</span>
           </td>
-          <td ng-bind-html="highlight(searchResult.name)"></td>
-          <td>{{searchResult.aspectDescription}}</td>
+
+
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
@@ -33,3 +35,4 @@
   </div>
   <div class="clearfix"></div>
 </div>
+<script type="text/ng-template" id="colAspect.html"><span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span></script>

@@ -30,14 +30,14 @@
     <!-- GO Identifier-->
     <td class="text-nowrap">
       <div class="go-term">
-        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon">{{annotation.aspect}}</span>
+        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{annotation.aspect}}">{{annotation.aspect}}</span>
         <a class="quickgo-link selectable" href="term/{{annotation.goId}}">{{annotation.goId}}</a>
         <basket-button termid="{{annotation.goId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
         <chart-icon term-id="annotation.goId" term-name="annotation.termName"></chart-icon>
         <element uib-tooltip="{{annotation.termName}}">{{annotation.termName | shortenStringFilter}}</element>
       </div>
       <div ng-repeat="slimRepeat in annotation.slimsList" class="go-term slim-repeat">
-        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon">{{slimRepeat.aspect}}</span>
+        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{slimRepeat.aspect}}">{{slimRepeat.aspect}}</span>
         <a class="quickgo-link selectable" href="term/{{slimRepeat.goId}}">{{slimRepeat.goId}}</a>
         <basket-button termid="{{slimRepeat.goId}}" icondisabled="{{slimRepeat.isObsolete}}"></basket-button>
         <chart-icon term-id="slimRepeat.goId" term-name="slimRepeat.termName"></chart-icon>
@@ -55,7 +55,7 @@
     <!-- Evidence: ECO:0000256  (IEA) -->
     <td class="text-nowrap">
 
-      <a class="quickgo-link selectable" href="/term/{{annotation.evidenceEco}}">{{annotation.evidenceEco}}</a>
+      <a class="quickgo-link selectable" href="term/{{annotation.evidenceEco}}">{{annotation.evidenceEco}}</a>
 
       <a class="quickgo-icon selectable" ng-click="showEvidenceCodeOntologyGraph(annotation.evidenceEco)">
         <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a> (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{annotation.evidenceGo | lowercase}}" target="_blank">{{annotation.evidenceGo}}</a>)

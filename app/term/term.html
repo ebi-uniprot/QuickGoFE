@@ -344,7 +344,7 @@
                 </tr>
                 <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms">
                   <td width="70%">
-                    <span uib-tooltip-template="'colAspect.html'" class="aspect-icon">{{allStat.aspect}}</span>
+                    <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{allStat.aspect}}">{{allStat.aspect}}</span>
                     <a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a>
                     <basket-button termid="{{allStat.compare}}"></basket-button>
                     <chart-icon term-id="allStat.compare" term-name="allStat.name"></chart-icon>
@@ -383,7 +383,7 @@
                   </tr>
                   <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics">
                     <td width="70%">
-                      <span uib-tooltip-template="'colAspect.html'" class="aspect-icon">{{nonIEAStat.aspect}}</span>
+                      <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{nonIEAStat.aspect}}">{{nonIEAStat.aspect}}</span>
                       <a class="quickgo-link" ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
                       <basket-button termid="{{nonIEAStat.compare}}"></basket-button>
                       <chart-icon term-id="nonIEAStat.compare" term-name="nonIEAStat.name"></chart-icon>
