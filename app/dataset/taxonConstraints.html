@@ -4,21 +4,19 @@
   <h3>Taxon Constraint Rule</h3>
   <table id="taxConstraintsTable" class="two-colours">
     <tr>
-      <th>Taxon Rule</th>
-      <th>Ancestor GO ID</th>
-      <th>Ancestor GO Term Name</th>
+      <th>Ancestor term</th>
       <th>Relationship</th>
       <th>Taxon ID</th>
       <th>Taxon</th>
       <th>Reference(s)</th>
     </tr>
     <tr ng-repeat="taxonConstraint in taxonConstraints">
-      <td>{{taxonConstraint.ruleId}}</td>
       <td class="text-nowrap">
-        <a href="term/{{taxonConstraint.goId}}">{{taxonConstraint.goId}}</a>
+        <a class="quickgo-link selectable" href="term/{{taxonConstraint.goId}}">{{taxonConstraint.goId}}</a>
         <basket-button termid="{{taxonConstraint.goId}}"></basket-button>
+        <chart-icon term-id="taxonConstraint.goId" term-name="taxonConstraint.name"></chart-icon>
+        <element uib-tooltip="{{taxonConstraint.name}}">{{taxonConstraint.name | shortenStringFilter}}</element>
       </td>
-      <td>{{taxonConstraint.name}}</td>
       <td>{{taxonConstraint.relationship}}</td>
       <td>{{taxonConstraint.taxId}}</td>
       <td>{{taxonConstraint.taxonName}}</td>
