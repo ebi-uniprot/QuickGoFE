@@ -1,2 +1,5 @@
-app.controller('Annotations', function($scope, $location) {
+app.controller('Annotations', function($scope, $rootScope, $location) {
+  $scope.loadStatistics = function() {
+    $rootScope.$emit('loadStatistics');
+  }
 });
