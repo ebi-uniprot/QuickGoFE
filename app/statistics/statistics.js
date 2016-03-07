@@ -12,9 +12,9 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filter
   $scope.statsBean={};
   var statsLoaded = false;
 
-  $rootScope.$on('loadStatistics', function(event) {
-    loadStatistics();
-  });
+  //$rootScope.$on('loadStatistics', function(event) {
+  //  loadStatistics();
+  //});
 
   function loadStatistics() {
     var formattedURL =  ENV.apiEndpoint + '/statsPostNewNamesNotSpring';
@@ -44,9 +44,9 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filter
   }
 
   $rootScope.$on('filtersUpdate', function(event) {
-    if(statsLoaded) {
+    //if(statsLoaded) {
       loadStatistics();
-    }
+    //}
   });
 
   $rootScope.$on('filtersClear', function(event) {
