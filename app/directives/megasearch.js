@@ -17,12 +17,12 @@ angular
 						reset();
 					} else if(keyCode === 13) {
 						scope.submitSearch();
-					} else if(!scope.searchTerm || scope.searchTerm.length <3){
-						return;
 					}
 
 					scope.timePromise = $timeout(function() {
-						loadData();
+						if(scope.searchTerm || scope.searchTerm.length >3){
+							loadData();
+						}
 					} ,500);
 				}
 
@@ -42,7 +42,7 @@ angular
 					scope.gpPromise.then(function(res) {
 						scope.products = res.data;
 					});
-					//Look for Publications					
+					//Look for Publications
 				}
 
 				var reset = function() {

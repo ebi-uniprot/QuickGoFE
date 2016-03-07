@@ -2,9 +2,6 @@
  * Created by twardell on 16/03/2015.
  */
 app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filteringService) {
-
- console.log("Statistics Controller");
-
   //The filters from the advanced filters modal dialogue, taxon checkbox, and sidebar input boxes.
   //We may arrive at this page from the statistics page (or others) so will need to load the
   //selected filters at page initialisation time.
@@ -13,8 +10,11 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filter
 
   $scope.stats = {};
   $scope.statsBean={};
+  var statsLoaded = false;
 
-  loadStatistics();
+  $rootScope.$on('loadStatistics', function(event) {
+    loadStatistics();
+  });
 
   function loadStatistics() {
     var formattedURL =  ENV.apiEndpoint + '/statsPostNewNamesNotSpring';
@@ -37,21 +37,24 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filter
 
     $scope.statsPromise = $http(request);
     $scope.statsPromise.success(function (data) {
-
       $scope.stats = data;
-      //$scope.statsBean =  $scope.stats.statsBean;
+      statsLoaded = true;
     });
 
   }
 
   $rootScope.$on('filtersUpdate', function(event) {
-    loadStatistics();
+    if(statsLoaded) {
+      loadStatistics();
+    }
   });
 
   $rootScope.$on('filtersClear', function(event) {
-    $scope.appliedFilters = filteringService.getFilters();
-    $scope.advancedFilters =  {};
-    loadStatistics();
+    if(statsLoaded) {
+      $scope.appliedFilters = filteringService.getFilters();
+      $scope.advancedFilters =  {};
+      loadStatistics();
+    }
   });
 
 });
