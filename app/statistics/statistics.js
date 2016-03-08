@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 16/03/2015.
  */
-app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filteringService) {
+app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) {
   //The filters from the advanced filters modal dialogue, taxon checkbox, and sidebar input boxes.
   //We may arrive at this page from the statistics page (or others) so will need to load the
   //selected filters at page initialisation time.
@@ -12,7 +12,7 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filter
   $scope.statsBean={};
   var statsLoaded = false;
 
-  $rootScope.$on('loadStatistics', function(event) {
+  $scope.$on('loadStatistics', function(event) {
     loadStatistics();
   });
 
@@ -43,13 +43,13 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV, filter
 
   }
 
-  $rootScope.$on('filtersUpdate', function(event) {
+  $scope.$on('filtersUpdate', function(event) {
     if(statsLoaded) {
       loadStatistics();
     }
   });
 
-  $rootScope.$on('filtersClear', function(event) {
+  $scope.$on('filtersClear', function(event) {
     if(statsLoaded) {
       $scope.appliedFilters = filteringService.getFilters();
       $scope.advancedFilters =  {};
