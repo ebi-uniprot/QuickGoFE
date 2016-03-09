@@ -2,7 +2,7 @@
 
     <div ng-repeat="orItems in withList">
       <p ng-repeat="element in orItems.connectedXrefs" class="text-center">
-        <a ng-click="followLinkToGeneric(element.database)" target="_blank">{{element.db}}</a>:<a ng-click="followLinkToEntry(element.db, element.id)" target="_blank">{{element.id}}</a>
+      <a ng-click="followLinkToEntry(element.db, element.id)" target="_blank">{{element.db}}:{{element.id}}</a>
         <strong ng-show="!$last">AND</strong>
       </p>
       <p class="text-center" ng-show="!$last">
