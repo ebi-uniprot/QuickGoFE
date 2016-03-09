@@ -8,17 +8,7 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalIn
   $scope.targetDomainAndPort=ENV.apiEndpoint;
   $scope.imagePath="";
 
-  var formattedURL;
-  if( graphModel.id.lastIndexOf('ECO', 0) === 0){
-    formattedURL = ENV.apiEndpoint +'/chartfull?ids='+ graphModel.id + '&scope=ECO';
-    $scope.graphModel.scope='ECO';
-  }else{
-    formattedURL = ENV.apiEndpoint +'/chartfull?ids='+ graphModel.id
-    $scope.graphModel.scope='';
-  }
-  console.log("Chart Full url", formattedURL);
-
-
+  formattedURL = ENV.apiEndpoint +'/chartfull?ids='+ graphModel.id;
   $scope.graphPromise = $http.get(formattedURL);
 
   $scope.graphPromise.success(function(data) {
@@ -67,7 +57,7 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalIn
   };
 
   $scope.newWindow = function () {
-    var imageLocation = $scope.targetDomainAndPort + "/chart?ids=" + $scope.graphModel.id + "&scope=" + $scope.graphModel.scope;
+    var imageLocation = ENV.apiEndpoint + "/chart?ids=" + $scope.graphModel.id;
     console.log(imageLocation);
     $window.open(imageLocation);
   };

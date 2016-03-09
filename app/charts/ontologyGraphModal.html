@@ -7,7 +7,7 @@
           <button class="btn btn-primary btn-ancestor" ng-click="ok()">Close</button>
     </div>
     <div class="ancestor-chart-container">
-    <img class="displayed" ng-src="{{targetDomainAndPort}}/chart?ids={{graphModel.id}}&scope={{graphModel.scope}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >
+    <img class="displayed" ng-src="{{targetDomainAndPort}}/chart?ids={{graphModel.id}}" id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap"  >
 
       <map name="ontologygraphmap">
         <span  ng-repeat="layoutNode in graphImage.layoutNodes">
