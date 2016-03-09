@@ -8,8 +8,14 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalIn
   $scope.targetDomainAndPort=ENV.apiEndpoint;
   $scope.imagePath="";
 
-  var formattedURL=ENV.apiEndpoint+'/chartfull?ids='+graphModel.id + "&scope=" + graphModel.scope;
-
+  var formattedURL;
+  if( graphModel.id.lastIndexOf('ECO', 0) === 0){
+    formattedURL = ENV.apiEndpoint +'/chartfull?ids='+ graphModel.id + '&scope=ECO';
+    $scope.graphModel.scope='ECO';
+  }else{
+    formattedURL = ENV.apiEndpoint +'/chartfull?ids='+ graphModel.id
+    $scope.graphModel.scope='';
+  }
   console.log("Chart Full url", formattedURL);
 
 
