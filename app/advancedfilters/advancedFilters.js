@@ -1,4 +1,4 @@
-app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, basketService, evidencetypes, withDBs,
+app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService, evidencetypes, withDBs,
   assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail, stringService) {
 
 
@@ -185,7 +185,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
       filteringService.populateAppliedFilters($scope.filters, $scope.isSlim);
 
       //Tell annotations list this value has been updated.
-      $rootScope.$emit('filtersUpdate', $scope.advancedFilters);   //todo change this so is notification only
+      $scope.$parent.$parent.$broadcast('filtersUpdate', $scope.advancedFilters);
 
       //Now go back to the annotation list
       $location.path("annotations");
@@ -196,7 +196,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $location, ba
     $scope.clearFilters=function() {
       filteringService.clearFilters();
       initialiseFilters();
-      $rootScope.$emit('filtersClear');
+      $scope.$parent.$parent.$broadcast('filtersClear');
     };
 
 

@@ -128,6 +128,13 @@
 
   <main class="grid_24 clearfix quickgo-content">
 
+  <!-- Global error message -->
+  <div class="alert alert-danger grid_22 push_1" role="alert" ng-show="globalErrorMessage">
+    {{globalErrorMessage}}
+    <button type="button" ng-click="globalErrorMessage = ''" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="clearfix"></div>
+
   <!-- Add your site or application content here -->
   <div ng-view=""></div>
 
