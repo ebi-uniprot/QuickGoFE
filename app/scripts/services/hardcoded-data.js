@@ -60,7 +60,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
 
   var qualifiers = [
-    {name:'enables','qualifier':'ENABLES'},
+    {name:'enables','qualifier':'enables'},
     {name:'NOT | enables','qualifier':'NOT|enables'},
     {name:'involved_in','qualifier':'involved_in'},
     {name:'NOT | involved_in','qualifier':'NOT|involved_in'},
