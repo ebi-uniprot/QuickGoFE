@@ -14,20 +14,19 @@
       <table id="searchResults" class="two-colours">
         <tr>
           <th>Term</th>
-
+          <th>Annotations</th>
         </tr>
         <tr ng-repeat="searchResult in results.results">
 
-          <td class="text-nowrap">
+          <td class="text-nowrap" ng-class="{'inactive':searchResult.isObsolete==true}">
 
             <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{searchResult.aspect}}">{{searchResult.aspect}}</span>
             <span><a href="term/{{searchResult.id}}">{{searchResult.id}}</a></span>
-            <basket-button termid="{{searchResult.id}}"></basket-button>
-            <chart-icon term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
+            <basket-button termid="{{searchResult.id}}" icondisabled="{{searchResult.isObsolete}}"></basket-button>
+            <chart-icon ng-show="{{!searchResult.isObsolete}}" term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
             <span ng-bind-html="highlight(searchResult.name)">{{searchResult.name}}</span>
           </td>
-
-
+          <td><a ng-href="annotations/filter?id={{searchResult.id}}" class="annotations-link"><annotations-link termid="{{searchResult.id}}"></annotations-link></a></td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
