@@ -25,21 +25,11 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, ENV) {
 
 
   //Get the graph from the server - scope is only applicable for eco terms
-  //var formattedURL=targetDomainAndPort+'/chartfull?ids='+ termId + termId.lastIndexOf('ECO', 0) === 0?"&scope=ECO":'';
-  var formattedURL;
-  if(termId.lastIndexOf('ECO', 0) === 0){
-    formattedURL = ENV.apiEndpoint +'/chartfull?ids='+ termId + '&scope=ECO';
-    $scope.graphModel.scope='ECO';
-  }else{
-    formattedURL = ENV.apiEndpoint +'/chartfull?ids='+ termId
-    $scope.graphModel.scope='';
-  }
+  var formattedURL=ENV.apiEndpoint+'/chartfull?ids='+ termId;
 
   $scope.chartPromise = $http.get(formattedURL);
   $scope.chartPromise.success(function(data) {
-    //console.log("got the response back ", data);
     $scope.graphImage = data;
-
     $scope.imageSource=ENV.apiEndpoint+$scope.graphImage.graphImageSrc;
 
   });
