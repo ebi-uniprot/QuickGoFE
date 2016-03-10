@@ -9,17 +9,18 @@ hardCodedModule.factory('hardCodedDataService', function() {
   var hardCodedService = {};
 
   var annotationColumns = [
-    {'name': 'colDatabase', 'value':'Gene Product', 'slimCol':false},
-    {'name': 'colSymbol', 'value': 'Symbol', 'slimCol':false},
-    {'name': 'colQualifier', 'value': 'Qualifier', 'slimCol':false},
-    {'name': 'colGOIdentifier', 'value': 'GO Term', 'slimCol':false},
-    {'name': 'colOrigID', 'value': 'Original GO Term', 'slimCol':true},
-    {'name': 'colEvidence', 'value': 'Evidence', 'slimCol':false},
-    {'name': 'colReference', 'value': 'Reference', 'slimCol':false},
-    {'name': 'colWith', 'value': 'With', 'slimCol':false},
-    {'name': 'colTaxon', 'value': 'Taxon', 'slimCol':false},
-    {'name': 'colAssignedBy', 'value': 'Assigned By', 'slimCol':false},
-    {'name': 'colAnnotationExtension', 'value': 'Annotation Extension', 'slimCol':false}
+    {'name': 'colDatabase', 'value':'Gene Product', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colSymbol', 'value': 'Symbol', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colQualifier', 'value': 'Qualifier', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colGOIdentifier', 'value': 'GO Term', 'slimCol':false, 'showWhenSlim':false},
+    {'name': 'colSlimmedGOTerm', 'value': 'Slimmed GO Term', 'slimCol':true, 'showWhenSlim':true},
+    {'name': 'colOrigID', 'value': 'Original GO Term', 'slimCol':true, 'showWhenSlim':true},
+    {'name': 'colEvidence', 'value': 'Evidence', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colReference', 'value': 'Reference', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colWith', 'value': 'With', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colTaxon', 'value': 'Taxon', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colAssignedBy', 'value': 'Assigned By', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colAnnotationExtension', 'value': 'Annotation Extension', 'slimCol':false, 'showWhenSlim':true}
   ];
 
   var initialTaxonomies = [

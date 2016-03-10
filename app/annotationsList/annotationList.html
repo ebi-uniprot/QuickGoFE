@@ -11,7 +11,8 @@
 <table id="assignedByCount" class="two-colours results-table">
   <tr>
     <thead>
-      <th ng-repeat="colHeading in annotationColumns" ng-show="colHeading.slimCol == false || (colHeading.slimCol == true && showSlimColumns)">
+      <th ng-repeat="colHeading in annotationColumns" ng-show="(colHeading.slimCol == false && !showSlimColumns) || (colHeading.showWhenSlim == true && showSlimColumns)" >
+        <!-- ng-hide="(colHeading.hideWhenSlim == true && showSlimColumns)" -->
         <span uib-tooltip-template="'{{colHeading.name}}.html'">
           {{colHeading.value}}</span>
       </th>
