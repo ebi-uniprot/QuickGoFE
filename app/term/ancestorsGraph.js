@@ -25,9 +25,9 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, ENV) {
 
 
   //Get the graph from the server - scope is only applicable for eco terms
-  var formattedURL=ENV.apiEndpoint+'/chartfull?ids='+ termId;
+  //var formattedURL=ENV.apiEndpoint+'/chartfull?ids='+ termId;
 
-  $scope.chartPromise = $http.get(formattedURL);
+  $scope.chartPromise = $http.get(ENV.apiEndpoint+'/chartfull?ids='+ termId);
   $scope.chartPromise.success(function(data) {
     $scope.graphImage = data;
     $scope.imageSource=ENV.apiEndpoint+$scope.graphImage.graphImageSrc;
