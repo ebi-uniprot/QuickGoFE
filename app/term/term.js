@@ -41,7 +41,9 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
 
     //Set restrictions show
-    if($scope.termModel.usage != 'U' && $scope.termModel.goTerm){
+    if($scope.termModel.usage === 'Unrestricted' && $scope.termModel.goTerm){
+      $scope.showRestrictions = false;
+    }else{
       $scope.showRestrictions = true;
     }
 
