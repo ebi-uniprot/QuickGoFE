@@ -41,8 +41,8 @@
     <section ng-if="showRestrictions">
     <h5>Restrictions</h5>
     <p>
-      <span style="background-color:#FFFBCC;">{{termModel.usage.description}}
-      <element ng-if="termModel.comment !=''">See comment below for further information.</element></span>
+      <span ng-if="termModel.usage === 'Electronic'">This term should not be used for direct manual annotation; it may, however, be used for mapping to external vocabularies in order to create electronic annotations.</span>
+      <span ng-if="termModel.usage === 'None'">This term should not be used for direct annotation.</span>
     </p>
     </section>
 
