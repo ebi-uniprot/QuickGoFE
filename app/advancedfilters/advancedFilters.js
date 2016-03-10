@@ -124,7 +124,9 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
     $scope.addGPs = function() {
       var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
       angular.forEach(gps, function(gpID){
-        $scope.filters.gpID[gpID] = true;
+        if(filteringService.validateGeneProduct(gpID)) {
+          $scope.filters.gpID[gpID] = true;
+        }
       });
       $scope.updateFilters();
       $scope.gpTextArea = '';
