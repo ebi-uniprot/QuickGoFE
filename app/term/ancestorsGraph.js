@@ -24,8 +24,7 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, ENV) {
   $scope.targetDomainAndPort=ENV.apiEndpoint;
 
 
-  //Get the graph from the server - scope is only applicable for eco terms
-  //var formattedURL=ENV.apiEndpoint+'/chartfull?ids='+ termId;
+  //Get the graph from the server
 
   $scope.chartPromise = $http.get(ENV.apiEndpoint+'/chartfull?ids='+ termId);
   $scope.chartPromise.success(function(data) {
