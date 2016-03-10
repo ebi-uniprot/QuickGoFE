@@ -12,8 +12,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.termInformation=true;
 
   var termId=$routeParams.goId;
-  // var formattedURL=ENV.apiEndpoint+'/term/';
-
   $rootScope.header = "QuickGO::Term "+termId;
 
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
@@ -22,9 +20,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   }else{
     $scope.isGoTerm = true;
   }
-
-
-  // var termUrl = formattedURL+termId;
 
   /**
    * Get Term Data from WS
@@ -41,7 +36,9 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
 
     //Set restrictions show
-    if($scope.termModel.usage != 'U' && $scope.termModel.goTerm){
+    if($scope.termModel.usage === 'Unrestricted' && $scope.termModel.goTerm){
+      $scope.showRestrictions = false;
+    }else{
       $scope.showRestrictions = true;
     }
 

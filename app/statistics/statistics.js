@@ -17,7 +17,6 @@ app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) 
   });
 
   function loadStatistics() {
-    var formattedURL =  ENV.apiEndpoint + '/statsPostNewNamesNotSpring';
 
     //Create the object to send to the server
     var filterRequest = {};
@@ -27,7 +26,7 @@ app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) 
     // Post the filter request to the webservice
     var request = {
       method: 'POST',
-      url: formattedURL,
+      url: ENV.apiEndpoint + '/statsPostNewNamesNotSpring',
       headers: {
         'Content-Type': 'application/json'
       },

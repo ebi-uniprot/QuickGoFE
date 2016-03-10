@@ -17,7 +17,6 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
    * process request and start download
    */
   $scope.submit = function(format,limit) {
-    var formattedURL = ENV.apiEndpoint+"/downloadPostNewNamesNotSpring";
 
     var filterRequest = {};
     filterRequest.list =  filteringService.getFilters();
@@ -28,7 +27,7 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
     // Post the filter request to the webservice
     var request = {
       method: 'POST',
-      url: formattedURL,
+      url: ENV.apiEndpoint+"/downloadPostNewNamesNotSpring",
       headers: {
         'Content-Type': 'application/json'
       },

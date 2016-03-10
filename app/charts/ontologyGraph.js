@@ -8,8 +8,7 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalIn
   $scope.targetDomainAndPort=ENV.apiEndpoint;
   $scope.imagePath="";
 
-  formattedURL = ENV.apiEndpoint +'/chartfull?ids='+ graphModel.id;
-  $scope.graphPromise = $http.get(formattedURL);
+  $scope.graphPromise = $http.get(ENV.apiEndpoint +'/chartfull?ids='+ graphModel.id);
 
   $scope.graphPromise.success(function(data) {
     console.log('there');
