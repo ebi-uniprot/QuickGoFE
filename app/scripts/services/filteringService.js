@@ -58,12 +58,12 @@ filteringModule.factory('filteringService', function() {
       return ev.match(/^ECO:\d{7}$/);
   }
 
-  filteringService.validateReference = function(value) {
-      // if(upperCase=='DOI*' || upperCase=='GO_REF*' || upperCase=='PMID*' || upperCase=='Reactome*'){
-      // }
-      //Otherwise we should have a GO:REF
-      // var niceContent = upperCase.match(/^GO_REF:\d{7}$/);
-  }
+  // filteringService.validateReference = function(value) {
+  //     if(upperCase=='DOI*' || upperCase=='GO_REF*' || upperCase=='PMID*' || upperCase=='Reactome*'){
+  //     }
+  //     // Otherwise we should have a GO:REF
+  //     var niceContent = upperCase.match(/^GO_REF:\d{7}$/);
+  // }
 
   filteringService.validateTaxon = function(taxon){
        return taxon.match(/^[0-9]+$/);
