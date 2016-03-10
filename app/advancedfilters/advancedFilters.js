@@ -113,7 +113,9 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
     $scope.addTaxons = function() {
       var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
       angular.forEach(taxons, function(taxonId){
-        $scope.filters.taxon[taxonId] = true;
+        if(filteringService.validateTaxon(taxonId)) {
+          $scope.filters.taxon[taxonId] = true;
+        }
       });
       $scope.updateFilters();
       $scope.taxonTextArea = '';
@@ -131,7 +133,9 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
     $scope.addGoTerms = function() {
       var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
       angular.forEach(goterms, function(goTerm){
-        $scope.filters.goID[goTerm] = true;
+        if(filteringService.validateGOTerm(goTerm)){
+          $scope.filters.goID[goTerm] = true;
+        }
       });
       $scope.updateFilters();
       $scope.goTermsTextArea = '';
@@ -152,7 +156,9 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
     $scope.addECOs = function() {
       var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
       angular.forEach(ecos, function(ecoID){
-        $scope.filters.ecoID[ecoID] = true;
+        if(filteringService.validateECOTerm(ecoID)) {
+          $scope.filters.ecoID[ecoID] = true;
+        }
       });
       $scope.updateFilters();
       $scope.ecoTextArea = '';
