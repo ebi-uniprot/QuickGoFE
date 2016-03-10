@@ -10,4 +10,4 @@ before_script:
   - 'bower install'
   - 'gem install compass'
 notifications:
-  slack: quickgo:1Nu7WlcecKOsojoVtjvw9Lx3
+  slack: quickgo:zkMuH42D9e96aIcCuh4VzZMB
