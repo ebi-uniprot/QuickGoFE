@@ -99,34 +99,34 @@ var app = angular
         controller: 'HelpCtrl'
       })
       .when('/faq/amigo', {
-        templateUrl: 'help/faq/amigo.html'
+        templateUrl: 'faq/amigo.html'
       })
       .when('/faq/gene_product_download', {
-        templateUrl: 'help/faq/gene_product_download.html'
+        templateUrl: 'faq/gene_product_download.html'
       })
       .when('/faq/gp_list', {
-        templateUrl: 'help/faq/gp_list.html'
+        templateUrl: 'faq/gp_list.html'
       })
       .when('/faq/human_proteome', {
-        templateUrl: 'help/faq/human_proteome.html'
+        templateUrl: 'faq/human_proteome.html'
       })
       .when('/faq/ids', {
-        templateUrl: 'help/faq/ids.html'
+        templateUrl: 'faq/ids.html'
       })
       .when('/faq/manual_annotations', {
-        templateUrl: 'help/faq/manual_annotations.html'
+        templateUrl: 'faq/manual_annotations.html'
       })
       .when('/faq/map_gp', {
-        templateUrl: 'help/faq/map_gp.html'
+        templateUrl: 'faq/map_gp.html'
       })
       .when('/faq/pubmed_ref', {
-        templateUrl: 'help/faq/pubmed_ref.html'
+        templateUrl: 'faq/pubmed_ref.html'
       })
       .when('/faq/slims', {
-        templateUrl: 'help/faq/slims.html'
+        templateUrl: 'faq/slims.html'
       })
       .when('/faq/webservices', {
-        templateUrl: 'help/faq/webservices.html'
+        templateUrl: 'faq/webservices.html'
       })
       .when('/term/:goId', {
         templateUrl: 'term/term.html',
