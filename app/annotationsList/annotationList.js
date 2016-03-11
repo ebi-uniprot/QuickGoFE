@@ -13,6 +13,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.maxSize=25;
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
 
+  $scope.filters = filteringService.initialiseFilters();
+
   //The filters from the advanced filters modal dialogue, taxon checkbox, and sidebar input boxes.
   //We may arrive at this page from the statistics page (or others) so will need to load the
   //selected filters at page initialisation time.
@@ -56,10 +58,14 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       data: filterRequest
     };
     $scope.resultsPromise = $http(request);
-    $scope.resultsPromise.success(function(data) {
-      $scope.goList = data;
+    $scope.resultsPromise.then(function successCallback(data) {
+      $scope.goList = data.data;
       $scope.goListProcessed = preProcess($scope.goList);
       prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
+    }, function errorCallback(response) {
+      if(response.status === 400) {
+        handleServerError(response.data);
+      }
     });
     $scope.showSlimColumns = _.find($scope.appliedFilters, function(rw){ return rw.value == "slim" });
   }
@@ -77,6 +83,14 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       (lastAnnotation.slimsList) ? '' : lastAnnotation.slimsList = [];
     });
 
+  }
+
+  function handleServerError(error) {
+    $uibModal.open({
+      template: '<h3>Error</h3><p>' + error.message + '</p>'
+    });
+    filteringService.clearGPIds();
+    filteringService.clearGOIds();
   }
 
   /**
