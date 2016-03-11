@@ -1,4 +1,4 @@
-<div class="help-content grid_18">
+<div class="help-content grid_18" id="container">
   <h1>Help</h1>
   <h2>GO Slims</h2>
 
@@ -9,42 +9,59 @@
   <p>To use GO slims, click on the ‘Explore biology’ box on the QuickGO home page.</p>
   <br /><img src="images/slim1.png" />
 
+  <div id="choosing">
+    <h3>Choosing a GO slim</h3>
+    <p>You can choose a pre-defined GO slim from the dropdown shown or select ‘Input your own’ to paste in your own list or choose ‘Select from basket’ to use the terms in your basket as your GO slim.</p>
+    <p>Your selected GO slim will now be presented in the ‘Your selection’ area. You can choose to remove terms from this list by hovering over them and then clicking. You will see an ‘x’ appear next to the term as you hover and clicking on the term area
+      will remove it from your selection. You can also view the ancestor chart for a term by clicking on the
+      <img src="images/slim2.png" /> icon next to a term. You can also view a chart for all terms in your selection by clicking on the ‘View chart’ button on the right hand side of the screen.
+    </p>
+  </div>
 
-  <h3>Choosing a GO slim</h3>
-  <p>You can choose a pre-defined GO slim from the dropdown shown or select ‘Input your own’ to paste in your own list or choose ‘Select from basket’ to use the terms in your basket as your GO slim.</p>
-  <p>Your selected GO slim will now be presented in the ‘Your selection’ area. You can choose to remove terms from this list by hovering over them and then clicking. You will see an ‘x’ appear next to the term as you hover and clicking on the term area will
-    remove it from your selection. You can also view the ancestor chart for a term by clicking on the
-    <img src="images/slim2.png" /> icon next to a term. You can also view a chart for all terms in your selection by clicking on the ‘View chart’ button on the right hand side of the screen.
-    <p>
+  <div id="additional">
+    <h3>Additional options</h3>
+    <p>You can add a list of Gene product IDs that you would like to map the GO slim terms to. You can also click on the ‘Restrict by species’ area to view the list of species that you can choose to restrict the GO slim mapping to. Both of these options
+      are non-mandatory.</p>
+    <p>Once you have made all your selections, click on the ‘Submit’ button.</p>
+  </div>
+  <div id="results">
 
+    <h3>Results</h3>
+    <p>You will now arrive at a results page that presents all annotations mapped to your GO slim terms (including annotations to child terms summed up to terms in the GO slim). These results are presented in a table with various columns.</p>
+    <p>To view the numbers of annotations found to each term in the GO slim and from your Gene products input (if any), click on the ‘Statistics’ tab.</p>
+  </div>
+  <div id="own">
+    <h3>How do I make my own GO slim?</h3>
+    <p><strong>If you already have a set of GO identifiers that you would like to use as a GO slim:</strong></p>
+    <p>Firstly, open the 'Investigate GO slims' page linked to from the QuickGO home page.</p>
+    <p>Click on the 'Choose Terms' tab and enter your list of GO identifiers into the 'Add Terms' text box then click on the 'Add Terms' button. You will automatically be taken to the 'Refine Selection' tab where your chosen terms will be listed. You may
+      add or delete terms from this list. Once you have a final list of GO terms, click on the 'Find Annotations' tab to view all the annotations in the UniProt-GOA database slimmed up to the selected terms. To limit the annotations to a particular list
+      of gene product identifiers, click on the 'Filter' button in the Annotation Toolbar, select the 'ID' tab and paste in a list of identifiers into the text box. Click on 'Submit' at the bottom of the window to view the annotations (the first 25 by
+      default).</p>
 
-      <h3>Additional options</h3>
-      <p>You can add a list of Gene product IDs that you would like to map the GO slim terms to. You can also click on the ‘Restrict by species’ area to view the list of species that you can choose to restrict the GO slim mapping to. Both of these options
-        are non-mandatory.</p>
-      <p>Once you have made all your selections, click on the ‘Submit’ button.</p>
-
-
-      <h3>Results</h3>
-      <p>You will now arrive at a results page that presents all annotations mapped to your GO slim terms (including annotations to child terms summed up to terms in the GO slim). These results are presented in a table with various columns.</p>
-      <p>To view the numbers of annotations found to each term in the GO slim and from your Gene products input (if any), click on the ‘Statistics’ tab.</p>
-
-      <h3>How do I make my own GO slim?</h3>
-      <p><strong>If you already have a set of GO identifiers that you would like to use as a GO slim:</strong></p>
-      <p>Firstly, open the 'Investigate GO slims' page linked to from the QuickGO home page.</p>
-      <p>Click on the 'Choose Terms' tab and enter your list of GO identifiers into the 'Add Terms' text box then click on the 'Add Terms' button. You will automatically be taken to the 'Refine Selection' tab where your chosen terms will be listed. You may
-        add or delete terms from this list. Once you have a final list of GO terms, click on the 'Find Annotations' tab to view all the annotations in the UniProt-GOA database slimmed up to the selected terms. To limit the annotations to a particular
-        list of gene product identifiers, click on the 'Filter' button in the Annotation Toolbar, select the 'ID' tab and paste in a list of identifiers into the text box. Click on 'Submit' at the bottom of the window to view the annotations (the first
-        25 by default).</p>
-
-      <p><strong>Alternatively, you can select terms for a slim while browsing in QuickGO:</strong></p>
-      <p>Users can add GO terms to the Term Basket (displayed at the top of each page) by clicking the basket add icon which appears adjacent to terms.</p>
-      <p>Links in the 'Term Basket' pop-up box allow users to modify and view this GO term set. To use the terms as a GO slim, click on the 'Use terms' button within the Term Basket pop-up window, this will take you to the 'Refine Selection' tab of the GO
-        Slims and GO Term Comparison page where your chosen terms will be listed. You may add or delete terms from this list. Once you have a final list of GO terms, click on the 'Find Annotations' tab to view all the annotations in the UniProt-GOA database
-        slimmed up to the selected terms. To limit the annotations to a particular list of gene product identifiers, click on the 'Filter' button in the Annotation Toolbar, select the 'ID' tab and paste in a list of identifiers into the text box. Click
-        on 'Submit' at the bottom of the window to view the annotations (the first 25 by default).</p>
-      <p>Finally, the annotation file can be downloaded by clicking on the 'Download' button on the Annotation Toolbar and choosing one of the download options. However, to ensure all annotations are downloaded, the download limit must be increased to the
-        number of annotations in the set (this value is found in the 'Statistics' section or on the top-left of the Annotation Download table).</p>
-
-
-
+    <p><strong>Alternatively, you can select terms for a slim while browsing in QuickGO:</strong></p>
+    <p>Users can add GO terms to the Term Basket (displayed at the top of each page) by clicking the basket add icon which appears adjacent to terms.</p>
+    <p>Links in the 'Term Basket' pop-up box allow users to modify and view this GO term set. To use the terms as a GO slim, click on the 'Use terms' button within the Term Basket pop-up window, this will take you to the 'Refine Selection' tab of the GO
+      Slims and GO Term Comparison page where your chosen terms will be listed. You may add or delete terms from this list. Once you have a final list of GO terms, click on the 'Find Annotations' tab to view all the annotations in the UniProt-GOA database
+      slimmed up to the selected terms. To limit the annotations to a particular list of gene product identifiers, click on the 'Filter' button in the Annotation Toolbar, select the 'ID' tab and paste in a list of identifiers into the text box. Click
+      on 'Submit' at the bottom of the window to view the annotations (the first 25 by default).</p>
+    <p>Finally, the annotation file can be downloaded by clicking on the 'Download' button on the Annotation Toolbar and choosing one of the download options. However, to ensure all annotations are downloaded, the download limit must be increased to the
+      number of annotations in the set (this value is found in the 'Statistics' section or on the top-left of the Annotation Download table).</p>
+  </div>
 </div>
+<nav class="grid_4" id="term-section-nav">
+  <ul>
+    <li du-scrollspy="choosing">
+      <a class="term-section-view" du-smooth-scroll="choosing">Choosing a slim</a>
+    </li>
+    <li du-scrollspy="additional">
+      <a class="term-section-view" du-smooth-scroll="additional">Additional options</a>
+    </li>
+    <li du-scrollspy="results">
+      <a class="term-section-view" du-smooth-scroll="results">Results</a>
+    </li>
+    <li du-scrollspy="own">
+      <a class="term-section-view" du-smooth-scroll="own">Make your own</a>
+    </li>
+  </ul>
+</nav>

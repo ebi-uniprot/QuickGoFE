@@ -4,7 +4,6 @@ app.controller('HelpCtrl', function($document, $anchorScroll){
   */
   $document.on('scroll', function() {
     var container = angular.element($document[0].querySelector('#container'));
-    console.log(container);
     if (container[0]) {
       if (container[0].getBoundingClientRect().top <= 10) {
         angular.element($document[0].querySelector('#term-section-nav')).addClass('fixed');
