@@ -1,0 +1,247 @@
+<div class="grid_18 help-content" id="container">
+  <h1>Help</h1>
+
+  <div id="co-occurence">
+    <h2>Co-occurence</h2>
+    <p>A list of terms which are most often annotated to the same proteins as the selected term, and the terms least often annotated to the same proteins.
+      <p>
+
+        <h4>Over represented terms</h4>
+        <p>Terms which are over-represented in the proteins annotated to selected term, sorted by probability ratio.</p>
+
+        <h4>Compared terms</h4>
+        <p>Compared term: this is compared to the selected term</p>
+
+        <h4>PR</h4>
+        <p>Probability ratio</p>
+        <p>Ratio of probability of compared term given selected term to probability of compared term =(#together/selected)/(#compared/#all</p>
+        <p>Probability of term here estimated as fraction of proteins annotated to term.</p>
+
+        <h4>S%</h4>
+        <p>Probability similarity ratio</p>
+        <p>Ratio of probability of both terms to probability of either term
+          <=#together/(#selected+#compared-#together)</p>
+            <p>Probability of term here estimated as fraction of proteins annotated to term.</p>
+
+            <h4>Together</h4>
+            <p>Count of proteins where both selected and compared terms are annotated</p>
+
+            <h4>Compared</h4>
+            <p>Count of proteins where compared term is annotated</p>
+
+            <h4>Selected</h4>
+            <p>Total count of proteins annotated to selected term</p>
+
+            <h4>All</h4>
+            <p>Total count of proteins</p>
+  </div>
+
+  <hr>
+
+  <div id="qualifiers">
+
+    <h2>Qualifiers</h2>
+
+    <h4>The NOT Qualifier</h4>
+    <p>NOT is used to make an explicit note that the gene product is not associated with the GO term.<a class="lb-cancel" href="http://www.geneontology.org/GO.annotation.conventions.shtml#not">GO Consortium documentation</a></p>
+
+    <h4>The Contributes_to Qualifier</h4>
+    <p>'Contributes_to' appears in a GO annotation when a function of a protein complex is facilitated, but not directly carried out by one of its subunits. <a class="lb-cancel" href="http://www.geneontology.org/GO.annotation.conventions.shtml#contributes_to">GO Consortium documentation</a>      </p>
+
+    <h4>The Colocalizes_with Qualifier</h4>
+    <p>'Colocalizes_with' appears in a GO annotation to indicate a transient or peripheral association of the protein with an organelle or complex. <a class="lb-cancel" href="http://www.geneontology.org/GO.annotation.conventions.shtml#colocalizes_with">GO Consortium documentation</a></p>
+  </div>
+  <hr>
+  <div id="references">
+    <h2>GO References</h2>
+
+    <h4>GO_REF:0000002</h4>
+    <p>Electronic annotation created from application of the <a class="lb-cancel" href="http://www.geneontology.org/external2go/interpro2go">InterPro to GO mapping </a> over UniProtKB. <a class="lb-cancel" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000002/">GO Consortium documentation </a></p>
+
+    <h4>GO_REF:0000003</h4>
+    <p>Electronic annotation created from application of the <a class="lb-cancel" href="http://www.geneontology.org/external2go/ec2go">Enzyme Commission number to GO mapping </a> over UniProtKB. <a class="lb-cancel" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000003/">GO Consortium documentation </a></p>
+
+    <h4>GO_REF:0000004</h4>
+    <p>Electronic annotation created from application of the <a class="lb-cancel" href="http://www.geneontology.org/external2go/spkw2go">Swiss-Prot Keyword to GO mapping </a> over UniProtKB. <a class="lb-cancel" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000004/">GO Consortium documentation </a></p>
+
+    <h4>GO_REF:0000015</h4>
+    <p>Manual annotation created when a curator has searched all the relevant literature for the annotated protein and found no information supporting an annotation to any GO term in a particular ontology. This reference can only be used with the three terms;
+      Molecular Function GO:0003674, Biological Process GO:0008150 and Cellular Component GO:0005575.
+      <a class="lb-cancel" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000015/">GO Consortium documentation </a></p>
+
+    <h4>GO_REF:0000019</h4>
+    <p>Electronic annotation created from the transfer of experimentally verified manual GO annotation data to orthologs using Ensembl orthology data.
+      <a class="lb-cancel" href="//www.ebi.ac.uk/GOA/compara_go_annotations"> UniProt-GOA documentation</a></p>
+
+    <h4>GO_REF:0000020</h4>
+    <p>Electronic annotation created from application of the <a class="lb-cancel" href="http://www.geneontology.org/external2go/hamap2go">HAMAP to GO mapping </a> over UniProtKB. <a class="lb-cancel" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000020/">GO Consortium documentation </a></p>
+
+    <h4>GO_REF:0000023</h4>
+    <p>Electronic annotation created from application of the <a class="lb-cancel" href="http://www.geneontology.org/external2go/spsl2go">UniProt Subcellular Location to GO mapping </a> over UniProtKB. <a class="lb-cancel" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000023/">GO Consortium documentation</a></p>
+
+    <h4>GO_REF:0000033</h4>
+    <p>Inferred annotation created by the GO Consortium's Reference Genome Project from annotation of evolutionary trees from the <a class="lb-cancel" href="http://www.pantherdb.org/">PANTHER database. </a>
+      <a class="lb-cancel" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000033/">GO Consortium documentation</a></p>
+  </div>
+  <hr>
+  <div id="ecos">
+    <h2>Evidence Codes</h2>
+
+    <h4>EXP</h4>
+    <p>Inferred from experiment. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>IDA</h4>
+    <p>Inferred by direct assay. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>IPI</h4>
+    <p>Inferred from physical interation. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>IMP</h4>
+    <p>Inferred from mutant phenotype. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>IEP</h4>
+    <p>Inferred from expression pattern. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>IGI</h4>
+    <p>Inferred from genetic interaction. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a></p>
+
+    <h4>RCA</h4>
+    <p>Inferred from reviewed computational analysis. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>IGC</h4>
+    <p>Inferred from genomic context. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>TAS</h4>
+    <p>Traceable author statement. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>NAS</h4>
+    <p>Non-traceable author statement. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>IC</h4>
+    <p>Inferred by curator. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>ND</h4>
+    <p>No data. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>ISS</h4>
+    <p>Inferred from sequence or structural similarity. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>ISO</h4>
+    <p>Inferred from sequence orthology. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>ISA</h4>
+    <p>Inferred from sequence alignment. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>ISM</h4>
+    <p>Inferred from sequence model. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+
+    <h4>IEA</h4>
+    <p>Inferred by electronic annotation. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
+  </div>
+
+  <div id="relationship">
+    <h2>Relationship Types</h2>
+
+    <h4>IS_A</h4>
+    <p>
+      Term A is_a term B means that term A is a subtype of term B.
+      <br /> For example, 'transcription' is a type of 'nucleic acid metabolic process'.
+    </p>
+
+    <h4>PART_OF</h4>
+    <p>
+      Term A part_of term B means that term A is always a part of term B.
+      <br /> For example, 'transcription' is always a part of 'gene expression'.
+    </p>
+
+    <h4>REGULATES</h4>
+    <p>
+      Term A regulates term B means that term A regulates term B, but term B may not always be regulated by term A.
+    </p>
+
+    <h4>POSITIVELY_REGULATES</h4>
+    <p>
+      A sub-relation of the 'regulates' relationship.
+      <br /> Term A positively_regulates term B means that term B is positively regulated by term A.
+    </p>
+
+    <h4>NEGATIVELY_REGULATES</h4>
+    <p>
+      A sub-relation of the 'regulates' relationship.
+      <br /> Term A negatively_regulates term B means that term B is negatively regulated by term A.
+    </p>
+
+    <h4>HAS_PART</h4>
+    <p>
+      has_part means that term B always has as part of it term A, but term A may exist independently of term B.
+      <br /> For example, 'protein binding trancription factor activity' always has as a part of it 'protein binding' but 'protein binding' may occur independently of transcription factor activity.
+      <br /> Note that has_part is not a transitive relationship, meaning there is NO implication that gene products annotated to term A could also be correctly associated with term B or any of its parent terms.
+      <br /> Has_part should be read in the opposite direction to the other relationships.
+    </p>
+
+    <h4>OCCURS_IN</h4>
+    <p>
+      Documentation coming shortly...
+    </p>
+  </div>
+
+  <div id="formats">
+    <h2>Data Download Formats</h2>
+    <p>
+      The filtered annotation sets you have created can be downloaded from QuickGO in a number of formats (see 'Tab-separated Values' below for a user-specified download format).
+    </p>
+    <h4>Gene Association File (GAF 2.1)</h4>
+    <p>The primary format used for annotation files by the GO Consortium. Fields are provided in a 17 column tab-delimited format. The GAF2.1 format specification is described <a href="http://geneontology.org/page/go-annotation-file-gaf-format-21">here</a>.</p>
+    <h4>Gene2GO</h4>
+    <p>A file format using 7 tab-delimited fields supplying 'Taxon', 'Gene Product ID', 'Evidence', 'Qualifier', 'GO Term Name', 'Reference' and 'Aspect' information.</p>
+
+    <h4>GPAD 1.1</h4>
+    <p>Described <a href="http://geneontology.org/page/gene-product-association-data-gpad-format">here</a>.</p>
+
+    <h4>ProteinList</h4>
+    <p>A tab-delimited list of unique proteins, as displayed in the 'Gene Product ID' field of the selected annotation set. Output includes specific protein descriptors: database (DB), identifier (ID), Symbol, Name, Synonym, Type and Taxon. N.B. the Synonym
+      field includes both synonymous protein or gene names or symbols, International Protein Index identifiers as well as secondary UniProtKB accessions.</p>
+
+    <h4>Fasta</h4>
+    <p>A FASTA-formatted output, providing UniProt accession, symbol, protein name and protein sequence of the proteins selected.</p>
+
+    <h4>Tab-separated Values</h4>
+    <p>A tab-separated format that reflects the columns selected in the QuickGO Protein Annotation table. The default table display can be altered by adding or removing columns using the options provided in the 'Display' pop-up.</p>
+  </div>
+
+  <div id="with">
+    <h2>'With' Strings</h2>
+
+    <h4>With:Not_supplied</h4>
+    <p>
+      The <a href="http://www.geneontology.org/GO.evidence.shtml#iss">GO Consortium guidelines</a> on the use of the Inferred from Sequence Similarity (ISS) evidence code recommends that the 'with' field be populated with a database identifier.
+      <br /> Where the 'with' field is populated with 'With:Not_supplied', the annotation group that created the annotation did not provide any entry for this field.
+    </p>
+  </div>
+</div>
+
+<nav class="grid_4" id="term-section-nav">
+  <ul>
+    <li du-scrollspy="co-occurence">
+      <a class="term-section-view" du-smooth-scroll="co-occurence">Co-occurence</a>
+    </li>
+    <li du-scrollspy="qualifiers">
+      <a class="term-section-view" du-smooth-scroll="qualifiers">Qualifiers</a>
+    </li>
+    <li du-scrollspy="references">
+      <a class="term-section-view" du-smooth-scroll="references">GO references</a>
+    </li>
+    <li du-scrollspy="ecos">
+      <a class="term-section-view" du-smooth-scroll="ecos">Evidence Codes</a>
+    </li>
+    <li du-scrollspy="relationship">
+      <a class="term-section-view" du-smooth-scroll="relationship">Relationship types</a>
+    </li>
+    <li du-scrollspy="formats">
+      <a class="term-section-view" du-smooth-scroll="formats">Download formats</a>
+    </li>
+    <li du-scrollspy="with">
+      <a class="term-section-view" du-smooth-scroll="with">'With' strings</a>
+    </li>
+  </ul>
+</nav>
