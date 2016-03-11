@@ -94,8 +94,9 @@ var app = angular
         templateUrl: 'help/slims.html',
         controller: 'HelpCtrl'
       })
-      .when('/help/co-occurence', {
-        templateUrl: 'help/co-occurence.html'
+      .when('/help/doc', {
+        templateUrl: 'help/doc.html',
+        controller: 'HelpCtrl'
       })
       .when('/help/faq/amigo', {
         templateUrl: 'help/faq/amigo.html'
