@@ -57,9 +57,18 @@
           <div class="form-group">
             <button class="btn quickgo-btn" type="button" ng-click="addGPs()">Add</button>
           </div>
+          <hr>
+          <div class="form-group">
+            <p>Type:</p>
+            <ul>
+              <li class="checkbox"><label><input type="checkbox" ng-model="filters.type['protein']" ng-change="updateFilters()"> proteins</label></li>
+              <li class="checkbox"><label><input type="checkbox" ng-model="filters.type['rna']" ng-change="updateFilters()"> RNAs</label></li>
+              <li class="checkbox"><label><input type="checkbox" ng-model="filters.type['complex']" ng-change="updateFilters()"> complexes</label></li>
+            </ul>
+          </div>
+          <hr>
           <div class="form-group"> <!-- 4 choices -->
-            <p>...or select a list of gene products:</p>
-
+            <p>List of gene products:</p>
             <ul>
               <li ng-repeat="gpSet in geneProductSets" class="checkbox">
                 <label>
