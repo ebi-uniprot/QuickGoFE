@@ -29,6 +29,13 @@
     <td class="td-no-icon">{{annotation.qualifier}}</td>
 
     <!-- GO Identifier-->
+    <td ng-show="showSlimColumns" class="text-nowrap">
+      <a href="term/{{annotation.originalTermId}}">{{annotation.originalTermId}}</a>
+      <basket-button termid="{{annotation.originalTermId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
+      <chart-icon term-id="annotation.originalTermId" term-name="annotation.originalTermName"></chart-icon>
+      {{annotation.originalTermName | shortenStringFilter}}
+    </td>
+
     <td class="text-nowrap">
       <div class="go-term">
         <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{annotation.aspect}}">{{annotation.aspect}}</span>
@@ -46,12 +53,6 @@
       </div>
     </td>
 
-    <td ng-show="showSlimColumns" class="text-nowrap">
-      <a href="term/{{annotation.originalTermId}}">{{annotation.originalTermId}}</a>
-      <basket-button termid="{{annotation.originalTermId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
-      <chart-icon term-id="annotation.originalTermId" term-name="annotation.originalTermName"></chart-icon>
-      {{annotation.originalTermName | shortenStringFilter}}
-    </td>
 
     <!-- Evidence: ECO:0000256  (IEA) -->
     <td class="text-nowrap">
