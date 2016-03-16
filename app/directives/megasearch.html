@@ -11,7 +11,7 @@
     <ul class="results-list" ng-show="terms.results.length > 0">
       <li ng-repeat="term in terms.results" ng-class="{'inactive':term.isObsolete==true}">
         <a ng-href="term/{{term.id}}">{{term.id}}</a>
-          <basket-button termid="{{term.id}}" icondisabled="{{term.isObsolete}}"></basket-button>
+          <basket-button ng-if="!term.ecoterm" termid="{{term.id}}" icondisabled="{{term.isObsolete}}"></basket-button>
           <chart-icon ng-show="{{!term.isObsolete}}" term-id="term.id" term-name="term.name"></chart-icon>
            - {{term.name}} <a ng-href="annotations/filter?id={{term.id}}" class="annotations-link"><annotations-link termid="{{term.id}}"></annotations-link></a>
       </li>

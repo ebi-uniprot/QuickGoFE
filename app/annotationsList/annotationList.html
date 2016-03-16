@@ -38,14 +38,14 @@
 
     <td class="text-nowrap">
       <div class="go-term">
-        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{annotation.aspect}}">{{annotation.aspect}}</span>
+        <span ng-if="annotation.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{annotation.aspect}}">{{annotation.aspect}}</span>
         <a class="quickgo-link selectable" href="term/{{annotation.goId}}">{{annotation.goId}}</a>
         <basket-button termid="{{annotation.goId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
         <chart-icon term-id="annotation.goId" term-name="annotation.termName"></chart-icon>
         <element uib-tooltip="{{annotation.termName}}">{{annotation.termName | shortenStringFilter}}</element>
       </div>
       <div ng-repeat="slimRepeat in annotation.slimsList" class="go-term slim-repeat">
-        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{slimRepeat.aspect}}">{{slimRepeat.aspect}}</span>
+        <span ng-if="slimRepeat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{slimRepeat.aspect}}">{{slimRepeat.aspect}}</span>
         <a class="quickgo-link selectable" href="term/{{slimRepeat.goId}}">{{slimRepeat.goId}}</a>
         <basket-button termid="{{slimRepeat.goId}}" icondisabled="{{slimRepeat.isObsolete}}"></basket-button>
         <chart-icon term-id="slimRepeat.goId" term-name="slimRepeat.termName"></chart-icon>
