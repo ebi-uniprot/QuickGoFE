@@ -14,7 +14,7 @@
     </div>
     <h2 class="page-title">
       {{termModel.termId}}
-      <basket-button ng-if="isGoTerm" termid="{{termModel.termId}}" icondisabled="{{!termModel.active}}"></basket-button>
+        <basket-button termid="{{termModel.termId}}" icondisabled="{{!termModel.active}}"></basket-button>
     </h2>
 
     <!-- Term name -->
@@ -139,6 +139,7 @@
 
     <!-- Child Terms -->
     <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0" ng-hide="isObsolete">
+
       <h3 class="term-section-header"><span uib-tooltip-template="'childterms.html'" tooltip-placement="top-right">Child Terms</span></h3>
       <div>
         <table class="two-colours">

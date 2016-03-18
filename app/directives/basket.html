@@ -3,5 +3,6 @@
 	ng-class="{'basket-added': inBasket, 'icon-generic': !hoverBasket, 'icon-functional': hoverBasket, 'icon-disabled': (iconDisabledStatus === 'true')}"
 	data-icon="{{getDataIcon()}}"
 	ng-mouseenter="hoverBasket = true"
-	ng-mouseleave="hoverBasket = false">
+	ng-mouseleave="hoverBasket = false"
+	ng-if="showIcon === true">
 </span>
