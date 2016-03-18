@@ -1,4 +1,6 @@
-<div id="content" class="container_24" role="main" cg-busy="termPromise">
+
+
+<div id="content" class="container_24" role="main" cg-busy="termPromise" ng-if="termModel.termId">
 
   <section id="container" class="grid_20">
   <!-- Title section -->
@@ -596,6 +598,18 @@
   </nav>
   <!--End of side bar information-->
 
+</div>
+<div id="containerNotFound"class="container_24 not-found" role="main">
+  <div class="container">
+    <h1>Not found <span>:(</span></h1>
+    <p>Sorry, but the Term you were trying to view does not exist.</p>
+    <p>Reported error: {{notFoundReason.statusText}}</p>
+    <p>It looks like this may have been caused by:</p>
+    <ul class="not-found-list">
+      <li>a mistyped URL</li>
+      <li>an out-of-date link</li>
+    </ul>
+  </div>
 </div>
 
 <script type="text/ng-template" id="synonyms.html"><span>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication

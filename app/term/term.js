@@ -57,6 +57,9 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
       });
     });
 
+  }, function(reason) {
+  $scope.notFoundReason = reason;
+  angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
   });
 
   if($scope.isGoTerm) {
