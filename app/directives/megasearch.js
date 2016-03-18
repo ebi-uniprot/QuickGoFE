@@ -20,7 +20,7 @@ angular
 					}
 
 					scope.timePromise = $timeout(function() {
-						if(scope.searchTerm || scope.searchTerm.length >3){
+					if(scope.searchTerm || scope.searchTerm.length >= 3){
 							loadData();
 						}
 					} ,500);
