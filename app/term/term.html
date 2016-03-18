@@ -12,7 +12,7 @@
     </div>
     <h2 class="page-title">
       {{termModel.termId}}
-      <basket-button ng-if="isGoTerm" termid="{{termModel.termId}}" icondisabled="{{!termModel.active}}"></basket-button>
+        <basket-button termid="{{termModel.termId}}" icondisabled="{{!termModel.active}}"></basket-button>
     </h2>
 
     <!-- Term name -->
@@ -137,6 +137,7 @@
 
     <!-- Child Terms -->
     <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0" ng-hide="isObsolete">
+
       <h3 class="term-section-header"><span uib-tooltip-template="'childterms.html'" tooltip-placement="top-right">Child Terms</span></h3>
       <div>
         <table class="two-colours">
@@ -148,7 +149,7 @@
           <tr ng-repeat="childRelation in termModel.childTermsRelations">
             <td>
               <a class="quickgo-link" ng-href="term/{{childRelation.id}}">{{childRelation.id}}</a>
-              <basket-button ng-if="isGoTerm" termid="{{childRelation.id}}"></basket-button>
+              <basket-button termid="{{childRelation.id}}"></basket-button>
               <chart-icon term-id="childRelation.id" term-name="childRelation.name"></chart-icon>
               {{childRelation.name}}
             </td>
