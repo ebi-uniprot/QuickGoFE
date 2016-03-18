@@ -188,6 +188,11 @@ textarea {
     color: $white;
     font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
   }
+  &.active-filter {
+    color: $white !important;
+    background-color: $ebi-green !important;
+    opacity: .6;
+  }
   &:hover {
     background-color: $primary1;
     color: $white;
