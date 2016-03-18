@@ -148,7 +148,7 @@
           <tr ng-repeat="childRelation in termModel.childTermsRelations">
             <td>
               <a class="quickgo-link" ng-href="term/{{childRelation.id}}">{{childRelation.id}}</a>
-              <basket-button termid="{{childRelation.id}}"></basket-button>
+              <basket-button ng-if="isGoTerm" termid="{{childRelation.id}}"></basket-button>
               <chart-icon term-id="childRelation.id" term-name="childRelation.name"></chart-icon>
               {{childRelation.name}}
             </td>
