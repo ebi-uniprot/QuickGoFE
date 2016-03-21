@@ -396,6 +396,10 @@ html.fontface .help-icon::before {
   background-color: $white;
   /* F5F5F5*/
   color: $darkishgrey;
+  p{
+    margin-top: 20px;
+    text-align: center;
+  }
 }
 
 /* TABLES   ----------------------------------------------------------------------------------------------------------*/
