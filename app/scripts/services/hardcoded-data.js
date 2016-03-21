@@ -17,7 +17,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {'name': 'colSlimmedGOTerm', 'value': 'Slimmed GO Term', 'slimCol':true, 'showWhenSlim':true},
     {'name': 'colEvidence', 'value': 'Evidence', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colReference', 'value': 'Reference', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colWith', 'value': 'With', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colWith', 'value': 'With / From', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colTaxon', 'value': 'Taxon', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colAssignedBy', 'value': 'Assigned By', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colAnnotationExtension', 'value': 'Annotation Extension', 'slimCol':false, 'showWhenSlim':true}
