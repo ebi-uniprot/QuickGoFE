@@ -40,6 +40,11 @@ var app = angular
         $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
       });
     }
+    $rootScope.isEmpty = function (obj) {
+        for (var i in obj) if (obj.hasOwnProperty(i)) return false;
+        return true;
+    };
+
   });
 
 
