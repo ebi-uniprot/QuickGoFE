@@ -100,7 +100,7 @@
       <div class="advanced-filter-content" uib-dropdown-menu>
         <form>
           <!-- 3 choices -->
-          <div class="y-scroll-200 inset-panel">
+          <div class="y-scroll-200 inset-panel" ng-hide="isEmpty(filters.goID)">
             <ul>
               <li ng-repeat="(basketId, value) in filters.goID" class="checkbox">
                 <label>
