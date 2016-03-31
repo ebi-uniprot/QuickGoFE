@@ -8,13 +8,14 @@ app.controller('BookmarkCtrl', function($scope, $routeParams,  $location, filter
 
   angular.forEach($routeParams, function(val, type){
       if(type === 'id') {
-      	if(val.startsWith('GO:')) {
+        isGoTerm = val.indexOf("GO");
+        if(isGoTerm >= 0){
           filteringService.saveValuesAsFilter('goID', val);
-      	} else if (val.startsWith('ECO:')) {
+      	} else {
           filteringService.saveValuesAsFilter('ecoID', val);
       	}
       } else {
-        filteringService.saveValuesAsFilter(type, val);        
+        filteringService.saveValuesAsFilter(type, val);
       }
   });
 
