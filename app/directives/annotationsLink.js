@@ -11,7 +11,7 @@ angular
 				attrs.$observe('termid', function() {
 					termId = attrs.termid;
 					if(termId) {
-						isGoTerm = termId.indexOf("GO");
+						var isGoTerm = termId.indexOf("GO");
 						if(isGoTerm >= 0){
 							searchService.findAnnotationsForTerm(termId).then(function(d){
 								$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();

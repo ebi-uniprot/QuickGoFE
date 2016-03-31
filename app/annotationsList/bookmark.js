@@ -8,7 +8,7 @@ app.controller('BookmarkCtrl', function($scope, $routeParams,  $location, filter
 
   angular.forEach($routeParams, function(val, type){
       if(type === 'id') {
-        isGoTerm = val.indexOf("GO");
+        var isGoTerm = val.indexOf("GO");
         if(isGoTerm >= 0){
           filteringService.saveValuesAsFilter('goID', val);
       	} else {
