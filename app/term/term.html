@@ -303,8 +303,7 @@
         <tr ng-repeat="replacement in termModel.replaces">
           <td><a class="quickgo-link" href="term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
           <td>{{replacement.child.name}}</td>
-          <td>{{replacement.typeof.description}} <a
-            href="term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
+          <td>{{replacement.typeof}} <a href="term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
           </td>
         </tr>
       </table>
