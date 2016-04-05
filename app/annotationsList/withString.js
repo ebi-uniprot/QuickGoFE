@@ -2,7 +2,8 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('WithStringCtrl', function($scope, $log, $uibModalInstance ) {
+app.controller('AnnotationListModalController', function($scope, $log, $uibModalInstance,
+  dbXrefService, $window) {
 
   /**
    * Close window
@@ -11,4 +12,3 @@ app.controller('WithStringCtrl', function($scope, $log, $uibModalInstance ) {
     $uibModalInstance.dismiss('cancel');
   };
 });
-
