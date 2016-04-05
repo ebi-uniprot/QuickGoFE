@@ -97,7 +97,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     if(sourceCheckBox == "rootTermBP"){
       if($scope.rootTermBP){
         $scope.addThisRootTerm = "GO:0008150";
-      }else {
+      } else {
         removeTerm("GO:0008150");
       }
     }
@@ -111,12 +111,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     }
 
     // Now lets add the Root term
-    $scope.rootTermsPromise = basketService.validateTerms($scope.addThisRootTerm);
-    $scope.rootTermsPromise.then(function(res){
-      addItemsToSelection(res.valid);
-      $scope.addThisRootTerm = "";
+    termService.getTerm($scope.addThisRootTerm).then(function(res){
+      addItemsToSelection(res.data);
     });
-
+    $scope.addThisRootTerm = "";
   }
 
   var removeTerm = function(termID){
@@ -152,19 +150,18 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   // Own terms
   $scope.addOwnTerms = function() {
-    $scope.ownTermPromise = basketService.validateTerms($scope.slimOwnTerms);
-    $scope.ownTermPromise.then(function(res){
-      console.log("res.valid: ",res.valid);
-      addItemsToSelection(res.valid);
-      if(res.missmatches.length > 0) {
-        $scope.otherAlerts = [];
-        $scope.otherAlerts.push(
-          {type: 'warning',msg: res.missmatches + ' are not valid identifiers.'}
-        );
-      }
-      //Clean up text area
-      $scope.slimOwnTerms = '';
+    var validatedTerms = basketService.validateTerms($scope.slimOwnTerms);
+    termService.getTerms(validatedTerms.valid).then(function(terms){
+      addItemsToSelection(terms.data);
     });
+    if(validatedTerms.missmatches.length > 0) {
+      $scope.otherAlerts = [];
+      $scope.otherAlerts.push(
+        {type: 'warning',msg: validatedTerms.missmatches + ' are not valid identifiers.'}
+      );
+    }
+    //Clean up text area
+    $scope.slimOwnTerms = '';
   };
 
 
