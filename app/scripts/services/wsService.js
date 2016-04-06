@@ -132,7 +132,7 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
     getLinkforId: function(name, id, xrefs) {
       //Overwrite for QuickGO instead of AMIGO
       if(name === 'GO') {
-        return 'http://' + $location.host() + '/term/GO:' + id;
+        return $location.absUrl().replace($location.path(), '/term/GO:' + id);
       } else {
         var match = _.find(xrefs, function(xref){
           return xref.database === name || _.contains(xref.synonyms, name);
