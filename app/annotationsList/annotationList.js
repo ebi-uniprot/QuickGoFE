@@ -158,12 +158,37 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
     var modalInstance = $uibModal.open({
       templateUrl: 'annotationsList/withStringModal.html',
-      controller: 'WithStringCtrl',
+      controller: 'AnnotationListModalController',
       size: 'md',
       scope: $scope
     });
 
   };
+
+  $scope.showAnnotationExtension = function(extension) {
+    $scope.extensions = [];
+    _.each(extension.split('|'), function(ext){
+      var extensionsLevel2 = [];
+      var extensionSplit = ext.split(',');
+      _.each(extensionSplit, function(extensionSplit){
+        var regExp = /([^(]+)\(([^)]+):([^)]+)\)/;
+        var match = regExp.exec(extensionSplit);
+        extensionsLevel2.push({
+          'relationship':match[1],
+          'database':match[2],
+          'id':match[3]
+        });
+      });
+      $scope.extensions.push(extensionsLevel2);
+    });
+
+    var modalInstance = $uibModal.open({
+      templateUrl: 'annotationsList/annotationExtensionModal.html',
+      controller: 'AnnotationListModalController',
+      size: 'md',
+      scope: $scope
+    });
+  }
 
 
   /**

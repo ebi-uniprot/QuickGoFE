@@ -105,7 +105,9 @@
      <td class="td-no-icon"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(annotation.assignedBy)">{{annotation.assignedBy}}</a></td>
 
      <!-- Annotation Extension -->
-     <td class="td-no-icon" uib-tooltip="{{annotation.fullExtension}}">{{annotation.fullExtension | shortenStringFilter}}</td>
+     <td class="td-no-icon" >
+       <a ng-click="showAnnotationExtension(annotation.fullExtension)">{{annotation.fullExtension | shortenStringFilter}}</a>
+     </td>
 
    </tr>
  </table>
