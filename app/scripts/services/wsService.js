@@ -131,10 +131,14 @@ wsService.factory('dbXrefService', ['$http', function($http){
     },
     getLinkforId: function(name, id, xrefs) {
       //Overwrite for QuickGO instead of AMIGO
-      var match = _.find(xrefs, function(xref){
-        return xref.database === name || _.contains(xref.synonyms, name);
-      });
-      return match.entity_types[0].url_syntax.replace('[example_id]', id);
+      if(name === 'GO') {
+        return "/term/GO:" + id;
+      } else {
+        var match = _.find(xrefs, function(xref){
+          return xref.database === name || _.contains(xref.synonyms, name);
+        });
+        return match.entity_types[0].url_syntax.replace('[example_id]', id);
+      }
     }
   };
 }])
