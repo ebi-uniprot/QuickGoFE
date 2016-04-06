@@ -118,7 +118,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   }
 }]);
 
-wsService.factory('dbXrefService', ['$http', function($http){
+wsService.factory('dbXrefService', ['$http', '$location', function($http, $location){
   return {
     getDbXrefs: function() {
       return $http.get('https://s3.amazonaws.com/go-public/metadata/db-xrefs.json', {cache: true});
@@ -132,7 +132,7 @@ wsService.factory('dbXrefService', ['$http', function($http){
     getLinkforId: function(name, id, xrefs) {
       //Overwrite for QuickGO instead of AMIGO
       if(name === 'GO') {
-        return "/term/GO:" + id;
+        return 'http://' + $location.host() + '/term/GO:' + id;
       } else {
         var match = _.find(xrefs, function(xref){
           return xref.database === name || _.contains(xref.synonyms, name);
