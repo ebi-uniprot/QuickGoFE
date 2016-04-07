@@ -56,7 +56,7 @@ module.exports = function (grunt) {
       beta: {
         constants: {
           ENV: {
-            apiEndpoint: 'http://www.ebi.ac.uk/QuickGO-beta/services'
+            apiEndpoint: 'http://www.ebi.ac.uk/QuickGO-Beta/services'
           }
         }
       }
@@ -373,7 +373,7 @@ module.exports = function (grunt) {
           patterns: [
             {
               match: / href=\"\/\"/g,
-              replacement: ' href="http://www.ebi.ac.uk/QuickGO-beta/"'
+              replacement: ' href="http://www.ebi.ac.uk/QuickGO-Beta/"'
             }
           ]
         },
