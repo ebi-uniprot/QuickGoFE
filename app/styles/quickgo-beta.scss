@@ -1,0 +1,37 @@
+$height : 600px;
+
+#feedback-widget {
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  bottom: - $height;
+  right: .2em;
+  text-align: right;
+  -webkit-transition: all .7s ease-in-out;
+  -moz-transition: all .7s ease-in-out;
+  -o-transition: all .7s ease-in-out;
+  transition: all .7s ease-in-out;
+  &:hover {
+    bottom: 0;
+    -webkit-transition: all .7s ease-in-out;
+    -moz-transition: all .7s ease-in-out;
+    -o-transition: all .7s ease-in-out;
+    transition: all .7s ease-in-out;
+    cursor: pointer;
+    div#feeback-trigger {
+      opacity: 1;
+    }
+  }
+  iframe {
+    display: block;
+    width: 500px;
+    height: $height;
+  }
+  div#feeback-trigger {
+    display: inline-block;
+    color: #FFF;
+    background-color: red;
+    opacity: .8;
+    padding: .5em;
+  }
+}
