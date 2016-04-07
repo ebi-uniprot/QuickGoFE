@@ -56,7 +56,7 @@ module.exports = function (grunt) {
       beta: {
         constants: {
           ENV: {
-            apiEndpoint: 'http://www.ebi.ac.uk/QuickGO-Beta/services'
+            apiEndpoint: 'http://www.ebi.ac.uk/QuickGO-beta/services'
           }
         }
       }
