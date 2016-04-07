@@ -1,13 +1,12 @@
 <div class="quickgo-modal">
 
-  <div ng-repeat="extension in extensions">
-    <p ng-repeat="ext in extension" class="text-center">
+  <div ng-repeat="extension in extensions" class="panel panel-default">
+    <div ng-repeat="ext in extension" class="panel-body text-center">
           {{ext.relationship}} (
           <a ng-click="followLinkToEntry(ext.database, ext.id)" target="_blank">
             {{ext.database}}:{{ext.id}}
           </a>)
-    </p>
-    <br>
+    </div>
   </div>
 
   <div class="modal-footer">
