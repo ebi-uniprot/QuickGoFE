@@ -1,45 +1,44 @@
 var filteringModule = angular.module('quickGoFeApp.FilteringModule', []);
 
-filteringModule.factory('filteringService', function(hardCodedDataService, basketService,
-   evidencetypes, withDBs, assignDBs) {
-
+filteringModule.factory('filteringService', function(hardCodedDataService,
+   evidencetypes, withDBs, assignDBs, basketService) {
   var filteringService = {};
-  var filters = {};
+  var _filters = {
+        taxon:{},
+        gpSet:{},
+        gpID:{},
+        gpType:{},
+        reference:{},
+        goID:{},
+        aspect:{},
+        qualifier:{},
+        ecoID:{},
+        ecoTermUse:'ancestor',
+        goTermUse:'ancestor',
+        goRelations:'IPO',
+        with:{},
+        assignedby:{},
+        gptype:{}
+      };
+
   //Define objects to take values
-  var namesMap = {};
+    var _namesMap = {};
 
   filteringService.initialiseFilters = function() {
-    filters = {
-      taxon:{},
-      gpSet:{},
-      gpID:{},
-      reference:{},
-      goID:{},
-      aspect:{},
-      qualifier:{},
-      ecoID:{},
-      ecoTermUse:'ancestor',
-      goTermUse:'ancestor',
-      goRelations:'IPO',
-      with:{},
-      assignedby:{},
-      gptype:{}
-    };
-
     // Taxons
     var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
     angular.forEach(mostCommonTaxonomies, function(taxon){
-      filters.taxon[taxon.taxId] = false;
-      namesMap[taxon.taxId] = taxon.title;
+      _filters.taxon[taxon.taxId] = false;
+      _namesMap[taxon.taxId] = taxon.title;
     });
 
     //Basket items
     basketService.getItems().then(function(d){
       var data = d.data;
       angular.forEach(data, function(goTerm){
-        filters.goID[goTerm.termId] = (filters.goID[goTerm.termId])
-                                            ? filters.goID[goTerm.termId] : false;
-        namesMap[goTerm.termId] = goTerm.name;
+        _filters.goID[goTerm.termId] = ($scope._filters.goID[goTerm.termId])
+                                            ? $scope._filters.goID[goTerm.termId] : false;
+        _namesMap[goTerm.termId] = goTerm.name;
       });
     });
 
@@ -50,9 +49,9 @@ filteringModule.factory('filteringService', function(hardCodedDataService, baske
       var evidenceTypes = _.sortBy(data, 'evidenceGOID');
       //The order of the evidence codes is important
       angular.forEach(evidenceTypes, function(evidenceType){
-        (filters.ecoID[evidenceType.ecoID]) = (filters.ecoID[evidenceType.ecoID])
-                                                  ? filters.ecoID[evidenceType.ecoID] : false;
-        namesMap[evidenceType.ecoID] = {
+        (_filters.ecoID[evidenceType.ecoID]) = (_filters.ecoID[evidenceType.ecoID])
+                                                  ? _filters.ecoID[evidenceType.ecoID] : false;
+        _namesMap[evidenceType.ecoID] = {
           evidenceGOID: evidenceType.evidenceGOID,
           evidenceName: evidenceType.evidenceName,
           evidenceSortOrder: evidenceType.evidenceSortOrder
@@ -63,8 +62,8 @@ filteringModule.factory('filteringService', function(hardCodedDataService, baske
     //References
     var referenceList = hardCodedDataService.getFilterReferences();
     angular.forEach(referenceList, function(ref){
-      filters.reference[ref.refId] = false;
-      namesMap[ref.refId] = ref.name;
+      _filters.reference[ref.refId] = false;
+      _namesMap[ref.refId] = ref.name;
     });
 
     // Get With DBs
@@ -72,8 +71,8 @@ filteringModule.factory('filteringService', function(hardCodedDataService, baske
     resultWDB.$promise.then(function(data){
       var withDBs = _.sortBy(data, 'dbId');
       angular.forEach(withDBs, function(withDB){
-        filters.with[withDB.dbId] = false;
-        namesMap[withDB.dbId] = withDB.xrefDatabase;
+        _filters.with[withDB.dbId] = false;
+        _namesMap[withDB.dbId] = withDB.xrefDatabase;
       });
     });
 
@@ -82,56 +81,64 @@ filteringModule.factory('filteringService', function(hardCodedDataService, baske
     resultADB.$promise.then(function(data){
       var assignDBs = _.sortBy(data, 'dbId');
       angular.forEach(assignDBs, function(assignDB){
-        filters.assignedby[assignDB.dbId] = false;
-        namesMap[assignDB.dbId] = assignDB.xrefDatabase;
+        _filters.assignedby[assignDB.dbId] = false;
+        _namesMap[assignDB.dbId] = assignDB.xrefDatabase;
       });
     });
 
     // Override filters
-    var filters = filteringService.getFilters();
-    angular.forEach(filters, function(d){
-      if(_.contains( ['ecoTermUse','goTermUse','goRelations'], d.type )) {
-        filters[d.type] = d.value;
-      } else {
-        filters[d.type][d.value] = true;
-      }
-    });
-    return filters;
+    // var filters = filteringService.getFilters();
+    // angular.forEach(_filters, function(d){
+    //   if(_.contains( ['ecoTermUse','goTermUse','goRelations'], d.type )) {
+    //     _filters[d.type] = d.value;
+    //   } else {
+    //     _filters[d.type][d.value] = true;
+    //   }
+    // });
+
+    // console.log('Filters:', $scope.filters);
+    return _filters;
+  }
+
+  filteringService.addFilter = function(type, key, value) {
+    _filters[type][key] = value;
   }
 
 
   filteringService.setFilters = function (filterList){
-    filters = filterList;
+    _filters = filterList;
   }
 
   filteringService.getFilters = function(){
-    return filters;
+    return _filters;
   }
 
-  filteringService.populateAppliedFilters = function(data){
-    angular.forEach(data, function(filter, type){
+  filteringService.populateAppliedFilters = function(){
+    var filterForPost = [];
+    angular.forEach(_filters, function(filter, type){
       if(typeof(filter) === 'string') {
         if(type === 'ecoTermUse'){
-          if(hasItems(data.ecoID)) {
-            filteringService.saveAppliedFilter({type: type, value:filter});
+          if(hasItems(_filters.ecoID)) {
+            filterForPost.push({type: type, value:filter});
           }
         } else if (type === 'goTermUse') {
-          if(hasItems(data.goID)) {
-            filteringService.saveAppliedFilter({type: type, value:filter});
+          if(hasItems(_filters.goID)) {
+            filterForPost.push({type: type, value:filter});
           }
         } else if (type === 'goRelations') {
-          if(hasItems(data.goID)) {
-            filteringService.saveAppliedFilter({type: type, value:filter});
+          if(hasItems(_filters.goID)) {
+            filterForPost.push({type: type, value:filter});
           }
         }
       } else {
         angular.forEach(filter, function(add, id){
           if(add) {
-            filteringService.saveAppliedFilter({type: type, value:id});
+            filterForPost.push({type: type, value:id});
           }
         });
       }
     });
+    return filterForPost;
   }
 
   var hasItems = function(terms) {
@@ -178,7 +185,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService, baske
   * Clear all filters
   */
   filteringService.clearFilters=function(){
-    filters = [];
+    _filters = filteringService.initialiseFilters();
   };
 
   filteringService.clearGPIds = function() {
@@ -193,9 +200,12 @@ filteringModule.factory('filteringService', function(hardCodedDataService, baske
   * Save the object to applied filters if it doesn't exist already
   */
   filteringService.saveValuesAsFilter=function(filtertype, aFilterValue) {
-
     var aFilter = {type: filtertype, value: aFilterValue};
     this.saveAppliedFilter(aFilter);
+  }
+
+  filteringService.hasSlims = function() {
+    return _.find(_filters, function(rw){ return rw.value == "slim" })
   }
 
   return filteringService;

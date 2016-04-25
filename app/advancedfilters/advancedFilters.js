@@ -1,107 +1,13 @@
 app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService, evidencetypes, withDBs,
   assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail, stringService) {
 
-    //Define objects to take values
-    $scope.namesMap = {};
-
-    var initialiseFilters = function() {
-      $scope.filters = {
-        taxon:{},
-        gpSet:{},
-        gpID:{},
-        gpType:{},
-        reference:{},
-        goID:{},
-        aspect:{},
-        qualifier:{},
-        ecoID:{},
-        ecoTermUse:'ancestor',
-        goTermUse:'ancestor',
-        goRelations:'IPO',
-        with:{},
-        assignedby:{},
-        gptype:{}
-      };
-
-      // Taxons
-      var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
-      angular.forEach(mostCommonTaxonomies, function(taxon){
-        $scope.filters.taxon[taxon.taxId] = false;
-        $scope.namesMap[taxon.taxId] = taxon.title;
-      });
-
-      //Basket items
-      basketService.getItems().then(function(d){
-        var data = d.data;
-        angular.forEach(data, function(goTerm){
-          $scope.filters.goID[goTerm.termId] = ($scope.filters.goID[goTerm.termId])
-                                              ? $scope.filters.goID[goTerm.termId] : false;
-          $scope.namesMap[goTerm.termId] = goTerm.name;
-        });
-      });
-
-
-      // Get Evidence Types
-      var resultET = evidencetypes.query();
-      resultET.$promise.then(function(data){
-        var evidenceTypes = _.sortBy(data, 'evidenceGOID');
-        //The order of the evidence codes is important
-        angular.forEach(evidenceTypes, function(evidenceType){
-          ($scope.filters.ecoID[evidenceType.ecoID]) = ($scope.filters.ecoID[evidenceType.ecoID])
-                                                    ? $scope.filters.ecoID[evidenceType.ecoID] : false;
-          $scope.namesMap[evidenceType.ecoID] = {
-            evidenceGOID: evidenceType.evidenceGOID,
-            evidenceName: evidenceType.evidenceName,
-            evidenceSortOrder: evidenceType.evidenceSortOrder
-          };
-        });
-      });
-
-      //References
-      var referenceList = hardCodedDataService.getFilterReferences();
-      angular.forEach(referenceList, function(ref){
-        $scope.filters.reference[ref.refId] = false;
-        $scope.namesMap[ref.refId] = ref.name;
-      });
-
-      // Get With DBs
-      var resultWDB = withDBs.query();
-      resultWDB.$promise.then(function(data){
-        var withDBs = _.sortBy(data, 'dbId');
-        angular.forEach(withDBs, function(withDB){
-          $scope.filters.with[withDB.dbId] = false;
-          $scope.namesMap[withDB.dbId] = withDB.xrefDatabase;
-        });
-      });
-
-      // Get Assigned DBs
-      var resultADB = assignDBs.query();
-      resultADB.$promise.then(function(data){
-        var assignDBs = _.sortBy(data, 'dbId');
-        angular.forEach(assignDBs, function(assignDB){
-          $scope.filters.assignedby[assignDB.dbId] = false;
-          $scope.namesMap[assignDB.dbId] = assignDB.xrefDatabase;
-        });
-      });
-
-      // Override filters
-      var filters = filteringService.getFilters();
-      angular.forEach(filters, function(d){
-        if(_.contains( ['ecoTermUse','goTermUse','goRelations'], d.type )) {
-          $scope.filters[d.type] = d.value;
-        } else {
-          $scope.filters[d.type][d.value] = true;
-        }
-      });
-
-      // console.log('Filters:', $scope.filters);
-    }
-
     $scope.showAllNotQualifiers = 0;
 
     // GET DATA
     $scope.qualifiers = hardCodedDataService.getQualifiers();
     $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
+
+    $scope.filters = filteringService.initialiseFilters();
 
     // Get predefined slim sets
     var resultPSS = PreDefinedSlimSets.query();
@@ -114,7 +20,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
       var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
       angular.forEach(taxons, function(taxonId){
         if(filteringService.validateTaxon(taxonId)) {
-          $scope.filters.taxon[taxonId] = true;
+          filteringService.addFilter('taxon',taxonId,true);
         }
       });
       $scope.updateFilters();
@@ -125,7 +31,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
       var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
       angular.forEach(gps, function(gpID){
         if(filteringService.validateGeneProduct(gpID)) {
-          $scope.filters.gpID[gpID] = true;
+          filteringService.addFilter('gpID',gpID,true);
         }
       });
       $scope.updateFilters();
@@ -136,7 +42,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
       var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
       angular.forEach(goterms, function(goTerm){
         if(filteringService.validateGOTerm(goTerm)){
-          $scope.filters.goID[goTerm] = true;
+          filteringService.addFilter('goID',goTerm,true);
         }
       });
       $scope.updateFilters();
@@ -149,7 +55,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
       });
       $scope.availablePredefinedTerms.$promise.then(function(data) {
         angular.forEach(data, function(d) {
-          $scope.filters.goID[d.termId] = true;
+          filteringService.addFilter('goID',d.termId,true);
         })
         $scope.updateFilters();
       });
@@ -159,7 +65,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
       var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
       angular.forEach(ecos, function(ecoID){
         if(filteringService.validateECOTerm(ecoID)) {
-          $scope.filters.ecoID[ecoID] = true;
+          filteringService.addFilter('ecoID',ecoID,true);
         }
       });
       $scope.updateFilters();
@@ -169,7 +75,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
     $scope.addReferences = function() {
       var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea);
       angular.forEach(refs, function(refID){
-        $scope.filters.reference[refID] = true;
+        filteringService.addFilter('reference',refID,true);
       });
       $scope.updateFilters();
       $scope.referenceTextArea = '';
@@ -179,7 +85,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
     $scope.addWith = function() {
       var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
       angular.forEach(withs, function(withId){
-        $scope.filters.with[withId] = true;
+        filteringService.addFilter('with',withId,true);
       });
       $scope.updateFilters();
       $scope.withTextArea = '';
@@ -187,23 +93,13 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
 
 
     $scope.updateFilters = function() {
-      //Clear existing filters
-      filteringService.clearFilters();
-
-      filteringService.populateAppliedFilters($scope.filters, $scope.isSlim);
-
-      //Tell annotations list this value has been updated.
       $scope.$parent.$parent.$broadcast('filtersUpdate', $scope.advancedFilters);
-
-      //Now go back to the annotation list
       $location.path("annotations");
-      var filters = filteringService.getFilters();
-      // console.log(filters);
+      // var filters = filteringService.getFilters();
     }
 
     $scope.clearFilters=function() {
       filteringService.clearFilters();
-      initialiseFilters();
       $scope.$parent.$parent.$broadcast('filtersClear');
     };
 
@@ -222,7 +118,4 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
         return el === true;
       }).length;
     }
-
-    initialiseFilters();
-
   });

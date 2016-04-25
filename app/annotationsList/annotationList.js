@@ -13,19 +13,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.maxSize=25;
   $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
 
-  $scope.filters = filteringService.initialiseFilters();
-
-  //The filters from the advanced filters modal dialogue, taxon checkbox, and sidebar input boxes.
-  //We may arrive at this page from the statistics page (or others) so will need to load the
-  //selected filters at page initialisation time.
-  $scope.appliedFilters = [];
-  $scope.appliedFilters = filteringService.getFilters();
-
   //Search filters applied to see if the flag for "slim" is set. If true, extra columns will be shown
-  $scope.showSlimColumns = _.find($scope.appliedFilters, function(rw){ return rw.value == "slim" });
-
-  //The raw list of filters as they come back from the advanced filters modal
-  $scope.advancedFilters = {};
+  // $scope.showSlimColumns = filteringService.hasSlims();
 
   $scope.evidenceSetter="ecoAncestorsI";
   $rootScope.header = "QuickGO::Annotation List";
@@ -45,7 +34,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
     //Create the object to send to the server
     var filterRequest = {};
-    filterRequest.list =  filteringService.getFilters();
+    filterRequest.list =  filteringService.populateAppliedFilters();
     filterRequest.rows =  $scope.maxSize;
     filterRequest.page = $scope.currentPage;
     // Post the filter request to the webservice
@@ -67,7 +56,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
         handleServerError(response.data);
       }
     });
-    $scope.showSlimColumns = _.find($scope.appliedFilters, function(rw){ return rw.value == "slim" });
+    $scope.showSlimColumns = filteringService.hasSlims();
   }
 
   function preProcess(data){
@@ -109,10 +98,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Listen to an update to the filters list that comes from the typeahead function
    */
-  $scope.$on('filtersUpdate', function(event) { //XAV: IS THIS STILL NEEDED?
-    //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
-    $scope.appliedFilters = filteringService.getFilters();
-    //refresh the page
+  $scope.$on('filtersUpdate', function(event) {
     $scope.currentPage=1;
     getResultsPage(1);
   });
@@ -123,12 +109,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    * Listen for clearing of the filters list (this is 'emit' from the Advanced Filters controller and the sidebar controller
    */
   $scope.$on('filtersClear', function(event) {
-
-    //Retrieve parsed filters - we don't need to do anything with the data supplied to this function.
-    $scope.appliedFilters = filteringService.getFilters();
-
-    $scope.advancedFilters =  {};
-    //refresh the page
     $scope.currentPage=1;
     getResultsPage(1);
   });
