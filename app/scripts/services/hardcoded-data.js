@@ -13,11 +13,11 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {'name': 'colSymbol', 'value': 'Symbol', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colQualifier', 'value': 'Qualifier', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colGOIdentifier', 'value': 'GO Term', 'slimCol':false, 'showWhenSlim':false},
-    {'name': 'colSlimmedGOTerm', 'value': 'Slimmed GO Term', 'slimCol':true, 'showWhenSlim':true},
     {'name': 'colOrigID', 'value': 'Original GO Term', 'slimCol':true, 'showWhenSlim':true},
+    {'name': 'colSlimmedGOTerm', 'value': 'Slimmed GO Term', 'slimCol':true, 'showWhenSlim':true},
     {'name': 'colEvidence', 'value': 'Evidence', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colReference', 'value': 'Reference', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colWith', 'value': 'With', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colWith', 'value': 'With / From', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colTaxon', 'value': 'Taxon', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colAssignedBy', 'value': 'Assigned By', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colAnnotationExtension', 'value': 'Annotation Extension', 'slimCol':false, 'showWhenSlim':true}
@@ -108,7 +108,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
       {name: 'Exosome', value: 'Exosome', link:'http://www.ebi.ac.uk/GOA/exosome', description:'The set of exosomal human proteins being prioritised for comprehensive annotation by the UniProt curators at the EBI.'},
       {name: 'KRUK', value: 'KRUK', link:'http://www.ebi.ac.uk/GOA/kidney', description:'The set of proteins associated with renal processes being prioritised for annotation by the EBI\'s Renal Gene Ontology Annotation Initiative'},
       {name: 'ParkinsonsUK-UCL', value: 'ParkinsonsUK-UCL', link:'http://www.ucl.ac.uk/functional-gene-annotation/neurological', description:'The set of Parkinson\'s Disease relevant proteins being prioritised for annotation by the Parkinson\'s Disease Gene Ontology Annotation Initiative located at University College London.'},
-      {name: 'Reference Genome', value: 'Reference Genome', link:'http://www.geneontology.org/GO.refgenome.shtml', description:'The set of human proteins being comprehensively curated by the UniProt-GOA project as part of the GO Consortium\'s Reference Genome initiative.'}
+      {name: 'Reference Genome', value: 'ReferenceGenome', link:'http://www.geneontology.org/GO.refgenome.shtml', description:'The set of human proteins being comprehensively curated by the UniProt-GOA project as part of the GO Consortium\'s Reference Genome initiative.'}
     ]
 
 

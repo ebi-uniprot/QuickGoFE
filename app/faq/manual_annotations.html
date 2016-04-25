@@ -1,0 +1,16 @@
+<div class="help-content grid_18">
+  <h1>FAQ</h1>
+  <h2>How do I see only manual annotations (i.e., exclude all electronic annotations)?</h2>
+
+  <p>Firstly, open the <a href="http://wwwdev.ebi.ac.uk/QuickGO/annotations" target="_blank">GO annotations page</a>, which is linked from the QuickGO home page (“View GO Annotations”).</p>
+
+  <p>You can then refine this annotation set by filtering on a number of different criteria, and in this case you need to use the “Evidence” filter.</p>
+
+  <p>To do this, click on the “Evidence” button above the list of annotations, and you will be presented with a list of predefined evidence codes from which you can select, and a text input box, in which you can enter a set of specific evidence codes.</p>
+
+  <p>Internally, QuickGO uses <a href="http://www.evidenceontology.org" target="_blank">ECO evidence codes</a>, which allows for the use of a much richer and more expressive set of evidence codes than the original GO evidence codes. ECO contains terms that are the direct equivalent of the GO evidence codes, and these are what you see in the predefined list, along with two higher-level groupings, “All manual codes” (ECO:0000352), and “All manual experimental codes” (ECO:0000269).</p>
+
+  <p>You can limit the set of annotations that QuickGO displays by using any combination of these predefined codes, or you can enter a list of ECO term identifiers in the text input box.</p>
+
+  <p>Note that QuickGO’s default behaviour is to find annotations whose evidence code is one of those that you specified or any of their descendants (as defined in the ontology); if you want to restrict the annotations to those with exactly the terms that you specify, then you must select the “Exact match” option.  </p>
+</div>

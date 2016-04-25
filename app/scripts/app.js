@@ -40,6 +40,11 @@ var app = angular
         $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
       });
     }
+    $rootScope.isEmpty = function (obj) {
+        for (var i in obj) if (obj.hasOwnProperty(i)) return false;
+        return true;
+    };
+
   });
 
 
@@ -86,13 +91,47 @@ var app = angular
         templateUrl: 'help/searching.html',
         controller: 'HelpCtrl'
       })
+      .when('/help/basket', {
+        templateUrl: 'help/basket.html',
+        controller: 'HelpCtrl'
+      })
       .when('/help/slims', {
         templateUrl: 'help/slims.html',
         controller: 'HelpCtrl'
       })
-      .when('/help/faq', {
-        templateUrl: 'help/faq.html',
+      .when('/help/doc', {
+        templateUrl: 'help/doc.html',
         controller: 'HelpCtrl'
+      })
+      .when('/faq/amigo', {
+        templateUrl: 'faq/amigo.html'
+      })
+      .when('/faq/gene_product_download', {
+        templateUrl: 'faq/gene_product_download.html'
+      })
+      .when('/faq/gp_list', {
+        templateUrl: 'faq/gp_list.html'
+      })
+      .when('/faq/human_proteome', {
+        templateUrl: 'faq/human_proteome.html'
+      })
+      .when('/faq/ids', {
+        templateUrl: 'faq/ids.html'
+      })
+      .when('/faq/manual_annotations', {
+        templateUrl: 'faq/manual_annotations.html'
+      })
+      .when('/faq/map_gp', {
+        templateUrl: 'faq/map_gp.html'
+      })
+      .when('/faq/pubmed_ref', {
+        templateUrl: 'faq/pubmed_ref.html'
+      })
+      .when('/faq/slims', {
+        templateUrl: 'faq/slims.html'
+      })
+      .when('/faq/webservices', {
+        templateUrl: 'faq/webservices.html'
       })
       .when('/term/:goId', {
         templateUrl: 'term/term.html',

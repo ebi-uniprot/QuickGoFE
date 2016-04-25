@@ -1,6 +1,102 @@
 app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService, evidencetypes, withDBs,
   assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail, stringService) {
 
+    //Define objects to take values
+    $scope.namesMap = {};
+
+    var initialiseFilters = function() {
+      $scope.filters = {
+        taxon:{},
+        gpSet:{},
+        gpID:{},
+        gpType:{},
+        reference:{},
+        goID:{},
+        aspect:{},
+        qualifier:{},
+        ecoID:{},
+        ecoTermUse:'ancestor',
+        goTermUse:'ancestor',
+        goRelations:'IPO',
+        with:{},
+        assignedby:{},
+        gptype:{}
+      };
+
+      // Taxons
+      var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+      angular.forEach(mostCommonTaxonomies, function(taxon){
+        $scope.filters.taxon[taxon.taxId] = false;
+        $scope.namesMap[taxon.taxId] = taxon.title;
+      });
+
+      //Basket items
+      basketService.getItems().then(function(d){
+        var data = d.data;
+        angular.forEach(data, function(goTerm){
+          $scope.filters.goID[goTerm.termId] = ($scope.filters.goID[goTerm.termId])
+                                              ? $scope.filters.goID[goTerm.termId] : false;
+          $scope.namesMap[goTerm.termId] = goTerm.name;
+        });
+      });
+
+
+      // Get Evidence Types
+      var resultET = evidencetypes.query();
+      resultET.$promise.then(function(data){
+        var evidenceTypes = _.sortBy(data, 'evidenceGOID');
+        //The order of the evidence codes is important
+        angular.forEach(evidenceTypes, function(evidenceType){
+          ($scope.filters.ecoID[evidenceType.ecoID]) = ($scope.filters.ecoID[evidenceType.ecoID])
+                                                    ? $scope.filters.ecoID[evidenceType.ecoID] : false;
+          $scope.namesMap[evidenceType.ecoID] = {
+            evidenceGOID: evidenceType.evidenceGOID,
+            evidenceName: evidenceType.evidenceName,
+            evidenceSortOrder: evidenceType.evidenceSortOrder
+          };
+        });
+      });
+
+      //References
+      var referenceList = hardCodedDataService.getFilterReferences();
+      angular.forEach(referenceList, function(ref){
+        $scope.filters.reference[ref.refId] = false;
+        $scope.namesMap[ref.refId] = ref.name;
+      });
+
+      // Get With DBs
+      var resultWDB = withDBs.query();
+      resultWDB.$promise.then(function(data){
+        var withDBs = _.sortBy(data, 'dbId');
+        angular.forEach(withDBs, function(withDB){
+          $scope.filters.with[withDB.dbId] = false;
+          $scope.namesMap[withDB.dbId] = withDB.xrefDatabase;
+        });
+      });
+
+      // Get Assigned DBs
+      var resultADB = assignDBs.query();
+      resultADB.$promise.then(function(data){
+        var assignDBs = _.sortBy(data, 'dbId');
+        angular.forEach(assignDBs, function(assignDB){
+          $scope.filters.assignedby[assignDB.dbId] = false;
+          $scope.namesMap[assignDB.dbId] = assignDB.xrefDatabase;
+        });
+      });
+
+      // Override filters
+      var filters = filteringService.getFilters();
+      angular.forEach(filters, function(d){
+        if(_.contains( ['ecoTermUse','goTermUse','goRelations'], d.type )) {
+          $scope.filters[d.type] = d.value;
+        } else {
+          $scope.filters[d.type][d.value] = true;
+        }
+      });
+
+      // console.log('Filters:', $scope.filters);
+    }
+
     $scope.showAllNotQualifiers = 0;
 
     // GET DATA

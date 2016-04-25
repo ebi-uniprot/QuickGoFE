@@ -52,6 +52,13 @@ module.exports = function (grunt) {
             apiEndpoint: 'http://wwwdev.ebi.ac.uk/QuickGO/services'
           }
         }
+      },
+      beta: {
+        constants: {
+          ENV: {
+            apiEndpoint: 'http://www.ebi.ac.uk/QuickGO-Beta/services'
+          }
+        }
       }
     },
 
@@ -348,12 +355,25 @@ module.exports = function (grunt) {
     },
 
     replace: {
-      dist: {
+      prod: {
         options: {
           patterns: [
             {
               match: / href=\"\/\"/g,
               replacement: ' href="http://wwwdev.ebi.ac.uk/QuickGO/"'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
+        ]
+      },
+      beta: {
+        options: {
+          patterns: [
+            {
+              match: / href=\"\/\"/g,
+              replacement: ' href="http://www.ebi.ac.uk/QuickGO-Beta/"'
             }
           ]
         },
@@ -579,7 +599,27 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'replace'
+    'replace:prod'
+  ]);
+
+  grunt.registerTask('build-beta', [
+    'clean:dist',
+    'ngconstant:beta',
+    'wiredep',
+    'useminPrepare',
+    'concurrent:dist',
+    'postcss',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'filerev',
+    'usemin',
+    'htmlmin',
+    'replace:beta'
   ]);
 
   grunt.registerTask('default', [

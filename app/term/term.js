@@ -2,7 +2,8 @@
  * Created by twardell on 02/02/2015.
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
-                                    ENV, filteringService, quickGOHelperService, $document, $routeParams, termService) {
+                                    ENV, filteringService, quickGOHelperService, $document, $routeParams, termService,
+                                    PreDefinedSlimSets) {
 
   $scope.targetDomainAndPort=ENV.apiEndpoint;
 
@@ -20,6 +21,9 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   }else{
     $scope.isGoTerm = true;
   }
+
+  //Get predefined slim sets
+  $scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
   /**
    * Get Term Data from WS
@@ -42,6 +46,20 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
       $scope.showRestrictions = true;
     }
 
+    //Set GO Slim subset counts
+    angular.forEach($scope.predefinedSlimSets, function(slim) {
+      angular.forEach($scope.termModel.subsets, function(subset) {
+
+        if (subset.name === slim.subset) {
+          subset.count = slim.subsetCount;
+        }
+
+      });
+    });
+
+  }, function(reason) {
+  $scope.notFoundReason = reason;
+  angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
   });
 
   if($scope.isGoTerm) {
@@ -63,7 +81,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         $scope.totalTogetherNonIEAStats = $scope.totalTogetherNonIEAStats + val.together;
         $scope.totalComparedNonIEAStats = $scope.totalComparedNonIEAStats + val.compared;
       });
-
     });
 
 

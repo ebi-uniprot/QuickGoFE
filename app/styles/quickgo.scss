@@ -188,6 +188,11 @@ textarea {
     color: $white;
     font-family: 'Helvetica neue', Helvetica, Arial, sans-serif;
   }
+  &.active-filter {
+    color: $white !important;
+    background-color: $ebi-green !important;
+    opacity: .6;
+  }
   &:hover {
     background-color: $primary1;
     color: $white;
@@ -391,6 +396,10 @@ html.fontface .help-icon::before {
   background-color: $white;
   /* F5F5F5*/
   color: $darkishgrey;
+  p{
+    margin-top: 20px;
+    text-align: center;
+  }
 }
 
 /* TABLES   ----------------------------------------------------------------------------------------------------------*/
@@ -793,6 +802,21 @@ section{
     border-bottom-style: dotted;
   }
 }
+.not-found{
+  display: none;
+}
+.show-not-found{
+  display: block;
+}
+
+.not-found-list{
+  list-style: disc;
+  li{
+    font-weight: bold;
+    margin-left: 30px;
+  }
+}
+
 
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
 
@@ -894,33 +918,26 @@ IMG.displayed {
 
 
 .help-point-panel {
-  background-color: $primary8;
-  min-height: 220px;
-  text-align: center;
-  margin-bottom: 20px;
-  margin-top: 20px;
   h3 {
-    color: $darkishgrey;
-    text-align: center;
-    a {
-      color: $darkishgrey;
-      padding-top: 0px;
-    }
-  }
-  color: $darkishgrey;
-
-  padding-top: 0px;
-  a {
-    color: $darkishgrey;
-    padding-top: 0px;
-    &:hover {
-      border-bottom: 1px solid $white;
-
+    color: $black;
+    border-bottom: none;
+    &.icon:before {
+      color: $darkgrey;
     }
   }
   ul {
-    margin-left: 30px;
-    margin-top: 30px;
+    margin-left: 2.2em;
+    li {
+      font-size: 1.25em;
+      line-height: 2.5;
+    }
+  }
+}
+
+.help-content {
+  p, ul {
+    font-size: 1.2em;
+    line-height: 2em;
   }
 }
 
@@ -940,4 +957,9 @@ IMG.displayed {
 .check-element {
   padding: 10px;
   background: white;
+}
+
+div.tooltip{
+  word-wrap: break-word;
+  white-space: normal;
 }

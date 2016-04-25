@@ -5,13 +5,13 @@
   </div>
 </div>
 
-<div class="items" ng-hide="!searchTerm.length || searchTerm.length < 4" ng-class="{'typeahead-box' : !noInput}">
+<div class="items" ng-hide="!searchTerm.length || searchTerm.length < 3" ng-class="{'typeahead-box' : !noInput}">
   <div cg-busy="goTermsPromise">
     <h3>Terms</h3>
     <ul class="results-list" ng-show="terms.results.length > 0">
       <li ng-repeat="term in terms.results" ng-class="{'inactive':term.isObsolete==true}">
         <a ng-href="term/{{term.id}}">{{term.id}}</a>
-          <basket-button termid="{{term.id}}" icondisabled="{{term.isObsolete}}"></basket-button>
+          <basket-button ng-if="!term.ecoterm" termid="{{term.id}}" icondisabled="{{term.isObsolete}}"></basket-button>
           <chart-icon ng-show="{{!term.isObsolete}}" term-id="term.id" term-name="term.name"></chart-icon>
            - {{term.name}} <a ng-href="annotations/filter?id={{term.id}}" class="annotations-link"><annotations-link termid="{{term.id}}"></annotations-link></a>
       </li>

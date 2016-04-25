@@ -1,49 +1,42 @@
-<div class="grid_23 text-container help-page" id="content">
-  <h2>Help</h2>
+<div class="grid_18 text-container help-page" id="content">
+  <h1>Help</h1>
 
-  <div class="quickgo-panel help-point-panel grid_11 push_1">
-    <h3>Searching and browsing QuickGO</h3>
+  <div class="help-point-panel">
+    <h3 class="icon icon-functional" data-icon="1">Searching and using QuickGO</h3>
     <ul>
-      <li><a href="help/searching?scrollTo=q1">Using the QuickGO home page</a></li>
-      <li><a href="help/searching?scrollTo=q2">Searching for ontology terms and gene products</a></li>
-      <li><a href="help/searching?scrollTo=q3">Using the term basket</a></li>
-      <li><a href="help/searching?scrollTo=q4">Viewing Gene Ontology annotations</a></li>
-      <li><a href="help/searching?scrollTo=q5">Viewing all annotations for the human proteome</a></li>
-      <li><a href="help/searching?scrollTo=q6">Viewing all annotations from a Pubmed reference</a></li>
-      <li><a href="help/searching?scrollTo=q7">Using the Gene Ontology term page</a></li>
+      <li><a href="help/searching">Searching for ontology terms and gene products</a></li>
+      <li><a href="help/basket">Using the term basket</a></li>
+      <li><a href="help/slims">Creating and using GO slims</a></li>
+      <li><a href="help/doc">Reference manual</a></li>
     </ul>
   </div>
 
-  <div class="grid_11 quickgo-panel push_2 help-point-panel" ng-click="annotationList()">
-    <h3>Creating and using GO slims</h3>
+  <hr>
+  <div class="help-point-panel" ng-click="annotationList()">
+    <h3 class="icon icon-generic" data-icon="G">FAQs</h3>
     <ul>
-      <li><a href="help/slims?scrollTo=q1">Slims overview</a></li>
-      <li><a href="help/slims?scrollTo=q2">Choosing a GO slim</a></li>
-      <li><a href="help/slims?scrollTo=q3">Additional options</a></li>
-      <li><a href="help/slims?scrollTo=q4">Results</a></li>
-      <li><a href="help/slims?scrollTo=q5">How do I make my own GO slim?</a></li>
+      <li><a href="faq/gene_product_download">Can I download annotations for a list of gene products?</a></li>
+      <li><a href="faq/manual_annotations">How do I see only manual annotations (i.e. exclude all electronic annotations)?</a></li>
+      <li><a href="faq/map_gp">I'd like to map my set of gene products to one of the existing predefined GO slims</a></li>
+      <li><a href="faq/slims">How do I make a GO Slim?</a></li>
+      <li><a href="faq/human_proteome">I would like to see and download annotations for just the human proteome</a></li>
+      <li><a href="faq/gp_list">I'd like to get a list of gene products which have all been annotated to the same GO term</a></li>
+      <li><a href="faq/pubmed_ref">I'd like to see all the annotations that used a particular PubMed reference</a></li>
+      <li><a href="faq/ids">I have RefSeq/UniGene/Ensembl etc. identifiers, can I query for these in QuickGO?</a></li>
+      <!-- <li><a href="help/faq/webservices">Do you provide any webservices for QuickGO?</a></li> -->
+      <li><a href="help/faq/amigo">Why do I get a different set of annotations when I look at the same gene/protein in AmiGO?</a></li>
+      <li><a href="http://www.ebi.ac.uk/GOA/publications"target="_blank">How to cite QuickGO?</a></li>
     </ul>
   </div>
-
-  <div class="quickgo-panel help-point-panel grid_11 push_1">
-    <h3>Quick links</h3>
+  <hr>
+  <div class="help-point-panel">
+    <h3 class="icon icon-generic" data-icon="T">Technical</h3>
     <ul>
-      <li><a href="#">Data sources</a></li>
-      <li><a href="#">Downloads</a></li>
-      <li><a href="#">UniProt-GOA project</a></li>
+      <li><a href="dataset">Data sources</a></li>
+      <li><a href="other">Post-processing rules</a></li>
+      <li><a href="http://www.ebi.ac.uk/GOA/downloads" target="_blank">Downloads</a></li>
+      <li><a href="http://www.ebi.ac.uk/GOA" target="_blank">UniProt-GOA project</a></li>
       <li><a href="http://geneontology.org" target="_blank">geneontology.org</a></li>
-      <li><a href="#">Web services</a></li>
-    </ul>
-  </div>
-
-  <div class="grid_11 quickgo-panel push_2 help-point-panel" ng-click="annotationList()">
-    <h3>FAQs</h3>
-    <ul>
-      <li><a href="help/faq?scrollTo=q1">Can I download annotations for a list of gene products?</a></li>
-      <li><a href="help/faq?scrollTo=q2">How do I see only manual annotations (i.e. exclude all electronic annotations)?</a></li>
-      <li><a href="help/faq?scrollTo=q3">I have a RefSeq?UniGene/Ensemble etc. ID, can I query for these in QuickGO?</a></li>
-      <li><a href="help/faq?scrollTo=q4">Can i map my RefSeq/UniGene/Ensemble etc. ID to UniProtKB accessions using QuickGO?</a></li>
-      <li><a href="help/faq?scrollTo=q5">Hoe to cite UniProt-GOA</a></li>
     </ul>
   </div>
 </div>

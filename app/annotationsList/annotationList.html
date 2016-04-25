@@ -29,16 +29,23 @@
     <td class="td-no-icon">{{annotation.qualifier}}</td>
 
     <!-- GO Identifier-->
+    <td ng-show="showSlimColumns" class="text-nowrap">
+      <a href="term/{{annotation.originalTermId}}">{{annotation.originalTermId}}</a>
+      <basket-button termid="{{annotation.originalTermId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
+      <chart-icon term-id="annotation.originalTermId" term-name="annotation.originalTermName"></chart-icon>
+      <element uib-tooltip="{{annotation.termName}}">{{annotation.originalTermName | shortenStringFilter}}</element>
+    </td>
+
     <td class="text-nowrap">
       <div class="go-term">
-        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{annotation.aspect}}">{{annotation.aspect}}</span>
+        <span ng-if="annotation.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{annotation.aspect}}">{{annotation.aspect}}</span>
         <a class="quickgo-link selectable" href="term/{{annotation.goId}}">{{annotation.goId}}</a>
         <basket-button termid="{{annotation.goId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
         <chart-icon term-id="annotation.goId" term-name="annotation.termName"></chart-icon>
         <element uib-tooltip="{{annotation.termName}}">{{annotation.termName | shortenStringFilter}}</element>
       </div>
       <div ng-repeat="slimRepeat in annotation.slimsList" class="go-term slim-repeat">
-        <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{slimRepeat.aspect}}">{{slimRepeat.aspect}}</span>
+        <span ng-if="slimRepeat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{slimRepeat.aspect}}">{{slimRepeat.aspect}}</span>
         <a class="quickgo-link selectable" href="term/{{slimRepeat.goId}}">{{slimRepeat.goId}}</a>
         <basket-button termid="{{slimRepeat.goId}}" icondisabled="{{slimRepeat.isObsolete}}"></basket-button>
         <chart-icon term-id="slimRepeat.goId" term-name="slimRepeat.termName"></chart-icon>
@@ -46,12 +53,6 @@
       </div>
     </td>
 
-    <td ng-show="showSlimColumns" class="text-nowrap">
-      <a href="term/{{annotation.originalTermId}}">{{annotation.originalTermId}}</a>
-      <basket-button termid="{{annotation.originalTermId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
-      <chart-icon term-id="annotation.originalTermId" term-name="annotation.originalTermName"></chart-icon>
-      {{annotation.originalTermName | shortenStringFilter}}
-    </td>
 
     <!-- Evidence: ECO:0000256  (IEA) -->
     <td class="text-nowrap">
@@ -104,7 +105,9 @@
      <td class="td-no-icon"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(annotation.assignedBy)">{{annotation.assignedBy}}</a></td>
 
      <!-- Annotation Extension -->
-     <td class="td-no-icon" uib-tooltip="{{annotation.fullExtension}}">{{annotation.fullExtension | shortenStringFilter}}</td>
+     <td class="td-no-icon" >
+       <a ng-click="showAnnotationExtension(annotation.fullExtension)">{{annotation.fullExtension | shortenStringFilter}}</a>
+     </td>
 
    </tr>
  </table>

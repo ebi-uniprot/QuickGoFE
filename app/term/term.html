@@ -1,4 +1,6 @@
-<div id="content" class="container_24" role="main" cg-busy="termPromise">
+
+
+<div id="content" class="container_24" role="main" cg-busy="termPromise" ng-if="termModel.termId">
 
   <section id="container" class="grid_20">
   <!-- Title section -->
@@ -12,7 +14,7 @@
     </div>
     <h2 class="page-title">
       {{termModel.termId}}
-      <basket-button termid="{{termModel.termId}}" icondisabled="{{!termModel.active}}"></basket-button>
+        <basket-button termid="{{termModel.termId}}" icondisabled="{{!termModel.active}}"></basket-button>
     </h2>
 
     <!-- Term name -->
@@ -43,7 +45,10 @@
     <p>
       <span ng-if="termModel.usage === 'Electronic'">This term should not be used for direct manual annotation; it may, however, be used for mapping to external vocabularies in order to create electronic annotations.</span>
       <span ng-if="termModel.usage === 'None'">This term should not be used for direct annotation.</span>
+      <br />
+      <span ng-if="termModel.comment">See comment below for further information.</span>
     </p>
+
     </section>
 
     <!-- Comments -->
@@ -134,6 +139,7 @@
 
     <!-- Child Terms -->
     <section id="childTerms" ng-if="termModel.childTermsRelations.length > 0" ng-hide="isObsolete">
+
       <h3 class="term-section-header"><span uib-tooltip-template="'childterms.html'" tooltip-placement="top-right">Child Terms</span></h3>
       <div>
         <table class="two-colours">
@@ -297,8 +303,7 @@
         <tr ng-repeat="replacement in termModel.replaces">
           <td><a class="quickgo-link" href="term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
           <td>{{replacement.child.name}}</td>
-          <td>{{replacement.typeof.description}} <a
-            href="term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
+          <td>{{replacement.typeof}} <a href="term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
           </td>
         </tr>
       </table>
@@ -347,7 +352,7 @@
                 </tr>
                 <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms">
                   <td width="70%">
-                    <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{allStat.aspect}}">{{allStat.aspect}}</span>
+                    <span ng-if="allStat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{allStat.aspect}}">{{allStat.aspect}}</span>
                     <a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a>
                     <basket-button termid="{{allStat.compare}}"></basket-button>
                     <chart-icon term-id="allStat.compare" term-name="allStat.name"></chart-icon>
@@ -386,7 +391,7 @@
                   </tr>
                   <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics">
                     <td width="70%">
-                      <span uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{nonIEAStat.aspect}}">{{nonIEAStat.aspect}}</span>
+                      <span ng-if="nonIEAStat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{nonIEAStat.aspect}}">{{nonIEAStat.aspect}}</span>
                       <a class="quickgo-link" ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
                       <basket-button termid="{{nonIEAStat.compare}}"></basket-button>
                       <chart-icon term-id="nonIEAStat.compare" term-name="nonIEAStat.name"></chart-icon>
@@ -420,11 +425,11 @@
       <table id="subsetsTable" class="two-colours">
         <tr>
           <th>GO slim name</th>
-          <th>Count of all terms</th>
+          <th>Total Number of Terms in Slim</th>
         </tr>
         <tr ng-repeat="subset in termModel.subsets">
           <td>{{subset.name}}</td>
-          <td>{{subset.termCount}}</td>
+          <td>{{subset.count}}</td>
         </tr>
       </table>
     </section>
@@ -593,6 +598,18 @@
   </nav>
   <!--End of side bar information-->
 
+</div>
+<div id="containerNotFound"class="container_24 not-found" role="main">
+  <div class="container">
+    <h1>Not found <span>:(</span></h1>
+    <p>Sorry, but the Term you were trying to view does not exist.</p>
+    <p>Reported error: {{notFoundReason.statusText}}</p>
+    <p>It looks like this may have been caused by:</p>
+    <ul class="not-found-list">
+      <li>a mistyped URL</li>
+      <li>an out-of-date link</li>
+    </ul>
+  </div>
 </div>
 
 <script type="text/ng-template" id="synonyms.html"><span>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
