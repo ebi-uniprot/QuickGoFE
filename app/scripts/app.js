@@ -63,6 +63,10 @@ var app = angular
         templateUrl: 'annotationsList/annotations.html',
         controller: 'Annotations'
       })
+      .when('/annotations/filter', {
+        templateUrl: 'annotationsList/annotations.html',
+        controller: 'Annotations'
+      })
       .when('/webservices', {
         templateUrl: 'nav/webservices.html',
         controller: 'WebServicesCtrl'
@@ -152,10 +156,6 @@ var app = angular
       .when('/terms/C', {
         templateUrl: 'simplelist/cellularcomponent.html',
         controller: 'CellularComponentListCtrl'
-      })
-      .when('/annotations/filter', {
-        templateUrl: 'annotationsList/annotationList.html',
-        controller: 'BookmarkCtrl'
       })
       .when('/annotationExtensionRelations', {
         templateUrl: 'views/annotationExtensionRelations.html',

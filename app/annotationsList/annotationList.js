@@ -37,6 +37,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     filterRequest.list =  filteringService.populateAppliedFilters();
     filterRequest.rows =  $scope.maxSize;
     filterRequest.page = $scope.currentPage;
+
     // Post the filter request to the webservice
     var request = {
       method: 'POST',

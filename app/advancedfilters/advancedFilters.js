@@ -1,6 +1,6 @@
-app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService, evidencetypes, withDBs,
-  assignDBs, filteringService, hardCodedDataService, PreDefinedSlimSets, PreDefinedSlimSetDetail, stringService) {
-
+app.controller('AdvancedFiltersCtrl', function($scope, $routeParams,
+  filteringService, hardCodedDataService, PreDefinedSlimSets,
+  PreDefinedSlimSetDetail, stringService) {
     $scope.showAllNotQualifiers = 0;
 
     // GET DATA
@@ -8,6 +8,24 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
     $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
 
     $scope.filters = filteringService.initialiseFilters();
+    console.log('init');
+
+    angular.forEach($routeParams, function(val, type) {
+        if(type === 'id') {
+          var isGoTerm = val.indexOf("GO");
+          if(isGoTerm >= 0) {
+            filteringService.addFilter('goID', val, true);
+          } else {
+            filteringService.addFilter('ecoID', val, true);
+          }
+        } else if(val.split(",").length > 0){
+          angular.forEach(val.split(','), function(value){
+            filteringService.addFilter(type,value,true)
+          });
+        } else {
+          filteringService.addFilter(type, val, true);
+        }
+    });
 
     // Get predefined slim sets
     var resultPSS = PreDefinedSlimSets.query();
@@ -93,13 +111,12 @@ app.controller('AdvancedFiltersCtrl', function($scope, $location, basketService,
 
 
     $scope.updateFilters = function() {
-      $scope.$parent.$parent.$broadcast('filtersUpdate', $scope.advancedFilters);
-      $location.path("annotations");
-      // var filters = filteringService.getFilters();
+      $scope.$parent.$parent.$broadcast('filtersUpdate');
     }
 
     $scope.clearFilters=function() {
       filteringService.clearFilters();
+      $scope.filters = filteringService.getFilters();
       $scope.$parent.$parent.$broadcast('filtersClear');
     };
 

@@ -256,30 +256,30 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
    * which we will forward to now
    */
   $scope.viewAnnotations = function(){
-    filteringService.clearFilters();
-    angular.forEach($scope.selectedItems, function(item){
-      filteringService.saveAppliedFilter({type: 'goID', value: item.termId});
-    });
-    filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
-    filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
+    // var url = "annotations/filter?goTermUse=slim&goRelations=IPO";
+
+    $location.search('goTermUse','slim');
+    $location.search('goRelations','IPO');
+
+    $location.search('goID', _.pluck($scope.selectedItems, 'termId').join(","));
 
     // Add gene products
     if($scope.genProductID){
       var geneProductsAdded = stringService.getTextareaItemsAsArray($scope.genProductID);
-      angular.forEach((geneProductsAdded), function(geneProdId) {
-        filteringService.saveAppliedFilter({type: 'gpID', value: geneProdId});
+      angular.forEach((geneProductsAdded), function(geneProdId, n) {
+        $location.search('gpID', geneProdId);
       });
     }
+
     // Add taxons
-    angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
-      console.log($scope.selectedSpecies[taxonId]);
-      if($scope.selectedSpecies[taxonId])
-        filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
-    });
-
-
-
-    $location.path("annotations");
+    if($scope.selectedSpecies){
+      angular.forEach(_.keys($scope.selectedSpecies), function(taxonId, n) {
+        if($scope.selectedSpecies[taxonId]) {
+          $location.search('taxon', taxonId);
+        }
+      });
+    }
+    $location.path("/annotations/filter");
   }
 
   $scope.clearSelection = function(){

@@ -3,28 +3,30 @@ var filteringModule = angular.module('quickGoFeApp.FilteringModule', []);
 filteringModule.factory('filteringService', function(hardCodedDataService,
    evidencetypes, withDBs, assignDBs, basketService) {
   var filteringService = {};
-  var _filters = {
-        taxon:{},
-        gpSet:{},
-        gpID:{},
-        gpType:{},
-        reference:{},
-        goID:{},
-        aspect:{},
-        qualifier:{},
-        ecoID:{},
-        ecoTermUse:'ancestor',
-        goTermUse:'ancestor',
-        goRelations:'IPO',
-        with:{},
-        assignedby:{},
-        gptype:{}
-      };
+  var _filters = {};
+  var _reset = true;
 
   //Define objects to take values
     var _namesMap = {};
 
   filteringService.initialiseFilters = function() {
+    _filters = {
+          taxon:{},
+          gpSet:{},
+          gpID:{},
+          gpType:{},
+          reference:{},
+          goID:{},
+          aspect:{},
+          qualifier:{},
+          ecoID:{},
+          ecoTermUse:'ancestor',
+          goTermUse:'ancestor',
+          goRelations:'IPO',
+          with:{},
+          assignedby:{},
+          gptype:{}
+        };
     // Taxons
     var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
     angular.forEach(mostCommonTaxonomies, function(taxon){
@@ -36,8 +38,8 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     basketService.getItems().then(function(d){
       var data = d.data;
       angular.forEach(data, function(goTerm){
-        _filters.goID[goTerm.termId] = ($scope._filters.goID[goTerm.termId])
-                                            ? $scope._filters.goID[goTerm.termId] : false;
+        _filters.goID[goTerm.termId] = (_filters.goID[goTerm.termId])
+                                            ? _filters.goID[goTerm.termId] : false;
         _namesMap[goTerm.termId] = goTerm.name;
       });
     });
@@ -86,17 +88,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
       });
     });
 
-    // Override filters
-    // var filters = filteringService.getFilters();
-    // angular.forEach(_filters, function(d){
-    //   if(_.contains( ['ecoTermUse','goTermUse','goRelations'], d.type )) {
-    //     _filters[d.type] = d.value;
-    //   } else {
-    //     _filters[d.type][d.value] = true;
-    //   }
-    // });
-
-    // console.log('Filters:', $scope.filters);
     return _filters;
   }
 
@@ -166,13 +157,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     return matches;
   }
 
-  // filteringService.validateReference = function(value) {
-  //     if(upperCase=='DOI*' || upperCase=='GO_REF*' || upperCase=='PMID*' || upperCase=='Reactome*'){
-  //     }
-  //     // Otherwise we should have a GO:REF
-  //     var niceContent = upperCase.match(/^GO_REF:\d{7}$/);
-  // }
-
   filteringService.validateTaxon = function(taxon){
        return taxon.match(/^[0-9]+$/);
   }
@@ -195,14 +179,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   filteringService.clearGOIds = function() {
 
   };
-
-  /**
-  * Save the object to applied filters if it doesn't exist already
-  */
-  filteringService.saveValuesAsFilter=function(filtertype, aFilterValue) {
-    var aFilter = {type: filtertype, value: aFilterValue};
-    this.saveAppliedFilter(aFilter);
-  }
 
   filteringService.hasSlims = function() {
     return _.find(_filters, function(rw){ return rw.value == "slim" })

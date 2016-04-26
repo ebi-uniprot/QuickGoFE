@@ -3,7 +3,7 @@
  */
 
 app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
-                                      filteringService, quickGOHelperService, termService, $window) {
+                                       quickGOHelperService, termService, $window) {
 
   $scope.loadBasketItems = function() {
     $scope.basketPromise = basketService.getItems();
@@ -91,15 +91,9 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Filter using basket go terms
    */
   $scope.filterUsingBasketTerms = function () {
-    angular.forEach($scope.basketItems, function(item){
-      filteringService.saveValuesAsFilter('goID', item.termId);
-    });
-
-    //Let the annotation list code know we have updated the filters
-    $scope.$emit('filtersUpdate', 0); //Xav: is this required?
+    $location.search('goID', _.pluck($scope.basketItems, 'termId').join(","));
     $uibModalInstance.dismiss('cancel');
-    $location.path("annotations");
-
+    $location.path("annotations/filter");
   };
 
   /**

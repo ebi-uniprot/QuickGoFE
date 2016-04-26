@@ -4,22 +4,23 @@
 app.controller('BookmarkCtrl', function($scope, $routeParams,  $location, filteringService) {
 
   filteringService.clearFilters();
-  var advancedFilters = [];
-
   angular.forEach($routeParams, function(val, type){
       if(type === 'id') {
         var isGoTerm = val.indexOf("GO");
         if(isGoTerm >= 0){
-          filteringService.saveValuesAsFilter('goID', val);
+          filteringService.addFilter('goID', val, true);
       	} else {
-          filteringService.saveValuesAsFilter('ecoID', val);
+          filteringService.addFilter('ecoID', val, true);
       	}
+      } else if(val.split(",").length > 0){
+        angular.forEach(val.split(','), function(value){
+          filteringService.addFilter(type,value,true)
+        });
       } else {
-        filteringService.saveValuesAsFilter(type, val);
+        filteringService.addFilter(type, val, true);
       }
   });
 
-
   //Go to annotation list page
-  $location.path('/annotations');
+  $location.url('annotations');
 });
