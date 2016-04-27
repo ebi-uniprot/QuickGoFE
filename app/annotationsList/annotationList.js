@@ -19,13 +19,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.evidenceSetter="ecoAncestorsI";
   $rootScope.header = "QuickGO::Annotation List";
 
-  $scope.currentPage=1;
-  getResultsPage();    //<--this is called instead by the page changed call
-
-  /**
-   * ------------------------------------ Local methods --------------------------------------------------
-   */
-
+  $scope.currentPage = 1;
+  getResultsPage();
 
   /**
    * Get the results page - Post version
@@ -142,8 +137,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
   }
 
-
-
   /**
    * Show the with_string modal on request
    */
@@ -212,15 +205,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
 
 });
-
-
-/**
- * ------------------------------------ End of AnnotationListCtrl Controller -----------------------------------------
- */
-
-/**
- * ------------------------------------ Other Controllers --------------------------------------------------
- */
 
 app.controller('ColumnOrderCtrl', function() {
 });

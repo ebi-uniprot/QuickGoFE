@@ -8,7 +8,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $routeParams,
     $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
 
     $scope.filters = filteringService.initialiseFilters();
-    console.log('init');
 
     angular.forEach($routeParams, function(val, type) {
         if(type === 'id') {
