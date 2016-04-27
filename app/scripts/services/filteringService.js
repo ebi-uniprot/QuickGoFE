@@ -27,13 +27,55 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
           assignedby:{},
           gptype:{}
         };
+
+    filteringService.initTaxon();
+    filteringService.initGpSet();
+    filteringService.initGpID();
+    filteringService.initGpType();
+    filteringService.initReference();
+    filteringService.initGoID();
+    filteringService.initAspect();
+    filteringService.initQualifier();
+    filteringService.initEcoID();
+    filteringService.initEcoTermUse();
+    filteringService.initGoTermUse();
+    filteringService.initGoRelations();
+    filteringService.initWith();
+    filteringService.initAssignedby();
+    filteringService.initGptype();
+
+    return _filters;
+  }
+
+  filteringService.initTaxon = function(){
     // Taxons
     var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
     angular.forEach(mostCommonTaxonomies, function(taxon){
       _filters.taxon[taxon.taxId] = false;
       _namesMap[taxon.taxId] = taxon.title;
     });
+  }
 
+  filteringService.initGpSet = function(){
+    _filters.gpSet = {};
+  }
+  filteringService.initGpID = function(){
+    _filters.gpId = {};
+  }
+  filteringService.initGpType = function(){
+    _filters.gpType = {};
+  }
+
+  filteringService.initReference = function() {
+    //References
+    var referenceList = hardCodedDataService.getFilterReferences();
+    angular.forEach(referenceList, function(ref){
+      _filters.reference[ref.refId] = false;
+      _namesMap[ref.refId] = ref.name;
+    });
+  }
+
+  filteringService.initGoID = function() {
     //Basket items
     basketService.getItems().then(function(d){
       var data = d.data;
@@ -43,8 +85,15 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
         _namesMap[goTerm.termId] = goTerm.name;
       });
     });
+  }
 
-
+  filteringService.initAspect = function() {
+    _filters.aspect = {};
+  }
+  filteringService.initQualifier = function() {
+    _filters.qualifier = {};
+  }
+  filteringService.initEcoID = function() {
     // Get Evidence Types
     var resultET = evidencetypes.query();
     resultET.$promise.then(function(data){
@@ -60,14 +109,18 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
         };
       });
     });
+  }
+  filteringService.initEcoTermUse = function() {
+      _filters.ecoTermUse = 'ancestor';
+  }
+  filteringService.initGoTermUse = function() {
+      _filters.goTermUse = 'ancestor';
+  }
+  filteringService.initGoRelations = function() {
+    _filters.goTermUse = 'IPO';
+  }
 
-    //References
-    var referenceList = hardCodedDataService.getFilterReferences();
-    angular.forEach(referenceList, function(ref){
-      _filters.reference[ref.refId] = false;
-      _namesMap[ref.refId] = ref.name;
-    });
-
+  filteringService.initWith = function() {
     // Get With DBs
     var resultWDB = withDBs.query();
     resultWDB.$promise.then(function(data){
@@ -77,7 +130,9 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
         _namesMap[withDB.dbId] = withDB.xrefDatabase;
       });
     });
+  }
 
+  filteringService.initAssignedby = function() {
     // Get Assigned DBs
     var resultADB = assignDBs.query();
     resultADB.$promise.then(function(data){
@@ -87,8 +142,10 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
         _namesMap[assignDB.dbId] = assignDB.xrefDatabase;
       });
     });
+  }
 
-    return _filters;
+  filteringService.initGptype = function() {
+      _filters.gpType = {};
   }
 
   filteringService.addFilter = function(type, key, value) {
@@ -138,10 +195,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     });
   }
 
-  filteringService.saveAppliedFilter = function(aFilter){
-    filters.push(aFilter);
-  }
-
   filteringService.validateGOTerm = function(term) {
       return term.match(/^GO:\d{7}$/);
   }
@@ -170,14 +223,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   */
   filteringService.clearFilters=function(){
     _filters = filteringService.initialiseFilters();
-  };
-
-  filteringService.clearGPIds = function() {
-
-  };
-
-  filteringService.clearGOIds = function() {
-
   };
 
   filteringService.hasSlims = function() {
