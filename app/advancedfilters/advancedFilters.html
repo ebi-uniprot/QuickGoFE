@@ -26,8 +26,9 @@
         other taxonomic groups</small></p>
           </div>
           <div class="form-group">
-            <button class="btn quickgo-btn" type="button" ng-click="addTaxons()">Add</button>
+            <button class="btn btn-default" type="button" ng-click="addTaxons()">Add</button>
           </div>
+          <hr>
           <div class="pull-right">
             <button class="btn quickgo-btn" type="button" ng-click="resetTaxons()">Reset</button>
             <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
@@ -58,7 +59,7 @@
             <textarea ng-model="gpTextArea" placeholder="A0A000, etc" class="form-control" rows="3"></textarea>
           </div>
           <div class="form-group">
-            <button class="btn quickgo-btn" type="button" ng-click="addGPs()">Add</button>
+            <button class="btn btn-default" type="button" ng-click="addGPs()">Add</button>
           </div>
           <hr>
           <div class="form-group">
@@ -92,6 +93,7 @@
             </ul>
           </div>
         </form>
+        <hr>
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetgpIds()">Reset</button>
           <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
@@ -123,7 +125,7 @@
             </p>
             <textarea class="form-group form-control" placeholder="GO:0016021, GO:0016022, ..." ng-model="goTermsTextArea" class="default"></textarea>
             <div class="form-group">
-              <button class="btn quickgo-btn" type="button" ng-click="addGoTerms()">Add</button>
+              <button class="btn btn-default" type="button" ng-click="addGoTerms()">Add</button>
             </div>
           </div>
           <div class="form-group">...or a predefined GO term set:
@@ -159,6 +161,7 @@
             </ul>
           </div>
         </form>
+        <hr>
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetGoTerms()">Reset</button>
           <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
@@ -188,12 +191,14 @@
             </label>
           </li>
         </form>
+        <hr>
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetAspect()">Reset</button>
           <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
         </div>
       </div>
     </li>
+
     <!-- EVIDENCE -->
     <li uib-dropdown auto-close="outsideClick" is-open="status.isopenEvidence">
       <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('ecoID')}" data-icon="/" uib-dropdown-toggle>
@@ -222,7 +227,7 @@
               <textarea class="form-control" ng-model="ecoTextArea" placeholder="ECO:0000352,..."></textarea>
             </div>
             <div class="form-group">
-              <button class="btn quickgo-btn" type="button" ng-click="addECOs()">Add</button>
+              <button class="btn btn-default" type="button" ng-click="addECOs()">Add</button>
             </div>
 
             <hr>
@@ -234,6 +239,7 @@
               <input type="radio" ng-model="filters.ecoTermUse" value="exact"  /> Exact match
             </div>
           </form>
+          <hr>
           <div class="pull-right">
             <button class="btn quickgo-btn" type="button" ng-click="resetECOs()">Reset</button>
             <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
@@ -257,7 +263,7 @@
     <hr>
     <!-- QUALIFIER -->
     <div class="grid_6">
-      <h5>Qualifier <small>({{isActiveFilter(filters.qualifier)}})</small></h5>
+      <h5>Qualifier</h5>
       <!-- GO ID -->
       <div>
         <form>
@@ -269,10 +275,11 @@
             </label>
           </div>
           <div class="form-group">
-            <button type="button" class="btn btn-primary quickgo-btn" ng-click="selectAllNotQualifiers()" ng-hide="showAllNotQualifiers">Select all NOT qualifiers</button>
+            <button type="button" class="btn btn-default" ng-click="selectAllNotQualifiers()" ng-hide="showAllNotQualifiers">Select all NOT qualifiers</button>
           </div>
           <p>Further details on the usage of the qualifier column can be found <a href="http://www.geneontology.org/page/go-annotation-conventions#qual" target="_blank">here</a>.</p>
         </form>
+        <hr>
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetQualifier()">Reset</button>
           <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
@@ -282,7 +289,7 @@
 
     <!-- REFERENCE -->
     <div class="grid_6">
-      <h5>Reference <small>({{isActiveFilter(filters.reference)}})</small></h5>
+      <h5>Reference</h5>
       <!-- GO ID -->
       <div>
         <form>
@@ -302,9 +309,10 @@
             <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
           </div>
           <div class="form-group">
-            <button class="btn quickgo-btn" type="button" ng-click="addReferences()">Add</button>
+            <button class="btn btn-default" type="button" ng-click="addReferences()">Add</button>
           </div>
         </form>
+        <hr>
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetReference()">Reset</button>
           <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
@@ -315,7 +323,7 @@
 
     <!-- WITH -->
     <div class="grid_6">
-      <h5>With/From <small>({{isActiveFilter(filters.with)}})</small></h5>
+      <h5>With/From</h5>
       <div>
         <form>
           <div class="y-scroll-200 inset-panel">
@@ -334,9 +342,10 @@
             <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
           </div>
           <div class="form-group">
-            <button class="btn quickgo-btn" type="button" ng-click="addWith()">Add</button>
+            <button class="btn btn-default" type="button" ng-click="addWith()">Add</button>
           </div>
         </form>
+        <hr>
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetWith()">Reset</button>
           <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
@@ -346,7 +355,7 @@
 
     <!-- ASSIGNED BY -->
     <div class="grid_6">
-      <h5>Assigned by <small>({{isActiveFilter(filters.assignedby)}})</small></h5>
+      <h5>Assigned by</h5>
       <!-- GO ID -->
       <div>
         <form>
