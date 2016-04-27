@@ -1,4 +1,4 @@
-app.controller('AdvancedFiltersCtrl', function($scope, $routeParams,
+app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
   filteringService, hardCodedDataService, PreDefinedSlimSets,
   PreDefinedSlimSetDetail, stringService) {
     $scope.showAllNotQualifiers = 0;
@@ -8,6 +8,10 @@ app.controller('AdvancedFiltersCtrl', function($scope, $routeParams,
     $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
 
     $scope.filters = filteringService.initialiseFilters();
+
+    $rootScope.$on('filtersUpdate', function(event) {
+      $scope.filters = filteringService.getFilters();
+    });
 
     angular.forEach($routeParams, function(val, type) {
         if(type === 'id') {
@@ -110,7 +114,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $routeParams,
 
 
     $scope.updateFilters = function() {
-      $scope.$parent.$parent.$broadcast('filtersUpdate');
+      $rootScope.$broadcast('filtersUpdate');
     }
 
     $scope.clearFilters=function() {

@@ -45,6 +45,12 @@ var app = angular
         return true;
     };
 
+    $rootScope.alerts = [];
+
+    $rootScope.closeAlert = function(index) {
+      $rootScope.alerts.splice(index, 1);
+    };
+
   });
 
 

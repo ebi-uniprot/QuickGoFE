@@ -71,11 +71,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   }
 
   function handleServerError(error) {
-    $uibModal.open({
-      template: '<h3>Error</h3><p>' + error.message + '</p>'
-    });
-    filteringService.clearGPIds();
-    filteringService.clearGOIds();
+    $scope.addAlert = function() {
+      $scope.alerts.push({msg: error.message});
+    };
+    filteringService.clearFilters();
+    $rootScope.$broadcast('filtersUpdate');
   }
 
   /**
@@ -94,7 +94,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Listen to an update to the filters list that comes from the typeahead function
    */
-  $scope.$on('filtersUpdate', function(event) {
+  $rootScope.$on('filtersUpdate', function(event) {
     $scope.currentPage=1;
     getResultsPage(1);
   });

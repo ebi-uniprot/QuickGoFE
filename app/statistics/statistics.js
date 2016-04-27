@@ -1,7 +1,8 @@
 /**
  * Created by twardell on 16/03/2015.
  */
-app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) {
+app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV,
+  filteringService) {
   $scope.stats = {};
   $scope.statsBean={};
   var statsLoaded = false;
@@ -36,7 +37,7 @@ app.controller('StatisticsCtrl', function($http, $scope, ENV, filteringService) 
 
   }
 
-  $scope.$on('filtersUpdate', function(event) {
+  $rootScope.$on('filtersUpdate', function(event) {
     if(statsLoaded) {
       loadStatistics();
     }
