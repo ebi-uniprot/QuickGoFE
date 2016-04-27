@@ -43,10 +43,4 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV,
     }
   });
 
-  $scope.$on('filtersClear', function(event) {
-    if(statsLoaded) {
-      loadStatistics();
-    }
-  });
-
 });

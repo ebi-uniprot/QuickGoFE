@@ -49,6 +49,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
 
   filteringService.initTaxon = function(){
     // Taxons
+    _filters.taxon = {};
     var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
     angular.forEach(mostCommonTaxonomies, function(taxon){
       _filters.taxon[taxon.taxId] = false;
@@ -68,6 +69,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
 
   filteringService.initReference = function() {
     //References
+    _filters.reference = {};
     var referenceList = hardCodedDataService.getFilterReferences();
     angular.forEach(referenceList, function(ref){
       _filters.reference[ref.refId] = false;
@@ -77,11 +79,11 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
 
   filteringService.initGoID = function() {
     //Basket items
+    _filters.goID = {};
     basketService.getItems().then(function(d){
       var data = d.data;
       angular.forEach(data, function(goTerm){
-        _filters.goID[goTerm.termId] = (_filters.goID[goTerm.termId])
-                                            ? _filters.goID[goTerm.termId] : false;
+        _filters.goID[goTerm.termId] = false;
         _namesMap[goTerm.termId] = goTerm.name;
       });
     });
@@ -90,18 +92,20 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   filteringService.initAspect = function() {
     _filters.aspect = {};
   }
+
   filteringService.initQualifier = function() {
     _filters.qualifier = {};
   }
+
   filteringService.initEcoID = function() {
     // Get Evidence Types
+    _filters.ecoID = {};
     var resultET = evidencetypes.query();
     resultET.$promise.then(function(data){
       var evidenceTypes = _.sortBy(data, 'evidenceGOID');
       //The order of the evidence codes is important
-      angular.forEach(evidenceTypes, function(evidenceType){
-        (_filters.ecoID[evidenceType.ecoID]) = (_filters.ecoID[evidenceType.ecoID])
-                                                  ? _filters.ecoID[evidenceType.ecoID] : false;
+      angular.forEach(evidenceTypes, function(evidenceType) {
+        _filters.ecoID[evidenceType.ecoID] = false;
         _namesMap[evidenceType.ecoID] = {
           evidenceGOID: evidenceType.evidenceGOID,
           evidenceName: evidenceType.evidenceName,
@@ -117,11 +121,12 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
       _filters.goTermUse = 'ancestor';
   }
   filteringService.initGoRelations = function() {
-    _filters.goTermUse = 'IPO';
+    _filters.goTermRelations = 'IPO';
   }
 
   filteringService.initWith = function() {
     // Get With DBs
+    _filters.with = {};
     var resultWDB = withDBs.query();
     resultWDB.$promise.then(function(data){
       var withDBs = _.sortBy(data, 'dbId');
@@ -134,6 +139,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
 
   filteringService.initAssignedby = function() {
     // Get Assigned DBs
+    _filters.assignedby = {};
     var resultADB = assignDBs.query();
     resultADB.$promise.then(function(data){
       var assignDBs = _.sortBy(data, 'dbId');
@@ -227,6 +233,19 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
 
   filteringService.hasSlims = function() {
     return _.find(_filters, function(rw){ return rw.value == "slim" })
+  }
+
+  filteringService.getApplied = function() {
+    var applied = {};
+    angular.forEach(_filters, function(val, key) {
+      filterList = _.filter(val, function(el) {
+        return el === true;
+      });
+      if(filterList.length > 0) {
+        applied[key] = filterList;
+      }
+    });
+    return applied;
   }
 
   return filteringService;

@@ -99,17 +99,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     getResultsPage(1);
   });
 
-
-
-  /**
-   * Listen for clearing of the filters list (this is 'emit' from the Advanced Filters controller and the sidebar controller
-   */
-  $scope.$on('filtersClear', function(event) {
-    $scope.currentPage=1;
-    getResultsPage(1);
-  });
-
-
   /**
    *
    * @param newPage
