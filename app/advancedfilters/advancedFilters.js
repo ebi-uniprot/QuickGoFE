@@ -10,6 +10,8 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.filters = filteringService.initialiseFilters();
     $scope.appliedFilters = {};
 
+    $scope.namesMap = {};
+
     $rootScope.$on('filtersUpdate', function(event) {
       $scope.filters = filteringService.getFilters();
     });
@@ -174,7 +176,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       $scope.status.isopenEvidence = false;
       $scope.showMore = false;
     }
-    
+
     $scope.selectAllNotQualifiers = function () {
       angular.forEach($scope.qualifiers, function(qualifier) {
         if(qualifier.qualifier.startsWith('NOT'))
@@ -185,4 +187,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.isActiveFilter = function(type) {
       return $scope.appliedFilters[type];
     }
+
+    $scope.namesMap = filteringService.getNamesMap();
   });

@@ -4,10 +4,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
    evidencetypes, withDBs, assignDBs, basketService) {
   var filteringService = {};
   var _filters = {};
-  var _reset = true;
-
-  //Define objects to take values
-    var _namesMap = {};
+  var _namesMap = {};
 
   filteringService.initialiseFilters = function() {
     _filters = {
@@ -246,6 +243,10 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
       }
     });
     return applied;
+  }
+
+  filteringService.getNamesMap = function() {
+    return _namesMap;
   }
 
   return filteringService;
