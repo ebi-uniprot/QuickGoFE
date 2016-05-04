@@ -72,9 +72,8 @@
 
     <div id="local-masthead" class="masthead grid_24 nomenu ">
 
-      <!-- WARNING message -->
-      <div id="beta-message"><element class="icon icon-generic" data-icon="l"></element>
-          <strong>This is a beta version of QuickGO, for testing purposes; performance may be slow, and the data may not be completely up-to-date.</strong></div>
+
+
 
       <!-- local-title -->
       <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
@@ -127,6 +126,11 @@
 
 
   <main class="grid_24 clearfix quickgo-content">
+
+    <!-- WARNING message -->
+
+        <uib-alert close="hideAlert = true" ng-hide="hideAlert" type="success" class="ng-hide">This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.</uib-alert>
+
 
   <!-- Global error message -->
   <div class="alert alert-danger grid_22 push_1 ng-hide" role="alert" ng-show="globalErrorMessage">
