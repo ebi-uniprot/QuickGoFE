@@ -119,7 +119,6 @@ makeMapFitImage = function(){
                     len = areas.length,
                     coords = [],
                     x = 0;
-                  
 
                for (n = 0; n < len; n++) {
                    coords[n] = areas[n].coords.split(',');
