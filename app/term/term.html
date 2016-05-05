@@ -113,10 +113,10 @@
       <h3 class="term-section-header">Ancestor Chart</h3>
       <span ng-show="!isObsolete"><chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size</span>
       <img class="displayed" ng-src="{{targetDomainAndPort}}/chart?ids={{graphModel.id}}"
-           id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
+           id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap" imageonload="makeMapFitImage()">
 
 
-      <map name="ontologygraphmap">
+      <map name="ontologygraphmap" id="ontologygraphmap">
         <span ng-repeat="layoutNode in graphImage.layoutNodes">
             <area shape="rect"
                   coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
