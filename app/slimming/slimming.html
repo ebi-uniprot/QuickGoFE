@@ -49,57 +49,6 @@
           </tr>
         </table>
 
-
-        <!-- <div style="width:50%; float:left">
-          <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets"
-          ng-change="updatePredefinedSets()"></select>
-        <ul>
-          {{predefinedSets['Biological Process'].length}}
-          <li ng-class="{'inactive': !predefinedMF.length}">
-            <input id="mf-checkbox" ng-model="predefinedCheckboxes.MFcheckbox" ng-show="predefinedMF.length" type="checkbox" />
-            <label for="mf-checkbox">Molecular Function terms <span ng-if="predefinedMF.length">({{predefinedMF.length}})</span></label>
-          </li>
-          <li ng-class="{'inactive': !predefinedBP.length}">
-            <input id="bp-checkbox" ng-model="predefinedCheckboxes.BPcheckbox" ng-show="predefinedBP.length" type="checkbox" />
-            <label for="bp-checkbox">Biological Process terms <span ng-if="predefinedBP.length">({{predefinedBP.length}})</span></label>
-          </li>
-            <li ng-class="{'inactive': !predefinedCC.length}">
-            <input id="cc-checkbox" ng-model="predefinedCheckboxes.CCcheckbox" ng-show="predefinedCC.length" type="checkbox" />
-            <label for="cc-checkbox">Cellular Component terms <span ng-if="predefinedCC.length">({{predefinedCC.length}})</span></label>
-          </li>
-        </ul>
-      </div> -->
-
-
-<!-- <div style="width:50%; float:left">
-        <h5 ng-hide="!predefinedMF.length && !predefinedBP.length && !predefinedCC.length">Include optional root terms:</h5>
-        <ul>
-          <li ng-class="{'section-disabled': !rootTermMF }" ng-hide="!predefinedMF.length">
-            <input type="checkbox" ng-model="$parent.$parent.rootTermMF" ng-change="addRootTerm('rootTermMF')">
-            <a href="term/{{rootTermMFID}}" target="_blank">{{rootTermMFID}}</a>
-            <basket-button termid="{{rootTermMFID}}"></basket-button>
-            <chart-icon term-id="rootTermMFID" term-name="molecular_function"></chart-icon>
-            Molecular Function
-          </li>
-          <li ng-class="{'section-disabled': !rootTermBP }" ng-hide="!predefinedBP.length">
-            <input type="checkbox" ng-model="$parent.$parent.rootTermBP" ng-change="addRootTerm('rootTermBP')">
-            <a href="term/{{rootTermBPID}}" target="_blank">{{rootTermBPID}}</a>
-            <basket-button termid="{{rootTermBPID}}"></basket-button>
-            <chart-icon term-id="rootTermBPID" term-name="biological_process"></chart-icon>
-            Biological Process
-          </li>
-          <li ng-class="{'section-disabled': !rootTermCC }" ng-hide="!predefinedCC.length">
-            <input type="checkbox" ng-model="$parent.$parent.rootTermCC" ng-change="addRootTerm('rootTermCC')">
-            <a href="term/{{rootTermCCID}}" target="_blank">{{rootTermCCID}}</a>
-            <basket-button termid="{{rootTermCCID}}"></basket-button>
-            <chart-icon term-id="rootTermCCID" term-name="cellular_component"></chart-icon>
-            Cellular Component
-          </li>
-        </ul>
-</div> -->
-
-
-
         <button class="btn quickgo-btn pull-right" ng-disabled="availablePredefinedTerms.length == 0" ng-click="addPredefined()">Add to selection</button>
         <button class="btn quickgo-btn icon-functional pull-right view-chart-button" ng-disabled="availablePredefinedTerms.length == 0" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
         <div class="clearfix"></div>
@@ -178,32 +127,6 @@
     <h4>Choose or input GO terms above to view your selection here</h4>
   </div>
   <div ng-if="selectedItems.length >= 1">
-
-    <!-- <h5>Optional root terms:</h5>
-    <ul>
-      <li ng-class="{'section-disabled': !rootTermMF }" ng-hide="!getSelectedMFTerms().length">
-        <input type="checkbox" ng-model="$parent.$parent.rootTermMF" ng-change="addRootTerm('rootTermMF')">
-        <a href="term/{{rootTermMFID}}" target="_blank">{{rootTermMFID}}</a>
-        <basket-button termid="{{rootTermMFID}}"></basket-button>
-        <chart-icon term-id="rootTermMFID" term-name="molecular_function"></chart-icon>
-        Molecular Function
-      </li>
-      <li ng-class="{'section-disabled': !rootTermBP }" ng-hide="!getSelectedBPTerms().length">
-        <input type="checkbox" ng-model="$parent.$parent.rootTermBP" ng-change="addRootTerm('rootTermBP')">
-        <a href="term/{{rootTermBPID}}" target="_blank">{{rootTermBPID}}</a>
-        <basket-button termid="{{rootTermBPID}}"></basket-button>
-        <chart-icon term-id="rootTermBPID" term-name="biological_process"></chart-icon>
-        Biological Process
-      </li>
-      <li ng-class="{'section-disabled': !rootTermCC }" ng-hide="!getSelectedCCTerms().length">
-        <input type="checkbox" ng-model="$parent.$parent.rootTermCC" ng-change="addRootTerm('rootTermCC')">
-        <a href="term/{{rootTermCCID}}" target="_blank">{{rootTermCCID}}</a>
-        <basket-button termid="{{rootTermCCID}}"></basket-button>
-        <chart-icon term-id="rootTermCCID" term-name="cellular_component"></chart-icon>
-        Cellular Component
-      </li>
-    </ul> -->
-
 
     <h5 ng-class="{'inactive': !getSelectedMFTerms().length}">Molecular Function Terms <span ng-if="getSelectedMFTerms().length">({{getSelectedMFTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
