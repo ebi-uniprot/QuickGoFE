@@ -8,9 +8,6 @@
       <uib-tab heading="Predefined GO slims">
       <div class="select-container">
 
-
-
-
         <table class="no-table-styling slim-table">
           <tr>
             <td>
@@ -18,7 +15,6 @@
               ng-change="updatePredefinedSets()"></select>
             </td>
             <td>
-              <h5 ng-hide="!predefinedMF.length && !predefinedBP.length && !predefinedCC.length">Include optional root terms:</h5>
             </td>
           </tr>
           <tr>
@@ -28,10 +24,7 @@
             </td>
             <td ng-class="{'section-disabled': !rootTermMF }" ng-hide="!predefinedMF.length">
               <input id="mf-checkbox-root" type="checkbox" ng-model="$parent.$parent.rootTermMF">
-              <a href="term/{{rootTermMFID}}" target="_blank">{{rootTermMFID}}</a>
-              <basket-button termid="{{rootTermMFID}}"></basket-button>
-              <chart-icon term-id="rootTermMFID" term-name="molecular_function"></chart-icon>
-              <label for="mf-checkbox-root">Molecular Function</label>
+              <label for="mf-checkbox-root">include root term</label>
             </td>
           </tr>
           <tr>
@@ -41,10 +34,7 @@
             </td>
             <td ng-class="{'section-disabled': !rootTermBP }" ng-hide="!predefinedBP.length">
               <input id="bp-checkbox-root" type="checkbox" ng-model="$parent.$parent.rootTermBP">
-              <a href="term/{{rootTermBPID}}" target="_blank">{{rootTermBPID}}</a>
-              <basket-button termid="{{rootTermBPID}}"></basket-button>
-              <chart-icon term-id="rootTermBPID" term-name="biological_process"></chart-icon>
-              <label for="bp-checkbox-root">Biological Process</label>
+              <label for="bp-checkbox-root">include root term</label>
             </td>
           </tr>
           <tr>
@@ -54,10 +44,7 @@
             </td>
             <td ng-class="{'section-disabled': !rootTermCC }" ng-hide="!predefinedCC.length">
               <input id="cc-checkbox-root" type="checkbox" ng-model="$parent.$parent.rootTermCC">
-              <a href="term/{{rootTermCCID}}" target="_blank">{{rootTermCCID}}</a>
-              <basket-button termid="{{rootTermCCID}}"></basket-button>
-              <chart-icon term-id="rootTermCCID" term-name="cellular_component"></chart-icon>
-              <label for="cc-checkbox-root">Cellular Component</label>
+              <label for="cc-checkbox-root">include root term</label>
             </td>
           </tr>
         </table>
