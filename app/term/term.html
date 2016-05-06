@@ -122,8 +122,7 @@
                   coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
                   ng-href="term/{{layoutNode.id}}"
                   alt="Term {{layoutNode.id}}"
-                  title="{{layoutNode.id}} - Click for more information"
-                  target="_blank">
+                  title="{{layoutNode.id}} - Click for more information">
           </span>
         <span ng-repeat="legendNode in graphImage.legendNodes">
           <div ng-mouseover="formattedTooltip(legendNode.topic)">
