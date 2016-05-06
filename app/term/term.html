@@ -111,7 +111,7 @@
     <!-- Ancestors graph -->
     <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise" ng-show="!isObsolete">
       <h3 class="term-section-header">Ancestor Chart</h3>
-      <span ng-show="!isObsolete"><chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size</span>
+      <span ng-show="!isObsolete" id="view-full-size"><chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size</span>
       <img class="displayed" ng-src="{{targetDomainAndPort}}/chart?ids={{graphModel.id}}"
            id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
 
