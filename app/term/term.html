@@ -98,12 +98,12 @@
       <h3 class="term-section-header"><span uib-tooltip-template="'synonyms.html'" tooltip-placement="top-right">Synonyms</span></h3>
       <table id="synonymsTableAccordian" class="two-colours">
         <tr>
-          <th>Type</th>
           <th>Synonym</th>
+          <th>Type</th>
         </tr>
         <tr ng-repeat="synonym in termModel.synonyms">
-          <td>{{synonym.type}}</td>
           <td>{{synonym.name}}</td>
+          <td>{{synonym.type}}</td>
         </tr>
       </table>
     </section>
