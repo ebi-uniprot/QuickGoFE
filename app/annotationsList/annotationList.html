@@ -30,6 +30,7 @@
 
     <!-- GO Identifier-->
     <td ng-show="showSlimColumns" class="text-nowrap">
+      <span ng-if="annotation.originalAspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{annotation.originalAspect}}">{{annotation.originalAspect}}</span>
       <a href="term/{{annotation.originalTermId}}">{{annotation.originalTermId}}</a>
       <basket-button termid="{{annotation.originalTermId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
       <chart-icon term-id="annotation.originalTermId" term-name="annotation.originalTermName"></chart-icon>
