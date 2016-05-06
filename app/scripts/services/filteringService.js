@@ -235,7 +235,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   filteringService.getApplied = function() {
     var applied = {};
     angular.forEach(_filters, function(val, key) {
-      filterList = _.filter(val, function(el) {
+      var filterList = _.filter(val, function(el) {
         return el === true;
       });
       if(filterList.length > 0) {
