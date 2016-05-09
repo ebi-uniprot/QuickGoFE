@@ -444,6 +444,9 @@ td.a-filter {
   height: 30px;
 }
 
+.slim-table td:nth-child(even){
+  padding-left: 40px;
+}
 
 /* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
 
@@ -893,7 +896,7 @@ IMG.displayed {
   height: 3em;
   word-wrap: break-word;
 }
-.btn-ancestor{
+.btn-ancestor, #view-full-size{
   float: right;
   margin: 10px 10px 0 0;
 }
