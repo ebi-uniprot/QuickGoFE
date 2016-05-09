@@ -30,7 +30,6 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   }
 }]);
 
-
 wsService.factory('stringService', [function(){
   return {
     getTextareaItemsAsArray : function(str) {
@@ -119,7 +118,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   }
 }]);
 
-wsService.factory('dbXrefService', ['$http', function($http){
+wsService.factory('dbXrefService', ['$http', '$location', function($http, $location){
   return {
     getDbXrefs: function() {
       return $http.get('https://s3.amazonaws.com/go-public/metadata/db-xrefs.json', {cache: true});
@@ -131,10 +130,15 @@ wsService.factory('dbXrefService', ['$http', function($http){
       return match.generic_urls[0];
     },
     getLinkforId: function(name, id, xrefs) {
-      var match = _.find(xrefs, function(xref){
-        return xref.database === name || _.contains(xref.synonyms, name);
-      });
-      return match.entity_types[0].url_syntax.replace('[example_id]', id);
+      //Overwrite for QuickGO instead of AMIGO
+      if(name === 'GO') {
+        return $location.absUrl().replace($location.path(), '/term/GO:' + id);
+      } else {
+        var match = _.find(xrefs, function(xref){
+          return xref.database === name || _.contains(xref.synonyms, name);
+        });
+        return match.entity_types[0].url_syntax.replace('[example_id]', id);
+      }
     }
   };
 }])

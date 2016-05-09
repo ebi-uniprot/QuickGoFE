@@ -82,21 +82,16 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
   }
 
   basketList.validateTerms = function(terms) {
-    var defer = $q.defer();
-
     var ownTerms = stringService.getTextareaItemsAsArray(terms);
 
-    termService
-      .getTerms(ownTerms.toString())
-      .then(function(res) {
-          var data = {};
-          data.valid = _.filter(res.data, function(item) {
-            return item; //filter out null values
-          });
-          data.missmatches = _.difference(ownTerms, _.pluck(res.data, 'termId'));
-          defer.resolve(data);
-      });
-    return defer.promise;
+    var data = {};
+    data.valid = _.filter( ownTerms, function(item){
+      // TODO return filteringService.validateGOTerm(item);
+      return item;
+    });
+    data.missmatches = _.difference(ownTerms, data.valid);
+
+    return data;
   }
 
 

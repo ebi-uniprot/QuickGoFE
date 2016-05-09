@@ -1,53 +1,201 @@
 var filteringModule = angular.module('quickGoFeApp.FilteringModule', []);
 
-filteringModule.factory('filteringService', function() {
-
+filteringModule.factory('filteringService', function(hardCodedDataService,
+   evidencetypes, withDBs, assignDBs, basketService) {
   var filteringService = {};
-  var filters = [];
+  var _filters = {};
+  var _namesMap = {};
+
+  filteringService.initialiseFilters = function() {
+    _filters = {
+          taxon:{},
+          gpSet:{},
+          gpID:{},
+          gpType:{},
+          reference:{},
+          goID:{},
+          aspect:{},
+          qualifier:{},
+          ecoID:{},
+          ecoTermUse:'ancestor',
+          goTermUse:'ancestor',
+          goRelations:'IPO',
+          with:{},
+          assignedby:{},
+          gptype:{}
+        };
+
+    filteringService.initTaxon();
+    filteringService.initGpSet();
+    filteringService.initGpID();
+    filteringService.initGpType();
+    filteringService.initReference();
+    filteringService.initGoID();
+    filteringService.initAspect();
+    filteringService.initQualifier();
+    filteringService.initEcoID();
+    filteringService.initEcoTermUse();
+    filteringService.initGoTermUse();
+    filteringService.initGoRelations();
+    filteringService.initWith();
+    filteringService.initAssignedby();
+    filteringService.initGptype();
+
+    return _filters;
+  }
+
+  filteringService.initTaxon = function(){
+    // Taxons
+    _filters.taxon = {};
+    var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
+    angular.forEach(mostCommonTaxonomies, function(taxon){
+      _filters.taxon[taxon.taxId] = false;
+      _namesMap[taxon.taxId] = taxon.title;
+    });
+  }
+
+  filteringService.initGpSet = function(){
+    _filters.gpSet = {};
+  }
+  filteringService.initGpID = function(){
+    _filters.gpId = {};
+  }
+  filteringService.initGpType = function(){
+    _filters.gpType = {};
+  }
+
+  filteringService.initReference = function() {
+    //References
+    _filters.reference = {};
+    var referenceList = hardCodedDataService.getFilterReferences();
+    angular.forEach(referenceList, function(ref){
+      _filters.reference[ref.refId] = false;
+      _namesMap[ref.refId] = ref.name;
+    });
+  }
+
+  filteringService.initGoID = function() {
+    //Basket items
+    _filters.goID = {};
+    basketService.getItems().then(function(d){
+      var data = d.data;
+      angular.forEach(data, function(goTerm){
+        _filters.goID[goTerm.termId] = false;
+        _namesMap[goTerm.termId] = goTerm.name;
+      });
+    });
+  }
+
+  filteringService.initAspect = function() {
+    _filters.aspect = {};
+  }
+
+  filteringService.initQualifier = function() {
+    _filters.qualifier = {};
+  }
+
+  filteringService.initEcoID = function() {
+    // Get Evidence Types
+    _filters.ecoID = {};
+    var resultET = evidencetypes.query();
+    resultET.$promise.then(function(data){
+      var evidenceTypes = _.sortBy(data, 'evidenceGOID');
+      //The order of the evidence codes is important
+      angular.forEach(evidenceTypes, function(evidenceType) {
+        _filters.ecoID[evidenceType.ecoID] = false;
+        _namesMap[evidenceType.ecoID] = {
+          evidenceGOID: evidenceType.evidenceGOID,
+          evidenceName: evidenceType.evidenceName,
+          evidenceSortOrder: evidenceType.evidenceSortOrder
+        };
+      });
+    });
+  }
+  filteringService.initEcoTermUse = function() {
+      _filters.ecoTermUse = 'ancestor';
+  }
+  filteringService.initGoTermUse = function() {
+      _filters.goTermUse = 'ancestor';
+  }
+  filteringService.initGoRelations = function() {
+    _filters.goTermRelations = 'IPO';
+  }
+
+  filteringService.initWith = function() {
+    // Get With DBs
+    _filters.with = {};
+    var resultWDB = withDBs.query();
+    resultWDB.$promise.then(function(data){
+      var withDBs = _.sortBy(data, 'dbId');
+      angular.forEach(withDBs, function(withDB){
+        _filters.with[withDB.dbId] = false;
+        _namesMap[withDB.dbId] = withDB.xrefDatabase;
+      });
+    });
+  }
+
+  filteringService.initAssignedby = function() {
+    // Get Assigned DBs
+    _filters.assignedby = {};
+    var resultADB = assignDBs.query();
+    resultADB.$promise.then(function(data){
+      var assignDBs = _.sortBy(data, 'dbId');
+      angular.forEach(assignDBs, function(assignDB){
+        _filters.assignedby[assignDB.dbId] = false;
+        _namesMap[assignDB.dbId] = assignDB.xrefDatabase;
+      });
+    });
+  }
+
+  filteringService.initGptype = function() {
+      _filters.gpType = {};
+  }
+
+  filteringService.addFilter = function(type, key, value) {
+    _filters[type][key] = value;
+  }
 
 
   filteringService.setFilters = function (filterList){
-    filters = filterList;
+    _filters = filterList;
   }
 
   filteringService.getFilters = function(){
-    return filters;
+    return _filters;
   }
 
-  filteringService.populateAppliedFilters = function(data){
-    angular.forEach(data, function(filter, type){
+  filteringService.populateAppliedFilters = function(){
+    var filterForPost = [];
+    angular.forEach(_filters, function(filter, type){
       if(typeof(filter) === 'string') {
         if(type === 'ecoTermUse'){
-          if(hasItems(data.ecoID)) {
-            filteringService.saveAppliedFilter({type: type, value:filter});
+          if(hasItems(_filters.ecoID)) {
+            filterForPost.push({type: type, value:filter});
           }
         } else if (type === 'goTermUse') {
-          if(hasItems(data.goID)) {
-            filteringService.saveAppliedFilter({type: type, value:filter});
+          if(hasItems(_filters.goID)) {
+            filterForPost.push({type: type, value:filter});
           }
         } else if (type === 'goRelations') {
-          if(hasItems(data.goID)) {
-            filteringService.saveAppliedFilter({type: type, value:filter});
+          if(hasItems(_filters.goID)) {
+            filterForPost.push({type: type, value:filter});
           }
         }
       } else {
         angular.forEach(filter, function(add, id){
           if(add) {
-            filteringService.saveAppliedFilter({type: type, value:id});
+            filterForPost.push({type: type, value:id});
           }
         });
       }
     });
+    return filterForPost;
   }
 
   var hasItems = function(terms) {
     return _.find(_.values( terms ), function(val){
       return val;
     });
-  }
-
-  filteringService.saveAppliedFilter = function(aFilter){
-    filters.push(aFilter);
   }
 
   filteringService.validateGOTerm = function(term) {
@@ -65,13 +213,6 @@ filteringModule.factory('filteringService', function() {
     return matches;
   }
 
-  // filteringService.validateReference = function(value) {
-  //     if(upperCase=='DOI*' || upperCase=='GO_REF*' || upperCase=='PMID*' || upperCase=='Reactome*'){
-  //     }
-  //     // Otherwise we should have a GO:REF
-  //     var niceContent = upperCase.match(/^GO_REF:\d{7}$/);
-  // }
-
   filteringService.validateTaxon = function(taxon){
        return taxon.match(/^[0-9]+$/);
   }
@@ -84,19 +225,28 @@ filteringModule.factory('filteringService', function() {
   * Clear all filters
   */
   filteringService.clearFilters=function(){
-    filters = [];
+    _filters = filteringService.initialiseFilters();
   };
 
+  filteringService.hasSlims = function() {
+    return _.find(_filters, function(rw){ return rw.value == "slim" })
+  }
 
+  filteringService.getApplied = function() {
+    var applied = {};
+    angular.forEach(_filters, function(val, key) {
+      var filterList = _.filter(val, function(el) {
+        return el === true;
+      });
+      if(filterList.length > 0) {
+        applied[key] = filterList;
+      }
+    });
+    return applied;
+  }
 
-
-  /**
-  * Save the object to applied filters if it doesn't exist already
-  */
-  filteringService.saveValuesAsFilter=function(filtertype, aFilterValue) {
-
-    var aFilter = {type: filtertype, value: aFilterValue};
-    this.saveAppliedFilter(aFilter);
+  filteringService.getNamesMap = function() {
+    return _namesMap;
   }
 
   return filteringService;

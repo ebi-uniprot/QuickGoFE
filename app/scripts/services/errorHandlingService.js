@@ -1,5 +1,4 @@
 var errorHandling = angular.module('quickGoFeApp.errorHandling', []);
-var lowImpactErrors = ['statsPostNewNamesNotSpring', 'costats'];
 
 errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$rootScope',
   function($q, $location, $rootScope) {
@@ -8,18 +7,27 @@ errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$root
         return responseData;
       },
       responseError: function error(response) {
-        if (_.some(lowImpactErrors, function(item) {
-            return response.config.url.split(item).length > 0;
-          })) {
-          $rootScope.globalErrorMessage = 'Statistics could not be loaded.';
-        } else {
-          switch (response.status) {
-            case 404:
-              $location.path('/404');
-              break;
-            default:
-              $location.path('/404');
-          }
+        switch (response.status) {
+          case 400:
+            if (response.data.message) {
+              $rootScope.alerts.push({
+                msg: response.data.message
+              });
+            } else {
+              $rootScope.alerts.push({
+                msg: 'Statistics could not be loaded.'
+              });
+            }
+            break;
+          case 404:
+            $location.path('/404');
+            console.log('ERROR:', response);
+            break;
+          case 500:
+            console.log(response);
+          default:
+            $location.path('/404');
+            console.log('ERROR:', response);
         }
         return $q.reject(response);
       }

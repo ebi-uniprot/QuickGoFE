@@ -3,7 +3,7 @@
  */
 
 app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
-                                      filteringService, quickGOHelperService, termService, $window) {
+                                       quickGOHelperService, termService, $window) {
 
   $scope.loadBasketItems = function() {
     $scope.basketPromise = basketService.getItems();
@@ -38,16 +38,15 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Pass that list to the filtering service.
    */
   $scope.submit = function() {
-    basketService.validateTerms($scope.input_terms).then(function(res) {
-      angular.forEach(res.valid, function(term) {
-        basketService.addBasketItem(term.termId);
-      });
-      $scope.$emit('basketUpdate', basketService.basketQuantity());
-      //reload basketItems list
-      $scope.loadBasketItems();
-      //Clear the input text field
-      $scope.input_terms = "";
+    var terms = basketService.validateTerms($scope.input_terms)
+    angular.forEach(terms.valid, function(term) {
+      basketService.addBasketItem(term);
     });
+    $scope.$emit('basketUpdate', basketService.basketQuantity());
+    //reload basketItems list
+    $scope.loadBasketItems();
+    //Clear the input text field
+    $scope.input_terms = "";
   };
 
   /**
@@ -92,15 +91,9 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Filter using basket go terms
    */
   $scope.filterUsingBasketTerms = function () {
-    angular.forEach($scope.basketItems, function(item){
-      filteringService.saveValuesAsFilter('goID', item.termId);
-    });
-
-    //Let the annotation list code know we have updated the filters
-    $scope.$emit('filtersUpdate', 0); //Xav: is this required?
+    $location.search('goID', _.pluck($scope.basketItems, 'termId').join(","));
     $uibModalInstance.dismiss('cancel');
-    $location.path("annotations");
-
+    $location.path("annotations/filter");
   };
 
   /**

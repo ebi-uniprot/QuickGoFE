@@ -135,6 +135,14 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       //Clean up text area
       $scope.slimOwnTerms = '';
     });
+    if(validatedTerms.missmatches.length > 0) {
+      $scope.otherAlerts = [];
+      $scope.otherAlerts.push(
+        {type: 'warning',msg: validatedTerms.missmatches + ' are not valid identifiers.'}
+      );
+    }
+    //Clean up text area
+    $scope.slimOwnTerms = '';
   };
 
 
@@ -229,20 +237,21 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
    * which we will forward to now
    */
   $scope.viewAnnotations = function(){
-    filteringService.clearFilters();
-    angular.forEach($scope.selectedItems, function(item){
-      filteringService.saveAppliedFilter({type: 'goID', value: item.termId});
-    });
-    filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
-    filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
+    // var url = "annotations/filter?goTermUse=slim&goRelations=IPO";
+
+    $location.search('goTermUse','slim');
+    $location.search('goRelations','IPO');
+
+    $location.search('goID', _.pluck($scope.selectedItems, 'termId').join(","));
 
     // Add gene products
     if($scope.genProductID){
       var geneProductsAdded = stringService.getTextareaItemsAsArray($scope.genProductID);
-      angular.forEach((geneProductsAdded), function(geneProdId) {
-        filteringService.saveAppliedFilter({type: 'gpID', value: geneProdId});
+      angular.forEach((geneProductsAdded), function(geneProdId, n) {
+        $location.search('gpID', geneProdId);
       });
     }
+
     // Add taxons
     angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
       if($scope.selectedSpecies[taxonId])
