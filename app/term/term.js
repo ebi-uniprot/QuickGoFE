@@ -109,7 +109,7 @@ angular.element(window).ready(function () {
   makeMapFitImage();
 });
 
-makeMapFitImage = function(){
+var makeMapFitImage = function(){
         var ImageMap = function () {
                 var map = document.getElementById('ontologygraphmap'),
                     img = document.getElementById('ontologyGraphImage'),
