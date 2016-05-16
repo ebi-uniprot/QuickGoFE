@@ -575,6 +575,17 @@ module.exports = function (grunt) {
         // 'test',
         'watch'
       ]);
+    } else if (target === 'alpha') {
+      return grunt.task.run([
+        'clean:server',
+        'ngconstant:alpha',
+        'wiredep',
+        'concurrent:server',
+        'postcss:server',
+        'connect:livereload',
+        // 'test',
+        'watch'
+      ]);
     }
     grunt.task.run([
       'clean:server',
