@@ -98,12 +98,12 @@
       <h3 class="term-section-header"><span uib-tooltip-template="'synonyms.html'" tooltip-placement="top-right">Synonyms</span></h3>
       <table id="synonymsTableAccordian" class="two-colours">
         <tr>
-          <th>Type</th>
           <th>Synonym</th>
+          <th>Type</th>
         </tr>
         <tr ng-repeat="synonym in termModel.synonyms">
-          <td>{{synonym.type}}</td>
           <td>{{synonym.name}}</td>
+          <td>{{synonym.type}}</td>
         </tr>
       </table>
     </section>
@@ -111,19 +111,18 @@
     <!-- Ancestors graph -->
     <section id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise" ng-show="!isObsolete">
       <h3 class="term-section-header">Ancestor Chart</h3>
-      <span ng-show="!isObsolete"><chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size</span>
+      <span ng-show="!isObsolete" id="view-full-size"><chart-icon term-id="termModel.termId" term-name="termModel.name"></chart-icon> View full size</span>
       <img class="displayed" ng-src="{{targetDomainAndPort}}/chart?ids={{graphModel.id}}"
-           id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap">
+           id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap" imageonload="makeMapFitImage()">
 
 
-      <map name="ontologygraphmap">
+      <map name="ontologygraphmap" id="ontologygraphmap">
         <span ng-repeat="layoutNode in graphImage.layoutNodes">
             <area shape="rect"
                   coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
                   ng-href="term/{{layoutNode.id}}"
                   alt="Term {{layoutNode.id}}"
-                  title="{{layoutNode.id}} - Click for more information"
-                  target="_blank">
+                  title="{{layoutNode.id}} - Click for more information">
           </span>
         <span ng-repeat="legendNode in graphImage.legendNodes">
           <div ng-mouseover="formattedTooltip(legendNode.topic)">

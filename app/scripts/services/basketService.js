@@ -4,7 +4,7 @@
 
 var basketModule = angular.module('quickGoFeApp.BasketModule', []);
 
-basketModule.factory('basketService', function($cookieStore, termService, $q, stringService, filteringService) {
+basketModule.factory('basketService', function($cookieStore, termService, $q, stringService) {
 
   var basketList = {};
 
@@ -86,7 +86,8 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
 
     var data = {};
     data.valid = _.filter( ownTerms, function(item){
-      return filteringService.validateGOTerm(item);
+      // TODO return filteringService.validateGOTerm(item);
+      return item;
     });
     data.missmatches = _.difference(ownTerms, data.valid);
 

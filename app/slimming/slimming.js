@@ -72,50 +72,12 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({setId: $scope.selectedPreDefinedSlimSet.subset});
     $scope.availablePredefinedTerms.$promise.then(function (data) {
 
-      // remove the 3 root terms
-      var data = _.without(data, _.findWhere(data, {name: 'molecular_function'} ));
-      var data = _.without(data, _.findWhere(data, {name: 'biological_process'} ));
-      var data = _.without(data, _.findWhere(data, {name: 'cellular_component'} ));
-
       var predefinedSets = _.groupBy(data, 'aspectDescription');
       $scope.predefinedBP = predefinedSets['Biological Process'];
       $scope.predefinedMF = predefinedSets['Molecular Function'];
       $scope.predefinedCC = predefinedSets['Cellular Component'];
     });
   };
-
-  $scope.addRootTerm = function(sourceCheckBox){
-    $scope.addThisRootTerm = "";
-    if(sourceCheckBox == "rootTermMF"){
-      if($scope.rootTermMF){
-        $scope.addThisRootTerm = "GO:0003674";
-      }else {
-        removeTerm("GO:0003674");
-      }
-    }
-
-    if(sourceCheckBox == "rootTermBP"){
-      if($scope.rootTermBP){
-        $scope.addThisRootTerm = "GO:0008150";
-      } else {
-        removeTerm("GO:0008150");
-      }
-    }
-
-    if(sourceCheckBox == "rootTermCC"){
-      if($scope.rootTermCC){
-        $scope.addThisRootTerm = "GO:0005575";
-      }else {
-        removeTerm("GO:0005575");
-      }
-    }
-
-    // Now lets add the Root term
-    termService.getTerm($scope.addThisRootTerm).then(function(res){
-      addItemsToSelection(res.data);
-    });
-    $scope.addThisRootTerm = "";
-  }
 
   var removeTerm = function(termID){
     $scope.selectedItems = _.filter($scope.selectedItems, function(term){
@@ -127,10 +89,21 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   $scope.addPredefined = function() {
     var predefinedItems = [];
     if($scope.predefinedCheckboxes.BPcheckbox) {
+      if(!$scope.rootTermBP){
+        $scope.predefinedBP = _.without($scope.predefinedBP, _.findWhere($scope.predefinedBP, {name: 'biological_process'} ));
+      }
       predefinedItems = _.union(predefinedItems, $scope.predefinedBP);
-    } if($scope.predefinedCheckboxes.CCcheckbox) {
+    }
+    if($scope.predefinedCheckboxes.CCcheckbox) {
+      if(!$scope.rootTermCC){
+        $scope.predefinedCC = _.without($scope.predefinedCC, _.findWhere($scope.predefinedCC, {name: 'cellular_component'} ));
+      }
       predefinedItems = _.union(predefinedItems, $scope.predefinedCC);
-    } if($scope.predefinedCheckboxes.MFcheckbox) {
+    }
+    if($scope.predefinedCheckboxes.MFcheckbox) {
+        if(!$scope.rootTermMF){
+          $scope.predefinedMF = _.without($scope.predefinedMF, _.findWhere($scope.predefinedMF, {name: 'molecular_function'} ));
+        }
       predefinedItems = _.union(predefinedItems, $scope.predefinedMF);
     }
     addItemsToSelection(predefinedItems);
@@ -150,9 +123,17 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   // Own terms
   $scope.addOwnTerms = function() {
-    var validatedTerms = basketService.validateTerms($scope.slimOwnTerms);
-    termService.getTerms(validatedTerms.valid).then(function(terms){
-      addItemsToSelection(terms.data);
+    $scope.ownTermPromise = basketService.validateTerms($scope.slimOwnTerms);
+    $scope.ownTermPromise.then(function(res){
+      addItemsToSelection(res.valid);
+      if(res.missmatches.length > 0) {
+        $scope.otherAlerts = [];
+        $scope.otherAlerts.push(
+          {type: 'warning',msg: res.missmatches + ' are not valid identifiers.'}
+        );
+      }
+      //Clean up text area
+      $scope.slimOwnTerms = '';
     });
     if(validatedTerms.missmatches.length > 0) {
       $scope.otherAlerts = [];
@@ -256,28 +237,26 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
    * which we will forward to now
    */
   $scope.viewAnnotations = function(){
-    filteringService.clearFilters();
-    angular.forEach($scope.selectedItems, function(item){
-      filteringService.saveAppliedFilter({type: 'goID', value: item.termId});
-    });
-    filteringService.saveAppliedFilter({type: 'goTermUse', value: 'slim'});
-    filteringService.saveAppliedFilter({type: 'goRelations', value: 'IPO'});
+    // var url = "annotations/filter?goTermUse=slim&goRelations=IPO";
+
+    $location.search('goTermUse','slim');
+    $location.search('goRelations','IPO');
+
+    $location.search('goID', _.pluck($scope.selectedItems, 'termId').join(","));
 
     // Add gene products
     if($scope.genProductID){
       var geneProductsAdded = stringService.getTextareaItemsAsArray($scope.genProductID);
-      angular.forEach((geneProductsAdded), function(geneProdId) {
-        filteringService.saveAppliedFilter({type: 'gpID', value: geneProdId});
+      angular.forEach((geneProductsAdded), function(geneProdId, n) {
+        $location.search('gpID', geneProdId);
       });
     }
+
     // Add taxons
     angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
-      console.log($scope.selectedSpecies[taxonId]);
       if($scope.selectedSpecies[taxonId])
         filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
     });
-
-
 
     $location.path("annotations");
   }

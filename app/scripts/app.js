@@ -45,6 +45,12 @@ var app = angular
         return true;
     };
 
+    $rootScope.alerts = [];
+
+    $rootScope.closeAlert = function(index) {
+      $rootScope.alerts.splice(index, 1);
+    };
+
   });
 
 
@@ -60,6 +66,10 @@ var app = angular
         controller: 'StartCtrl'
       })
       .when('/annotations', {
+        templateUrl: 'annotationsList/annotations.html',
+        controller: 'Annotations'
+      })
+      .when('/annotations/filter', {
         templateUrl: 'annotationsList/annotations.html',
         controller: 'Annotations'
       })
@@ -152,10 +162,6 @@ var app = angular
       .when('/terms/C', {
         templateUrl: 'simplelist/cellularcomponent.html',
         controller: 'CellularComponentListCtrl'
-      })
-      .when('/annotations/filter', {
-        templateUrl: 'annotationsList/annotationList.html',
-        controller: 'BookmarkCtrl'
       })
       .when('/annotationExtensionRelations', {
         templateUrl: 'views/annotationExtensionRelations.html',

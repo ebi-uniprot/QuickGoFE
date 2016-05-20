@@ -552,7 +552,7 @@ module.exports = function (grunt) {
         'concurrent:server',
         'postcss:server',
         'connect:livereload',
-        'test',
+        // 'test',
         'watch'
       ]);
     }
