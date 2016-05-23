@@ -5,7 +5,7 @@
 app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $location, filteringService,
                                             hardCodedDataService, ENV) {
 
-  $scope.selectedLimit=1000;  //default
+  $scope.selectedLimit=1000; //default
 
   $scope.downloadFileFormats=hardCodedDataService.getDownloadFileFormats();
   $scope.selectedFormat = $scope.downloadFileFormats[1] ; //default to gpad
@@ -19,7 +19,7 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
   $scope.submit = function(format,limit) {
 
     var filterRequest = {};
-    filterRequest.list =  filteringService.getFilters();
+    filterRequest.list =  filteringService.populateAppliedFilters();
     filterRequest.limit = limit;
     filterRequest.format = format.ext;
     var fileName='download.'+ format.ext;
@@ -34,16 +34,12 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
       data: filterRequest
     };
 
-
     $scope.downloadPromise = $http(request);
 
     $scope.downloadPromise.success(function(data) {
       downloadFile(fileName, data);
       $uibModalInstance.dismiss('cancel');
     });
-
-
-
   };
 
 
