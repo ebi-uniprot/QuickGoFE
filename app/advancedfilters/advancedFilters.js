@@ -9,6 +9,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.filters = filteringService.initialiseFilters();
     $scope.appliedFilters = {};
+    $scope.view = {};
 
     $scope.namesMap = {};
 
@@ -31,6 +32,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
         } else {
           filteringService.addFilter(type, val, true);
         }
+        console.log(filteringService.getFilters());
     });
 
     // Get predefined slim sets
@@ -186,6 +188,10 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.isActiveFilter = function(type) {
       return $scope.appliedFilters[type];
+    }
+
+    $scope.toggleMore = function(type) {
+      $scope.view[type] = !$scope.view[type];
     }
 
     $scope.namesMap = filteringService.getNamesMap();
