@@ -250,7 +250,7 @@
     <li>
       <button type="button" class="btn btn-default quickgo-btn icon"
       ng-class="{'icon-functional active-filter' : isActiveFilter('qualifier')
-        || isActiveFilter('reference') || isActiveFilter('with') || isActiveFilter('assignedby')}"
+        || isActiveFilter('referenceSearch') || isActiveFilter('with') || isActiveFilter('assignedby')}"
       data-icon="/" ng-click="showMore = (showMore? false : true)">
         More <span class="caret"></span>
       </button>
@@ -295,9 +295,9 @@
         <form>
           <div class="y-scroll-200 inset-panel">
             <ul>
-              <li ng-repeat="(refId, value) in filters.reference" class="checkbox">
+              <li ng-repeat="(refId, value) in filters.referenceSearch" class="checkbox">
                 <label>
-                  <input type="checkbox" ng-model="filters.reference[refId]" > <strong>{{refId}}</strong> {{namesMap[refId]}}
+                  <input type="checkbox" ng-model="filters.referenceSearch[refId]" > <strong>{{refId}}</strong> {{namesMap[refId]}}
                 </label>
                 </td>
               </li>
