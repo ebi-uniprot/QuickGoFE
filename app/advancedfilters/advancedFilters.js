@@ -123,7 +123,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.addReferences = function() {
       var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea);
       angular.forEach(refs, function(refID){
-        filteringService.addFilter('reference',refID,true);
+        filteringService.addFilter('referenceSearch',refID,true);
       });
       $scope.referenceTextArea = '';
     }

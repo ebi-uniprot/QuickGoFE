@@ -12,7 +12,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
           gpSet:{},
           gpID:{},
           gpType:{},
-          reference:{},
+          referenceSearch:{},
           goID:{},
           aspect:{},
           qualifier:{},
@@ -66,10 +66,10 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
 
   filteringService.initReference = function() {
     //References
-    _filters.reference = {};
+    _filters.referenceSearch = {};
     var referenceList = hardCodedDataService.getFilterReferences();
     angular.forEach(referenceList, function(ref){
-      _filters.reference[ref.refId] = false;
+      _filters.referenceSearch[ref.refId] = false;
       _namesMap[ref.refId] = ref.name;
     });
   }
@@ -164,27 +164,39 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     return _filters;
   }
 
-  filteringService.populateAppliedFilters = function(){
+  filteringService.populateAppliedFilters = function() {
     var filterForPost = [];
-    angular.forEach(_filters, function(filter, type){
-      if(typeof(filter) === 'string') {
-        if(type === 'ecoTermUse'){
-          if(hasItems(_filters.ecoID)) {
-            filterForPost.push({type: type, value:filter});
+    angular.forEach(_filters, function(filter, type) {
+      if (typeof(filter) === 'string') {
+        if (type === 'ecoTermUse') {
+          if (hasItems(_filters.ecoID)) {
+            filterForPost.push({
+              type: type,
+              value: filter
+            });
           }
         } else if (type === 'goTermUse') {
-          if(hasItems(_filters.goID)) {
-            filterForPost.push({type: type, value:filter});
+          if (hasItems(_filters.goID)) {
+            filterForPost.push({
+              type: type,
+              value: filter
+            });
           }
         } else if (type === 'goRelations') {
-          if(hasItems(_filters.goID)) {
-            filterForPost.push({type: type, value:filter});
+          if (hasItems(_filters.goID)) {
+            filterForPost.push({
+              type: type,
+              value: filter
+            });
           }
         }
       } else {
-        angular.forEach(filter, function(add, id){
-          if(add) {
-            filterForPost.push({type: type, value:id});
+        angular.forEach(filter, function(add, id) {
+          if (add) {
+            filterForPost.push({
+              type: type,
+              value: id
+            });
           }
         });
       }
