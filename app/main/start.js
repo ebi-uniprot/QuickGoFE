@@ -1,9 +1,11 @@
-angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $log, basketService, $location, filteringService, $sce) {
+angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $rootScope, $log, basketService, $location, filteringService, $sce) {
 
   $scope.annotationList = function () {
     filteringService.clearFilters();
     $location.path("annotations");
   };
+
+  $rootScope.header = "QuickGO Beta"
 
   $scope.termsTooltip = $sce.trustAsHtml('Search for terms or gene products by using generic search terms or a GO ID.');
   $scope.slimsTooltip = $sce.trustAsHtml('Create your own GO slim or use the predefined GO slims to get a high level summary of an area of biology and generate specific views of the ontology structure/ annotation sets.');
