@@ -5,71 +5,74 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
                                     ENV, filteringService, quickGOHelperService, $document, $routeParams, termService,
                                     PreDefinedSlimSets) {
 
-  $scope.targetDomainAndPort=ENV.apiEndpoint;
+  $scope.targetDomainAndPort = ENV.apiEndpoint;
 
   //Clear search term
-  $scope.searchText ='';
+  $scope.searchText = '';
 
-  $scope.termInformation=true;
+  $scope.termInformation = true;
 
-  var termId=$routeParams.goId;
+  var termId = $routeParams.goId;
   $rootScope.header = "QuickGO::Term "+termId;
 
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
-  if(termId.lastIndexOf('ECO', 0) === 0){
+  if (termId.lastIndexOf('ECO', 0) === 0) {
     $scope.isGoTerm = false;
-  }else{
+  } else {
     $scope.isGoTerm = true;
   }
 
   //Get predefined slim sets
-  $scope.predefinedSlimSets = PreDefinedSlimSets.query();
+  //$scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
   /**
    * Get Term Data from WS
    */
-  $scope.termPromise = termService.getTerm(termId);
+  $scope.termPromise = termService.getTerm(termId, $scope.isGoTerm);
 
-  $scope.termPromise.then(function(data) {
-    $scope.termModel = data.data;
+    $scope.termPromise.then(function(data) {
+        $scope.termModel = data.data.results[0];
 
-    //Set active show
-    if($scope.termModel.active != true){
-      $scope.isObsolete = true;
-    }
+        $scope.termModel.secondaryIdsString = $scope.termModel.secondaryIds ? 
+            $scope.termModel.secondaryIds.join() : ''; 
 
-
-    //Set restrictions show
-    if($scope.termModel.usage === 'Unrestricted' || !$scope.termModel.goTerm){
-      $scope.showRestrictions = false;
-    }else{
-      $scope.showRestrictions = true;
-    }
-
-    //Set GO Slim subset counts
-    angular.forEach($scope.predefinedSlimSets, function(slim) {
-      angular.forEach($scope.termModel.subsets, function(subset) {
-
-        if (subset.name === slim.subset) {
-          subset.count = slim.subsetCount;
+        //Set active show
+        if($scope.termModel.isObsolete === true){
+          $scope.isObsolete = true;
         }
+    
+        //Set restrictions show
+        if(($scope.termModel.usage === 'Unrestricted') || (!$scope.isGoTerm)) {
+          $scope.showRestrictions = false;
+        } else {
+          $scope.showRestrictions = true;
+        }
+    
+        //Set GO Slim subset counts
+        /*angular.forEach($scope.predefinedSlimSets, function(slim) {
+          angular.forEach($scope.termModel.subsets, function(subset) {
+    
+            if (subset.name === slim.subset) {
+              subset.count = slim.subsetCount;
+            }
+    
+          });
+        });*/
 
-      });
+    },function(reason) {
+        /*$scope.notFoundReason = reason;
+        angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');*/
+          console.log('HORROR ERROR!!!', reason);
     });
-
-  }, function(reason) {
-  $scope.notFoundReason = reason;
-  angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
-  });
 
   if($scope.isGoTerm) {
     // Set up statistics for co-occurring page
-    $scope.statsPromise = termService.getStats(termId);
+    /*$scope.statsPromise = termService.getStats(termId);
     $scope.statsPromise.then(function(d){
       $scope.stats = d.data;
-      $scope.totalTogetherAllStats = 0,
-      $scope.totalComparedAllStats = 0,
-      $scope.totalTogetherNonIEAStats = 0,
+      $scope.totalTogetherAllStats = 0;
+      $scope.totalComparedAllStats = 0;
+      $scope.totalTogetherNonIEAStats = 0;
       $scope.totalComparedNonIEAStats = 0;
 
       angular.forEach(d.data.allCoOccurrenceStatsTerms, function(val, key){
@@ -82,14 +85,14 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         $scope.totalComparedNonIEAStats = $scope.totalComparedNonIEAStats + val.compared;
       });
     });
-
+    */
 
     // Set up blacklist for selected term
-    $scope.blacklistPromise = termService.getBlacklist(termId);
+    /*$scope.blacklistPromise = termService.getBlacklist(termId);
     $scope.blacklistPromise.then(function(d){
       console.log("Blacklist returned for term", d);
       $scope.termWithBlacklist = d.data;
-    });
+    });*/
   }
 
   /**
@@ -106,7 +109,7 @@ function copyArray(array) {
 var originalCoords = [];
 
 angular.element(window).ready(function () {
-  makeMapFitImage();
+  //makeMapFitImage();
 });
 
 var makeMapFitImage = function(){
@@ -149,7 +152,7 @@ var makeMapFitImage = function(){
 
 window.onresize = function () {
    makeMapFitImage();
-}
+};
 
 
 
