@@ -247,10 +247,10 @@
         <tr ng-repeat="entry in termModel.blacklist">
           <td>{{entry.category}}</td>
           <td>{{entry.entityType}}</td>
-          <td>{{entry.proteinAc}}</td>
+          <td>{{entry.entityId}}</td>
           <td>{{entry.taxonId}}</td>
           <td>{{entry.entityName}}</td>
-          <td>{{entry.ancestorGOID}}</td>
+          <td>{{entry.ancestorGoId}}</td>
           <td>{{entry.reason}}</td>
           <td>{{entry.methodId}}</td>
         </tr>
@@ -316,7 +316,7 @@
 
     <!-- Replaced By-->
     <!--section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
-      <h3 class="term-section-header">Replaced</h3>
+      <h3 class="term-section-header">Replaced By</h3>
 
       <p>This term is obsolete. Try one of these terms:</p>
       <table id="replacementsTable" class="two-colours">
@@ -440,7 +440,7 @@
     </section-->
 
     <!-- Change log -->
-    <!--section id="termHistory">
+    <section id="termHistory">
       <h3 class="term-section-header">Change Log</h3>
       <uib-tabset>
         <uib-tab heading="All changes">
@@ -451,9 +451,9 @@
               <th>Category</th>
               <th>Detail</th>
             </tr>
-            <tr ng-repeat="history in termModel.history.historyAll" >
+            <tr ng-repeat="history in termModel.history" >
               <td>{{history.timestamp}}</td>
-              <td>{{history.actionString}}</td>
+              <td>{{history.action}}</td>
               <td>{{history.category}}</td>
               <td>{{history.text}}</td>
             </tr>
@@ -468,9 +468,9 @@
               <th>Category</th>
               <th>Detail</th>
             </tr>
-            <tr ng-repeat="history in termModel.history.historyTerms" >
+            <tr ng-repeat="history in termModel.history | filter:{category: 'TERM'}" >
               <td>{{history.timestamp}}</td>
-              <td>{{history.actionString}}</td>
+              <td>{{history.action}}</td>
               <td>{{history.category}}</td>
               <td>{{history.text}}</td>
             </tr>
@@ -485,9 +485,9 @@
               <th>Category</th>
               <th>Detail</th>
             </tr>
-            <tr ng-repeat="history in termModel.history.historyDefinitions" >
+            <tr ng-repeat="history in termModel.historyDefSyn" >
               <td>{{history.timestamp}}</td>
-              <td>{{history.actionString}}</td>
+              <td>{{history.action}}</td>
               <td>{{history.category}}</td>
               <td>{{history.text}}</td>
             </tr>
@@ -502,9 +502,9 @@
               <th>Category</th>
               <th>Detail</th>
             </tr>
-            <tr ng-repeat="history in termModel.history.historyRelations" >
+            <tr ng-repeat="history in termModel.history  | filter:{category: 'RELATION'}" >
               <td>{{history.timestamp}}</td>
-              <td>{{history.actionString}}</td>
+              <td>{{history.action}}</td>
               <td>{{history.category}}</td>
               <td>{{history.text}}</td>
             </tr>
@@ -519,9 +519,9 @@
               <th>Category</th>
               <th>Detail</th>
             </tr>
-            <tr ng-repeat="history in termModel.history.historyXRefs" >
+            <tr ng-repeat="history in termModel.history  | filter:{category: 'XREF'}" >
               <td>{{history.timestamp}}</td>
-              <td>{{history.actionString}}</td>
+              <td>{{history.action}}</td>
               <td>{{history.category}}</td>
               <td>{{history.text}}</td>
             </tr>
@@ -536,16 +536,16 @@
               <th>Category</th>
               <th>Detail</th>
             </tr>
-            <tr ng-repeat="history in termModel.history.historyOther" >
+            <tr ng-repeat="history in termModel.historyOther" >
               <td>{{history.timestamp}}</td>
-              <td>{{history.actionString}}</td>
+              <td>{{history.action}}</td>
               <td>{{history.category}}</td>
               <td>{{history.text}}</td>
             </tr>
           </table>
         </uib-tab>
       </uib-tabset>
-    </section-->
+    </section>
 
   </div>
   </section>
@@ -557,44 +557,59 @@
       <li du-scrollspy="overview">
         <a class="term-section-view" du-smooth-scroll="overview">Overview</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.synonyms.length==0}" du-scrollspy="termSynonyms">
+      <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length==0))}"
+          du-scrollspy="termSynonyms">
         <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
       </li>
       <li du-scrollspy="ancestorChart" ng-hide="isObsolete">
         <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.children.length==0}" ng-hide="isObsolete" du-scrollspy="childTerms">
+      <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length==0))}" ng-hide="isObsolete"
+          du-scrollspy="childTerms">
         <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':termModel.annotationGuidelines.length==0}"
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.annotationGuidelines || (termModel.annotationGuidelines.length==0))}"
           du-scrollspy="termAnnotationGuidance">
         <a class="term-section-view" du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':termModel.plannedChanges.length==0}" du-scrollspy="goDiscussions">
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.plannedChanges || (termModel.plannedChanges.length==0))}"
+          du-scrollspy="goDiscussions">
         <a class="term-section-view" du-smooth-scroll="goDiscussions" >GO Discussions</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':termModel.taxonConstraints.length==0}" du-scrollspy="termTaxonConstraints">
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.taxonConstraints || (termModel.taxonConstraints.length==0))}"
+          du-scrollspy="termTaxonConstraints">
         <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':termModel.blacklist.length==0}" du-scrollspy="blacklist">
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.blacklist || (termModel.blacklist.length==0))}"
+          du-scrollspy="blacklist">
         <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
       </li>
-      <li ng-class="{'section-disabled':termModel.xrefs.length==0}" du-scrollspy="termCrossReferences">
+      <li ng-class="{'section-disabled':(!termModel.xrefs || (termModel.xrefs.length==0))}"
+          du-scrollspy="termCrossReferences">
         <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':termModel.crossOntologyRelations.length==0}" du-scrollspy="termCrossOntologyRelations">
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.crossOntologyRelations || (termModel.crossOntologyRelations.length==0))}"
+          du-scrollspy="termCrossOntologyRelations">
         <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':termModel.replaces.length==0}" du-scrollspy="termReplaces">
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length==0))}"
+          du-scrollspy="termReplaces">
         <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':termModel.replacements.length==0}" du-scrollspy="termReplacedBy">
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length==0))}"
+          du-scrollspy="termReplacedBy">
         <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
       </li>
       <li ng-hide="!isGoTerm || isObsolete" du-scrollspy="coOcurring">
         <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':termModel.subsets.length==0}" du-scrollspy="termGOSlims">
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length==0))}"
+          du-scrollspy="termGOSlims">
         <a class="term-section-view" du-smooth-scroll="termGOSlims">GO Slims</a>
       </li>
       <li du-scrollspy="termHistory">

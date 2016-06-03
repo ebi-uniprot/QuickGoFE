@@ -33,36 +33,45 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
     $scope.termPromise.then(function(data) {
         $scope.termModel = data.data.results[0];
 
-        $scope.termModel.secondaryIdsString = $scope.termModel.secondaryIds ? 
-            $scope.termModel.secondaryIds.join() : ''; 
+        //set secondary ids string
+        $scope.termModel.secondaryIdsString = $scope.termModel.secondaryIds ?
+            $scope.termModel.secondaryIds.join() : '';
+
+        //set function filters for history/change log
+        $scope.termModel.historyDefSyn = _.filter($scope.termModel.history, function(hist) {
+            return hist.category === 'DEFINITION' || hist.category === 'SYNONYM';
+        });
+        $scope.termModel.historyOther = _.filter($scope.termModel.history, function(hist) {
+            return hist.category !== 'TERM' && hist.category !== 'DEFINITION' && hist.category !== 'SYNONYM'
+                && hist.category !== 'RELATION' && hist.category !== 'XREF';
+        });
 
         //Set active show
         if($scope.termModel.isObsolete === true){
           $scope.isObsolete = true;
         }
-    
+
         //Set restrictions show
         if(($scope.termModel.usage === 'Unrestricted') || (!$scope.isGoTerm)) {
           $scope.showRestrictions = false;
         } else {
           $scope.showRestrictions = true;
         }
-    
+
         //Set GO Slim subset counts
         /*angular.forEach($scope.predefinedSlimSets, function(slim) {
           angular.forEach($scope.termModel.subsets, function(subset) {
-    
+
             if (subset.name === slim.subset) {
               subset.count = slim.subsetCount;
             }
-    
+
           });
         });*/
 
     },function(reason) {
-        /*$scope.notFoundReason = reason;
-        angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');*/
-          console.log('HORROR ERROR!!!', reason);
+        $scope.notFoundReason = reason;
+        angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
     });
 
   if($scope.isGoTerm) {
