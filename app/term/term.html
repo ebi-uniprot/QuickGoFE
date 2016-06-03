@@ -10,7 +10,7 @@
     <div class="alert" ng-show="isObsolete">
       <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
       <strong>This term is obsolete.</strong><br/>
-      <!--{{termModel.comment}}-->
+      {{termModel.comment}}
     </div>
     <h2 class="page-title">
       {{termModel.id}}
@@ -49,16 +49,16 @@
       <span ng-if="termModel.usage === 'Electronic'">This term should not be used for direct manual annotation; it may, however, be used for mapping to external vocabularies in order to create electronic annotations.</span>
       <span ng-if="termModel.usage === 'None'">This term should not be used for direct annotation.</span>
       <br />
-      <!--span ng-if="termModel.comment">See comment below for further information.</span-->
+      <span ng-if="termModel.comment">See comment below for further information.</span>
     </p>
 
     </section>
 
     <!-- Comments -->
-    <!--section ng-if="termModel.comment">
+    <section ng-if="termModel.comment">
       <h5>Comments</h5>
       <p>{{termModel.comment}}</p>
-    </section-->
+    </section>
 
     <section ng-if="termModel.secondaryIds.length > 0">
     <h5>Secondary IDs</h5>
