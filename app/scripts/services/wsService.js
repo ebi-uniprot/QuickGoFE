@@ -36,12 +36,12 @@ wsService.factory('stringService', [function(){
       return _.uniq(str.replace( /\n/g, " " ).split(/[\s,]+/));
     }
   }
-}])
+}]);
 
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/ontology',
+        return $http.get(ENV.apiEndpoint + '/go/search',
           {
             params: {
               query : searchTerm,
@@ -68,7 +68,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         //TODO
       },
       findAnnotationsForTerm: function(searchTerm) {
-        var request = {
+        /*var request = {
           method: 'POST',
           url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
@@ -81,7 +81,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
             }]
           }
         };
-        return $http(request);
+        return $http(request);*/
       },
       findAnnotationsForECO: function(searchTerm) {
         var request = {
@@ -100,7 +100,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         return $http(request);
       },
       findAnnotationsForProduct: function(searchTerm) {
-        var request = {
+        /*var request = {
           method: 'POST',
           url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
@@ -113,7 +113,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
             }]
           }
         };
-        return $http(request);
+        return $http(request);*/
       }
   }
 }]);

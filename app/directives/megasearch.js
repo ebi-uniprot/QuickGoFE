@@ -24,13 +24,14 @@ angular
 							loadData();
 						}
 					} ,500);
-				}
+				};
 
 				scope.submitSearch = function() {
 				    $location.path("search/" + scope.searchTerm);
-				}
+				};
 
 				var loadData = function() {
+					console.log('loadData');
 					//Look for matching GO terms
 					scope.goTermsPromise = searchService.findTerms(scope.searchTerm, scope.limit);
 					scope.goTermsPromise.then(function(res) {
@@ -38,18 +39,18 @@ angular
 					});
 
 					//Look for Gene Products
-					scope.gpPromise = searchService.findGeneProducts(scope.searchTerm, scope.limit);
+					/*scope.gpPromise = searchService.findGeneProducts(scope.searchTerm, scope.limit);
 					scope.gpPromise.then(function(res) {
 						scope.products = res.data;
-					});
+					});*/
 					//Look for Publications
-				}
+				};
 
 				var reset = function() {
 					scope.searchTerm = '';
 					scope.terms = [];
 					scope.products = [];
-				}
+				};
 
 				//Only close on click if it's open in a panel
 				if (!scope.noInput) {
