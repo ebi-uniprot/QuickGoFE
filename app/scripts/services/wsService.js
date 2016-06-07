@@ -41,7 +41,7 @@ wsService.factory('stringService', [function(){
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/go/search',
+        return $http.get(ENV.apiEndpointSearch,
           {
             params: {
               query : searchTerm,
@@ -53,7 +53,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           });
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/geneproduct',
+        return $http.get(ENV.apiEndpointGeneProd + '/search',
           {
             params: {
               query : searchTerm,
@@ -84,7 +84,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         return $http(request);*/
       },
       findAnnotationsForECO: function(searchTerm) {
-        var request = {
+        /*var request = {
           method: 'POST',
           url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
@@ -97,7 +97,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
             }]
           }
         };
-        return $http(request);
+        return $http(request);*/
       },
       findAnnotationsForProduct: function(searchTerm) {
         /*var request = {

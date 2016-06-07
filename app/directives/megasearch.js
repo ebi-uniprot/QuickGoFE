@@ -31,7 +31,6 @@ angular
 				};
 
 				var loadData = function() {
-					console.log('loadData');
 					//Look for matching GO terms
 					scope.goTermsPromise = searchService.findTerms(scope.searchTerm, scope.limit);
 					scope.goTermsPromise.then(function(res) {
@@ -39,10 +38,10 @@ angular
 					});
 
 					//Look for Gene Products
-					/*scope.gpPromise = searchService.findGeneProducts(scope.searchTerm, scope.limit);
+					scope.gpPromise = searchService.findGeneProducts(scope.searchTerm, scope.limit);
 					scope.gpPromise.then(function(res) {
 						scope.products = res.data;
-					});*/
+					});
 					//Look for Publications
 				};
 
