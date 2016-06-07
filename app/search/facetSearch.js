@@ -3,7 +3,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   var isTermSearch = $location.path().indexOf('searchterms') > -1;
 
   if(isTermSearch) {
-    var facets = 'aspect,ontology';
+    var facets = 'aspect,ontologyType';
   } else {
     var facets = 'type'
   }
