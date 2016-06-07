@@ -6,7 +6,7 @@
 </div>
 
 <div class="items" ng-hide="!searchTerm.length || searchTerm.length < 3" ng-class="{'typeahead-box' : !noInput}">
-  <div cg-busy="goTermsPromise">
+  <div cg-busy="goTermsPromise" style="display: inline-block">
     <h3>Terms</h3>
     <ul class="results-list" ng-show="terms.results.length > 0">
       <li ng-repeat="term in terms.results" ng-class="{'inactive':term.isObsolete==true}">
