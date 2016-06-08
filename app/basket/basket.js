@@ -8,9 +8,9 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
   $scope.loadBasketItems = function() {
     $scope.basketPromise = basketService.getItems();
     $scope.basketPromise.then(function(d){
-      $scope.basketItems = d.data;
+      $scope.basketItems = d.data.results;
     })
-  }
+  };
 
   $scope.loadBasketItems();
   $scope.input_terms='';
@@ -20,7 +20,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    */
 
   $scope.removeItem = function(basketItem){
-    basketService.removeBasketItem(basketItem.termId);
+    basketService.removeBasketItem(basketItem.id);
 
     //update displayed list
     $scope.loadBasketItems();
@@ -114,8 +114,8 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
 
     var text = '';
     angular.forEach($scope.basketItems, function(item){
-      text += item.termId + "\t";
-      text += item.aspectDescription + "\t";
+      text += item.id + "\t";
+      text += item.aspect + "\t";
       text += item.name + "\n";
     });
 

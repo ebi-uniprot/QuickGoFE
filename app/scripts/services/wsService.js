@@ -20,9 +20,8 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
         return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + termId + '/complete')
             : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
-      getTerms : function(ids, isGoTerm) {
-        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms', {params: {ids: ids}} + '/complete')
-            : $http.get(ENV.apiEndpoint+'/eco/terms', {params: {ids: ids}} + '/complete');
+      getGOTerms : function(ids) {
+        return $http.get(ENV.apiEndpoint+'/go/terms/' + ids + '/complete');
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
@@ -39,7 +38,7 @@ wsService.factory('stringService', [function(){
       return _.uniq(str.replace( /\n/g, " " ).split(/[\s,]+/));
     }
   }
-}])
+}]);
 
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
@@ -144,7 +143,7 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
       }
     }
   };
-}])
+}]);
 
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/dataset', {}, {
