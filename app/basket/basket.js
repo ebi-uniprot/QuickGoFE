@@ -120,8 +120,15 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
       text += item.name + "\n";
     });
 
-    var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
-    $scope.exportURL = (window.URL || window.webkitURL).createObjectURL( blob );
+    var exportLink = $('#quickGO-basket-export-link');
+
+    if ('download' in exportLink.get(0)) {
+      var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
+      $scope.exportURL = (window.URL || window.webkitURL).createObjectURL( blob );
+    } else {
+      var blob = new Blob([text], {type: "text/plain;charset=utf-8;"});
+      saveAs(blob, "basket.txt");
+    }
   };
 
   $scope.isBasketNotEmpty = function (){
