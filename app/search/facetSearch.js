@@ -37,9 +37,10 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
     if (!text) {
       return text;
     }
-    var newText = text.replace(new RegExp($scope.searchTerm, 'gi'), "<span class='highlighted'>" + $scope.searchTerm + "</span>");
+    var newText = text.replace(new RegExp($scope.searchTerm, 'gi'), "<span class='highlighted'>" + $scope.searchTerm +
+        "</span>");
     return newText;
-  }
+  };
 
   getResultsPage();
 
