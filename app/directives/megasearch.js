@@ -31,7 +31,7 @@ angular
 				};
 
 				scope.isGoTerm = function(termId) {
-					return ontoTypeService(termId);
+					return ontoTypeService.isGoTerm(termId);
 				};
 
 				var loadData = function() {
