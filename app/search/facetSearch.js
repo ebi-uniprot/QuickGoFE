@@ -1,4 +1,4 @@
-app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchService, $routeParams) {
+app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchService, ontoTypeService, $routeParams) {
 
   var isTermSearch = $location.path().indexOf('searchterms') > -1;
 
@@ -31,6 +31,14 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
 
   $scope.pageChanged = function() {
     getResultsPage();
+  };
+
+  $scope.isGoTerm = function(termId) {
+    return ontoTypeService.isGoTerm(termId);
+  };
+
+  $scope.ontoOneLetterName = function(ontoName) {
+    return ontoTypeService.ontoOneLetterName(ontoName)
   };
 
   $scope.highlight = function(text) {

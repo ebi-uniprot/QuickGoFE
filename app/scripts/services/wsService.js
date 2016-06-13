@@ -38,6 +38,26 @@ wsService.factory('stringService', [function(){
   }
 }]);
 
+wsService.factory('ontoTypeService', [function(){
+    return {
+        isGoTerm : function(termId) {
+            if(termId.indexOf('ECO') === 0){
+                return false;
+            }else{
+                return true;
+            }
+        },
+        ontoOneLetterName: function(ontoName) {
+            switch(ontoName) {
+                case 'Biological Process' : return 'P';
+                case 'Molecular Function' : return 'F';
+                case 'Cellular Component' : return 'C';
+                default: return ontoName;
+            }
+        }
+    }
+}]);
+
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
@@ -141,7 +161,7 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
       }
     }
   };
-}])
+}]);
 
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/dataset', {}, {

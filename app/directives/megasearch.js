@@ -1,7 +1,7 @@
 angular
 	.module('quickGoFeApp')
-	.directive('megasearch', ['$q', '$timeout', 'searchService', '$location', '$document',
-		function($q, $timeout, searchService, $location, $document) {
+	.directive('megasearch', ['$q', '$timeout', 'searchService', '$location', '$document', 'ontoTypeService',
+		function($q, $timeout, searchService, $location, $document, ontoTypeService) {
 		return {
 			restrict: 'AEC',
 			scope: {
@@ -28,6 +28,10 @@ angular
 
 				scope.submitSearch = function() {
 				    $location.path("search/" + scope.searchTerm);
+				};
+
+				scope.isGoTerm = function(termId) {
+					return ontoTypeService(termId);
 				};
 
 				var loadData = function() {
