@@ -20,7 +20,6 @@
           <th>Name</th>
           <th>Type</th>
           <th>Taxon</th>
-          <th>Source</th>
           <th>Annotations</th>
         </tr>
         <tr ng-repeat="searchResult in results.results">
@@ -30,7 +29,6 @@
           <td ng-bind-html="highlight(searchResult.name)"></td>
           <td>{{searchResult.type}}</td>
           <td>{{searchResult.taxonomy.name}}</td>
-          <td>{{searchResult.database}}</td>
           <td><a href="annotations/filter?gpID={{searchResult.id}}" class="annotations-link"><annotations-link
                   productid="{{searchResult.id}}"></annotations-link></a></td>
         </tr>
