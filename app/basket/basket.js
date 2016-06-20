@@ -9,11 +9,12 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
     $scope.basketPromise = basketService.getItems();
     $scope.basketPromise.then(function(d){
       $scope.basketItems = d.data;
-    })
-  }
+    });
+  };
 
   $scope.loadBasketItems();
   $scope.input_terms='';
+  $scope.exportURL = '#';
 
   /**
    * ------------------------------------ Remove item from basket -----------------------------------------
@@ -103,6 +104,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
   $scope.emptyBasket = function () {
     $scope.basketItems = basketService.clearBasket();
     $scope.basketItems = [];
+    $scope.exportURL = '#';
     $scope.$emit('basketUpdate', 0);
   };
 
@@ -111,7 +113,6 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Export basket
    */
   $scope.exportBasket = function () {
-
     var text = '';
     angular.forEach($scope.basketItems, function(item){
       text += item.termId + "\t";
@@ -119,15 +120,16 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
       text += item.name + "\n";
     });
 
-    //Download blob
-    var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
-    var downloadLink = angular.element('<a></a>');
-    downloadLink.attr('href', window.URL.createObjectURL(blob));
-    downloadLink.attr('download', 'basket.tsv');
-    downloadLink[0].click();
+    var exportLink = $('#quickGO-basket-export-link');
+
+    if ('download' in exportLink.get(0)) {
+      var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
+      $scope.exportURL = (window.URL || window.webkitURL).createObjectURL( blob );
+    } else {
+      var blob = new Blob([text], {type: "text/plain;charset=utf-8;"});
+      saveAs(blob, "basket.txt");
+    }
   };
-
-
 
   $scope.isBasketNotEmpty = function (){
     return basketService.basketQuantity() > 0;
