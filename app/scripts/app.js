@@ -54,11 +54,13 @@ var app = angular
   });
 
 
-  app.config(function ($routeProvider, $locationProvider, $httpProvider) {
+  app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileProvider) {
 
     $locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('httpErrorResponseInterceptor');
+
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|blob):/);
 
     $routeProvider
       .when('/', {
