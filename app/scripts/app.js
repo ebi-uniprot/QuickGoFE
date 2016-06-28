@@ -71,10 +71,6 @@ var app = angular
         templateUrl: 'annotationsList/annotations.html',
         controller: 'Annotations'
       })
-      .when('/annotations/filter', {
-        templateUrl: 'annotationsList/annotations.html',
-        controller: 'Annotations'
-      })
       .when('/webservices', {
         templateUrl: 'nav/webservices.html',
         controller: 'WebServicesCtrl'
