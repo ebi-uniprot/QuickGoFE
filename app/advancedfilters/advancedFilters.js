@@ -18,6 +18,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     });
 
     angular.forEach($routeParams, function(val, type) {
+      console.log(val, type);
         if(type === 'id') {
           var isGoTerm = val.indexOf("GO");
           if(isGoTerm >= 0) {
