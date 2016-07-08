@@ -152,6 +152,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   }
 
   filteringService.addFilter = function(type, key, value) {
+    console.log('addFilter', type, key, value);
     _filters[type][key] = value;
   }
 
