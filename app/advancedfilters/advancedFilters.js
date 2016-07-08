@@ -32,6 +32,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
         } else {
           filteringService.addFilter(type, val, true);
         }
+        $scope.appliedFilters = filteringService.getApplied();
     });
 
     // Get predefined slim sets
