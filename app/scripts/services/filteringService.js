@@ -152,10 +152,12 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   }
 
   filteringService.addFilter = function(type, key, value) {
-    console.log('addFilter', type, key, value);
-    _filters[type][key] = value;
+    if(_filters[type] instanceof Object) {
+      _filters[type][key] = value;
+    } else {
+      _filters[type] = key;
+    }
   }
-
 
   filteringService.setFilters = function (filterList){
     _filters = filterList;
