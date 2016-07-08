@@ -33,11 +33,14 @@
       </span></h5>
 
       <p>
-        {{termModel.definition}}
-          <!--span ng-repeat="xrefDef in termModel.definitionXrefs">
-            <a class="quickgo-link" href="http://europepmc.org/abstract/MED/{{xrefDef.id}}"
-             target="_blank">{{xrefDef.db}}:{{xrefDef.id}}</a>
-          </span-->
+        {{termModel.definition.text}}
+          <span ng-repeat="xrefDef in termModel.definition.xrefs">
+            <span ng-if="xrefDef.dbCode === 'PMID'">
+            <a class="quickgo-link" ng-href="{{(xrefDef.dbCode + ':' + xrefDef.dbId) | referenceUrlFilter}}"
+               target="_blank">
+              {{(xrefDef.dbCode + ':' + xrefDef.dbId)}}</a>
+            </span>
+          </span>
       </p>
     </section>
 
