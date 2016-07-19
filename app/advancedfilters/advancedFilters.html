@@ -41,10 +41,10 @@
       </div>
     </li>
 
-    <!-- GENE PRODUCTS -->
+    <!-- GENE PRODUCT IDs -->
     <li uib-dropdown auto-close="outsideClick" is-open="status.isopenGP">
-      <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('gpID') || isActiveFilter('gpType') || isActiveFilter('gpSet')}" data-icon="/" uib-dropdown-toggle>
-        Gene products <span class="caret"></span>
+      <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('gpID') ||  isActiveFilter('gpSet')}" data-icon="/" uib-dropdown-toggle>
+        Gene productIDs <span class="caret"></span>
       </button>
       <!-- PRODUCT ID -->
       <div class="advanced-filter-content" uib-dropdown-menu>
@@ -68,24 +68,6 @@
           <div ng-show="view['gpId']">
             <hr>
             <div class="form-group">
-              <p>Type:</p>
-              <ul>
-                <li class="checkbox">
-                  <label>
-                    <input type="checkbox" ng-model="filters.gpType['protein']"> proteins</label>
-                </li>
-                <li class="checkbox">
-                  <label>
-                    <input type="checkbox" ng-model="filters.gpType['rna']"> RNAs</label>
-                </li>
-                <li class="checkbox">
-                  <label>
-                    <input type="checkbox" ng-model="filters.gpType['complex']"> complexes</label>
-                </li>
-              </ul>
-            </div>
-            <hr>
-            <div class="form-group">
               <!-- 4 choices -->
               <p>List of gene products:</p>
               <ul>
@@ -103,6 +85,39 @@
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetgpIds()">Reset</button>
           <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
+        </div>
+      </div>
+    </li>
+
+    <!-- GENE PRODUCT TYPE -->
+    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenGPT">
+      <button type="button" class="btn btn-default quickgo-btn  icon" ng-class="{'icon-functional active-filter' : isActiveFilter('gpType')}" data-icon="/" uib-dropdown-toggle>
+        Gene Product Type <span class="caret"></span>
+        <br>
+      </button>
+      <div class="advanced-filter-content" uib-dropdown-menu>
+        <div class="form-group">
+          <form>
+            <ul>
+              <li class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="filters.gpType['protein']"> proteins</label>
+              </li>
+              <li class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="filters.gpType['rna']"> RNAs</label>
+              </li>
+              <li class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="filters.gpType['complex']"> complexes</label>
+              </li>
+            </ul>
+            <hr>
+            <div class="pull-right">
+              <button class="btn quickgo-btn" type="button" ng-click="resetGPType()">Reset</button>
+              <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
+            </div>
+          </form>
         </div>
       </div>
     </li>

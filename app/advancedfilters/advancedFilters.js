@@ -60,9 +60,14 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.resetgpIds = function() {
       filteringService.initGpSet();
       filteringService.initGpID();
+      $scope.updateFilters();
+    }
+
+    $scope.resetGPType = function() {
       filteringService.initGpType();
       $scope.updateFilters();
     }
+
     $scope.addGPs = function() {
       var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
       angular.forEach(gps, function(gpID){
@@ -174,6 +179,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       $scope.status.isopenTaxon = false;
       $scope.status.isopenGP = false;
       $scope.status.isopenGT = false;
+      $scope.status.isopenGPT = false;
       $scope.status.isopenAspect = false;
       $scope.status.isopenEvidence = false;
       $scope.showMore = false;
