@@ -13,7 +13,9 @@
     <br/>
     <br/>
     <!-- Version 1 -->
-    <button class="btn quickgo-btn" ng-click="submit(selectedFormat,selectedLimit)">Submit</button>
+     <a id="quickGO-download-export-link" download="" ng-href="{{ downloadExportURL }}" target="_blank">
+         <button class="btn quickgo-btn" ng-click="submit(selectedFormat, selectedLimit)">Submit</button>
+     </a>
     <button class="btn quickgo-btn" ng-click="close()">Close</button>
  </form>
 
