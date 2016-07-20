@@ -55,37 +55,39 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
 
   function downloadFile(fileName, data, strMimeType) {
     strMimeType = strMimeType || 'application/octet-stream;charset=utf-8';
-    var exportLink = $('#quickGO-download-export-link');
 
     if (navigator.msSaveBlob) {
       return navigator.msSaveBlob(new Blob([data], {
         type: strMimeType
       }), fileName);
-    } else if ('download' in exportLink.get(0)) {
+    } else {
       var D = document;
       var a = D.createElement('a');
       a.setAttribute('download', fileName);
       a.setAttribute('style', 'display:none;');
-
-      var blob = new Blob([data], {type: strMimeType});
-      $scope.downloadExportURL = (window.URL || window.webkitURL).createObjectURL(blob);
-      a.href = $scope.downloadExportURL;
-
+      a.setAttribute('target', '_blank');
       D.body.appendChild(a);
 
-      setTimeout(function() {
-        if (a.click) {
-          a.click();
-        } else if (document.createEvent) {
-          var eventObj = document.createEvent('MouseEvents');
-          eventObj.initEvent('click', true, true);
-          a.dispatchEvent(eventObj);
-        }
+      if ('download' in a) {
+        var blob = new Blob([data], {type: strMimeType});
+        var rawDataURL = (window.URL || window.webkitURL).createObjectURL(blob);
+        a.href = rawDataURL;
+
+        setTimeout(function() {
+          if (a.click) {
+            a.click();
+          } else if (document.createEvent) {
+            var eventObj = document.createEvent('MouseEvents');
+            eventObj.initEvent('click', true, true);
+            a.dispatchEvent(eventObj);
+          }
+          D.body.removeChild(a);
+        }, 100);
+      } else {
+        var blob = new Blob([data], {type: "text/plain;charset=utf-8;"});
+        saveAs(blob, fileName);
         D.body.removeChild(a);
-      }, 100);
-    } else {
-      var blob = new Blob([data], {type: "text/plain;charset=utf-8;"});
-      saveAs(blob, fileName);
+      }
     }
   }
 
