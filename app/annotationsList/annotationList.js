@@ -4,7 +4,7 @@
 
 
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
-                                              hardCodedDataService, dbXrefService, filteringService, ENV, $routeParams) {
+                                              hardCodedDataService, dbXrefService, filteringService, olsService, ENV, $routeParams) {
 
 
   /**
@@ -142,22 +142,15 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
   };
 
-  $scope.showAnnotationExtension = function(extension) {
-    $scope.extensions = [];
-    _.each(extension.split('|'), function(ext){
-      var extensionsLevel2 = [];
-      var extensionSplit = ext.split(',');
-      _.each(extensionSplit, function(extensionSplit){
-        var regExp = /([^(]+)\(([^)]+):([^)]+)\)/;
-        var match = regExp.exec(extensionSplit);
-        extensionsLevel2.push({
-          'relationship':match[1],
-          'database':match[2],
-          'id':match[3]
-        });
+  $scope.showAnnotationExtension = function(extensions) {
+    angular.forEach(extensions, function(extension){
+      angular.forEach(extension.connectedXrefs, function(xref){
+        olsService.getTermName(xref).then(function(name){
+          xref.label = name.data.label;
+        })
       });
-      $scope.extensions.push(extensionsLevel2);
     });
+    $scope.extensions = extensions;
 
     var modalInstance = $uibModal.open({
       templateUrl: 'annotationsList/annotationExtensionModal.html',

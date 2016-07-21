@@ -143,6 +143,14 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
   };
 }])
 
+wsService.factory('olsService', ['$http', '$location', function($http, $location) {
+  return {
+    getTermName: function(xref) {
+      return $http.get('http://www.ebi.ac.uk/ols/api/ontologies/' + xref.db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + xref.db + '_' + xref.id);
+    }
+  }
+}]);
+
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/dataset', {}, {
     query: {method:'GET', isArray:true, Cache:true}
