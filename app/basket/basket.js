@@ -3,7 +3,7 @@
  */
 
 app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
-                                       quickGOHelperService, termService, $window) {
+                                       quickGOHelperService, termService, $window, FileSaver) {
 
   $scope.loadBasketItems = function() {
     $scope.basketPromise = basketService.getItems();
@@ -14,7 +14,6 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
 
   $scope.loadBasketItems();
   $scope.input_terms='';
-  $scope.exportURL = '#';
 
   /**
    * ------------------------------------ Remove item from basket -----------------------------------------
@@ -39,7 +38,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Pass that list to the filtering service.
    */
   $scope.submit = function() {
-    var terms = basketService.validateTerms($scope.input_terms)
+    var terms = basketService.validateTerms($scope.input_terms);
     angular.forEach(terms.valid, function(term) {
       basketService.addBasketItem(term);
     });
@@ -124,7 +123,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
 
     if ('download' in exportLink.get(0)) {
       var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
-      $scope.exportURL = (window.URL || window.webkitURL).createObjectURL( blob );
+      FileSaver.saveAs(blob, "basket.tsv");
     } else {
       var blob = new Blob([text], {type: "text/plain;charset=utf-8;"});
       saveAs(blob, "basket.txt");
@@ -133,10 +132,10 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
 
   $scope.isBasketNotEmpty = function (){
     return basketService.basketQuantity() > 0;
-  }
+  };
 
   $scope.close = function() {
     $uibModalInstance.dismiss('cancel');
-  }
+  };
 
 });

@@ -3,7 +3,7 @@
  */
 
 app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $location, filteringService,
-                                            hardCodedDataService, ENV) {
+                                            hardCodedDataService, ENV, FileSaver, Blob) {
 
   $scope.selectedLimit=1000; //default
 
@@ -54,45 +54,16 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
 
 
   function downloadFile(fileName, data, strMimeType) {
-    var D = document;
-    var a = D.createElement('a');
     strMimeType = strMimeType || 'application/octet-stream;charset=utf-8';
-    var rawFile;
+    var exportLink = $('#quickGO-download-export-link');
 
-    // IE10+
-    if (navigator.msSaveBlob) {
-      return navigator.msSaveBlob(new Blob([data], {
-        type: strMimeType
-      }), fileName);
-    }
-
-    //html5 A[download]
-    if ('download' in a) {
-      var blob = new Blob([data], {
-        type: strMimeType
-      });
-      rawFile = URL.createObjectURL(blob);
-      a.setAttribute('download', fileName);
+    if ('download' in exportLink.get(0)) {
+      var blob = new Blob([data], {type: strMimeType});
+      FileSaver.saveAs(blob, fileName);
     } else {
-      rawFile = 'data:' + strMimeType + ',' + encodeURIComponent(data);
-      a.setAttribute('target', '_blank');
+      var blob = new Blob([data], {type: "text/plain;charset=utf-8;"});
+      saveAs(blob, fileName);
     }
-
-    a.href = rawFile;
-    a.setAttribute('style', 'display:none;');
-    D.body.appendChild(a);
-    setTimeout(function() {
-      if (a.click) {
-        a.click();
-        // Workaround for Safari 5
-      } else if (document.createEvent) {
-        var eventObj = document.createEvent('MouseEvents');
-        eventObj.initEvent('click', true, true);
-        a.dispatchEvent(eventObj);
-      }
-      D.body.removeChild(a);
-
-    }, 100);
   }
 
 
