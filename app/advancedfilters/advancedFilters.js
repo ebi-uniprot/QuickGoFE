@@ -201,7 +201,8 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.toggled = function(open) {
       if(!open) {
-        $scope.updateFilters();
+        $scope.appliedFilters = filteringService.getApplied();
+        $scope.filters = angular.copy(filteringService.getFilters());
       }
     }
 
