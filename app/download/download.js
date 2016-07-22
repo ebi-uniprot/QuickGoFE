@@ -51,7 +51,7 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
   };
 
   function downloadFile(fileName, data, strMimeType) {
-    strMimeType = strMimeType || 'text/tsv;charset=utf-8;';
+    strMimeType = strMimeType || 'text/plain;charset=utf-8;';
 
     var blob = new Blob([data], {type: strMimeType});
     saveAs(blob, fileName);

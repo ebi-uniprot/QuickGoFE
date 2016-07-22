@@ -97,10 +97,10 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
 
    var downloadFileFormats= [
-      {format:"Gene Association File (GAF)", ext:"gaf", strMimeType: "text/tsv;charset=utf-8;" },
-      {format:"Gene Product Association Data (GPAD)", ext:"gpad", strMimeType: "text/tsv;charset=utf-8;" },
+      {format:"Gene Association File (GAF)", ext:"gaf", strMimeType: "text/plain;charset=utf-8;" },
+      {format:"Gene Product Association Data (GPAD)", ext:"gpad", strMimeType: "text/plain;charset=utf-8;" },
       {format:"Tab-delimited", ext:"tsv", strMimeType: "text/tsv;charset=utf-8;" },
-      {format:"Gene2GO", ext:"gene2go", strMimeType: "text/tsv;charset=utf-8;" }
+      {format:"Gene2GO", ext:"gene2go", strMimeType: "text/plain;charset=utf-8;" }
     ];
 
     var geneProductSets = [
