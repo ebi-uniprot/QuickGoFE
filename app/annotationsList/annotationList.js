@@ -147,7 +147,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       angular.forEach(extension.connectedXrefs, function(xref){
         olsService.getTermName(xref).then(function(name){
           xref.label = name.data.label;
-        })
+        });
       });
     });
     $scope.extensions = extensions;
