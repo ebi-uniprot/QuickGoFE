@@ -133,7 +133,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
     $scope.withList = withList;
 
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       templateUrl: 'annotationsList/withStringModal.html',
       controller: 'AnnotationListModalController',
       size: 'md',
@@ -152,7 +152,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     });
     $scope.extensions = extensions;
 
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       templateUrl: 'annotationsList/annotationExtensionModal.html',
       controller: 'AnnotationListModalController',
       size: 'md',
@@ -171,7 +171,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    */
   $scope.showEvidenceCodeOntologyGraph = function (ecoId) {
 
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',

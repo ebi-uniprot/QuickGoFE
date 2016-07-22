@@ -36,7 +36,7 @@ wsService.factory('stringService', [function(){
       return _.uniq(str.replace( /\n/g, " " ).split(/[\s,]+/));
     }
   }
-}])
+}]);
 
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
@@ -143,7 +143,7 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
   };
 }])
 
-wsService.factory('olsService', ['$http', '$location', function($http, $location) {
+wsService.factory('olsService', ['$http', function($http) {
   return {
     getTermName: function(xref) {
       return $http.get('http://www.ebi.ac.uk/ols/api/ontologies/' + xref.db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + xref.db + '_' + xref.id);
