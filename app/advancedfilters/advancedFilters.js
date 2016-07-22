@@ -7,14 +7,14 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.qualifiers = hardCodedDataService.getQualifiers();
     $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
 
-    $scope.filters = filteringService.initialiseFilters();
+    $scope.filters = angular.copy(filteringService.initialiseFilters());
     $scope.appliedFilters = {};
     $scope.view = {};
 
     $scope.namesMap = {};
 
     $rootScope.$on('filtersUpdate', function(event) {
-      $scope.filters = filteringService.getFilters();
+      $scope.filters = angular.copy(filteringService.getFilters());
     });
 
     angular.forEach($routeParams, function(val, type) {
@@ -159,6 +159,11 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       $scope.updateFilters();
     }
 
+    $scope.applyFilters = function() {
+      filteringService.setFilters($scope.filters);
+      $scope.updateFilters();
+    }
+
     $scope.updateFilters = function() {
       closeAllFilters();
       $scope.appliedFilters = filteringService.getApplied();
@@ -192,6 +197,13 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.toggleMore = function(type) {
       $scope.view[type] = !$scope.view[type];
+    }
+
+    $scope.toggled = function(open) {
+      if(!open) {
+        $scope.appliedFilters = filteringService.getApplied();
+        $scope.filters = angular.copy(filteringService.getFilters());
+      }
     }
 
     $scope.namesMap = filteringService.getNamesMap();
