@@ -25,8 +25,7 @@ var app = angular
     'quickGoFeApp.errorHandling',
     "ui.bootstrap",
     'duScroll',
-    'config',
-    'ngFileSaver'
+    'config'
   ]);
 
   app.run(function($rootScope, dbXrefService, $window){

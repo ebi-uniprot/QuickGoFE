@@ -3,7 +3,7 @@
  */
 
 app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
-                                       quickGOHelperService, termService, $window, FileSaver) {
+                                       quickGOHelperService, termService, $window) {
 
   $scope.loadBasketItems = function() {
     $scope.basketPromise = basketService.getItems();
@@ -118,16 +118,8 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
       text += item.aspectDescription + "\t";
       text += item.name + "\n";
     });
-
-    var exportLink = $('#quickGO-basket-export-link');
-
-    if ('download' in exportLink.get(0)) {
-      var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
-      FileSaver.saveAs(blob, "basket.tsv");
-    } else {
-      var blob = new Blob([text], {type: "text/plain;charset=utf-8;"});
-      saveAs(blob, "basket.txt");
-    }
+    var blob = new Blob([text], {type: "text/tsv;charset=utf-8;"});
+    saveAs(blob, "basket.tsv");
   };
 
   $scope.isBasketNotEmpty = function (){
