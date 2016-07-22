@@ -207,5 +207,9 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       }
     };
 
+    $scope.isEmptyObject = function(obj) {
+      return _.isEmpty(obj);
+    }
+
     $scope.namesMap = filteringService.getNamesMap();
   });
