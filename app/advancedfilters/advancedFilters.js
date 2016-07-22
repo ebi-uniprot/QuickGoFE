@@ -7,14 +7,14 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.qualifiers = hardCodedDataService.getQualifiers();
     $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
 
-    $scope.filters = filteringService.initialiseFilters();
+    $scope.filters = angular.copy(filteringService.initialiseFilters());
     $scope.appliedFilters = {};
     $scope.view = {};
 
     $scope.namesMap = {};
 
-    $rootScope.$on('filtersUpdate', function(event) {
-      $scope.filters = filteringService.getFilters();
+    $rootScope.$on('filtersUpdate', function() {
+      $scope.filters = angular.copy(filteringService.getFilters());
     });
 
     angular.forEach($routeParams, function(val, type) {
@@ -45,7 +45,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.resetTaxons = function() {
       filteringService.initTaxon();
       $scope.updateFilters();
-    }
+    };
 
     $scope.addTaxons = function() {
       var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
@@ -55,14 +55,15 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
         }
       });
       $scope.taxonTextArea = '';
-    }
+    };
 
     $scope.resetgpIds = function() {
       filteringService.initGpSet();
       filteringService.initGpID();
       filteringService.initGpType();
       $scope.updateFilters();
-    }
+    };
+
     $scope.addGPs = function() {
       var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
       angular.forEach(gps, function(gpID){
@@ -71,14 +72,14 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
         }
       });
       $scope.gpTextArea = '';
-    }
+    };
 
     $scope.resetGoTerms = function() {
       filteringService.initGoID();
       filteringService.initGoTermUse();
       filteringService.initGoRelations();
       $scope.updateFilters();
-    }
+    };
 
     $scope.addGoTerms = function() {
       var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
@@ -88,7 +89,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
         }
       });
       $scope.goTermsTextArea = '';
-    }
+    };
 
     $scope.updatePredefinedSets = function() {
       $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({
@@ -104,13 +105,13 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.resetAspect = function() {
       filteringService.initAspect();
       $scope.updateFilters();
-    }
+    };
 
     $scope.resetECOs = function() {
       filteringService.initEcoID();
       filteringService.initEcoTermUse();
       $scope.updateFilters();
-    }
+    };
 
     $scope.addECOs = function() {
       var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
@@ -120,7 +121,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
         }
       });
       $scope.ecoTextArea = '';
-    }
+    };
 
     $scope.addReferences = function() {
       var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea);
@@ -128,7 +129,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
         filteringService.addFilter('referenceSearch',refID,true);
       });
       $scope.referenceTextArea = '';
-    }
+    };
 
 
     $scope.addWith = function() {
@@ -137,33 +138,38 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
         filteringService.addFilter('with',withId,true);
       });
       $scope.withTextArea = '';
-    }
+    };
 
     $scope.resetQualifier = function() {
       filteringService.initQualifier();
       $scope.updateFilters();
-    }
+    };
 
     $scope.resetReference = function() {
       filteringService.initReference();
       $scope.updateFilters();
-    }
+    };
 
     $scope.resetWith = function() {
       filteringService.initWith();
       $scope.updateFilters();
-    }
+    };
 
     $scope.resetAssigned = function() {
       filteringService.initAssignedby();
       $scope.updateFilters();
-    }
+    };
+
+    $scope.applyFilters = function() {
+      filteringService.setFilters($scope.filters);
+      $scope.updateFilters();
+    };
 
     $scope.updateFilters = function() {
       closeAllFilters();
       $scope.appliedFilters = filteringService.getApplied();
       $rootScope.$broadcast('filtersUpdate');
-    }
+    };
 
     $scope.clearFilters=function() {
       filteringService.clearFilters();
@@ -177,22 +183,29 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       $scope.status.isopenAspect = false;
       $scope.status.isopenEvidence = false;
       $scope.showMore = false;
-    }
+    };
 
     $scope.selectAllNotQualifiers = function () {
       angular.forEach($scope.qualifiers, function(qualifier) {
         if(qualifier.qualifier.startsWith('NOT'))
         $scope.filters.qualifier[qualifier.qualifier] = true;
       });
-    }
+    };
 
     $scope.isActiveFilter = function(type) {
       return $scope.appliedFilters[type];
-    }
+    };
 
     $scope.toggleMore = function(type) {
       $scope.view[type] = !$scope.view[type];
-    }
+    };
+
+    $scope.toggled = function(open) {
+      if(!open) {
+        $scope.appliedFilters = filteringService.getApplied();
+        $scope.filters = angular.copy(filteringService.getFilters());
+      }
+    };
 
     $scope.namesMap = filteringService.getNamesMap();
   });
