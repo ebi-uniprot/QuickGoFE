@@ -14,7 +14,6 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
 
   $scope.loadBasketItems();
   $scope.input_terms='';
-  $scope.exportURL = '#';
 
   /**
    * ------------------------------------ Remove item from basket -----------------------------------------
@@ -39,7 +38,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Pass that list to the filtering service.
    */
   $scope.submit = function() {
-    var terms = basketService.validateTerms($scope.input_terms)
+    var terms = basketService.validateTerms($scope.input_terms);
     angular.forEach(terms.valid, function(term) {
       basketService.addBasketItem(term);
     });
@@ -119,24 +118,16 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
       text += item.aspectDescription + "\t";
       text += item.name + "\n";
     });
-
-    var exportLink = $('#quickGO-basket-export-link');
-
-    if ('download' in exportLink.get(0)) {
-      var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
-      $scope.exportURL = (window.URL || window.webkitURL).createObjectURL( blob );
-    } else {
-      var blob = new Blob([text], {type: "text/plain;charset=utf-8;"});
-      saveAs(blob, "basket.txt");
-    }
+    var blob = new Blob([text], {type: "text/tsv;charset=utf-8;"});
+    saveAs(blob, "basket.tsv");
   };
 
   $scope.isBasketNotEmpty = function (){
     return basketService.basketQuantity() > 0;
-  }
+  };
 
   $scope.close = function() {
     $uibModalInstance.dismiss('cancel');
-  }
+  };
 
 });
