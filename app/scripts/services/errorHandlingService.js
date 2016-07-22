@@ -25,6 +25,7 @@ errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$root
             break;
           case 500:
             console.log(response);
+            break;
           case -1 :
             break; //ols not found
           default:
