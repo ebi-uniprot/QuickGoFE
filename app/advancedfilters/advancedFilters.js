@@ -121,7 +121,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
       angular.forEach(ecos, function(ecoID){
         if(filteringService.validateECOTerm(ecoID)) {
-          filteringService.ecoID[ecoID] = true;
+          $scope.filters.ecoID[ecoID] = true;
         }
       });
       $scope.ecoTextArea = '';
@@ -130,7 +130,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.addReferences = function() {
       var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea);
       angular.forEach(refs, function(refID){
-        filteringService.referenceSearch[refID] = true;
+        $scope.filters.referenceSearch[refID] = true;
       });
       $scope.referenceTextArea = '';
     };
@@ -139,7 +139,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.addWith = function() {
       var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
       angular.forEach(withs, function(withId){
-        filteringService.with[withId] = true;
+        $scope.filters.with[withId] = true;
       });
       $scope.withTextArea = '';
     };
