@@ -51,7 +51,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
       angular.forEach(taxons, function(taxonId){
         if(filteringService.validateTaxon(taxonId)) {
-          filteringService.addFilter('taxon',taxonId,true);
+          filteringService.taxon[taxonId] = true;
         }
       });
       $scope.taxonTextArea = '';
@@ -72,7 +72,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
       angular.forEach(gps, function(gpID){
         if(filteringService.validateGeneProduct(gpID)) {
-          filteringService.addFilter('gpID',gpID,true);
+          $scope.filters.gpID[gpID] = true;
         }
       });
       $scope.gpTextArea = '';
@@ -89,7 +89,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
       angular.forEach(goterms, function(goTerm){
         if(filteringService.validateGOTerm(goTerm)){
-          filteringService.addFilter('goID',goTerm,true);
+          filteringService.goID[goTerm] = true;
         }
       });
       $scope.goTermsTextArea = '';
@@ -101,7 +101,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       });
       $scope.availablePredefinedTerms.$promise.then(function(data) {
         angular.forEach(data, function(d) {
-          filteringService.addFilter('goID',d.termId,true);
+          filteringService.goID[d.termId] = true;
         })
       });
     };
@@ -121,7 +121,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
       angular.forEach(ecos, function(ecoID){
         if(filteringService.validateECOTerm(ecoID)) {
-          filteringService.addFilter('ecoID',ecoID,true);
+          filteringService.ecoID[ecoID] = true;
         }
       });
       $scope.ecoTextArea = '';
@@ -130,7 +130,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.addReferences = function() {
       var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea);
       angular.forEach(refs, function(refID){
-        filteringService.addFilter('referenceSearch',refID,true);
+        filteringService.referenceSearch[refID] = true;
       });
       $scope.referenceTextArea = '';
     };
@@ -139,7 +139,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.addWith = function() {
       var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
       angular.forEach(withs, function(withId){
-        filteringService.addFilter('with',withId,true);
+        filteringService.with[withId] = true;
       });
       $scope.withTextArea = '';
     };
