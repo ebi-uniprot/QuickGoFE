@@ -59,11 +59,6 @@ app.controller('AnnotationExtensionRelationsCtrl', function( $scope, ENV) {
       entries: [ { attrValue: 2, value: "7ac5cd" } ]
     };
 
-    var cbMapper = {
-      attrName: "t",
-      entries: [ { attrValue: 2, value: "ee7621" } ]
-    };
-
     var ecMapper = {
       attrName: "t",
       entries: [ { attrValue: "part_of", value: "6495ed" } ]

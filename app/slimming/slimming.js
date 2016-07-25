@@ -60,7 +60,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   $scope.basketPromise = basketService.getItems();
   $scope.basketPromise.then(function(d){
     $scope.basketList = d.data;
-  })
+  });
 
   /**
    * Get predefined slim sets
@@ -78,13 +78,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       $scope.predefinedCC = predefinedSets['Cellular Component'];
     });
   };
-
-  var removeTerm = function(termID){
-    $scope.selectedItems = _.filter($scope.selectedItems, function(term){
-      return term.termId != termID;
-    });
-  };
-
 
   $scope.addPredefined = function() {
     var predefinedItems = [];
@@ -108,7 +101,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     }
     addItemsToSelection(predefinedItems);
     resetPredefined();
-  }
+  };
 
   var resetPredefined = function() {
       $scope.predefinedBP = [];
@@ -119,7 +112,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       $scope.predefinedCheckboxes.MFcheckbox = true;
       $scope.selectedPreDefinedSlimSet = '';
       $scope.availablePredefinedTerms = ''
-  }
+  };
 
   // Own terms
   $scope.addOwnTerms = function() {
@@ -157,7 +150,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       // remove item from the basketList
       $scope.basketList = _.filter($scope.basketList, function(term){
         return term.termId != item;
-      })
+      });
       return $scope.basketSelection[item];
     });
 
@@ -167,7 +160,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     });
 
     //reset selection
-    $scope.basketSelection = _.map($scope.basketSelection, function(key, val){
+    $scope.basketSelection = _.map($scope.basketSelection, function(){
       return {key: false};
     });
 
@@ -216,7 +209,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     // Remove from selected items
     $scope.selectedItems = _.filter($scope.selectedItems, function(term){
       return term.termId != termId;
-    })
+    });
 
     // if item was originally in the basketTermsInSelection then add it back into the basket options
     if(_.indexOf($scope.basketTermsInSelection, termId) >= 0){
@@ -230,7 +223,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       })
 
     }
-  }
+  };
 
   /**
    * Save the entered information and use it to filter the results on the annotation list page,
@@ -246,7 +239,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     // Add gene products
     if($scope.genProductID){
       var geneProductsAdded = stringService.getTextareaItemsAsArray($scope.genProductID);
-      angular.forEach((geneProductsAdded), function(geneProdId, n) {
+      angular.forEach((geneProductsAdded), function(geneProdId) {
         $location.search('gpID', geneProdId);
       });
     }
@@ -258,18 +251,18 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     });
 
     $location.path("annotations");
-  }
+  };
 
   $scope.clearSelection = function(){
     $scope.selectedItems = [];
-  }
+  };
 
   /**
    * Show the  graph image modal on request.
    * Turn the list of advancedFilters into to comma delimited list
    */
   $scope.showGraph = function () {
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',
@@ -291,7 +284,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     } if($scope.predefinedCheckboxes.MFcheckbox) {
       tempPredefinedItems = _.union(tempPredefinedItems, $scope.predefinedMF);
     }
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',
@@ -308,28 +301,28 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   };
 
 $scope.showGraphOwnTerms = function () {
-if($scope.slimOwnTerms){
-  var tempOwnTerms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
-  var modalInstance = $uibModal.open({
-    templateUrl: 'charts/ontologyGraphModal.html',
-    controller: 'OntologyGraphCtrl',
-    windowClass: 'app-modal-window',
-    scope: $scope,
-    resolve: {
-      graphModel: function () {
-        return {
-          id:tempOwnTerms.toString(),
-          scope:'GO'
-        };
+  if($scope.slimOwnTerms){
+    var tempOwnTerms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
+    $uibModal.open({
+      templateUrl: 'charts/ontologyGraphModal.html',
+      controller: 'OntologyGraphCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope,
+      resolve: {
+        graphModel: function () {
+          return {
+            id:tempOwnTerms.toString(),
+            scope:'GO'
+          };
+        }
       }
-    }
-  });
-}else{
-  $scope.succesAlerts.push(
-    {type: 'info',msg:  'Please add some term Id\'s first'}
-  );
-};
-};
+    });
+  } else {
+    $scope.succesAlerts.push(
+      {type: 'info',msg:  'Please add some term Id\'s first'}
+    );
+  }
+  };
 
 $scope.showGraphBasketItems = function () {
 
@@ -352,11 +345,11 @@ $scope.showGraphBasketItems = function () {
           }
         }
       });
-    }else{
+    } else {
       $scope.succesAlerts.push(
         {type: 'info',msg:  'Please select some basket terms from the list first'}
       );
-    };
+    }
 };
 
 });

@@ -7,9 +7,10 @@ var filtersModule = angular.module('app.quickGo.filters', []).filter('withUrlFil
       var vals = input.split(":");
       return "http://www.ebi.ac.uk/interpro/entry/" + vals[1];
     }
+
     if (input.indexOf("UniProtKB") == 0) {
-      var vals = input.split(":");
-      return "http://www.uniprot.org/keywords/" + vals[1];
+      var values = input.split(":");
+      return "http://www.uniprot.org/keywords/" + values[1];
     }
   };
 });
@@ -25,8 +26,8 @@ filtersModule.filter('referenceUrlFilter', function () {
       }
 
       if (input.lastIndexOf("PMID",0) == 0) {
-        var vals = input.split(":");
-        return "http://europepmc.org/abstract/MED/" + vals[1];
+        var values = input.split(":");
+        return "http://europepmc.org/abstract/MED/" + values[1];
       }
 
       if (input.lastIndexOf("DOI",0) == 0) {

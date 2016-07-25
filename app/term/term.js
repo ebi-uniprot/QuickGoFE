@@ -16,11 +16,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $rootScope.header = "QuickGO::Term "+termId;
 
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
-  if(termId.lastIndexOf('ECO', 0) === 0){
-    $scope.isGoTerm = false;
-  }else{
-    $scope.isGoTerm = true;
-  }
+  $scope.isGoTerm = termId.lastIndexOf('ECO', 0) === 0 ? $scope.isGoTerm = false : $scope.isGoTerm = true;
 
   //Get predefined slim sets
   $scope.predefinedSlimSets = PreDefinedSlimSets.query();
@@ -40,11 +36,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
 
     //Set restrictions show
-    if($scope.termModel.usage === 'Unrestricted' || !$scope.termModel.goTerm){
-      $scope.showRestrictions = false;
-    }else{
-      $scope.showRestrictions = true;
-    }
+      $scope.showRestrictions = !(($scope.termModel.usage === 'Unrestricted') || (!$scope.termModel.goTerm));
 
     //Set GO Slim subset counts
     angular.forEach($scope.predefinedSlimSets, function(slim) {
@@ -67,12 +59,12 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
     $scope.statsPromise = termService.getStats(termId);
     $scope.statsPromise.then(function(d){
       $scope.stats = d.data;
-      $scope.totalTogetherAllStats = 0,
-      $scope.totalComparedAllStats = 0,
-      $scope.totalTogetherNonIEAStats = 0,
+      $scope.totalTogetherAllStats = 0;
+      $scope.totalComparedAllStats = 0;
+      $scope.totalTogetherNonIEAStats = 0;
       $scope.totalComparedNonIEAStats = 0;
 
-      angular.forEach(d.data.allCoOccurrenceStatsTerms, function(val, key){
+      angular.forEach(d.data.allCoOccurrenceStatsTerms, function(val){
         $scope.totalTogetherAllStats = $scope.totalTogetherAllStats + val.together;
         $scope.totalComparedAllStats = $scope.totalTogetherAllStats + val.compared;
       });
@@ -114,11 +106,9 @@ var makeMapFitImage = function(){
                 var map = document.getElementById('ontologygraphmap'),
                     img = document.getElementById('ontologyGraphImage'),
                     natWidth = img.naturalWidth,
-                    n = 0,
                     areas = map.getElementsByTagName('area'),
                     len = areas.length,
-                    coords = [],
-                    x = 0;
+                    coords = [];
 
                for (n = 0; n < len; n++) {
                    coords[n] = areas[n].coords.split(',');
@@ -144,12 +134,11 @@ var makeMapFitImage = function(){
            },
            imageMap = new ImageMap();
            imageMap.resize();
-           return;
 };
 
 window.onresize = function () {
    makeMapFitImage();
-}
+};
 
 
 

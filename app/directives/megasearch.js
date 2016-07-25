@@ -9,7 +9,7 @@ angular
 				noInput: '=?',
 				limit: '@'
 			},
-			link: function(scope, elem, attrs) {
+			link: function(scope, elem) {
 				scope.provideSuggestions = function(keyCode) {
 					$timeout.cancel(scope.timePromise); //cancel previous request
 
@@ -24,11 +24,11 @@ angular
 							loadData();
 						}
 					} ,500);
-				}
+				};
 
 				scope.submitSearch = function() {
 				    $location.path("search/" + scope.searchTerm);
-				}
+				};
 
 				var loadData = function() {
 					//Look for matching GO terms
@@ -43,13 +43,13 @@ angular
 						scope.products = res.data;
 					});
 					//Look for Publications
-				}
+				};
 
 				var reset = function() {
 					scope.searchTerm = '';
 					scope.terms = [];
 					scope.products = [];
-				}
+				};
 
 				//Only close on click if it's open in a panel
 				if (!scope.noInput) {
@@ -59,8 +59,9 @@ angular
 						var isClickedElementChildOfPopup = elem[0]
 							.contains(event.target);
 
-						if (isClickedElementChildOfPopup && !isAnchor)
+						if (isClickedElementChildOfPopup && !isAnchor) {
 							return;
+						}
 
 						reset();
 						scope.$apply();
