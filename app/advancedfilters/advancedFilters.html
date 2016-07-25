@@ -90,7 +90,7 @@
     </li>
 
     <!-- GENE PRODUCT TYPE -->
-    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenGPT">
+    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenGPT" on-toggle="toggled(open)">
       <button type="button" class="btn btn-default quickgo-btn  icon" ng-class="{'icon-functional active-filter' : isActiveFilter('gpType')}" data-icon="/" uib-dropdown-toggle>
         Gene Product Type <span class="caret"></span>
         <br>
@@ -115,7 +115,7 @@
             <hr>
             <div class="pull-right">
               <button class="btn quickgo-btn" type="button" ng-click="resetGPType()">Reset</button>
-              <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
+              <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
             </div>
           </form>
         </div>
