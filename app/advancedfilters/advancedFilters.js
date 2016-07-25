@@ -11,28 +11,12 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.appliedFilters = {};
     $scope.view = {};
 
+    $scope.status = {};
+
     $scope.namesMap = {};
 
     $rootScope.$on('filtersUpdate', function() {
       $scope.filters = angular.copy(filteringService.getFilters());
-    });
-
-    angular.forEach($routeParams, function(val, type) {
-        if(type === 'id') {
-          var isGoTerm = val.indexOf("GO");
-          if(isGoTerm >= 0) {
-            filteringService.addFilter('goID', val, true);
-          } else {
-            filteringService.addFilter('ecoID', val, true);
-          }
-        } else if(val.split(",").length > 0){
-          angular.forEach(val.split(','), function(value){
-            filteringService.addFilter(type,value,true)
-          });
-        } else {
-          filteringService.addFilter(type, val, true);
-        }
-        $scope.appliedFilters = filteringService.getApplied();
     });
 
     // Get predefined slim sets
@@ -211,6 +195,24 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
         $scope.filters = angular.copy(filteringService.getFilters());
       }
     };
+
+    angular.forEach($routeParams, function(val, type) {
+        if(type === 'id') {
+          var isGoTerm = val.indexOf("GO");
+          if(isGoTerm >= 0) {
+            filteringService.addFilter('goID', val, true);
+          } else {
+            filteringService.addFilter('ecoID', val, true);
+          }
+        } else if(val.split(",").length > 0){
+          angular.forEach(val.split(','), function(value){
+            filteringService.addFilter(type,value,true)
+          });
+        } else {
+          filteringService.addFilter(type, val, true);
+        }
+        $scope.updateFilters();
+    });
 
     $scope.namesMap = filteringService.getNamesMap();
   });
