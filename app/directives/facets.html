@@ -1,8 +1,8 @@
 <div ng-repeat="facet in fields">
 <h4 class="capitalize">{{facet.field}}</h4>
-<ul>
-  <li ng-repeat="category in facet.categories" ng-click="applyFacet(facet.field.categories, category.key)" ng-switch="isSelected(facet.field, category.name)">
-    <strong ng-switch-when="true">{{category.name}} ({{category.count}})</strong>
+<ul class="facet-filter">
+  <li ng-repeat="category in facet.categories" ng-switch="isSelected(facet.field, category.name)">
+    <a ng-switch-when="true" ng-href="{{endpoint}}/{{searchTerm}}?filters={{removeFilterUrl(facet.field, category.name)}}" class="facet-filter-active">{{category.name}}</a>
     <a ng-switch-when="false" ng-href="{{endpoint}}/{{searchTerm}}?filters={{getFilterUrl(facet.field, category.name)}}">{{category.name}} ({{category.count}})</a>
   </li>
 </ul>
