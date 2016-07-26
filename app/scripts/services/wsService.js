@@ -49,11 +49,7 @@ wsService.factory('stringService', [function(){
 wsService.factory('ontoTypeService', [function(){
     return {
         isGoTerm : function(termId) {
-            if (termId.indexOf('ECO') === 0) {
-                return false;
-            } else {
-                return true;
-            }
+            return !(termId.indexOf('ECO') === 0);
         },
         ontoOneLetterName: function(ontoName) {
             switch(ontoName) {
