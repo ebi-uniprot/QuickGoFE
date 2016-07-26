@@ -62,7 +62,7 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, ENV) {
 
     $scope.tooltip= content;
 
-  }
+  };
 
   /**
    * End

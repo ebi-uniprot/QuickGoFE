@@ -1,11 +1,11 @@
 app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchService, $routeParams) {
 
   var isTermSearch = $location.path().indexOf('searchterms') > -1;
-
+  var facets;
   if(isTermSearch) {
-    var facets = 'aspect,ontology';
+    facets = 'aspect,ontology';
   } else {
-    var facets = 'type'
+    facets = 'type'
   }
   $scope.maxSize = 25;
   $scope.currentPage = 1;
@@ -37,9 +37,9 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
     if (!text) {
       return text;
     }
-    var newText = text.replace(new RegExp($scope.searchTerm, 'gi'), "<span class='highlighted'>" + $scope.searchTerm + "</span>");
-    return newText;
-  }
+
+    return text.replace(new RegExp($scope.searchTerm, 'gi'), "<span class='highlighted'>" + $scope.searchTerm + "</span>");
+  };
 
   getResultsPage();
 

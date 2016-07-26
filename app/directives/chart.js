@@ -8,9 +8,9 @@ angular
 				termName: '='
 			},
 			templateUrl: 'directives/chart.html',
-			link: function(scope, element, attrs, controller) {
+			link: function(scope) {
 				scope.createChart = function() {
-					var modalInstance = $uibModal.open({
+					$uibModal.open({
 						templateUrl: 'charts/ontologyGraphModal.html',
 						controller: 'OntologyGraphCtrl',
 						windowClass: 'app-modal-window',

@@ -2,8 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
-                                       quickGOHelperService, termService, $window) {
+app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService) {
 
   $scope.loadBasketItems = function() {
     $scope.basketPromise = basketService.getItems();
@@ -65,13 +64,13 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Turn the list of basket items into to comma delimited list
    */
   $scope.showAncestorGraph = function () {
-    var k=0;
+    var k;
     var itemString="";
     for(k=0;k<$scope.basketItems.length;k++ ){
       itemString = itemString+$scope.basketItems[k].termId;
       itemString=itemString+',';
     }
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',

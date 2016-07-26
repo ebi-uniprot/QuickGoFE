@@ -45,7 +45,7 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalIn
 
     $scope.tooltip= content;
 
-  }
+  };
 
 
   /**
