@@ -16,12 +16,15 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($reso
 }]);
 
 wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
+  //var
   return {
-      getTerm : function(termId) {
-        return $http.get(ENV.apiEndpoint+'/term/' + termId);
+      getTerm : function(termId, isGoTerm) {
+        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + termId + '/complete')
+            : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
-      getTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/terms', {params: {ids: ids}});
+      getTerms : function(ids, isGoTerm) {
+        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms', {params: {ids: ids}} + '/complete')
+            : $http.get(ENV.apiEndpoint+'/eco/terms', {params: {ids: ids}} + '/complete');
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
