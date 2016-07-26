@@ -147,7 +147,7 @@
 
             <th>Relationship to </br>{{termModel.termId}}</th>
           </tr>
-          <tr ng-repeat="childRelation in termModel.childTermsRelations">
+          <tr ng-repeat="childRelation in termModel.childTermsRelations | limitTo:childTermsPageSize">
             <td>
               <a class="quickgo-link" ng-href="term/{{childRelation.id}}">{{childRelation.id}}</a>
               <basket-button termid="{{childRelation.id}}"></basket-button>
@@ -157,6 +157,9 @@
             <td>{{childRelation.typeOf}}</td>
           </tr>
         </table>
+        <a ng-show="childTermsPageSize < termModel.childTermsRelations.length" ng-click="childTermsPageSize = termModel.childTermsRelations.length" class="glyphicon glyphicon-collapse-down">show more</a>
+        <a ng-show="(childTermsPageSize == termModel.childTermsRelations.length && termModel.childTermsRelations.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up">show less</a>
+
       </div>
     </section>
 
@@ -206,7 +209,7 @@
           <th>Taxon</th>
           <th>Reference(s)</th>
         </tr>
-        <tr ng-repeat="taxonconstraint in termModel.taxonConstraints">
+        <tr ng-repeat="taxonconstraint in termModel.taxonConstraints | limitTo:taxonConstraintsPageSize">
           <td><a class="quickgo-link" href="term/{{taxonconstraint.goId}}">{{taxonconstraint.goId}}</a></td>
           <td>{{taxonconstraint.name}}</td>
           <td ng-if="taxonconstraint.relationship == 'ONLY_IN_TAXON'">Only in Taxon</td>
@@ -220,6 +223,9 @@
           </td>
         </tr>
       </table>
+      <a ng-show="taxonConstraintsPageSize < termModel.taxonConstraints.length" ng-click="taxonConstraintsPageSize = termModel.taxonConstraints.length" class="glyphicon glyphicon-collapse-down">show more</a>
+      <a ng-show="(taxonConstraintsPageSize == termModel.taxonConstraints.length && termModel.taxonConstraints.length > defaultPageSize)" ng-click="taxonConstraintsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up">show less</a>
+
       <p>More information on taxon constraints in GO is available <a target="_blank" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000056">here</a></p>
     </section>
 
@@ -238,7 +244,7 @@
           <th>Reason</th>
           <th>Rule/Method ID</th>
         </tr>
-        <tr ng-repeat="entry in termWithBlacklist.blacklist">
+        <tr ng-repeat="entry in termWithBlacklist.blacklist | limitTo:blacklistPageSize">
           <td>{{entry.category}}</td>
           <td>{{entry.entityType}}</td>
           <td>{{entry.proteinAc}}</td>
@@ -249,6 +255,8 @@
           <td>{{entry.methodId}}</td>
         </tr>
       </table>
+      <a ng-show="blacklistPageSize < termWithBlacklist.blacklist.length" ng-click="blacklistPageSize = termWithBlacklist.blacklist.length" class="glyphicon glyphicon-collapse-down">show more</a>
+      <a ng-show="(blacklistPageSize == termWithBlacklist.blacklist.length && termWithBlacklist.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up">show less</a>
     </section>
 
     <!-- Cross References-->
@@ -260,12 +268,14 @@
         <th>ID</th>
         <th>Description</th>
       </tr>
-      <tr ng-repeat="xref in termModel.xrefs">
+      <tr ng-repeat="xref in termModel.xrefs | limitTo:crossrefsPageSize">
         <td><a ng-click="followLinkToGeneric(xref.db)" target="_blank">{{xref.db}}</a></td>
         <td><a ng-click="followLinkToEntry(xref.db, xref.id)" target="_blank">{{xref.id}}</a></td>
         <td>{{xref.name}}</td>
       </tr>
       </table>
+      <a ng-show="crossrefsPageSize < termModel.xrefs.length" ng-click="crossrefsPageSize = termModel.xrefs.length" class="glyphicon glyphicon-collapse-down">show more</a>
+      <a ng-show="(crossrefsPageSize == termModel.xrefs.length && termModel.xrefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up">show less</a>
     </section>
 
     <!-- Cross Ontology Relations -->
@@ -278,13 +288,15 @@
           <th>ID</th>
           <th>Term</th>
         </tr>
-        <tr ng-repeat="crossontology in termModel.crossOntologyRelations">
+        <tr ng-repeat="crossontology in termModel.crossOntologyRelations | limitTo:crossOntologyPageSize">
           <td>{{crossontology.relation}}</td>
           <td>{{crossontology.otherNamespace}}</td>
           <td><a class="quickgo-link" href="{{crossontology.url}}" target="_blank">{{crossontology.foreignID}}</a></td>
           <td>{{crossontology.foreignTerm}}</td>
         </tr>
       </table>
+      <a ng-show="crossOntologyPageSize < termModel.crossOntologyRelations.length" ng-click="crossOntologyPageSize = termModel.crossOntologyRelations.length" class="glyphicon glyphicon-collapse-down">show more</a>
+      <a ng-show="(crossOntologyPageSize == termModel.crossOntologyRelations.length && termModel.crossOntologyRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up">show less</a>
       </accordion-group>
     </section>
 
@@ -299,13 +311,15 @@
           <th>GO Term Name</th>
           <th>Reason</th>
         </tr>
-        <tr ng-repeat="replacement in termModel.replaces">
+        <tr ng-repeat="replacement in termModel.replaces | limitTo:replacesPageSize">
           <td><a class="quickgo-link" href="term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
           <td>{{replacement.child.name}}</td>
           <td>{{replacement.typeof}} <a href="term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
           </td>
         </tr>
       </table>
+      <a ng-show="replacesPageSize < termModel.replaces.length" ng-click="replacesPageSize = termModel.replaces.length" class="glyphicon glyphicon-collapse-down">show more</a>
+      <a ng-show="(replacesPageSize == termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up">show less</a>
     </section>
 
     <!-- Replaced By-->
@@ -349,7 +363,7 @@
                   <th>#Together</th>
                   <th>#Compared</th>
                 </tr>
-                <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms">
+                <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms | limitTo:coOccurringEntirePageSize">
                   <td width="70%">
                     <span ng-if="allStat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{allStat.aspect}}">{{allStat.aspect}}</span>
                     <a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a>
@@ -363,11 +377,18 @@
                   <td>{{allStat.compared}}</td>
                 </tr>
                 <tr>
-                  <td colspan="5"><strong>Totals</strong></td>
-                  <td>{{totalTogetherAllStats}}</td>
-                  <td>{{totalComparedAllStats}}</td>
+                  <td colspan="5">
+                    <a ng-show="coOccurringEntirePageSize < stats.allCoOccurrenceStatsTerms.length" ng-click="coOccurringEntirePageSize = stats.allCoOccurrenceStatsTerms.length" class="glyphicon glyphicon-collapse-down">show full list</a>
+                    <a ng-show="(coOccurringEntirePageSize == stats.allCoOccurrenceStatsTerms.length && stats.allCoOccurrenceStatsTerms.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up">show less</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Totals</strong></td>
+                  <td><strong>{{totalTogetherAllStats}}</strong></td>
+                  <td><strong>{{totalComparedAllStats}}</strong></td>
                 </tr>
               </table>
+
             </div>
           </div>
           </uib-tab>
@@ -388,7 +409,7 @@
                     <th>#Together</th>
                     <th>#Compared</th>
                   </tr>
-                  <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics">
+                  <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics | limitTo:coOccurringManualPageSize">
                     <td width="70%">
                       <span ng-if="nonIEAStat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{nonIEAStat.aspect}}">{{nonIEAStat.aspect}}</span>
                       <a class="quickgo-link" ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
@@ -401,11 +422,17 @@
                     <td>{{nonIEAStat.together}}</td>
                     <td>{{nonIEAStat.compared}}</td>
                   </tr>
+                  <tr>
+                    <td colspan="5">
+                      <a ng-show="coOccurringManualPageSize < stats.nonIEACOOccurrenceStatistics.length" ng-click="coOccurringManualPageSize = stats.nonIEACOOccurrenceStatistics.length" class="glyphicon glyphicon-collapse-down">show full list</a>
+                      <a ng-show="(coOccurringManualPageSize == stats.nonIEACOOccurrenceStatistics.length && stats.nonIEACOOccurrenceStatistics.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up">show less</a>
+                    </td>
+                  </tr>
 
                   <tr>
-                    <td colspan="5"><strong>Totals</strong></td>
-                    <td>{{totalTogetherNonIEAStats}}</td>
-                    <td>{{totalComparedNonIEAStats}}</td>
+                    <td colspan="3"><strong>Totals</strong></td>
+                    <td><strong>{{totalTogetherNonIEAStats}}</strong></td>
+                    <td><strong>{{totalComparedNonIEAStats}}</strong></td>
                   </tr>
                 </table>
               </div>
@@ -445,13 +472,16 @@
               <th>Category</th>
               <th>Detail</th>
             </tr>
-            <tr ng-repeat="history in termModel.history.historyAll" >
+            <tr ng-repeat="history in termModel.history.historyAll | limitTo:changeLogPageSize">
               <td>{{history.timestamp}}</td>
               <td>{{history.actionString}}</td>
               <td>{{history.category}}</td>
               <td>{{history.text}}</td>
             </tr>
           </table>
+          <a ng-show="changeLogPageSize < termModel.history.historyAll.length" ng-click="changeLogPageSize = termModel.history.historyAll.length" class="glyphicon glyphicon-collapse-down">show full list</a>
+          <a ng-show="(changeLogPageSize == termModel.history.historyAll.length && termModel.history.historyAll.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up">show less</a>
+
         </uib-tab>
 
         <uib-tab heading="Term">
