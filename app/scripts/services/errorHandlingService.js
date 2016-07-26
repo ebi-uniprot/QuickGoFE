@@ -1,3 +1,5 @@
+'use strict';
+
 var errorHandling = angular.module('quickGoFeApp.errorHandling', []);
 
 errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$rootScope',

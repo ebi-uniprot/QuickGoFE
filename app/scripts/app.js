@@ -157,10 +157,10 @@ var app = angular
         templateUrl: 'simplelist/cellularcomponent.html',
         controller: 'CellularComponentListCtrl'
       })
-      .when('/annotationExtensionRelations', {
-        templateUrl: 'views/annotationExtensionRelations.html',
-        controller: 'AnnotationExtensionRelationsCtrl'
-      })
+      // .when('/annotationExtensionRelations', {
+      //   templateUrl: 'views/annotationExtensionRelations.html',
+      //   controller: 'AnnotationExtensionRelationsCtrl'
+      // })
       .when('/feedback', {
         templateUrl: 'nav/feedback.html',
         controller: 'FeedbackCtrl'

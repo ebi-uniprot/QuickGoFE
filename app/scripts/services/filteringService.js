@@ -1,3 +1,5 @@
+'use strict';
+
 var filteringModule = angular.module('quickGoFeApp.FilteringModule', []);
 
 filteringModule.factory('filteringService', function(hardCodedDataService,
@@ -227,9 +229,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   };
 
   filteringService.validateGeneProduct = function(id) {
-    var matches = (id.match(/^([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])((-[0-9]+)|:PRO_[0-9]{10}|:VAR_[0-9]{6}){0,1}$/)
-    || id.match(/^EBI-[0-9]+$/)
-    || id.match(/^URS[0-9A-F]{10}(_[0-9]+){0,1}$/));
+    var matches = (id.match(/^([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])((-[0-9]+)|:PRO_[0-9]{10}|:VAR_[0-9]{6}){0,1}$/) || id.match(/^EBI-[0-9]+$/) || id.match(/^URS[0-9A-F]{10}(_[0-9]+){0,1}$/));
     return matches;
   };
 
@@ -249,7 +249,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   };
 
   filteringService.hasSlims = function() {
-    return _.find(_filters, function(rw){ return rw.value == "slim" })
+    return _.find(_filters, function(rw){ return rw.value === 'slim'; });
   };
 
   filteringService.getApplied = function() {
