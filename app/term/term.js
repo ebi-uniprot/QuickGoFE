@@ -32,6 +32,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
     $scope.termPromise.then(function(data) {
         $scope.termModel = data.data.results[0];
+        console.log($scope.termModel); //todo
 
         //set secondary ids string
         $scope.termModel.secondaryIdsString = $scope.termModel.secondaryIds ?

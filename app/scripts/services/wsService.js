@@ -43,9 +43,9 @@ wsService.factory('stringService', [function(){
 wsService.factory('ontoTypeService', [function(){
     return {
         isGoTerm : function(termId) {
-            if(termId.indexOf('ECO') === 0){
+            if (termId.indexOf('ECO') === 0) {
                 return false;
-            }else{
+            } else {
                 return true;
             }
         },
