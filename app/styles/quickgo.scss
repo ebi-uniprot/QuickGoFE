@@ -14,6 +14,7 @@ a:hover {
 
 .text-nowrap {
   white-space: nowrap;
+  vertical-align: middle;
 }
 
 .quickgo-content {
@@ -705,6 +706,36 @@ ul.results-list {
 .quickgo-icon{
   border-bottom: 0px;
 }
+
+/* FACET FILTER -----------------------------------------------------------------------------------------------*/
+.facet-filter {
+    li {
+      margin: .7em 0;
+      a {
+        border-radius: .2em;
+        padding: .2em;
+        display: block;
+        text-decoration: none;
+        border-bottom: none;
+        &:hover {
+          color:$white;
+          background-color: $primary1;
+          opacity: .7;
+        }
+        &.facet-filter-active {
+          background-color: $primary1;
+          color: $white;
+          &:hover:after {
+            float: right;
+            font-family: 'EBI-Functional';
+            padding-top: .1em;
+            content: 'x'
+          }
+        }
+      }
+    }
+}
+
 
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
 
