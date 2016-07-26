@@ -22,7 +22,7 @@
           </thead>
           <tbody id="basketTermsRows" class="basket-rows">
           <tr ng-repeat="basketItem in basketItems">
-            <td><a class="quickgo-link selectable" ng-click="term(basketItem.termId)">{{basketItem.termId}}</a></td>
+            <td><a class="quickgo-link selectable" ng-click="term(basketItem.id)">{{basketItem.id}}</a></td>
             <td>{{basketItem.name}}</td>
             <td><img src="images/cross.png" class="selectable" ng-click="removeItem(basketItem)"/></td>
           </tr>

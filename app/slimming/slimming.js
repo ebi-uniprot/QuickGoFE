@@ -60,7 +60,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   $scope.basketPromise = basketService.getItems();
   $scope.basketPromise.then(function(d){
     $scope.basketList = d.data;
-  })
+  });
 
   /**
    * Get predefined slim sets
@@ -108,7 +108,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     }
     addItemsToSelection(predefinedItems);
     resetPredefined();
-  }
+  };
 
   var resetPredefined = function() {
       $scope.predefinedBP = [];
@@ -119,7 +119,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       $scope.predefinedCheckboxes.MFcheckbox = true;
       $scope.selectedPreDefinedSlimSet = '';
       $scope.availablePredefinedTerms = ''
-  }
+  };
 
   // Own terms
   $scope.addOwnTerms = function() {
@@ -157,11 +157,11 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       // remove item from the basketList
       $scope.basketList = _.filter($scope.basketList, function(term){
         return term.termId != item;
-      })
+      });
       return $scope.basketSelection[item];
     });
 
-    termService.getTerms(items).then(function(res){
+    termService.getGOTerms(items).then(function(res){
       addItemsToSelection(res.data);
       $scope.basketSelection = [];
     });
@@ -193,19 +193,19 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   $scope.getSelectedBPTerms = function() {
     return _.filter($scope.selectedItems, function(item) {
       return item.aspectDescription === 'Biological Process';
-    })
+    });
   };
 
   $scope.getSelectedMFTerms = function() {
     return _.filter($scope.selectedItems, function(item) {
       return item.aspectDescription === 'Molecular Function';
-    })
+    });
   };
 
   $scope.getSelectedCCTerms = function() {
     return _.filter($scope.selectedItems, function(item) {
       return item.aspectDescription === 'Cellular Component';
-    })
+    });
   };
 
   $scope.getTotalCount = function () {
@@ -216,7 +216,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     // Remove from selected items
     $scope.selectedItems = _.filter($scope.selectedItems, function(term){
       return term.termId != termId;
-    })
+    });
 
     // if item was originally in the basketTermsInSelection then add it back into the basket options
     if(_.indexOf($scope.basketTermsInSelection, termId) >= 0){
@@ -227,10 +227,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       // now remove the relocated item from the temporary basketTermsInSelection
       $scope.basketTermsInSelection = _.filter($scope.basketTermsInSelection, function(term){
         return term != termId;
-      })
+      });
 
     }
-  }
+  };
 
   /**
    * Save the entered information and use it to filter the results on the annotation list page,
@@ -258,11 +258,11 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     });
 
     $location.path("annotations");
-  }
+  };
 
   $scope.clearSelection = function(){
     $scope.selectedItems = [];
-  }
+  };
 
   /**
    * Show the  graph image modal on request.
@@ -308,27 +308,27 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
   };
 
 $scope.showGraphOwnTerms = function () {
-if($scope.slimOwnTerms){
-  var tempOwnTerms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
-  var modalInstance = $uibModal.open({
-    templateUrl: 'charts/ontologyGraphModal.html',
-    controller: 'OntologyGraphCtrl',
-    windowClass: 'app-modal-window',
-    scope: $scope,
-    resolve: {
-      graphModel: function () {
-        return {
-          id:tempOwnTerms.toString(),
-          scope:'GO'
-        };
+  if($scope.slimOwnTerms){
+    var tempOwnTerms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
+    var modalInstance = $uibModal.open({
+      templateUrl: 'charts/ontologyGraphModal.html',
+      controller: 'OntologyGraphCtrl',
+      windowClass: 'app-modal-window',
+      scope: $scope,
+      resolve: {
+        graphModel: function () {
+          return {
+            id:tempOwnTerms.toString(),
+            scope:'GO'
+          };
+        }
       }
-    }
-  });
-}else{
-  $scope.succesAlerts.push(
-    {type: 'info',msg:  'Please add some term Id\'s first'}
-  );
-};
+    });
+  } else{
+    $scope.succesAlerts.push(
+      {type: 'info',msg:  'Please add some term Id\'s first'}
+    );
+  };
 };
 
 $scope.showGraphBasketItems = function () {
