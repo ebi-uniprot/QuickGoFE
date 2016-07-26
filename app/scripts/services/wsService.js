@@ -1,3 +1,5 @@
+'use strict';
+
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
 
@@ -20,6 +22,10 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
         return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + termId + '/complete')
             : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
+      getTerms : function(ids, isGoTerm) {
+          return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms', {params: {ids: ids}} + '/complete')
+              : $http.get(ENV.apiEndpoint+'/eco/terms', {params: {ids: ids}} + '/complete');
+      },
       getGOTerms : function(ids) {
         return $http.get(ENV.apiEndpoint+'/go/terms/' + ids + '/complete');
       },
@@ -29,7 +35,7 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
       getBlacklist : function(termId) {
       return $http.get(ENV.apiEndpoint+'/term/' + termId + '/blacklist');
     }
-  }
+  };
 }]);
 
 wsService.factory('stringService', [function(){
@@ -63,7 +69,7 @@ wsService.factory('ontoTypeService', [function(){
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/ontology',
+        return $http.get(ENV.apiEndpointSearch,
           {
             params: {
               query : searchTerm,
@@ -75,7 +81,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           });
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/geneproduct',
+        return $http.get(ENV.apiEndpointGeneProd + '/search',
           {
             params: {
               query : searchTerm,
@@ -90,7 +96,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         //TODO
       },
       findAnnotationsForTerm: function(searchTerm) {
-        var request = {
+        /*var request = {
           method: 'POST',
           url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
@@ -98,15 +104,15 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           },
           data: {
             list: [{
-              type: "goID",
+              type: 'goID',
               value: searchTerm
             }]
           }
         };
-        return $http(request);
+        return $http(request);*/
       },
       findAnnotationsForECO: function(searchTerm) {
-        var request = {
+        /*var request = {
           method: 'POST',
           url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
@@ -114,15 +120,15 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           },
           data: {
             list: [{
-              type: "ecoID",
+              type: 'ecoID',
               value: searchTerm
             }]
           }
         };
-        return $http(request);
+        return $http(request);*/
       },
       findAnnotationsForProduct: function(searchTerm) {
-        var request = {
+        /*var request = {
           method: 'POST',
           url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
@@ -130,14 +136,14 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           },
           data: {
             list: [{
-              type: "gpID",
+              type: 'gpID',
               value: searchTerm
             }]
           }
         };
-        return $http(request);
+        return $http(request);*/
       }
-  }
+  };
 }]);
 
 wsService.factory('dbXrefService', ['$http', '$location', function($http, $location){
@@ -161,6 +167,14 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
         });
         return match.entity_types[0].url_syntax.replace('[example_id]', id);
       }
+    }
+  };
+}]);
+
+wsService.factory('olsService', ['$http', function($http) {
+  return {
+    getTermName: function(xref) {
+      return $http.get('http://www.ebi.ac.uk/ols/api/ontologies/' + xref.db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + xref.db + '_' + xref.id);
     }
   };
 }]);
