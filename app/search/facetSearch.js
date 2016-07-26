@@ -38,7 +38,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   };
 
   $scope.ontoOneLetterName = function(ontoName) {
-    return ontoTypeService.ontoOneLetterName(ontoName)
+    return ontoTypeService.ontoOneLetterName(ontoName);
   };
 
   $scope.highlight = function(text) {
