@@ -59,7 +59,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   };
 
   filteringService.initGpID = function(){
-    _filters.gpId = {};
+    _filters.gpID = {};
   };
 
   filteringService.initGpType = function(){
