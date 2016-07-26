@@ -20,9 +20,13 @@
 
           <td class="text-nowrap" ng-class="{'inactive':searchResult.isObsolete==true}">
 
-            <span ng-if="searchResult.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{searchResult.aspect}}">{{searchResult.aspect}}</span>
+            <span ng-if="searchResult.aspect" uib-tooltip-template="'colAspect.html'"
+                  class="aspect-icon aspect-{{ontoOneLetterName(searchResult.aspect)}}">
+              {{ontoOneLetterName(searchResult.aspect)}}
+            </span>
             <span><a href="term/{{searchResult.id}}">{{searchResult.id}}</a></span>
-            <basket-button ng-if="!searchResult.ecoterm" termid="{{searchResult.id}}" icondisabled="{{searchResult.isObsolete}}"></basket-button>
+            <basket-button ng-if="isGoTerm(searchResult.id)" termid="{{searchResult.id}}"
+                           icondisabled="{{searchResult.isObsolete}}"></basket-button>
             <chart-icon ng-show="{{!searchResult.isObsolete}}" term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
             <span ng-bind-html="highlight(searchResult.name)">{{searchResult.name}}</span>
           </td>
@@ -34,4 +38,6 @@
   </div>
   <div class="clearfix"></div>
 </div>
-<script type="text/ng-template" id="colAspect.html"><span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span></script>
+<script type="text/ng-template" id="colAspect.html">
+  <span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span>
+</script>

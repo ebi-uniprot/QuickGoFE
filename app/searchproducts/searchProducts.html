@@ -20,17 +20,17 @@
           <th>Name</th>
           <th>Type</th>
           <th>Taxon</th>
-          <th>Source</th>
           <th>Annotations</th>
         </tr>
         <tr ng-repeat="searchResult in results.results">
-          <td><a ng-click="followLinkToGeneric(searchResult.db)" target="_blank">{{searchResult.db}}</td>
-          <td><a ng-click="followLinkToEntry(searchResult.db, searchResult.dbObjectId)" target="_blank">{{searchResult.dbObjectId}}</td>
-          <td ng-bind-html="highlight(searchResult.dbObjectName)"></td>
+          <td><a ng-click="followLinkToGeneric(searchResult.database)" target="_blank">{{searchResult.database}}</a></td>
+          <td><a ng-click="followLinkToEntry(searchResult.database, searchResult.id)" target="_blank">
+            {{searchResult.id}}</a></td>
+          <td ng-bind-html="highlight(searchResult.name)"></td>
           <td>{{searchResult.type}}</td>
-          <td>{{searchResult.taxonName}}</td>
-          <td>{{searchResult.db}}</td>
-          <td><a href="annotations?gpID={{searchResult.dbObjectId}}" class="annotations-link"><annotations-link productid="{{searchResult.dbObjectId}}"></annotations-link></a></td>
+          <td>{{searchResult.taxonomy.name}}</td>
+          <td><a href="annotations/filter?gpID={{searchResult.id}}" class="annotations-link"><annotations-link
+                  productid="{{searchResult.id}}"></annotations-link></a></td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>

@@ -16,7 +16,6 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($reso
 }]);
 
 wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
-  //var
   return {
       getTerm : function(termId, isGoTerm) {
         return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + termId + '/complete')
@@ -43,10 +42,30 @@ wsService.factory('stringService', [function(){
   };
 }]);
 
+wsService.factory('ontoTypeService', [function(){
+    return {
+        isGoTerm : function(termId) {
+            if(termId.indexOf('ECO') === 0){
+                return false;
+            }else{
+                return true;
+            }
+        },
+        ontoOneLetterName: function(ontoName) {
+            switch(ontoName) {
+                case 'Biological Process' : return 'P';
+                case 'Molecular Function' : return 'F';
+                case 'Cellular Component' : return 'C';
+                default: return ontoName;
+            }
+        }
+    }
+}]);
+
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/ontology',
+        return $http.get(ENV.apiEndpointSearch,
           {
             params: {
               query : searchTerm,
@@ -58,7 +77,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           });
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/geneproduct',
+        return $http.get(ENV.apiEndpointGeneProd + '/search',
           {
             params: {
               query : searchTerm,
@@ -69,11 +88,11 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
             }
           });
       },
-      findPublications: function() {
+      findPublications: function(searchTerm, limit) {
         //TODO
       },
       findAnnotationsForTerm: function(searchTerm) {
-        var request = {
+        /*var request = {
           method: 'POST',
           url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
@@ -86,10 +105,10 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
             }]
           }
         };
-        return $http(request);
+        return $http(request);*/
       },
       findAnnotationsForECO: function(searchTerm) {
-        var request = {
+        /*var request = {
           method: 'POST',
           url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
@@ -102,10 +121,10 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
             }]
           }
         };
-        return $http(request);
+        return $http(request);*/
       },
       findAnnotationsForProduct: function(searchTerm) {
-        var request = {
+        /*var request = {
           method: 'POST',
           url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
           headers: {
@@ -118,7 +137,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
             }]
           }
         };
-        return $http(request);
+        return $http(request);*/
       }
   };
 }]);

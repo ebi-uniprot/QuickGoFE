@@ -11,9 +11,9 @@
     <ul class="results-list" ng-show="terms.results.length > 0">
       <li ng-repeat="term in terms.results" ng-class="{'inactive':term.isObsolete==true}">
         <a ng-href="term/{{term.id}}">{{term.id}}</a>
-          <basket-button ng-if="!term.ecoterm" termid="{{term.id}}" icondisabled="{{term.isObsolete}}"></basket-button>
+          <basket-button ng-if="isGoTerm(term.id)" termid="{{term.id}}" icondisabled="{{term.isObsolete}}"></basket-button>
           <chart-icon ng-show="{{!term.isObsolete}}" term-id="term.id" term-name="term.name"></chart-icon>
-           - {{term.name}} <a ng-href="annotations?id={{term.id}}" class="annotations-link"><annotations-link termid="{{term.id}}"></annotations-link></a>
+           - {{term.name}} <a ng-href="annotations/filter?id={{term.id}}" class="annotations-link"><annotations-link termid="{{term.id}}"></annotations-link></a>
       </li>
       <li>
         <a ng-href="searchterms/{{searchTerm}}">Show all {{terms.numberOfHits}} results</a>
@@ -28,7 +28,10 @@
     <h3>Gene products</h3>
     <ul class="results-list" ng-show="products.results.length > 0">
       <li ng-repeat="prod in products.results">
-        <strong>{{prod.dbObjectId}}</strong> {{prod.dbObjectName}} <a ng-href="annotations?gpID={{prod.dbObjectId}}" class="annotations-link" ><annotations-link productid="{{prod.dbObjectId}}"></annotations-link></a>
+        <strong>{{prod.id}}</strong> {{prod.name}}
+        <a ng-href="annotations/filter?gpID={{prod.id}}" class="annotations-link" >
+          <annotations-link productid="{{prod.id}}"></annotations-link>
+        </a>
       </li>
       <li>
         <a ng-href="searchproducts/{{searchTerm}}">Show all {{products.numberOfHits.toLocaleString()}} results</a>
