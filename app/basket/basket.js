@@ -38,7 +38,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Pass that list to the filtering service.
    */
   $scope.submit = function() {
-    var terms = basketService.validateTerms($scope.input_terms)
+    var terms = basketService.validateTerms($scope.input_terms);
     angular.forEach(terms.valid, function(term) {
       basketService.addBasketItem(term);
     });
@@ -111,30 +111,22 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Export basket
    */
   $scope.exportBasket = function () {
-
     var text = '';
     angular.forEach($scope.basketItems, function(item){
       text += item.id + "\t";
       text += item.aspect + "\t";
       text += item.name + "\n";
     });
-
-    //Download blob
-    var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
-    var downloadLink = angular.element('<a></a>');
-    downloadLink.attr('href', window.URL.createObjectURL(blob));
-    downloadLink.attr('download', 'basket.tsv');
-    downloadLink[0].click();
+    var blob = new Blob([text], {type: "text/tsv;charset=utf-8;"});
+    saveAs(blob, "basket.tsv");
   };
-
-
 
   $scope.isBasketNotEmpty = function (){
     return basketService.basketQuantity() > 0;
-  }
+  };
 
   $scope.close = function() {
     $uibModalInstance.dismiss('cancel');
-  }
+  };
 
 });

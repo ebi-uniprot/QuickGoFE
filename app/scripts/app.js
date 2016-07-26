@@ -33,13 +33,14 @@ var app = angular
       dbXrefService.getDbXrefs().then(function(xrefs) {
         $window.open(dbXrefService.getGenericLink(database, xrefs.data));
       });
-    }
+    };
 
     $rootScope.followLinkToEntry = function(database, id) {
       dbXrefService.getDbXrefs().then(function(xrefs) {
         $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
       });
-    }
+    };
+
     $rootScope.isEmpty = function (obj) {
         for (var i in obj) if (obj.hasOwnProperty(i)) return false;
         return true;
@@ -54,11 +55,13 @@ var app = angular
   });
 
 
-  app.config(function ($routeProvider, $locationProvider, $httpProvider) {
+  app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileProvider) {
 
     $locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('httpErrorResponseInterceptor');
+
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|blob):/);
 
     $routeProvider
       .when('/', {
@@ -66,10 +69,6 @@ var app = angular
         controller: 'StartCtrl'
       })
       .when('/annotations', {
-        templateUrl: 'annotationsList/annotations.html',
-        controller: 'Annotations'
-      })
-      .when('/annotations/filter', {
         templateUrl: 'annotationsList/annotations.html',
         controller: 'Annotations'
       })

@@ -237,7 +237,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
    * which we will forward to now
    */
   $scope.viewAnnotations = function(){
-    // var url = "annotations/filter?goTermUse=slim&goRelations=IPO";
 
     $location.search('goTermUse','slim');
     $location.search('goRelations','IPO');

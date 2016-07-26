@@ -63,7 +63,9 @@ module.exports = function (grunt) {
       alpha: {
         constants: {
           ENV: {
-            apiEndpoint: 'http://ves-hx-c2.ebi.ac.uk:8082/QuickGO/services'
+            apiEndpoint: 'http://ves-hx-c2.ebi.ac.uk:8082/QuickGO/services',
+            apiEndpointGeneProd:'http://ves-hx-c2.ebi.ac.uk:8081/QuickGO/services/geneproduct',
+            apiEndpointSearch:'http://ves-hx-c2:8083/QuickGO/internal/search/ontology'
           }
         }
       }
@@ -76,7 +78,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/**/*.js'],
         tasks: ['newer:jshint:all', 'newer:jscs:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'

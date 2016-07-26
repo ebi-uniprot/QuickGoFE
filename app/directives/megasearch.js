@@ -1,7 +1,7 @@
 angular
 	.module('quickGoFeApp')
-	.directive('megasearch', ['$q', '$timeout', 'searchService', '$location', '$document',
-		function($q, $timeout, searchService, $location, $document) {
+	.directive('megasearch', ['$q', '$timeout', 'searchService', '$location', '$document', 'ontoTypeService',
+		function($q, $timeout, searchService, $location, $document, ontoTypeService) {
 		return {
 			restrict: 'AEC',
 			scope: {
@@ -24,11 +24,15 @@ angular
 							loadData();
 						}
 					} ,500);
-				}
+				};
 
 				scope.submitSearch = function() {
 				    $location.path("search/" + scope.searchTerm);
-				}
+				};
+
+				scope.isGoTerm = function(termId) {
+					return ontoTypeService.isGoTerm(termId);
+				};
 
 				var loadData = function() {
 					//Look for matching GO terms
@@ -43,13 +47,13 @@ angular
 						scope.products = res.data;
 					});
 					//Look for Publications
-				}
+				};
 
 				var reset = function() {
 					scope.searchTerm = '';
 					scope.terms = [];
 					scope.products = [];
-				}
+				};
 
 				//Only close on click if it's open in a panel
 				if (!scope.noInput) {
