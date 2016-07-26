@@ -196,6 +196,10 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       }
     };
 
+    $scope.isEmptyObject = function(obj) {
+      return _.isEmpty(obj);
+    };
+
     angular.forEach($routeParams, function(val, type) {
         if(type === 'id') {
           var isGoTerm = val.indexOf("GO");

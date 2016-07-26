@@ -1,3 +1,5 @@
+'use strict';
+
 var filteringModule = angular.module('quickGoFeApp.FilteringModule', []);
 
 filteringModule.factory('filteringService', function(hardCodedDataService,
@@ -42,7 +44,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     filteringService.initGptype();
 
     return _filters;
-  }
+  };
 
   filteringService.initTaxon = function(){
     // Taxons
@@ -52,17 +54,19 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
       _filters.taxon[taxon.taxId] = false;
       _namesMap[taxon.taxId] = taxon.title;
     });
-  }
+  };
 
   filteringService.initGpSet = function(){
     _filters.gpSet = {};
-  }
+  };
+
   filteringService.initGpID = function(){
     _filters.gpID = {};
-  }
+  };
+
   filteringService.initGpType = function(){
     _filters.gpType = {};
-  }
+  };
 
   filteringService.initReference = function() {
     //References
@@ -72,7 +76,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
       _filters.referenceSearch[ref.refId] = false;
       _namesMap[ref.refId] = ref.name;
     });
-  }
+  };
 
   filteringService.initGoID = function() {
     //Basket items
@@ -84,15 +88,15 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
         _namesMap[goTerm.termId] = goTerm.name;
       });
     });
-  }
+  };
 
   filteringService.initAspect = function() {
     _filters.aspect = {};
-  }
+  };
 
   filteringService.initQualifier = function() {
     _filters.qualifier = {};
-  }
+  };
 
   filteringService.initEcoID = function() {
     // Get Evidence Types
@@ -110,16 +114,19 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
         };
       });
     });
-  }
+  };
+
   filteringService.initEcoTermUse = function() {
       _filters.ecoTermUse = 'ancestor';
-  }
+  };
+
   filteringService.initGoTermUse = function() {
       _filters.goTermUse = 'ancestor';
-  }
+  };
+
   filteringService.initGoRelations = function() {
     _filters.goTermRelations = 'IPO';
-  }
+  };
 
   filteringService.initWith = function() {
     // Get With DBs
@@ -132,7 +139,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
         _namesMap[withDB.dbId] = withDB.xrefDatabase;
       });
     });
-  }
+  };
 
   filteringService.initAssignedby = function() {
     // Get Assigned DBs
@@ -145,11 +152,11 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
         _namesMap[assignDB.dbId] = assignDB.xrefDatabase;
       });
     });
-  }
+  };
 
   filteringService.initGptype = function() {
       _filters.gpType = {};
-  }
+  };
 
   filteringService.addFilter = function(type, key, value) {
     if(_filters[type] instanceof Object) {
@@ -157,15 +164,15 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     } else {
       _filters[type] = key;
     }
-  }
+  };
 
   filteringService.setFilters = function (filterList){
     _filters = filterList;
-  }
+  };
 
   filteringService.getFilters = function(){
     return _filters;
-  }
+  };
 
   filteringService.populateAppliedFilters = function() {
     var filterForPost = [];
@@ -205,36 +212,34 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
       }
     });
     return filterForPost;
-  }
+  };
 
   var hasItems = function(terms) {
     return _.find(_.values( terms ), function(val){
       return val;
     });
-  }
+  };
 
   filteringService.validateGOTerm = function(term) {
       return term.match(/^GO:\d{7}$/);
-  }
+  };
 
   filteringService.validateECOTerm = function(ev) {
       return ev.match(/^ECO:\d{7}$/);
-  }
+  };
 
   filteringService.validateGeneProduct = function(id) {
-    var matches = (id.match(/^([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])((-[0-9]+)|:PRO_[0-9]{10}|:VAR_[0-9]{6}){0,1}$/)
-    || id.match(/^EBI-[0-9]+$/)
-    || id.match(/^URS[0-9A-F]{10}(_[0-9]+){0,1}$/));
+    var matches = (id.match(/^([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])((-[0-9]+)|:PRO_[0-9]{10}|:VAR_[0-9]{6}){0,1}$/) || id.match(/^EBI-[0-9]+$/) || id.match(/^URS[0-9A-F]{10}(_[0-9]+){0,1}$/));
     return matches;
-  }
+  };
 
   filteringService.validateTaxon = function(taxon){
        return taxon.match(/^[0-9]+$/);
-  }
+  };
 
   filteringService.validateOther = function(other){
       return other.match(/[A-Za-z0-9]+/);
-  }
+  };
 
   /**
   * Clear all filters
@@ -244,8 +249,8 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   };
 
   filteringService.hasSlims = function() {
-    return _.find(_filters, function(rw){ return rw.value == "slim" })
-  }
+    return _.find(_filters, function(rw){ return rw.value === 'slim'; });
+  };
 
   filteringService.getApplied = function() {
     var applied = {};
@@ -258,11 +263,11 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
       }
     });
     return applied;
-  }
+  };
 
   filteringService.getNamesMap = function() {
     return _namesMap;
-  }
+  };
 
   return filteringService;
 });

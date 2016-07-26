@@ -84,7 +84,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
       $scope.totalTogetherNonIEAStats = 0;
       $scope.totalComparedNonIEAStats = 0;
 
-      angular.forEach(d.data.allCoOccurrenceStatsTerms, function(val, key){
+      angular.forEach(d.data.allCoOccurrenceStatsTerms, function(val){
         $scope.totalTogetherAllStats = $scope.totalTogetherAllStats + val.together;
         $scope.totalComparedAllStats = $scope.totalTogetherAllStats + val.compared;
       });
@@ -126,11 +126,9 @@ var makeMapFitImage = function(){
                 var map = document.getElementById('ontologygraphmap'),
                     img = document.getElementById('ontologyGraphImage'),
                     natWidth = img.naturalWidth,
-                    n = 0,
                     areas = map.getElementsByTagName('area'),
                     len = areas.length,
-                    coords = [],
-                    x = 0;
+                    coords = [];
 
                for (n = 0; n < len; n++) {
                    coords[n] = areas[n].coords.split(',');
@@ -156,7 +154,6 @@ var makeMapFitImage = function(){
            },
            imageMap = new ImageMap();
            imageMap.resize();
-           return;
 };
 
 window.onresize = function () {

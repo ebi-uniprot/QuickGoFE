@@ -9,7 +9,7 @@ angular
 				noInput: '=?',
 				limit: '@'
 			},
-			link: function(scope, elem, attrs) {
+			link: function(scope, elem) {
 				scope.provideSuggestions = function(keyCode) {
 					$timeout.cancel(scope.timePromise); //cancel previous request
 
@@ -63,8 +63,9 @@ angular
 						var isClickedElementChildOfPopup = elem[0]
 							.contains(event.target);
 
-						if (isClickedElementChildOfPopup && !isAnchor)
+						if (isClickedElementChildOfPopup && !isAnchor) {
 							return;
+						}
 
 						reset();
 						scope.$apply();

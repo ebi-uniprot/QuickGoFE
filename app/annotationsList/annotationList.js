@@ -4,7 +4,7 @@
 
 
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
-                                              hardCodedDataService, dbXrefService, filteringService, olsService, ENV, $routeParams) {
+                                              hardCodedDataService, dbXrefService, filteringService, olsService, ENV) {
 
 
   /**
@@ -65,7 +65,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
           $scope.annotations.push(tempAnnotation)
       }
       lastAnnotation = tempAnnotation;
-      (lastAnnotation.slimsList) ? '' : lastAnnotation.slimsList = [];
+      if (!lastAnnotation.slimsList) {
+        lastAnnotation.slimsList = [];
+      }
     });
 
   }
@@ -94,15 +96,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Listen to an update to the filters list that comes from the typeahead function
    */
-  $rootScope.$on('filtersUpdate', function(event) {
+  $rootScope.$on('filtersUpdate', function() {
     $scope.currentPage=1;
     getResultsPage(1);
   });
-
-  /**
-   *
-   * @param newPage
-   */
 
   $scope.pageChanged = function() {
     getResultsPage();
@@ -124,7 +121,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
   $scope.showTaxon = function(target) {
     $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
-  }
+  };
 
   /**
    * Show the with_string modal on request
@@ -158,7 +155,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       size: 'md',
       scope: $scope
     });
-  }
+  };
 
 
   /**

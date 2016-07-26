@@ -11,7 +11,7 @@ app.controller('BasketNavCtrl', function($scope, $log, $uibModal, $rootScope, ba
   /**
    * Pick up the basket update event from the modal
    */
-  $rootScope.$on('basketUpdate', function(event, data) {
+  $rootScope.$on('basketUpdate', function() {
     $scope.countBasket = basketService.basketQuantity();
   });
 

@@ -5,7 +5,7 @@ angular
 			restrict: 'E',
 			template: '{{annotationsCount}} annotations',
 			scope: {},
-			link: function($scope, element, attrs, controller) {
+			link: function($scope, element, attrs) {
 				var termId, productId;
 
 				attrs.$observe('termid', function() {

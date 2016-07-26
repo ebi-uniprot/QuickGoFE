@@ -7,7 +7,7 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV,
   $scope.statsBean={};
   var statsLoaded = false;
 
-  $scope.$on('loadStatistics', function(event) {
+  $scope.$on('loadStatistics', function() {
     loadStatistics();
   });
 
@@ -37,7 +37,7 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV,
 
   }
 
-  $rootScope.$on('filtersUpdate', function(event) {
+  $rootScope.$on('filtersUpdate', function() {
     if(statsLoaded) {
       loadStatistics();
     }

@@ -1,6 +1,4 @@
-/**
- * Created by twardell on 27/01/2015.
- */
+'use strict';
 
 var basketModule = angular.module('quickGoFeApp.BasketModule', []);
 
