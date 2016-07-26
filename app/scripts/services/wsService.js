@@ -1,3 +1,5 @@
+'use strict';
+
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
 
@@ -15,11 +17,13 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($reso
 
 wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   return {
-      getTerm : function(termId) {
-        return $http.get(ENV.apiEndpoint+'/term/' + termId);
+      getTerm : function(termId, isGoTerm) {
+        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + termId + '/complete')
+            : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
-      getTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/terms', {params: {ids: ids}});
+      getTerms : function(ids, isGoTerm) {
+        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms', {params: {ids: ids}} + '/complete')
+            : $http.get(ENV.apiEndpoint+'/eco/terms', {params: {ids: ids}} + '/complete');
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
@@ -27,15 +31,15 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
       getBlacklist : function(termId) {
       return $http.get(ENV.apiEndpoint+'/term/' + termId + '/blacklist');
     }
-  }
+  };
 }]);
 
 wsService.factory('stringService', [function(){
   return {
     getTextareaItemsAsArray : function(str) {
-      return _.uniq(str.replace( /\n/g, " " ).split(/[\s,]+/));
+      return _.uniq(str.replace( /\n/g, ' ').split(/[\s,]+/));
     }
-  }
+  };
 }]);
 
 wsService.factory('ontoTypeService', [function(){
@@ -96,7 +100,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           },
           data: {
             list: [{
-              type: "goID",
+              type: 'goID',
               value: searchTerm
             }]
           }
@@ -112,7 +116,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           },
           data: {
             list: [{
-              type: "ecoID",
+              type: 'ecoID',
               value: searchTerm
             }]
           }
@@ -128,14 +132,14 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           },
           data: {
             list: [{
-              type: "gpID",
+              type: 'gpID',
               value: searchTerm
             }]
           }
         };
         return $http(request);*/
       }
-  }
+  };
 }]);
 
 wsService.factory('dbXrefService', ['$http', '$location', function($http, $location){
@@ -159,6 +163,14 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
         });
         return match.entity_types[0].url_syntax.replace('[example_id]', id);
       }
+    }
+  };
+}]);
+
+wsService.factory('olsService', ['$http', function($http) {
+  return {
+    getTermName: function(xref) {
+      return $http.get('http://www.ebi.ac.uk/ols/api/ontologies/' + xref.db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + xref.db + '_' + xref.id);
     }
   };
 }]);

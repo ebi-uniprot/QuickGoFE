@@ -30,7 +30,7 @@
             <chart-icon ng-show="{{!searchResult.isObsolete}}" term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
             <span ng-bind-html="highlight(searchResult.name)">{{searchResult.name}}</span>
           </td>
-          <td><a ng-href="annotations/filter?id={{searchResult.id}}" class="annotations-link"><annotations-link termid="{{searchResult.id}}"></annotations-link></a></td>
+          <td><a ng-href="annotations?id={{searchResult.id}}" class="annotations-link"><annotations-link termid="{{searchResult.id}}"></annotations-link></a></td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>

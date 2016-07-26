@@ -97,10 +97,10 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
 
    var downloadFileFormats= [
-      {format:"Gene Association File (GAF)", ext:"gaf" },
-      {format:"Gene Product Association Data (GPAD)", ext:"gpad" },
-      {format:"Tab-delimited", ext:"tsv" },
-      {format:"Gene2GO", ext:"gene2go" }
+      {format:"Gene Association File (GAF)", ext:"gaf", strMimeType: "text/plain;charset=utf-8;" },
+      {format:"Gene Product Association Data (GPAD)", ext:"gpad", strMimeType: "text/plain;charset=utf-8;" },
+      {format:"Tab-delimited", ext:"tsv", strMimeType: "text/tsv;charset=utf-8;" },
+      {format:"Gene2GO", ext:"gene2go", strMimeType: "text/plain;charset=utf-8;" }
     ];
 
     var geneProductSets = [
@@ -109,7 +109,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
       {name: 'KRUK', value: 'KRUK', link:'http://www.ebi.ac.uk/GOA/kidney', description:'The set of proteins associated with renal processes being prioritised for annotation by the EBI\'s Renal Gene Ontology Annotation Initiative'},
       {name: 'ParkinsonsUK-UCL', value: 'ParkinsonsUK-UCL', link:'http://www.ucl.ac.uk/functional-gene-annotation/neurological', description:'The set of Parkinson\'s Disease relevant proteins being prioritised for annotation by the Parkinson\'s Disease Gene Ontology Annotation Initiative located at University College London.'},
       {name: 'Reference Genome', value: 'ReferenceGenome', link:'http://www.geneontology.org/GO.refgenome.shtml', description:'The set of human proteins being comprehensively curated by the UniProt-GOA project as part of the GO Consortium\'s Reference Genome initiative.'}
-    ]
+    ];
 
 
   /**
@@ -119,27 +119,27 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
   hardCodedService.getAnnotationColumns = function() {
     return annotationColumns;
-  }
+  };
 
   hardCodedService.getInitialTaxonomies = function() {
     return initialTaxonomies;
-  }
+  };
 
   hardCodedService.getMostCommonTaxonomies = function() {
     return mostCommonTaxonomies;
-  }
+  };
 
   hardCodedService.getQualifiers = function(){
     return qualifiers;
-  }
+  };
 
   hardCodedService.getDownloadFileFormats = function(){
     return downloadFileFormats;
-  }
+  };
 
   hardCodedService.getGeneProductSets = function(){
     return geneProductSets;
-  }
+  };
 
 
   /**
@@ -148,20 +148,6 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
   /**
    * bio
-   * @type {{goId: string, goName: string}[]}
-   */
-  var goslimCandidaBiologicalProcessTerms = [
-    {'goId':'GO:0006629', 'goName':'lipid metabolic process'},
-    {'goId':'GO:0030448', 'goName':'hyphal growth'}
-  ];
-
-  var goslimPlantBiologicalProcessTerms = [
-    {'goId':'GO:0015979', 'goName':'photosynthesis'},
-    {'goId':'GO:0008219', 'goName':'cell death'}
-  ];
-
-  /**
-   * mol
    * @type {{goId: string, goName: string}[]}
    */
   var goslimCandidaBiologicalProcessTerms = [
@@ -185,7 +171,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
    */
   hardCodedService.getPreDefinedSlimSets = function(){
     return preDefinedSlimSets;
-  }
+  };
 
 
   /**
@@ -199,7 +185,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
       return goslimCandidaBiologicalProcessTerms;
     }
     return goslimPlantBiologicalProcessTerms;
-  }
+  };
 
 
   /**
@@ -213,7 +199,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
       return goslimCandidaBiologicalProcessTerms;
     }
     return goslimPlantBiologicalProcessTerms;
-  }
+  };
 
   /**
    * Get all the filter references
@@ -221,7 +207,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
    */
   hardCodedService.getFilterReferences = function(){
     return references;
-  }
+  };
 
   return hardCodedService;
 });

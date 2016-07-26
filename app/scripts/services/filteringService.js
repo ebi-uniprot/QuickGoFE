@@ -58,7 +58,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     _filters.gpSet = {};
   }
   filteringService.initGpID = function(){
-    _filters.gpId = {};
+    _filters.gpID = {};
   }
   filteringService.initGpType = function(){
     _filters.gpType = {};
@@ -152,9 +152,12 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   }
 
   filteringService.addFilter = function(type, key, value) {
-    _filters[type][key] = value;
+    if(_filters[type] instanceof Object) {
+      _filters[type][key] = value;
+    } else {
+      _filters[type] = key;
+    }
   }
-
 
   filteringService.setFilters = function (filterList){
     _filters = filterList;
