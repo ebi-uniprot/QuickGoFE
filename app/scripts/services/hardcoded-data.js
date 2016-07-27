@@ -20,7 +20,8 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {'name': 'colWith', 'value': 'With / From', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colTaxon', 'value': 'Taxon', 'slimCol':false, 'showWhenSlim':true},
     {'name': 'colAssignedBy', 'value': 'Assigned By', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colAnnotationExtension', 'value': 'Annotation Extension', 'slimCol':false, 'showWhenSlim':true}
+    {'name': 'colAnnotationExtension', 'value': 'Annotation Extension', 'slimCol':false, 'showWhenSlim':true},
+    {'name': 'colDatabase2', 'value':'Database Bingo', 'slimCol':false, 'showWhenSlim':true, 'custCol':'colDatabase'}
   ];
 
   var initialTaxonomies = [

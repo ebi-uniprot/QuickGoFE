@@ -22,6 +22,29 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.currentPage = 1;
   getResultsPage();
 
+
+
+  // Default visibility of columns in the results page
+  $scope.colGeneProduct = true;
+  $scope.colSymbol = true;
+  $scope.colQualifier = true;
+  $scope.colGOIdentifier = true;
+  // $scope.colOrigID = false;
+  // $scope.colSlimmedGOTerm = false;
+  $scope.colEvidence = true;
+  $scope.colReference = true;
+  $scope.colWith = true;
+  $scope.colTaxon = true;
+  $scope.colAssignedBy = true;
+  $scope.colAnnotationExtension = true;
+  $scope.colDatabase = false;
+  $scope.colDate = false;
+  $scope.colName = false;
+  $scope.colSynonym = false;
+  $scope.colType = false;
+  $scope.colTaxonName = false;
+  $scope.colSequence = false;
+
   /**
    * Get the results page - Post version
    */
