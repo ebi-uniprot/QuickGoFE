@@ -152,7 +152,13 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   }
 
   filteringService.addFilter = function(type, key, value) {
-    _filters[type][key] = value;
+    // if _filters[type] is a string (or NOT an object) then set the value to key
+    if(typeof _filters[type] !== 'object'){
+      _filters[type] = key;
+    }else{
+      // otherwise _filters[type] is an object so set the property to be key and value to be value
+      _filters[type][key] = value;
+    }
   }
 
 
@@ -241,7 +247,15 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   };
 
   filteringService.hasSlims = function() {
-    return _.find(_filters, function(rw){ return rw.value == "slim" })
+
+console.log("_filters: ", _filters);
+    return _filters.goTermUse === "slim";
+
+//
+//     console.log("inside filteringService hasslims");
+//     return _.find(_filters, function(rw){
+// console.log("rw: ",rw);
+//       return rw.value == "slim" })
   }
 
   filteringService.getApplied = function() {

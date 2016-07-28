@@ -707,6 +707,22 @@ ul.results-list {
   border-bottom: 0px;
 }
 
+#customiseColumns{
+  border: 1px solid #999;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  float: left;
+  width: 98%;
+  height: 200px;
+  #default, #extras ,.customCols {
+    width: 45%;
+    height: 50px;
+    float: left;
+    margin: 10px;
+  }
+}
+
 /* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
 
 textarea.sidebar {

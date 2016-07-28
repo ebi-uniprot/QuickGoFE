@@ -1,32 +1,49 @@
 <div  class="container_12" cg-busy="resultsPromise" ng-controller="AnnotationListCtrl">
 <!-- Buttons -->
 <p class="buttons-under-tabs">
+  <button class="btn quickgo-btn icon-functional" ng-click="toggleCustomiseContainer()" data-icon="s">Customise</button>
   <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
   <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
 </p>
 
 
+<div id="customiseColumns" class="animate-show" ng-hide="customiseColumnsContainer">
 
-<input type="checkbox" ng-click="colGeneProduct = !colGeneProduct" checked>Gene Product<br/>
-<input type="checkbox" ng-click="colSymbol = !colSymbol" checked>Symbol<br/>
-<input type="checkbox" ng-click="colQualifier = !colQualifier" checked>Qualifier<br/>
-<input type="checkbox" ng-click="colGOIdentifier = !colGOIdentifier" checked>GO Term<br/>
-<input type="checkbox" ng-click="colEvidence = !colEvidence" checked>Evidence<br/>
-<input type="checkbox" ng-click="colReference = !colReference" checked>Reference<br/>
-<input type="checkbox" ng-click="colWith = !colWith" checked>With / From<br/>
-<input type="checkbox" ng-click="colTaxon = !colTaxon" checked>Taxon<br/>
-<input type="checkbox" ng-click="colAssignedBy = !colAssignedBy" checked>Assigned By<br/>
-<input type="checkbox" ng-click="colAnnotationExtension = !colAnnotationExtension" checked>Annotation Extension<br/>
-<input type="checkbox" ng-click="colDatabase = !colDatabase">Database<br/>
-<input type="checkbox" ng-click="colDate = !colDate">Date<br/>
-<input type="checkbox" ng-click="colName = !colName">Name<br/>
-<input type="checkbox" ng-click="colSynonym = !colSynonym">Synonym<br/>
-<input type="checkbox" ng-click="colType = !colType">Type<br/>
-<input type="checkbox" ng-click="colTaxonName = !colTaxonName">Taxon Name<br/>
-<input type="checkbox" ng-click="colSequence = !colSequence">Sequence<br/>
 
-<span>showSlimColumns:{{showSlimColumns}}:</span>
+  <div id="default">
+    <h3>Default Columns</h3>
+    <div class="customCols">
+      <input type="checkbox" ng-click="colGeneProduct = !colGeneProduct" checked> Gene Product<br/>
+      <input type="checkbox" ng-click="colSymbol = !colSymbol" checked> Symbol<br/>
+      <input type="checkbox" ng-click="colQualifier = !colQualifier" checked> Qualifier<br/>
+      <input type="checkbox" ng-click="colGOIdentifier = !colGOIdentifier" checked> GO Term<br/>
+      <input type="checkbox" ng-click="colEvidence = !colEvidence" checked> Evidence<br/>
+    </div>
+    <div class="customCols">
+      <input type="checkbox" ng-click="colReference = !colReference" checked> Reference<br/>
+      <input type="checkbox" ng-click="colWith = !colWith" checked> With / From<br/>
+      <input type="checkbox" ng-click="colTaxon = !colTaxon" checked> Taxon<br/>
+      <input type="checkbox" ng-click="colAssignedBy = !colAssignedBy" checked> Assigned By<br/>
+      <input type="checkbox" ng-click="colAnnotationExtension = !colAnnotationExtension" checked> Annotation Extension<br/>
+    </div>
+  </div>
 
+<div id="extras">
+  <h3>Additional Columns</h3>
+  <div class="customCols">
+  <input type="checkbox" ng-click="colDatabase = !colDatabase"> Database<br/>
+  <input type="checkbox" ng-click="colDate = !colDate"> Date<br/>
+  <input type="checkbox" ng-click="colName = !colName"> Name<br/>
+  <input type="checkbox" ng-click="colSynonym = !colSynonym"> Synonym<br/>
+  <input type="checkbox" ng-click="colType = !colType"> Type<br/>
+</div>
+<div class="customCols">
+  <input type="checkbox" ng-click="colTaxonName = !colTaxonName"> Taxon Name<br/>
+  <input type="checkbox" ng-click="colSequence = !colSequence"> Sequence<br/>
+</div>
+</div>
+
+</div>
 
 
 <!-- Results -->
@@ -35,47 +52,25 @@
 <table id="assignedByCount" class="two-colours results-table">
   <tr>
     <thead>
-
-
-<th ng-show="!showSlimColumns" ng-if="colGeneProduct">Gene Product</th>
-<th ng-show="!showSlimColumns" ng-if="colSymbol">Symbol</th>
-<th ng-show="!showSlimColumns" ng-if="colQualifier">Qualifier</th>
-<th ng-show="!showSlimColumns" ng-if="colGOIdentifier">GO Term</th>
-<th ng-show="showSlimColumns" ng-if="colOrigID">Original GO Term</th>
-<th ng-show="showSlimColumns" ng-if="colSlimmedGOTerm">Slimmed GO Term</th>
-<th ng-show="!showSlimColumns" ng-if="colEvidence">Evidence</th>
-<th ng-show="!showSlimColumns" ng-if="colReference">Reference</th>
-<th ng-show="!showSlimColumns" ng-if="colWith">With / From</th>
-<th ng-show="!showSlimColumns" ng-if="colTaxon">Taxon</th>
-<th ng-show="!showSlimColumns" ng-if="colAssignedBy">Assigned By</th>
-<th ng-show="!showSlimColumns" ng-if="colAnnotationExtension">Annotation Extension</th>
-<th ng-show="!showSlimColumns" ng-if="colDatabase">Database</th>
-<th ng-show="!showSlimColumns" ng-if="colDate">Date</th>
-<th ng-show="!showSlimColumns" ng-if="colName">Name</th>
-<th ng-show="!showSlimColumns" ng-if="colSynonym">Synonym</th>
-<th ng-show="!showSlimColumns" ng-if="colType">Type</th>
-<th ng-show="!showSlimColumns" ng-if="colTaxonName">Taxon Name</th>
-<th ng-show="!showSlimColumns" ng-if="colSequence">Sequence</th>
-
-      <!-- var annotationColumns = [
-        {'name': 'colDatabase', 'value':'Gene Product', 'slimCol':false, 'showWhenSlim':true},
-        {'name': 'colSymbol', 'value': 'Symbol', 'slimCol':false, 'showWhenSlim':true},
-        {'name': 'colQualifier', 'value': 'Qualifier', 'slimCol':false, 'showWhenSlim':true},
-        {'name': 'colGOIdentifier', 'value': 'GO Term', 'slimCol':false, 'showWhenSlim':false},
-
-        {'name': 'colOrigID', 'value': 'Original GO Term', 'slimCol':true, 'showWhenSlim':true},
-        {'name': 'colSlimmedGOTerm', 'value': 'Slimmed GO Term', 'slimCol':true, 'showWhenSlim':true},
-
-        {'name': 'colEvidence', 'value': 'Evidence', 'slimCol':false, 'showWhenSlim':true},
-        {'name': 'colReference', 'value': 'Reference', 'slimCol':false, 'showWhenSlim':true},
-        {'name': 'colWith', 'value': 'With / From', 'slimCol':false, 'showWhenSlim':true},
-        {'name': 'colTaxon', 'value': 'Taxon', 'slimCol':false, 'showWhenSlim':true},
-        {'name': 'colAssignedBy', 'value': 'Assigned By', 'slimCol':false, 'showWhenSlim':true},
-        {'name': 'colAnnotationExtension', 'value': 'Annotation Extension', 'slimCol':false, 'showWhenSlim':true},
-        {'name': 'colDatabase', 'value':'Database Bingo', 'slimCol':false, 'showWhenSlim':true, 'custCol':'colDatabase'}
-      ]; -->
-
-
+      <th ng-if="colGeneProduct">Gene Product</th>
+      <th ng-if="colSymbol">Symbol</th>
+      <th ng-if="colQualifier">Qualifier</th>
+      <th ng-if="colGOIdentifier" ng-show="!showSlimColumns" >GO Term</th>
+      <th ng-if="colGOIdentifier" ng-show="showSlimColumns">Original GO Term</th>
+      <th ng-if="colGOIdentifier" ng-show="showSlimColumns">Slimmed GO Term</th>
+      <th ng-if="colEvidence">Evidence</th>
+      <th ng-if="colReference">Reference</th>
+      <th ng-if="colWith">With / From</th>
+      <th ng-if="colTaxon">Taxon</th>
+      <th ng-if="colAssignedBy">Assigned By</th>
+      <th ng-if="colAnnotationExtension">Annotation Extension</th>
+      <th ng-if="colDatabase">Database</th>
+      <th ng-if="colDate">Date</th>
+      <th ng-if="colName">Name</th>
+      <th ng-if="colSynonym">Synonym</th>
+      <th ng-if="colType">Type</th>
+      <th ng-if="colTaxonName">Taxon Name</th>
+      <th ng-if="colSequence">Sequence</th>
     </thead>
   </tr>
 
@@ -116,9 +111,7 @@
 
     <!-- Evidence: ECO:0000256  (IEA) -->
     <td class="text-nowrap" ng-if="colEvidence">
-
       <a class="quickgo-link selectable" href="term/{{annotation.evidenceEco}}">{{annotation.evidenceEco}}</a>
-
       <a class="quickgo-icon selectable" ng-click="showEvidenceCodeOntologyGraph(annotation.evidenceEco)">
         <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a> (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{annotation.evidenceGo | lowercase}}" target="_blank">{{annotation.evidenceGo}}</a>)
     </td>

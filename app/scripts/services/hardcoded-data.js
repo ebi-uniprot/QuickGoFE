@@ -8,21 +8,21 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
   var hardCodedService = {};
 
-  var annotationColumns = [
-    {'name': 'colDatabase', 'value':'Gene Product', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colSymbol', 'value': 'Symbol', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colQualifier', 'value': 'Qualifier', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colGOIdentifier', 'value': 'GO Term', 'slimCol':false, 'showWhenSlim':false},
-    {'name': 'colOrigID', 'value': 'Original GO Term', 'slimCol':true, 'showWhenSlim':true},
-    {'name': 'colSlimmedGOTerm', 'value': 'Slimmed GO Term', 'slimCol':true, 'showWhenSlim':true},
-    {'name': 'colEvidence', 'value': 'Evidence', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colReference', 'value': 'Reference', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colWith', 'value': 'With / From', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colTaxon', 'value': 'Taxon', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colAssignedBy', 'value': 'Assigned By', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colAnnotationExtension', 'value': 'Annotation Extension', 'slimCol':false, 'showWhenSlim':true},
-    {'name': 'colDatabase2', 'value':'Database Bingo', 'slimCol':false, 'showWhenSlim':true, 'custCol':'colDatabase'}
-  ];
+  // var annotationColumns = [
+  //   {'name': 'colDatabase', 'value':'Gene Product', 'slimCol':false, 'showWhenSlim':true},
+  //   {'name': 'colSymbol', 'value': 'Symbol', 'slimCol':false, 'showWhenSlim':true},
+  //   {'name': 'colQualifier', 'value': 'Qualifier', 'slimCol':false, 'showWhenSlim':true},
+  //   {'name': 'colGOIdentifier', 'value': 'GO Term', 'slimCol':false, 'showWhenSlim':false},
+  //   {'name': 'colOrigID', 'value': 'Original GO Term', 'slimCol':true, 'showWhenSlim':true},
+  //   {'name': 'colSlimmedGOTerm', 'value': 'Slimmed GO Term', 'slimCol':true, 'showWhenSlim':true},
+  //   {'name': 'colEvidence', 'value': 'Evidence', 'slimCol':false, 'showWhenSlim':true},
+  //   {'name': 'colReference', 'value': 'Reference', 'slimCol':false, 'showWhenSlim':true},
+  //   {'name': 'colWith', 'value': 'With / From', 'slimCol':false, 'showWhenSlim':true},
+  //   {'name': 'colTaxon', 'value': 'Taxon', 'slimCol':false, 'showWhenSlim':true},
+  //   {'name': 'colAssignedBy', 'value': 'Assigned By', 'slimCol':false, 'showWhenSlim':true},
+  //   {'name': 'colAnnotationExtension', 'value': 'Annotation Extension', 'slimCol':false, 'showWhenSlim':true},
+  //   {'name': 'colDatabase2', 'value':'Database Bingo', 'slimCol':false, 'showWhenSlim':true, 'custCol':'colDatabase'}
+  // ];
 
   var initialTaxonomies = [
     {'taxId': '9606', 'title': 'Homo sapiens'},

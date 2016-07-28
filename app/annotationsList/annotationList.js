@@ -11,7 +11,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    * Initialisation
    */
   $scope.maxSize=25;
-  $scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
+  //$scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
 
   //Search filters applied to see if the flag for "slim" is set. If true, extra columns will be shown
   // $scope.showSlimColumns = filteringService.hasSlims();
@@ -189,6 +189,13 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       scope: $scope
     });
   }
+
+
+
+    $scope.customiseColumnsContainer = true;
+    $scope.toggleCustomiseContainer = function() {
+         $scope.customiseColumnsContainer = $scope.customiseColumnsContainer === false ? true : false;
+    }
 
 
   /**
