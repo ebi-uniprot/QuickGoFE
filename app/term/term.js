@@ -18,6 +18,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.coOccurringEntirePageSize = $scope.defaultPageSize;
   $scope.coOccurringManualPageSize = $scope.defaultPageSize;
   $scope.changeLogPageSize = $scope.defaultPageSize;
+  $scope.synonymPageSize = $scope.defaultPageSize;
 
   //Clear search term
   $scope.searchText ='';
