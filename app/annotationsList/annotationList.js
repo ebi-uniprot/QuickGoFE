@@ -190,12 +190,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     });
   }
 
-
-
-    $scope.customiseColumnsContainer = true;
-    $scope.toggleCustomiseContainer = function() {
-         $scope.customiseColumnsContainer = $scope.customiseColumnsContainer === false ? true : false;
-    }
+  $scope.customiseColumnsContainer = true;
+  $scope.toggleCustomiseContainer = function() {
+       $scope.customiseColumnsContainer = $scope.customiseColumnsContainer === false ? true : false;
+  }
 
 
   /**

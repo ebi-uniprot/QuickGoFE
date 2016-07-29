@@ -6,9 +6,8 @@
   <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
 </p>
 
-
 <div id="customiseColumns" class="animate-show" ng-hide="customiseColumnsContainer">
-
+<span class="icon-functional customColsClose" ng-click="toggleCustomiseContainer()" data-icon="x"></span>
 
   <div id="default">
     <h3>Default Columns</h3>
@@ -28,23 +27,22 @@
     </div>
   </div>
 
-<div id="extras">
-  <h3>Additional Columns</h3>
-  <div class="customCols">
-  <input type="checkbox" ng-click="colDatabase = !colDatabase"> Database<br/>
-  <input type="checkbox" ng-click="colDate = !colDate"> Date<br/>
-  <input type="checkbox" ng-click="colName = !colName"> Name<br/>
-  <input type="checkbox" ng-click="colSynonym = !colSynonym"> Synonym<br/>
-  <input type="checkbox" ng-click="colType = !colType"> Type<br/>
-</div>
-<div class="customCols">
-  <input type="checkbox" ng-click="colTaxonName = !colTaxonName"> Taxon Name<br/>
-  <input type="checkbox" ng-click="colSequence = !colSequence"> Sequence<br/>
-</div>
-</div>
+  <div id="extras">
+    <h3>Additional Columns</h3>
+    <div class="customCols">
+      <input type="checkbox" ng-click="colDatabase = !colDatabase"> Database<br/>
+      <input type="checkbox" ng-click="colDate = !colDate"> Date<br/>
+      <input type="checkbox" ng-click="colName = !colName"> Name<br/>
+      <input type="checkbox" ng-click="colSynonym = !colSynonym"> Synonym<br/>
+      <input type="checkbox" ng-click="colType = !colType"> Type<br/>
+    </div>
+    <div class="customCols">
+      <input type="checkbox" ng-click="colTaxonName = !colTaxonName"> Taxon Name<br/>
+      <input type="checkbox" ng-click="colSequence = !colSequence"> Sequence<br/>
+    </div>
+  </div>
 
 </div>
-
 
 <!-- Results -->
 <div>

@@ -430,7 +430,9 @@ td.a-filter {
   }
 
 }
-
+.two-colours tr:nth-child(even) {
+  background-color: $white;
+}
 
 
 .no-table-styling, .no-table-styling tr:nth-child(odd), .no-table-styling td{
@@ -710,8 +712,8 @@ ul.results-list {
 #customiseColumns{
   border: 1px solid #999;
   border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
+  padding: 5px;
+  margin: 0px 10px 10px 10px;
   float: left;
   width: 98%;
   height: 200px;
@@ -720,6 +722,10 @@ ul.results-list {
     height: 50px;
     float: left;
     margin: 10px;
+  }
+  .customColsClose{
+    float: right;
+    cursor: pointer;
   }
 }
 
