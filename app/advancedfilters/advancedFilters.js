@@ -238,3 +238,4 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.namesMap = filteringService.getNamesMap();
   });
+});

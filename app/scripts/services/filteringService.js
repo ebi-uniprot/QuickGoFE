@@ -253,7 +253,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   };
 
   filteringService.hasSlims = function() {
-<<<<<<< HEAD
+
 
 console.log("_filters: ", _filters);
     return _filters.goTermUse === "slim";
@@ -263,11 +263,11 @@ console.log("_filters: ", _filters);
 //     return _.find(_filters, function(rw){
 // console.log("rw: ",rw);
 //       return rw.value == "slim" })
-  }
-=======
+  //}
+
     return _.find(_filters, function(rw){ return rw.value === 'slim'; });
   };
->>>>>>> 136e800885fe39b1b936157adc4e8b10e2af6fc4
+
 
   filteringService.getApplied = function() {
     var applied = {};
