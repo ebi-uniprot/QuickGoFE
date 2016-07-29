@@ -23,7 +23,7 @@ var app = angular
     'quickGoFeApp.FilteringModule',
     'quickGoFeApp.ServicesModule',
     'quickGoFeApp.errorHandling',
-    "ui.bootstrap",
+    'ui.bootstrap',
     'duScroll',
     'config'
   ]);
@@ -33,16 +33,12 @@ var app = angular
       dbXrefService.getDbXrefs().then(function(xrefs) {
         $window.open(dbXrefService.getGenericLink(database, xrefs.data));
       });
-    }
+    };
 
     $rootScope.followLinkToEntry = function(database, id) {
       dbXrefService.getDbXrefs().then(function(xrefs) {
         $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
       });
-    }
-    $rootScope.isEmpty = function (obj) {
-        for (var i in obj) if (obj.hasOwnProperty(i)) return false;
-        return true;
     };
 
     $rootScope.alerts = [];
@@ -68,10 +64,6 @@ var app = angular
         controller: 'StartCtrl'
       })
       .when('/annotations', {
-        templateUrl: 'annotationsList/annotations.html',
-        controller: 'Annotations'
-      })
-      .when('/annotations/filter', {
         templateUrl: 'annotationsList/annotations.html',
         controller: 'Annotations'
       })
@@ -165,10 +157,10 @@ var app = angular
         templateUrl: 'simplelist/cellularcomponent.html',
         controller: 'CellularComponentListCtrl'
       })
-      .when('/annotationExtensionRelations', {
-        templateUrl: 'views/annotationExtensionRelations.html',
-        controller: 'AnnotationExtensionRelationsCtrl'
-      })
+      // .when('/annotationExtensionRelations', {
+      //   templateUrl: 'views/annotationExtensionRelations.html',
+      //   controller: 'AnnotationExtensionRelationsCtrl'
+      // })
       .when('/feedback', {
         templateUrl: 'nav/feedback.html',
         controller: 'FeedbackCtrl'

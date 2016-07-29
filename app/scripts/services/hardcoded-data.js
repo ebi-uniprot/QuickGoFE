@@ -1,6 +1,4 @@
-/**
- * Created by twardell on 27/01/2015.
- */
+'use strict';
 
 var hardCodedModule = angular.module('quickGoFeApp.HardCodedDataModule', []);
 
@@ -60,32 +58,32 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
 
   var references = [
-    {refId:"DOI", display:"DOI*", name:"Digital Object Identifier"},
-    {refId:"GO_REF", display:"GO_REF*", name:"Gene Ontology Database references"},
-    {refId:"PMID", display:"PMID*", name:"PubMed"},
-    {refId:"Reactome", display: "Reactome", name:"Reactome - a curated knowledgebase of biological pathways"},
-    {refId:"GO_REF:0000037", display:"GO_REF:0000037", name:"UniProt Keywords2GO (UniProtKB/Swiss-Prot entries)"},
-    {refId:"GO_REF:0000038", display:"GO_REF:0000038", name:"UniProt Keywords2GO (UniProtKB/TrEMBL entries)"},
-    {refId:"GO_REF:0000039", display:"GO_REF:0000039", name:"UniProt Subcellular Location2GO (UniProtKB/Swiss-Prot entries)"},
-    {refId:"GO_REF:0000040", display:"GO_REF:0000040", name:"UniProt Subcellular Location2GO (UniProtKB/TrEMBL entries)"},
-    {refId:"GO_REF:0000045", display:"GO_REF:0000045", name:"UniProt Keywords2GO (UniProtKB/TrEMBL entries, conservatively modified by UniProt)"},
-    {refId:"GO_REF:0000002", display:"GO_REF:0000002", name:"InterPro2GO"},
-    {refId:"GO_REF:0000042", display:"GO_REF:0000042", name:"InterPro2GO (conservatively modified by UniProt)"},
-    {refId:"GO_REF:0000035", display:"GO_REF:0000035", name:"EnsemblPlants/Gramene"},
-    {refId:"GO_REF:0000019", display:"GO_REF:0000019", name:"Ensembl Compara"},
-    {refId:"GO_REF:0000003", display:"GO_REF:0000003", name:"EC2GO"},
-    {refId:"GO_REF:0000020", display:"GO_REF:0000020", name:"HAMAP2GO"},
-    {refId:"GO_REF:0000041", display:"GO_REF:0000041", name:"UniPathway2GO"},
-    {refId:"GO_REF:0000049", display:"GO_REF:0000049", name:"EnsemblFungi"},
-    {refId:"GO_REF:0000104", display:"GO_REF:0000104", name:"UniRule2GO"}
+    {refId:'DOI', display:'DOI*', name:'Digital Object Identifier'},
+    {refId:'GO_REF', display:'GO_REF*', name:'Gene Ontology Database references'},
+    {refId:'PMID', display:'PMID*', name:'PubMed'},
+    {refId:'Reactome', display: 'Reactome', name:'Reactome - a curated knowledgebase of biological pathways'},
+    {refId:'GO_REF:0000037', display:'GO_REF:0000037', name:'UniProt Keywords2GO (UniProtKB/Swiss-Prot entries)'},
+    {refId:'GO_REF:0000038', display:'GO_REF:0000038', name:'UniProt Keywords2GO (UniProtKB/TrEMBL entries)'},
+    {refId:'GO_REF:0000039', display:'GO_REF:0000039', name:'UniProt Subcellular Location2GO (UniProtKB/Swiss-Prot entries)'},
+    {refId:'GO_REF:0000040', display:'GO_REF:0000040', name:'UniProt Subcellular Location2GO (UniProtKB/TrEMBL entries)'},
+    {refId:'GO_REF:0000045', display:'GO_REF:0000045', name:'UniProt Keywords2GO (UniProtKB/TrEMBL entries, conservatively modified by UniProt)'},
+    {refId:'GO_REF:0000002', display:'GO_REF:0000002', name:'InterPro2GO'},
+    {refId:'GO_REF:0000042', display:'GO_REF:0000042', name:'InterPro2GO (conservatively modified by UniProt)'},
+    {refId:'GO_REF:0000035', display:'GO_REF:0000035', name:'EnsemblPlants/Gramene'},
+    {refId:'GO_REF:0000019', display:'GO_REF:0000019', name:'Ensembl Compara'},
+    {refId:'GO_REF:0000003', display:'GO_REF:0000003', name:'EC2GO'},
+    {refId:'GO_REF:0000020', display:'GO_REF:0000020', name:'HAMAP2GO'},
+    {refId:'GO_REF:0000041', display:'GO_REF:0000041', name:'UniPathway2GO'},
+    {refId:'GO_REF:0000049', display:'GO_REF:0000049', name:'EnsemblFungi'},
+    {refId:'GO_REF:0000104', display:'GO_REF:0000104', name:'UniRule2GO'}
   ];
 
 
    var downloadFileFormats= [
-      {format:"Gene Association File (GAF)", ext:"gaf" },
-      {format:"Gene Product Association Data (GPAD)", ext:"gpad" },
-      {format:"Tab-delimited", ext:"tsv" },
-      {format:"Gene2GO", ext:"gene2go" }
+      {format:'Gene Association File (GAF)', ext:'gaf', strMimeType: 'text/plain;charset=utf-8;' },
+      {format:'Gene Product Association Data (GPAD)', ext:'gpad', strMimeType: 'text/plain;charset=utf-8;' },
+      {format:'Tab-delimited', ext:'tsv', strMimeType: 'text/tsv;charset=utf-8;' },
+      {format:'Gene2GO', ext:'gene2go', strMimeType: 'text/plain;charset=utf-8;' }
     ];
 
     var geneProductSets = [
@@ -94,7 +92,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
       {name: 'KRUK', value: 'KRUK', link:'http://www.ebi.ac.uk/GOA/kidney', description:'The set of proteins associated with renal processes being prioritised for annotation by the EBI\'s Renal Gene Ontology Annotation Initiative'},
       {name: 'ParkinsonsUK-UCL', value: 'ParkinsonsUK-UCL', link:'http://www.ucl.ac.uk/functional-gene-annotation/neurological', description:'The set of Parkinson\'s Disease relevant proteins being prioritised for annotation by the Parkinson\'s Disease Gene Ontology Annotation Initiative located at University College London.'},
       {name: 'Reference Genome', value: 'ReferenceGenome', link:'http://www.geneontology.org/GO.refgenome.shtml', description:'The set of human proteins being comprehensively curated by the UniProt-GOA project as part of the GO Consortium\'s Reference Genome initiative.'}
-    ]
+    ];
 
 
   /**
@@ -104,27 +102,27 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
   hardCodedService.getAnnotationColumns = function() {
     return annotationColumns;
-  }
+  };
 
   hardCodedService.getInitialTaxonomies = function() {
     return initialTaxonomies;
-  }
+  };
 
   hardCodedService.getMostCommonTaxonomies = function() {
     return mostCommonTaxonomies;
-  }
+  };
 
   hardCodedService.getQualifiers = function(){
     return qualifiers;
-  }
+  };
 
   hardCodedService.getDownloadFileFormats = function(){
     return downloadFileFormats;
-  }
+  };
 
   hardCodedService.getGeneProductSets = function(){
     return geneProductSets;
-  }
+  };
 
 
   /**
@@ -133,20 +131,6 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
   /**
    * bio
-   * @type {{goId: string, goName: string}[]}
-   */
-  var goslimCandidaBiologicalProcessTerms = [
-    {'goId':'GO:0006629', 'goName':'lipid metabolic process'},
-    {'goId':'GO:0030448', 'goName':'hyphal growth'}
-  ];
-
-  var goslimPlantBiologicalProcessTerms = [
-    {'goId':'GO:0015979', 'goName':'photosynthesis'},
-    {'goId':'GO:0008219', 'goName':'cell death'}
-  ];
-
-  /**
-   * mol
    * @type {{goId: string, goName: string}[]}
    */
   var goslimCandidaBiologicalProcessTerms = [
@@ -170,7 +154,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
    */
   hardCodedService.getPreDefinedSlimSets = function(){
     return preDefinedSlimSets;
-  }
+  };
 
 
   /**
@@ -180,11 +164,11 @@ hardCodedModule.factory('hardCodedDataService', function() {
    */
   hardCodedService.getBioProcessTerms = function(selectedSlimSet){
 
-    if(selectedSlimSet =='goslim_candida' ){
+    if(selectedSlimSet === 'goslim_candida' ){
       return goslimCandidaBiologicalProcessTerms;
     }
     return goslimPlantBiologicalProcessTerms;
-  }
+  };
 
 
   /**
@@ -194,11 +178,11 @@ hardCodedModule.factory('hardCodedDataService', function() {
    */
   hardCodedService.getmolFunctionTerms = function(selectedSlimSet){
 
-    if(selectedSlimSet =='goslim_candida' ){
+    if(selectedSlimSet === 'goslim_candida' ){
       return goslimCandidaBiologicalProcessTerms;
     }
     return goslimPlantBiologicalProcessTerms;
-  }
+  };
 
   /**
    * Get all the filter references
@@ -206,7 +190,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
    */
   hardCodedService.getFilterReferences = function(){
     return references;
-  }
+  };
 
   return hardCodedService;
 });

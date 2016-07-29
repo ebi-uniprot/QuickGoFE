@@ -83,7 +83,7 @@
     <!-- Buttons -->
     <p>
       <a id="term-show-annotations" class="btn quickgo-btn"
-              href="annotations/filter?id={{termModel.termId}}"><annotations-link termid="{{termModel.termId}}"></annotations-link>
+              href="annotations?id={{termModel.termId}}"><annotations-link termid="{{termModel.termId}}"></annotations-link>
       </a>
     </p>
   </section>
@@ -310,7 +310,7 @@
 
     <!-- Replaced By-->
     <section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
-      <h3 class="term-section-header">Replaced</h3>
+      <h3 class="term-section-header">Replaced By</h3>
 
       <p>This term is obsolete. Try one of these terms:</p>
       <table id="replacementsTable" class="two-colours">

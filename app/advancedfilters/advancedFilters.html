@@ -3,7 +3,7 @@
     <li>Filter by:</li>
 
     <!-- TAXON -->
-    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenTaxon">
+    <li uib-dropdown is-open="status.isopenTaxon" auto-close="outsideClick" on-toggle="toggled(open)">
       <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('taxon')}" data-icon="/" uib-dropdown-toggle>
         Taxon <span class="caret"></span>
       </button>
@@ -34,17 +34,17 @@
           <hr>
           <div class="pull-right">
             <button class="btn quickgo-btn" type="button" ng-click="resetTaxons()">Reset</button>
-            <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
+            <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
           </div>
         </form>
 
       </div>
     </li>
 
-    <!-- GENE PRODUCTS -->
-    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenGP">
-      <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('gpID') || isActiveFilter('gpType') || isActiveFilter('gpSet')}" data-icon="/" uib-dropdown-toggle>
-        Gene products <span class="caret"></span>
+    <!-- GENE PRODUCT IDs -->
+    <li uib-dropdown is-open="status.isopenGP" auto-close="outsideClick" on-toggle="toggled(open)">
+      <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('gpID') ||  isActiveFilter('gpSet')}" data-icon="/" uib-dropdown-toggle>
+        Gene product IDs <span class="caret"></span>
       </button>
       <!-- PRODUCT ID -->
       <div class="advanced-filter-content" uib-dropdown-menu>
@@ -68,24 +68,6 @@
           <div ng-show="view['gpId']">
             <hr>
             <div class="form-group">
-              <p>Type:</p>
-              <ul>
-                <li class="checkbox">
-                  <label>
-                    <input type="checkbox" ng-model="filters.gpType['protein']"> proteins</label>
-                </li>
-                <li class="checkbox">
-                  <label>
-                    <input type="checkbox" ng-model="filters.gpType['rna']"> RNAs</label>
-                </li>
-                <li class="checkbox">
-                  <label>
-                    <input type="checkbox" ng-model="filters.gpType['complex']"> complexes</label>
-                </li>
-              </ul>
-            </div>
-            <hr>
-            <div class="form-group">
               <!-- 4 choices -->
               <p>List of gene products:</p>
               <ul>
@@ -102,13 +84,46 @@
         <hr>
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetgpIds()">Reset</button>
-          <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
+          <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
+        </div>
+      </div>
+    </li>
+
+    <!-- GENE PRODUCT TYPE -->
+    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenGPT" on-toggle="toggled(open)">
+      <button type="button" class="btn btn-default quickgo-btn  icon" ng-class="{'icon-functional active-filter' : isActiveFilter('gpType')}" data-icon="/" uib-dropdown-toggle>
+        Gene Product Type <span class="caret"></span>
+        <br>
+      </button>
+      <div class="advanced-filter-content" uib-dropdown-menu>
+        <div class="form-group">
+          <form>
+            <ul>
+              <li class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="filters.gpType['protein']"> proteins</label>
+              </li>
+              <li class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="filters.gpType['rna']"> RNAs</label>
+              </li>
+              <li class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="filters.gpType['complex']"> complexes</label>
+              </li>
+            </ul>
+            <hr>
+            <div class="pull-right">
+              <button class="btn quickgo-btn" type="button" ng-click="resetGPType()">Reset</button>
+              <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
+            </div>
+          </form>
         </div>
       </div>
     </li>
 
     <!-- GO TERMS -->
-    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenGT">
+    <li uib-dropdown is-open="status.isopenGT" auto-close="outsideClick" on-toggle="toggled(open)">
       <button type="button" class="btn btn-default quickgo-btn  icon" ng-class="{'icon-functional active-filter' : isActiveFilter('goID')}" data-icon="/" uib-dropdown-toggle>
         GO terms <span class="caret"></span>
         <br>
@@ -117,7 +132,7 @@
       <div class="advanced-filter-content" uib-dropdown-menu>
         <form>
           <!-- 3 choices -->
-          <div class="y-scroll-200 inset-panel" ng-hide="isEmpty(filters.goID)">
+          <div class="y-scroll-200 inset-panel" ng-hide="isEmptyObject(filters.goID)">
             <ul>
               <li ng-repeat="(basketId, value) in filters.goID" class="checkbox">
                 <label>
@@ -141,10 +156,10 @@
           <div ng-show="view['go-options']">
 
             <hr>
-            <div><strong>Select how you want to use the terms that you have chosen:</strong> {{filters.goTermUse}}
+            <div><strong>Select how you want to use the terms that you have chosen:</strong>
               <ul>
                 <li class="checkbox">
-                  <input type="radio" ng-model="filters.goTermUse" value="ancestor" ng-change="updateFilters()"> Find annotations to <strong>descendants</strong> of these terms.
+                  <input type="radio" ng-model="filters.goTermUse" value="ancestor" ng-change="applyFilters()"> Find annotations to <strong>descendants</strong> of these terms.
                 </li>
                 <li class="checkbox">
                   <input type="radio" ng-model="filters.goTermUse" value="slim"> Use these terms as a <strong>GO slim</strong>.</li>
@@ -173,13 +188,13 @@
         <hr>
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetGoTerms()">Reset</button>
-          <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
+          <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
         </div>
       </div>
     </li>
 
     <!-- ASPECT -->
-    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenAspect">
+    <li uib-dropdown is-open="status.isopenAspect" auto-close="outsideClick" on-toggle="toggled(open)">
       <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('aspect')}" data-icon="/" uib-dropdown-toggle>
         Aspect <span class="caret"></span>
         <br>
@@ -203,13 +218,13 @@
         <hr>
         <div class="pull-right">
           <button class="btn quickgo-btn" type="button" ng-click="resetAspect()">Reset</button>
-          <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
+          <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
         </div>
       </div>
     </li>
 
     <!-- EVIDENCE -->
-    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenEvidence">
+    <li uib-dropdown auto-close="outsideClick" on-toggle="toggled(open)" is-open="status.isopenEvidence">
       <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('ecoID')}" data-icon="/" uib-dropdown-toggle>
         Evidence <span class="caret"></span>
         <br>
@@ -255,7 +270,7 @@
           <hr>
           <div class="pull-right">
             <button class="btn quickgo-btn" type="button" ng-click="resetECOs()">Reset</button>
-            <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
+            <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
           </div>
         </div>
     </li>
@@ -376,7 +391,7 @@
     <div class="clearfix"></div>
     <div class="pull-right">
       <button class="btn quickgo-btn" type="button" ng-click="resetAssigned()">Reset</button>
-      <button class="btn quickgo-btn" type="button" ng-click="updateFilters()">Apply</button>
+      <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
     </div>
     <div class="clearfix"></div>
     <hr>

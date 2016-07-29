@@ -30,7 +30,7 @@
           <td>{{searchResult.type}}</td>
           <td>{{searchResult.taxonName}}</td>
           <td>{{searchResult.db}}</td>
-          <td><a href="annotations/filter?gpID={{searchResult.dbObjectId}}" class="annotations-link"><annotations-link productid="{{searchResult.dbObjectId}}"></annotations-link></a></td>
+          <td><a href="annotations?gpID={{searchResult.dbObjectId}}" class="annotations-link"><annotations-link productid="{{searchResult.dbObjectId}}"></annotations-link></a></td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>

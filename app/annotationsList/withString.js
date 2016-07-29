@@ -2,8 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('AnnotationListModalController', function($scope, $log, $uibModalInstance,
-  dbXrefService, $window) {
+app.controller('AnnotationListModalController', function($scope, $log, $uibModalInstance) {
 
   /**
    * Close window

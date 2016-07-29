@@ -4,7 +4,7 @@ angular
 		return {
 			restrict: 'E',
 			templateUrl: 'directives/basket.html',
-			link: function($scope, element, attrs, controller) {
+			link: function($scope, element, attrs) {
 				var termId;
 				$scope.showIcon = true;
 				//var iconDisabledStatus;
