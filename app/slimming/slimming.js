@@ -38,6 +38,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     ];
 
   $scope.selectedItems = [];
+  $scope.deSelectedItems = [];
   $scope.basketSelection = {};
   $scope.selectedSpecies = {};
 
@@ -205,25 +206,119 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     return $scope.selectedItems;
   };
 
+  // $scope.removeFromSelection = function(termId) {
+  //   // Remove from selected items
+  //   $scope.selectedItems = _.filter($scope.selectedItems, function(term){
+  //     return term.termId != termId;
+  //   });
+  //
+  //   // if item was originally in the basketTermsInSelection then add it back into the basket options
+  //   if(_.indexOf($scope.basketTermsInSelection, termId) >= 0){
+  //      termService.getTerm(termId).then(function(res){
+  //        $scope.basketList.push(res.data);
+  //      });
+  //
+  //     // now remove the relocated item from the temporary basketTermsInSelection
+  //     $scope.basketTermsInSelection = _.filter($scope.basketTermsInSelection, function(term){
+  //       return term != termId;
+  //     })
+  //
+  //   }
+  // };
+
+
+
   $scope.removeFromSelection = function(termId) {
     // Remove from selected items
     $scope.selectedItems = _.filter($scope.selectedItems, function(term){
       return term.termId != termId;
     });
-
-    // if item was originally in the basketTermsInSelection then add it back into the basket options
-    if(_.indexOf($scope.basketTermsInSelection, termId) >= 0){
-       termService.getTerm(termId).then(function(res){
-         $scope.basketList.push(res.data);
-       });
-
-      // now remove the relocated item from the temporary basketTermsInSelection
-      $scope.basketTermsInSelection = _.filter($scope.basketTermsInSelection, function(term){
-        return term != termId;
-      })
-
-    }
+    // Add to de-selected items
+    termService.getTerm(termId).then(function(res){
+      $scope.deSelectedItems.push(res.data);
+    });
   };
+
+  $scope.addBackIntoSelection = function(termId) {
+    // Remove from deSelectedItems
+    $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term){
+      return term.termId != termId;
+    });
+    // Add back to selectedItems
+    termService.getTerm(termId).then(function(res){
+      $scope.selectedItems.push(res.data);
+    });
+  };
+
+
+
+
+
+
+
+
+  function sticky_relocate() {
+      var window_top = $(window).scrollTop();
+      var div_top = $('#sticky-anchor').offset().top;
+      if (window_top > div_top) {
+          $('#sticky').addClass('stick');
+          $('#sticky-anchor').height($('#sticky').outerHeight());
+      } else {
+          $('#sticky').removeClass('stick');
+          $('#sticky-anchor').height(0);
+      }
+  }
+
+  $(function() {
+      $(window).scroll(sticky_relocate);
+      sticky_relocate();
+  });
+
+  var dir = 1;
+  var MIN_TOP = 200;
+  var MAX_TOP = 350;
+
+  function autoscroll() {
+      var window_top = $(window).scrollTop() + dir;
+      if (window_top >= MAX_TOP) {
+          window_top = MAX_TOP;
+          dir = -1;
+      } else if (window_top <= MIN_TOP) {
+          window_top = MIN_TOP;
+          dir = 1;
+      }
+      $(window).scrollTop(window_top);
+      window.setTimeout(autoscroll, 100);
+  }
+
+
+
+
+
+
+
+
+
+
+//   $( document ).ready(function() {
+//
+// if ($('#removedTerms').length){
+//     console.log("inside");
+//     var $window = $(window),
+//         $stickyEl = $('#removedTerms'),
+//         elTop = $stickyEl.offset().top;
+//
+//     $window.scroll(function() {
+//       console.log("in scroller");
+//
+//          $stickyEl.toggleClass('sticky', $window.scrollTop() > elTop);
+//      });
+//    }else{
+//
+//      console.log("couldnt find it");
+//    }
+//
+//   });
 
   /**
    * Save the entered information and use it to filter the results on the annotation list page,
@@ -255,6 +350,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
   $scope.clearSelection = function(){
     $scope.selectedItems = [];
+    $scope.deSelectedItems = [];
   };
 
   /**

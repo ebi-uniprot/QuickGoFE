@@ -126,7 +126,10 @@
   <div ng-if="selectedItems.length <= 0" id="nothing-yet-selected">
     <h4>Choose or input GO terms above to view your selection here</h4>
   </div>
-  <div ng-if="selectedItems.length >= 1">
+
+
+
+  <div class="selectionContainer" ng-if="selectedItems.length >= 1">
 
     <h5 ng-class="{'inactive': !getSelectedMFTerms().length}">Molecular Function Terms <span ng-if="getSelectedMFTerms().length">({{getSelectedMFTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
     <ul>
@@ -154,6 +157,19 @@
         <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
         {{aTerm.name}} <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
       </li>
+    </ul>
+  </div>
+<div id="sticky-anchor" style="float:right;"></div>
+  <div class="selectionContainer removedTerms" id="sticky" ng-if="deSelectedItems.length >= 1">
+    <h5>Manually Removed Terms <span>({{deSelectedItems.length}})</span></h5>
+    <ul>
+        <li ng-repeat="aTerm in deSelectedItems" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
+          <i><a href="term/{{aTerm.termId}}" target="_blank"><i>{{aTerm.termId}}</i></a>
+          <basket-button termid="{{aTerm.termId}}"></basket-button>
+          <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
+          {{aTerm.name}} <a class="icon icon-functional" data-icon="+" uib-tooltip="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+</i>
+        </li>
     </ul>
   </div>
 </div>

@@ -852,6 +852,32 @@ section{
   }
 }
 
+.selectionContainer{
+  width: 49%;
+float: left;
+}
+.removedTerms{
+  border: 1px solid #666;
+  background-color: $verylightgrey;
+  padding: 10px;
+  border-radius: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  float: right;
+    li{
+      color: $midgrey;
+    }
+}
+
+#sticky.stick {
+    margin-top: 0 !important;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10000;
+}
+
+
 
 /* SLIMMING PAGES ----------------------------------------------------------------------------------------------------*/
 
