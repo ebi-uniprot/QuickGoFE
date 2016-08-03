@@ -161,7 +161,7 @@
   </div>
 <div id="sticky-anchor" style="float:right;"></div>
   <div class="selectionContainer removedTerms" id="sticky" ng-if="deSelectedItems.length >= 1">
-    <h5>Manually Removed Terms <span>({{deSelectedItems.length}})</span></h5>
+    <h5>Excluded Terms <span>({{deSelectedItems.length}})</span></h5>
     <ul>
         <li ng-repeat="aTerm in deSelectedItems" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
           <i><a href="term/{{aTerm.termId}}" target="_blank"><i>{{aTerm.termId}}</i></a>
