@@ -21,7 +21,7 @@
     <h3>{{termModel.name}}</h3>
 
     <!-- Ontology -->
-    <p ng-show="isGoTerm"><strong>{{termModel.aspect}}</strong></p>
+    <p ng-show="isGoTerm"><strong>{{readableAspect}}</strong></p>
     </section>
 
     <!-- Definition -->
@@ -69,7 +69,7 @@
     </section>
 
     <!-- Aknowledgements -->
-    <!--section ng-if="termModel.credits.length > 0">
+    <section ng-if="termModel.credits.length > 0">
     <h5>Acknowledgement</h5>
     <p>
         This term was created by the GO Consortium with support from:
@@ -84,7 +84,7 @@
               class="credit-image"/></a>
           </span>
     </p>
-    </section-->
+    </section>
 
     <!-- Buttons -->
     <p>
@@ -275,10 +275,10 @@
           <td>{{entry.methodId}}</td>
         </tr>
       </table>
-      <span ng-show="blacklistPageSize < termWithBlacklist.blacklist.length" ng-click="blacklistPageSize = termWithBlacklist.blacklist.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-      <span ng-show="blacklistPageSize < termWithBlacklist.blacklist.length" ng-click="blacklistPageSize = termWithBlacklist.blacklist.length" class="selectable showMoreLess">show all</span>
-      <span ng-show="(blacklistPageSize == termWithBlacklist.blacklist.length && termWithBlacklist.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-      <span ng-show="(blacklistPageSize == termWithBlacklist.blacklist.length && termWithBlacklist.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      <span ng-show="blacklistPageSize < termModel.blacklist.length" ng-click="blacklistPageSize = termModel.blacklist.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+      <span ng-show="blacklistPageSize < termModel.blacklist.length" ng-click="blacklistPageSize = termModel.blacklist.length" class="selectable showMoreLess">show all</span>
+      <span ng-show="(blacklistPageSize == termModel.blacklist.length && termModel.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(blacklistPageSize == termModel.blacklist.length && termModel.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
 
     </section>
@@ -292,16 +292,16 @@
         <th>ID</th>
         <th>Description</th>
       </tr>
-      <tr ng-repeat="xref in termModel.xrefs | limitTo:crossrefsPageSize">
+      <tr ng-repeat="xref in termModel.xRefs | limitTo:crossrefsPageSize">
         <td><a ng-click="followLinkToGeneric(xref.dbCode)" target="_blank">{{xref.dbCode}}</a></td>
         <td><a ng-click="followLinkToEntry(xref.dbCode, xref.dbId)" target="_blank">{{xref.dbId}}</a></td>
         <td>{{xref.name}}</td>
       </tr>
       </table>
-      <span ng-show="crossrefsPageSize < termModel.xrefs.length" ng-click="crossrefsPageSize = termModel.xrefs.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-      <span ng-show="crossrefsPageSize < termModel.xrefs.length" ng-click="crossrefsPageSize = termModel.xrefs.length" class="selectable showMoreLess">show all</span>
-      <span ng-show="(crossrefsPageSize == termModel.xrefs.length && termModel.xrefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-      <span ng-show="(crossrefsPageSize == termModel.xrefs.length && termModel.xrefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      <span ng-show="crossrefsPageSize < termModel.xRefs.length" ng-click="crossrefsPageSize = termModel.xRefs.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+      <span ng-show="crossrefsPageSize < termModel.xRefs.length" ng-click="crossrefsPageSize = termModel.xRefs.length" class="selectable showMoreLess">show all</span>
+      <span ng-show="(crossrefsPageSize == termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(crossrefsPageSize == termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
     </section>
 
@@ -515,10 +515,10 @@
               <td>{{history.text}}</td>
             </tr>
           </table>
-          <span ng-show="changeLogPageSize < termModel.history.history.length" ng-click="changeLogPageSize = termModel.history.historyAll.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-          <span ng-show="changeLogPageSize < termModel.history.history.length" ng-click="changeLogPageSize = termModel.history.historyAll.length" class="selectable showMoreLess">show all</span>
-          <span ng-show="(changeLogPageSize == termModel.history.history.length && termModel.history.historyAll.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-          <span ng-show="(changeLogPageSize == termModel.history.history.length && termModel.history.historyAll.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+          <span ng-show="changeLogPageSize < termModel.history.length" ng-click="changeLogPageSize = termModel.history.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+          <span ng-show="changeLogPageSize < termModel.history.length" ng-click="changeLogPageSize = termModel.history.length" class="selectable showMoreLess">show all</span>
+          <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+          <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
         </uib-tab>
 

@@ -3,7 +3,7 @@
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
                                     ENV, filteringService, quickGOHelperService, $document, $routeParams, termService,
-                                    PreDefinedSlimSets) {
+                                    ontoTypeService, PreDefinedSlimSets) {
 
   $scope.targetDomainAndPort = ENV.apiEndpoint;
 
@@ -45,7 +45,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
     $scope.termPromise.then(function(data) {
         $scope.termModel = data.data.results[0];
-        console.log($scope.termModel); //todo
+        console.log($scope.termModel); //TODO
 
         //set secondary ids string
         $scope.termModel.secondaryIdsString = $scope.termModel.secondaryIds ?
@@ -64,6 +64,8 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         if($scope.termModel.isObsolete === true){
           $scope.isObsolete = true;
         }
+
+        $scope.readableAspect = ontoTypeService.ontoReadableText($scope.termModel.aspect);
 
         //Set restrictions show
         if(($scope.termModel.usage === 'Unrestricted') || (!$scope.isGoTerm)) {

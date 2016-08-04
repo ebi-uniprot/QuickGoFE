@@ -61,6 +61,14 @@ wsService.factory('ontoTypeService', [function(){
                 case 'cellular_component' : return 'C';
                 default: return ontoName;
             }
+        },
+        ontoReadableText: function(ontoName) {
+            switch(ontoName) {
+                case 'biological_process' : return 'Biological Process';
+                case 'molecular_function' : return 'Molecular Function';
+                case 'cellular_component' : return 'Cellular Component';
+                default: return ontoName;
+            }
         }
     }
 }]);
