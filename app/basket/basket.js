@@ -2,8 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService,
-                                       quickGOHelperService, termService, $window) {
+app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService) {
 
   $scope.loadBasketItems = function() {
     $scope.basketPromise = basketService.getItems();
@@ -14,7 +13,6 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
 
   $scope.loadBasketItems();
   $scope.input_terms='';
-  $scope.exportURL = '#';
 
   /**
    * ------------------------------------ Remove item from basket -----------------------------------------
@@ -39,7 +37,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Pass that list to the filtering service.
    */
   $scope.submit = function() {
-    var terms = basketService.validateTerms($scope.input_terms)
+    var terms = basketService.validateTerms($scope.input_terms);
     angular.forEach(terms.valid, function(term) {
       basketService.addBasketItem(term);
     });
@@ -66,13 +64,13 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Turn the list of basket items into to comma delimited list
    */
   $scope.showAncestorGraph = function () {
-    var k=0;
+    var k;
     var itemString="";
     for(k=0;k<$scope.basketItems.length;k++ ){
       itemString = itemString+$scope.basketItems[k].termId;
       itemString=itemString+',';
     }
-    var modalInstance = $uibModal.open({
+    $uibModal.open({
       templateUrl: 'charts/ontologyGraphModal.html',
       controller: 'OntologyGraphCtrl',
       windowClass: 'app-modal-window',
@@ -119,24 +117,16 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
       text += item.aspectDescription + "\t";
       text += item.name + "\n";
     });
-
-    var exportLink = $('#quickGO-basket-export-link');
-
-    if ('download' in exportLink.get(0)) {
-      var blob = new Blob([text], {type: "application/tsv;charset=utf-8;"});
-      $scope.exportURL = (window.URL || window.webkitURL).createObjectURL( blob );
-    } else {
-      var blob = new Blob([text], {type: "text/plain;charset=utf-8;"});
-      saveAs(blob, "basket.txt");
-    }
+    var blob = new Blob([text], {type: "text/tsv;charset=utf-8;"});
+    saveAs(blob, "basket.tsv");
   };
 
   $scope.isBasketNotEmpty = function (){
     return basketService.basketQuantity() > 0;
-  }
+  };
 
   $scope.close = function() {
     $uibModalInstance.dismiss('cancel');
-  }
+  };
 
 });

@@ -37,7 +37,7 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
     $scope.downloadPromise = $http(request);
 
     $scope.downloadPromise.success(function(data) {
-      downloadFile(fileName, data);
+      downloadFile(fileName, data, format.strMimeType);
       $uibModalInstance.dismiss('cancel');
     });
   };
@@ -50,49 +50,11 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
     $uibModalInstance.dismiss('cancel');
   };
 
-
-
-
   function downloadFile(fileName, data, strMimeType) {
-    var D = document;
-    var a = D.createElement('a');
-    strMimeType = strMimeType || 'application/octet-stream;charset=utf-8';
-    var rawFile;
+    strMimeType = strMimeType || 'text/plain;charset=utf-8;';
 
-    // IE10+
-    if (navigator.msSaveBlob) {
-      return navigator.msSaveBlob(new Blob([data], {
-        type: strMimeType
-      }), fileName);
-    }
-
-    //html5 A[download]
-    if ('download' in a) {
-      var blob = new Blob([data], {
-        type: strMimeType
-      });
-      rawFile = URL.createObjectURL(blob);
-      a.setAttribute('download', fileName);
-    } else {
-      rawFile = 'data:' + strMimeType + ',' + encodeURIComponent(data);
-      a.setAttribute('target', '_blank');
-    }
-
-    a.href = rawFile;
-    a.setAttribute('style', 'display:none;');
-    D.body.appendChild(a);
-    setTimeout(function() {
-      if (a.click) {
-        a.click();
-        // Workaround for Safari 5
-      } else if (document.createEvent) {
-        var eventObj = document.createEvent('MouseEvents');
-        eventObj.initEvent('click', true, true);
-        a.dispatchEvent(eventObj);
-      }
-      D.body.removeChild(a);
-
-    }, 100);
+    var blob = new Blob([data], {type: strMimeType});
+    saveAs(blob, fileName);
   }
 
 

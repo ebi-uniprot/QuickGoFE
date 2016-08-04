@@ -1,6 +1,5 @@
-/**
- * Created by twardell on 30/09/2015.
- */
+'use strict';
+
 var servicesModule = angular.module('quickGoFeApp.ServicesModule', []);
 
 servicesModule.factory('quickGOHelperService', function() {
@@ -9,18 +8,18 @@ servicesModule.factory('quickGOHelperService', function() {
   var quickGOHelperService = {};
 
   quickGOHelperService.toAspectCode = function (aspectName){
-    if(aspectName == "Cellular Component"){
+    if(aspectName === 'Cellular Component'){
      return 'C';
     }
-    if(aspectName == "Molecular Function"){
+    if(aspectName === 'Molecular Function'){
       return 'F';
     }
-    if(aspectName == "Biological Process"){
+    if(aspectName === 'Biological Process'){
       return 'P';
     }
-    console.log('Unknown Aspect Description', aspectName)
+    console.log('Unknown Aspect Description', aspectName);
     return '?';
-  }
+  };
 
   return quickGOHelperService;
 });

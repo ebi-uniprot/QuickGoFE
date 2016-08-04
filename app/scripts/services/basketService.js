@@ -1,6 +1,4 @@
-/**
- * Created by twardell on 27/01/2015.
- */
+'use strict';
 
 var basketModule = angular.module('quickGoFeApp.BasketModule', []);
 
@@ -19,7 +17,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
       $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
       return items.length;
     }
-  }
+  };
 
 
   /*
@@ -27,7 +25,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
    */
   basketList.refreshBasket = function (newBasketList) {
     $cookieStore.put('uk.ac.ebi.quickgo.basket', newBasketList);
-  }
+  };
 
 
   /*
@@ -36,7 +34,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
   basketList.clearBasket = function () {
     var emptyBasket = [];
     $cookieStore.put('uk.ac.ebi.quickgo.basket', emptyBasket);
-  }
+  };
 
 
   /**
@@ -48,7 +46,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
     items.splice(items.indexOf(basketItem), 1);
     $cookieStore.put('uk.ac.ebi.quickgo.basket', items);
     return items.length;
-  }
+  };
 
 
   /*
@@ -57,7 +55,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
   basketList.basketQuantity = function () {
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
     return items.length;
-  }
+  };
 
 
   /**
@@ -68,7 +66,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
   basketList.getItems = function(){
     var cookieItems = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
     return termService.getTerms(cookieItems.toString());
-  }
+  };
 
 
   /**
@@ -79,7 +77,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
   basketList.containsGoTerm = function (termId){
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
     return items.indexOf(termId) > -1;
-  }
+  };
 
   basketList.validateTerms = function(terms) {
     var ownTerms = stringService.getTextareaItemsAsArray(terms);
@@ -92,7 +90,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
     data.missmatches = _.difference(ownTerms, data.valid);
 
     return data;
-  }
+  };
 
 
   return basketList;
