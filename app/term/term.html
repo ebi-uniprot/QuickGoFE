@@ -331,7 +331,7 @@
     </section-->
 
     <!-- show Replaces-->
-    <!--section id="termReplaces" ng-if="termModel.replaces.length > 0">
+    <section id="termReplaces" ng-if="termModel.replaces.length > 0">
       <h3 class="term-section-header">Replaces</h3>
 
       <p>This term can be used instead of these obsolete terms:</p>
@@ -342,9 +342,9 @@
           <th>Reason</th>
         </tr>
         <tr ng-repeat="replacement in termModel.replaces | limitTo:replacesPageSize">
-          <td><a class="quickgo-link" href="term/{{replacement.child.id}}">{{replacement.child.id}}</a></td>
-          <td>{{replacement.child.name}}</td>
-          <td>{{replacement.typeof}} <a href="term/{{replacement.parent.id}}">{{replacement.parent.id}}</a>
+          <td><a class="quickgo-link" href="term/{{replacement.id}}">{{replacement.id}}</a></td>
+          <td>{{replacement.name}}</td>
+          <td>{{replacement.type}} <a href="term/{{termModel.id}}">{{termModel.id}}</a>
           </td>
         </tr>
       </table>
@@ -352,7 +352,7 @@
       <span ng-show="replacesPageSize < termModel.replaces.length" ng-click="replacesPageSize = termModel.replaces.length" class="selectable showMoreLess">show all</span>
       <span ng-show="(replacesPageSize == termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
       <span ng-show="(replacesPageSize == termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
-    </section-->
+    </section>
 
     <!-- Replaced By-->
     <!--section id="termReplacedBy" ng-if="termModel.replacements.length > 0">

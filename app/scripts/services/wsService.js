@@ -23,11 +23,11 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
             : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
       getTerms : function(ids, isGoTerm) {
-          return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms', {params: {ids: ids}} + '/complete')
-              : $http.get(ENV.apiEndpoint+'/eco/terms', {params: {ids: ids}} + '/complete');
+          return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + ids)
+              : $http.get(ENV.apiEndpoint+'/eco/terms/' + ids);
       },
       getGOTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/go/terms/' + ids + '/complete');
+        return $http.get(ENV.apiEndpoint+'/go/terms/' + ids + '/complete'); //TODO do we really need complete here?
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');

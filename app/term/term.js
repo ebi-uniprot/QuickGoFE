@@ -74,6 +74,30 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
           $scope.showRestrictions = true;
         }
 
+        //TODO add all other terms that need to be retrieved when services are ready, e.g., replacements
+        var termsToQuery = '';
+        angular.forEach($scope.termModel.replaces, function(value) {
+            termsToQuery += value.id + ',';
+        });
+        termsToQuery = termsToQuery.slice(0, -1);
+        $scope.additionalTermsPromise = termService.getTerms(termsToQuery, $scope.isGoTerm);
+
+        $scope.additionalTermsPromise
+            .then(function(moreData) {
+                    angular.forEach($scope.termModel.replaces, function(term) {
+                        var inResult = _.find(moreData.data.results, function(datum) {
+                            return datum.id === term.id;
+                        });
+                        if (inResult) {
+                            term.name = inResult.name
+                        }
+                    });
+                }, function (reason) {
+                    $scope.notFoundAdditionaTermsReason = reason;
+                    //TODO should we do something with this?
+                }
+            );
+
         //Set GO Slim subset counts
         /*angular.forEach($scope.predefinedSlimSets, function(slim) {
           angular.forEach($scope.termModel.subsets, function(subset) {
@@ -89,6 +113,15 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         $scope.notFoundReason = reason;
         angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
     });
+
+    /*
+     replaces": [
+
+     {
+     "id": "GO:0004200",
+     "type": "consider"
+     },
+     */
 
   if($scope.isGoTerm) {
     // Set up statistics for co-occurring page
