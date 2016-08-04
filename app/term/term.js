@@ -7,6 +7,19 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
   $scope.targetDomainAndPort = ENV.apiEndpoint;
 
+  // set default row count for tables
+  $scope.defaultPageSize = 10;
+  $scope.blacklistPageSize = $scope.defaultPageSize;
+  $scope.childTermsPageSize = $scope.defaultPageSize;
+  $scope.taxonConstraintsPageSize = $scope.defaultPageSize;
+  $scope.crossrefsPageSize = $scope.defaultPageSize;
+  $scope.crossOntologyPageSize = $scope.defaultPageSize;
+  $scope.replacesPageSize = $scope.defaultPageSize;
+  $scope.coOccurringEntirePageSize = $scope.defaultPageSize;
+  $scope.coOccurringManualPageSize = $scope.defaultPageSize;
+  $scope.changeLogPageSize = $scope.defaultPageSize;
+  $scope.synonymPageSize = $scope.defaultPageSize;
+
   //Clear search term
   $scope.searchText = '';
 
