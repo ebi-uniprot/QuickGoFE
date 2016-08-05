@@ -194,7 +194,7 @@
     </section>
 
     <!-- GO Discussions AKA Planned Changes-->
-    <!--section id="goDiscussions" ng-if="termModel.plannedChanges.length > 0">
+    <section id="goDiscussions" ng-if="termModel.goDiscussions.length > 0">
       <h3 class="term-section-header">GO Discussions</h3>
 
       <p>The GO editorial group is intending to improve the information provided in this area of the GO.
@@ -204,12 +204,12 @@
         <tr>
           <th colspan="2">Ontology Development Project</th>
         </tr>
-        <tr ng-repeat="plannedChange in termModel.plannedChanges">
+        <tr ng-repeat="plannedChange in termModel.goDiscussions">
           <td>{{plannedChange.title}}</td>
           <td><a class="quickgo-link" href="{{plannedChange.url}}" target="_blank">Link</a></td>
         </tr>
       </table>
-    </section-->
+    </section>
 
     <!-- Taxon Constraints -->
     <section id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0">
@@ -636,7 +636,7 @@
         <a class="term-section-view" du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
       </li>
       <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.plannedChanges || (termModel.plannedChanges.length==0))}"
+          ng-class="{'section-disabled':(!termModel.goDiscussions || (termModel.plannedChanges.length==0))}"
           du-scrollspy="goDiscussions">
         <a class="term-section-view" du-smooth-scroll="goDiscussions" >GO Discussions</a>
       </li>
