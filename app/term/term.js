@@ -79,12 +79,24 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         angular.forEach($scope.termModel.replaces, function(value) {
             termsToQuery += value.id + ',';
         });
+        angular.forEach($scope.termModel.children, function(value) {
+            termsToQuery += value.id + ',';
+        });
         termsToQuery = termsToQuery.slice(0, -1);
         $scope.additionalTermsPromise = termService.getTerms(termsToQuery, $scope.isGoTerm);
 
         $scope.additionalTermsPromise
             .then(function(moreData) {
+                //TODO if more or less all the loops turn out to be the same, create function
                     angular.forEach($scope.termModel.replaces, function(term) {
+                        var inResult = _.find(moreData.data.results, function(datum) {
+                            return datum.id === term.id;
+                        });
+                        if (inResult) {
+                            term.name = inResult.name
+                        }
+                    });
+                    angular.forEach($scope.termModel.children, function(term) {
                         var inResult = _.find(moreData.data.results, function(datum) {
                             return datum.id === term.id;
                         });

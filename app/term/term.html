@@ -152,7 +152,7 @@
     </section-->
 
     <!-- Child Terms -->
-    <!--section id="childTerms" ng-if="termModel.childTermsRelations.length > 0" ng-hide="isObsolete">
+    <section id="childTerms" ng-if="termModel.children.length > 0" ng-hide="isObsolete">
 
       <h3 class="term-section-header"><span uib-tooltip-template="'childterms.html'" tooltip-placement="top-right">Child Terms</span></h3>
       <div>
@@ -162,22 +162,22 @@
 
             <th>Relationship to </br>{{termModel.id}}</th>
           </tr>
-          <tr ng-repeat="childRelation in termModel.childTermsRelations | limitTo:childTermsPageSize">
+          <tr ng-repeat="childRelation in termModel.children | limitTo:childTermsPageSize">
             <td>
               <a class="quickgo-link" ng-href="term/{{childRelation.id}}">{{childRelation.id}}</a>
               <basket-button termid="{{childRelation.id}}"></basket-button>
               <chart-icon term-id="childRelation.id" term-name="childRelation.name"></chart-icon>
               {{childRelation.name}}
             </td>
-            <td>{{childRelation.typeOf}}</td>
+            <td>{{childRelation.relation}}</td>
           </tr>
         </table>
-        <span ng-show="childTermsPageSize < termModel.childTermsRelations.length" ng-click="childTermsPageSize = termModel.childTermsRelations.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-        <span ng-show="childTermsPageSize < termModel.childTermsRelations.length" ng-click="childTermsPageSize = termModel.childTermsRelations.length" class="selectable showMoreLess">show all</span>
-        <span ng-show="(childTermsPageSize == termModel.childTermsRelations.length && termModel.childTermsRelations.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-        <span ng-show="(childTermsPageSize == termModel.childTermsRelations.length && termModel.childTermsRelations.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+        <span ng-show="childTermsPageSize < termModel.children.length" ng-click="childTermsPageSize = termModel.children.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+        <span ng-show="childTermsPageSize < termModel.children.length" ng-click="childTermsPageSize = termModel.children.length" class="selectable showMoreLess">show all</span>
+        <span ng-show="(childTermsPageSize == termModel.children.length && termModel.children.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+        <span ng-show="(childTermsPageSize == termModel.children.length && termModel.children.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
       </div>
-    </section-->
+    </section>
 
     <!-- Annotation Guidance -->
     <section id="termAnnotationGuidance" ng-if="termModel.annotationGuidelines.length > 0">
