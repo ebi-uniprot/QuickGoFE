@@ -227,9 +227,9 @@
         </tr>
         <tr ng-repeat="taxonconstraint in termModel.taxonConstraints | limitTo:taxonConstraintsPageSize"">
           <td><a class="quickgo-link" href="term/{{taxonconstraint.goId}}">{{taxonconstraint.ancestorId}}</a></td>
-          <td>{{taxonconstraint.name}}</td>
-          <td ng-if="taxonconstraint.relationship == 'ONLY_IN_TAXON'">Only in Taxon</td>
-          <td ng-if="taxonconstraint.relationship != 'ONLY_IN_TAXON'">Never in Taxon</td>
+          <td>{{taxonconstraint.ancestorName}}</td>
+          <td ng-if="taxonconstraint.relationship === 'only_in_taxon'">Only in Taxon</td>
+          <td ng-if="taxonconstraint.relationship !== 'only_in_taxon'">Never in Taxon</td>
           <td>{{taxonconstraint.taxId}}</td>
           <td>{{taxonconstraint.taxName}}</td>
           <td>
