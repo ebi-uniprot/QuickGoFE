@@ -355,7 +355,7 @@
     </section>
 
     <!-- Replaced By-->
-    <!--section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
+    <section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
       <h3 class="term-section-header">Replaced By</h3>
 
       <p>This term is obsolete. Try one of these terms:</p>
@@ -367,13 +367,13 @@
           <th>GO Term Name</th>
         </tr>
         <tr ng-repeat="replacedby in termModel.replacements">
-          <td>{{replacedby.typeof.description}}</td>
-          <td><a class="quickgo-link" href="term/{{replacedby.parent.id}}">{{replacedby.parent.id}}</a></td>
-          <td>{{replacedby.parent.aspectDescription}}</td>
-          <td>{{replacedby.parent.name}}</td>
+          <td>{{replacedby.type}}</td>
+          <td><a class="quickgo-link" href="term/{{replacedby.parent.id}}">{{replacedby.id}}</a></td>
+          <td>{{replacedby.aspect}}</td>
+          <td>{{replacedby.name}}</td>
         </tr>
       </table>
-    </section-->
+    </section>
 
     <!-- Co-occurring statistics -->
     <!--section id="coOcurring" ng-hide="!isGoTerm || isObsolete">
