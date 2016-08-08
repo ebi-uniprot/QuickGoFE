@@ -253,19 +253,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
   };
 
   filteringService.hasSlims = function() {
-
-
-console.log("_filters: ", _filters);
     return _filters.goTermUse === "slim";
-
-//
-//     console.log("inside filteringService hasslims");
-//     return _.find(_filters, function(rw){
-// console.log("rw: ",rw);
-//       return rw.value == "slim" })
-  //}
-
-    return _.find(_filters, function(rw){ return rw.value === 'slim'; });
   };
 
 
