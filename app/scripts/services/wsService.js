@@ -23,6 +23,13 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
             : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
       getTerms : function(ids, isGoTerm) {
+          if (ids instanceof Array) {
+              var termsToQuery = '';
+              angular.forEach(ids, function(value) {
+                  termsToQuery += (value.id ? value.id : value) + ',';
+              });
+              ids = termsToQuery.slice(0, -1);
+          }
           return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + ids)
               : $http.get(ENV.apiEndpoint+'/eco/terms/' + ids);
       },

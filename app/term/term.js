@@ -73,19 +73,11 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
           $scope.showRestrictions = true;
         }
 
-        //TODO add all other terms that need to be retrieved when services are ready
-        var termsToQuery = '';
-        angular.forEach($scope.termModel.replaces, function(value) {
-            termsToQuery += value.id + ',';
-        });
-        angular.forEach($scope.termModel.replacements, function(value) {
-            termsToQuery += value.id + ',';
-        });
-        angular.forEach($scope.termModel.children, function(value) {
-            termsToQuery += value.id + ',';
-        });
-        termsToQuery = termsToQuery.slice(0, -1);
-        $scope.additionalTermsPromise = termService.getTerms(termsToQuery, $scope.isGoTerm);
+        $scope.additionalTermsPromise = termService.getTerms(
+            _.reject(
+                _.union($scope.termModel.replaces, $scope.termModel.replacements, $scope.termModel.children),
+                function(value) {return value === undefined}),
+            $scope.isGoTerm);
 
         $scope.additionalTermsPromise
             .then(function(moreData) {
@@ -94,7 +86,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
                 addInformation($scope.termModel.children, moreData.data.results);
             }, function (reason) {
                 $scope.notFoundAdditionaTermsReason = reason;
-                //TODO should we do something with this?
+                console.log(reason);
             }
         );
 
