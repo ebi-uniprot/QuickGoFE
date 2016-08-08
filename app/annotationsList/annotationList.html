@@ -47,32 +47,86 @@
 <!-- Results -->
 <div>
 <!-- Results Header-->
-<table id="assignedByCount" class="two-colours results-table">
-  <tr>
-    <thead>
-      <th ng-if="colGeneProduct">Gene Product</th>
-      <th ng-if="colSymbol">Symbol</th>
-      <th ng-if="colQualifier">Qualifier</th>
-      <th ng-if="colGOIdentifier" ng-show="!showSlimColumns" >GO Term</th>
-      <th ng-if="colGOIdentifier" ng-show="showSlimColumns">Original GO Term</th>
-      <th ng-if="colGOIdentifier" ng-show="showSlimColumns">Slimmed GO Term</th>
-      <th ng-if="colEvidence">Evidence</th>
-      <th ng-if="colReference">Reference</th>
-      <th ng-if="colWith">With / From</th>
-      <th ng-if="colTaxon">Taxon</th>
-      <th ng-if="colAssignedBy">Assigned By</th>
-      <th ng-if="colAnnotationExtension">Annotation Extension</th>
-      <th ng-if="colDatabase">Database</th>
-      <th ng-if="colDate">Date</th>
-      <th ng-if="colName">Name</th>
-      <th ng-if="colSynonym">Synonym</th>
-      <th ng-if="colType">Type</th>
-      <th ng-if="colTaxonName">Taxon Name</th>
-      <th ng-if="colSequence">Sequence</th>
-    </thead>
-  </tr>
 
-  <tr ng-repeat="annotation in annotations">
+bingo:{{colEvidence}}<br />
+<table object-table
+			from-url="http://beta.json-generator.com/api/json/get/DXXROxj"
+			data="exportDataVariable4"
+			display="2"
+			headers="stuff"
+			fields="stuff" >
+		<thead>
+				<tr>
+					<th ng-click="sortBy('name')" ng-class="headerIsSortedClass('Name')" class="sortable" allow-drag>Name</th>
+					<th ng-click="sortBy('eyeColor')" ng-class="headerIsSortedClass('Eye color')" class="sortable" allow-drag>Eye colour</th>
+					<th ng-click="sortBy('age')" ng-class="headerIsSortedClass('Age')" class="sortable" allow-drag>Age</th>
+					<th ng-click="sortBy('balance')" ng-class="headerIsSortedClass('Balance')" class="sortable" allow-drag>Balance</th>
+					<th ng-click="sortBy('company')" ng-class="headerIsSortedClass('Company')" class="sortable" allow-drag>Company</th>
+					<th ng-click="sortBy('favoriteFruit')" ng-class="headerIsSortedClass('Favorite Fruit')" class="sortable" allow-drag>Favorite Fruity</th>
+				</tr>
+			</thead>
+		<tbody ng-non-bindable>
+			<tr>
+				<td ng-if="$owner.colReference">{{::item.name}}<span ng-if="$owner.colEvidence"> has blue eyes</span><span > :{{$owner.colSynonym}}: boom!</span></td>
+				<td><div class="{{::item.eyeColor}} eye"></div>
+					{{::item.eyeColor}}
+				</td>
+				<td>{{::item.age}}</td>
+				<td style="background-color:rgb(212, 255, 227)">{{::item.balance}}</td>
+				<td>{{::item.balance}}</td>
+				<td>{{::item}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+<table id="assignedByCount" class="two-colours results-table"
+object-table
+drag-columns="true"
+data="annotations"
+headers="stuff"
+fields="stuff"
+>
+    <thead>
+  <tr>
+
+      <th allow-drag ng-if="$owner.colGeneProduct">Gene Product</th>
+      <th allow-drag ng-if="$owner.colSymbol">Symbol</th>
+      <th allow-drag ng-if="$owner.colQualifier">Qualifier</th>
+      <!-- <th allow-drag ng-if="colGOIdentifier" ng-show="!showSlimColumns" >GO Term</th>
+      <th allow-drag ng-if="colGOIdentifier" ng-show="showSlimColumns">Original GO Term</th>
+      <th allow-drag ng-if="colGOIdentifier" ng-show="showSlimColumns">Slimmed GO Term</th>
+      <th allow-drag ng-if="colEvidence">Evidence</th>
+      <th allow-drag ng-if="colReference">Reference</th>
+      <th allow-drag ng-if="colWith">With / From</th>
+      <th allow-drag ng-if="colTaxon">Taxon</th>
+      <th allow-drag ng-if="colAssignedBy">Assigned By</th>
+      <th allow-drag ng-if="colAnnotationExtension">Annotation Extension</th>
+      <th allow-drag ng-if="colDatabase">Database</th>
+      <th allow-drag ng-if="colDate">Date</th>
+      <th allow-drag ng-if="colName">Name</th>
+      <th allow-drag ng-if="colSynonym">Synonym</th>
+      <th allow-drag ng-if="colType">Type</th>
+      <th allow-drag ng-if="colTaxonName">Taxon Name</th>
+      <th allow-drag ng-if="colSequence">Sequence</th> -->
+
+  </tr>
+      </thead>
+  <tbody ng-non-bindable>
+
+<tr >
+
+<!-- <td>{{::item.geneProductId}}</td> -->
+<td class="td-no-icon" ng-if="$owner.colGeneProduct">
+  <a ng-click="followLinkToEntry(::item.database, ::item.geneProductId)" target="_blank">{{::item.database}}:{{::item.geneProductId}}
+</td>
+<td class="td-no-icon" ng-if="$owner.colSymbol">{{::item.symbol}}</td>
+<td class="td-no-icon" ng-if="$owner.colQualifier">{{::item.qualifier}}</td>
+
+</tr>
+
+</tbody>
+
+  <!-- <tr ng-repeat="annotation in annotations">
     <td class="td-no-icon" ng-if="colGeneProduct">
       <a ng-click="followLinkToEntry(annotation.database, annotation.geneProductId)" target="_blank">{{annotation.database}}:{{annotation.geneProductId}}
     </td>
@@ -80,7 +134,6 @@
     <td class="td-no-icon" ng-if="colSymbol">{{annotation.symbol}}</td>
     <td class="td-no-icon" ng-if="colQualifier">{{annotation.qualifier}}</td>
 
-    <!-- GO Identifier-->
     <td ng-show="showSlimColumns" class="text-nowrap" ng-if="colGOIdentifier">
       <span ng-if="annotation.originalAspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{annotation.originalAspect}}">{{annotation.originalAspect}}</span>
       <a href="term/{{annotation.originalTermId}}">{{annotation.originalTermId}}</a>
@@ -106,29 +159,24 @@
       </div>
     </td>
 
-
-    <!-- Evidence: ECO:0000256  (IEA) -->
     <td class="text-nowrap" ng-if="colEvidence">
       <a class="quickgo-link selectable" href="term/{{annotation.evidenceEco}}">{{annotation.evidenceEco}}</a>
       <a class="quickgo-icon selectable" ng-click="showEvidenceCodeOntologyGraph(annotation.evidenceEco)">
         <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a> (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{annotation.evidenceGo | lowercase}}" target="_blank">{{annotation.evidenceGo}}</a>)
     </td>
 
-      <!-- Reference eg "GO_REF:0000002" -->
     <td class="td-no-icon" ng-if="colReference">
       <a class="quickgo-link" ng-href="{{annotation.reference | referenceUrlFilter}}" target="_blank">{{annotation.reference}}</a>
     </td>
 
-    <!-- With -->
     <td class="td-no-icon" ng-if="colWith">
       <span ng-if="annotation.withList.length === 1">
-        <!-- single item, so build direct link -->
           <span ng-repeat="item in annotation.withList">
             <span ng-if="item.connectedXrefs.length === 1" ng-repeat="element in item.connectedXrefs">
               <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(element.db, element.id)" target="_blank">{{element.db}}:{{element.id}}</a>
             </span>
           </span>
-        <!-- special case for building up with commas -->
+
           <span ng-repeat="item in annotation.withList" ng-if="item.connectedXrefs.length > 1">
             <span ng-repeat="subItem in item">
               <span ng-repeat="element in subItem">
@@ -137,7 +185,7 @@
               </span>
             </span>
           </span>
-          <!-- special case for building up with commas -->
+
           <span ng-repeat="item in annotation.withList" ng-if="item.connectedXrefs.length > 1">
               <span ng-repeat="subItem in item">
                 <span ng-repeat="element in subItem">
@@ -148,22 +196,13 @@
             </span>
           </span>
 
-          <!-- multiple links, so modal required -->
         <span ng-if="annotation.withList.length > 1">
           <a ng-if="annotation.withList.length >= 2" class="quickgo-link ellipsis" ng-click="showWithList(annotation.withList)">{{annotation.fullWith}}</a>
         </span>
 
         </td>
-
-        <!-- Taxon-->
         <td class="td-no-icon" ng-if="colTaxon"><a class="quickgo-link selectable" ng-click="showTaxon(annotation.taxon)">{{annotation.taxon}}</a></td>
-
-        <!-- Assigned By-->
         <td class="td-no-icon" ng-if="colAssignedBy"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(annotation.assignedBy)">{{annotation.assignedBy}}</a></td>
-
-        <!-- Annotation Extension -->
-
-
         <td class="td-no-icon" ng-if="colAnnotationExtension">
           <a ng-click="showAnnotationExtension(annotation.fullExtension)">{{annotation.fullExtension | shortenStringFilter}}</a>
         </td>
@@ -175,10 +214,8 @@
         <td ng-if="colType">{{annotation.type}}</td>
         <td ng-if="colTaxonName">{{annotation.taxonName}}</td>
         <td ng-if="colSequence">{{annotation.sequence}}</td>
+      </tr> -->
 
-
-
-      </tr>
     </table>
 
     <uib-pagination total-items="goList.numberAnnotations" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
