@@ -46,38 +46,6 @@
 
 <!-- Results -->
 <div>
-<!-- Results Header-->
-
-bingo:{{colEvidence}}<br />
-<table object-table
-			from-url="http://beta.json-generator.com/api/json/get/DXXROxj"
-			data="exportDataVariable4"
-			display="2"
-			headers="stuff"
-			fields="stuff" >
-		<thead>
-				<tr>
-					<th ng-click="sortBy('name')" ng-class="headerIsSortedClass('Name')" class="sortable" allow-drag>Name</th>
-					<th ng-click="sortBy('eyeColor')" ng-class="headerIsSortedClass('Eye color')" class="sortable" allow-drag>Eye colour</th>
-					<th ng-click="sortBy('age')" ng-class="headerIsSortedClass('Age')" class="sortable" allow-drag>Age</th>
-					<th ng-click="sortBy('balance')" ng-class="headerIsSortedClass('Balance')" class="sortable" allow-drag>Balance</th>
-					<th ng-click="sortBy('company')" ng-class="headerIsSortedClass('Company')" class="sortable" allow-drag>Company</th>
-					<th ng-click="sortBy('favoriteFruit')" ng-class="headerIsSortedClass('Favorite Fruit')" class="sortable" allow-drag>Favorite Fruity</th>
-				</tr>
-			</thead>
-		<tbody ng-non-bindable>
-			<tr>
-				<td ng-if="$owner.colReference">{{::item.name}}<span ng-if="$owner.colEvidence"> has blue eyes</span><span > :{{$owner.colSynonym}}: boom!</span></td>
-				<td><div class="{{::item.eyeColor}} eye"></div>
-					{{::item.eyeColor}}
-				</td>
-				<td>{{::item.age}}</td>
-				<td style="background-color:rgb(212, 255, 227)">{{::item.balance}}</td>
-				<td>{{::item.balance}}</td>
-				<td>{{::item}}</td>
-			</tr>
-		</tbody>
-	</table>
 
 <table id="assignedByCount" class="two-colours results-table"
 object-table
@@ -85,29 +53,30 @@ drag-columns="true"
 data="annotations"
 headers="stuff"
 fields="stuff"
->
+paging="false"
+display="25">
     <thead>
   <tr>
 
       <th allow-drag ng-if="$owner.colGeneProduct">Gene Product</th>
       <th allow-drag ng-if="$owner.colSymbol">Symbol</th>
       <th allow-drag ng-if="$owner.colQualifier">Qualifier</th>
-      <!-- <th allow-drag ng-if="colGOIdentifier" ng-show="!showSlimColumns" >GO Term</th>
-      <th allow-drag ng-if="colGOIdentifier" ng-show="showSlimColumns">Original GO Term</th>
-      <th allow-drag ng-if="colGOIdentifier" ng-show="showSlimColumns">Slimmed GO Term</th>
-      <th allow-drag ng-if="colEvidence">Evidence</th>
-      <th allow-drag ng-if="colReference">Reference</th>
-      <th allow-drag ng-if="colWith">With / From</th>
-      <th allow-drag ng-if="colTaxon">Taxon</th>
-      <th allow-drag ng-if="colAssignedBy">Assigned By</th>
-      <th allow-drag ng-if="colAnnotationExtension">Annotation Extension</th>
-      <th allow-drag ng-if="colDatabase">Database</th>
-      <th allow-drag ng-if="colDate">Date</th>
-      <th allow-drag ng-if="colName">Name</th>
-      <th allow-drag ng-if="colSynonym">Synonym</th>
-      <th allow-drag ng-if="colType">Type</th>
-      <th allow-drag ng-if="colTaxonName">Taxon Name</th>
-      <th allow-drag ng-if="colSequence">Sequence</th> -->
+      <th allow-drag ng-if="$owner.colGOIdentifier" ng-show="!$owner.showSlimColumns" >GO Term</th>
+      <th allow-drag ng-if="$owner.colGOIdentifier" ng-show="$owner.showSlimColumns">Original GO Term</th>
+      <th allow-drag ng-if="$owner.colGOIdentifier" ng-show="$owner.showSlimColumns">Slimmed GO Term</th>
+      <th allow-drag ng-if="$owner.colEvidence">Evidence</th>
+      <th allow-drag ng-if="$owner.colReference">Reference</th>
+      <th allow-drag ng-if="$owner.colWith">With / From</th>
+      <th allow-drag ng-if="$owner.colTaxon">Taxon</th>
+      <th allow-drag ng-if="$owner.colAssignedBy">Assigned By</th>
+      <th allow-drag ng-if="$owner.colAnnotationExtension">Annotation Extension</th>
+      <th allow-drag ng-if="$owner.colDatabase">Database</th>
+      <th allow-drag ng-if="$owner.colDate">Date</th>
+      <th allow-drag ng-if="$owner.colName">Name</th>
+      <th allow-drag ng-if="$owner.colSynonym">Synonym</th>
+      <th allow-drag ng-if="$owner.colType">Type</th>
+      <th allow-drag ng-if="$owner.colTaxonName">Taxon Name</th>
+      <th allow-drag ng-if="$owner.colSequence">Sequence</th>
 
   </tr>
       </thead>
