@@ -139,8 +139,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     $scope.slimOwnTerms = '';
   };
 
-
-
   // Basket terms
   $scope.addBasketTerms = function() {
     var items = _.filter(_.keys($scope.basketSelection), function(item){
@@ -206,27 +204,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
     return $scope.selectedItems;
   };
 
-  // $scope.removeFromSelection = function(termId) {
-  //   // Remove from selected items
-  //   $scope.selectedItems = _.filter($scope.selectedItems, function(term){
-  //     return term.termId != termId;
-  //   });
-  //
-  //   // if item was originally in the basketTermsInSelection then add it back into the basket options
-  //   if(_.indexOf($scope.basketTermsInSelection, termId) >= 0){
-  //      termService.getTerm(termId).then(function(res){
-  //        $scope.basketList.push(res.data);
-  //      });
-  //
-  //     // now remove the relocated item from the temporary basketTermsInSelection
-  //     $scope.basketTermsInSelection = _.filter($scope.basketTermsInSelection, function(term){
-  //       return term != termId;
-  //     })
-  //
-  //   }
-  // };
-
-
 
   $scope.removeFromSelection = function(termId) {
     // Remove from selected items
@@ -249,13 +226,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       $scope.selectedItems.push(res.data);
     });
   };
-
-
-
-
-
-
-
 
   function sticky_relocate() {
       var window_top = $(window).scrollTop();
@@ -290,35 +260,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       $(window).scrollTop(window_top);
       window.setTimeout(autoscroll, 100);
   }
-
-
-
-
-
-
-
-
-
-
-//   $( document ).ready(function() {
-//
-// if ($('#removedTerms').length){
-//     console.log("inside");
-//     var $window = $(window),
-//         $stickyEl = $('#removedTerms'),
-//         elTop = $stickyEl.offset().top;
-//
-//     $window.scroll(function() {
-//       console.log("in scroller");
-//
-//          $stickyEl.toggleClass('sticky', $window.scrollTop() > elTop);
-//      });
-//    }else{
-//
-//      console.log("couldnt find it");
-//    }
-//
-//   });
 
   /**
    * Save the entered information and use it to filter the results on the annotation list page,
