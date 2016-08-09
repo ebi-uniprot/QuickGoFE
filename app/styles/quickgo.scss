@@ -430,7 +430,9 @@ td.a-filter {
   }
 
 }
-
+.two-colours tr:nth-child(even) {
+  background-color: $white;
+}
 
 
 .no-table-styling, .no-table-styling tr:nth-child(odd), .no-table-styling td{
@@ -707,6 +709,28 @@ ul.results-list {
   border-bottom: 0px;
 }
 
+
+#customiseColumns{
+  border: 1px solid #999;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 0px 10px 10px 10px;
+  float: left;
+  width: 98%;
+  height: 200px;
+  #default, #extras ,.customCols {
+    width: 45%;
+    height: 50px;
+    float: left;
+    margin: 10px;
+  }
+  .customColsClose{
+    float: right;
+    cursor: pointer;
+  }
+}
+
+
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
     li {
@@ -856,6 +880,7 @@ section{
   width: 49%;
 float: left;
 }
+
 .removedTerms{
   border: 1px solid #666;
   background-color: $verylightgrey;
@@ -876,6 +901,11 @@ float: left;
     right: 0;
     z-index: 10000;
 }
+
+.showMoreLess{
+  color: #2980B9;
+}
+
 
 
 
