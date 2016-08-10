@@ -168,16 +168,8 @@ select="false">
     </td>
 
     <td ng-show="$owner.colDatabase">{{::item.database}}</td>
-    <td ng-show="$owner.colDate">
-      <span ng-if="item.date.length > 6">bigger than 7
-      {{::item.date | limitTo : 4}}/{{::item.date | limitTo : 1 : 5}}/{{::item.date | limitTo : 2 : 6}}
-      </span>
-      <span ng-if="item.date.length < 6">less than 7
-
-
-      {{::item.date | limitTo : 4}}/{{::item.date | limitTo : 1 : 5}}/{{::item.date | limitTo : 2 : 6}}
-</span>
-
+    <td ng-show="$owner.colDate">{{::item.date | limitTo : 4}}/{{::item.date | limitTo : 2 : 4}}/{{::item.date | limitTo : 2 : 6}}
+    
     </td>
     <td ng-show="$owner.colName">{{::item.name}}</td>
     <td ng-show="$owner.colSynonym">{{::item.synonym}}</td>
