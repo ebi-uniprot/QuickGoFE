@@ -15,26 +15,8 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.namesMap = {};
 
-
-    angular.forEach($routeParams, function(val, type) {
-        if(type === 'id') {
-          var isGoTerm = val.indexOf("GO");
-          if(isGoTerm >= 0) {
-            filteringService.addFilter('goID', val, true);
-          } else {
-            filteringService.addFilter('ecoID', val, true);
-          }
-        } else if(val.split(",").length > 0){
-          angular.forEach(val.split(','), function(value){
-            filteringService.addFilter(type,value,true)
-          });
-        } else {
-          filteringService.addFilter(type, val, true);
-        }
-
     $rootScope.$on('filtersUpdate', function() {
       $scope.filters = angular.copy(filteringService.getFilters());
-
     });
 
     // Get predefined slim sets
@@ -53,7 +35,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
       angular.forEach(taxons, function(taxonId){
         if(filteringService.validateTaxon(taxonId)) {
-          filteringService.taxon[taxonId] = true;
+          $scope.filters.taxon[taxonId] = true;
         }
       });
       $scope.taxonTextArea = '';
@@ -91,7 +73,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
       angular.forEach(goterms, function(goTerm){
         if(filteringService.validateGOTerm(goTerm)){
-          filteringService.goID[goTerm] = true;
+          $scope.filters.goID[goTerm] = true;
         }
       });
       $scope.goTermsTextArea = '';
@@ -103,7 +85,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       });
       $scope.availablePredefinedTerms.$promise.then(function(data) {
         angular.forEach(data, function(d) {
-          filteringService.goID[d.termId] = true;
+          $scope.filters.goID[d.termId] = true;
         })
       });
     };
@@ -238,4 +220,3 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.namesMap = filteringService.getNamesMap();
   });
-});
