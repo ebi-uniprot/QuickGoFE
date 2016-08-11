@@ -13,15 +13,15 @@ angular
 					if(termId) {
 						var isGoTerm = termId.indexOf("GO");
 						if(isGoTerm >= 0){
-							/*searchService.findAnnotationsForTerm(termId).then(function(d){
-								$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+							searchService.findAnnotationsForTerm(termId).then(function(d){
+								$scope.annotationsCount = d.data.numberOfHits.toLocaleString();
 								showHide($scope.annotationsCount);
-							});*/
+							});
 						} else {
-							/*searchService.findAnnotationsForECO(termId).then(function(d){
-								$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+							searchService.findAnnotationsForECO(termId).then(function(d){
+								$scope.annotationsCount = d.data.numberOfHits.toLocaleString();
 								showHide($scope.annotationsCount);
-							});*/
+							});
 						}
 					}
 				});
@@ -30,7 +30,7 @@ angular
 					productId = attrs.productid;
 					if(productId) {
 						searchService.findAnnotationsForProduct(productId).then(function(d){
-							$scope.annotationsCount = d.data.numberAnnotations.toLocaleString();
+							$scope.annotationsCount = d.data.numberOfHits.toLocaleString();
 							showHide($scope.annotationsCount);
 						});
 					}

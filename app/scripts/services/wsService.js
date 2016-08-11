@@ -110,52 +110,13 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         //TODO
       },
       findAnnotationsForTerm: function(searchTerm) {
-        /*var request = {
-          method: 'POST',
-          url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          data: {
-            list: [{
-              type: 'goID',
-              value: searchTerm
-            }]
-          }
-        };
-        return $http(request);*/
+          return $http.get(ENV.apiEndpointAnnotationSearch+'/?goId=' + searchTerm);
       },
       findAnnotationsForECO: function(searchTerm) {
-        /*var request = {
-          method: 'POST',
-          url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          data: {
-            list: [{
-              type: 'ecoID',
-              value: searchTerm
-            }]
-          }
-        };
-        return $http(request);*/
+          return $http.get(ENV.apiEndpointAnnotationSearch+'/?ecoId=' + searchTerm);
       },
       findAnnotationsForProduct: function(searchTerm) {
-        /*var request = {
-          method: 'POST',
-          url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          data: {
-            list: [{
-              type: 'gpID',
-              value: searchTerm
-            }]
-          }
-        };
-        return $http(request);*/
+          return $http.get(ENV.apiEndpointAnnotationSearch+'/?geneProductId=' + searchTerm);
       }
   };
 }]);

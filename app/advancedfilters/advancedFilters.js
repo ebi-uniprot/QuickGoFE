@@ -35,7 +35,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
       angular.forEach(taxons, function(taxonId){
         if(filteringService.validateTaxon(taxonId)) {
-          filteringService.taxon[taxonId] = true;
+          $scope.filters.taxon[taxonId] = true;
         }
       });
       $scope.taxonTextArea = '';
@@ -73,7 +73,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
       angular.forEach(goterms, function(goTerm){
         if(filteringService.validateGOTerm(goTerm)){
-          filteringService.goID[goTerm] = true;
+          $scope.filters.goID[goTerm] = true;
         }
       });
       $scope.goTermsTextArea = '';
@@ -85,7 +85,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       });
       $scope.availablePredefinedTerms.$promise.then(function(data) {
         angular.forEach(data, function(d) {
-          filteringService.goID[d.termId] = true;
+          $scope.filters.goID[d.termId] = true;
         })
       });
     };
