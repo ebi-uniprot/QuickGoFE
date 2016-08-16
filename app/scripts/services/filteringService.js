@@ -35,12 +35,12 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     filteringService.initGoID();
     filteringService.initAspect();
     filteringService.initQualifier();
-    filteringService.initEcoID();
+    //filteringService.initEcoID();
     filteringService.initEcoTermUse();
     filteringService.initGoTermUse();
     filteringService.initGoRelations();
-    filteringService.initWith();
-    filteringService.initAssignedby();
+    //filteringService.initWith();
+    //filteringService.initAssignedby();
     filteringService.initGptype();
 
     return _filters;
@@ -82,10 +82,10 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     //Basket items
     _filters.goID = {};
     basketService.getItems().then(function(d){
-      var data = d.data;
+      var data = d.data.results;
       angular.forEach(data, function(goTerm){
-        _filters.goID[goTerm.termId] = false;
-        _namesMap[goTerm.termId] = goTerm.name;
+        _filters.goID[goTerm.id] = false;
+        _namesMap[goTerm.id] = goTerm.name;
       });
     });
   };
@@ -167,7 +167,7 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
       // otherwise _filters[type] is an object so set the property to be key and value to be value
       _filters[type][key] = value;
     }
-  }
+  };
 
 
   filteringService.setFilters = function (filterList){
