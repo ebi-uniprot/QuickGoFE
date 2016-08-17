@@ -1,36 +1,25 @@
 /**
  * Created by twardell on 27/01/2015.
  */
-
-
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
-                                              hardCodedDataService, dbXrefService, filteringService, olsService, ENV) {
-
+                                              hardCodedDataService, dbXrefService, filteringService, olsService,
+                                              searchService, termService, ontoTypeService) {
 
   /**
    * Initialisation
    */
   $scope.maxSize=25;
-  //$scope.annotationColumns = hardCodedDataService.getAnnotationColumns();
-
-  //Search filters applied to see if the flag for "slim" is set. If true, extra columns will be shown
-  // $scope.showSlimColumns = filteringService.hasSlims();
-
   $scope.evidenceSetter="ecoAncestorsI";
   $rootScope.header = "QuickGO::Annotation List";
 
   $scope.currentPage = 1;
   getResultsPage();
 
-
-
   // Default visibility of columns in the results page
   $scope.colGeneProduct = true;
   $scope.colSymbol = true;
   $scope.colQualifier = true;
   $scope.colGOIdentifier = true;
-  // $scope.colOrigID = false;
-  // $scope.colSlimmedGOTerm = false;
   $scope.colEvidence = true;
   $scope.colReference = true;
   $scope.colWith = true;
@@ -52,36 +41,43 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
     //Create the object to send to the server
     var filterRequest = {};
-    filterRequest.list =  filteringService.populateAppliedFilters();
+    filterRequest.list =  filteringService.populateAppliedFilters();  //TODO use it
     filterRequest.rows =  $scope.maxSize;
     filterRequest.page = $scope.currentPage;
 
-    // Post the filter request to the webservice
-    var request = {
-      method: 'POST',
-      url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: filterRequest
-    };
-    $scope.resultsPromise = $http(request);
-    $scope.resultsPromise.then(function successCallback(data) {
+    $scope.showSlimColumns = filteringService.hasSlims();
+
+    $scope.resultsPromise = searchService.findAnnotationsWithFilter(filterRequest);
+    $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
-      $scope.goListProcessed = preProcess($scope.goList);
-      prettyPrintNumberAnnotations($scope.goList.numberAnnotations);
-    }, function errorCallback(response) {
+      if ($scope.showSlimColumns) {
+        //preProcess(); //TODO check the preprocess code once the alpha slimming service response is known and working
+      } else {
+        $scope.annotations = $scope.goList.results;
+      }
+      prettyPrintNumberAnnotations($scope.goList.numberOfHits);
+
+      $scope.additionalTermsPromise = termService.getTerms($scope.annotations, true, 'goId');
+      $scope.additionalTermsPromise
+        .then(function(moreData) {
+          console.log(moreData);
+              addInformation($scope.annotations, moreData.data.results);
+            }, function (reason) {
+              $scope.notFoundAdditionaTermsReason = reason;
+              console.log(reason);
+            }
+        );
+    }, function (response) {
       if(response.status === 400) {
         handleServerError(response.data);
       }
     });
-    $scope.showSlimColumns = filteringService.hasSlims();
   }
 
-  function preProcess(data){
-    $scope.annotations =[];
+  function preProcess(){ //TODO when we have an alpha slimming service
+    $scope.annotations = [];
     var lastAnnotation;
-    angular.forEach(data.annotationsList, function(tempAnnotation){
+    angular.forEach($scope.goList.results, function(tempAnnotation){
       if(lastAnnotation && (tempAnnotation.id === lastAnnotation.id)){
           lastAnnotation.slimsList.push(tempAnnotation);
       } else {
@@ -92,8 +88,20 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
         lastAnnotation.slimsList = [];
       }
     });
-
   }
+
+  function addInformation(lst, moreDataLst) {
+    angular.forEach(lst, function(annotation) {
+      var inResult = _.find(moreDataLst, function(datum) {
+        return datum.id === annotation.goId;
+      });
+      if (inResult) {
+        annotation.goTermName = inResult.name;
+        annotation.goAspect = inResult.aspect;
+        annotation.goIsObsolete = inResult.isObsolete;
+      }
+    });
+  };
 
   function handleServerError(error) {
     $scope.addAlert = function() {
@@ -115,6 +123,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
    * ------------------------------------ $scope methods --------------------------------------------------
    */
 
+  $scope.ontoOneLetterName = function(ontoName) {
+    return ontoTypeService.ontoOneLetterName(ontoName);
+  };
 
   /**
    * Listen to an update to the filters list that comes from the typeahead function
@@ -163,6 +174,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   };
 
   $scope.showAnnotationExtension = function(extensions) {
+    //TODO, do we really have a connectedXrefs element or just the elements? And what info per element?
     angular.forEach(extensions, function(extension){
       angular.forEach(extension.connectedXrefs, function(xref){
         olsService.getTermName(xref).then(function(name){
@@ -183,7 +195,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.customiseColumnsContainer = true;
   $scope.toggleCustomiseContainer = function() {
        $scope.customiseColumnsContainer = $scope.customiseColumnsContainer === false ? true : false;
-  }
+  };
 
 
   /**

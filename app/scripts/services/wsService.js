@@ -22,11 +22,12 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
         return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + termId + '/complete')
             : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
-      getTerms : function(ids, isGoTerm) {
+      getTerms : function(ids, isGoTerm, idKey) {
           if (ids instanceof Array) {
               var termsToQuery = '';
+              idKey = idKey ? idKey : 'id';
               angular.forEach(ids, function(value) {
-                  termsToQuery += (value.id ? value.id : value) + ',';
+                  termsToQuery += (value[idKey] ? value[idKey] : value) + ',';
               });
               ids = termsToQuery.slice(0, -1);
           }
@@ -108,6 +109,9 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       },
       findPublications: function(searchTerm, limit) {
         //TODO
+      },
+      findAnnotationsWithFilter: function(filter) { //TODO filterRequest.list
+          return $http.get(ENV.apiEndpointAnnotationSearch+'?page=' + filter.page + '&limit=' + filter.rows);
       },
       findAnnotationsForTerm: function(searchTerm) {
           return $http.get(ENV.apiEndpointAnnotationSearch+'/?goId=' + searchTerm);

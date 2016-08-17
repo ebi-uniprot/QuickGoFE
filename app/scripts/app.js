@@ -36,6 +36,11 @@ var app = angular
     };
 
     $rootScope.followLinkToEntry = function(database, id) {
+      if (!database) {
+        var pos = id.indexOf(':');
+        database = id.substring(0, pos);
+        id = id.substring(pos+1);
+      }
       dbXrefService.getDbXrefs().then(function(xrefs) {
         $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
       });
