@@ -232,9 +232,14 @@
           <td>{{taxonconstraint.taxId}}</td>
           <td>{{taxonconstraint.taxName}}</td>
           <td>
-            <!--li ng-repeat="source in taxonconstraint.sources">
-              <a class="quickgo-link" href="{{source.url}}" target="_blank">{{source.pmid}}</a>
-            </li-->
+            <li ng-repeat="citation in taxonconstraint.citations">
+              <span ng-if="citation.id.indexOf('PMID:') === 0">
+                <a class="quickgo-link" ng-href="{{citation.id | referenceUrlFilter}}"
+                  target="_blank">
+                  {{citation.id}}
+                </a>
+              </span>
+            </li>
           </td>
         </tr>
       </table>
