@@ -114,13 +114,13 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           return $http.get(ENV.apiEndpointAnnotationSearch+'?page=' + filter.page + '&limit=' + filter.rows);
       },
       findAnnotationsForTerm: function(searchTerm) {
-          return $http.get(ENV.apiEndpointAnnotationSearch+'/?goId=' + searchTerm);
+          return $http.get(ENV.apiEndpointAnnotationSearch+'?goId=' + searchTerm);
       },
       findAnnotationsForECO: function(searchTerm) {
-          return $http.get(ENV.apiEndpointAnnotationSearch+'/?ecoId=' + searchTerm);
+          return $http.get(ENV.apiEndpointAnnotationSearch+'?ecoId=' + searchTerm);
       },
       findAnnotationsForProduct: function(searchTerm) {
-          return $http.get(ENV.apiEndpointAnnotationSearch+'/?geneProductId=' + searchTerm);
+          return $http.get(ENV.apiEndpointAnnotationSearch+'?geneProductId=' + searchTerm);
       }
   };
 }]);
