@@ -1,6 +1,6 @@
 app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
   filteringService, hardCodedDataService, PreDefinedSlimSets,
-  PreDefinedSlimSetDetail, stringService) {
+  PreDefinedSlimSetDetail, stringService, validationService) {
     $scope.showAllNotQualifiers = 0;
 
     // GET DATA
@@ -34,7 +34,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.addTaxons = function() {
       var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
       angular.forEach(taxons, function(taxonId){
-        if(filteringService.validateTaxon(taxonId)) {
+        if(validationService.validateTaxon(taxonId)) {
           $scope.filters.taxon[taxonId] = true;
         }
       });
@@ -45,7 +45,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       filteringService.initGpSet();
       filteringService.initGpID();
       $scope.updateFilters();
-    }
+    };
 
     $scope.resetGPType = function() {
       filteringService.initGpType();
@@ -55,7 +55,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.addGPs = function() {
       var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
       angular.forEach(gps, function(gpID){
-        if(filteringService.validateGeneProduct(gpID)) {
+        if(validationService.validateGeneProduct(gpID)) {
           $scope.filters.gpID[gpID] = true;
         }
       });
@@ -72,7 +72,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.addGoTerms = function() {
       var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
       angular.forEach(goterms, function(goTerm){
-        if(filteringService.validateGOTerm(goTerm)){
+        if(validationService.validateGOTerm(goTerm)){
           $scope.filters.goID[goTerm] = true;
         }
       });
@@ -104,7 +104,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.addECOs = function() {
       var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
       angular.forEach(ecos, function(ecoID){
-        if(filteringService.validateECOTerm(ecoID)) {
+        if(validationService.validateECOTerm(ecoID)) {
           $scope.filters.ecoID[ecoID] = true;
         }
       });
