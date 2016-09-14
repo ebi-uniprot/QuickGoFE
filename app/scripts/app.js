@@ -21,6 +21,7 @@ var app = angular
     'quickGoFeApp.BasketModule',
     'quickGoFeApp.HardCodedDataModule',
     'quickGoFeApp.FilteringModule',
+    'quickGoFeApp.ValidationModule',
     'quickGoFeApp.ServicesModule',
     'quickGoFeApp.errorHandling',
     'ui.bootstrap',
