@@ -310,7 +310,7 @@
     </section>
 
     <!-- Cross Ontology Relations -->
-    <!--section id="termCrossOntologyRelations" ng-if="termModel.crossOntologyRelations.length > 0">
+    <section id="termCrossOntologyRelations" ng-if="termModel.xRelations.length > 0">
       <h3 class="term-section-header">Cross-Ontology Relations</h3>
       <table id="ontologyrelationsTable" class="two-colours">
         <tr>
@@ -319,20 +319,20 @@
           <th>ID</th>
           <th>Term</th>
         </tr>
-        <tr ng-repeat="crossontology in termModel.crossOntologyRelations | limitTo:crossOntologyPageSize">
+        <tr ng-repeat="crossontology in termModel.xRelations | limitTo:crossOntologyPageSize">
           <td>{{crossontology.relation}}</td>
-          <td>{{crossontology.otherNamespace}}</td>
-          <td><a class="quickgo-link" href="{{crossontology.url}}" target="_blank">{{crossontology.foreignID}}</a></td>
-          <td>{{crossontology.foreignTerm}}</td>
+          <td>{{crossontology.namespace}}</td>
+          <td><a class="quickgo-link" href="{{crossontology.url}}" target="_blank">{{crossontology.id}}</a></td>
+          <td>{{crossontology.term}}</td>
         </tr>
       </table>
-      <span ng-show="crossOntologyPageSize < termModel.crossOntologyRelations.length" ng-click="crossOntologyPageSize = termModel.crossOntologyRelations.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-      <span ng-show="crossOntologyPageSize < termModel.crossOntologyRelations.length" ng-click="crossOntologyPageSize = termModel.crossOntologyRelations.length" class="selectable showMoreLess">show all</span>
-      <span ng-show="(crossOntologyPageSize == termModel.crossOntologyRelations.length && termModel.crossOntologyRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-      <span ng-show="(crossOntologyPageSize == termModel.crossOntologyRelations.length && termModel.crossOntologyRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      <span ng-show="crossOntologyPageSize < termModel.xRelations.length" ng-click="crossOntologyPageSize = termModel.xRelations.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+      <span ng-show="crossOntologyPageSize < termModel.xRelations.length" ng-click="crossOntologyPageSize = termModel.xRelations.length" class="selectable showMoreLess">show all</span>
+      <span ng-show="(crossOntologyPageSize == termModel.xRelations.length && termModel.xRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(crossOntologyPageSize == termModel.xRelations.length && termModel.xRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
       </accordion-group>
-    </section-->
+    </section>
 
     <!-- show Replaces-->
     <section id="termReplaces" ng-if="termModel.replaces.length > 0">
@@ -658,7 +658,7 @@
         <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
       </li>
       <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.crossOntologyRelations || (termModel.crossOntologyRelations.length==0))}"
+          ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length==0))}"
           du-scrollspy="termCrossOntologyRelations">
         <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
       </li>
