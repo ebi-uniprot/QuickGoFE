@@ -95,6 +95,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     angular.forEach($scope.annotations, function(annotation) {
       var pos = annotation.geneProductId.indexOf(':');
       annotation.database = pos !== -1 ? annotation.geneProductId.substring(0, pos) : '';
+        //TODO: get all the taxon ids so we can use the taxonomy service
     });
   }
 
