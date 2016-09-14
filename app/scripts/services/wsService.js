@@ -35,7 +35,7 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
               : $http.get(ENV.apiEndpoint+'/eco/terms/' + ids);
       },
       getGOTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/go/terms/' + ids + '/complete'); //TODO do we really need complete here?
+        return $http.get(ENV.apiEndpoint+'/go/terms/' + ids);
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
