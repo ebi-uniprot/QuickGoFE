@@ -2,13 +2,19 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q, basketService) {
+app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q,
+                                      basketService, $cookieStore) {
 
   $scope.loadBasketItems = function() {
-    $scope.basketPromise = basketService.getItems();
-    $scope.basketPromise.then(function(d){
-      $scope.basketItems = d.data.results;
-    })
+    var cookieItems = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
+    if (cookieItems.length === 0) {
+      $scope.basketItems = [];
+    } else {
+      $scope.basketPromise = basketService.getItems();
+      $scope.basketPromise.then(function(d){
+        $scope.basketItems = d.data.results;
+      });
+    }
   };
 
   $scope.loadBasketItems();
