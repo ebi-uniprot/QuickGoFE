@@ -74,7 +74,7 @@
 
   <tr ng-repeat="annotation in annotations">
     <td class="td-no-icon" ng-if="colGeneProduct">
-      <a ng-click="followLinkToEntry(annotation.database, annotation.geneProductId)"
+      <a ng-click="followLinkToEntry('', annotation.geneProductId)"
          target="_blank">{{annotation.geneProductId}}</a>
     </td>
 

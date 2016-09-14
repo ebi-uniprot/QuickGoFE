@@ -56,6 +56,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
         $scope.annotations = $scope.goList.results;
       }
       prettyPrintNumberAnnotations($scope.goList.numberOfHits);
+      postProcess();
 
       $scope.additionalTermsPromise = termService.getTerms($scope.annotations, true, 'goId');
       $scope.additionalTermsPromise
@@ -90,6 +91,13 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     });
   }
 
+  function postProcess() {
+    angular.forEach($scope.annotations, function(annotation) {
+      var pos = annotation.geneProductId.indexOf(':');
+      annotation.database = pos !== -1 ? annotation.geneProductId.substring(0, pos) : '';
+    });
+  }
+
   function addInformation(lst, moreDataLst) {
     angular.forEach(lst, function(annotation) {
       var inResult = _.find(moreDataLst, function(datum) {
@@ -101,7 +109,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
         annotation.goIsObsolete = inResult.isObsolete;
       }
     });
-  };
+  }
 
   function handleServerError(error) {
     $scope.addAlert = function() {
