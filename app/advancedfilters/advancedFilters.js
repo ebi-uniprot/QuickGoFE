@@ -200,23 +200,26 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       return _.isEmpty(obj);
     };
 
-    angular.forEach($routeParams, function(val, type) {
-        if(type === 'id') {
+    //Extract parameters from url
+    if (Object.keys($routeParams).length > 0) {
+      angular.forEach($routeParams, function(val, type) {
+        if (type === 'id') {
           var isGoTerm = val.indexOf("GO");
-          if(isGoTerm >= 0) {
+          if (isGoTerm >= 0) {
             filteringService.addFilter('goID', val, true);
           } else {
             filteringService.addFilter('ecoID', val, true);
           }
-        } else if(val.split(",").length > 0){
-          angular.forEach(val.split(','), function(value){
-            filteringService.addFilter(type,value,true)
+        } else if (val.split(",").length > 0) {
+          angular.forEach(val.split(','), function(value) {
+            filteringService.addFilter(type, value, true)
           });
         } else {
           filteringService.addFilter(type, val, true);
         }
-        $scope.updateFilters();
-    });
+      });
+      $scope.updateFilters();
+    }
 
     $scope.namesMap = filteringService.getNamesMap();
   });
