@@ -15,7 +15,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
 
     $scope.namesMap = {};
 
-    $rootScope.$on('filtersUpdate', function() {
+    $scope.$on('filtersUpdate', function() {
       $scope.filters = angular.copy(filteringService.getFilters());
     });
 

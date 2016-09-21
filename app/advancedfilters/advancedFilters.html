@@ -149,7 +149,7 @@
               <button class="btn btn-default" type="button" ng-click="addGoTerms()">Add</button>
             </div>
           </div>
-          <div class="form-group">...or a predefined GO slim set:
+          <div class="form-group">...or select terms from GO slim:
             <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets" ng-change="updatePredefinedSets()"></select>
           </div>
           <a ng-click="toggleMore('go-options')" ng-hide="view['go-options']">Options</a>
