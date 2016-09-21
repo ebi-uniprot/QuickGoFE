@@ -37,7 +37,7 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV,
 
   }
 
-  $rootScope.$on('filtersUpdate', function() {
+  $scope.$on('filtersUpdate', function() {
     if(statsLoaded) {
       loadStatistics();
     }

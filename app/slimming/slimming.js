@@ -291,7 +291,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
       if($scope.selectedSpecies[taxonId])
         filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
     });
-
     $location.path("annotations");
   };
 
