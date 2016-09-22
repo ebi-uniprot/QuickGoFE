@@ -650,6 +650,13 @@ ul.results-list {
   font-weight: bold;
 }
 
+.object-table th{
+  cursor: grab;
+}
+.object-table th:active {
+  cursor: grabbing;
+}
+
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 
 #basket {
