@@ -139,7 +139,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Listen to an update to the filters list that comes from the typeahead function
    */
-  $rootScope.$on('filtersUpdate', function() {
+  $scope.$on('filtersUpdate', function() {
     $scope.currentPage=1;
     getResultsPage(1);
   });
