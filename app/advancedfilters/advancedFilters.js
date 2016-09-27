@@ -26,21 +26,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     });
 
 
-    $scope.resetTaxons = function() {
-      filteringService.initTaxon();
-      $scope.updateFilters();
-    };
-
-    $scope.addTaxons = function() {
-      var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
-      angular.forEach(taxons, function(taxonId){
-        if(validationService.validateTaxon(taxonId)) {
-          $scope.filters.taxon[taxonId] = true;
-        }
-      });
-      $scope.taxonTextArea = '';
-    };
-
     $scope.resetgpIds = function() {
       filteringService.initGpSet();
       filteringService.initGpID();
@@ -185,9 +170,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       return $scope.appliedFilters[type];
     };
 
-    $scope.toggleMore = function(type) {
-      $scope.view[type] = !$scope.view[type];
-    };
 
     $scope.toggled = function(open) {
       if(!open) {

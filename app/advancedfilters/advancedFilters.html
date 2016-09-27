@@ -3,284 +3,41 @@
     <li>Filter by:</li>
 
     <!-- TAXON -->
-    <li uib-dropdown is-open="status.isopenTaxon" auto-close="outsideClick" on-toggle="toggled(open)">
-      <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('taxon')}" data-icon="/" uib-dropdown-toggle>
-        Taxon <span class="caret"></span>
-      </button>
-      <!-- TAXON -->
-      <div class="advanced-filter-content" uib-dropdown-menu>
-        <form>
-          <div class="form-group y-scroll-200">
-            <ul>
-              <li ng-repeat="(taxId, value) in filters.taxon" class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="filters.taxon[taxId]"> {{taxId}} <strong>{{namesMap[taxId]}}</strong>
-                </label>
-              </li>
-            </ul>
-          </div>
-          <a ng-click="toggleMore('taxon')" ng-hide="view['taxon']">Add more...</a>
-          <div ng-show="view['taxon']">
-            <div class="form-group">
-              <p>...or enter taxon identifiers:</p>
-              <textarea ng-model="taxonTextArea" placeholder="9606,100090,10116,..." class="form-control"></textarea>
-              <p class="pull-right"><small>Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for
-        other taxonomic groups</small></p>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-default" type="button" ng-click="addTaxons()">Add</button>
-            </div>
-          </div>
-          <hr>
-          <div class="pull-right">
-            <button class="btn quickgo-btn" type="button" ng-click="resetTaxons()">Reset</button>
-            <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
-          </div>
-        </form>
-
-      </div>
-    </li>
+    <filter-dropdown name="Taxonomy">
+      <div ng-include src="'advancedfilters/taxonFilter.html'"></div>
+    </filter-dropdown>
 
     <!-- GENE PRODUCT IDs -->
-    <li uib-dropdown is-open="status.isopenGP" auto-close="outsideClick" on-toggle="toggled(open)">
-      <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('gpID') ||  isActiveFilter('gpSet')}" data-icon="/" uib-dropdown-toggle>
-        Gene product IDs <span class="caret"></span>
-      </button>
-      <!-- PRODUCT ID -->
-      <div class="advanced-filter-content" uib-dropdown-menu>
-        <form>
-          <div class="form-group">
-            <ul>
-              <li ng-repeat="(gpID, value) in filters.gpID" class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="filters.gpID[gpID]"> {{gpID}}
-                </label>
-              </li>
-            </ul>
-          </div>
-          <div class="form-group">
-            <textarea ng-model="gpTextArea" placeholder="A0A000, etc" class="form-control" rows="3"></textarea>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-default" type="button" ng-click="addGPs()">Add</button>
-          </div>
-          <a ng-click="toggleMore('gpId')" ng-hide="view['gpId']">Add more...</a>
-          <div ng-show="view['gpId']">
-            <hr>
-            <div class="form-group">
-              <!-- 4 choices -->
-              <p>List of gene products:</p>
-              <ul>
-                <li ng-repeat="gpSet in geneProductSets" class="checkbox">
-                  <label>
-                    <input id="{{gpSet.value}}_chk" type="checkbox" ng-model="filters.gpSet[gpSet.value]">
-                    <a href="{{gpSet.link}}" target="_blank">{{gpSet.name}}</a> {{gpSet.description}}
-                  </label>
-                </li>
-              </ul>
-            </div>
-        </form>
-        </div>
-        <hr>
-        <div class="pull-right">
-          <button class="btn quickgo-btn" type="button" ng-click="resetgpIds()">Reset</button>
-          <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
-        </div>
-      </div>
-    </li>
+    <filter-dropdown name="Gene product IDs">
+      <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
+    </filter-dropdown>
 
     <!-- GENE PRODUCT TYPE -->
-    <li uib-dropdown auto-close="outsideClick" is-open="status.isopenGPT" on-toggle="toggled(open)">
-      <button type="button" class="btn btn-default quickgo-btn  icon" ng-class="{'icon-functional active-filter' : isActiveFilter('gpType')}" data-icon="/" uib-dropdown-toggle>
-        Gene Product Type <span class="caret"></span>
-        <br>
-      </button>
-      <div class="advanced-filter-content" uib-dropdown-menu>
-        <div class="form-group">
-          <form>
-            <ul>
-              <li class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="filters.gpType['protein']"> Proteins</label>
-              </li>
-              <li class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="filters.gpType['rna']"> RNAs</label>
-              </li>
-              <li class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="filters.gpType['complex']"> Complexes</label>
-              </li>
-            </ul>
-            <hr>
-            <div class="pull-right">
-              <button class="btn quickgo-btn" type="button" ng-click="resetGPType()">Reset</button>
-              <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </li>
+    <filter-dropdown name="Gene Product Type">
+      <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
+    </filter-dropdown>
 
     <!-- GO TERMS -->
-    <li uib-dropdown is-open="status.isopenGT" auto-close="outsideClick" on-toggle="toggled(open)">
-      <button type="button" class="btn btn-default quickgo-btn  icon" ng-class="{'icon-functional active-filter' : isActiveFilter('goID')}" data-icon="/" uib-dropdown-toggle>
-        GO terms <span class="caret"></span>
-        <br>
-      </button>
-      <!-- GO ID -->
-      <div class="advanced-filter-content" uib-dropdown-menu>
-        <form>
-          <!-- 3 choices -->
-          <div class="y-scroll-200 inset-panel" ng-hide="isEmptyObject(filters.goID)">
-            <ul>
-              <li ng-repeat="(basketId, value) in filters.goID" class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="filters.goID[basketId]"> {{basketId}} {{namesMap[basketId]}}</label>
-              </li>
-            </ul>
-          </div>
-          <div class="form-group">
-            <p>
-              Add your own identifiers:
-            </p>
-            <textarea class="form-group form-control" placeholder="GO:0016021, GO:0016022, ..." ng-model="goTermsTextArea" class="default"></textarea>
-            <div class="form-group">
-              <button class="btn btn-default" type="button" ng-click="addGoTerms()">Add</button>
-            </div>
-          </div>
-          <div class="form-group">...or select terms from GO slim:
-            <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets" ng-change="updatePredefinedSets()"></select>
-          </div>
-          <a ng-click="toggleMore('go-options')" ng-hide="view['go-options']">Options</a>
-          <div ng-show="view['go-options']">
-
-            <hr>
-            <div><strong>Select how you want to use the terms that you have chosen:</strong>
-              <ul>
-                <li class="checkbox">
-                  <input type="radio" ng-model="filters.goTermUse" value="ancestor" ng-change="applyFilters()"> Find annotations to <strong>descendants</strong> of these terms.
-                </li>
-                <li class="checkbox">
-                  <input type="radio" ng-model="filters.goTermUse" value="slim"> Use these terms as a <strong>GO slim</strong>.</li>
-                <li class="checkbox">
-                  <input type="radio" ng-model="filters.goTermUse" value="exact"> Use these terms as an <strong>exact</strong> match.</li>
-              </ul>
-            </div>
-            <hr>
-
-            <!-- Select Relationship-->
-            <div ng-show="filters.goTermUse=='slim' || filters.goTermUse=='ancestor'"><strong>Select which relationship an annotated term should have to the terms above <a href="http://geneontology.org/page/ontology-relations" target="_blank">(more info)</a>:</strong>
-              <ul>
-                <li class="checkbox">
-                  <input type="radio" name="closure" value="I" ng-model="filters.goRelations"> is_a
-                </li>
-                <li class="checkbox">
-                  <input type="radio" name="closure" value="IPO" ng-model="filters.goRelations"> is_a, part_of, occurs_in
-                </li>
-                <li class="checkbox">
-                  <input type="radio" name="closure" value="IPOR" ng-model="filters.goRelations"> is_a, part_of, occurs_in, regulates
-                </li>
-              </ul>
-            </div>
-        </form>
-        </div>
-        <hr>
-        <div class="pull-right">
-          <button class="btn quickgo-btn" type="button" ng-click="resetGoTerms()">Reset</button>
-          <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
-        </div>
-      </div>
-    </li>
+    <filter-dropdown name="GO terms">
+      <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
+    </filter-dropdown>
 
     <!-- ASPECT -->
-    <li uib-dropdown is-open="status.isopenAspect" auto-close="outsideClick" on-toggle="toggled(open)">
-      <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('aspect')}" data-icon="/" uib-dropdown-toggle>
-        Aspect <span class="caret"></span>
-        <br>
-      </button>
-      <!-- GO ID -->
-      <div class="advanced-filter-content" uib-dropdown-menu>
-        <form>
-
-          <li class="form-group">
-            <label class="checkbox">
-              <input type="checkbox" ng-model="filters.aspect['Function']"> Molecular Function
-            </label>
-            <label class="checkbox">
-              <input type="checkbox" ng-model="filters.aspect['Process']"> Biological Process
-            </label>
-            <label class="checkbox">
-              <input type="checkbox" ng-model="filters.aspect['Component']"> Cellular Component
-            </label>
-          </li>
-        </form>
-        <hr>
-        <div class="pull-right">
-          <button class="btn quickgo-btn" type="button" ng-click="resetAspect()">Reset</button>
-          <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
-        </div>
-      </div>
-    </li>
+    <filter-dropdown name="Aspect">
+      <div ng-include src="'advancedfilters/aspectFilter.html'"></div>
+    </filter-dropdown>
 
     <!-- EVIDENCE -->
-    <li uib-dropdown auto-close="outsideClick" on-toggle="toggled(open)" is-open="status.isopenEvidence">
-      <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('ecoID')}" data-icon="/" uib-dropdown-toggle>
-        Evidence <span class="caret"></span>
-        <br>
-      </button>
-      <!-- GO ID -->
-      <div class="advanced-filter-content" uib-dropdown-menu>
-        <div>
-          <form>
-            <p>A full description of evidence codes and their usage can be found <a href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
+    <filter-dropdown name="Evidence">
+      <div ng-include src="'advancedfilters/evidenceFilter.html'"></div>
+    </filter-dropdown>
 
-            <div class="form-group y-scroll-200 inset-panel">
-              <ul>
-                <li ng-repeat="(ecoID, val) in filters.ecoID" class="checkbox">
-                  <label>
-                    <input type="checkbox" ng-model="filters.ecoID[ecoID]">
-                    <a ng-click="showEvidenceCodeOntologyGraph('{{ecoID}}')">{{ecoID}}</a>
-                    <strong>{{namesMap[ecoID].evidenceGOID}}</strong> {{namesMap[ecoID].evidenceName}}
-                  </label>
-                </li>
-              </ul>
-            </div>
-            <a ng-click="toggleMore('evidence')" ng-hide="view['evidence']">Add more...</a>
-            <div ng-show="view['evidence']">
-
-              <hr>
-              <div class="form-group">
-                <textarea class="form-control" ng-model="ecoTextArea" placeholder="ECO:0000352,..."></textarea>
-              </div>
-              <div class="form-group">
-                <button class="btn btn-default" type="button" ng-click="addECOs()">Add</button>
-              </div>
-
-              <hr>
-
-              <div class="radio">
-                <input type="radio" ng-model="filters.ecoTermUse" value="ancestor"> Include Child Terms
-              </div>
-              <div class="radio">
-                <input type="radio" ng-model="filters.ecoTermUse" value="exact" /> Exact match
-              </div>
-          </form>
-          </div>
-          <hr>
-          <div class="pull-right">
-            <button class="btn quickgo-btn" type="button" ng-click="resetECOs()">Reset</button>
-            <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
-          </div>
-        </div>
-    </li>
-
-    <li>
+    <!-- <li>
       <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('qualifier')
         || isActiveFilter('referenceSearch') || isActiveFilter('with') || isActiveFilter('assignedby')}" data-icon="/" ng-click="showMore = (showMore? false : true)">
         More <span class="caret"></span>
       </button>
-    </li>
+    </li> -->
 
     <li><a ng-click="clearFilters()">Clear all</a></li>
   </ul>

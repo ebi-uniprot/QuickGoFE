@@ -46,16 +46,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     return _filters;
   };
 
-  filteringService.initTaxon = function(){
-    // Taxons
-    _filters.taxon = {};
-    var mostCommonTaxonomies = hardCodedDataService.getMostCommonTaxonomies();
-    angular.forEach(mostCommonTaxonomies, function(taxon){
-      _filters.taxon[taxon.taxId] = false;
-      _namesMap[taxon.taxId] = taxon.title;
-    });
-  };
-
   filteringService.initGpSet = function(){
     _filters.gpSet = {};
   };

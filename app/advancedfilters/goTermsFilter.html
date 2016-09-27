@@ -1,0 +1,60 @@
+<form>
+  <!-- 3 choices -->
+  <div class="y-scroll-200 inset-panel" ng-hide="isEmptyObject(filters.goID)">
+    <ul>
+      <li ng-repeat="(basketId, value) in filters.goID" class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="filters.goID[basketId]"> {{basketId}} {{namesMap[basketId]}}</label>
+      </li>
+    </ul>
+  </div>
+  <div class="form-group">
+    <p>
+      Add your own identifiers:
+    </p>
+    <textarea class="form-group form-control" placeholder="GO:0016021, GO:0016022, ..." ng-model="goTermsTextArea" class="default"></textarea>
+    <div class="form-group">
+      <button class="btn btn-default" type="button" ng-click="addGoTerms()">Add</button>
+    </div>
+  </div>
+  <div class="form-group">...or select terms from GO slim:
+    <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets" ng-change="updatePredefinedSets()"></select>
+  </div>
+  <a ng-click="toggleMore('go-options')" ng-hide="view['go-options']">Options</a>
+  <div ng-show="view['go-options']">
+
+    <hr>
+    <div><strong>Select how you want to use the terms that you have chosen:</strong>
+      <ul>
+        <li class="checkbox">
+          <input type="radio" ng-model="filters.goTermUse" value="ancestor" ng-change="applyFilters()"> Find annotations to <strong>descendants</strong> of these terms.
+        </li>
+        <li class="checkbox">
+          <input type="radio" ng-model="filters.goTermUse" value="slim"> Use these terms as a <strong>GO slim</strong>.</li>
+        <li class="checkbox">
+          <input type="radio" ng-model="filters.goTermUse" value="exact"> Use these terms as an <strong>exact</strong> match.</li>
+      </ul>
+    </div>
+    <hr>
+
+    <!-- Select Relationship-->
+    <div ng-show="filters.goTermUse=='slim' || filters.goTermUse=='ancestor'"><strong>Select which relationship an annotated term should have to the terms above <a href="http://geneontology.org/page/ontology-relations" target="_blank">(more info)</a>:</strong>
+      <ul>
+        <li class="checkbox">
+          <input type="radio" name="closure" value="I" ng-model="filters.goRelations"> is_a
+        </li>
+        <li class="checkbox">
+          <input type="radio" name="closure" value="IPO" ng-model="filters.goRelations"> is_a, part_of, occurs_in
+        </li>
+        <li class="checkbox">
+          <input type="radio" name="closure" value="IPOR" ng-model="filters.goRelations"> is_a, part_of, occurs_in, regulates
+        </li>
+      </ul>
+    </div>
+</form>
+</div>
+<hr>
+<div class="pull-right">
+  <button class="btn quickgo-btn" type="button" ng-click="resetGoTerms()">Reset</button>
+  <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
+</div>

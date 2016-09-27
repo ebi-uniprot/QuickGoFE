@@ -1,6 +1,3 @@
-/**
- * Created by twardell on 27/01/2015.
- */
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
                                               hardCodedDataService, dbXrefService, filteringService, olsService,
                                               searchService, termService, ontoTypeService) {
@@ -82,7 +79,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       if(lastAnnotation && (tempAnnotation.id === lastAnnotation.id)){
           lastAnnotation.slimsList.push(tempAnnotation);
       } else {
-          $scope.annotations.push(tempAnnotation)
+          $scope.annotations.push(tempAnnotation);
       }
       lastAnnotation = tempAnnotation;
       if (!lastAnnotation.slimsList) {

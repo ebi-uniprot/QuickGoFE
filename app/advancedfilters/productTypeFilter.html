@@ -1,0 +1,23 @@
+<div class="form-group">
+  <form>
+    <ul>
+      <li class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="filters.gpType['protein']"> Proteins</label>
+      </li>
+      <li class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="filters.gpType['rna']"> RNAs</label>
+      </li>
+      <li class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="filters.gpType['complex']"> Complexes</label>
+      </li>
+    </ul>
+    <hr>
+    <div class="pull-right">
+      <button class="btn quickgo-btn" type="button" ng-click="resetGPType()">Reset</button>
+      <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
+    </div>
+  </form>
+</div>

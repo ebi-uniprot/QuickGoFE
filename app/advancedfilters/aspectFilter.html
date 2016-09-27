@@ -1,0 +1,19 @@
+<form>
+
+  <li class="form-group">
+    <label class="checkbox">
+      <input type="checkbox" ng-model="filters.aspect['Function']"> Molecular Function
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" ng-model="filters.aspect['Process']"> Biological Process
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" ng-model="filters.aspect['Component']"> Cellular Component
+    </label>
+  </li>
+</form>
+<hr>
+<div class="pull-right">
+  <button class="btn quickgo-btn" type="button" ng-click="resetAspect()">Reset</button>
+  <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
+</div>

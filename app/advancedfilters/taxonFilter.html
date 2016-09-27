@@ -1,0 +1,31 @@
+<!-- TAXON -->
+<div ng-controller="taxonFilter">
+  <form>
+    <div class="form-group y-scroll-200">
+      <ul>
+        <li ng-repeat="taxon in taxons" class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="taxon.checked"> {{taxon.taxId}} <strong>{{taxon.title}}</strong>
+          </label>
+        </li>
+      </ul>
+    </div>
+    <a ng-click="more = !more" ng-hide="more">Add more...</a>
+    <div ng-show="more">
+      <div class="form-group">
+        <p>...or enter taxon identifiers:</p>
+        <textarea ng-model="taxonTextArea" placeholder="9606,100090,10116,..." class="form-control"></textarea>
+        <p class="pull-right"><small>Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">UniProt Taxonomy</a> to find identifiers for
+  other taxonomic groups</small></p>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default" type="button" ng-click="addTaxons()">Add</button>
+      </div>
+    </div>
+    <hr>
+    <div class="pull-right">
+      <button class="btn quickgo-btn" type="button" ng-click="resetTaxons()">Reset</button>
+      <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
+    </div>
+  </form>
+</div>
