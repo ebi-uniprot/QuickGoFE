@@ -27,21 +27,16 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
           gptype:{}
         };
 
-    filteringService.initTaxon();
-    filteringService.initGpSet();
-    filteringService.initGpID();
-    filteringService.initGpType();
     filteringService.initReference();
-    filteringService.initGoID();
+    // filteringService.initGoID();
     filteringService.initAspect();
     filteringService.initQualifier();
     //filteringService.initEcoID();
     filteringService.initEcoTermUse();
-    filteringService.initGoTermUse();
-    filteringService.initGoRelations();
+    // filteringService.initGoTermUse();
+    // filteringService.initGoRelations();
     //filteringService.initWith();
     //filteringService.initAssignedby();
-    filteringService.initGptype();
 
     return _filters;
   };
@@ -54,9 +49,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     _filters.gpID = {};
   };
 
-  filteringService.initGpType = function(){
-    _filters.gpType = {};
-  };
 
   filteringService.initReference = function() {
     //References
@@ -65,18 +57,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
     angular.forEach(referenceList, function(ref){
       _filters.referenceSearch[ref.refId] = false;
       _namesMap[ref.refId] = ref.name;
-    });
-  };
-
-  filteringService.initGoID = function() {
-    //Basket items
-    _filters.goID = {};
-    basketService.getItems().then(function(d){
-      var data = d.data.results;
-      angular.forEach(data, function(goTerm){
-        _filters.goID[goTerm.id] = false;
-        _namesMap[goTerm.id] = goTerm.name;
-      });
     });
   };
 
@@ -110,14 +90,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
       _filters.ecoTermUse = 'ancestor';
   };
 
-  filteringService.initGoTermUse = function() {
-      _filters.goTermUse = 'ancestor';
-  };
-
-  filteringService.initGoRelations = function() {
-    _filters.goTermRelations = 'IPO';
-  };
-
   filteringService.initWith = function() {
     // Get With DBs
     _filters.with = {};
@@ -142,10 +114,6 @@ filteringModule.factory('filteringService', function(hardCodedDataService,
         _namesMap[assignDB.dbId] = assignDB.xrefDatabase;
       });
     });
-  };
-
-  filteringService.initGptype = function() {
-      _filters.gpType = {};
   };
 
   filteringService.addFilter = function(type, key, value) {

@@ -1,17 +1,17 @@
-<div class="form-group">
+<div class="form-group" ng-controller="productTypeFilter">
   <form>
     <ul>
       <li class="checkbox">
         <label>
-          <input type="checkbox" ng-model="filters.gpType['protein']"> Proteins</label>
+          <input type="checkbox" ng-model="gpType['protein']"> Proteins</label>
       </li>
       <li class="checkbox">
         <label>
-          <input type="checkbox" ng-model="filters.gpType['rna']"> RNAs</label>
+          <input type="checkbox" ng-model="gpType['rna']"> RNAs</label>
       </li>
       <li class="checkbox">
         <label>
-          <input type="checkbox" ng-model="filters.gpType['complex']"> Complexes</label>
+          <input type="checkbox" ng-model="gpType['complex']"> Complexes</label>
       </li>
     </ul>
     <hr>

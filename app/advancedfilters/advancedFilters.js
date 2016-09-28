@@ -5,9 +5,8 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
 
     // GET DATA
     $scope.qualifiers = hardCodedDataService.getQualifiers();
-    $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
 
-    $scope.filters = angular.copy(filteringService.initialiseFilters());
+    // $scope.filters = angular.copy(filteringService.initialiseFilters());
     $scope.appliedFilters = {};
     $scope.view = {};
 
@@ -18,62 +17,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.$on('filtersUpdate', function() {
       $scope.filters = angular.copy(filteringService.getFilters());
     });
-
-    // Get predefined slim sets
-    var resultPSS = PreDefinedSlimSets.query();
-    resultPSS.$promise.then(function(data){
-      $scope.predefinedSlimSets = data;
-    });
-
-
-    $scope.resetgpIds = function() {
-      filteringService.initGpSet();
-      filteringService.initGpID();
-      $scope.updateFilters();
-    };
-
-    $scope.resetGPType = function() {
-      filteringService.initGpType();
-      $scope.updateFilters();
-    };
-
-    $scope.addGPs = function() {
-      var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
-      angular.forEach(gps, function(gpID){
-        if(validationService.validateGeneProduct(gpID)) {
-          $scope.filters.gpID[gpID] = true;
-        }
-      });
-      $scope.gpTextArea = '';
-    };
-
-    $scope.resetGoTerms = function() {
-      filteringService.initGoID();
-      filteringService.initGoTermUse();
-      filteringService.initGoRelations();
-      $scope.updateFilters();
-    };
-
-    $scope.addGoTerms = function() {
-      var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
-      angular.forEach(goterms, function(goTerm){
-        if(validationService.validateGOTerm(goTerm)){
-          $scope.filters.goID[goTerm] = true;
-        }
-      });
-      $scope.goTermsTextArea = '';
-    };
-
-    $scope.updatePredefinedSets = function() {
-      $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({
-        setId: $scope.selectedPreDefinedSlimSet.subset
-      });
-      $scope.availablePredefinedTerms.$promise.then(function(data) {
-        angular.forEach(data, function(d) {
-          $scope.filters.goID[d.termId] = true;
-        })
-      });
-    };
 
     $scope.resetAspect = function() {
       filteringService.initAspect();
@@ -147,16 +90,6 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     $scope.clearFilters=function() {
       filteringService.clearFilters();
       $scope.updateFilters();
-    };
-
-    var closeAllFilters = function() {
-      $scope.status.isopenTaxon = false;
-      $scope.status.isopenGP = false;
-      $scope.status.isopenGT = false;
-      $scope.status.isopenGPT = false;
-      $scope.status.isopenAspect = false;
-      $scope.status.isopenEvidence = false;
-      $scope.showMore = false;
     };
 
     $scope.selectAllNotQualifiers = function () {

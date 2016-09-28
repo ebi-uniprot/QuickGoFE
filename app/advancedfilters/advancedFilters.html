@@ -3,34 +3,46 @@
     <li>Filter by:</li>
 
     <!-- TAXON -->
-    <filter-dropdown name="Taxonomy">
-      <div ng-include src="'advancedfilters/taxonFilter.html'"></div>
-    </filter-dropdown>
+    <li>
+      <filter-dropdown name="Taxonomy">
+        <div ng-include src="'advancedfilters/taxonFilter.html'"></div>
+      </filter-dropdown>
+    </li>
 
     <!-- GENE PRODUCT IDs -->
-    <filter-dropdown name="Gene product IDs">
-      <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
-    </filter-dropdown>
+    <li>
+      <filter-dropdown name="Gene product IDs">
+        <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
+      </filter-dropdown>
+    </li>
 
     <!-- GENE PRODUCT TYPE -->
-    <filter-dropdown name="Gene Product Type">
-      <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
-    </filter-dropdown>
+    <li>
+      <filter-dropdown name="Gene Product Type">
+        <div ng-include src="'advancedfilters/productTypeFilter.html'"></div>
+      </filter-dropdown>
+    </li>
 
     <!-- GO TERMS -->
-    <filter-dropdown name="GO terms">
-      <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
-    </filter-dropdown>
+    <li>
+      <filter-dropdown name="GO terms">
+        <div ng-include src="'advancedfilters/goTermsFilter.html'"></div>
+      </filter-dropdown>
+    </li>
 
     <!-- ASPECT -->
-    <filter-dropdown name="Aspect">
-      <div ng-include src="'advancedfilters/aspectFilter.html'"></div>
-    </filter-dropdown>
+    <li>
+      <filter-dropdown name="Aspect">
+        <div ng-include src="'advancedfilters/aspectFilter.html'"></div>
+      </filter-dropdown>
+    </li>
 
     <!-- EVIDENCE -->
-    <filter-dropdown name="Evidence">
-      <div ng-include src="'advancedfilters/evidenceFilter.html'"></div>
-    </filter-dropdown>
+    <li>
+      <filter-dropdown name="Evidence">
+        <div ng-include src="'advancedfilters/evidenceFilter.html'"></div>
+      </filter-dropdown>
+    </li>
 
     <!-- <li>
       <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('qualifier')
@@ -84,13 +96,13 @@
           <p>*: Any matches will be displayed</p>
           <a ng-click="toggleMore('reference')" ng-hide="view['reference']">Add more...</a>
           <div ng-show="view['reference']">
-          <hr>
-          <div class="form-group">
-            <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-default" type="button" ng-click="addReferences()">Add</button>
-          </div>
+            <hr>
+            <div class="form-group">
+              <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-default" type="button" ng-click="addReferences()">Add</button>
+            </div>
           </div>
         </form>
       </div>
@@ -116,12 +128,12 @@
           <p>* Any matches will be displayed</p>
           <a ng-click="toggleMore('with')" ng-hide="view['with']">Add more...</a>
           <div ng-show="view['with']">
-          <div class="form-group">
-            <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-default" type="button" ng-click="addWith()">Add</button>
-          </div>
+            <div class="form-group">
+              <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-default" type="button" ng-click="addWith()">Add</button>
+            </div>
           </div>
         </form>
       </div>
@@ -154,4 +166,4 @@
     <hr>
   </div>
 
-  </div>
+</div>
