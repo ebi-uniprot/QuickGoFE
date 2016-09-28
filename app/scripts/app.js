@@ -25,7 +25,8 @@ var app = angular
     'quickGoFeApp.errorHandling',
     'ui.bootstrap',
     'duScroll',
-    'config'
+    'config',
+    'objectTable'
   ]);
 
   app.run(function($rootScope, dbXrefService, $window){
@@ -36,6 +37,8 @@ var app = angular
     };
 
     $rootScope.followLinkToEntry = function(database, id) {
+      console.log("Database: ", database);
+      console.log("ID: ", id);
       dbXrefService.getDbXrefs().then(function(xrefs) {
         $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
       });

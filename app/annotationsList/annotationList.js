@@ -3,6 +3,7 @@
  */
 
 
+
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
                                               hardCodedDataService, dbXrefService, filteringService, olsService, ENV) {
 
