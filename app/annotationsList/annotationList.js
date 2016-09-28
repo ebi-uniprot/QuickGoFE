@@ -58,7 +58,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       $scope.additionalTermsPromise = termService.getTerms($scope.annotations, true, 'goId');
       $scope.additionalTermsPromise
         .then(function(moreData) {
-          console.log(moreData);
               addInformation($scope.annotations, moreData.data.results);
             }, function (reason) {
               $scope.notFoundAdditionaTermsReason = reason;
@@ -106,6 +105,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
         annotation.goAspect = inResult.aspect;
         annotation.goIsObsolete = inResult.isObsolete;
       }
+      console.log(annotation);
     });
   }
 
