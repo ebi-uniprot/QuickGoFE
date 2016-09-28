@@ -46,13 +46,6 @@ module.exports = function (grunt) {
           }
         }
       },
-      prod: {
-        constants: {
-          ENV: {
-            apiEndpoint: 'http://wwwdev.ebi.ac.uk/QuickGO/services'
-          }
-        }
-      },
       beta: {
         constants: {
           ENV: {
@@ -60,7 +53,7 @@ module.exports = function (grunt) {
           }
         }
       },
-      alpha: {
+      prod: {
         constants: {
           ENV: {
             apiEndpoint: 'http://ves-hx-c2.ebi.ac.uk:8082/QuickGO/services',
@@ -390,19 +383,6 @@ module.exports = function (grunt) {
         files: [
           {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
         ]
-      },
-      alpha: {
-        options: {
-          patterns: [
-            {
-              match: / href=\"\/\"/g,
-              replacement: ' href="http://www.ebi.ac.uk/QuickGOalpha/"'
-            }
-          ]
-        },
-        files: [
-          {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
-        ]
       }
     },
 
@@ -551,17 +531,6 @@ module.exports = function (grunt) {
         // 'test',
         'watch'
       ]);
-    } else if (target === 'alpha') {
-      return grunt.task.run([
-        'clean:server',
-        'ngconstant:alpha',
-        'wiredep',
-        'concurrent:server',
-        'postcss:server',
-        'connect:livereload',
-        // 'test',
-        'watch'
-      ]);
     }
     grunt.task.run([
       'clean:server',
@@ -627,26 +596,6 @@ module.exports = function (grunt) {
     'usemin',
     'htmlmin',
     'replace:beta'
-  ]);
-
-  grunt.registerTask('build-alpha', [
-    'clean:dist',
-    'ngconstant:alpha',
-    'wiredep',
-    'useminPrepare',
-    'concurrent:dist',
-    'postcss',
-    'ngtemplates',
-    'concat',
-    'ngAnnotate',
-    'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'filerev',
-    'usemin',
-    'htmlmin',
-    'replace:alpha'
   ]);
 
   grunt.registerTask('default', [
