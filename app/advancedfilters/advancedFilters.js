@@ -57,6 +57,8 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       angular.forEach(gps, function(gpID){
         if(filteringService.validateGeneProduct(gpID)) {
           $scope.filters.gpID[gpID] = true;
+        }else{
+          alert("Sorry, one or more of those IDs do not exist");
         }
       });
       $scope.gpTextArea = '';
