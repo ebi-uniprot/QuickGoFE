@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="styles/quickgo-colours.css" type="text/css" media="screen">
   <link rel="stylesheet" type="text/css" href="styles/quickgo.css">
   <!-- endbuild -->
+
+    <link rel="stylesheet" type="text/css" href="styles/object-table-style.css">
+      <link rel="stylesheet" type="text/css" href="styles/blue-dust.css">
 </head>
 
 <body class="level2"><!-- add any of your classes or IDs -->
@@ -104,9 +107,6 @@
 
       <nav ng-controller="BasketNavCtrl">
         <ul class="grid_24 quickgo-nav" id="local-nav">
-          <!-- <li><a href="webservices">Web Services</a></li> -->
-          <li><a href="dataset">Data sources</a></li>
-
           <li><a href="help">Help</a></li>
           <li class="functional last"><a href="" data-icon="b" ng-click="showBasket()"> Basket &nbsp;
             <span id="basket"  ng-class="{'empty-basket': countBasket==0, 'pop-basket': countBasket>0}"><strong>{{countBasket}}</strong></span></a>
@@ -269,6 +269,8 @@
 <!-- end scripts-->
 <!-- custom build (lacks most of the "advanced" HTML5 support -->
 <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
+
+<script src="scripts/object-table.js"></script>
 
 <!-- end scripts-->
 

@@ -45,121 +45,147 @@
 </div>
 
 <!-- Results -->
+<!--
+The following table uses a plugin to allow the dragging and dropping of columns by the user.
+"object-table.js" is the script.
+Github: https://github.com/ekokotov/object-table
+Documentation: http://ekokotov.github.io/object-table/samples.html#/
+
+The HTML code in this table has been changed to explicitly work in this plugin
+Author: Mark Bingley
+Date: September 2016
+ -->
 <div>
-<!-- Results Header-->
-<table id="assignedByCount" class="two-colours results-table">
-  <tr>
+
+<table id="assignedByCount" class="two-colours results-table"
+object-table
+drag-columns="true"
+data="annotations"
+headers="stuff"
+fields="stuff"
+paging="false"
+display="25"
+search="false"
+select="false">
     <thead>
-      <th ng-if="colGeneProduct">Gene Product</th>
-      <!--th ng-if="colSymbol">Symbol</th-->
-      <th ng-if="colQualifier">Qualifier</th>
-      <th ng-if="colGOIdentifier" ng-show="!showSlimColumns" >GO Term</th>
-      <!--th ng-if="colGOIdentifier" ng-show="showSlimColumns">Original GO Term</th>
-      <th ng-if="colGOIdentifier" ng-show="showSlimColumns">Slimmed GO Term</th-->
-      <th ng-if="colEvidence">Evidence</th>
-      <th ng-if="colReference">Reference</th>
-      <th ng-if="colWith">With / From</th>
-      <th ng-if="colTaxon">Taxon</th>
-      <th ng-if="colAssignedBy">Assigned By</th>
-      <th ng-if="colAnnotationExtension">Annotation Extension</th>
-      <th ng-if="colDatabase">Database</th>
-      <th ng-if="colDate">Date</th>
-      <th ng-if="colName">Name</th>
-      <th ng-if="colSynonym">Synonym</th>
-      <th ng-if="colType">Type</th>
-      <th ng-if="colTaxonName">Taxon Name</th>
-      <th ng-if="colSequence">Sequence</th>
-    </thead>
+  <tr>
+
+      <th allow-drag ng-show="$owner.colGeneProduct">Gene Product</th>
+      <th allow-drag ng-show="$owner.colSymbol">Symbol</th>
+      <th allow-drag ng-show="$owner.colQualifier">Qualifier</th>
+      <th allow-drag ng-show="$owner.colGOIdentifier && $owner.showSlimColumns">Slimmed GO Term</th>
+      <th allow-drag ng-show="$owner.colGOIdentifier"><span ng-show="$owner.showSlimColumns">Original </span>GO Term</th>
+      <th allow-drag ng-show="$owner.colEvidence">Evidence</th>
+      <th allow-drag ng-show="$owner.colReference">Reference</th>
+      <th allow-drag ng-show="$owner.colWith">With / From</th>
+      <th allow-drag ng-show="$owner.colTaxon">Taxon</th>
+      <th allow-drag ng-show="$owner.colAssignedBy">Assigned By</th>
+      <th allow-drag ng-show="$owner.colAnnotationExtension">Annotation Extension</th>
+      <th allow-drag ng-show="$owner.colDatabase">Database</th>
+      <th allow-drag ng-show="$owner.colDate">Date</th>
+      <th allow-drag ng-show="$owner.colName">Name</th>
+      <th allow-drag ng-show="$owner.colSynonym">Synonym</th>
+      <th allow-drag ng-show="$owner.colType">Type</th>
+      <th allow-drag ng-show="$owner.colTaxonName">Taxon Name</th>
+      <th allow-drag ng-show="$owner.colSequence">Sequence</th>
+
   </tr>
+      </thead>
+  <tbody ng-non-bindable>
 
-  <tr ng-repeat="annotation in annotations">
-    <td class="td-no-icon" ng-if="colGeneProduct">
-      <a ng-click="followLinkToEntry('', annotation.geneProductId)"
-         target="_blank">{{annotation.geneProductId}}</a>
-    </td>
+<tr >
 
-    <!--td class="td-no-icon" ng-if="colSymbol">{{annotation.symbol}}</td-->
-    <td class="td-no-icon" ng-if="colQualifier">{{annotation.qualifier}}</td>
+<!-- <td>{{::item.geneProductId}}</td> -->
+<td class="td-no-icon" ng-show="$owner.colGeneProduct">
+  <a ng-click="$owner.followLinkToEntry(item.database, item.geneProductId)" target="_blank">{{::item.database}}:{{::item.geneProductId}}
+</td>
+<td class="td-no-icon" ng-show="$owner.colSymbol">{{::item.symbol}}</td>
+<td class="td-no-icon" ng-show="$owner.colQualifier">{{::item.qualifier}}</td>
 
-    <!-- GO Identifier-->   <!--TODO aspect and name-->
-    <td ng-show="!showSlimColumns" class="text-nowrap" ng-if="colGOIdentifier">
-      <span ng-if="annotation.goAspect" uib-tooltip-template="'colAspect.html'"
-            class="aspect-icon aspect-{{ontoOneLetterName(annotation.goAspect)}}">
-        {{ontoOneLetterName(annotation.goAspect)}}
-      </span>
-      <a href="term/{{annotation.goId}}">{{annotation.goId}}</a>
-      <basket-button termid="{{annotation.goId}}" icondisabled="{{annotation.goIsObsolete}}"></basket-button>
-      <chart-icon term-id="annotation.goId" term-name="annotation.goTermName"></chart-icon>
-      <element uib-tooltip="{{annotation.goTermName}}">{{annotation.goTermName | shortenStringFilter}}</element>
-    </td>
+<td ng-show="$owner.showSlimColumns && $owner.colGOIdentifier" class="text-nowrap">
+  <span ng-if="::item.originalAspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{::item.originalAspect}}">{{::item.originalAspect}}</span>
+  <a href="term/{{::item.originalTermId}}">{{::item.originalTermId}}</a>
+  <basket-button termid="{{::item.originalTermId}}" icondisabled="{{::item.isObsolete}}"></basket-button>
+  <chart-icon term-id="::item.originalTermId" term-name="::item.originalTermName"></chart-icon>
+  <element uib-tooltip="{{::item.termName}}">{{::item.originalTermName | shortenStringFilter}}</element>
+</td>
 
-    <!-- GO Identifier with slims TODO slims, do not we need two columns for that?-->
-    <!--td class="text-nowrap" ng-if="colGOIdentifier">
-      <div class="go-term">
-        <span ng-if="annotation.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{annotation.aspect}}">{{annotation.aspect}}</span>
-        <a class="quickgo-link selectable" href="term/{{annotation.goId}}">{{annotation.goId}}</a>
-        <basket-button termid="{{annotation.goId}}" icondisabled="{{annotation.isObsolete}}"></basket-button>
-        <chart-icon term-id="annotation.goId" term-name="annotation.termName"></chart-icon>
-        <element uib-tooltip="{{annotation.termName}}">{{annotation.termName | shortenStringFilter}}</element>
-      </div>
-      <div ng-repeat="slimRepeat in annotation.slimsList" class="go-term slim-repeat">
-        <span ng-if="slimRepeat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{slimRepeat.aspect}}">{{slimRepeat.aspect}}</span>
-        <a class="quickgo-link selectable" href="term/{{slimRepeat.goId}}">{{slimRepeat.goId}}</a>
-        <basket-button termid="{{slimRepeat.goId}}" icondisabled="{{slimRepeat.isObsolete}}"></basket-button>
-        <chart-icon term-id="slimRepeat.goId" term-name="slimRepeat.termName"></chart-icon>
-        <element uib-tooltip="{{slimRepeat.termName}}">{{slimRepeat.termName | shortenStringFilter}}</element>
-      </div>
-    </td-->
+<td class="text-nowrap" ng-show="$owner.colGOIdentifier">
+  <div class="go-term">
+    <span ng-if="::item.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{::item.aspect}}">{{::item.aspect}}</span>
+    <a class="quickgo-link selectable" href="term/{{::item.goId}}">{{::item.goId}}</a>
+    <basket-button termid="{{::item.goId}}" icondisabled="{{::item.isObsolete}}"></basket-button>
+    <chart-icon term-id="::item.goId" term-name="::item.termName"></chart-icon>
+    <element uib-tooltip="{{::item.termName}}">{{::item.termName | shortenStringFilter}}</element>
+  </div>
+  <div ng-repeat="slimRepeat in ::item.slimsList" class="go-term slim-repeat">
+    <span ng-if="::slimRepeat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{::slimRepeat.aspect}}">{{::slimRepeat.aspect}}</span>
+    <a class="quickgo-link selectable" href="term/{{::slimRepeat.goId}}">{{::slimRepeat.goId}}</a>
+    <basket-button termid="{{::slimRepeat.goId}}" icondisabled="{{::slimRepeat.isObsolete}}"></basket-button>
+    <chart-icon term-id="::slimRepeat.goId" term-name="::slimRepeat.termName"></chart-icon>
+    <element uib-tooltip="{{::slimRepeat.termName}}">{{::slimRepeat.termName | shortenStringFilter}}</element>
+  </div>
+</td>
 
-    <!-- Evidence: ECO:0000256  (IEA) -->
-    <td class="text-nowrap" ng-if="colEvidence">
-      <a class="quickgo-link selectable" href="term/{{annotation.ecoId}}">{{annotation.ecoId}}</a>
-      <a class="quickgo-icon selectable" ng-click="showEvidenceCodeOntologyGraph(annotation.ecoId)">
-        <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span>
-      </a>
-      (<a class="quickgo-link"
-          href="http://geneontology.org/page/guide-go-evidence-codes#{{annotation.goEvidence | lowercase}}"
-          target="_blank">{{annotation.goEvidence}}</a>)
-    </td>
+<td class="text-nowrap" ng-show="$owner.colEvidence">
+  <a class="quickgo-link selectable" href="term/{{::item.evidenceEco}}">{{::item.evidenceEco}}</a>
+  <a class="quickgo-icon selectable" ng-click="$owner.showEvidenceCodeOntologyGraph(item.evidenceEco)">
+    <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a> (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{::item.evidenceGo | lowercase}}" target="_blank">{{::item.evidenceGo}}</a>)
+</td>
 
-      <!-- Reference eg "GO_REF:0000002" -->
-    <td class="td-no-icon" ng-if="colReference">
-      <a class="quickgo-link" ng-href="{{annotation.reference | referenceUrlFilter}}" target="_blank">
-        {{annotation.reference}}</a>
-    </td>
 
-    <!-- With -->
-    <td class="td-no-icon" ng-if="colWith">
-      <span ng-if="annotation.withFrom.length === 1">
-        <!-- single item, so build direct link -->
-          <span ng-repeat="element in annotation.withFrom">
-              <a class="quickgo-link ellipsis" ng-click="followLinkToEntry(undefined, element)" target="_blank">
-                {{element}}</a>
-          </span>
-      </span>
-      <!-- multiple links, so modal required -->
-      <span ng-if="annotation.withFrom.length > 1">
-          <a ng-if="annotation.withFrom.length >= 2" class="quickgo-link ellipsis"
-             ng-click="showWithList(annotation.withFrom)">{{annotation.withFrom.join('|')}}</a>
+<td class="td-no-icon" ng-show="$owner.colReference">
+  <a class="quickgo-link" ng-href="{{::item.reference | referenceUrlFilter}}" target="_blank">{{::item.reference}}</a>
+</td>
+
+<td class="td-no-icon" ng-show="$owner.colWith">
+  <span ng-if="::item.withList.length === 1">
+      <span ng-repeat="item in ::item.withList">
+        <span ng-if="::item.connectedXrefs.length === 1" ng-repeat="element in ::item.connectedXrefs">
+          <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
         </span>
+      </span>
+
+      <span ng-repeat="item in ::item.withList" ng-if="::item.connectedXrefs.length > 1">
+        <span ng-repeat="subItem in ::item">
+          <span ng-repeat="element in ::subItem">
+            <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
+            <span ng-show="!$last">,</span>
+          </span>
+        </span>
+      </span>
+
+      <span ng-repeat="item in ::item.withList" ng-if="::item.connectedXrefs.length > 1">
+          <span ng-repeat="subItem in ::item">
+            <span ng-repeat="element in ::subItem">
+              <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
+              <span ng-show="!$last">,</span>
+            </span>
+          </span>
+        </span>
+      </span>
+
+    <span ng-if="::item.withList.length > 1">
+      <a ng-if="::item.withList.length >= 2" class="quickgo-link ellipsis" ng-click="$owner.showWithList(item.withList)">{{::item.fullWith}}</a>
+    </span>
 
     </td>
 
-        <!-- Taxon-->
-        <td class="td-no-icon" ng-if="colTaxon">
-          <span ng-if="annotation.taxonId !== 0">
-            <a class="quickgo-link selectable" ng-click="showTaxon(annotation.taxonId)">{{annotation.taxonId}}</a>
-          </span>
-        </td>
+    <td class="td-no-icon" ng-show="$owner.colTaxon"><a class="quickgo-link selectable" ng-click="$owner.showTaxon(item.taxon)">{{::item.taxon}}</a></td>
+    <td class="td-no-icon" ng-show="$owner.colAssignedBy"><a class="quickgo-link selectable" ng-click="$owner.followLinkToGeneric(item.assignedBy)">{{::item.assignedBy}}</a></td>
+    <td class="td-no-icon" ng-show="$owner.colAnnotationExtension">
+      <a ng-click="$owner.showAnnotationExtension(item.fullExtension)">{{::item.fullExtension | shortenStringFilter}}</a>
+    </td>
 
-        <!-- Assigned By-->
-        <td class="td-no-icon" ng-if="colAssignedBy">
-          <a class="quickgo-link selectable" ng-click="followLinkToGeneric(annotation.assignedBy)">
-            {{annotation.assignedBy}}
-          </a>
-        </td>
+    <td ng-show="$owner.colDatabase">{{::item.database}}</td>
+    <td ng-show="$owner.colDate">{{::item.date | limitTo : 4}}/{{::item.date | limitTo : 2 : 4}}/{{::item.date | limitTo : 2 : 6}}
+    </td>
 
-        <!-- Annotation Extension -->
+    <td ng-show="$owner.colName">{{::item.name}}</td>
+    <td ng-show="$owner.colSynonym">{{::item.synonym}}</td>
+    <td ng-show="$owner.colType">{{::item.type}}</td>
+    <td ng-show="$owner.colTaxonName">{{::item.taxonName}}</td>
+    <td ng-show="$owner.colSequence">{{::item.sequence}}</td>
 
         <td class="td-no-icon" ng-if="colAnnotationExtension">
           <span ng-if="annotation.extensions">
@@ -169,15 +195,9 @@
           </span>
         </td>
 
-        <td ng-if="colDatabase">{{annotation.database}}</td>
-        <td ng-if="colDate">{{annotation.date}}</td>
-        <td ng-if="colName">{{annotation.name}}</td>
-        <td ng-if="colSynonym">{{annotation.synonym}}</td>
-        <td ng-if="colType">{{annotation.type}}</td>
-        <td ng-if="colTaxonName">{{annotation.taxonName}}</td>
-        <td ng-if="colSequence">{{annotation.sequence}}</td>
+    </tr>
 
-      </tr>
+</tbody>
     </table>
 
     <uib-pagination total-items="goList.numberOfHits" max-size="5" rotate="false" ng-model="currentPage"

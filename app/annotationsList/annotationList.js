@@ -1,6 +1,3 @@
-/**
- * Created by twardell on 27/01/2015.
- */
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
                                               hardCodedDataService, dbXrefService, filteringService, olsService,
                                               searchService, termService, ontoTypeService) {
