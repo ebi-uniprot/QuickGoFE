@@ -34,6 +34,7 @@
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.css" />
+  <link rel="stylesheet" href="bower_components/angular-object-table/build/object-table-style.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -104,9 +105,6 @@
 
       <nav ng-controller="BasketNavCtrl">
         <ul class="grid_24 quickgo-nav" id="local-nav">
-          <!-- <li><a href="webservices">Web Services</a></li> -->
-          <li><a href="dataset">Data sources</a></li>
-
           <li><a href="help">Help</a></li>
           <li class="functional last"><a href="" data-icon="b" ng-click="showBasket()"> Basket &nbsp;
             <span id="basket"  ng-class="{'empty-basket': countBasket==0, 'pop-basket': countBasket>0}"><strong>{{countBasket}}</strong></span></a>
@@ -209,6 +207,7 @@
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="bower_components/underscore/underscore.js"></script>
 <script src="bower_components/file-saver/FileSaver.js"></script>
+<script src="bower_components/angular-object-table/build/object-table.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -275,7 +274,6 @@
 <!-- end scripts-->
 <!-- custom build (lacks most of the "advanced" HTML5 support -->
 <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
-
 <!-- end scripts-->
 
 

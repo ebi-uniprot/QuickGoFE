@@ -12,9 +12,21 @@ a:hover {
   text-decoration: none;
 }
 
-.text-nowrap {
+.table>tbody>tr>td{
+    vertical-align: middle;
+    padding: 8px 5px 5px 5px;
+}
+.table>tbody>tr>td.text-nowrap {
   white-space: nowrap;
-  vertical-align: middle;
+}
+.table>thead>tr>th{
+  vertical-align: top;
+}
+.table-bordered>tbody>tr>td{
+  border: 1px solid #f1f1f1;
+}
+.object-table-module .object-table thead > tr th {
+  padding-right: 0px;
 }
 
 .quickgo-content {
@@ -636,6 +648,13 @@ ul.results-list {
 
 .results-table th span{
   font-weight: bold;
+}
+
+.object-table th{
+  cursor: grab;
+}
+.object-table th:active {
+  cursor: grabbing;
 }
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
