@@ -1,5 +1,5 @@
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
-                                              hardCodedDataService, dbXrefService, filteringService, olsService,
+                                              hardCodedDataService, dbXrefService, olsService,
                                               searchService, termService, ontoTypeService) {
 
   /**
@@ -41,7 +41,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     filterRequest.rows =  $scope.maxSize;
     filterRequest.page = $scope.currentPage;
 
-    $scope.showSlimColumns = filteringService.hasSlims();
+    // $scope.showSlimColumns = filteringService.hasSlims();
 
     $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize);
     $scope.resultsPromise.then(function (data) {
@@ -111,7 +111,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     $scope.addAlert = function() {
       $scope.alerts.push({msg: error.message});
     };
-    filteringService.clearFilters();
+    // filteringService.clearFilters();
     $rootScope.$broadcast('filtersUpdate');
   }
 

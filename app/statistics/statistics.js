@@ -1,8 +1,7 @@
 /**
  * Created by twardell on 16/03/2015.
  */
-app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV,
-  filteringService) {
+app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV) {
   $scope.stats = {};
   $scope.statsBean={};
   var statsLoaded = false;
@@ -15,7 +14,7 @@ app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV,
 
     //Create the object to send to the server
     var filterRequest = {};
-    filterRequest.list = filteringService.populateAppliedFilters();
+    // filterRequest.list = filteringService.populateAppliedFilters();
 
 
     // Post the filter request to the webservice

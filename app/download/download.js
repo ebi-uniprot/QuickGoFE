@@ -2,7 +2,7 @@
  * Created by twardell on 07/05/2015.
  */
 
-app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $location, filteringService,
+app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $location,
                                             hardCodedDataService, ENV) {
 
   $scope.selectedLimit=1000; //default
@@ -19,7 +19,7 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
   $scope.submit = function(format,limit) {
 
     var filterRequest = {};
-    filterRequest.list =  filteringService.populateAppliedFilters();
+    // filterRequest.list =  filteringService.populateAppliedFilters();
     filterRequest.limit = limit;
     filterRequest.format = format.ext;
     var fileName='download.'+ format.ext;

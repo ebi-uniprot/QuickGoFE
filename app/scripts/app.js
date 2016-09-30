@@ -1,13 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name quickGoFeApp
- * @description
- * # quickGoFeApp
- *
- * Main module of the application.
- */
 var app = angular
   .module('quickGoFeApp', [
     'ngCookies',
@@ -20,7 +12,6 @@ var app = angular
     'app.quickGo.filters',
     'quickGoFeApp.BasketModule',
     'quickGoFeApp.HardCodedDataModule',
-    'quickGoFeApp.FilteringModule',
     'quickGoFeApp.ValidationModule',
     'quickGoFeApp.ServicesModule',
     'quickGoFeApp.errorHandling',

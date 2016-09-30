@@ -11,8 +11,6 @@ app.controller('geneProductFilter', function($scope, stringService,
   };
 
   $scope.resetGPType = function() {
-    filteringService.initGpType();
-    $scope.updateFilters();
   };
 
   $scope.addGPs = function() {
