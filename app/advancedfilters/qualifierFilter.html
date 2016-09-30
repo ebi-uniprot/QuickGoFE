@@ -1,0 +1,19 @@
+<div ng-controller="qualifierFilter">
+  <h5>Qualifier</h5>
+  <!-- GO ID -->
+  <div>
+    <form>
+      <p>The qualifier column specifies the relationship between the annotated gene product and the GO term.</p>
+
+      <div ng-repeat="aQualifier in qualifiers" class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="filters.qualifier[aQualifier.qualifier]"> {{aQualifier.name}}
+        </label>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-default" ng-click="selectAllNotQualifiers()" ng-hide="showAllNotQualifiers">Select all NOT qualifiers</button>
+      </div>
+      <p>Further details on the usage of the qualifier column can be found <a href="http://www.geneontology.org/page/go-annotation-conventions#qual" target="_blank">here</a>.</p>
+    </form>
+  </div>
+</div>

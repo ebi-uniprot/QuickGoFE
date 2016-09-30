@@ -58,105 +58,25 @@
     <hr>
     <!-- QUALIFIER -->
     <div class="grid_6">
-      <h5>Qualifier</h5>
-      <!-- GO ID -->
-      <div>
-        <form>
-          <p>The qualifier column specifies the relationship between the annotated gene product and the GO term.</p>
-
-          <div ng-repeat="aQualifier in qualifiers" class="checkbox">
-            <label>
-              <input type="checkbox" ng-model="filters.qualifier[aQualifier.qualifier]"> {{aQualifier.name}}
-            </label>
-          </div>
-          <div class="form-group">
-            <button type="button" class="btn btn-default" ng-click="selectAllNotQualifiers()" ng-hide="showAllNotQualifiers">Select all NOT qualifiers</button>
-          </div>
-          <p>Further details on the usage of the qualifier column can be found <a href="http://www.geneontology.org/page/go-annotation-conventions#qual" target="_blank">here</a>.</p>
-        </form>
-      </div>
+      <div ng-include src="'advancedfilters/qualifierFilter.html'"></div>
     </div>
 
     <!-- REFERENCE -->
     <div class="grid_6">
-      <h5>Reference</h5>
-      <!-- GO ID -->
-      <div>
-        <form>
-          <div class="y-scroll-200 inset-panel">
-            <ul>
-              <li ng-repeat="(refId, value) in filters.referenceSearch" class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="filters.referenceSearch[refId]"> <strong>{{refId}}</strong> {{namesMap[refId]}}
-                </label>
-                </td>
-              </li>
-            </ul>
-          </div>
-          <p>*: Any matches will be displayed</p>
-          <a ng-click="toggleMore('reference')" ng-hide="view['reference']">Add more...</a>
-          <div ng-show="view['reference']">
-            <hr>
-            <div class="form-group">
-              <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-default" type="button" ng-click="addReferences()">Add</button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <div ng-include src="'advancedfilters/referencesFilter.html'"></div>
     </div>
 
 
     <!-- WITH -->
     <div class="grid_6">
-      <h5>With/From</h5>
-      <div>
-        <form>
-          <div class="y-scroll-200 inset-panel">
-            <ul>
-              <li ng-repeat="(withID, value) in filters.with" class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="filters.with[withID]">
-                  <strong>{{withID}}</strong> {{namesMap[withID]}}
-                </label>
-              </li>
-            </ul>
-          </div>
-          <hr>
-          <p>* Any matches will be displayed</p>
-          <a ng-click="toggleMore('with')" ng-hide="view['with']">Add more...</a>
-          <div ng-show="view['with']">
-            <div class="form-group">
-              <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
-            </div>
-            <div class="form-group">
-              <button class="btn btn-default" type="button" ng-click="addWith()">Add</button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <div ng-include src="'advancedfilters/withFromFilter.html'"></div>
     </div>
 
     <!-- ASSIGNED BY -->
     <div class="grid_6">
-      <h5>Assigned by</h5>
-      <!-- GO ID -->
-      <div>
-        <form>
-          <div class="y-scroll-400 inset-panel">
-            <ul>
-              <li ng-repeat="(dbId,val) in filters.assignedby" class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="filters.assignedby[dbId]"> <strong>{{dbId}}</strong> {{namesMap[dbId]}}
-                </label>
-              </li>
-            </ul>
-          </div>
-        </form>
-      </div>
+      <div ng-include src="'advancedfilters/assignedByFilter.html'"></div>
     </div>
+
     <div class="clearfix"></div>
     <div class="pull-right">
       <button class="btn quickgo-btn" type="button" ng-click="resetAssigned()">Reset</button>

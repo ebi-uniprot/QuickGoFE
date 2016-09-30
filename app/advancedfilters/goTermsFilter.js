@@ -1,5 +1,5 @@
 app.controller('goTermsFilter', function($scope, basketService, stringService,
-  validationService){
+  validationService, termService){
 
   var init = function() {
     $scope.goIDs = [];
@@ -21,15 +21,17 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
 
   $scope.addGoTerms = function() {
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
-    angular.forEach(goterms, function(goTerm){
-      if(validationService.validateGOTerm(goTerm)){
-        var term = {
-          id: goTerm,
-          checked: true
-        }
-        $scope.goIDs.unshift(term);
-      }
-    });
+    termService.getGOTerms(goterms)
+      .success(function(d){
+        angular.forEach(d.results, function(goTerm){
+          goTerm.checked = true;
+          $scope.goIDs.unshift(goTerm);
+        });
+      })
+      .error(function(e){
+        //TODO handle messaging
+        console.log(e);
+      });
     $scope.goTermsTextArea = '';
   };
 

@@ -23,6 +23,7 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
             : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
       getTerms : function(ids, isGoTerm, idKey) {
+          //TODO revise that
           if (ids instanceof Array) {
               var termsToQuery = '';
               idKey = idKey ? idKey : 'id';
@@ -188,10 +189,12 @@ wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource
   });
 }]);
 
-wsService.factory('evidencetypes', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/evidencetypes', {}, {
-    query: {method:'GET',  isArray:true, Cache:true}
-  });
+wsService.factory('evidenceService', ['$http', 'ENV', function($http, ENV){
+  return {
+    getTypes: function() {
+      return $http.get(ENV.apiEndpoint+'/evidencetypes');
+    }  
+  }
 }]);
 
 wsService.factory('withDBs', ['$resource', 'ENV', function($resource, ENV){

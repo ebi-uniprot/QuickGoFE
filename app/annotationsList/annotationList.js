@@ -105,7 +105,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
         annotation.goAspect = inResult.aspect;
         annotation.goIsObsolete = inResult.isObsolete;
       }
-      console.log(annotation);
     });
   }
 
