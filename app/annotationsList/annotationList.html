@@ -97,7 +97,7 @@ select="false">
 
 <!-- <td>{{::item.geneProductId}}</td> -->
 <td class="td-no-icon" ng-show="$owner.colGeneProduct">
-  <a ng-click="$owner.followLinkToEntry(item.database, item.geneProductId)" target="_blank">{{::item.database}}:{{::item.geneProductId}}
+  <a ng-click="$owner.followLinkToEntry(item.database, item.geneProductId)" target="_blank">{{::item.geneProductId}}
 </td>
 <td class="td-no-icon" ng-show="$owner.colSymbol">{{::item.symbol}}</td>
 <td class="td-no-icon" ng-show="$owner.colQualifier">{{::item.qualifier}}</td>
@@ -128,9 +128,9 @@ select="false">
 </td>
 
 <td class="text-nowrap" ng-show="$owner.colEvidence">
-  <a class="quickgo-link selectable" href="term/{{::item.evidenceEco}}">{{::item.evidenceEco}}</a>
-  <a class="quickgo-icon selectable" ng-click="$owner.showEvidenceCodeOntologyGraph(item.evidenceEco)">
-    <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a> (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{::item.evidenceGo | lowercase}}" target="_blank">{{::item.evidenceGo}}</a>)
+  <a class="quickgo-link selectable" href="term/{{::item.evidenceCode}}">{{::item.evidenceCode}}</a>
+  <a class="quickgo-icon selectable" ng-click="$owner.showEvidenceCodeOntologyGraph(item.evidenceCode)">
+    <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a> (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{::item.goEvidence | lowercase}}" target="_blank">{{::item.goEvidence}}</a>)
 </td>
 
 
@@ -139,14 +139,14 @@ select="false">
 </td>
 
 <td class="td-no-icon" ng-show="$owner.colWith">
-  <span ng-if="::item.withList.length === 1">
-      <span ng-repeat="item in ::item.withList">
+  <span ng-if="::item.withFrom.length === 1">
+      <span ng-repeat="item in ::item.withFrom">
         <span ng-if="::item.connectedXrefs.length === 1" ng-repeat="element in ::item.connectedXrefs">
           <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
         </span>
       </span>
 
-      <span ng-repeat="item in ::item.withList" ng-if="::item.connectedXrefs.length > 1">
+      <span ng-repeat="item in ::item.withFrom" ng-if="::item.connectedXrefs.length > 1">
         <span ng-repeat="subItem in ::item">
           <span ng-repeat="element in ::subItem">
             <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
@@ -155,7 +155,7 @@ select="false">
         </span>
       </span>
 
-      <span ng-repeat="item in ::item.withList" ng-if="::item.connectedXrefs.length > 1">
+      <span ng-repeat="item in ::item.withFrom" ng-if="::item.connectedXrefs.length > 1">
           <span ng-repeat="subItem in ::item">
             <span ng-repeat="element in ::subItem">
               <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
@@ -165,13 +165,13 @@ select="false">
         </span>
       </span>
 
-    <span ng-if="::item.withList.length > 1">
-      <a ng-if="::item.withList.length >= 2" class="quickgo-link ellipsis" ng-click="$owner.showWithList(item.withList)">{{::item.fullWith}}</a>
+    <span ng-if="::item.withFrom.length > 1">
+      <a ng-if="::item.withFrom.length >= 2" class="quickgo-link ellipsis" ng-click="$owner.showWithList(item.withFrom)">{{::item.fullWith}}</a>
     </span>
 
     </td>
 
-    <td class="td-no-icon" ng-show="$owner.colTaxon"><a class="quickgo-link selectable" ng-click="$owner.showTaxon(item.taxon)">{{::item.taxon}}</a></td>
+    <td class="td-no-icon" ng-show="$owner.colTaxon"><a class="quickgo-link selectable" ng-click="$owner.showTaxon(item.taxon)">{{::item.taxonId}}</a></td>
     <td class="td-no-icon" ng-show="$owner.colAssignedBy"><a class="quickgo-link selectable" ng-click="$owner.followLinkToGeneric(item.assignedBy)">{{::item.assignedBy}}</a></td>
     <td class="td-no-icon" ng-show="$owner.colAnnotationExtension">
       <a ng-click="$owner.showAnnotationExtension(item.fullExtension)">{{::item.fullExtension | shortenStringFilter}}</a>
