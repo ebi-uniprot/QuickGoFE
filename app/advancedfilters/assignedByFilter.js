@@ -1,6 +1,6 @@
 app.controller('assignedByController', function($scope){
 
-  filteringService.initAssignedby = function() {
+  var init = function() {
     // Get Assigned DBs
     _filters.assignedby = {};
     var resultADB = assignDBs.query();

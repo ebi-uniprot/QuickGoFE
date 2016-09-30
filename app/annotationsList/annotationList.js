@@ -38,13 +38,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
 
     //Create the object to send to the server
     var filterRequest = {};
-    filterRequest.list =  filteringService.populateAppliedFilters();  //TODO use it
     filterRequest.rows =  $scope.maxSize;
     filterRequest.page = $scope.currentPage;
 
     $scope.showSlimColumns = filteringService.hasSlims();
 
-    $scope.resultsPromise = searchService.findAnnotationsWithFilter(filterRequest);
+    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize);
     $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
       if ($scope.showSlimColumns) {

@@ -1,4 +1,4 @@
-app.controller('qualifierFilter', function($scope){
+app.controller('qualifierFilter', function($scope, hardCodedDataService){
 
   $scope.showAllNotQualifiers = 0;
   $scope.qualifiers = hardCodedDataService.getQualifiers();

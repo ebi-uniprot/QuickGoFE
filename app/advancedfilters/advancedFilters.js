@@ -67,5 +67,4 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
       $scope.updateFilters();
     }
 
-    $scope.namesMap = filteringService.getNamesMap();
   });

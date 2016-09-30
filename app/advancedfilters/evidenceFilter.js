@@ -4,15 +4,15 @@ app.controller('evidenceFilter', function($scope, evidenceService) {
     // Get Evidence Types
     $scope.ecos = {};
     $scope.ecoTermUse = 'ancestor';
-    evidenceService.getTypes().then(function(data) {
-      console.log(data);
-      var evidenceTypes = _.sortBy(data, 'evidenceGOID');
-      //The order of the evidence codes is important
-      angular.forEach(evidenceTypes, function(evidenceType) {
-        evidenceType.checked = false;
-        $scope.ecos.push(evidenceType);
-      });
-    });
+    //TODO plug service when ready
+    // evidenceService.getTypes().then(function(data) {
+    //   var evidenceTypes = _.sortBy(data, 'evidenceGOID');
+    //   //The order of the evidence codes is important
+    //   angular.forEach(evidenceTypes, function(evidenceType) {
+    //     evidenceType.checked = false;
+    //     $scope.ecos.push(evidenceType);
+    //   });
+    // });
   };
 
   $scope.reset = function() {

@@ -1,6 +1,6 @@
 app.controller('withFromFilter', function($scope) {
 
-  filteringService.initWith = function() {
+  var init = function() {
     // Get With DBs
     _filters.with = {};
     var resultWDB = withDBs.query();

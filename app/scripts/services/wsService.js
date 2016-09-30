@@ -111,8 +111,8 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findPublications: function(searchTerm, limit) {
         //TODO
       },
-      findAnnotationsWithFilter: function(filter) { //TODO filterRequest.list
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?page=' + filter.page + '&limit=' + filter.rows);
+      findAnnotations: function(page, size, filter) { //TODO handle filters
+          return $http.get(ENV.apiEndpointAnnotationSearch+'?page=' + page + '&limit=' + size);
       },
       findAnnotationsForTerm: function(searchTerm) {
           return $http.get(ENV.apiEndpointAnnotationSearch+'?goId=' + searchTerm);
@@ -193,7 +193,7 @@ wsService.factory('evidenceService', ['$http', 'ENV', function($http, ENV){
   return {
     getTypes: function() {
       return $http.get(ENV.apiEndpoint+'/evidencetypes');
-    }  
+    }
   }
 }]);
 
