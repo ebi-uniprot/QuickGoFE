@@ -15,7 +15,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
     });
   };
 
-  $scope.resetGoTerms = function() {
+  $scope.reset = function() {
     init();
   };
 

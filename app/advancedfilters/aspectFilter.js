@@ -3,7 +3,11 @@ app.controller('aspectFilter', function($scope){
     $scope.aspect = {};
   }
 
-  $scope.resetAspect = function() {
+  $scope.reset = function() {
     init();
   }
+
+  $scope.$on('clearFilters', function() {
+    init();
+  });
 });

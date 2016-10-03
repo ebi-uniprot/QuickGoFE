@@ -4,7 +4,7 @@ app.controller('productTypeFilter', function($scope){
     $scope.gpType = {};
   }
 
-  $scope.resetGPType = function() {
+  $scope.reset = function() {
     init();
   }
 

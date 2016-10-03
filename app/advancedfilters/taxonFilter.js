@@ -8,7 +8,7 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
     });
   };
 
-  $scope.resetTaxons = function() {
+  $scope.reset = function() {
     initTaxons();
   };
 

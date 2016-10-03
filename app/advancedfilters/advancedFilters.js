@@ -1,3 +1,4 @@
+'use strict';
 app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
   hardCodedDataService, PreDefinedSlimSets,
   PreDefinedSlimSetDetail, stringService, validationService) {
@@ -22,7 +23,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $rootScope, $routeParams,
     };
 
     $scope.clearFilters=function() {
-      $scope.updateFilters();
+      $scope.$broadcast('clearFilters');
     };
 
     $scope.hasSlims = function() {

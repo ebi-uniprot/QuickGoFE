@@ -6,7 +6,7 @@ app.controller('geneProductFilter', function($scope, stringService,
     $scope.geneProductSets =  hardCodedDataService.getGeneProductSets();
   };
 
-  $scope.resetgpIds = function() {
+  $scope.reset = function() {
     initgpIds()
   };
 
