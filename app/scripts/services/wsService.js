@@ -111,8 +111,9 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findPublications: function(searchTerm, limit) {
         //TODO
       },
-      findAnnotations: function(page, size, filter) { //TODO handle filters
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?page=' + page + '&limit=' + size);
+      findAnnotations: function(page, size, filters) {
+        console.log(ENV.apiEndpointAnnotationSearch+'?page=' + page + '&limit=' + size + '&' + filters);
+          return $http.get(ENV.apiEndpointAnnotationSearch+'?page=' + page + '&limit=' + size + '&' + filters);
       },
       findAnnotationsForTerm: function(searchTerm) {
           return $http.get(ENV.apiEndpointAnnotationSearch+'?goId=' + searchTerm);
@@ -122,6 +123,15 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       },
       findAnnotationsForProduct: function(searchTerm) {
           return $http.get(ENV.apiEndpointAnnotationSearch+'?geneProductId=' + searchTerm);
+      },
+      serializeQuery: function(query) {
+        var queryString = '';
+        angular.forEach(query, function(values, key) {
+          if(values) {
+            queryString = queryString + key + '=' + values;
+          }
+        });
+        return queryString;
       }
   };
 }]);

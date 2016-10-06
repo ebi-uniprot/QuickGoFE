@@ -1,4 +1,4 @@
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
+app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
                                               hardCodedDataService, dbXrefService, olsService,
                                               searchService, termService, ontoTypeService) {
 
@@ -31,19 +31,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.colTaxonName = false;
   $scope.colSequence = false;
 
-  /**
-   * Get the results page - Post version
-   */
   function getResultsPage() {
 
-    //Create the object to send to the server
-    var filterRequest = {};
-    filterRequest.rows =  $scope.maxSize;
-    filterRequest.page = $scope.currentPage;
-
+    var query = $routeParams;
     // $scope.showSlimColumns = filteringService.hasSlims();
 
-    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize);
+    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize, searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
       if ($scope.showSlimColumns) {
