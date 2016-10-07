@@ -19,7 +19,8 @@
     </div>
   </div>
   <div class="form-group">...or select terms from GO slim:
-    <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets" ng-change="updatePredefinedSets()"></select>
+    <select ng-model="selectedPreDefinedSlimSet" ng-options="predefinedSet.name for predefinedSet in predefinedSlimSets"></select>
+    <a ng-click="addPredefinedSet()">Add terms</a>
   </div>
   <a ng-click="more = !more" ng-hide="more">Options</a>
   <div ng-show="more">

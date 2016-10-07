@@ -2,6 +2,15 @@
 
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
+wsService.factory('presetsService', ['$http', 'ENV',
+  function ($http, ENV) {
+    return{
+      //TODO this will be broken into different presets e.g. /goSlimSets
+      getPresets: function() {
+        return $http.get(ENV.apiEndpointPresets);
+      }
+    }
+  }]);
 
 wsService.factory('PreDefinedSlimSets', ['$resource', 'ENV', function($resource, ENV){
     return $resource(ENV.apiEndpoint+'/predefinedslims', {}, {

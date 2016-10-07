@@ -59,7 +59,8 @@ module.exports = function (grunt) {
             apiEndpoint: 'http://ves-hx-c2.ebi.ac.uk:8082/QuickGO/services',
             apiEndpointGeneProd:'http://ves-hx-c2.ebi.ac.uk:8081/QuickGO/services/geneproduct',
             apiEndpointSearch:'http://ves-hx-c2:8083/QuickGO/internal/search/ontology',
-            apiEndpointAnnotationSearch:'http://ves-hx-c2:8080/QuickGO/services/annotation/search'
+            apiEndpointAnnotationSearch:'http://ves-hx-c2:8080/QuickGO/services/annotation/search',
+            apiEndpointPresets:'http://ves-hx-c2:8083/QuickGO/internal/presets'
           }
         }
       }
