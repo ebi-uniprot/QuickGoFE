@@ -1,39 +1,38 @@
 <div class="grid_23" ng-controller="AdvancedFiltersCtrl">
-  
   <ul class="list-inline">
     <li>Filter by:</li>
 
     <!-- TAXON -->
     <li>
-      <filter-dropdown name="Taxonomy">
+      <filter-dropdown name="Taxonomy" active="{{query.taxonId}}">
         <div ng-include src="'advancedfilters/taxonFilter.html'"></div>
       </filter-dropdown>
     </li>
 
     <!-- GENE PRODUCT IDs -->
     <li>
-      <filter-dropdown name="Gene product IDs">
+      <filter-dropdown name="Gene product IDs" active="{{query.geneProductId || query.geneProductSubset}}">
         <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
       </filter-dropdown>
     </li>
 
     <!-- GENE PRODUCT TYPE -->
     <li>
-      <filter-dropdown name="Gene Product Type">
+      <filter-dropdown name="Gene Product Type" active="{{query.geneProductType}}">
         <div ng-include src="'advancedfilters/productTypeFilter.html'"></div>
       </filter-dropdown>
     </li>
 
     <!-- GO TERMS -->
     <li>
-      <filter-dropdown name="GO terms">
+      <filter-dropdown name="GO terms" active="{{query.goId}}">
         <div ng-include src="'advancedfilters/goTermsFilter.html'"></div>
       </filter-dropdown>
     </li>
 
     <!-- ASPECT -->
     <li>
-      <filter-dropdown name="Aspect">
+      <filter-dropdown name="Aspect" active="{{query.aspect}}">
         <div ng-include src="'advancedfilters/aspectFilter.html'"></div>
       </filter-dropdown>
     </li>

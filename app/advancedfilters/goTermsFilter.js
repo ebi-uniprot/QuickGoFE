@@ -1,10 +1,12 @@
 app.controller('goTermsFilter', function($scope, basketService, stringService,
   validationService, termService){
 
+  $scope.goIDs = [];
+  $scope.goTermUse = 'ancestor';
+  $scope.goRelations = 'IPO';
+
+  
   var init = function() {
-    $scope.goIDs = [];
-    $scope.goTermUse = 'ancestor';
-    $scope.goRelations = 'IPO';
     //Basket items
     basketService.getItems().then(function(d){
       var data = d.data.results;
@@ -16,7 +18,9 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   };
 
   $scope.reset = function() {
-    init();
+    $scope.$parent.query.geneProductId = '';
+    $scope.$parent.query.geneProductSubset = '';
+    $scope.$parent.updateQuery();
   };
 
   $scope.addGoTerms = function() {

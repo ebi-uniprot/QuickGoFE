@@ -1,17 +1,9 @@
 <div class="form-group" ng-controller="productTypeFilter">
   <form>
     <ul>
-      <li class="checkbox">
+      <li class="checkbox" ng-repeat="gpType in gpTypes">
         <label>
-          <input type="checkbox" ng-model="gpType['protein']"> Proteins</label>
-      </li>
-      <li class="checkbox">
-        <label>
-          <input type="checkbox" ng-model="gpType['rna']"> RNAs</label>
-      </li>
-      <li class="checkbox">
-        <label>
-          <input type="checkbox" ng-model="gpType['complex']"> Complexes</label>
+          <input type="checkbox" ng-model="gpType.checked"> {{gpType.label}}</label>
       </li>
     </ul>
     <hr>

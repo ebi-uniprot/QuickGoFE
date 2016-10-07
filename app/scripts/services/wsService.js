@@ -128,7 +128,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         var queryString = '';
         angular.forEach(query, function(values, key) {
           if(values) {
-            queryString = queryString + key + '=' + values;
+            queryString = queryString + '&' + key + '=' + values;
           }
         });
         return queryString;

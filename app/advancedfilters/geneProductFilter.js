@@ -8,7 +8,6 @@ app.controller('geneProductFilter', function($scope, stringService,
      var predefinedGPSets =  hardCodedDataService.getGeneProductSets();
      var queryPredefined = $scope.$parent.query.geneProductSubset;
      angular.forEach(predefinedGPSets, function(set) {
-       console.log(queryPredefined);
        if(queryPredefined && _.contains(queryPredefined.split(','), set.value)) {
          set.checked = true;
        } else {
@@ -20,7 +19,7 @@ app.controller('geneProductFilter', function($scope, stringService,
 
   $scope.reset = function() {
     $scope.$parent.query.geneProductId = '';
-    $scope.$parent.query.geneProductSets = '';
+    $scope.$parent.query.geneProductSubset = '';
     $scope.$parent.updateQuery();
   };
 
@@ -29,7 +28,6 @@ app.controller('geneProductFilter', function($scope, stringService,
       $scope.$parent.addToQuery('geneProductId', _.pluck(_.filter($scope.gpIds, 'checked'), 'id'));
     }
     if($scope.geneProductSets.length > 0) {
-      console.log($scope.geneProductSets);
       $scope.$parent.addToQuery('geneProductSubset', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'value'));
     }
   };
