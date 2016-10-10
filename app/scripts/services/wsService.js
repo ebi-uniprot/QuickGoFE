@@ -94,7 +94,7 @@ wsService.factory('ontoTypeService', [function(){
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpointSearch,
+        return $http.get(ENV.apiEndpoint + '/internal/search/ontology',
           {
             params: {
               query : searchTerm,
@@ -106,7 +106,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           });
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpointGeneProd + '/search',
+        return $http.get(ENV.apiEndpoint + '/geneproduct/search',
           {
             params: {
               query : searchTerm,
@@ -121,17 +121,17 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         //TODO
       },
       findAnnotations: function(page, size, filters) {
-        console.log(ENV.apiEndpointAnnotationSearch+'?page=' + page + '&limit=' + size + '&' + filters);
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?page=' + page + '&limit=' + size + '&' + filters);
+        console.log(ENV.apiEndpoint + '/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
+          return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
       },
       findAnnotationsForTerm: function(searchTerm) {
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?goId=' + searchTerm);
+          return $http.get(ENV.apiEndpoint + '/annotation/search?goId=' + searchTerm);
       },
       findAnnotationsForECO: function(searchTerm) {
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?ecoId=' + searchTerm);
+          return $http.get(ENV.apiEndpoint + '/annotation/search?ecoId=' + searchTerm);
       },
       findAnnotationsForProduct: function(searchTerm) {
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?geneProductId=' + searchTerm);
+          return $http.get(ENV.apiEndpoint+'/annotation/search?geneProductId=' + searchTerm);
       },
       serializeQuery: function(query) {
         var queryString = '';
