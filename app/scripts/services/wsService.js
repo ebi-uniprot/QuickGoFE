@@ -7,7 +7,7 @@ wsService.factory('presetsService', ['$http', 'ENV',
     return{
       //TODO this will be broken into different presets e.g. /goSlimSets
       getPresets: function() {
-        return $http.get(ENV.apiEndpointPresets);
+        return $http.get(ENV.apiEndpoint + '/internal/presets');
       }
     }
   }]);
@@ -28,7 +28,7 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   //var
   return {
       getTerm : function(termId, isGoTerm) {
-        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + termId + '/complete')
+        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + termId + '/complete')
             : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
       getTerms : function(ids, isGoTerm, idKey) {
@@ -41,11 +41,11 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
               });
               ids = termsToQuery.slice(0, -1);
           }
-          return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + ids)
-              : $http.get(ENV.apiEndpoint+'/eco/terms/' + ids);
+          return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids)
+              : $http.get(ENV.apiEndpoint+'/ontology/eco/terms/' + ids);
       },
       getGOTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/go/terms/' + ids);
+        return $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids);
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
