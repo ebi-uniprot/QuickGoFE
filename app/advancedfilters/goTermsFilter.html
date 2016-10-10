@@ -3,9 +3,10 @@
   <!-- 3 choices -->
   <div class="y-scroll-200 inset-panel" ng-hide="goIDs.length <= 0">
     <ul>
-      <li ng-repeat="term in goIDs" class="checkbox">
+      <li ng-repeat="(id, term) in goTerms" class="checkbox">
         <label>
-          <input type="checkbox" ng-model="term.checked"> {{term.id}} {{term.name}}</label>
+          <input type="checkbox" ng-model="term.checked"> {{term.id}} {{term.name}}
+        </label>
       </li>
     </ul>
   </div>
@@ -29,27 +30,27 @@
     <div><strong>Select how you want to use the terms that you have chosen:</strong>
       <ul>
         <li class="checkbox">
-          <input type="radio" ng-model="goTermUse" value="ancestor" ng-change="applyFilters()"> Find annotations to <strong>descendants</strong> of these terms.
+          <input type="radio" ng-model="goTermUse" value="descendants"> Find annotations to <strong>descendants</strong> of these terms.
         </li>
         <li class="checkbox">
           <input type="radio" ng-model="goTermUse" value="slim"> Use these terms as a <strong>GO slim</strong>.</li>
         <li class="checkbox">
-          <input type="radio" ng-model="goTermUse" value="exact"> Use these terms as an <strong>exact</strong> match.</li>
+          <input type="radio" ng-model="goTermUse" value=""> Use these terms as an <strong>exact</strong> match.</li>
       </ul>
     </div>
     <hr>
 
     <!-- Select Relationship-->
-    <div ng-show="goTermUse=='slim' || goTermUse=='ancestor'"><strong>Select which relationship an annotated term should have to the terms above <a href="http://geneontology.org/page/ontology-relations" target="_blank">(more info)</a>:</strong>
+    <div ng-show="goTermUse=='slim' || goTermUse=='descendants'"><strong>Select which relationship an annotated term should have to the terms above <a href="http://geneontology.org/page/ontology-relations" target="_blank">(more info)</a>:</strong>
       <ul>
         <li class="checkbox">
-          <input type="radio" name="closure" value="I" ng-model="goRelations"> is_a
+          <input type="radio" name="closure" value="is_a" ng-model="goRelations"> is_a
         </li>
         <li class="checkbox">
-          <input type="radio" name="closure" value="IPO" ng-model="goRelations"> is_a, part_of, occurs_in
+          <input type="radio" name="closure" value="is_a,part_of,occurs_in" ng-model="goRelations"> is_a, part_of, occurs_in
         </li>
         <li class="checkbox">
-          <input type="radio" name="closure" value="IPOR" ng-model="goRelations"> is_a, part_of, occurs_in, regulates
+          <input type="radio" name="closure" value="is_a,part_of,occurs_in,regulates" ng-model="goRelations"> is_a, part_of, occurs_in, regulates
         </li>
       </ul>
     </div>

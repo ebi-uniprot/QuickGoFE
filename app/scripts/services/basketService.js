@@ -76,6 +76,10 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
       return $q.resolve(d);
     }
   };
+  
+  basketList.getIds = function() {
+    return $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
+  }
 
 
   /**

@@ -4,7 +4,7 @@ app.controller('AdvancedFiltersCtrl', function($scope, $routeParams, $location,
 
     $scope.query = $routeParams;
 
-    $scope.addToQuery = function(type,values) {
+  $scope.addToQuery = function(type,values) {
       $scope.query[type] = values;
       $scope.updateQuery();
     };
