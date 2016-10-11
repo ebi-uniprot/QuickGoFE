@@ -208,13 +208,6 @@ wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource
   });
 }]);
 
-wsService.factory('evidenceService', ['$http', 'ENV', function($http, ENV){
-  return {
-    getTypes: function() {
-      return $http.get(ENV.apiEndpoint+'/evidencetypes');
-    }
-  }
-}]);
 
 wsService.factory('withDBs', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/withdbs', {}, {

@@ -4,17 +4,17 @@
 
     <div class="form-group y-scroll-200 inset-panel">
       <ul>
-        <li ng-repeat="eco in $scope.ecos" class="checkbox">
+        <li ng-repeat="eco in ecos" class="checkbox">
           <label>
             <input type="checkbox" ng-model="eco.checked">
-            <a ng-click="showEvidenceCodeOntologyGraph('{{eco.id}}')">{{ecoID}}</a>
-            <strong>{{namesMap[ecoID].evidenceGOID}}</strong> {{namesMap[ecoID].evidenceName}}
+            <a ng-click="showEvidenceCodeOntologyGraph('{{eco.id}}')">{{eco.id}}</a>
+            <strong>{{eco.name}}</strong> {{eco.description}}
           </label>
         </li>
       </ul>
     </div>
-    <a ng-click="toggleMore('evidence')" ng-hide="view['evidence']">Add more...</a>
-    <div ng-show="view['evidence']">
+    <a ng-click="more = !more" ng-hide="more">Add more...</a>
+    <div ng-show="more">
 
       <hr>
       <div class="form-group">
