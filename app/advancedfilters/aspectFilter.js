@@ -1,18 +1,18 @@
 app.controller('aspectFilter', function($scope){
   
   $scope.aspects = {
-    'function':{
-      'id': 'function',
+    'molecular_function':{
+      'id': 'molecular_function',
       'label' : 'Molecular function',
       'checked' : false
     },
-    'process':{
-      'id': 'process',
+    'biological_process':{
+      'id': 'biological_process',
       'label' : 'Biological process',
       'checked' : false
     },
-    'component':{
-      'id': 'component',
+    'cellular_component':{
+      'id': 'cellular_component',
       'label' : 'Cellular Component',
       'checked' : false
     },
