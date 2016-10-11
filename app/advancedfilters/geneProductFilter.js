@@ -47,6 +47,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
   
   var addGpIds = function(gpids) {
     angular.forEach(gpids, function (gpID) {
+      gpID = gpID.toUpperCase();
       if (validationService.validateGeneProduct(gpID)) {
         $scope.gpIds.unshift({
           id: gpID,
