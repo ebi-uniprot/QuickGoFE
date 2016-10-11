@@ -32,7 +32,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.colSequence = false;
 
   function getResultsPage() {
-
     var query = $routeParams;
     // $scope.showSlimColumns = filteringService.hasSlims();
 
@@ -56,10 +55,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
               console.log(reason);
             }
         );
-    }, function (response) {
-      if(response.status === 400) {
-        handleServerError(response.data);
-      }
     });
   }
 
@@ -100,14 +95,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     });
   }
 
-  function handleServerError(error) {
-    $scope.addAlert = function() {
-      $scope.alerts.push({msg: error.message});
-    };
-    // filteringService.clearFilters();
-    $rootScope.$broadcast('filtersUpdate');
-  }
-
   /**
    * Put commas between the rather large numbers we can have here.
    */
@@ -127,10 +114,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Listen to an update to the filters list that comes from the typeahead function
    */
-  $scope.$on('filtersUpdate', function() {
-    $scope.currentPage=1;
-    getResultsPage(1);
-  });
+//  $scope.$on('filtersUpdate', function() {
+//    $scope.currentPage=1;
+//    getResultsPage(1);
+//  });
 
   $scope.pageChanged = function() {
     getResultsPage();
