@@ -23,7 +23,7 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
       });
     }
   };
-
+  
   $scope.reset = function() {
     $scope.$parent.query.taxonId = '';
     $scope.$parent.updateQuery();
