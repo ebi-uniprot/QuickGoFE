@@ -10,15 +10,16 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
     var termsToFetch = [];
     var checkedTerms = [];
     if($scope.$parent.query.goId) {
-      checkedTerms = termsToFetch.concat($scope.$parent.query.goId.split(','));
+      checkedTerms = $scope.$parent.query.goId.split(',');
     } 
     
     if (basketService.getIds().length > 0){
       termsToFetch = termsToFetch.concat(basketService.getIds());      
     }
     
-    termsToFetch.concat(checkedTerms);    
+    termsToFetch = termsToFetch.concat(checkedTerms);    
     termsToFetch = _.uniq(termsToFetch);
+    
 
     if(termsToFetch.length > 0){
       termService.getGOTerms(termsToFetch.toString()).then(function(d){
