@@ -1,5 +1,5 @@
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window,
-                                              hardCodedDataService, dbXrefService, filteringService, olsService,
+app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
+                                              hardCodedDataService, dbXrefService, olsService,
                                               searchService, termService, ontoTypeService) {
 
   /**
@@ -31,20 +31,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.colTaxonName = false;
   $scope.colSequence = false;
 
-  /**
-   * Get the results page - Post version
-   */
   function getResultsPage() {
+    var query = $routeParams;
+    // $scope.showSlimColumns = filteringService.hasSlims();
 
-    //Create the object to send to the server
-    var filterRequest = {};
-    filterRequest.list =  filteringService.populateAppliedFilters();  //TODO use it
-    filterRequest.rows =  $scope.maxSize;
-    filterRequest.page = $scope.currentPage;
-
-    $scope.showSlimColumns = filteringService.hasSlims();
-
-    $scope.resultsPromise = searchService.findAnnotationsWithFilter(filterRequest);
+    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize, searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
       if ($scope.showSlimColumns) {
@@ -58,17 +49,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       $scope.additionalTermsPromise = termService.getTerms($scope.annotations, true, 'goId');
       $scope.additionalTermsPromise
         .then(function(moreData) {
-          console.log(moreData);
               addInformation($scope.annotations, moreData.data.results);
             }, function (reason) {
               $scope.notFoundAdditionaTermsReason = reason;
               console.log(reason);
             }
         );
-    }, function (response) {
-      if(response.status === 400) {
-        handleServerError(response.data);
-      }
     });
   }
 
@@ -79,7 +65,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       if(lastAnnotation && (tempAnnotation.id === lastAnnotation.id)){
           lastAnnotation.slimsList.push(tempAnnotation);
       } else {
-          $scope.annotations.push(tempAnnotation)
+          $scope.annotations.push(tempAnnotation);
       }
       lastAnnotation = tempAnnotation;
       if (!lastAnnotation.slimsList) {
@@ -109,14 +95,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     });
   }
 
-  function handleServerError(error) {
-    $scope.addAlert = function() {
-      $scope.alerts.push({msg: error.message});
-    };
-    filteringService.clearFilters();
-    $rootScope.$broadcast('filtersUpdate');
-  }
-
   /**
    * Put commas between the rather large numbers we can have here.
    */
@@ -136,10 +114,10 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   /**
    * Listen to an update to the filters list that comes from the typeahead function
    */
-  $scope.$on('filtersUpdate', function() {
-    $scope.currentPage=1;
-    getResultsPage(1);
-  });
+//  $scope.$on('filtersUpdate', function() {
+//    $scope.currentPage=1;
+//    getResultsPage(1);
+//  });
 
   $scope.pageChanged = function() {
     getResultsPage();

@@ -1,9 +1,4 @@
-angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $rootScope, $log, basketService, $location, filteringService, $sce) {
-
-  $scope.annotationList = function () {
-    filteringService.clearFilters();
-    $location.path("annotations");
-  };
+angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $rootScope, $sce) {
 
   $rootScope.header = "QuickGO Beta";
 

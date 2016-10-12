@@ -1,0 +1,29 @@
+<div ng-controller="referencesFilter">
+  <h5>Reference</h5>
+  <!-- GO ID -->
+  <div>
+    <form>
+      <div class="y-scroll-200 inset-panel">
+        <ul>
+          <li ng-repeat="(refId, value) in filters.referenceSearch" class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="filters.referenceSearch[refId]"> <strong>{{refId}}</strong> {{namesMap[refId]}}
+            </label>
+            </td>
+          </li>
+        </ul>
+      </div>
+      <p>*: Any matches will be displayed</p>
+      <a ng-click="toggleMore('reference')" ng-hide="view['reference']">Add more...</a>
+      <div ng-show="view['reference']">
+        <hr>
+        <div class="form-group">
+          <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-default" type="button" ng-click="addReferences()">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

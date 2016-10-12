@@ -11,15 +11,6 @@ errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$root
       responseError: function error(response) {
         switch (response.status) {
           case 400:
-            if (response.data.message) {
-              $rootScope.alerts.push({
-                msg: response.data.message
-              });
-            } else {
-              $rootScope.alerts.push({
-                msg: 'Statistics could not be loaded.'
-              });
-            }
             break;
           case 404:
             $location.path('/404');
@@ -33,6 +24,13 @@ errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$root
           default:
             $location.path('/404');
             console.log('ERROR:', response);
+        }
+        if (response.data.messages) {
+          $rootScope.alerts = _.map(response.data.messages, function(message){
+            return {
+              msg: message
+            }
+          });
         }
         return $q.reject(response);
       }

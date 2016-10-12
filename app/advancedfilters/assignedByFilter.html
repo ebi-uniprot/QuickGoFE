@@ -1,0 +1,17 @@
+<div ng-controller="assignedByController">
+  <h5>Assigned by</h5>
+  <!-- GO ID -->
+  <div>
+    <form>
+      <div class="y-scroll-400 inset-panel">
+        <ul>
+          <li ng-repeat="(dbId,val) in filters.assignedby" class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="filters.assignedby[dbId]"> <strong>{{dbId}}</strong> {{namesMap[dbId]}}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</div>

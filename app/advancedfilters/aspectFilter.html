@@ -1,0 +1,15 @@
+<div ng-controller="aspectFilter">
+  <form>
+    <ul class="form-group">
+      <li ng-repeat="aspect in aspects">
+        <label class="checkbox">
+          <input type="checkbox" ng-model="aspect.checked"> {{aspect.label}}
+        </label>
+      </li>
+    </ul>
+  </form>
+  <hr>
+  <div class="pull-right">
+    <filter-buttons></filter-buttons>
+  </div>
+</div>

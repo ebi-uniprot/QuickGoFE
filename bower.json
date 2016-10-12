@@ -9,14 +9,12 @@
     "angular-mocks": "^1.4.0",
     "angular-resource": "^1.4.0",
     "angular-route": "^1.4.0",
-    "angular-sanitize": "^1.4.0",
     "angular-scroll": "~1.0.0",
-    "es5-shim": "^4.0.0",
-    "json3": "^3.3.0",
     "angular-bootstrap": "~0.14.3",
     "underscore": "~1.8.3",
     "file-saver": "~1.3.1",
-    "angular-object-table": "^0.2.2"
+    "angular-object-table": "^0.2.2",
+    "angular-sanitize": "^1.5.8"
   },
   "appPath": "app",
   "resolutions": {

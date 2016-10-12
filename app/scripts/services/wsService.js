@@ -2,6 +2,15 @@
 
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
+wsService.factory('presetsService', ['$http', 'ENV',
+  function ($http, ENV) {
+    return{
+      //TODO this will be broken into different presets e.g. /goSlimSets
+      getPresets: function() {
+        return $http.get(ENV.apiEndpoint + '/internal/presets');
+      }
+    }
+  }]);
 
 wsService.factory('PreDefinedSlimSets', ['$resource', 'ENV', function($resource, ENV){
     return $resource(ENV.apiEndpoint+'/predefinedslims', {}, {
@@ -19,10 +28,11 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   //var
   return {
       getTerm : function(termId, isGoTerm) {
-        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + termId + '/complete')
+        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + termId + '/complete')
             : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
       },
       getTerms : function(ids, isGoTerm, idKey) {
+          //TODO revise that
           if (ids instanceof Array) {
               var termsToQuery = '';
               idKey = idKey ? idKey : 'id';
@@ -31,11 +41,11 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
               });
               ids = termsToQuery.slice(0, -1);
           }
-          return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/go/terms/' + ids)
-              : $http.get(ENV.apiEndpoint+'/eco/terms/' + ids);
+          return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids)
+              : $http.get(ENV.apiEndpoint+'/ontology/eco/terms/' + ids);
       },
       getGOTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/go/terms/' + ids);
+        return $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids);
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
@@ -84,7 +94,7 @@ wsService.factory('ontoTypeService', [function(){
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpointSearch,
+        return $http.get(ENV.apiEndpoint + '/internal/search/ontology',
           {
             params: {
               query : searchTerm,
@@ -96,7 +106,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           });
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpointGeneProd + '/search',
+        return $http.get(ENV.apiEndpoint + '/geneproduct/search',
           {
             params: {
               query : searchTerm,
@@ -110,17 +120,27 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findPublications: function(searchTerm, limit) {
         //TODO
       },
-      findAnnotationsWithFilter: function(filter) { //TODO filterRequest.list
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?page=' + filter.page + '&limit=' + filter.rows);
+      findAnnotations: function(page, size, filters) {
+        console.log(ENV.apiEndpoint + '/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
+          return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
       },
       findAnnotationsForTerm: function(searchTerm) {
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?goId=' + searchTerm);
+          return $http.get(ENV.apiEndpoint + '/annotation/search?goId=' + searchTerm);
       },
       findAnnotationsForECO: function(searchTerm) {
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?ecoId=' + searchTerm);
+          return $http.get(ENV.apiEndpoint + '/annotation/search?ecoId=' + searchTerm);
       },
       findAnnotationsForProduct: function(searchTerm) {
-          return $http.get(ENV.apiEndpointAnnotationSearch+'?geneProductId=' + searchTerm);
+          return $http.get(ENV.apiEndpoint+'/annotation/search?geneProductId=' + searchTerm);
+      },
+      serializeQuery: function(query) {
+        var queryString = '';
+        angular.forEach(query, function(values, key) {
+          if(values) {
+            queryString = queryString + '&' + key + '=' + values;
+          }
+        });
+        return queryString;
       }
   };
 }]);
@@ -188,11 +208,6 @@ wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource
   });
 }]);
 
-wsService.factory('evidencetypes', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/evidencetypes', {}, {
-    query: {method:'GET',  isArray:true, Cache:true}
-  });
-}]);
 
 wsService.factory('withDBs', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/withdbs', {}, {

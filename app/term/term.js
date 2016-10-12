@@ -2,7 +2,7 @@
  * Created by twardell on 02/02/2015.
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
-                                    ENV, filteringService, quickGOHelperService, $document, $routeParams, termService,
+                                    ENV, quickGOHelperService, $document, $routeParams, termService,
                                     ontoTypeService, PreDefinedSlimSets) {
 
   $scope.targetDomainAndPort = ENV.apiEndpoint;

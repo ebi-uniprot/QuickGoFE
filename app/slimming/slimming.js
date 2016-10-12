@@ -1,5 +1,5 @@
 app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, hardCodedDataService, PreDefinedSlimSets,
-                                      PreDefinedSlimSetDetail, termService, basketService, filteringService, stringService) {
+                                      PreDefinedSlimSetDetail, termService, basketService, stringService) {
 
 
   $scope.succesAlerts = [];
@@ -288,8 +288,8 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal, har
 
     // Add taxons
     angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
-      if($scope.selectedSpecies[taxonId])
-        filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
+      // if($scope.selectedSpecies[taxonId])
+        // filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
     });
     $location.path("annotations");
   };

@@ -20,6 +20,7 @@ module.exports = function(config) {
     files: [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-busy/dist/angular-busy.js',
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-resource/angular-resource.js',
@@ -27,8 +28,9 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-scroll/angular-scroll.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-      'bower_components/angular-animate/angular-animate.js',
       'bower_components/underscore/underscore-min.js',
+      'bower_components/file-saver/FileSaver.js',
+      'bower_components/angular-object-table/build/object-table.js',
       'app/**/*.html',
       '.tmp/scripts/config.js',
       'app/scripts/app.js',
