@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "test":"./test/karma start karma.conf.js"
-  }
+  },
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^6.1.2",
