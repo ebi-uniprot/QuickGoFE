@@ -8,7 +8,6 @@ describe('Testing annotation filters', function(){
   
   beforeEach(inject(function($controller, $rootScope) {
     scope = $rootScope.$new();
-
     AdvancedFiltersCtrl = $controller('AdvancedFiltersCtrl', {
       $scope: scope
     });
@@ -16,8 +15,19 @@ describe('Testing annotation filters', function(){
   
   it('should add to query', function () {
     scope.addToQuery('test',['value 1', 'value2']);
-    console.log(scope.query.test);
     expect(scope.query.test.length).toBe(2);
   });
+  
+  it('should clear the query', function() {
+    scope.addToQuery('test',['value 1', 'value2']);
+    scope.clearFilters();
+    expect(scope.query).toEqual({});
+  })
+  
+  it('should tell me whether the filter is active', function() {
+    scope.addToQuery('test',['value 1', 'value2']);
+    expect(scope.isActiveFilter('test')).toEqual(true);
+    expect(scope.isActiveFilter('blah')).toEqual(false);
+  })
   
 });
