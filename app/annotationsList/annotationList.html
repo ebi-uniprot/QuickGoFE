@@ -3,7 +3,10 @@
 <p class="buttons-under-tabs">
   <button class="btn quickgo-btn icon-functional" ng-click="toggleCustomiseContainer()"
   data-icon="s">Customise</button>
-  <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
+  <button class="btn quickgo-btn icon-functional" data-open="download-menu" data-icon="=">Download</button>
+  <div id="download-menu" class="reveal" data-reveal>
+    <div ng-include src="'download/download.html'"></div>    
+  </div>
   <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
 </p>
 

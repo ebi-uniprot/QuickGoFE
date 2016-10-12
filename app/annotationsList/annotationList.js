@@ -1,6 +1,6 @@
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
+app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $log, $location, $window, $routeParams,
                                               hardCodedDataService, dbXrefService, olsService,
-                                              searchService, termService, ontoTypeService) {
+                                              searchService, $uibModal, termService, ontoTypeService) {
 
   /**
    * Initialisation
@@ -123,19 +123,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     getResultsPage();
   };
 
-  $scope.download = function () {
-
-    var modalInstance = $uibModal.open({
-      templateUrl: 'download/download.html',
-      controller: 'DownloadCtrl',
-      size: 'med',
-      scope: $scope
-    });
-
-    modalInstance.result.then(function () {
-      $log.info('Download modal dismissed at: ' + new Date());
-    });
-  };
 
   $scope.showTaxon = function(target) {
     $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
