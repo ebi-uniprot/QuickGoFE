@@ -101,29 +101,28 @@ select="false">
 </td>
 <td class="td-no-icon" ng-show="$owner.colSymbol">{{::item.symbol}}</td>
 <td class="td-no-icon" ng-show="$owner.colQualifier">{{::item.qualifier}}</td>
-
 <td ng-show="$owner.showSlimColumns && $owner.colGOIdentifier" class="text-nowrap">
-  <span ng-if="::item.originalAspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{::item.originalAspect}}">{{::item.originalAspect}}</span>
+  <span data-tooltip ng-if="::item.originalAspect" title="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)" class="aspect-icon aspect-{{::item.originalAspect}} has-tip">{{::item.originalAspect}}</span>
   <a href="term/{{::item.originalTermId}}">{{::item.originalTermId}}</a>
   <basket-button termid="{{::item.originalTermId}}" icondisabled="{{::item.isObsolete}}"></basket-button>
   <chart-icon term-id="::item.originalTermId" term-name="::item.originalTermName"></chart-icon>
-  <element uib-tooltip="{{::item.termName}}">{{::item.originalTermName | shortenStringFilter}}</element>
+  <element data-tooltip class="has-tip" title="{{::item.termName}}">{{::item.originalTermName | shortenStringFilter}}</element>
 </td>
 
 <td class="text-nowrap" ng-show="$owner.colGOIdentifier">
   <div class="go-term">
-    <span ng-if="::item.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{::item.aspect}}">{{::item.aspect}}</span>
+    <span data-tooltip title="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)" ng-if="::item.aspect" class="aspect-icon aspect-{{::item.aspect}} has-tip">{{::item.aspect}}</span>
     <a class="quickgo-link selectable" href="term/{{::item.goId}}">{{::item.goId}}</a>
     <basket-button termid="{{::item.goId}}" icondisabled="{{::item.isObsolete}}"></basket-button>
     <chart-icon term-id="::item.goId" term-name="::item.termName"></chart-icon>
-    <element uib-tooltip="{{::item.termName}}">{{::item.termName | shortenStringFilter}}</element>
+    <element data-tooltip class="has-tip" title="{{::item.termName}}">{{::item.termName | shortenStringFilter}}</element>
   </div>
   <div ng-repeat="slimRepeat in ::item.slimsList" class="go-term slim-repeat">
-    <span ng-if="::slimRepeat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{::slimRepeat.aspect}}">{{::slimRepeat.aspect}}</span>
+    <span data-tooltip ng-if="::slimRepeat.aspect" class="aspect-icon aspect-{{::slimRepeat.aspect}} has-tip" title="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)">{{::slimRepeat.aspect}}</span>
     <a class="quickgo-link selectable" href="term/{{::slimRepeat.goId}}">{{::slimRepeat.goId}}</a>
     <basket-button termid="{{::slimRepeat.goId}}" icondisabled="{{::slimRepeat.isObsolete}}"></basket-button>
     <chart-icon term-id="::slimRepeat.goId" term-name="::slimRepeat.termName"></chart-icon>
-    <element uib-tooltip="{{::slimRepeat.termName}}">{{::slimRepeat.termName | shortenStringFilter}}</element>
+    <element data-tooltip class="has-tip" title="{{::slimRepeat.termName}}">{{::slimRepeat.termName | shortenStringFilter}}</element>
   </div>
 </td>
 
@@ -212,7 +211,7 @@ select="false">
   <div class="clearfix"></div>
 
   <!-- Dynamicaly inserted tootltips for column headings -->
-  <script type="text/ng-template" id="colDatabase.html"><span>The souce database of the annotation</span></script>
+  <!-- <script type="text/ng-template" id="colDatabase.html"><span>The souce database of the annotation</span></script>
   <script type="text/ng-template" id="colGeneProductID.html"><span>The sequence IDs that have been annotated with GO Terms.</span></script>
   <script type="text/ng-template" id="colSymbol.html"><span>The symbols corresponding to the Gene Product ID. An officially approved gene symbol when available or other gene symbols or locus names.</span></script>
   <script type="text/ng-template" id="colQualifier.html"><span>Defines the relationship between Gene product and GO term.</span></script>
@@ -226,4 +225,4 @@ select="false">
   <script type="text/ng-template" id="colAssignedBy.html"><span>The database which created the annotation. The GO annotation may not be copied without acknowledgement of the data source.</span></script>
   <script type="text/ng-template" id="colAnnotationExtension.html"><span>Annotation Extension</span></script>
   <script type="text/ng-template" id="colOrigID.html"><span>The orginal GO ID</span></script>
-  <script type="text/ng-template" id="colOrigName.html"><span>Original name of the slim</span></script>
+  <script type="text/ng-template" id="colOrigName.html"><span>Original name of the slim</span></script> -->

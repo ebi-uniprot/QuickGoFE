@@ -15,7 +15,7 @@
         <a class="quickgo-link selectable" href="term/{{taxonConstraint.goId}}">{{taxonConstraint.goId}}</a>
         <basket-button termid="{{taxonConstraint.goId}}"></basket-button>
         <chart-icon term-id="taxonConstraint.goId" term-name="taxonConstraint.name"></chart-icon>
-        <element uib-tooltip="{{taxonConstraint.name}}">{{taxonConstraint.name | shortenStringFilter}}</element>
+        <element data-tooltip class="has-tip" title="{{taxonConstraint.name}}">{{taxonConstraint.name | shortenStringFilter}}</element>
       </td>
       <td class="lowercase">{{taxonConstraint.relationship}}</td>
       <td>{{taxonConstraint.taxId}}</td>

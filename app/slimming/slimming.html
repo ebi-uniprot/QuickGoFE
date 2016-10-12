@@ -137,7 +137,7 @@
         <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a>
         <basket-button termid="{{aTerm.termId}}"></basket-button>
         <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
-        {{aTerm.name}} <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+        {{aTerm.name}} <a class="icon icon-functional has-tip" data-icon="x" data-tooltip title="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
       </li>
     </ul>
 
@@ -146,7 +146,7 @@
       <li ng-repeat="aTerm in getSelectedBPTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
         <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button>
         <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
-        {{aTerm.name}} <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+        {{aTerm.name}} <a class="icon icon-functional has-tip" data-icon="x" data-tooltip title="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
       </li>
     </ul>
 
@@ -155,7 +155,7 @@
       <li ng-repeat="aTerm in getSelectedCCTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
         <a href="term/{{aTerm.termId}}" target="_blank">{{aTerm.termId}}</a> <basket-button termid="{{aTerm.termId}}"></basket-button>
         <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
-        {{aTerm.name}} <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+        {{aTerm.name}} <a class="icon icon-functional has-tip" data-icon="x" data-tooltip title="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
       </li>
     </ul>
   </div>
@@ -167,7 +167,7 @@
           <i><a href="term/{{aTerm.termId}}" target="_blank"><i>{{aTerm.termId}}</i></a>
           <basket-button termid="{{aTerm.termId}}"></basket-button>
           <chart-icon term-id="aTerm.termId" term-name="aTerm.termName"></chart-icon>
-          {{aTerm.name}} <a class="icon icon-functional" data-icon="+" uib-tooltip="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+          {{aTerm.name}} <a class="icon icon-functional has-tip" data-icon="+" data-tooltip title="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
 </i>
         </li>
     </ul>

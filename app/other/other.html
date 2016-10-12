@@ -45,7 +45,7 @@
       <a href="term/{{postProcessing.originalGoId}}">{{postProcessing.originalGoId}}</a>
       <basket-button termid="{{postProcessing.originalGoId}}"></basket-button>
       <chart-icon term-id="postProcessing.originalGoId" term-name="postProcessing.originalTerm"></chart-icon>
-      <element uib-tooltip="{{postProcessing.originalTerm}}">{{postProcessing.originalTerm | shortenStringFilter}}</element>
+      <element data-tooltip class="has-tip" title="{{postProcessing.originalTerm}}">{{postProcessing.originalTerm | shortenStringFilter}}</element>
     </td>
     <td>{{postProcessing.cleanupAction}}</td>
     <td>{{postProcessing.affectedTaxGroup}}</td>
@@ -53,14 +53,14 @@
       <a href="term/{{postProcessing.substitutedGoId}}">{{postProcessing.substitutedGoId}}</a>
       <basket-button termid="{{postProcessing.substitutedGoId}}"></basket-button>
       <chart-icon term-id="postProcessing.substitutedGoId" term-name="postProcessing.substitutedTerm"></chart-icon>
-      <element uib-tooltip="{{postProcessing.substitutedTerm}}">{{postProcessing.substitutedTerm | shortenStringFilter}}</element>
+      <element data-tooltip class="has-tip" title="{{postProcessing.substitutedTerm}}">{{postProcessing.substitutedTerm | shortenStringFilter}}</element>
     </td>
     <td>{{postProcessing.curatorNotes}}</td>
     <td class="text-nowrap">
       <a href="term/{{postProcessing.ancestorGoId}}">{{postProcessing.ancestorGoId}}</a>
       <basket-button termid="{{postProcessing.ancestorGoId}}"></basket-button>
       <chart-icon term-id="postProcessing.ancestorGoId" term-name="postProcessing.ancestorTerm"></chart-icon>
-      <element uib-tooltip="{{postProcessing.ancestorTerm}}">{{postProcessing.ancestorTerm | shortenStringFilter}}</element>
+      <element data-tooltip class="has-tip" title="{{postProcessing.ancestorTerm}}">{{postProcessing.ancestorTerm | shortenStringFilter}}</element>
     </td>
     <td>{{postProcessing.relationship}}</td>
     <td>{{postProcessing.taxonName}}</td>
