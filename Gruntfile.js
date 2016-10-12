@@ -16,8 +16,7 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn',
-    ngconstant: 'grunt-ng-constant'
+    cdnify: 'grunt-google-cdn'
   });
 
   // Configurable paths for the application
@@ -31,36 +30,6 @@ module.exports = function (grunt) {
 
     // Project settings
     yeoman: appConfig,
-
-    ngconstant: {
-      options: {
-        space: '  ',
-        name: 'config',
-        dest: '.tmp/scripts/config.js'
-      },
-      // Environment targets
-      dev: {
-        constants: {
-          ENV: {
-            apiEndpoint: 'http://localhost:9080'
-          }
-        }
-      },
-      beta: {
-        constants: {
-          ENV: {
-            apiEndpoint: 'http://www.ebi.ac.uk/QuickGO-Beta/services'
-          }
-        }
-      },
-      prod: {
-        constants: {
-          ENV: {
-            apiEndpoint: 'http://wwwdev.ebi.ac.uk/QuickGO/services'
-          }
-        }
-      }
-    },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -515,27 +484,13 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
-    } else if (target === 'remoteApi') {
-      return grunt.task.run([
-        'clean:server',
-        'ngconstant:prod',
-        'wiredep',
-        'concurrent:server',
-        'postcss:server',
-        'connect:livereload',
-        // 'test',
-        'watch'
-      ]);
-    }
-    grunt.task.run([
+    return grunt.task.run([
       'clean:server',
-      'ngconstant:dev',
       'wiredep',
       'concurrent:server',
       'postcss:server',
       'connect:livereload',
+      // 'test',
       'watch'
     ]);
   });
@@ -547,7 +502,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    'ngconstant:prod',
     'wiredep',
     'concurrent:test',
     'postcss',
@@ -557,7 +511,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'ngconstant:prod',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
@@ -573,26 +526,6 @@ module.exports = function (grunt) {
     'usemin',
     'htmlmin',
     'replace:prod'
-  ]);
-
-  grunt.registerTask('build-beta', [
-    'clean:dist',
-    'ngconstant:beta',
-    'wiredep',
-    'useminPrepare',
-    'concurrent:dist',
-    'postcss',
-    'ngtemplates',
-    'concat',
-    'ngAnnotate',
-    'copy:dist',
-    'cdnify',
-    'cssmin',
-    'uglify',
-    'filerev',
-    'usemin',
-    'htmlmin',
-    'replace:beta'
   ]);
 
   grunt.registerTask('default', [
