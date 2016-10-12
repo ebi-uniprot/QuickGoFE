@@ -29,7 +29,6 @@ module.exports = function(config) {
       'bower_components/file-saver/FileSaver.js',
       'bower_components/angular-object-table/build/object-table.js',
       'app/**/*.html',
-      '.tmp/scripts/config.js',
       'app/scripts/app.js',
       'app/**/*.js',
       'test/spec/**/*.js'
