@@ -1,4 +1,4 @@
-<div class="mainContent grid_24">
+<div class="mainContent medium-12">
   <!-- Bot-friendly
   <div style="display:none">
   <a href="terms/P">Biological Process</a>
@@ -8,8 +8,10 @@
 -->
 
 
-<div class="clearfix"></div>
-  <div id="search-terms" class="quickgo-panel startpoint-panel grid_20 push_2">
+<!-- <div class="clearfix"></div> -->
+
+<div class="row">
+  <div id="search-terms" class="quickgo-panel startpoint-panel medium-12">
     <span class="help-icon pull-right icon-generic" data-icon="i" uib-tooltip-html="termsTooltip" tooltip-placement="left"></span>
     <h2>Search</h2>
     <div id="search-area" class="typeaheadsearch" ng-controller="LocationCtrl">
@@ -19,62 +21,27 @@
     </div>
     <span>e.g <a ng-href="search/apoptosis">apoptosis</a>; <a href="term/GO:0006915">GO:0006915</a>; <a href="term/ECO:0000314">ECO:0000314</a>; <a ng-href="search/tropomyosin">tropomyosin</a></span>
   </div>
-
-<div id="go-annotations" class="grid_10 quickgo-panel push_2 startpoint-panel" ng-click="annotationList()">
-  <span class="help-icon pull-right icon-generic" data-icon="i" tooltip-placement="left" uib-tooltip-html="annoTooltip"></span>
-  <h2>View GO Annotations</h2>
-  <span>&nbsp;</span><br />
-  <img src="images/goannotations1.png" />
 </div>
 
-<a ng-href="slimming">
-  <div id="investigate-go-slims" class="quickgo-panel startpoint-panel grid_10 push_2">
-    <span class="help-icon pull-right icon-generic" data-icon="i" uib-tooltip-html="slimsTooltip" tooltip-placement="left"></span>
-    <h2>Explore biology</h2>
-    <span>Use sets of GO terms (<strong>slims</strong>) that describe your area of interest</span><br />
-      <img src="images/slims1.png" />
+<div class="row">
+  <div id="go-annotations" class="medium-6 quickgo-panel startpoint-panel columns" ng-click="annotationList()">
+    <span class="help-icon pull-right icon-generic" data-icon="i" tooltip-placement="left" uib-tooltip-html="annoTooltip"></span>
+    <h2>View GO Annotations</h2>
+    <span>&nbsp;</span><br />
+    <img src="images/goannotations1.png" />
   </div>
-</a>
+  <a ng-href="slimming">
+    <div id="investigate-go-slims" class="medium-6 quickgo-panel startpoint-panel columns">
+      <span class="help-icon pull-right icon-generic" data-icon="i" uib-tooltip-html="slimsTooltip" tooltip-placement="left"></span>
+      <h2>Explore biology</h2>
+      <span>Use sets of GO terms (<strong>slims</strong>) that describe your area of interest</span><br />
+        <img src="images/slims1.png" />
+    </div>
+  </a>
+</div>
 
-<div class="intro_text quickgo-panel homepage-info">
-  <p class="push_2 grid_20">QuickGO is provided by the UniProt-GOA project and incorporates annotations from the GO consortium and other specialist groups.
+<div class="intro_text quickgo-panel homepage-info medium-12">
+  <p>QuickGO is provided by the UniProt-GOA project and incorporates annotations from the GO consortium and other specialist groups.
     <br/>It contains information for XXXXX GO terms, as defined in the version of the GO definition file which was <br/>downloaded on: YYYY-MM-DD HH:MM.
     You can find a history of changes to the ontology <a href="dataset/goTermHistory">here</a>.</p>
-
-
-  <!--   <p class="push_2 grid_10">
-  <strong>Annotations updated:</strong> XX/XX/XXXX
-    <br /><strong>Latest statistics:</strong> Terms: 12345,  Annotations: 12345
-    <a href="">Source Ontology</a>
-  </p>-->
-</div>
-
-
-
-
-
-<!--
-<div class="grid_10">
-
-<p><a id="start" class="closed icon icon-generic button main_button selectable" data-icon="D"
-ng-click="annotationList()">
-<span style="font-size:20px">Start here</span><br/><span style="font-size:13px">Use filters to retrieve sets of GO annotations</span></a>
-</p>
-<p>
-<a id="slims" class="closed icon icon-functional button main_button selectable" data-icon="h" ng-href="slimming">
-<span style="font-size:20px">Investigate GO slims</span>
-<br/>
-<span style="font-size:13px">Create a broad functional overview for a set of gene products</span>
-</a>
-</p>
-<p>
-<a id="history" class="closed icon icon-functional button main_button selectable" data-icon="b"
-href="#" onclick="alert('This feature is not yet implemented')">
-<span style="font-size:20px">History</span><br/><span style="font-size:13px">View changes to the GO</span></a>
-</p>
-</div>
-
-
-</div>
-<div class="clearfix"></div>
 </div>

@@ -1,5 +1,5 @@
 <!-- header templates -->
-<div id="content" class="container_24" cg-busy="resultsPromise">
+<div id="content" class="medium-12" cg-busy="resultsPromise">
   <h2>GO annotations</h2>
 
   <!-- Sidebar TODO filters-->
@@ -8,7 +8,28 @@
   <!-- Main Content -->
 
   <!-- Table heading content TODO statistics-->
-  <div class="grid_24">
+  <div class="medium-12">
+
+
+
+
+
+    <ul class="tabs" data-tabs id="example-tabs">
+      <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Annotations</a></li>
+      <li class="tabs-title"><a href="#panel2">Tab 2</a></li>
+    </ul>
+
+    <div class="tabs-content" data-tabs-content="example-tabs">
+      <div class="tabs-panel is-active" id="panel1">
+        <p>one</p>
+        <p>Check me out! I'm a super cool Tab panel with text content!</p>
+      </div>
+      <div class="tabs-panel" id="panel2">
+        <p>two</p>
+      </div>
+    </div>
+
+
   	 <uib-tabset>
 		<uib-tab heading="Annotations"><div ng-include="'annotationsList/annotationList.html'"></div></uib-tab>
 		<!--uib-tab heading="Statistics" select="loadStatistics()"><div
