@@ -2,7 +2,7 @@
   "name": "quickgofe",
   "version": "0.0.0",
   "scripts": {
-    "test":"./test/karma start karma.conf.js"
+    "test":"karma start ./test/karma.conf.js"
   },
   "dependencies": {},
   "devDependencies": {
