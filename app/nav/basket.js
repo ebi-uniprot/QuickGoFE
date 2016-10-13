@@ -19,23 +19,23 @@ app.controller('BasketNavCtrl', function($scope, $log, $uibModal, $rootScope, ba
   /**
    * Show the basket modal on request
    */
-  $scope.showBasket = function () {
-    var modalInstance = $uibModal.open({
-      templateUrl: 'basket/basketModal.html',
-      controller: 'BasketCtrl',
-      size: 'lg',
-      scope: $scope,
-      resolve: {
-        countBasket: function () {
-          return $scope.countBasket;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    });
-  };
+  // $scope.showBasket = function () {
+  //   var modalInstance = $uibModal.open({
+  //     templateUrl: 'basket/basketModal.html',
+  //     controller: 'BasketCtrl',
+  //     size: 'lg',
+  //     scope: $scope,
+  //     resolve: {
+  //       countBasket: function () {
+  //         return $scope.countBasket;
+  //       }
+  //     }
+  //   });
+  //
+  //   modalInstance.result.then(function (selectedItem) {
+  //     $scope.selected = selectedItem;
+  //   });
+  // };
 
 
 });

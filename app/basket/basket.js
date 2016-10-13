@@ -127,11 +127,12 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
   };
 
   $scope.isBasketNotEmpty = function (){
+    console.log("ran isBasketNotEmpty");
     return basketService.basketQuantity() > 0;
   };
 
-  $scope.close = function() {
-    $uibModalInstance.dismiss('cancel');
-  };
+  // $scope.close = function() {
+  //   $uibModalInstance.dismiss('cancel');
+  // };
 
 });
