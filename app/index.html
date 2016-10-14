@@ -177,16 +177,22 @@
     <!-- WARNING message -->
 
     <section>
-      <!-- <uib-alert close="hideAlert = true" ng-hide="hideAlert" type="success" class="ng-hide">OLD This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.</uib-alert> -->
-      <div class="callout success" close="hideAlert = true" ng-hide="hideAlert" type="success" class="ng-hide">
-        <button class="close-button" aria-label="Close alert" type="button">
+
+      <div id="calloutWarning" class="callout warning" data-closable>
+        This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.
+        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
           <span aria-hidden="true">&times;</span>
         </button>
-        <p>NEW This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.</p>
       </div>
 
       <!-- Global error message -->
-      <uib-alert class="medium-12" ng-repeat="alert in alerts" type="alert alert-danger" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+      <div id="globalWarning" class="callout alert" ng-repeat="alert in alerts" data-closable>
+        {{alert.msg}}
+        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
     </section>
 
 <!--

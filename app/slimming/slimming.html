@@ -108,8 +108,20 @@
 
 
 <div id="selection-header" class="grid_24" data-spy="affix" data-offset-top="700">
-  <uib-alert ng-repeat="alert in succesAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide alert-info-half">{{alert.msg}}</uib-alert>
-  <uib-alert ng-repeat="alert in otherAlerts" type="{{alert.type}}" close="hideAlert = true" ng-hide="hideAlert" class="ng-hide alert-info-half">{{alert.msg}}</uib-alert>
+
+  <div class="callout success" ng-repeat="alert in succesAlerts" type="{{alert.type}}" data-closable>
+    {{alert.msg}}
+    <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="callout alert" ng-repeat="alert in otherAlerts" type="{{alert.type}}" data-closable>
+    {{alert.msg}}
+    <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
   <h3 ng-class="{'inactive': selectedItems.length <= 0}" class="your-selection-header">
     Your Selection: {{selectedItems.length}}
