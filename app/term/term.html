@@ -507,8 +507,19 @@
         <!-- Change log -->
         <div id="termHistory" data-magellan-target=="termHistory">
           <h3 class="term-section-header">Change Log</h3>
-          <uib-tabset>
-            <uib-tab heading="All changes">
+
+          <ul class="tabs" data-tabs id="change-log-tabs">
+            <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">All changes</a></li>
+            <li class="tabs-title"><a href="#panel2">Term</a></li>
+            <li class="tabs-title"><a href="#panel3">Definition / Synonyms</a></li>
+            <li class="tabs-title"><a href="#panel4">Relationships</a></li>
+            <li class="tabs-title"><a href="#panel5">Cross-references</a></li>
+            <li class="tabs-title"><a href="#panel6">Other</a></li>
+          </ul>
+
+
+          <div class="tabs-content" data-tabs-content="change-log-tabs">
+            <div class="tabs-panel is-active" id="panel1">
               <table class="two-colours">
                 <tr>
                   <th>Timestamp</th>
@@ -528,9 +539,9 @@
               <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
               <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
-            </uib-tab>
+            </div>
 
-            <uib-tab heading="Term">
+            <div class="tabs-panel" id="panel2">
               <table class="two-colours">
                 <tr>
                   <th>Timestamp</th>
@@ -545,9 +556,9 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </uib-tab>
+            </div>
 
-            <uib-tab heading="Definition / Synonyms">
+            <div class="tabs-panel" id="panel3">
               <table class="two-colours">
                 <tr>
                   <th>Timestamp</th>
@@ -562,9 +573,9 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </uib-tab>
+            </div>
 
-            <uib-tab heading="Relationships">
+            <div class="tabs-panel" id="panel4">
               <table class="two-colours">
                 <tr>
                   <th>Timestamp</th>
@@ -579,9 +590,9 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </uib-tab>
+            </div>
 
-            <uib-tab heading="Cross-references">
+            <div class="tabs-panel" id="panel5">
               <table class="two-colours">
                 <tr>
                   <th>Timestamp</th>
@@ -596,9 +607,9 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </uib-tab>
+            </div>
 
-            <uib-tab heading="Other">
+            <div class="tabs-panel" id="panel6">
               <table class="two-colours">
                 <tr>
                   <th>Timestamp</th>
@@ -613,10 +624,10 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </uib-tab>
-          </uib-tabset>
-        </div>
+            </div>
 
+          </div>
+  </div>
 
 
         <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
