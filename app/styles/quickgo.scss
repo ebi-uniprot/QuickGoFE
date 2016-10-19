@@ -153,6 +153,18 @@ html.fontface .help-icon::before {
   }
 }
 
+li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
+  color: rgba(18, 80, 84, 0.24) !important;
+  cursor: default;
+  text-decoration: none;
+  border-bottom: none;
+}
+.not-found{
+  display: none;
+}
+.show-not-found{
+  display: block;
+}
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 
