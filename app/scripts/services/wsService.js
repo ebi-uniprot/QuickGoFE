@@ -121,7 +121,6 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         //TODO
       },
       findAnnotations: function(page, size, filters) {
-        console.log(ENV.apiEndpoint + '/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
           return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
       },
       findAnnotationsForTerm: function(searchTerm) {

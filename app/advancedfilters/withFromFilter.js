@@ -4,9 +4,15 @@ app.controller('withFromFilter', function($scope, presetsService, stringService)
 
   var init = function() {
     // Get With DBs
+    var checked = [];
+    if($scope.$parent.query.withFrom) {
+      checked = checked.concat($scope.$parent.query.withFrom.split(','))
+    }
+
     presetsService.getPresets().then(function(resp){
       var withDBs = _.sortBy(resp.data.withFrom, 'name');
       angular.forEach(withDBs, function(withDB){
+        withDB.checked = _.contains(checked,withDB.name);
         $scope.withFrom[withDB.name] = withDB;
       });
     });
