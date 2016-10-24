@@ -1,21 +1,52 @@
-app.controller('referencesFilter', function($scope){
+app.controller('referencesFilter', function($scope, presetsService, stringService){
+
+  $scope.references = {};
 
   var initReference = function() {
     //References
-    _filters.referenceSearch = {};
-    var referenceList = hardCodedDataService.getFilterReferences();
-    angular.forEach(referenceList, function(ref){
-      _filters.referenceSearch[ref.refId] = false;
-      _namesMap[ref.refId] = ref.name;
+    presetsService.getPresets().then(function(resp){
+      var checked = [];
+      if($scope.$parent.query.reference) {
+        checked = checked.concat($scope.$parent.query.reference.split(','))
+      }
+      angular.forEach(resp.data.references, function(ref){
+        ref.checked = _.contains(checked, ref.name);
+        $scope.references[ref.name] = ref;
+      });
     });
   };
 
   $scope.addReferences = function() {
     var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea);
     angular.forEach(refs, function(refID){
-      $scope.filters.referenceSearch[refID] = true;
+      $scope.references[refID] = {
+        'name':refID,
+        checked: true
+      };
     });
     $scope.referenceTextArea = '';
   };
+
+  $scope.apply = function() {
+    $scope.$parent.addToQuery('reference', getQuery());
+  }
+
+  $scope.reset = function () {
+    $scope.$parent.query.reference = '';
+  }
+
+  var getQuery = function() {
+    return _.pluck(_.filter(_.values($scope.references), 'checked'), 'name');
+  }
+
+  $scope.$on('applyMoreFilters', function(e) {
+    $scope.apply();
+  });
+
+  $scope.$on('resetMoreFilters', function(e) {
+    $scope.reset();
+  });
+
+  initReference();
 
 });

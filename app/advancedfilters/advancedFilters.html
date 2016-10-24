@@ -44,12 +44,12 @@
       </filter-dropdown>
     </li>
 
-    <!-- <li>
+    <li>
       <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('qualifier')
         || isActiveFilter('referenceSearch') || isActiveFilter('with') || isActiveFilter('assignedby')}" data-icon="/" ng-click="showMore = (showMore? false : true)">
         More <span class="caret"></span>
       </button>
-    </li> -->
+    </li>
 
     <li><a ng-click="clearFilters()">Clear all</a></li>
   </ul>
@@ -78,10 +78,9 @@
     </div>
 
     <div class="clearfix"></div>
-    <div class="pull-right">
-      <button class="btn quickgo-btn" type="button" ng-click="resetAssigned()">Reset</button>
-      <button class="btn quickgo-btn" type="button" ng-click="applyFilters()">Apply</button>
-    </div>
+      <div class="pull-right">
+        <filter-buttons></filter-buttons>
+      </div>
     <div class="clearfix"></div>
     <hr>
   </div>
