@@ -4,18 +4,18 @@
     <form>
       <div class="y-scroll-200 inset-panel">
         <ul>
-          <li ng-repeat="(withID, value) in filters.with" class="checkbox">
+          <li ng-repeat="(withID, obj) in withFrom" class="checkbox">
             <label>
-              <input type="checkbox" ng-model="filters.with[withID]">
-              <strong>{{withID}}</strong> {{namesMap[withID]}}
+              <input type="checkbox" ng-model="obj.checked">
+              <strong>{{obj.name}}</strong> {{obj.description}}
             </label>
           </li>
         </ul>
       </div>
       <hr>
       <p>* Any matches will be displayed</p>
-      <a ng-click="toggleMore('with')" ng-hide="view['with']">Add more...</a>
-      <div ng-show="view['with']">
+      <a ng-click="more = !more" ng-hide="more">Add more...</a>
+      <div ng-show="more">
         <div class="form-group">
           <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
         </div>

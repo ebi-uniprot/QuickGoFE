@@ -1,23 +1,48 @@
-app.controller('withFromFilter', function($scope) {
+app.controller('withFromFilter', function($scope, presetsService, stringService) {
+
+  $scope.withFrom = {};
 
   var init = function() {
     // Get With DBs
-    _filters.with = {};
-    var resultWDB = withDBs.query();
-    resultWDB.$promise.then(function(data){
-      var withDBs = _.sortBy(data, 'dbId');
+    presetsService.getPresets().then(function(resp){
+      var withDBs = _.sortBy(resp.data.withFrom, 'name');
       angular.forEach(withDBs, function(withDB){
-        _filters.with[withDB.dbId] = false;
-        _namesMap[withDB.dbId] = withDB.xrefDatabase;
+        $scope.withFrom[withDB.name] = withDB;
       });
     });
+
   };
 
   $scope.addWith = function() {
     var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
     angular.forEach(withs, function(withId){
-      $scope.filters.with[withId] = true;
+      $scope.withFrom[withId] = {
+        'name':withId,
+        'checked':true
+      };
     });
     $scope.withTextArea = '';
   };
+
+  $scope.apply = function() {
+    $scope.$parent.addToQuery('withFrom', getQuery());
+  }
+
+  $scope.reset = function () {
+    $scope.$parent.query.withFrom = '';
+  }
+
+  var getQuery = function() {
+    return _.pluck(_.filter(_.values($scope.withFrom), 'checked'), 'name');
+  }
+
+  $scope.$on('applyMoreFilters', function(e) {
+    $scope.apply();
+  });
+
+  $scope.$on('resetMoreFilters', function(e) {
+    $scope.reset();
+  });
+
+  init();
 });

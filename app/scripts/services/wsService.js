@@ -208,13 +208,6 @@ wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource
   });
 }]);
 
-
-wsService.factory('withDBs', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/withdbs', {}, {
-    query: {method:'GET',  isArray:true, Cache:true}
-  });
-}]);
-
 wsService.factory('assignDBs', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/assigneddbs', {}, {
     query: {method:'GET',  isArray:true, Cache:true}
