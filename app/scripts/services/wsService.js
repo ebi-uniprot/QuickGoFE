@@ -56,6 +56,18 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   };
 }]);
 
+wsService.factory('geneProductService', ['$http', 'ENV', function($http, ENV){
+    return {
+        getGeneProducts : function(ids) {
+            if (typeof ids === Array) {
+                return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids.join(','));
+            } else {
+                return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids);
+            }
+        }
+    };
+}]);
+
 wsService.factory('stringService', [function(){
   return {
     getTextareaItemsAsArray : function(str) {

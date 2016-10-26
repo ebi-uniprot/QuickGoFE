@@ -1,5 +1,5 @@
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
-                                              hardCodedDataService, dbXrefService, olsService,
+                                              hardCodedDataService, dbXrefService, olsService, geneProductService,
                                               searchService, termService, ontoTypeService) {
 
   /**
@@ -75,10 +75,34 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   }
 
   function postProcess() {
+    var geneProductIds = [];
     angular.forEach($scope.annotations, function(annotation) {
       var pos = annotation.geneProductId.indexOf(':');
-      annotation.database = pos !== -1 ? annotation.geneProductId.substring(0, pos) : '';
-        //TODO: get all the taxon ids so we can use the taxonomy service
+      if (pos !== -1) {
+        annotation.database = annotation.geneProductId.substring(0, pos);
+        annotation.geneProductSimpleId = annotation.geneProductId.substring(pos+1);
+        geneProductIds.push(annotation.geneProductSimpleId);
+      } else {
+        annotation.database = '';
+      }
+    });
+    postProcessGeneProds(_.unique(geneProductIds));
+  }
+
+  function postProcessGeneProds(geneProductIds) {
+    $scope.geneProdPromise = geneProductService.getGeneProducts(geneProductIds);
+    $scope.geneProdPromise.then(function(response) {
+      angular.forEach($scope.annotations, function(annotation) {
+        var found = _.find(response.data.results, function(geneProd) {
+          return annotation.geneProductSimpleId === geneProd.id;
+        });
+        if (found) {
+          annotation.geneProductName = found.name;
+          annotation.geneProductSynonyms = found.synonyms.join();
+          annotation.geneProductType = found.type;
+        }
+      });
+    },function(reason) {
     });
   }
 
