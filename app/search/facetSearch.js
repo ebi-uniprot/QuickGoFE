@@ -1,4 +1,5 @@
-app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchService, ontoTypeService, $routeParams) {
+app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchService, ontoTypeService, $routeParams,
+                                           taxonomyService) {
 
   var isTermSearch = $location.path().indexOf('searchterms') > -1;
   var facets;
@@ -24,9 +25,12 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
       $scope.queryPromise = searchService.findGeneProducts($scope.searchTerm, $scope.maxSize, $scope.currentPage, facets, $scope.filters);
     }
     $scope.queryPromise.then(
-      function(result) {
-        $scope.results = result.data;
-      });
+        function(result) {
+          $scope.results = result.data;
+          if (!isTermSearch) {
+            postProcess();
+          }
+        });
   }
 
   $scope.pageChanged = function() {
@@ -51,4 +55,11 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
 
   getResultsPage();
 
+  function postProcess() {
+    var taxaIds = [];
+    angular.forEach($scope.results.results, function(result) {
+      taxaIds.push(result.taxonId);
+    });
+    taxonomyService.completeTaxaInfo(_.unique(taxaIds), $scope.results.results);
+  }
 });

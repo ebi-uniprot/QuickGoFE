@@ -1,6 +1,6 @@
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
                                               hardCodedDataService, dbXrefService, olsService,
-                                              searchService, termService, ontoTypeService) {
+                                              searchService, termService, ontoTypeService, taxonomyService) {
 
   /**
    * Initialisation
@@ -75,11 +75,21 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   }
 
   function postProcess() {
+    var taxaIds = [];
     angular.forEach($scope.annotations, function(annotation) {
       var pos = annotation.geneProductId.indexOf(':');
-      annotation.database = pos !== -1 ? annotation.geneProductId.substring(0, pos) : '';
-        //TODO: get all the taxon ids so we can use the taxonomy service
+      if (pos !== -1) {
+        annotation.database = annotation.geneProductId.substring(0, pos);
+      } else {
+        annotation.database = '';
+      }
+      taxaIds.push(annotation.taxonId);
     });
+    postProcessTaxa(_.unique(taxaIds));
+  }
+
+  function postProcessTaxa(taxaIds) {
+    taxonomyService.completeTaxaInfo(taxaIds, $scope.annotations);
   }
 
   function addInformation(lst, moreDataLst) {

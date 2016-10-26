@@ -2,9 +2,10 @@
   <h2>Results for gene product "{{searchTerm}}"</h2>
 
   <div class="grid_4">
-      <div ng-repeat="facet in results.facet.facetFields">
-        <facets endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm"></facets>
-      </div>
+    <div ng-repeat="facet in results.facet.facetFields">
+      <facets endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm">
+      </facets>
+    </div>
   </div>
 
   <!-- Main Content -->
@@ -28,7 +29,7 @@
             {{searchResult.id}}</a></td>
           <td ng-bind-html="highlight(searchResult.name)"></td>
           <td>{{searchResult.type}}</td>
-          <td>{{searchResult.taxonomy.name}}</td>
+          <td>{{searchResult.taxonName}}</td>
           <td><a href="annotations/filter?gpID={{searchResult.id}}" class="annotations-link"><annotations-link
                   productid="{{searchResult.id}}"></annotations-link></a></td>
         </tr>

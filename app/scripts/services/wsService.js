@@ -56,6 +56,43 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   };
 }]);
 
+wsService.factory('taxonomyService', ['$http', function($http){
+    return {
+        getTaxa : function(ids) {
+            return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
+        },
+        getTaxon : function(id) {
+            return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/id/' + id + '/node');
+        },
+        completeTaxaInfo: function(taxaIds, data) {
+            if (taxaIds.length === 1) {
+                var taxonomyPromise = this.getTaxon(taxaIds[0]);
+                taxonomyPromise.then(function(oneTaxon) {
+                    angular.forEach(data, function(datum) {
+                        if (datum.taxonId === oneTaxon.data.taxonomyId) {
+                            datum.taxonName = oneTaxon.data.scientificName;
+                        }
+                    });
+                },function(reason) {
+                });
+            } else {
+                var taxonomyPromise = this.getTaxa(taxaIds);
+                taxonomyPromise.then(function(multipleTaxa) {
+                    angular.forEach(data, function(datum) {
+                        var inResult = _.find(multipleTaxa.data.taxonomies, function(taxon) {
+                            return taxon.taxonomyId === datum.taxonId;
+                        });
+                        if (inResult) {
+                            datum.taxonName = inResult.scientificName;
+                        }
+                    });
+                },function(reason) {
+                });
+            }
+        }
+    };
+}]);
+
 wsService.factory('stringService', [function(){
   return {
     getTextareaItemsAsArray : function(str) {

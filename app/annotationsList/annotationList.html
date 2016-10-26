@@ -97,7 +97,9 @@ select="false">
 
 <!-- <td>{{::item.geneProductId}}</td> -->
 <td class="td-no-icon" ng-show="$owner.colGeneProduct">
-  <a ng-click="$owner.followLinkToEntry(item.database, item.geneProductId)" target="_blank">{{::item.geneProductId}}
+  <a ng-click="$owner.followLinkToEntry(item.database, item.geneProductId)" target="_blank">
+      {{::item.geneProductId}}
+  </a>
 </td>
 <td class="td-no-icon" ng-show="$owner.colSymbol">{{::item.symbol}}</td>
 <td class="td-no-icon" ng-show="$owner.colQualifier">{{::item.qualifier}}</td>
@@ -171,7 +173,9 @@ select="false">
 
     </td>
 
-    <td class="td-no-icon" ng-show="$owner.colTaxon"><a class="quickgo-link selectable" ng-click="$owner.showTaxon(item.taxon)">{{::item.taxonId}}</a></td>
+    <td class="td-no-icon" ng-show="$owner.colTaxon">
+        <a class="quickgo-link selectable" ng-click="$owner.showTaxon(item.taxonId)">{{::item.taxonId}}</a>
+    </td>
     <td class="td-no-icon" ng-show="$owner.colAssignedBy"><a class="quickgo-link selectable" ng-click="$owner.followLinkToGeneric(item.assignedBy)">{{::item.assignedBy}}</a></td>
     <td class="td-no-icon" ng-show="$owner.colAnnotationExtension">
       <a ng-click="$owner.showAnnotationExtension(item.fullExtension)">{{::item.fullExtension | shortenStringFilter}}</a>
