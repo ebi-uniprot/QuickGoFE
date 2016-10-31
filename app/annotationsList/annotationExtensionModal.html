@@ -3,7 +3,7 @@
   <div ng-repeat="extension in extensions" class="panel panel-default">
     <div ng-repeat="ext in extension.connectedXrefs" class="panel-body text-center">
           <a href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{ext.qualifier}}.md" target="_blank">{{ext.qualifier}}</a>
-          (<a ng-click="followLinkToEntry(ext.db, ext.id)" target="_blank">{{ext.db}}:{{ext.id}}</a> {{ext.label}})
+          (<a ng-click="followLinkToEntry(ext.id, ext.db)" target="_blank">{{ext.db}}:{{ext.id}}</a> {{ext.label}})
     </div>
   </div>
 

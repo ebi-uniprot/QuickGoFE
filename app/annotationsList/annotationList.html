@@ -97,7 +97,7 @@ select="false">
 
 <!-- <td>{{::item.geneProductId}}</td> -->
 <td class="td-no-icon" ng-show="$owner.colGeneProduct">
-  <a ng-click="$owner.followLinkToEntry(item.database, item.geneProductId)" target="_blank">
+  <a ng-click="$owner.followLinkToEntry(item.geneProductId, item.database)" target="_blank">
       {{::item.geneProductId}}
   </a>
 </td>
@@ -144,14 +144,16 @@ select="false">
   <span ng-if="::item.withFrom.length === 1">
       <span ng-repeat="item in ::item.withFrom">
         <span ng-if="::item.connectedXrefs.length === 1" ng-repeat="element in ::item.connectedXrefs">
-          <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
+          <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.id, element.db)" target="_blank">
+              {{::element.db}}:{{::element.id}}</a>
         </span>
       </span>
 
       <span ng-repeat="item in ::item.withFrom" ng-if="::item.connectedXrefs.length > 1">
         <span ng-repeat="subItem in ::item">
           <span ng-repeat="element in ::subItem">
-            <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
+            <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.id, element.db)" target="_blank">
+                {{::element.db}}:{{::element.id}}</a>
             <span ng-show="!$last">,</span>
           </span>
         </span>
@@ -160,7 +162,8 @@ select="false">
       <span ng-repeat="item in ::item.withFrom" ng-if="::item.connectedXrefs.length > 1">
           <span ng-repeat="subItem in ::item">
             <span ng-repeat="element in ::subItem">
-              <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
+              <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.id, element.db)" target="_blank">
+                  {{::element.db}}:{{::element.id}}</a>
               <span ng-show="!$last">,</span>
             </span>
           </span>
@@ -174,7 +177,9 @@ select="false">
     </td>
 
     <td class="td-no-icon" ng-show="$owner.colTaxon">
-        <a class="quickgo-link selectable" ng-click="$owner.showTaxon(item.taxonId)">{{::item.taxonId}}</a>
+        <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">
+            {{::item.taxonId}}
+        </a>
     </td>
     <td class="td-no-icon" ng-show="$owner.colAssignedBy"><a class="quickgo-link selectable" ng-click="$owner.followLinkToGeneric(item.assignedBy)">{{::item.assignedBy}}</a></td>
     <td class="td-no-icon" ng-show="$owner.colAnnotationExtension">

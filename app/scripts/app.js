@@ -28,7 +28,7 @@ var app = angular
       });
     };
 
-    $rootScope.followLinkToEntry = function(database, id) {
+    $rootScope.followLinkToEntry = function(id, database) {
       if (!database) {
         var pos = id.indexOf(':');
         database = id.substring(0, pos);

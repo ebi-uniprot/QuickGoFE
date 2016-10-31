@@ -25,7 +25,7 @@
         </tr>
         <tr ng-repeat="searchResult in results.results">
           <td><a ng-click="followLinkToGeneric(searchResult.database)" target="_blank">{{searchResult.database}}</a></td>
-          <td><a ng-click="followLinkToEntry(searchResult.database, searchResult.id)" target="_blank">
+          <td><a ng-click="followLinkToEntry(searchResult.id, searchResult.database)" target="_blank">
             {{searchResult.id}}</a></td>
           <td ng-bind-html="highlight(searchResult.name)"></td>
           <td>{{searchResult.type}}</td>

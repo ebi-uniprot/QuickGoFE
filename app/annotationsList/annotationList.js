@@ -147,10 +147,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     });
   };
 
-  $scope.showTaxon = function(target) {
-    $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
-  };
-
   /**
    * Show the with_string modal on request
    */
