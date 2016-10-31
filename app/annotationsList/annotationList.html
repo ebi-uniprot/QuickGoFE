@@ -137,7 +137,9 @@ select="false">
 
 
 <td class="td-no-icon" ng-show="$owner.colReference">
-  <a class="quickgo-link" ng-href="{{::item.reference | referenceUrlFilter}}" target="_blank">{{::item.reference}}</a>
+    <a class="quickgo-link" ng-click="$owner.followLinkToEntry(item.reference)" target="_blank">
+        {{::item.reference}}
+    </a>
 </td>
 
 <td class="td-no-icon" ng-show="$owner.colWith">
@@ -177,7 +179,7 @@ select="false">
     </td>
 
     <td class="td-no-icon" ng-show="$owner.colTaxon">
-        <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">
+        <a class="quickgo-link selectable" ng-click="$owner.followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">
             {{::item.taxonId}}
         </a>
     </td>

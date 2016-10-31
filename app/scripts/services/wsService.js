@@ -198,6 +198,8 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
         return $location.absUrl().replace($location.path(), '/term/GO:' + id);
       } else if (name === 'TAXON') {
           return 'http://www.uniprot.org/taxonomy/' + id;
+      } else if (name === 'PMID') {
+          return 'http://europepmc.org/abstract/MED/' + id;
       } else {
         var match = _.find(xrefs, function(xref){
           return xref.database === name || _.contains(xref.synonyms, name);
