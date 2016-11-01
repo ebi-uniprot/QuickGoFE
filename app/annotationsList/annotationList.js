@@ -89,7 +89,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   }
 
   function postProcessTaxa(taxaIds) {
-    taxonomyService.completeTaxaInfo(taxaIds, $scope.annotations);
+    if (taxaIds.length !== 0) {
+      taxonomyService.completeTaxaInfo(taxaIds, $scope.annotations);
+    }
   }
 
   function addInformation(lst, moreDataLst) {
