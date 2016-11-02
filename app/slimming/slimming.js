@@ -1,5 +1,5 @@
 app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
-  hardCodedDataService, PreDefinedSlimSets, hardCodedDataService,
+  hardCodedDataService, PreDefinedSlimSets,
   presetsService, PreDefinedSlimSetDetail, termService, basketService,
   stringService) {
 
