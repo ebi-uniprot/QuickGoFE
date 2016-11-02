@@ -76,7 +76,7 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
       return $q.resolve(d);
     }
   };
-  
+
   basketList.getIds = function() {
     return $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
   }
@@ -91,18 +91,6 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
     return items.indexOf(termId) > -1;
   };
-
-  basketList.validateTerms = function(terms) {
-    var ownTerms = stringService.getTextareaItemsAsArray(terms);
-    var data = {};
-    data.valid = _.filter( ownTerms, function(item){
-      return validationService.validateGOTerm(item);
-    });
-    data.missmatches = _.difference(ownTerms, data.valid);
-
-    return data;
-  };
-
 
   return basketList;
 });

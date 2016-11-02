@@ -11,7 +11,7 @@
         <table class="no-table-styling slim-table">
           <tr>
             <td>
-              <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.subset for predefinedSet in predefinedSlimSets"
+              <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.name for predefinedSet in predefinedSlimSets"
               ng-change="updatePredefinedSets()"></select>
             </td>
             <td>
@@ -71,8 +71,8 @@
 
     <ul>
       <li ng-repeat="basketItem in basketList">
-        <input id="basket-{{basketItem.termId}}" type="checkbox" ng-model="basketSelection[basketItem.termId]"/>
-        <label for="basket-{{basketItem.termId}}"><strong>{{basketItem.termId}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
+        <label><input type="checkbox" ng-model="basketItem.selected"/>
+        <strong>{{basketItem.id}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
       </li>
     </ul>
 
