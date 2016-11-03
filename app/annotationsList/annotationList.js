@@ -89,8 +89,15 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   }
 
   function postProcessTaxa(taxaIds) {
+    $scope.taxaMapping = {};
     if (taxaIds.length !== 0) {
-      taxonomyService.completeTaxaInfo(taxaIds, $scope.annotations);
+      var taxonomyPromise = taxonomyService.getTaxa(taxaIds);
+      taxonomyPromise.then(function(multipleTaxa) {
+        angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
+          $scope.taxaMapping[taxon.taxonomyId] = taxon;
+        });
+      },function(reason) {
+      });
     }
   }
 

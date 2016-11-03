@@ -29,7 +29,11 @@
             {{searchResult.id}}</a></td>
           <td ng-bind-html="highlight(searchResult.name)"></td>
           <td>{{searchResult.type}}</td>
-          <td>{{searchResult.taxonName}}</td>
+          <td>
+            <a class="quickgo-link selectable" ng-click="followLinkToEntry(searchResult.taxonId, 'TAXON')" target="_blank">
+              {{taxaMapping[searchResult.taxonId].scientificName}}
+            </a>
+          </td>
           <td><a href="annotations/filter?gpID={{searchResult.id}}" class="annotations-link"><annotations-link
                   productid="{{searchResult.id}}"></annotations-link></a></td>
         </tr>

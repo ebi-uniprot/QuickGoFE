@@ -60,6 +60,15 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
     angular.forEach($scope.results.results, function(result) {
       taxaIds.push(result.taxonId);
     });
-    taxonomyService.completeTaxaInfo(_.unique(taxaIds), $scope.results.results);
+    $scope.taxaMapping = {};
+    if (taxaIds.length !== 0) {
+      var taxonomyPromise = taxonomyService.getTaxa(taxaIds);
+      taxonomyPromise.then(function(multipleTaxa) {
+        angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
+          $scope.taxaMapping[taxon.taxonomyId] = taxon;
+        });
+      },function(reason) {
+      });
+    }
   }
 });

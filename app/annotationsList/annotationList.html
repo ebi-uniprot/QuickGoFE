@@ -195,7 +195,7 @@ select="false">
     <td ng-show="$owner.colName">{{::item.name}}</td>
     <td ng-show="$owner.colSynonym">{{::item.synonym}}</td>
     <td ng-show="$owner.colType">{{::item.type}}</td>
-    <td ng-show="$owner.colTaxonName">{{::item.taxonName}}</td>
+    <td ng-show="$owner.colTaxonName">{{::$owner.taxaMapping[item.taxonId].scientificName}}</td>
     <td ng-show="$owner.colSequence">{{::item.sequence}}</td>
 
         <td class="td-no-icon" ng-if="colAnnotationExtension">
