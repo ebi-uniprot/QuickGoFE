@@ -8,6 +8,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.maxSize=25;
   $scope.evidenceSetter="ecoAncestorsI";
   $rootScope.header = "QuickGO::Annotation List";
+  $scope.olsxrefs = {};
 
   $scope.currentPage = 1;
   getResultsPage();
@@ -79,6 +80,13 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       var pos = annotation.geneProductId.indexOf(':');
       annotation.database = pos !== -1 ? annotation.geneProductId.substring(0, pos) : '';
         //TODO: get all the taxon ids so we can use the taxonomy service
+      _.forEach(annotation.extensions, function(d){
+        _.forEach(d.connectedXrefs, function(xref){
+           olsService.getTermName(xref.db, xref.id).then(function(resp){
+             $scope.olsxrefs[xref.db + ':' + xref.id] = resp.data.label;
+           });
+        });
+      });
     });
   }
 
@@ -140,42 +148,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   $scope.showTaxon = function(target) {
     $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
   };
-
-  /**
-   * Show the with_string modal on request
-   */
-  $scope.showWithList = function (withList) {
-
-    $scope.withList = withList;
-
-    $uibModal.open({
-      templateUrl: 'annotationsList/withStringModal.html',
-      controller: 'AnnotationListModalController',
-      size: 'md',
-      scope: $scope
-    });
-
-  };
-
-  $scope.showAnnotationExtension = function(extensions) {
-    //TODO, do we really have a connectedXrefs element or just the elements? And what info per element?
-    angular.forEach(extensions, function(extension){
-      angular.forEach(extension.connectedXrefs, function(xref){
-        olsService.getTermName(xref).then(function(name){
-          xref.label = name.data.label;
-        });
-      });
-    });
-    $scope.extensions = extensions;
-
-    $uibModal.open({
-      templateUrl: 'annotationsList/annotationExtensionModal.html',
-      controller: 'AnnotationListModalController',
-      size: 'md',
-      scope: $scope
-    });
-  };
-
+  
   $scope.customiseColumnsContainer = true;
   $scope.toggleCustomiseContainer = function() {
        $scope.customiseColumnsContainer = $scope.customiseColumnsContainer === false ? true : false;
