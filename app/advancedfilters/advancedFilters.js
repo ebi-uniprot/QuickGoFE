@@ -34,4 +34,13 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     if (!open) {}
   };
 
+  $scope.apply = function() {
+    $scope.$broadcast ('applyMoreFilters');
+  }
+
+  $scope.reset = function() {
+    $scope.$broadcast ('resetMoreFilters');
+    $scope.updateQuery();
+  }
+
 });

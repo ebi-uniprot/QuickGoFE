@@ -5,17 +5,17 @@
     <form>
       <div class="y-scroll-200 inset-panel">
         <ul>
-          <li ng-repeat="(refId, value) in filters.referenceSearch" class="checkbox">
+          <li ng-repeat="(name, ref) in references" class="checkbox">
             <label>
-              <input type="checkbox" ng-model="filters.referenceSearch[refId]"> <strong>{{refId}}</strong> {{namesMap[refId]}}
+              <input type="checkbox" ng-model="ref.checked"> <strong>{{ref.name}}</strong> {{ref.description}}
             </label>
             </td>
           </li>
         </ul>
       </div>
       <p>*: Any matches will be displayed</p>
-      <a ng-click="toggleMore('reference')" ng-hide="view['reference']">Add more...</a>
-      <div ng-show="view['reference']">
+      <a ng-click="more = !more" ng-hide="more">Add more...</a>
+      <div ng-show="more">
         <hr>
         <div class="form-group">
           <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>

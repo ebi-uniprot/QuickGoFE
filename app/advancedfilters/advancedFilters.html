@@ -9,7 +9,7 @@
     </li>
 
     <!-- GENE PRODUCT IDs  -->
-     <li ng-class="{'inactive':query.geneProductId || query.geneProductSubset}">
+     <li ng-class="{'inactive':query.geneProductId || query.targetSet}">
       <button class="button" data-toggle="GPID-dropdown" >Gene Product ID</button>
       <div class="dropdown-pane" id="GPID-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
         <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
@@ -49,8 +49,10 @@
     </li>
 
     <li>
+
       <button class="button" data-toggle="more-dropdown">More</button>
       <div class="dropdown-pane" id="more-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
+
 
         <!-- QUALIFIER -->
           <div ng-include src="'advancedfilters/qualifierFilter.html'"></div>
@@ -67,8 +69,10 @@
           <button class="button" ng-click="resetAssigned()">Reset</button>
           <button class="button" ng-click="applyFilters()">Apply</button>
 
+
       </div>
     </li>
   </ul>
+
 
 </div>

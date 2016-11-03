@@ -56,30 +56,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
     {name:'NOT | colocalizes_with','qualifier':'NOT|colocalizes_with'}
   ];
 
-
-  var references = [
-    {refId:'DOI', display:'DOI*', name:'Digital Object Identifier'},
-    {refId:'GO_REF', display:'GO_REF*', name:'Gene Ontology Database references'},
-    {refId:'PMID', display:'PMID*', name:'PubMed'},
-    {refId:'Reactome', display: 'Reactome', name:'Reactome - a curated knowledgebase of biological pathways'},
-    {refId:'GO_REF:0000037', display:'GO_REF:0000037', name:'UniProt Keywords2GO (UniProtKB/Swiss-Prot entries)'},
-    {refId:'GO_REF:0000038', display:'GO_REF:0000038', name:'UniProt Keywords2GO (UniProtKB/TrEMBL entries)'},
-    {refId:'GO_REF:0000039', display:'GO_REF:0000039', name:'UniProt Subcellular Location2GO (UniProtKB/Swiss-Prot entries)'},
-    {refId:'GO_REF:0000040', display:'GO_REF:0000040', name:'UniProt Subcellular Location2GO (UniProtKB/TrEMBL entries)'},
-    {refId:'GO_REF:0000045', display:'GO_REF:0000045', name:'UniProt Keywords2GO (UniProtKB/TrEMBL entries, conservatively modified by UniProt)'},
-    {refId:'GO_REF:0000002', display:'GO_REF:0000002', name:'InterPro2GO'},
-    {refId:'GO_REF:0000042', display:'GO_REF:0000042', name:'InterPro2GO (conservatively modified by UniProt)'},
-    {refId:'GO_REF:0000035', display:'GO_REF:0000035', name:'EnsemblPlants/Gramene'},
-    {refId:'GO_REF:0000019', display:'GO_REF:0000019', name:'Ensembl Compara'},
-    {refId:'GO_REF:0000003', display:'GO_REF:0000003', name:'EC2GO'},
-    {refId:'GO_REF:0000020', display:'GO_REF:0000020', name:'HAMAP2GO'},
-    {refId:'GO_REF:0000041', display:'GO_REF:0000041', name:'UniPathway2GO'},
-    {refId:'GO_REF:0000049', display:'GO_REF:0000049', name:'EnsemblFungi'},
-    {refId:'GO_REF:0000104', display:'GO_REF:0000104', name:'UniRule2GO'}
-  ];
-
-
-   var downloadFileFormats= [
+  var downloadFileFormats= [
       {format:'Gene Association File (GAF)', ext:'gaf', strMimeType: 'text/plain;charset=utf-8;' },
       {format:'Gene Product Association Data (GPAD)', ext:'gpad', strMimeType: 'text/plain;charset=utf-8;' },
       {format:'Tab-delimited', ext:'tsv', strMimeType: 'text/tsv;charset=utf-8;' },

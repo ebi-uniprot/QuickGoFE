@@ -5,9 +5,9 @@
     <form>
       <div class="y-scroll-400 inset-panel">
         <ul>
-          <li ng-repeat="(dbId,val) in filters.assignedby" class="checkbox">
+          <li ng-repeat="(dbId,val) in assignedBy" class="checkbox">
             <label>
-              <input type="checkbox" ng-model="filters.assignedby[dbId]"> <strong>{{dbId}}</strong> {{namesMap[dbId]}}
+              <input type="checkbox" ng-model="val.checked"> <strong>{{val.name}}</strong> {{val.description}}
             </label>
           </li>
         </ul>

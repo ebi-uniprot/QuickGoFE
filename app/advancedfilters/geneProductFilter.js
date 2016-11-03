@@ -6,7 +6,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
 
   var initgpIds = function () {
     var predefinedGPSets = hardCodedDataService.getGeneProductSets();
-    var queryPredefined = $scope.$parent.query.geneProductSubset;
+    var queryPredefined = $scope.$parent.query.targetSet;
     angular.forEach(predefinedGPSets, function (set) {
       if (queryPredefined && _.contains(queryPredefined.split(','), set.value)) {
         set.checked = true;
@@ -22,7 +22,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
 
   $scope.reset = function () {
     $scope.$parent.query.geneProductId = '';
-    $scope.$parent.query.geneProductSubset = '';
+    $scope.$parent.query.targetSet = '';
     $scope.$parent.updateQuery();
   };
 
@@ -31,7 +31,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
       $scope.$parent.addToQuery('geneProductId', _.pluck(_.filter($scope.gpIds, 'checked'), 'id'));
     }
     if ($scope.geneProductSets.length > 0) {
-      $scope.$parent.addToQuery('geneProductSubset', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'value'));
+      $scope.$parent.addToQuery('targetSet', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'value'));
     }
   };
 
@@ -44,7 +44,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
     addGpIds(gps);
     $scope.gpTextArea = '';
   };
-  
+
   var addGpIds = function(gpids) {
     angular.forEach(gpids, function (gpID) {
       gpID = gpID.toUpperCase();
@@ -54,7 +54,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
           checked: true
         });
       }
-    });    
+    });
   }
 
   initgpIds();

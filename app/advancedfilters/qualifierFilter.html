@@ -5,9 +5,9 @@
     <form>
       <p>The qualifier column specifies the relationship between the annotated gene product and the GO term.</p>
 
-      <div ng-repeat="aQualifier in qualifiers" class="checkbox">
+      <div ng-repeat="qualifier in qualifiers" class="checkbox">
         <label>
-          <input type="checkbox" ng-model="filters.qualifier[aQualifier.qualifier]"> {{aQualifier.name}}
+          <input type="checkbox" ng-model="qualifier.checked"> {{qualifier.name}}
         </label>
       </div>
       <div class="form-group">

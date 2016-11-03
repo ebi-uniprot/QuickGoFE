@@ -121,7 +121,6 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
         //TODO
       },
       findAnnotations: function(page, size, filters) {
-        console.log(ENV.apiEndpoint + '/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
           return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
       },
       findAnnotationsForTerm: function(searchTerm) {
@@ -205,13 +204,6 @@ wsService.factory('annotationPostProRules', ['$resource', 'ENV', function($resou
 wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/dataset/annotationBlacklist', {}, {
     query: {method:'GET', Cache:true}
-  });
-}]);
-
-
-wsService.factory('withDBs', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/withdbs', {}, {
-    query: {method:'GET',  isArray:true, Cache:true}
   });
 }]);
 
