@@ -43,7 +43,8 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
    * Pass that list to the filtering service.
    */
   $scope.submit = function() {
-    var terms = basketService.validateTerms($scope.input_terms);
+    var terms = $scope.input_terms;
+    //TODO we need to validate terms
     angular.forEach(terms.valid, function(term) {
       basketService.addBasketItem(term);
     });

@@ -95,11 +95,11 @@ select="false">
 
 <tr >
 
-<!-- <td>{{::item.geneProductId}}</td> -->
 <td class="td-no-icon" ng-show="$owner.colGeneProduct">
-  <a ng-click="$owner.followLinkToEntry(item.geneProductId, item.database)" target="_blank">
-      {{::item.geneProductId}}
-  </a>
+      <a ng-click="$owner.followLinkToEntry(item.geneProductId, item.geneProductId)"
+       target="_blank">
+        {{::item.geneProductId}}
+      </a>
 </td>
 <td class="td-no-icon" ng-show="$owner.colSymbol">{{::item.symbol}}</td>
 <td class="td-no-icon" ng-show="$owner.colQualifier">{{::item.qualifier}}</td>
@@ -188,13 +188,13 @@ select="false">
       <a ng-click="$owner.showAnnotationExtension(item.fullExtension)">{{::item.fullExtension | shortenStringFilter}}</a>
     </td>
 
-    <td ng-show="$owner.colDatabase">{{::item.database}}</td>
+    <td ng-show="$owner.colDatabase">{{::$owner.gpMapping[item.geneProductSimpleId].database}}</td>
     <td ng-show="$owner.colDate">{{::item.date | limitTo : 4}}/{{::item.date | limitTo : 2 : 4}}/{{::item.date | limitTo : 2 : 6}}
     </td>
 
-    <td ng-show="$owner.colName">{{::item.name}}</td>
-    <td ng-show="$owner.colSynonym">{{::item.synonym}}</td>
-    <td ng-show="$owner.colType">{{::item.type}}</td>
+    <td ng-show="$owner.colName">{{::$owner.gpMapping[item.geneProductSimpleId].name}}</td>
+    <td ng-show="$owner.colSynonym">{{::$owner.gpMapping[item.geneProductSimpleId].synonyms.join()}}</td>
+    <td ng-show="$owner.colType">{{::$owner.gpMapping[item.geneProductSimpleId].type}}</td>
     <td ng-show="$owner.colTaxonName">{{::$owner.taxaMapping[item.taxonId].scientificName}}</td>
     <td ng-show="$owner.colSequence">{{::item.sequence}}</td>
 

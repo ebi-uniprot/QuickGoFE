@@ -1,7 +1,6 @@
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
-                                              hardCodedDataService, dbXrefService, olsService,
-                                              searchService, termService, ontoTypeService, taxonomyService) {
-
+app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
+      hardCodedDataService, dbXrefService, olsService,
+      geneProductService, searchService, termService, ontoTypeService, taxonomyService) {
   /**
    * Initialisation
    */
@@ -35,7 +34,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     var query = $routeParams;
     // $scope.showSlimColumns = filteringService.hasSlims();
 
-    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize, searchService.serializeQuery(query));
+    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
+        searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
       if ($scope.showSlimColumns) {
@@ -86,6 +86,18 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       taxaIds.push(annotation.taxonId);
     });
     postProcessTaxa(_.unique(taxaIds));
+
+    var geneProductIds = [];
+    angular.forEach($scope.annotations, function(annotation) {
+      var pos = annotation.geneProductId.indexOf(':');
+      if (pos !== -1) {
+        annotation.geneProductSimpleId = annotation.geneProductId.substring(pos+1);
+        geneProductIds.push(annotation.geneProductSimpleId);
+      } else {
+        annotation.database = '';
+      }
+    });
+    postProcessGeneProds(_.unique(geneProductIds));
   }
 
   function postProcessTaxa(taxaIds) {
@@ -95,6 +107,18 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       taxonomyPromise.then(function(multipleTaxa) {
         angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
           $scope.taxaMapping[taxon.taxonomyId] = taxon;
+        });
+      });
+    }
+  }
+
+  function postProcessGeneProds(geneProductIds) {
+    $scope.gpMapping = {};
+    if (geneProductIds.length !== 0) {
+      var geneProdPromise = geneProductService.getGeneProducts(geneProductIds);
+      geneProdPromise.then(function(response) {
+        angular.forEach(response.data.results, function(geneProd) {
+          $scope.gpMapping[geneProd.id] = geneProd;
         });
       },function(reason) {
       });
