@@ -1,7 +1,6 @@
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
-                                              hardCodedDataService, dbXrefService, olsService, geneProductService,
-                                              searchService, termService, ontoTypeService) {
-
+app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
+      hardCodedDataService, dbXrefService, olsService,
+      geneProductService, searchService, termService, ontoTypeService, taxonomyService) {
   /**
    * Initialisation
    */
@@ -76,6 +75,18 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   }
 
   function postProcess() {
+    var taxaIds = [];
+    angular.forEach($scope.annotations, function(annotation) {
+      var pos = annotation.geneProductId.indexOf(':');
+      if (pos !== -1) {
+        annotation.database = annotation.geneProductId.substring(0, pos);
+      } else {
+        annotation.database = '';
+      }
+      taxaIds.push(annotation.taxonId);
+    });
+    postProcessTaxa(_.unique(taxaIds));
+
     var geneProductIds = [];
     angular.forEach($scope.annotations, function(annotation) {
       var pos = annotation.geneProductId.indexOf(':');
@@ -87,6 +98,18 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
       }
     });
     postProcessGeneProds(_.unique(geneProductIds));
+  }
+
+  function postProcessTaxa(taxaIds) {
+    $scope.taxaMapping = {};
+    if (taxaIds.length !== 0) {
+      var taxonomyPromise = taxonomyService.getTaxa(taxaIds);
+      taxonomyPromise.then(function(multipleTaxa) {
+        angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
+          $scope.taxaMapping[taxon.taxonomyId] = taxon;
+        });
+      });
+    }
   }
 
   function postProcessGeneProds(geneProductIds) {
@@ -155,10 +178,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     modalInstance.result.then(function () {
       $log.info('Download modal dismissed at: ' + new Date());
     });
-  };
-
-  $scope.showTaxon = function(target) {
-    $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
   };
 
   /**

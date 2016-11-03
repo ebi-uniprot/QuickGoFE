@@ -56,6 +56,14 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   };
 }]);
 
+wsService.factory('taxonomyService', ['$http', function($http){
+    return {
+        getTaxa : function(ids) {
+            return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
+        }
+    };
+}]);
+
 wsService.factory('geneProductService', ['$http', 'ENV', function($http, ENV){
     return {
         getGeneProducts : function(ids) {
@@ -171,6 +179,10 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
       //Overwrite for QuickGO instead of AMIGO
       if(name === 'GO') {
         return $location.absUrl().replace($location.path(), '/term/GO:' + id);
+      } else if (name === 'TAXON') {
+          return 'http://www.uniprot.org/taxonomy/' + id;
+      } else if (name === 'PMID') {
+          return 'http://europepmc.org/abstract/MED/' + id;
       } else {
         var match = _.find(xrefs, function(xref){
           return xref.database === name || _.contains(xref.synonyms, name);

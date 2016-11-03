@@ -2,9 +2,10 @@
   <h2>Results for gene product "{{searchTerm}}"</h2>
 
   <div class="grid_4">
-      <div ng-repeat="facet in results.facet.facetFields">
-        <facets endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm"></facets>
-      </div>
+    <div ng-repeat="facet in results.facet.facetFields">
+      <facets endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm">
+      </facets>
+    </div>
   </div>
 
   <!-- Main Content -->
@@ -24,11 +25,15 @@
         </tr>
         <tr ng-repeat="searchResult in results.results">
           <td><a ng-click="followLinkToGeneric(searchResult.database)" target="_blank">{{searchResult.database}}</a></td>
-          <td><a ng-click="followLinkToEntry(searchResult.database, searchResult.id)" target="_blank">
+          <td><a ng-click="followLinkToEntry(searchResult.id, searchResult.database)" target="_blank">
             {{searchResult.id}}</a></td>
           <td ng-bind-html="highlight(searchResult.name)"></td>
           <td>{{searchResult.type}}</td>
-          <td>{{searchResult.taxonomy.name}}</td>
+          <td>
+            <a class="quickgo-link selectable" ng-click="followLinkToEntry(searchResult.taxonId, 'TAXON')" target="_blank">
+              {{taxaMapping[searchResult.taxonId].scientificName}}
+            </a>
+          </td>
           <td><a href="annotations/filter?gpID={{searchResult.id}}" class="annotations-link"><annotations-link
                   productid="{{searchResult.id}}"></annotations-link></a></td>
         </tr>
