@@ -1,5 +1,5 @@
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
-                                              hardCodedDataService, dbXrefService, olsService,
+                                              hardCodedDataService, dbXrefService, olsService, geneProductService,
                                               searchService, termService, ontoTypeService) {
 
   /**
@@ -35,7 +35,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     var query = $routeParams;
     // $scope.showSlimColumns = filteringService.hasSlims();
 
-    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize, searchService.serializeQuery(query));
+    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
+        searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
       if ($scope.showSlimColumns) {
@@ -75,11 +76,30 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   }
 
   function postProcess() {
+    var geneProductIds = [];
     angular.forEach($scope.annotations, function(annotation) {
       var pos = annotation.geneProductId.indexOf(':');
-      annotation.database = pos !== -1 ? annotation.geneProductId.substring(0, pos) : '';
-        //TODO: get all the taxon ids so we can use the taxonomy service
+      if (pos !== -1) {
+        annotation.geneProductSimpleId = annotation.geneProductId.substring(pos+1);
+        geneProductIds.push(annotation.geneProductSimpleId);
+      } else {
+        annotation.database = '';
+      }
     });
+    postProcessGeneProds(_.unique(geneProductIds));
+  }
+
+  function postProcessGeneProds(geneProductIds) {
+    $scope.gpMapping = {};
+    if (geneProductIds.length !== 0) {
+      var geneProdPromise = geneProductService.getGeneProducts(geneProductIds);
+      geneProdPromise.then(function(response) {
+        angular.forEach(response.data.results, function(geneProd) {
+          $scope.gpMapping[geneProd.id] = geneProd;
+        });
+      },function(reason) {
+      });
+    }
   }
 
   function addInformation(lst, moreDataLst) {
