@@ -35,7 +35,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     var query = $routeParams;
     // $scope.showSlimColumns = filteringService.hasSlims();
 
-    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize, searchService.serializeQuery(query));
+    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
+        searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
       if ($scope.showSlimColumns) {
@@ -79,7 +80,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     angular.forEach($scope.annotations, function(annotation) {
       var pos = annotation.geneProductId.indexOf(':');
       if (pos !== -1) {
-        annotation.database = annotation.geneProductId.substring(0, pos);
         annotation.geneProductSimpleId = annotation.geneProductId.substring(pos+1);
         geneProductIds.push(annotation.geneProductSimpleId);
       } else {
@@ -90,20 +90,16 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   }
 
   function postProcessGeneProds(geneProductIds) {
-    $scope.geneProdPromise = geneProductService.getGeneProducts(geneProductIds);
-    $scope.geneProdPromise.then(function(response) {
-      angular.forEach($scope.annotations, function(annotation) {
-        var found = _.find(response.data.results, function(geneProd) {
-          return annotation.geneProductSimpleId === geneProd.id;
+    $scope.gpMapping = {};
+    if (geneProductIds.length !== 0) {
+      var geneProdPromise = geneProductService.getGeneProducts(geneProductIds);
+      geneProdPromise.then(function(response) {
+        angular.forEach(response.data.results, function(geneProd) {
+          $scope.gpMapping[geneProd.id] = geneProd;
         });
-        if (found) {
-          annotation.geneProductName = found.name;
-          annotation.geneProductSynonyms = found.synonyms.join();
-          annotation.geneProductType = found.type;
-        }
+      },function(reason) {
       });
-    },function(reason) {
-    });
+    }
   }
 
   function addInformation(lst, moreDataLst) {
