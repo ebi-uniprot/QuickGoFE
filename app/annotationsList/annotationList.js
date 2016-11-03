@@ -1,7 +1,6 @@
-app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
-                                              hardCodedDataService, dbXrefService, olsService,
-                                              searchService, termService, ontoTypeService) {
-
+app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
+      hardCodedDataService, dbXrefService, olsService,
+      geneProductService, searchService, termService, ontoTypeService, taxonomyService) {
   /**
    * Initialisation
    */
@@ -36,7 +35,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     var query = $routeParams;
     // $scope.showSlimColumns = filteringService.hasSlims();
 
-    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize, searchService.serializeQuery(query));
+    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
+        searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
       if ($scope.showSlimColumns) {
@@ -76,10 +76,18 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
   }
 
   function postProcess() {
+    var taxaIds = [];
+    var geneProductIds = [];
+      
     angular.forEach($scope.annotations, function(annotation) {
+      taxaIds.push(annotation.taxonId);  
+      
       var pos = annotation.geneProductId.indexOf(':');
-      annotation.database = pos !== -1 ? annotation.geneProductId.substring(0, pos) : '';
-        //TODO: get all the taxon ids so we can use the taxonomy service
+      if (pos !== -1) {
+        annotation.geneProductSimpleId = annotation.geneProductId.substring(pos+1);
+        geneProductIds.push(annotation.geneProductSimpleId);
+      }  
+        
       _.forEach(annotation.extensions, function(d){
         _.forEach(d.connectedXrefs, function(xref){
            olsService.getTermName(xref.db, xref.id).then(function(resp){
@@ -88,6 +96,34 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
         });
       });
     });
+      
+    postProcessTaxa(_.unique(taxaIds));
+    postProcessGeneProds(_.unique(geneProductIds));
+  }
+
+  function postProcessTaxa(taxaIds) {
+    $scope.taxaMapping = {};
+    if (taxaIds.length !== 0) {
+      var taxonomyPromise = taxonomyService.getTaxa(taxaIds);
+      taxonomyPromise.then(function(multipleTaxa) {
+        angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
+          $scope.taxaMapping[taxon.taxonomyId] = taxon;
+        });
+      });
+    }
+  }
+
+  function postProcessGeneProds(geneProductIds) {
+    $scope.gpMapping = {};
+    if (geneProductIds.length !== 0) {
+      var geneProdPromise = geneProductService.getGeneProducts(geneProductIds);
+      geneProdPromise.then(function(response) {
+        angular.forEach(response.data.results, function(geneProd) {
+          $scope.gpMapping[geneProd.id] = geneProd;
+        });
+      },function(reason) {
+      });
+    }
   }
 
   function addInformation(lst, moreDataLst) {
@@ -145,10 +181,41 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $uibMod
     });
   };
 
-  $scope.showTaxon = function(target) {
-    $window.open('http://www.uniprot.org/taxonomy/'+target, '_blank');
+  /**
+   * Show the with_string modal on request
+   */
+  $scope.showWithList = function (withList) {
+
+    $scope.withList = withList;
+
+    $uibModal.open({
+      templateUrl: 'annotationsList/withStringModal.html',
+      controller: 'AnnotationListModalController',
+      size: 'md',
+      scope: $scope
+    });
+
   };
-  
+
+  $scope.showAnnotationExtension = function(extensions) {
+    //TODO, do we really have a connectedXrefs element or just the elements? And what info per element?
+    angular.forEach(extensions, function(extension){
+      angular.forEach(extension.connectedXrefs, function(xref){
+        olsService.getTermName(xref).then(function(name){
+          xref.label = name.data.label;
+        });
+      });
+    });
+    $scope.extensions = extensions;
+
+    $uibModal.open({
+      templateUrl: 'annotationsList/annotationExtensionModal.html',
+      controller: 'AnnotationListModalController',
+      size: 'md',
+      scope: $scope
+    });
+  };
+
   $scope.customiseColumnsContainer = true;
   $scope.toggleCustomiseContainer = function() {
        $scope.customiseColumnsContainer = $scope.customiseColumnsContainer === false ? true : false;
