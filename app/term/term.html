@@ -22,11 +22,13 @@
         <p>
           {{termModel.definition.text}}
           <span ng-repeat="xrefDef in termModel.definition.xrefs">
-              <span ng-if="xrefDef.dbCode === 'PMID'">
-              <a class="quickgo-link" ng-href="{{(xrefDef.dbCode + ':' + xrefDef.dbId) | referenceUrlFilter}}"
-                 target="_blank">
-                {{(xrefDef.dbCode + ':' + xrefDef.dbId)}}</a>
-              </span>
+
+            <span ng-if="xrefDef.dbCode === 'PMID'">
+              <a class="quickgo-link" ng-click="followLinkToEntry(xrefDef.dbId, xrefDef.dbCode)" target="_blank">
+                {{(xrefDef.dbCode + ':' + xrefDef.dbId)}}
+              </a>
+            </span>
+
           </span>
         </p>
       </div>
@@ -198,10 +200,9 @@
             <td>
               <li ng-repeat="citation in taxonconstraint.citations ">
                 <span ng-if="citation.id.indexOf( 'PMID:')===0 ">
-                    <a class="quickgo-link " ng-href="{{citation.id | referenceUrlFilter}} "
-                      target="_blank ">
-                      {{citation.id}}
-                    </a>
+                  <a class="quickgo-link" ng-click="followLinkToEntry(citation.id)" target="_blank">
+                    {{citation.id}}
+                  </a>
                   </span>
               </li>
             </td>
@@ -249,6 +250,7 @@
       </div>
 
 
+
       <!-- Cross References-->
       <div id="termCrossReferences" ng-if="termModel.xRefs.length > 0" data-magellan-target=="termCrossReferences">
         <h3 class="term-section-header">Cross-references</h3>
@@ -260,7 +262,7 @@
           </tr>
           <tr ng-repeat="xref in termModel.xRefs | limitTo:crossrefsPageSize">
             <td><a ng-click="followLinkToGeneric(xref.dbCode)" target="_blank">{{xref.dbCode}}</a></td>
-            <td><a ng-click="followLinkToEntry(xref.dbCode, xref.dbId)" target="_blank">{{xref.dbId}}</a></td>
+            <td><a ng-click="followLinkToEntry(xref.dbId, xref.dbCode)" target="_blank">{{xref.dbId}}</a></td>
             <td>{{xref.name}}</td>
           </tr>
         </table>
@@ -269,6 +271,8 @@
         <span ng-show="(crossrefsPageSize == termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
         <span ng-show="(crossrefsPageSize == termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
       </div>
+
+
 
       <!-- Cross Ontology Relations -->
       <div id="termCrossOntologyRelations" ng-if="termModel.xRelations.length > 0" data-magellan-target=="termCrossOntologyRelations">
@@ -299,6 +303,7 @@
       <div id="termReplaces" ng-if="termModel.replaces.length > 0" data-magellan-target=="termReplaces">
         <h3 class="term-section-header">Replaces</h3>
 
+
         <p>This term can be used instead of these obsolete terms:</p>
         <table id="replacesTable" class="two-colours">
           <tr>
@@ -318,6 +323,7 @@
         <span ng-show="(replacesPageSize == termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
         <span ng-show="(replacesPageSize == termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
       </div>
+
 
       <!-- Replaced By-->
       <div id="termReplacedBy" ng-if="termModel.replacements.length > 0" data-magellan-target=="termReplacedBy">

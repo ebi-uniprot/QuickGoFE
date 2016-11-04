@@ -56,6 +56,26 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   };
 }]);
 
+wsService.factory('taxonomyService', ['$http', function($http){
+    return {
+        getTaxa : function(ids) {
+            return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
+        }
+    };
+}]);
+
+wsService.factory('geneProductService', ['$http', 'ENV', function($http, ENV){
+    return {
+        getGeneProducts : function(ids) {
+            if (typeof ids === Array) {
+                return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids.join(','));
+            } else {
+                return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids);
+            }
+        }
+    };
+}]);
+
 wsService.factory('stringService', [function(){
   return {
     getTextareaItemsAsArray : function(str) {
@@ -159,6 +179,10 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
       //Overwrite for QuickGO instead of AMIGO
       if(name === 'GO') {
         return $location.absUrl().replace($location.path(), '/term/GO:' + id);
+      } else if (name === 'TAXON') {
+          return 'http://www.uniprot.org/taxonomy/' + id;
+      } else if (name === 'PMID') {
+          return 'http://europepmc.org/abstract/MED/' + id;
       } else {
         var match = _.find(xrefs, function(xref){
           return xref.database === name || _.contains(xref.synonyms, name);
@@ -171,8 +195,8 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
 
 wsService.factory('olsService', ['$http', function($http) {
   return {
-    getTermName: function(xref) {
-      return $http.get('http://www.ebi.ac.uk/ols/api/ontologies/' + xref.db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + xref.db + '_' + xref.id);
+    getTermName: function(db, id) {
+      return $http.get('http://www.ebi.ac.uk/ols/api/ontologies/' + db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + db + '_' + id);
     }
   };
 }]);

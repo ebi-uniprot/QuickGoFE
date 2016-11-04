@@ -104,9 +104,11 @@ select="false">
 
 <tr >
 
-<!-- <td>{{::item.geneProductId}}</td> -->
 <td class="td-no-icon" ng-show="$owner.colGeneProduct">
-  <a ng-click="$owner.followLinkToEntry(item.database, item.geneProductId)" target="_blank">{{::item.geneProductId}}
+      <a ng-click="$owner.followLinkToEntry(item.geneProductId, item.geneProductId)"
+       target="_blank">
+        {{::item.geneProductId}}
+      </a>
 </td>
 <td class="td-no-icon" ng-show="$owner.colSymbol">{{::item.symbol}}</td>
 <td class="td-no-icon" ng-show="$owner.colQualifier">{{::item.qualifier}}</td>
@@ -143,56 +145,45 @@ select="false">
 
 
 <td class="td-no-icon" ng-show="$owner.colReference">
-  <a class="quickgo-link" ng-href="{{::item.reference | referenceUrlFilter}}" target="_blank">{{::item.reference}}</a>
+    <a class="quickgo-link" ng-click="$owner.followLinkToEntry(item.reference)" target="_blank">
+        {{::item.reference}}
+    </a>
 </td>
 
 <td class="td-no-icon" ng-show="$owner.colWith">
-  <span ng-if="::item.withFrom.length === 1">
-      <span ng-repeat="item in ::item.withFrom">
-        <span ng-if="::item.connectedXrefs.length === 1" ng-repeat="element in ::item.connectedXrefs">
-          <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
-        </span>
-      </span>
+  <div ng-repeat="item in item.withFrom">
+    <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
+    <div class="text-center">
+      <strong ng-show="!$last">OR</strong>
+    </div>
+  </div>
+</td>
 
-      <span ng-repeat="item in ::item.withFrom" ng-if="::item.connectedXrefs.length > 1">
-        <span ng-repeat="subItem in ::item">
-          <span ng-repeat="element in ::subItem">
-            <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
-            <span ng-show="!$last">,</span>
-          </span>
-        </span>
-      </span>
-
-      <span ng-repeat="item in ::item.withFrom" ng-if="::item.connectedXrefs.length > 1">
-          <span ng-repeat="subItem in ::item">
-            <span ng-repeat="element in ::subItem">
-              <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(element.db, element.id)" target="_blank">{{::element.db}}:{{::element.id}}</a>
-              <span ng-show="!$last">,</span>
-            </span>
-          </span>
-        </span>
-      </span>
-
-    <span ng-if="::item.withFrom.length > 1">
-      <a ng-if="::item.withFrom.length >= 2" class="quickgo-link ellipsis" ng-click="$owner.showWithList(item.withFrom)">{{::item.fullWith}}</a>
-    </span>
-
+    <td class="td-no-icon" ng-show="$owner.colTaxon">
+        <a class="quickgo-link selectable" ng-click="$owner.followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">
+            {{::item.taxonId}}
+        </a>
     </td>
-
-    <td class="td-no-icon" ng-show="$owner.colTaxon"><a class="quickgo-link selectable" ng-click="$owner.showTaxon(item.taxon)">{{::item.taxonId}}</a></td>
     <td class="td-no-icon" ng-show="$owner.colAssignedBy"><a class="quickgo-link selectable" ng-click="$owner.followLinkToGeneric(item.assignedBy)">{{::item.assignedBy}}</a></td>
     <td class="td-no-icon" ng-show="$owner.colAnnotationExtension">
-      <a ng-click="$owner.showAnnotationExtension(item.fullExtension)">{{::item.fullExtension | shortenStringFilter}}</a>
+      <div ng-repeat="item in item.extensions">
+        <div ng-repeat="resource in item.connectedXrefs" class="text-center">
+          <a href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{resource.qualifier}}.md" target="_blank">{{resource.qualifier}}(<a ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}} {{$owner.olsxrefs[resource.db + ':' + resource.id]}}</a>)
+        </div>
+        <div class="text-center">
+          <strong ng-show="!$last">OR</strong>
+        </div>
+      </div>
     </td>
 
-    <td ng-show="$owner.colDatabase">{{::item.database}}</td>
+    <td ng-show="$owner.colDatabase">{{::$owner.gpMapping[item.geneProductSimpleId].database}}</td>
     <td ng-show="$owner.colDate">{{::item.date | limitTo : 4}}/{{::item.date | limitTo : 2 : 4}}/{{::item.date | limitTo : 2 : 6}}
     </td>
 
-    <td ng-show="$owner.colName">{{::item.name}}</td>
-    <td ng-show="$owner.colSynonym">{{::item.synonym}}</td>
-    <td ng-show="$owner.colType">{{::item.type}}</td>
-    <td ng-show="$owner.colTaxonName">{{::item.taxonName}}</td>
+    <td ng-show="$owner.colName">{{::$owner.gpMapping[item.geneProductSimpleId].name}}</td>
+    <td ng-show="$owner.colSynonym">{{::$owner.gpMapping[item.geneProductSimpleId].synonyms.join()}}</td>
+    <td ng-show="$owner.colType">{{::$owner.gpMapping[item.geneProductSimpleId].type}}</td>
+    <td ng-show="$owner.colTaxonName">{{::$owner.taxaMapping[item.taxonId].scientificName}}</td>
     <td ng-show="$owner.colSequence">{{::item.sequence}}</td>
 
         <td class="td-no-icon" ng-if="colAnnotationExtension">
