@@ -7,6 +7,7 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
   $scope.maxSize=25;
   $scope.evidenceSetter="ecoAncestorsI";
   $rootScope.header = "QuickGO::Annotation List";
+  $scope.olsxrefs = {};
 
   $scope.currentPage = 1;
   getResultsPage();
@@ -76,27 +77,27 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
 
   function postProcess() {
     var taxaIds = [];
-    angular.forEach($scope.annotations, function(annotation) {
-      var pos = annotation.geneProductId.indexOf(':');
-      if (pos !== -1) {
-        annotation.database = annotation.geneProductId.substring(0, pos);
-      } else {
-        annotation.database = '';
-      }
-      taxaIds.push(annotation.taxonId);
-    });
-    postProcessTaxa(_.unique(taxaIds));
-
     var geneProductIds = [];
+      
     angular.forEach($scope.annotations, function(annotation) {
+      taxaIds.push(annotation.taxonId);  
+      
       var pos = annotation.geneProductId.indexOf(':');
       if (pos !== -1) {
         annotation.geneProductSimpleId = annotation.geneProductId.substring(pos+1);
         geneProductIds.push(annotation.geneProductSimpleId);
-      } else {
-        annotation.database = '';
-      }
+      }  
+        
+      _.forEach(annotation.extensions, function(d){
+        _.forEach(d.connectedXrefs, function(xref){
+           olsService.getTermName(xref.db, xref.id).then(function(resp){
+             $scope.olsxrefs[xref.db + ':' + xref.id] = resp.data.label;
+           });
+        });
+      });
     });
+      
+    postProcessTaxa(_.unique(taxaIds));
     postProcessGeneProds(_.unique(geneProductIds));
   }
 
