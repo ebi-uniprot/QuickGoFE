@@ -71,10 +71,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
       if (taxaIds.length !== 0) {
         var taxonomyPromise = taxonomyService.getTaxa(_.unique(taxaIds));
         taxonomyPromise.then(function(multipleTaxa) {
-          angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
-            $scope.taxaMapping[taxon.taxonomyId] = taxon;
-          });
-        },function(reason) {
+
         });
       }
     }
@@ -86,10 +83,6 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
         return category.count;
       });
       facet.categories = _.last(facet.categories, 10);
-      if (facet.field === 'taxonId') {
-        var taxaIds = _.pluck(facet.categories, 'name');
-        taxonomyService.completeTaxaInfo(taxaIds, facet.categories, 'name', 'display');
-      }
     });
   }
 });
