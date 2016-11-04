@@ -56,22 +56,31 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   getResultsPage();
 
   function postProcess() {
-    addTaxaNamesToData();
     sortAndTrimFacets();
+    addTaxaNamesToData();
   }
 
   function addTaxaNamesToData() {
     if (!isTermSearch) {
       var taxaIds = [];
-      angular.forEach($scope.results.results, function (result) {
-        taxaIds.push(result.taxonId);
+      var data = _.find($scope.results.facet.facetFields, function(facet) {
+        return facet.field === 'taxonId';
+      });
+      angular.forEach(data.categories, function (category) {
+        taxaIds.push(category.name);
       });
 
-      $scope.taxaMapping = {};
       if (taxaIds.length !== 0) {
         var taxonomyPromise = taxonomyService.getTaxa(_.unique(taxaIds));
         taxonomyPromise.then(function(multipleTaxa) {
-
+          angular.forEach(data.categories, function(datum) {
+            var inResult = _.find(multipleTaxa.data.taxonomies, function(taxon) {
+              return taxon.taxonomyId === +datum.name;
+            });
+            if (inResult) {
+              datum.display = inResult.scientificName;
+            }
+          });
         });
       }
     }
