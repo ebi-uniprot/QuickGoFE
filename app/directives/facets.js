@@ -21,10 +21,10 @@ angular
         };
 
         $scope.removeFilterUrl = function(field) {
-					var filters = _.filter($scope.filters.split(','), function(filter){
-						return !filter.startsWith(field);
-					});
-					return filters.join();
+          var filters = _.filter($scope.filters.split(','), function(filter){
+              return !filter.startsWith(field);
+          });
+          return filters.join();
         }
 
       }

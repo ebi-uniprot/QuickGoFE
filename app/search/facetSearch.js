@@ -6,7 +6,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   if(isTermSearch) {
     facets = 'aspect,ontologyType';
   } else {
-    facets = 'type'
+    facets = 'type,taxonId'
   }
   $scope.maxSize = 25;
   $scope.currentPage = 1;
@@ -20,16 +20,16 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
 
   function getResultsPage() {
     if(isTermSearch) {
-      $scope.queryPromise = searchService.findTerms($scope.searchTerm, $scope.maxSize, $scope.currentPage, facets, $scope.filters);
+      $scope.queryPromise = searchService.findTerms($scope.searchTerm, $scope.maxSize, $scope.currentPage, facets,
+          $scope.filters);
     } else {
-      $scope.queryPromise = searchService.findGeneProducts($scope.searchTerm, $scope.maxSize, $scope.currentPage, facets, $scope.filters);
+      $scope.queryPromise = searchService.findGeneProducts($scope.searchTerm, $scope.maxSize, $scope.currentPage,
+          facets, $scope.filters);
     }
     $scope.queryPromise.then(
       function(result) {
         $scope.results = result.data;
-        if (!isTermSearch) {
-          postProcess();
-        }
+        postProcess();
       });
   }
 
@@ -56,19 +56,40 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   getResultsPage();
 
   function postProcess() {
-    var taxaIds = [];
-    angular.forEach($scope.results.results, function(result) {
-      taxaIds.push(result.taxonId);
-    });
-    $scope.taxaMapping = {};
-    if (taxaIds.length !== 0) {
-      var taxonomyPromise = taxonomyService.getTaxa(_.unique(taxaIds));
-      taxonomyPromise.then(function(multipleTaxa) {
-        angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
-          $scope.taxaMapping[taxon.taxonomyId] = taxon;
-        });
-      },function(reason) {
+    addTaxaNamesToData();
+    sortAndTrimFacets();
+  }
+
+  function addTaxaNamesToData() {
+    if (!isTermSearch) {
+      var taxaIds = [];
+      angular.forEach($scope.results.results, function (result) {
+        taxaIds.push(result.taxonId);
       });
+
+      $scope.taxaMapping = {};
+      if (taxaIds.length !== 0) {
+        var taxonomyPromise = taxonomyService.getTaxa(_.unique(taxaIds));
+        taxonomyPromise.then(function(multipleTaxa) {
+          angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
+            $scope.taxaMapping[taxon.taxonomyId] = taxon;
+          });
+        },function(reason) {
+        });
+      }
     }
+  }
+
+  function sortAndTrimFacets() {
+    _.each($scope.results.facet.facetFields, function(facet) {
+      facet.categories = _.sortBy(facet.categories, function(category) {
+        return category.count;
+      });
+      facet.categories = _.last(facet.categories, 10);
+      if (facet.field === 'taxonId') {
+        var taxaIds = _.pluck(facet.categories, 'name');
+        taxonomyService.completeTaxaInfo(taxaIds, facet.categories, 'name', 'display');
+      }
+    });
   }
 });
