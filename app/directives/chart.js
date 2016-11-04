@@ -9,6 +9,7 @@ angular
 			},
 			templateUrl: 'directives/chart.html',
 			link: function(scope) {
+        //TODO need to handle both GO and ECO terms
 				scope.createChart = function() {
 					$uibModal.open({
 						templateUrl: 'charts/ontologyGraphModal.html',

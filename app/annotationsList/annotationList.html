@@ -132,10 +132,9 @@ select="false">
 
 <td class="text-nowrap" ng-show="$owner.colEvidence">
   <a class="quickgo-link selectable" href="term/{{::item.evidenceCode}}">{{::item.evidenceCode}}</a>
-  <a class="quickgo-icon selectable" ng-click="$owner.showEvidenceCodeOntologyGraph(item.evidenceCode)">
-    <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a> (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{::item.goEvidence | lowercase}}" target="_blank">{{::item.goEvidence}}</a>)
+  <chart-icon term-id="::item.originalTermId" term-name="::item.goEvidence"></chart-icon>
+  (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{::item.goEvidence | lowercase}}" target="_blank">{{::item.goEvidence}}</a>)
 </td>
-
 
 <td class="td-no-icon" ng-show="$owner.colReference">
     <a class="quickgo-link" ng-click="$owner.followLinkToEntry(item.reference)" target="_blank">
