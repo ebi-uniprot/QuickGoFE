@@ -19,11 +19,7 @@
         <tr ng-repeat="searchResult in results.results">
 
           <td class="text-nowrap" ng-class="{'inactive':searchResult.isObsolete==true}">
-
-            <span ng-if="searchResult.aspect" uib-tooltip-template="'colAspect.html'"
-                  class="aspect-icon aspect-{{ontoOneLetterName(searchResult.aspect)}}">
-              {{ontoOneLetterName(searchResult.aspect)}}
-            </span>
+            <aspect-icon aspect="searchResult.aspect"></aspect-icon>
             <span><a href="term/{{searchResult.id}}">{{searchResult.id}}</a></span>
             <basket-button ng-if="isGoTerm(searchResult.id)" termid="{{searchResult.id}}"
                            icondisabled="{{searchResult.isObsolete}}"></basket-button>

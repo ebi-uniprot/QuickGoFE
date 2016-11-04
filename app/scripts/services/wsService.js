@@ -89,17 +89,6 @@ wsService.factory('ontoTypeService', [function(){
         isGoTerm : function(termId) {
             return !(termId.indexOf('ECO') === 0);
         },
-        ontoOneLetterName: function(ontoName) {
-            switch(ontoName) {
-                case 'Biological Process' : return 'P';
-                case 'Molecular Function' : return 'F';
-                case 'Cellular Component' : return 'C';
-                case 'biological_process' : return 'P';
-                case 'molecular_function' : return 'F';
-                case 'cellular_component' : return 'C';
-                default: return ontoName;
-            }
-        },
         ontoReadableText: function(ontoName) {
             switch(ontoName) {
                 case 'biological_process' : return 'Biological Process';

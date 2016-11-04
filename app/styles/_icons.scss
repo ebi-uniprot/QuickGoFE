@@ -1,0 +1,65 @@
+@mixin action-icon($color, $background, $border){
+  color: $color;
+  background-color: $background;
+  font-weight: lighter;
+  border: 1px solid $border;
+  border-radius: .7em;
+  text-align: center;
+  font-size: 1.4em;
+  width: 1.4em;
+  line-height: 1.4em;
+  display: inline-block;
+}
+
+// ASPECT ICONS
+
+.aspect-biological_process:before {
+  @include action-icon(#FEC4C7, $white, #FEC4C7);
+  content:'P';  
+}
+
+.aspect-cellular_component:before{
+  @include action-icon(#B2AFFF, $white, #B2AFFF);
+  content:'C';
+}
+.aspect-molecular_function:before{
+  @include action-icon(#59BB74, $white, #59BB74);
+  content:'F';
+}
+
+//BASKET
+
+.basket-default:before {
+  @include action-icon($white,$primary1, $primary1);
+  font-family: 'EBI-Generic';
+  content:'b';
+}
+
+.basket-default:hover:before, .basket-added:before {
+  @include action-icon($white,green, green);
+  font-family: 'EBI-Functional';
+  content:'/';
+}
+
+.basket-added:hover:before {
+  @include action-icon($white,red, red);
+  font-family: 'EBI-Functional';
+  content:'x';  
+}
+
+.basket-disabled:before {
+  @include action-icon($white,$lightgrey, $lightgrey);
+  font-family: 'EBI-Generic';
+  content:'b';
+}
+
+
+.chart-btn:before {
+  @include action-icon($white,$primary1, $primary1);
+  font-family: 'EBI-Functional';
+  content:'h';
+}
+
+.chart-btn:hover {
+  opacity:.8;
+}

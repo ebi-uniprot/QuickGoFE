@@ -105,23 +105,24 @@ select="false">
 <td class="td-no-icon" ng-show="$owner.colQualifier">{{::item.qualifier}}</td>
 
 <td ng-show="$owner.showSlimColumns && $owner.colGOIdentifier" class="text-nowrap">
-  <span ng-if="::item.originalAspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{::item.originalAspect}}">{{::item.originalAspect}}</span>
+  <aspect-icon aspect="item.originalAspect"></aspect-icon>
   <a href="term/{{::item.originalTermId}}">{{::item.originalTermId}}</a>
   <basket-button termid="{{::item.originalTermId}}" icondisabled="{{::item.isObsolete}}"></basket-button>
   <chart-icon term-id="::item.originalTermId" term-name="::item.originalTermName"></chart-icon>
-  <element uib-tooltip="{{::item.termName}}">{{::item.originalTermName | shortenStringFilter}}</element>
+  <element uib-tooltip="{{::item.goTermName}}">{{::item.originalTermName | shortenStringFilter}}</element>
 </td>
 
 <td class="text-nowrap" ng-show="$owner.colGOIdentifier">
   <div class="go-term">
-    <span ng-if="::item.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{::item.aspect}}">{{::item.aspect}}</span>
+    <aspect-icon aspect="item.goAspect"></aspect-icon>
     <a class="quickgo-link selectable" href="term/{{::item.goId}}">{{::item.goId}}</a>
     <basket-button termid="{{::item.goId}}" icondisabled="{{::item.isObsolete}}"></basket-button>
-    <chart-icon term-id="::item.goId" term-name="::item.termName"></chart-icon>
-    <element uib-tooltip="{{::item.termName}}">{{::item.termName | shortenStringFilter}}</element>
+    <chart-icon term-id="::item.goId" term-name="::item.goTermName"></chart-icon>
+    {{item.goTermName}}
+    <element uib-tooltip="{{::item.goTermName}}">{{::item.goTermName | shortenStringFilter}}</element>
   </div>
   <div ng-repeat="slimRepeat in ::item.slimsList" class="go-term slim-repeat">
-    <span ng-if="::slimRepeat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{::slimRepeat.aspect}}">{{::slimRepeat.aspect}}</span>
+    <aspect-icon aspect="slimRepeat.aspect"></aspect-icon>
     <a class="quickgo-link selectable" href="term/{{::slimRepeat.goId}}">{{::slimRepeat.goId}}</a>
     <basket-button termid="{{::slimRepeat.goId}}" icondisabled="{{::slimRepeat.isObsolete}}"></basket-button>
     <chart-icon term-id="::slimRepeat.goId" term-name="::slimRepeat.termName"></chart-icon>
