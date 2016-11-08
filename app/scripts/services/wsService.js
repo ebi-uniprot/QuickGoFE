@@ -126,8 +126,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           });
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        filters = filters.replace(/:/g, '=');
-        filters = filters.replace(/,/g, '&');
+        filters = filters ? filters.replace(/:/g, '=').replace(/,/g, '&') : '';
         var url = ENV.apiEndpoint + '/geneproduct/search?query=' + searchTerm + "&limit=" + limit +
             '&page=' + (page ? page : 1) + '&facet=' + (facet ? facet : '') + '&' + filters;
         return $http.get(url);
