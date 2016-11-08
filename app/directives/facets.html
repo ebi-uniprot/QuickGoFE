@@ -6,9 +6,10 @@
        ng-href="{{endpoint}}/{{searchTerm}}?filters={{removeFilterUrl(facet.field, category.name)}}">
         {{category.display || category.name}}
     </a>
-    <a ng-switch-when="false" class="ellipsis"
+    <a ng-switch-when="false"
        ng-href="{{endpoint}}/{{searchTerm}}?filters={{getFilterUrl(facet.field, category.name)}}">
-        ({{category.count}}) {{category.display || category.name}}
+        <span>{{category.display || category.name}}</span>
+        <span>({{category.count}})</span>
     </a>
   </li>
 </ul>

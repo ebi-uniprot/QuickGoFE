@@ -91,7 +91,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
       facet.categories = _.sortBy(facet.categories, function(category) {
         return category.count;
       });
-      facet.categories = _.last(facet.categories, 10);
+      facet.categories = _.last(facet.categories, 10).reverse();
     });
   }
 });
