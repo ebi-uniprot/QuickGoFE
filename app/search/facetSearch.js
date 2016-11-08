@@ -41,10 +41,6 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
     return ontoTypeService.isGoTerm(termId);
   };
 
-  $scope.ontoOneLetterName = function(ontoName) {
-    return ontoTypeService.ontoOneLetterName(ontoName);
-  };
-
   $scope.highlight = function(text) {
     if (!text) {
       return text;

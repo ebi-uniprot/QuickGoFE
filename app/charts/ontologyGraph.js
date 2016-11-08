@@ -11,7 +11,6 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalIn
   $scope.graphPromise = $http.get(ENV.apiEndpoint +'/chartfull?ids='+ graphModel.id);
 
   $scope.graphPromise.success(function(data) {
-    console.log('there');
     $scope.graphImage = data;
     $scope.imageSource=ENV.apiEndpoint+$scope.graphImage.graphImageSrc;
   });

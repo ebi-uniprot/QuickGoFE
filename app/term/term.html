@@ -1,26 +1,38 @@
-<div id="content" class="colums large-12" role="main" cg-busy="termPromise" ng-if="termModel.id">
-  <div id="container1" class="large-12 row">
-    <!-- Title section -->
-    <section class="panel columns large-9" id="overview" data-magellan-target=="overview">
-      <div>
-        <!-- Check if it is obsolete -->
-        <div class="alert" ng-show="isObsolete">
-          <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
-          <strong>This term is obsolete.</strong><br/> {{termModel.comment}}
-        </div>
-        <h2 class="page-title">{{termModel.id}} <basket-button termid="{{termModel.id}}" icondisabled="{{termModel.isObsolete}}"></basket-button></h2>
-        <!-- Term name -->
-        <h3>{{termModel.name}}</h3>
-        <!-- Ontology -->
-        <p ng-show="isGoTerm"><strong>{{readableAspect}}</strong></p>
-      </div>
-      <!-- Definition -->
-      <div>
-        <h5>Definition <span ng-if="isGoTerm" style="display:inline-block">
-          (<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.id}}" target="_blank">{{termModel.id}} GONUTS page</a>)</span>
-        </h5>
-        <p>
-          {{termModel.definition.text}}
+<div id="content" class="colums large-12"  role="main" cg-busy="termPromise" ng-if="termModel.id">
+
+  <section id="container" class="large-12 row">
+  <!-- Title section -->
+  <section class="panel columns large-9" id="overview" data-magellan-target=="overview">
+    <section>
+    <!-- Check if it is obsolete -->
+    <div class="alert" ng-show="isObsolete">
+      <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
+      <strong>This term is obsolete.</strong><br/>
+      {{termModel.comment}}
+    </div>
+    <h2 class="page-title">
+      {{termModel.id}}
+    </h2>
+      <aspect-icon aspect="termModel.aspect"></aspect-icon>
+      <basket-button termid="{{termModel.id}}" icondisabled="{{termModel.isObsolete}}"></basket-button>
+
+    <!-- Term name -->
+    <h3>{{termModel.name}}</h3>
+
+    <!-- Ontology -->
+    <p ng-show="isGoTerm"><strong>{{readableAspect}}</strong></p>
+    </section>
+
+    <!-- Definition -->
+    <section>
+      <h5>Definition <span ng-if="isGoTerm" style="display:inline-block">
+        (<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.id}}"
+            target="_blank">{{termModel.id}}
+        GONUTS page</a>)
+      </span></h5>
+
+      <p>
+        {{termModel.definition.text}}
           <span ng-repeat="xrefDef in termModel.definition.xrefs">
 
             <span ng-if="xrefDef.dbCode === 'PMID'">

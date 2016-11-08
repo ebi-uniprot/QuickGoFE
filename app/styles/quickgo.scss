@@ -1,5 +1,6 @@
 
 @import 'quickgo-colours';
+@import 'icons';
 
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 /* This section holds the our app title*/
@@ -191,61 +192,6 @@ li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
   background-color: $white;
 }
 
-.basket-btn {
-  border-radius: 10px;
-  font-size: 10px;
-  color: $white;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  display: inline-block;
-}
-.basket-btn:before {
-  color: $white!important;
-  font-weight: lighter;
-  text-align: center;
-  padding-left: 4px;
-}
-
-.basket-btn:before {
-  color: $white!important;
-  font-weight: lighter;
-  text-align: center;
-  padding-left: 4px;
-}
-
-
-.basket-btn {
-  &:hover {
-    background-color: green !important;
-  }
-  &.basket-added {
-    background-color: green;
-    &:hover {
-      background-color: red !important;
-    }
-  }
-}
-
-.chart-btn {
-  border-radius: 10px;
-  font-size: 10px;
-  color: $white;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  display: inline-block;
-  border-radius: 2px;
-  font-size: 13px;
-}
-
-.chart-btn:before {
-  color: $white!important;
-  font-weight: lighter;
-  text-align: center;
-  padding-left: 4px;
-  padding-left: 3px;
-}
 /* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
 
 #searchbox {

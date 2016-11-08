@@ -113,36 +113,22 @@ select="false">
 <td class="td-no-icon" ng-show="$owner.colSymbol">{{::item.symbol}}</td>
 <td class="td-no-icon" ng-show="$owner.colQualifier">{{::item.qualifier}}</td>
 <td ng-show="$owner.showSlimColumns && $owner.colGOIdentifier" class="text-nowrap">
-  <span data-tooltip ng-if="::item.originalAspect" title="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)" class="aspect-icon aspect-{{::item.originalAspect}} has-tip">{{::item.originalAspect}}</span>
-  <a href="term/{{::item.originalTermId}}">{{::item.originalTermId}}</a>
-  <basket-button termid="{{::item.originalTermId}}" icondisabled="{{::item.isObsolete}}"></basket-button>
-  <chart-icon term-id="::item.originalTermId" term-name="::item.originalTermName"></chart-icon>
-  <element data-tooltip class="has-tip" title="{{::item.termName}}">{{::item.originalTermName | shortenStringFilter}}</element>
+  <term-line id="item.originalTermId" aspect="item.originalAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
 </td>
 
 <td class="text-nowrap" ng-show="$owner.colGOIdentifier">
   <div class="go-term">
-    <span data-tooltip title="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)" ng-if="::item.aspect" class="aspect-icon aspect-{{::item.aspect}} has-tip">{{::item.aspect}}</span>
-    <a class="quickgo-link selectable" href="term/{{::item.goId}}">{{::item.goId}}</a>
-    <basket-button termid="{{::item.goId}}" icondisabled="{{::item.isObsolete}}"></basket-button>
-    <chart-icon term-id="::item.goId" term-name="::item.termName"></chart-icon>
-    <element data-tooltip class="has-tip" title="{{::item.termName}}">{{::item.termName | shortenStringFilter}}</element>
+    <term-line id="item.goId" aspect="item.goAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
   </div>
   <div ng-repeat="slimRepeat in ::item.slimsList" class="go-term slim-repeat">
-    <span data-tooltip ng-if="::slimRepeat.aspect" class="aspect-icon aspect-{{::slimRepeat.aspect}} has-tip" title="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)">{{::slimRepeat.aspect}}</span>
-    <a class="quickgo-link selectable" href="term/{{::slimRepeat.goId}}">{{::slimRepeat.goId}}</a>
-    <basket-button termid="{{::slimRepeat.goId}}" icondisabled="{{::slimRepeat.isObsolete}}"></basket-button>
-    <chart-icon term-id="::slimRepeat.goId" term-name="::slimRepeat.termName"></chart-icon>
-    <element data-tooltip class="has-tip" title="{{::slimRepeat.termName}}">{{::slimRepeat.termName | shortenStringFilter}}</element>
+    <term-line id="slimRepeat.goId" aspect="slimRepeat.aspect" obsolete="slimRepeat.isObsolete" name="slimRepeat.termName"></term-line>
   </div>
 </td>
 
 <td class="text-nowrap" ng-show="$owner.colEvidence">
-  <a class="quickgo-link selectable" href="term/{{::item.evidenceCode}}">{{::item.evidenceCode}}</a>
-  <a class="quickgo-icon selectable" ng-click="$owner.showEvidenceCodeOntologyGraph(item.evidenceCode)">
-    <span class="icon icon-functional quickgo-btn chart-btn selectable icon-inline-table" data-icon="h"></span></a> (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{::item.goEvidence | lowercase}}" target="_blank">{{::item.goEvidence}}</a>)
+  <term-line id="item.evidenceCode" name="item.goEvidence"></term-line>
+  (<a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{::item.goEvidence | lowercase}}" target="_blank">{{::item.goEvidence}}</a>)
 </td>
-
 
 <td class="td-no-icon" ng-show="$owner.colReference">
     <a class="quickgo-link" ng-click="$owner.followLinkToEntry(item.reference)" target="_blank">

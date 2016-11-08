@@ -1,31 +1,28 @@
 angular
-	.module('quickGoFeApp')
-	.directive('chartIcon', ['$http','$uibModal', function($http, $uibModal) {
-		return {
-			restrict: 'E',
-			scope: {
-				termId: '=',
-				termName: '='
-			},
-			templateUrl: 'directives/chart.html',
-			link: function(scope) {
-				scope.createChart = function() {
-					$uibModal.open({
-						templateUrl: 'charts/ontologyGraphModal.html',
-						controller: 'OntologyGraphCtrl',
-						windowClass: 'app-modal-window',
-						scope: scope,
-						resolve: {
-							graphModel: function() {
-								return {
-									id: scope.termId,
-									name: scope.termName,
-									scope: 'GO'
-								};
-							}
-						}
-					});
-				}
-			}
-		};
+  .module('quickGoFeApp')
+  .directive('chartIcon', ['$http', 'chartService', function ($http, chartService) {
+    return {
+      restrict: 'E',
+      scope: {
+        ids: '='
+      },
+      templateUrl: 'directives/chart.html',
+      link: function (scope) {
+        scope.showGraph = false;
+        scope.showChart = function () {
+          //TODO check if GO or ECO 
+          var chartPromise = chartService.getGOChart(scope.ids);
+
+          chartPromise.then(function (d) {
+            scope.img = d.data;
+
+            //TODO use a modal when moved to Foundation
+            scope.showGraph = true;
+          });
+          chartService.getGOImageMap(scope.ids).then(function (d) {
+            console.log(d)
+          });
+        }
+      }
+    };
 	}]);

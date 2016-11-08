@@ -42,25 +42,16 @@
   <tr>
   <tr ng-repeat="postProcessing in annotationPostProRules.content">
     <td class="text-nowrap">
-      <a href="term/{{postProcessing.originalGoId}}">{{postProcessing.originalGoId}}</a>
-      <basket-button termid="{{postProcessing.originalGoId}}"></basket-button>
-      <chart-icon term-id="postProcessing.originalGoId" term-name="postProcessing.originalTerm"></chart-icon>
-      <element data-tooltip class="has-tip" title="{{postProcessing.originalTerm}}">{{postProcessing.originalTerm | shortenStringFilter}}</element>
+      <term-line id="postProcessing.originalGoId" aspect="postProcessing.aspect" obsolete="postProcessing.isObsolete" name="postProcessing.originalTerm"></term-line>
     </td>
     <td>{{postProcessing.cleanupAction}}</td>
     <td>{{postProcessing.affectedTaxGroup}}</td>
     <td class="text-nowrap">
-      <a href="term/{{postProcessing.substitutedGoId}}">{{postProcessing.substitutedGoId}}</a>
-      <basket-button termid="{{postProcessing.substitutedGoId}}"></basket-button>
-      <chart-icon term-id="postProcessing.substitutedGoId" term-name="postProcessing.substitutedTerm"></chart-icon>
-      <element data-tooltip class="has-tip" title="{{postProcessing.substitutedTerm}}">{{postProcessing.substitutedTerm | shortenStringFilter}}</element>
+     <term-line id="postProcessing.substitutedGoId}}" aspect="postProcessing.aspect" obsolete="postProcessing.isObsolete" name="postProcessing.substitutedTerm"></term-line>
     </td>
     <td>{{postProcessing.curatorNotes}}</td>
     <td class="text-nowrap">
-      <a href="term/{{postProcessing.ancestorGoId}}">{{postProcessing.ancestorGoId}}</a>
-      <basket-button termid="{{postProcessing.ancestorGoId}}"></basket-button>
-      <chart-icon term-id="postProcessing.ancestorGoId" term-name="postProcessing.ancestorTerm"></chart-icon>
-      <element data-tooltip class="has-tip" title="{{postProcessing.ancestorTerm}}">{{postProcessing.ancestorTerm | shortenStringFilter}}</element>
+     <term-line id="postProcessing.ancestorGoId}}" aspect="postProcessing.aspect" obsolete="postProcessing.isObsolete" name="postProcessing.ancestorTerm"></term-line>
     </td>
     <td>{{postProcessing.relationship}}</td>
     <td>{{postProcessing.taxonName}}</td>
