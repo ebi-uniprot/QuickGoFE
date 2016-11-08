@@ -190,6 +190,17 @@ wsService.factory('olsService', ['$http', function($http) {
   };
 }]);
 
+wsService.factory('chartService', ['$http', 'ENV', function($http, ENV){
+  return {
+    getGOChart: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart');
+    },
+    getGOImageMap: function(ids) {
+      
+    }
+  }
+}]);
+
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/dataset', {}, {
     query: {method:'GET', isArray:true, Cache:true}

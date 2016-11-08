@@ -1,32 +1,25 @@
 angular
 	.module('quickGoFeApp')
-	.directive('chartIcon', ['$http','$uibModal', function($http, $uibModal) {
+	.directive('chartIcon', ['$http','chartService', function($http, chartService) {
 		return {
 			restrict: 'E',
 			scope: {
-				termId: '=',
-				termName: '='
+				ids: '='
 			},
 			templateUrl: 'directives/chart.html',
 			link: function(scope) {
-        //TODO need to handle both GO and ECO terms
-				scope.createChart = function() {
-					$uibModal.open({
-						templateUrl: 'charts/ontologyGraphModal.html',
-						controller: 'OntologyGraphCtrl',
-						windowClass: 'app-modal-window',
-						scope: scope,
-						resolve: {
-							graphModel: function() {
-								return {
-									id: scope.termId,
-									name: scope.termName,
-									scope: 'GO'
-								};
-							}
-						}
-					});
-				}
+        scope.showGraph = false;
+        scope.showChart = function() {
+        //TODO check if GO or ECO 
+          var chartPromise = chartService.getGOChart(scope.ids);
+            
+          chartPromise.then(function(d){
+            scope.img = d.data;
+            
+            //TODO use a modal when moved to Foundation
+            scope.showGraph = true;
+          });
+        }
 			}
 		};
 	}]);

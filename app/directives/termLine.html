@@ -1,0 +1,5 @@
+  <a href="term/{{term.id}}">{{term.id}}</a>
+  <aspect-icon aspect="term.aspect"></aspect-icon>
+  <basket-button termid="{{term.id}}" icondisabled="{{term.isObsolete}}"></basket-button>
+  <chart-icon ids="term.id" ng-if="! term.isObsolete"></chart-icon>
+  <element uib-tooltip="{{term.termName}}">{{term.name | shortenStringFilter}}</element>
