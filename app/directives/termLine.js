@@ -4,11 +4,16 @@ angular
   return {
     restrict: 'E',
     scope: {
-      term: '='
+      id: '=',
+      aspect: '=',
+      obsolete: '=',
+      name: '='
     },
     templateUrl: 'directives/termLine.html',
     link: function(scope){
-//      console.log(scope.term)
+      if(scope.id && scope.id.startsWith('ECO:')) {
+        scope.isECO = true;
+      }
     }
   }
 }]);

@@ -196,7 +196,7 @@ wsService.factory('chartService', ['$http', 'ENV', function($http, ENV){
       return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart');
     },
     getGOImageMap: function(ids) {
-      
+      return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart/coords');
     }
   }
 }]);

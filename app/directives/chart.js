@@ -19,6 +19,8 @@ angular
             //TODO use a modal when moved to Foundation
             scope.showGraph = true;
           });
+          
+//          chartService.getGOImageMap(scope.ids).then(function(d){console.log(d)});
         }
 			}
 		};

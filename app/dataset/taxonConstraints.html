@@ -12,10 +12,7 @@
     </tr>
     <tr ng-repeat="taxonConstraint in taxonConstraints">
       <td class="text-nowrap">
-        <a class="quickgo-link selectable" href="term/{{taxonConstraint.goId}}">{{taxonConstraint.goId}}</a>
-        <basket-button termid="{{taxonConstraint.goId}}"></basket-button>
-        <chart-icon term-id="taxonConstraint.goId" term-name="taxonConstraint.name"></chart-icon>
-        <element uib-tooltip="{{taxonConstraint.name}}">{{taxonConstraint.name | shortenStringFilter}}</element>
+         <term-line id="taxonConstraint.goId" aspect="taxonConstraint.aspect" obsolete="taxonConstraint.isObsolete" name="taxonConstraint.termName"></term-line>
       </td>
       <td class="lowercase">{{taxonConstraint.relationship}}</td>
       <td>{{taxonConstraint.taxId}}</td>

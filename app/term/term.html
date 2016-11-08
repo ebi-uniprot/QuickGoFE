@@ -164,10 +164,7 @@
           </tr>
           <tr ng-repeat="childRelation in termModel.children | limitTo:childTermsPageSize">
             <td>
-              <a class="quickgo-link" ng-href="term/{{childRelation.id}}">{{childRelation.id}}</a>
-              <basket-button termid="{{childRelation.id}}"></basket-button>
-              <chart-icon ids="childRelation.id"></chart-icon>
-              {{childRelation.name}}
+              <term-line id="childRelation.id" aspect="childRelation.aspect" obsolete="childRelation.isObsolete" name="childRelation.name"></term-line>
             </td>
             <td>{{childRelation.relation}}</td>
           </tr>

@@ -19,12 +19,8 @@
         <tr ng-repeat="searchResult in results.results">
 
           <td class="text-nowrap" ng-class="{'inactive':searchResult.isObsolete==true}">
-            <aspect-icon aspect="searchResult.aspect"></aspect-icon>
-            <span><a href="term/{{searchResult.id}}">{{searchResult.id}}</a></span>
-            <basket-button ng-if="isGoTerm(searchResult.id)" termid="{{searchResult.id}}"
-                           icondisabled="{{searchResult.isObsolete}}"></basket-button>
-            <chart-icon ng-show="{{!searchResult.isObsolete}}" term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
-            <span ng-bind-html="highlight(searchResult.name)">{{searchResult.name}}</span>
+            <term-line id="searchResult.id" aspect="searchResult.aspect" obsolete="searchResult.isObsolete" name="searchResult.name"></term-line>
+<!--            <span ng-bind-html="highlight(searchResult.name)">{{searchResult.name}}</span>-->
           </td>
           <td><a ng-href="annotations?id={{searchResult.id}}" class="annotations-link"><annotations-link termid="{{searchResult.id}}"></annotations-link></a></td>
         </tr>
