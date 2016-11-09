@@ -60,8 +60,28 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   getResultsPage();
 
   function postProcess() {
+    postProcessTaxaForData();
     sortAndTrimFacets();
     addTaxaNamesToFacets();
+  }
+
+  function postProcessTaxaForData() {
+    if (!isTermSearch) {
+      var taxaIds = [];
+      angular.forEach($scope.results.results, function(annotation) {
+        taxaIds.push(annotation.taxonId);
+      });
+
+      $scope.taxaMapping = {};
+      if (taxaIds.length !== 0) {
+        var taxonomyPromise = taxonomyService.getTaxa(_.unique(taxaIds));
+        taxonomyPromise.then(function(multipleTaxa) {
+          angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
+            $scope.taxaMapping[taxon.taxonomyId] = taxon;
+          });
+        });
+      }
+    }
   }
 
   function addTaxaNamesToFacets() {
