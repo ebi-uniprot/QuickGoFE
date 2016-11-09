@@ -654,21 +654,13 @@ ul.results-list {
 }
 
 
-#customiseColumns{
-  border: 1px solid #999;
-  border-radius: 10px;
-  padding: 5px;
-  margin: 0px 10px 10px 10px;
-  float: left;
-  width: 98%;
-  height: 200px;
-  #default, #extras ,.customCols {
-    width: 45%;
-    height: 50px;
-    float: left;
-    margin: 10px;
+.column-selector{
+  .column-selector__columns {
+    -webkit-column-count: 4; /* Chrome, Safari, Opera */
+    -moz-column-count: 4; /* Firefox */
+    column-count: 4;
   }
-  .customColsClose{
+  .column-selector__close{
     float: right;
     cursor: pointer;
   }

@@ -6,18 +6,17 @@
     <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
   </p>
 
-  <div id="customiseColumns" class="animate-show" ng-hide="customiseColumnsContainer">
-    <span class="icon-functional customColsClose" ng-click="toggleCustomiseContainer()" data-icon="x"></span>
-    <div id="default">
-      <h3>Default Columns</h3>
-      <div class="customCols">
-        <label ng-repeat="column in columns">
+  <div class="column-selector" class="animate-show" ng-hide="customiseColumnsContainer">
+    <span class="icon-functional column-selector__close" ng-click="toggleCustomiseContainer()" data-icon="x"></span>
+    <h3>Choose columns</h3>
+    <div class="column-selector__columns">
+      <p ng-repeat="column in columns">
+        <label>
           <input type="checkbox" ng-model="column.visible"> {{column.label}}
         </label>
-      </div>
+      </p>
     </div>
   </div>
-
 
   <div>
     <table id="assignedByCount" class="two-colours results-table">
