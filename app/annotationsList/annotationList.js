@@ -13,31 +13,82 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
   getResultsPage();
 
   // Default visibility of columns in the results page
-  $scope.colGeneProduct = true;
-  $scope.colSymbol = true;
-  $scope.colQualifier = true;
-  $scope.colGOIdentifier = true;
-  $scope.colEvidence = true;
-  $scope.colReference = true;
-  $scope.colWith = true;
-  $scope.colTaxon = true;
-  $scope.colAssignedBy = true;
-  $scope.colAnnotationExtension = true;
-  $scope.colDatabase = false;
-  $scope.colDate = false;
-  $scope.colName = false;
-  $scope.colSynonym = false;
-  $scope.colType = false;
-  $scope.colTaxonName = false;
-  $scope.colSequence = false;
+  $scope.columns = {
+    'geneProduct':{
+      'label':'Gene Product',
+      'visible':true
+    },
+    'symbol':{
+      'label':'Symbol',
+      'visible':true
+    },
+    'qualifier':{
+      'label':'Qualifier',
+      'visible':true
+    },
+    'goIdentifier':{
+      'label':'GO Term',
+      'visible':true
+    },
+    'evidence':{
+      'label':'Evidence',
+      'visible':true
+    },
+    'reference':{
+      'label':'Reference',
+      'visible':true
+    },
+    'withFrom':{
+      'label':'With / From',
+      'visible':true
+    },
+    'taxon':{
+      'label':'Taxon',
+      'visible':true
+    },
+    'assignedBy':{
+      'label':'Assigned By',
+      'visible':true
+    },
+    'annotationExtension':{
+      'label':'Annotation Extension',
+      'visible':true
+    },
+    'database':{
+      'label':'Database',
+      'visible':false
+    },
+    'date':{
+      'label':'Date',
+      'visible':false
+    },
+    'name':{
+      'label':'Name',
+      'visible':false
+    },
+    'synonym':{
+      'label':'Synonym',
+      'visible':false
+    },
+    'type':{
+      'label':'Type',
+      'visible':false
+    },
+    'taxonName':{
+      'label':'Taxon name',
+      'visible':false
+    }
+  };
 
   function getResultsPage() {
     var query = $routeParams;
-    // $scope.showSlimColumns = filteringService.hasSlims();
+    $scope.showSlimColumns = (query.goUsage && query.goUsage === 'slim');
+    console.log($scope.showSlimColumns);
 
     $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
         searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
+      //      console.log(query, data);
       $scope.goList = data.data;
       if ($scope.showSlimColumns) {
         //preProcess(); //TODO check the preprocess code once the alpha slimming service response is known and working
