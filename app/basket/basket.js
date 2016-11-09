@@ -2,7 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location, $uibModal, $q,
+app.controller('BasketCtrl', function($scope, $rootScope, $log, $uibModalInstance, $location, $uibModal, $q,
                                       basketService, $cookieStore) {
 
   $scope.loadBasketItems = function() {
@@ -31,7 +31,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
     $scope.loadBasketItems();
 
     //Tell parent page this value has been updated.
-    $scope.$emit('basketUpdate', basketService.basketQuantity());
+    $rootScope.$emit('basketUpdate', basketService.basketQuantity());
 
   };
 
@@ -48,7 +48,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
     angular.forEach(terms.valid, function(term) {
       basketService.addBasketItem(term);
     });
-    $scope.$emit('basketUpdate', basketService.basketQuantity());
+    $rootScope.$emit('basketUpdate', basketService.basketQuantity());
     //reload basketItems list
     $scope.loadBasketItems();
     //Clear the input text field
@@ -109,7 +109,7 @@ app.controller('BasketCtrl', function($scope, $log, $uibModalInstance, $location
   $scope.emptyBasket = function () {
     $scope.basketItems = basketService.clearBasket();
     $scope.basketItems = [];
-    $scope.$emit('basketUpdate', 0);
+    $rootScope.$emit('basketUpdate', 0);
   };
 
   /**

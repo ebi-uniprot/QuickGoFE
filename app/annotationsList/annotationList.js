@@ -147,22 +147,6 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
   }
 
 
-  /**
-   * ------------------------------------ $scope methods --------------------------------------------------
-   */
-
-  $scope.ontoOneLetterName = function(ontoName) {
-    return ontoTypeService.ontoOneLetterName(ontoName);
-  };
-
-  /**
-   * Listen to an update to the filters list that comes from the typeahead function
-   */
-//  $scope.$on('filtersUpdate', function() {
-//    $scope.currentPage=1;
-//    getResultsPage(1);
-//  });
-
   $scope.pageChanged = function() {
     getResultsPage();
   };
