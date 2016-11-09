@@ -1,5 +1,6 @@
 
 @import 'quickgo-colours';
+@import 'icons';
 
 /* Universal         -------------------------------------------------------------------------------------------------*/
 
@@ -221,59 +222,6 @@ textarea {
   }
 }
 
-.basket-btn {
-  border-radius: 10px;
-  font-size: 10px;
-  color: $white;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  display: inline-block;
-}
-
-.chart-btn {
-  border-radius: 10px;
-  font-size: 10px;
-  color: $white;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  display: inline-block;
-  border-radius: 2px;
-  font-size: 13px;
-}
-
-.basket-btn:before {
-  color: $white!important;
-  font-weight: lighter;
-  text-align: center;
-  padding-left: 4px;
-}
-
-.chart-btn:before {
-  color: $white!important;
-  font-weight: lighter;
-  text-align: center;
-  padding-left: 4px;
-  padding-left: 3px;
-}
-
-.basket-btn {
-  &:hover {
-    background-color: green !important;
-  }
-  &.basket-added {
-    background-color: green;
-    &:hover {
-      background-color: red !important;
-    }
-  }
-}
-
-.icon-disabled{
-  background-color: $lightgrey;
-  border:1px solid $lightgrey;
-}
 mega-search {
   display: block;
 }
@@ -614,25 +562,6 @@ ul.results-list {
 #results-sidebar {
   max-height: 300px;
   overflow: auto;
-}
-
-.aspect-icon{
-  background-color: $white;
-  border: 1px solid $lightgrey;
-  border-radius: 30px;
-  padding: 3px 5px 3px 5px;
-  font-weight: bold;
-  margin-right: 2px;
-  color: $darkishgrey;
-}
-.aspect-P{
-  color: #FEC4C7;
-}
-.aspect-C{
-  color: #B2AFFF;
-}
-.aspect-F{
-  color: #59BB74;
 }
 
 .td-no-icon{

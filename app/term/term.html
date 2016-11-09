@@ -14,8 +14,9 @@
     </div>
     <h2 class="page-title">
       {{termModel.id}}
-      <basket-button termid="{{termModel.id}}" icondisabled="{{termModel.isObsolete}}"></basket-button>
     </h2>
+      <aspect-icon aspect="termModel.aspect"></aspect-icon>
+      <basket-button termid="{{termModel.id}}" icondisabled="{{termModel.isObsolete}}"></basket-button>
 
     <!-- Term name -->
     <h3>{{termModel.name}}</h3>
@@ -163,10 +164,7 @@
           </tr>
           <tr ng-repeat="childRelation in termModel.children | limitTo:childTermsPageSize">
             <td>
-              <a class="quickgo-link" ng-href="term/{{childRelation.id}}">{{childRelation.id}}</a>
-              <basket-button termid="{{childRelation.id}}"></basket-button>
-              <chart-icon term-id="childRelation.id" term-name="childRelation.name"></chart-icon>
-              {{childRelation.name}}
+              <term-line id="childRelation.id" aspect="childRelation.aspect" obsolete="childRelation.isObsolete" name="childRelation.name"></term-line>
             </td>
             <td>{{childRelation.relation}}</td>
           </tr>

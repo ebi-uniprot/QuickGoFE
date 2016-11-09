@@ -1,4 +1,34 @@
 <span
-  ng-click="createChart()"
-  class="icon icon-functional quickgo-btn chart-btn selectable" data-icon="h">
+  ng-click="showChart()"
+  class="chart-btn selectable" data-icon="h">
 </span>
+
+  <div cg-busy="chartPromise" ng-show="showGraph">
+    <div>
+        <p><strong>Ancestors of:</strong>
+            {{ids}}
+        </p>
+    </div>
+    <img ng-src="data:image/png;base64,{{img}}" alt="Graph image" usemap="#ontologygraphmap"/>
+     
+<!--
+      <map name="ontologygraphmap">
+        <span  ng-repeat="layoutNode in graphImage.layoutNodes">
+            <area shape="rect"
+                  coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
+                  href="term/{{layoutNode.id}}"
+                  alt="Term {{layoutNode.id}}"
+                  title="{{layoutNode.id}} - Click for more information">
+          </span>
+        <span ng-repeat="legendNode in graphImage.legendNodes">
+          <div ng-mouseover="formattedTooltip(legendNode.topic)">
+          <area shape="rect"
+                id="{{legendNode.topic}}"
+                class="relationHelp"
+                coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
+                tooltip-html-unsafe="{{tooltip}}" tooltip-placement="left">
+          </div>
+          </span>
+      </map>
+-->
+  </div>

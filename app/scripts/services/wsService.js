@@ -89,17 +89,6 @@ wsService.factory('ontoTypeService', [function(){
         isGoTerm : function(termId) {
             return !(termId.indexOf('ECO') === 0);
         },
-        ontoOneLetterName: function(ontoName) {
-            switch(ontoName) {
-                case 'Biological Process' : return 'P';
-                case 'Molecular Function' : return 'F';
-                case 'Cellular Component' : return 'C';
-                case 'biological_process' : return 'P';
-                case 'molecular_function' : return 'F';
-                case 'cellular_component' : return 'C';
-                default: return ontoName;
-            }
-        },
         ontoReadableText: function(ontoName) {
             switch(ontoName) {
                 case 'biological_process' : return 'Biological Process';
@@ -192,6 +181,17 @@ wsService.factory('olsService', ['$http', function($http) {
       return $http.get('http://www.ebi.ac.uk/ols/api/ontologies/' + db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + db + '_' + id);
     }
   };
+}]);
+
+wsService.factory('chartService', ['$http', 'ENV', function($http, ENV){
+  return {
+    getGOChart: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart');
+    },
+    getGOImageMap: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart/coords');
+    }
+  }
 }]);
 
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
