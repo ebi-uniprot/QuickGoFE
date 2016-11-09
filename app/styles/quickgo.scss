@@ -189,6 +189,13 @@ li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
   border-bottom: none;
 }
 
+table tbody tr:nth-child(odd){
+  background-color: #defcfc;
+}
+table tbody tr:nth-child(even){
+  background-color: #fff;
+}
+
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 

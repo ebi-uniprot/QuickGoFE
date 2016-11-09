@@ -6,14 +6,14 @@
 
   <button class="button icon-functional" type="button" data-toggle="download-menu" data-icon="=">Download</button>
 
-
+  <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
 
 
   <div class="dropdown-pane" id="download-menu" data-dropdown data-auto-focus="true" data-close-on-click="true">
     <div ng-include src="'download/download.html'"></div>
   </div>
 
-  <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
+
 </p>
 
 <div id="customiseColumns" class="animate-show" ng-hide="customiseColumnsContainer">
@@ -136,13 +136,43 @@ select="false">
 </td>
 
 <td class="td-no-icon" ng-show="$owner.colWith">
-  <div ng-repeat="item in item.withFrom">
-    <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
-    <div class="text-center">
-      <strong ng-show="!$last">OR</strong>
+
+  <a data-open="exampleModal1">{{item.withFrom.connectedXrefs.resource.db}}:{{item.withFrom.connectedXrefs.resource.id}} open it</a>
+    <div class="reveal" id="exampleModal1" data-reveal>
+    <h1>TITLE THINGY</h1>
+
+    <div ng-repeat="item in item.withFrom">
+      <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
+      <div class="text-center">
+        <strong ng-show="!$last">OR</strong>
+      </div>
     </div>
+
+
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
+
+
 </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <td class="td-no-icon" ng-show="$owner.colTaxon">
         <a class="quickgo-link selectable" ng-click="$owner.followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">
