@@ -3,11 +3,11 @@
 <ul class="facet-filter">
   <li ng-repeat="category in facet.categories" ng-switch="isSelected(facet.field, category.name)">
     <a ng-switch-when="true" class="facet-filter-active ellipsis"
-       ng-href="{{endpoint}}/{{searchTerm}}?filters={{removeFilterUrl(facet.field, category.name)}}">
+       ng-href="{{endpoint}}/{{searchTerm}}?{{removeFilterUrl(facet.field, category.name)}}">
         {{category.display || category.name}}
     </a>
     <a ng-switch-when="false"
-       ng-href="{{endpoint}}/{{searchTerm}}?filters={{getFilterUrl(facet.field, category.name)}}">
+       ng-href="{{endpoint}}/{{searchTerm}}?{{getFilterUrl(facet.field, category.name)}}">
         <span>{{category.display || category.name}}</span>
         <span>({{category.count}})</span>
     </a>

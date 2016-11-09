@@ -12,7 +12,11 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   $scope.currentPage = 1;
 
   $scope.searchTerm = $routeParams.searchTerm;
-  $scope.filters = $routeParams.filters ? $routeParams.filters : '';
+  $scope.filters = '';
+  angular.forEach(facets.split(','), function(facet) {
+    $scope.filters += $routeParams[facet] ? facet + '=' + $routeParams[facet] + '&' : '';
+  });
+  $scope.filters = $scope.filters === '' ? '' : $scope.filters.slice(0, -1);
 
   $scope.pagination = {
     current: 1
@@ -57,10 +61,10 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
 
   function postProcess() {
     sortAndTrimFacets();
-    addTaxaNamesToData();
+    addTaxaNamesToFacets();
   }
 
-  function addTaxaNamesToData() {
+  function addTaxaNamesToFacets() {
     if (!isTermSearch) {
       var taxaIds = [];
       var data = _.find($scope.results.facet.facetFields, function(facet) {
