@@ -135,10 +135,79 @@ select="false">
     </a>
 </td>
 
+
+
 <td class="td-no-icon" ng-show="$owner.colWith">
 
-  <a data-open="exampleModal1">{{item.withFrom.connectedXrefs.resource.db}}:{{item.withFrom.connectedXrefs.resource.id}} open it</a>
-    <div class="reveal" id="exampleModal1" data-reveal>
+<!-- {{item.withFrom}} -->
+
+<!-- if 1 show it -->
+<a ng-if="item.withFrom.length == 1" class="quickgo-link ellipsis ng-binding ng-scope" ng-click="$owner.followLinkToEntry( '{{item.withFrom[0].connectedXrefs[0].id}}' , '{{item.withFrom[0].connectedXrefs[0].db}}' )" target="_blank">
+{{ item.withFrom[0].connectedXrefs[0].db }}:{{ item.withFrom[0].connectedXrefs[0].id }}
+</a>
+
+
+
+<!-- if more than 1 show link  -->
+<span ng-if="item.withFrom.length >= 2">
+  <a data-open="bingo">
+  Click to view
+  </a>
+
+  <div class="reveal" id="bingo" data-reveal>
+    <h1>TITLE THINGY 2</h1>
+    <p> stuff </p>
+    <!-- <div ng-repeat="item in item.withFrom">
+      <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
+      <div class="text-center">
+        <strong ng-show="!$last">OR</strong>
+      </div>
+    </div>-->
+
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+</span>
+
+<!-- {{::item.withFrom}}
+  ~{{ itemz.connectedXrefs[0].db }}:{{ itemz.connectedXrefs[0].id }}~ -->
+<!-- <div ng-repeat="itemz in item.withFrom"> -->
+
+<!-- {{itemz}} -->
+
+  <!-- <div >bingo1
+    ~{{ itemz.connectedXrefs[0].db }}:{{ itemz.connectedXrefs[0].id }}~
+    <a data-open="exampleModal1">Link:{{resourcez.db}}:{{resourcez.id}}:link</a>
+
+  </div> -->
+
+  <!-- <a ng-if="item.withFrom.length >= 2" class="quickgo-link ellipsis ng-binding ng-scope" data-open="exampleModal1"> -->
+
+    <!-- <div >
+      ~{{ itemz[0].connectedXrefs[0].db }}:{{ itemz[0].connectedXrefs.id }}~
+      <a data-open="exampleModal1">Link:{{resourcez.db}}:{{resourcez.id}}:link</a>
+
+    </div> -->
+
+    <!-- <div ng-repeat="resource in itemz.connectedXrefs" class="text-center">
+      <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a>
+    </div>
+
+    <span class="text-center">
+      <strong ng-show="!$last">|</strong>
+    </span> -->
+
+
+  <!-- </a> -->
+<!-- </div> -->
+
+  <!-- <a data-open="exampleModal1">{{item.withFrom.connectedXrefs.resource.db}}:{{item.withFrom.connectedXrefs.resource.id}} open it</a> -->
+
+
+
+    <!-- <div class="reveal" id="exampleModal1" data-reveal>
     <h1>TITLE THINGY</h1>
 
     <div ng-repeat="item in item.withFrom">
@@ -148,11 +217,10 @@ select="false">
       </div>
     </div>
 
-
     <button class="close-button" data-close aria-label="Close modal" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
+  </div> -->
 
 
 </td>

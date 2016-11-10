@@ -9,8 +9,9 @@ angular
       templateUrl: 'directives/chart.html',
       link: function (scope) {
         scope.showGraph = false;
+        // system.getTimeStamp
         scope.showChart = function () {
-          //TODO check if GO or ECO 
+          //TODO check if GO or ECO
           var chartPromise = chartService.getGOChart(scope.ids);
 
           chartPromise.then(function (d) {
