@@ -159,7 +159,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
       return term.termId != termId;
     });
     // Add to de-selected items
-    termService.getTerm(termId).then(function(res) {
+    termService.getGOTerm(termId).then(function(res) {
       $scope.deSelectedItems.push(res.data);
     });
   };
@@ -170,7 +170,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
       return term.termId != termId;
     });
     // Add back to selectedItems
-    termService.getTerm(termId).then(function(res) {
+    termService.getGOTerm(termId).then(function(res) {
       $scope.selectedItems.push(res.data);
     });
   };

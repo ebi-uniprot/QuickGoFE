@@ -13,7 +13,6 @@
     "angular-bootstrap": "~0.14.3",
     "underscore": "~1.8.3",
     "file-saver": "~1.3.1",
-    "angular-object-table": "^0.2.2",
     "angular-sanitize": "^1.5.8"
   },
   "appPath": "app",

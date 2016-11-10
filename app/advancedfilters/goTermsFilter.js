@@ -1,5 +1,5 @@
 app.controller('goTermsFilter', function($scope, basketService, stringService,
-  validationService, termService, presetsService){
+  validationService, termService, presetsService, $rootScope){
 
   $scope.goTerms = {};
   $scope.goTermUse = 'descendants';
@@ -62,6 +62,10 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
       });
     $scope.goTermsTextArea = '';
   };
+  
+  $rootScope.$on('basketUpdate', function() {
+    init();
+  });
   
   $scope.apply = function() {
     var selected = _.filter(_.keys($scope.goTerms), function(term){
