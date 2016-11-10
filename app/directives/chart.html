@@ -3,7 +3,7 @@
   class="chart-btn selectable" data-icon="h">
 </span>
 
-  <div cg-busy="chartPromise" ng-show="showGraph">
+  <div cg-busy="chartPromise" id="{{chartId}}" class="reveal">
     <div>
         <p><strong>Ancestors of:</strong>
             {{ids}}

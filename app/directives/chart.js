@@ -9,8 +9,7 @@ angular
       templateUrl: 'directives/chart.html',
       link: function (scope) {
         scope.showGraph = false;
-        scope.timeStamp = Math.floor((Math.random() * 100000) + 1);
-        console.log("time:", scope.timeStamp);
+        scope.chartId = 'chart_' + Math.floor((Math.random() * 100000) + 1);
 
         scope.showChart = function () {
           //TODO check if GO or ECO
@@ -25,6 +24,8 @@ angular
           chartService.getGOImageMap(scope.ids).then(function (d) {
             console.log(d)
           });
+          var popup = new Foundation.Reveal($('#'+scope.chartId));
+          popup.open();
         }
       }
     };

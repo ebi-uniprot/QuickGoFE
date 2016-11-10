@@ -27,16 +27,16 @@ app.run(function ($rootScope, dbXrefService, $window) {
     });
   };
 
-    $rootScope.followLinkToEntry = function(id, database) {
-      if (!database) {
-        var pos = id.indexOf(':');
-        database = id.substring(0, pos);
-        id = id.substring(pos+1);
-      }
-      dbXrefService.getDbXrefs().then(function(xrefs) {
-        $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
-      });
-    };
+  $rootScope.followLinkToEntry = function (id, database) {
+    if (!database) {
+      var pos = id.indexOf(':');
+      database = id.substring(0, pos);
+      id = id.substring(pos + 1);
+    }
+    dbXrefService.getDbXrefs().then(function (xrefs) {
+      $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
+    });
+  };
 
 
   $rootScope.alerts = [];
@@ -45,7 +45,7 @@ app.run(function ($rootScope, dbXrefService, $window) {
     $rootScope.alerts.splice(index, 1);
   };
 
-  $rootScope.$on('$routeChangeSuccess', function () {
+  $rootScope.$on('$viewContentLoaded', function () {
     angular.element(document).ready(function () {
       $(document).foundation();
       $(document).foundationExtendEBI();
