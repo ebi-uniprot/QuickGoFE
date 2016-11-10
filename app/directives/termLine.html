@@ -2,6 +2,6 @@
   <aspect-icon aspect="aspect"></aspect-icon>
   <basket-button termid="{{id}}" icondisabled="{{obsolete}}" ng-if="! isECO"></basket-button>
   <chart-icon ids="id" ng-if="! obsolete"></chart-icon>
-  
+
   <span uib-tooltip="{{name}}" ng-if="!isECO">{{name | shortenStringFilter}}</span>
   <a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{name}}" target="_blank" ng-if="isECO">({{name | shortenStringFilter}})</a>

@@ -35,6 +35,11 @@ div#local-masthead {
   margin-bottom: 10px;
 }
 
+#local-masthead nav ul.menu li { border-right-color: #EEE; }
+#local-masthead .masthead .menu > li > a { color: #666; }
+#local-masthead .masthead .menu > li > a:hover { color: #00a9de; }
+
+
 /* Homepage   ----------------------------------------------------------------------------------------------------------*/
 
 .quickgo-panel {
@@ -174,7 +179,7 @@ li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
 
 .text-nowrap{
   white-space: nowrap;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .has-tip{
@@ -188,6 +193,20 @@ table tbody tr:nth-child(even){
   background-color: #fff;
 }
 
+.main-content{
+  margin-top: 10px;
+}
+
+ul.menu button.button{
+  margin-left: 5px;
+}
+aspect-icon span.aspect-icon{
+  font-weight: bold;
+}
+
+.results-table tbody tr{
+  vertical-align: top;
+}
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 
