@@ -1,5 +1,5 @@
 app.controller('goTermsFilter', function($scope, basketService, stringService,
-  validationService, termService, presetsService){
+  validationService, termService, presetsService, $rootScope){
 
   $scope.goTerms = {};
   $scope.goTermUse = 'descendants';
@@ -40,8 +40,8 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
 
   $scope.reset = function() {
     $scope.$parent.query.goId = '';
-    $scope.$parent.query.usage = '';
-    $scope.$parent.query.usageRelationships = '';
+    $scope.$parent.query.goUsage = '';
+    $scope.$parent.query.goUsageRelationships = '';
     $scope.goTermUse = 'ancestor';
     $scope.goRelations = 'IPO';
     $scope.$parent.updateQuery();
@@ -63,13 +63,17 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
     $scope.goTermsTextArea = '';
   };
   
+  $rootScope.$on('basketUpdate', function() {
+    init();
+  });
+  
   $scope.apply = function() {
     var selected = _.filter(_.keys($scope.goTerms), function(term){
       return $scope.goTerms[term].checked;
     });
     $scope.$parent.addToQuery('goId', selected);
-    $scope.$parent.addToQuery('usage', $scope.goTermUse);
-    $scope.$parent.addToQuery('usageRelationships', $scope.goRelations);
+    $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
+    $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
   };
 
   $scope.addPredefinedSet = function() {

@@ -27,7 +27,6 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/underscore/underscore-min.js',
       'bower_components/file-saver/FileSaver.js',
-      'bower_components/angular-object-table/build/object-table.js',
       'app/**/*.html',
       'app/scripts/app.js',
       'app/**/*.js',

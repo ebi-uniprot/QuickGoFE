@@ -1,297 +1,113 @@
-<div  class="medium-12" cg-busy="resultsPromise" ng-controller="AnnotationListCtrl">
-<!-- Buttons -->
-<p class="buttons-under-tabs">
-  <button class="button icon-functional" ng-click="toggleCustomiseContainer()"
-  data-icon="s">Customise</button>
-
-  <button class="button icon-functional" type="button" data-toggle="download-menu" data-icon="=">Download</button>
-
-  <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
-
-
-  <div class="dropdown-pane" id="download-menu" data-dropdown data-auto-focus="true" data-close-on-click="true">
-    <div ng-include src="'download/download.html'"></div>
-  </div>
-
-
-</p>
-
-<div id="customiseColumns" class="animate-show" ng-hide="customiseColumnsContainer">
-<span class="icon-functional customColsClose" ng-click="toggleCustomiseContainer()" data-icon="x"></span>
-
-  <div id="default">
-    <h3>Default Columns</h3>
-    <div class="customCols">
-      <input type="checkbox" ng-click="colGeneProduct = !colGeneProduct" checked> Gene Product<br/>
-      <input type="checkbox" ng-click="colSymbol = !colSymbol" checked> Symbol<br/>
-      <input type="checkbox" ng-click="colQualifier = !colQualifier" checked> Qualifier<br/>
-      <input type="checkbox" ng-click="colGOIdentifier = !colGOIdentifier" checked> GO Term<br/>
-      <input type="checkbox" ng-click="colEvidence = !colEvidence" checked> Evidence<br/>
+<div class="medium-12" cg-busy="resultsPromise" ng-controller="AnnotationListCtrl">
+  <!-- Buttons -->
+  <p class="buttons-under-tabs">
+    <button class="button  icon-functional" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="s">Customise</button>
+    <button class="button  icon-functional" ng-click="download()" data-icon="=" data-toggle="download-menu">Download</button>
+    <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
+    <div class="dropdown-pane" id="download-menu" data-dropdown data-auto-focus="true" data-close-on-click="true">
+      <div ng-include src="'download/download.html'"></div>
     </div>
-    <div class="customCols">
-      <input type="checkbox" ng-click="colReference = !colReference" checked> Reference<br/>
-      <input type="checkbox" ng-click="colWith = !colWith" checked> With / From<br/>
-      <input type="checkbox" ng-click="colTaxon = !colTaxon" checked> Taxon<br/>
-      <input type="checkbox" ng-click="colAssignedBy = !colAssignedBy" checked> Assigned By<br/>
-      <input type="checkbox" ng-click="colAnnotationExtension = !colAnnotationExtension" checked> Annotation Extension<br/>
+  </p>
+  <div class="column-selector" class="animate-show" ng-show="customiseColumnsContainer">
+    <span class="icon-functional column-selector__close" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="x"></span>
+    <h3>Choose columns</h3>
+    <div class="column-selector__columns">
+      <p ng-repeat="column in columns">
+        <label>
+          <input type="checkbox" ng-model="column.visible"> {{column.label}}
+        </label>
+      </p>
     </div>
   </div>
-
-  <div id="extras">
-    <h3>Additional Columns</h3>
-    <div class="customCols">
-      <input type="checkbox" ng-click="colDatabase = !colDatabase"> Database<br/>
-      <input type="checkbox" ng-click="colDate = !colDate"> Date<br/>
-      <input type="checkbox" ng-click="colName = !colName"> Name<br/>
-      <input type="checkbox" ng-click="colSynonym = !colSynonym"> Synonym<br/>
-      <input type="checkbox" ng-click="colType = !colType"> Type<br/>
-    </div>
-    <div class="customCols">
-      <input type="checkbox" ng-click="colTaxonName = !colTaxonName"> Taxon Name<br/>
-    </div>
-  </div>
-
-</div>
-
-<!-- Results -->
-<!--
-The following table uses a plugin to allow the dragging and dropping of columns by the user.
-"object-table.js" is the script.
-Github: https://github.com/ekokotov/object-table
-Documentation: http://ekokotov.github.io/object-table/samples.html#/
-
-The HTML code in this table has been changed to explicitly work in this plugin
-Author: Mark Bingley
-Date: September 2016
- -->
-<div>
-
-<table id="assignedByCount" class="two-colours results-table"
-object-table
-drag-columns="true"
-data="annotations"
-headers="stuff"
-fields="stuff"
-paging="false"
-display="25"
-search="false"
-select="false">
-    <thead>
-  <tr>
-
-      <th allow-drag ng-show="$owner.colGeneProduct">Gene Product</th>
-      <th allow-drag ng-show="$owner.colSymbol">Symbol</th>
-      <th allow-drag ng-show="$owner.colQualifier">Qualifier</th>
-      <th allow-drag ng-show="$owner.colGOIdentifier && $owner.showSlimColumns">Slimmed GO Term</th>
-      <th allow-drag ng-show="$owner.colGOIdentifier"><span ng-show="$owner.showSlimColumns">Original </span>GO Term</th>
-      <th allow-drag ng-show="$owner.colEvidence">Evidence</th>
-      <th allow-drag ng-show="$owner.colReference">Reference</th>
-      <th allow-drag ng-show="$owner.colWith">With / From</th>
-      <th allow-drag ng-show="$owner.colTaxon">Taxon</th>
-      <th allow-drag ng-show="$owner.colAssignedBy">Assigned By</th>
-      <th allow-drag ng-show="$owner.colAnnotationExtension">Annotation Extension</th>
-      <th allow-drag ng-show="$owner.colDatabase">Database</th>
-      <th allow-drag ng-show="$owner.colDate">Date</th>
-      <th allow-drag ng-show="$owner.colName">Name</th>
-      <th allow-drag ng-show="$owner.colSynonym">Synonym</th>
-      <th allow-drag ng-show="$owner.colType">Type</th>
-      <th allow-drag ng-show="$owner.colTaxonName">Taxon Name</th>
-      <th allow-drag ng-show="$owner.colSequence">Sequence</th>
-
-  </tr>
+  <div>
+    <table id="assignedByCount" class="two-colours results-table">
+      <thead>
+        <tr>
+          <th ng-repeat="column in columns" ng-show="column.visible">{{column.label}}</th>
+          <!--      <th  ng-show="columns['goIdentifier'].visible && showSlimColumns">Slimmed GO Term</th>-->
+        </tr>
       </thead>
-  <tbody ng-non-bindable>
+      <tbody>
 
-<tr >
+        <tr ng-repeat="item in annotations">
+          <td ng-show="columns['geneProduct'].visible"><a ng-click="followLinkToEntry(item.geneProductId, item.geneProductId)" target="_blank">
+        {{item.geneProductId}}</a></td>
+          <td ng-show="columns['symbol'].visible">{{item.symbol}}</td>
+          <td ng-show="columns['qualifier'].visible">{{item.qualifier}}</td>
 
-<td class="td-no-icon" ng-show="$owner.colGeneProduct">
-      <a ng-click="$owner.followLinkToEntry(item.geneProductId, item.geneProductId)"
-       target="_blank">
-        {{::item.geneProductId}}
-      </a>
-</td>
-<td class="td-no-icon" ng-show="$owner.colSymbol">{{::item.symbol}}</td>
-<td class="td-no-icon" ng-show="$owner.colQualifier">{{::item.qualifier}}</td>
-<td ng-show="$owner.showSlimColumns && $owner.colGOIdentifier" class="text-nowrap">
-  <term-line id="item.originalTermId" aspect="item.originalAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
-</td>
+          <td ng-show="showSlimColumns && columns['goIdentifier'].visible" class="text-nowrap">
+            <term-line id="item.originalTermId" aspect="item.originalAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
+          </td>
 
-<td class="text-nowrap" ng-show="$owner.colGOIdentifier">
-  <div class="go-term">
-    <term-line id="item.goId" aspect="item.goAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
-  </div>
-  <div ng-repeat="slimRepeat in ::item.slimsList" class="go-term slim-repeat">
-    <term-line id="slimRepeat.goId" aspect="slimRepeat.aspect" obsolete="slimRepeat.isObsolete" name="slimRepeat.termName"></term-line>
-  </div>
-</td>
+          <td class="text-nowrap" ng-show="columns['goIdentifier'].visible">
+            <div class="go-term">
+              <term-line id="item.goId" aspect="item.goAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
+            </div>
+            <div ng-repeat="slimRepeat in item.slimsList" class="go-term slim-repeat">
+              <term-line id="slimRepeat.goId" aspect="slimRepeat.aspect" obsolete="slimRepeat.isObsolete" name="slimRepeat.termName"></term-line>
+            </div>
+          </td>
 
-<td class="text-nowrap" ng-show="$owner.colEvidence">
-  <term-line id="item.evidenceCode" name="item.goEvidence"></term-line>
-</td>
+          <td class="text-nowrap" ng-show="columns['evidence'].visible">
+            <term-line id="item.evidenceCode" name="item.goEvidence"></term-line>
+          </td>
 
-<td class="td-no-icon" ng-show="$owner.colReference">
-    <a class="quickgo-link" ng-click="$owner.followLinkToEntry(item.reference)" target="_blank">
-        {{::item.reference}}
-    </a>
-</td>
+          <td ng-show="columns['reference'].visible">
+            <a class="quickgo-link" ng-click="followLinkToEntry(item.reference)" target="_blank">{{item.reference}}</a>
+          </td>
 
+          <td ng-show="columns['withFrom'].visible">
+            <div ng-repeat="item in item.withFrom">
+              <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
+              <div class="text-center">
+                <strong ng-show="!$last">OR</strong>
+              </div>
+            </div>
+          </td>
 
+          <td ng-show="columns['taxon'].visible">
+            <a class="quickgo-link selectable" ng-click="followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">{{item.taxonId}}</a>
+          </td>
+          <td ng-show="columns['assignedBy'].visible"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(item.assignedBy)">{{item.assignedBy}}</a></td>
+          <td ng-show="columns['annotationExtension'].visible">
+            <div ng-repeat="item in item.extensions">
+              <div ng-repeat="resource in item.connectedXrefs" class="text-center">
+                <a href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{resource.qualifier}}.md" target="_blank">{{resource.qualifier}}(<a ng-click="followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}} {{olsxrefs[resource.db + ':' + resource.id]}}</a>)
+              </div>
+              <div class="text-center">
+                <strong ng-show="!$last">OR</strong>
+              </div>
+            </div>
+          </td>
 
-<td class="td-no-icon" ng-show="$owner.colWith">
+          <td ng-show="columns['database'].visible">{{gpMapping[item.geneProductSimpleId].database}}</td>
+          <td ng-show="columns['date'].visible">{{item.date | limitTo : 4}}/{{item.date | limitTo : 2 : 4}}/{{item.date | limitTo : 2 : 6}}
+          </td>
 
-<!-- {{item.withFrom}} -->
+          <td ng-show="columns['name'].visible">{{gpMapping[item.geneProductSimpleId].name}}</td>
+          <td ng-show="columns['synonym'].visible">{{gpMapping[item.geneProductSimpleId].synonyms.join()}}</td>
+          <td ng-show="columns['type'].visible">{{gpMapping[item.geneProductSimpleId].type}}</td>
+          <td ng-show="columns['taxonName'].visible">{{taxaMapping[item.taxonId].scientificName}}</td>
+          <td ng-show="columns['sequence'].visible">{{item.sequence}}</td>
 
-<!-- if 1 show it -->
-<a ng-if="item.withFrom.length == 1" class="quickgo-link ellipsis ng-binding ng-scope" ng-click="$owner.followLinkToEntry( '{{item.withFrom[0].connectedXrefs[0].id}}' , '{{item.withFrom[0].connectedXrefs[0].db}}' )" target="_blank">
-{{ item.withFrom[0].connectedXrefs[0].db }}:{{ item.withFrom[0].connectedXrefs[0].id }}
-</a>
-
-
-
-<!-- if more than 1 show link  -->
-<span ng-if="item.withFrom.length >= 2">
-  <a data-open="bingo">
-  Click to view
-  </a>
-
-  <div class="reveal" id="bingo" data-reveal>
-    <h1>TITLE THINGY 2</h1>
-    <p> stuff </p>
-    <!-- <div ng-repeat="item in item.withFrom">
-      <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
-      <div class="text-center">
-        <strong ng-show="!$last">OR</strong>
-      </div>
-    </div>-->
-
-    <button class="close-button" data-close aria-label="Close modal" type="button">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-
-</span>
-
-<!-- {{::item.withFrom}}
-  ~{{ itemz.connectedXrefs[0].db }}:{{ itemz.connectedXrefs[0].id }}~ -->
-<!-- <div ng-repeat="itemz in item.withFrom"> -->
-
-<!-- {{itemz}} -->
-
-  <!-- <div >bingo1
-    ~{{ itemz.connectedXrefs[0].db }}:{{ itemz.connectedXrefs[0].id }}~
-    <a data-open="exampleModal1">Link:{{resourcez.db}}:{{resourcez.id}}:link</a>
-
-  </div> -->
-
-  <!-- <a ng-if="item.withFrom.length >= 2" class="quickgo-link ellipsis ng-binding ng-scope" data-open="exampleModal1"> -->
-
-    <!-- <div >
-      ~{{ itemz[0].connectedXrefs[0].db }}:{{ itemz[0].connectedXrefs.id }}~
-      <a data-open="exampleModal1">Link:{{resourcez.db}}:{{resourcez.id}}:link</a>
-
-    </div> -->
-
-    <!-- <div ng-repeat="resource in itemz.connectedXrefs" class="text-center">
-      <a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a>
-    </div>
-
-    <span class="text-center">
-      <strong ng-show="!$last">|</strong>
-    </span> -->
-
-
-  <!-- </a> -->
-<!-- </div> -->
-
-  <!-- <a data-open="exampleModal1">{{item.withFrom.connectedXrefs.resource.db}}:{{item.withFrom.connectedXrefs.resource.id}} open it</a> -->
-
-
-
-    <!-- <div class="reveal" id="exampleModal1" data-reveal>
-    <h1>TITLE THINGY</h1>
-
-    <div ng-repeat="item in item.withFrom">
-      <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
-      <div class="text-center">
-        <strong ng-show="!$last">OR</strong>
-      </div>
-    </div>
-
-    <button class="close-button" data-close aria-label="Close modal" type="button">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div> -->
-
-
-</td>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <td class="td-no-icon" ng-show="$owner.colTaxon">
-        <a class="quickgo-link selectable" ng-click="$owner.followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">
-            {{::item.taxonId}}
-        </a>
-    </td>
-    <td class="td-no-icon" ng-show="$owner.colAssignedBy"><a class="quickgo-link selectable" ng-click="$owner.followLinkToGeneric(item.assignedBy)">{{::item.assignedBy}}</a></td>
-    <td class="td-no-icon" ng-show="$owner.colAnnotationExtension">
-      <div ng-repeat="item in item.extensions">
-        <div ng-repeat="resource in item.connectedXrefs" class="text-center">
-          <a href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{resource.qualifier}}.md" target="_blank">{{resource.qualifier}}(<a ng-click="$owner.followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}} {{$owner.olsxrefs[resource.db + ':' + resource.id]}}</a>)
-        </div>
-        <div class="text-center">
-          <strong ng-show="!$last">OR</strong>
-        </div>
-      </div>
-    </td>
-
-    <td ng-show="$owner.colDatabase">{{::$owner.gpMapping[item.geneProductSimpleId].database}}</td>
-    <td ng-show="$owner.colDate">{{::item.date | limitTo : 4}}/{{::item.date | limitTo : 2 : 4}}/{{::item.date | limitTo : 2 : 6}}
-    </td>
-
-    <td ng-show="$owner.colName">{{::$owner.gpMapping[item.geneProductSimpleId].name}}</td>
-    <td ng-show="$owner.colSynonym">{{::$owner.gpMapping[item.geneProductSimpleId].synonyms.join()}}</td>
-    <td ng-show="$owner.colType">{{::$owner.gpMapping[item.geneProductSimpleId].type}}</td>
-    <td ng-show="$owner.colTaxonName">{{::$owner.taxaMapping[item.taxonId].scientificName}}</td>
-    <td ng-show="$owner.colSequence">{{::item.sequence}}</td>
-
-        <td class="td-no-icon" ng-if="colAnnotationExtension">
-          <span ng-if="annotation.extensions">
-            <a ng-click="showAnnotationExtension(annotation.extensions)">
-              {{annotation.extensions | shortenStringFilter}}
-            </a>
+          <td ng-if="colAnnotationExtension">
+            <span ng-if="annotation.extensions">
+            <a ng-click="showAnnotationExtension(annotation.extensions)">{{annotation.extensions | shortenStringFilter}}</a>
           </span>
-        </td>
+          </td>
 
-    </tr>
+        </tr>
 
-</tbody>
+      </tbody>
     </table>
 
-    <uib-pagination total-items="goList.numberOfHits" max-size="5" rotate="false" ng-model="currentPage"
-  items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
+    <uib-pagination total-items="goList.numberOfHits" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
 
   </div>
   <!-- if there are no results tell the user explicitly -->
   <div ng-show="goList.numberOfHits == 0" class="jumbotron">
     <h4>No matching annotations have been found</h4>
   </div>
-
-  <div class="clearfix"></div>
 
   <!-- Dynamicaly inserted tootltips for column headings -->
   <!-- <script type="text/ng-template" id="colDatabase.html"><span>The souce database of the annotation</span></script>
@@ -309,3 +125,4 @@ select="false">
   <script type="text/ng-template" id="colAnnotationExtension.html"><span>Annotation Extension</span></script>
   <script type="text/ng-template" id="colOrigID.html"><span>The orginal GO ID</span></script>
   <script type="text/ng-template" id="colOrigName.html"><span>Original name of the slim</span></script> -->
+</div>
