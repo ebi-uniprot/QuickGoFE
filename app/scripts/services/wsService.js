@@ -27,25 +27,11 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($reso
 wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   //var
   return {
-      getTerm : function(termId, isGoTerm) {
-        return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + termId + '/complete')
-            : $http.get(ENV.apiEndpoint+'/eco/terms/' + termId + '/complete') ;
-      },
-      getTerms : function(ids, isGoTerm, idKey) {
-          //TODO revise that
-          if (ids instanceof Array) {
-              var termsToQuery = '';
-              idKey = idKey ? idKey : 'id';
-              angular.forEach(ids, function(value) {
-                  termsToQuery += (value[idKey] ? value[idKey] : value) + ',';
-              });
-              ids = termsToQuery.slice(0, -1);
-          }
-          return isGoTerm === true ? $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids)
-              : $http.get(ENV.apiEndpoint+'/ontology/eco/terms/' + ids);
-      },
       getGOTerms : function(ids) {
         return $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids);
+      },
+      getECOTerms : function(ids) {
+        return $http.get(ENV.apiEndpoint+'/ontology/eco/terms/' + ids);
       },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');

@@ -41,7 +41,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   /**
    * Get Term Data from WS
    */
-  $scope.termPromise = termService.getTerm(termId, $scope.isGoTerm);
+  $scope.termPromise = termService.getGOTerms(termId);
 
     $scope.termPromise.then(function(data) {
         $scope.termModel = data.data.results[0];
@@ -72,12 +72,16 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         } else {
           $scope.showRestrictions = true;
         }
+      
+      
+        var ids = _.pluck(_.union($scope.termModel.replaces, $scope.termModel.replacements, $scope.termModel.children), 'id');
+      
+        if($scope.isGoTerm) {
+          $scope.additionalTermsPromise = termService.getGOTerms(ids);
+        } else {
+          $scope.additionalTermsPromise = termService.getECOTerms(ids);        
+        }
 
-        $scope.additionalTermsPromise = termService.getTerms(
-            _.reject(
-                _.union($scope.termModel.replaces, $scope.termModel.replacements, $scope.termModel.children),
-                function(value) {return value === undefined}),
-            $scope.isGoTerm);
 
         $scope.additionalTermsPromise
             .then(function(moreData) {

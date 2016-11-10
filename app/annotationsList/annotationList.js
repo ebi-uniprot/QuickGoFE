@@ -83,22 +83,20 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
   function getResultsPage() {
     var query = $routeParams;
     $scope.showSlimColumns = (query.goUsage && query.goUsage === 'slim');
-    console.log($scope.showSlimColumns);
 
     $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
         searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
-      //      console.log(query, data);
+      console.log(data);
       $scope.goList = data.data;
-      if ($scope.showSlimColumns) {
-        //preProcess(); //TODO check the preprocess code once the alpha slimming service response is known and working
-      } else {
-        $scope.annotations = $scope.goList.results;
-      }
+      $scope.annotations = $scope.goList.results;
+
       prettyPrintNumberAnnotations($scope.goList.numberOfHits);
       postProcess();
+      
+      var ids = _.pluck($scope.annotations, 'goId');
 
-      $scope.additionalTermsPromise = termService.getTerms($scope.annotations, true, 'goId');
+      $scope.additionalTermsPromise = termService.getGOTerms(ids);
       $scope.additionalTermsPromise
         .then(function(moreData) {
               addInformation($scope.annotations, moreData.data.results);

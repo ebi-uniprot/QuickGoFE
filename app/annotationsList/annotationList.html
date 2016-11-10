@@ -34,16 +34,12 @@
           <td ng-show="columns['symbol'].visible">{{item.symbol}}</td>
           <td ng-show="columns['qualifier'].visible">{{item.qualifier}}</td>
 
-          <td ng-show="showSlimColumns && columns['goIdentifier'].visible" class="text-nowrap">
-            <term-line id="item.originalTermId" aspect="item.originalAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
-          </td>
-
           <td class="text-nowrap" ng-show="columns['goIdentifier'].visible">
             <div class="go-term">
               <term-line id="item.goId" aspect="item.goAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
             </div>
-            <div ng-repeat="slimRepeat in item.slimsList" class="go-term slim-repeat">
-              <term-line id="slimRepeat.goId" aspect="slimRepeat.aspect" obsolete="slimRepeat.isObsolete" name="slimRepeat.termName"></term-line>
+            <div ng-repeat="slimId in item.slimmedIds" class="go-term slim-repeat">
+              <term-line id="slimId" aspect="slimRepeat.aspect" obsolete="slimRepeat.isObsolete" name="slimRepeat.termName"></term-line>
             </div>
           </td>
 
