@@ -1,29 +1,27 @@
 app.controller('taxonFilter', function($scope, hardCodedDataService,
-  stringService, validationService){
+  stringService, validationService, presetsService, taxonomyService){
 
-  $scope.taxonIds = [];
+  $scope.taxaIds = {};
+  $scope.taxaMapping = {};
 
   var initTaxons = function(){
-    var predefinedTaxons = hardCodedDataService.getMostCommonTaxonomies();
-    angular.forEach(predefinedTaxons, function(taxon){
-      taxon.checked = false;
-      $scope.taxonIds.push(taxon);
-    });
-    if($scope.$parent.query.taxonId) {
-      angular.forEach($scope.$parent.query.taxonId.split(','), function(taxon) {
-        var match = _.findWhere($scope.taxonIds, {'taxId' : taxon});
-        if (match) {
-          match.checked = true;
-        } else {
-          $scope.taxonIds.push({
-            'taxId': taxon,
-            'checked': true
-          });
-        }
+    presetsService.getPresetsTaxa().then(function(resp){
+      var checked = [];
+      if($scope.$parent.query.taxonId) {
+        checked = checked.concat($scope.$parent.query.taxonId.split(','))
+      }
+
+      var ids = [];
+      var predefinedTaxa = resp.data.taxons;
+      angular.forEach(predefinedTaxa, function(taxon){
+        ids.push(taxon.name);
+        taxon.checked = _.contains(checked, taxon.name);
+        $scope.taxaIds[taxon.name] = taxon;
       });
-    }
+      getTaxaInfo(ids);
+    });
   };
-  
+
   $scope.reset = function() {
     $scope.$parent.query.taxonId = '';
     $scope.$parent.updateQuery();
@@ -31,27 +29,34 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('taxonId', getQuery());
-  }
+  };
 
   var getQuery = function() {
-    return _.pluck(_.filter($scope.taxonIds, 'checked'), 'taxId');
-  }
+    return _.pluck(_.filter($scope.taxaIds, 'checked'), 'name');
+  };
+
+  var getTaxaInfo = function (taxaIds) {
+    if (taxaIds.length !== 0) {
+      var taxonomyPromise = taxonomyService.getTaxa(taxaIds);
+      taxonomyPromise.then(function (multipleTaxa) {
+        angular.forEach(multipleTaxa.data.taxonomies, function (taxon) {
+          $scope.taxaMapping[taxon.taxonomyId] = taxon;
+        });
+      });
+    }
+  };
 
   $scope.addTaxons = function() {
     var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
     angular.forEach(taxons, function(taxonId){
-      var match = _.find($scope.taxonIds, function(d){
-        return d.taxId === taxonId;
-      });
-      if(match) {
-        match.checked = true;
-      } else if(validationService.validateTaxon(taxonId)) {
-        var taxon = {
-          taxId: taxonId,
-          title: '',
-          checked: true
-        }
-        $scope.taxonIds.unshift(taxon);
+      if($scope.taxaIds[taxonId]) {
+        $scope.taxaIds[taxonId].checked = true;
+      } else {
+        $scope.taxaIds[taxonId] = {
+          'name': taxonId,
+          'checked': true
+        };
+        getTaxaInfo([taxonId]);
       }
     });
     $scope.taxonTextArea = '';
