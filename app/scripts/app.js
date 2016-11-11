@@ -17,7 +17,8 @@ var app = angular
     'quickGoFeApp.errorHandling',
     'ui.bootstrap',
     'duScroll',
-    'config'
+    'config',
+    'mm.foundation'
   ]);
 
 app.run(function ($rootScope, dbXrefService, $window) {

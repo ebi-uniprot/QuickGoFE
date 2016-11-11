@@ -2,12 +2,15 @@
   <ul class="menu">
     <li>Filter by: </li>
     <li>
-      <button class="button" data-toggle="taxon-dropdown">Taxon</button>
-      <div class="dropdown-pane" id="taxon-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
-        <div ng-include src="'advancedfilters/taxonFilter.html'"></div>
-      </div>
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button">Taxon</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/taxonFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
-
     <!-- GENE PRODUCT IDs  -->
      <li ng-class="{'inactive':query.geneProductId || query.targetSet}">
       <button class="button" data-toggle="GPID-dropdown" >Gene Product ID</button>
