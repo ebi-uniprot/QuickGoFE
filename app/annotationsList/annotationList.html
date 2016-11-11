@@ -1,22 +1,35 @@
 <div class="medium-12" cg-busy="resultsPromise" ng-controller="AnnotationListCtrl">
   <!-- Buttons -->
-  <p class="buttons-under-tabs">
-    <button class="button icon-functional" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="s">Customise</button>
-    <button class="button icon-functional" ng-click="download()" data-icon="=">Download</button>
-    <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
-  </p>
+  <span class="buttons-under-tabs">
 
-  <div class="column-selector" class="animate-show" ng-show="customiseColumnsContainer">
-    <span class="icon-functional column-selector__close" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="x"></span>
-    <h3>Choose columns</h3>
-    <div class="column-selector__columns">
-      <p ng-repeat="column in columns">
-        <label>
-          <input type="checkbox" ng-model="column.visible"> {{column.label}}
-        </label>
-      </p>
+    <button class="button icon-functional" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="s">Customise</button>
+    <div id="customiseColumns" class="column-selector" class="animate-show" ng-show="customiseColumnsContainer">
+      <span class="icon-functional column-selector__close" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="x"></span>
+      <h3>Choose columns</h3>
+      <div class="column-selector__columns">
+        <span ng-repeat="column in columns">
+          <label>
+            <input type="checkbox" ng-model="column.visible"> {{column.label}}
+          </label>
+        </span>
+      </div>
     </div>
-  </div>
+
+    <dropdown-toggle close-on-click="true">
+      <toggle>
+        <button class="button icon-functional" data-icon="=">Download</button>
+      </toggle>
+      <pane>
+        <div ng-include src="'download/download.html'"></div>
+      </pane>
+    </dropdown-toggle>
+
+    <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
+
+  </span>
+
+
+
 
   <div>
     <table id="assignedByCount" class="two-colours results-table">

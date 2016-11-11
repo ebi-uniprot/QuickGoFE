@@ -205,14 +205,23 @@ aspect-icon span.aspect-icon{
    font-weight: bold;
  }
 
-
-
 .results-table th span{
   font-weight: bold;
 }
 
 .results-table tbody tr{
   vertical-align: top;
+}
+
+#customiseColumns {
+    border: 1px solid #999;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 10px 10px;
+    float: left;
+    width: 98%;
+    height: 240px;
+    line-height: 1;
 }
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/

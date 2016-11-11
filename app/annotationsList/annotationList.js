@@ -177,19 +177,5 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $route
     getResultsPage();
   };
 
-  $scope.download = function () {
-
-    var modalInstance = $uibModal.open({
-      templateUrl: 'download/download.html',
-      controller: 'DownloadCtrl',
-      size: 'med',
-      scope: $scope
-    });
-
-    modalInstance.result.then(function () {
-      $log.info('Download modal dismissed at: ' + new Date());
-    });
-  };
-
   getResultsPage();
 });
