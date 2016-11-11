@@ -1,8 +1,5 @@
-/**
- * Created by twardell on 27/01/2015.
- */
-
-app.controller('BasketNavCtrl', function($scope, $rootScope, $log, $uibModal, $rootScope, basketService) {
+'use strict';
+app.controller('BasketNavCtrl', function($scope, $log, $uibModal, $rootScope, basketService) {
 
   //$scope.countBasket=0;
 

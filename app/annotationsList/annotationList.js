@@ -1,6 +1,5 @@
 app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $routeParams,
   olsService, geneProductService, searchService, termService, taxonomyService) {
-
   /**
    * Initialisation
    */
@@ -10,7 +9,6 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $route
   $scope.olsxrefs = {};
 
   $scope.currentPage = 1;
-  getResultsPage();
 
   // Default visibility of columns in the results page
   $scope.columns = {
@@ -29,6 +27,10 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $route
     'goIdentifier': {
       'label': 'GO Term',
       'visible': true
+    },
+    'slimmedTerm': {
+      'label': 'Slimmed to',
+      'visible': false
     },
     'evidence': {
       'label': 'Evidence',
@@ -82,53 +84,30 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $route
 
   function getResultsPage() {
     var query = $routeParams;
-    $scope.showSlimColumns = (query.goUsage && query.goUsage === 'slim');
+    $scope.columns.slimmedTerm.visible = (query.goUsage && query.goUsage === 'slim');
 
     $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
       searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
-      if ($scope.showSlimColumns) {
-        //preProcess(); //TODO check the preprocess code once the alpha slimming service response is known and working
-      } else {
-        $scope.annotations = $scope.goList.results;
-      }
+      $scope.annotations = $scope.goList.results;
+
       prettyPrintNumberAnnotations($scope.goList.numberOfHits);
       postProcess();
-
-      $scope.additionalTermsPromise = termService.getTerms($scope.annotations, true, 'goId');
-      $scope.additionalTermsPromise
-        .then(function (moreData) {
-          addInformation($scope.annotations, moreData.data.results);
-        }, function (reason) {
-          $scope.notFoundAdditionaTermsReason = reason;
-          console.log(reason);
-        });
-    });
-  }
-
-  function preProcess() { //TODO when we have an alpha slimming service
-    $scope.annotations = [];
-    var lastAnnotation;
-    angular.forEach($scope.goList.results, function (tempAnnotation) {
-      if (lastAnnotation && (tempAnnotation.id === lastAnnotation.id)) {
-        lastAnnotation.slimsList.push(tempAnnotation);
-      } else {
-        $scope.annotations.push(tempAnnotation);
-      }
-      lastAnnotation = tempAnnotation;
-      if (!lastAnnotation.slimsList) {
-        lastAnnotation.slimsList = [];
-      }
     });
   }
 
   function postProcess() {
     var taxaIds = [];
     var geneProductIds = [];
+    var goTermIds = [];
 
     angular.forEach($scope.annotations, function (annotation) {
       taxaIds.push(annotation.taxonId);
+      goTermIds.push(annotation.goId);
+      if (annotation.slimmedIds) {
+        goTermIds = goTermIds.concat(annotation.slimmedIds);
+      }
 
       var pos = annotation.geneProductId.indexOf(':');
       if (pos !== -1) {
@@ -147,6 +126,7 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $route
 
     postProcessTaxa(_.unique(taxaIds));
     postProcessGeneProds(_.unique(geneProductIds));
+    postProcessGoTerms(_.unique(goTermIds));
   }
 
   function postProcessTaxa(taxaIds) {
@@ -173,16 +153,15 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $route
     }
   }
 
-  function addInformation(lst, moreDataLst) {
-    angular.forEach(lst, function (annotation) {
-      var inResult = _.find(moreDataLst, function (datum) {
-        return datum.id === annotation.goId;
-      });
-      if (inResult) {
-        annotation.goTermName = inResult.name;
-        annotation.goAspect = inResult.aspect;
-        annotation.goIsObsolete = inResult.isObsolete;
-      }
+  function postProcessGoTerms(goTermIds) {
+    $scope.goTermMapping = {};
+
+    termService.getGOTerms(goTermIds).then(function (resp) {
+      angular.forEach(resp.data.results, function (goTerm) {
+        $scope.goTermMapping[goTerm.id] = goTerm;
+      })
+    }, function (reason) {
+      console.log(reason);
     });
   }
 
@@ -198,5 +177,19 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $route
     getResultsPage();
   };
 
+  $scope.download = function () {
 
+    var modalInstance = $uibModal.open({
+      templateUrl: 'download/download.html',
+      controller: 'DownloadCtrl',
+      size: 'med',
+      scope: $scope
+    });
+
+    modalInstance.result.then(function () {
+      $log.info('Download modal dismissed at: ' + new Date());
+    });
+  };
+
+  getResultsPage();
 });

@@ -193,14 +193,7 @@ table tbody tr:nth-child(even){
   background-color: #fff;
 }
 
-.main-content{
-  margin-top: 10px;
-}
-
-ul.menu button.button{
-  margin-left: 5px;
-}
-aspect-icon span.aspect-icon{
+.results-table th span{
   font-weight: bold;
 }
 
@@ -227,7 +220,95 @@ aspect-icon span.aspect-icon{
   background-color: $white;
 }
 
-/* TYPE-AHEAD  -------------------------------------------------------------------------------------------------------*/
+/* PAGINATION   ------------------------------------------------------------------------------------------------------*/
+
+/* ANNOTATION LIST  --------------------------------------------------------------------------------------------------*/
+
+.advanced-filter-content {
+  border-top: 1px solid #ccc;
+  font-size: 13px;
+  padding-top:.5em;
+  margin-bottom:2em;
+  min-width: 480px;
+}
+
+.advanced-filter-content.ng-hide-add, .advanced-filter-content.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.advanced-filter-content.ng-hide {
+  opacity: 0;
+}
+
+.buttons-under-tabs {
+  margin-top: 1.5em;
+}
+
+.filter-list {
+  line-height: 2em;
+  li {
+    padding:0 5px;
+    &.active {
+      border-left:2px green solid;
+      a, a:link, a:hover, a:visited {
+        font-weight:bold;
+        color: black;
+        border-bottom:none;
+        cursor:default;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.icon-inline-table{
+  margin: 3px 0 0 0;
+}
+
+.column-selector{
+  .column-selector__columns {
+    -webkit-column-count: 4; /* Chrome, Safari, Opera */
+    -moz-column-count: 4; /* Firefox */
+    column-count: 4;
+  }
+  .column-selector__close{
+    float: right;
+    cursor: pointer;
+  }
+}
+
+
+/* FACET FILTER -----------------------------------------------------------------------------------------------*/
+.facet-filter {
+    li {
+      margin: .7em 0;
+      a {
+        border-radius: .2em;
+        padding: .2em;
+        display: block;
+        text-decoration: none;
+        border-bottom: none;
+        &:hover {
+          color:$white;
+          background-color: $primary1;
+          opacity: .7;
+        }
+        &.facet-filter-active {
+          background-color: $primary1;
+          color: $white;
+          &:hover:after {
+            float: right;
+            font-family: 'EBI-Functional';
+            padding-top: .1em;
+            content: 'x'
+          }
+        }
+      }
+    }
+}
+
+
+/* ANNOTATION SIDEBAR  -----------------------------------------------------------------------------------------------*/
 
 #searchbox {
   background-color: $white;

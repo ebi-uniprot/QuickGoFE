@@ -1,13 +1,11 @@
 <div class="medium-12" cg-busy="resultsPromise" ng-controller="AnnotationListCtrl">
   <!-- Buttons -->
   <p class="buttons-under-tabs">
-    <button class="button  icon-functional" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="s">Customise</button>
-    <button class="button  icon-functional" ng-click="download()" data-icon="=" data-toggle="download-menu">Download</button>
+    <button class="button icon-functional" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="s">Customise</button>
+    <button class="button icon-functional" ng-click="download()" data-icon="=">Download</button>
     <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
-    <div class="dropdown-pane" id="download-menu" data-dropdown data-auto-focus="true" data-close-on-click="true">
-      <div ng-include src="'download/download.html'"></div>
-    </div>
   </p>
+
   <div class="column-selector" class="animate-show" ng-show="customiseColumnsContainer">
     <span class="icon-functional column-selector__close" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="x"></span>
     <h3>Choose columns</h3>
@@ -19,6 +17,7 @@
       </p>
     </div>
   </div>
+
   <div>
     <table id="assignedByCount" class="two-colours results-table">
       <thead>
@@ -35,17 +34,14 @@
           <td ng-show="columns['symbol'].visible">{{item.symbol}}</td>
           <td ng-show="columns['qualifier'].visible">{{item.qualifier}}</td>
 
-          <td ng-show="showSlimColumns && columns['goIdentifier'].visible" class="text-nowrap">
-            <term-line id="item.originalTermId" aspect="item.originalAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
+          <td class="text-nowrap" ng-show="columns['goIdentifier'].visible">
+            <term-line id="item.goId" aspect="goTermMapping[item.goId].aspect" obsolete="goTermMapping[item.goId].obsolete" name="goTermMapping[item.goId].name"></term-line>
           </td>
 
-          <td class="text-nowrap" ng-show="columns['goIdentifier'].visible">
-            <div class="go-term">
-              <term-line id="item.goId" aspect="item.goAspect" obsolete="item.isObsolete" name="item.goTermName"></term-line>
-            </div>
-            <div ng-repeat="slimRepeat in item.slimsList" class="go-term slim-repeat">
-              <term-line id="slimRepeat.goId" aspect="slimRepeat.aspect" obsolete="slimRepeat.isObsolete" name="slimRepeat.termName"></term-line>
-            </div>
+          <td class="text-nowrap" ng-show="item.slimmedIds">
+            <p ng-repeat="slimId in item.slimmedIds">
+              <term-line id="slimId" aspect="goTermMapping[slimId].aspect" obsolete="goTermMapping[slimId].obsolete" name="goTermMapping[slimId].name"></term-line>
+            </p>
           </td>
 
           <td class="text-nowrap" ng-show="columns['evidence'].visible">
@@ -81,8 +77,7 @@
           </td>
 
           <td ng-show="columns['database'].visible">{{gpMapping[item.geneProductSimpleId].database}}</td>
-          <td ng-show="columns['date'].visible">{{item.date | limitTo : 4}}/{{item.date | limitTo : 2 : 4}}/{{item.date | limitTo : 2 : 6}}
-          </td>
+          <td ng-show="columns['date'].visible" class="text-nowrap">{{item.date}}</td>
 
           <td ng-show="columns['name'].visible">{{gpMapping[item.geneProductSimpleId].name}}</td>
           <td ng-show="columns['synonym'].visible">{{gpMapping[item.geneProductSimpleId].synonyms.join()}}</td>
