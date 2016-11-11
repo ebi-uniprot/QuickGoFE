@@ -46,12 +46,6 @@ app.run(function ($rootScope, dbXrefService, $window) {
     $rootScope.alerts.splice(index, 1);
   };
 
-  $rootScope.$on('$viewContentLoaded', function () {
-    angular.element(document).ready(function () {
-      $(document).foundation();
-      $(document).foundationExtendEBI();
-    });
-  });
 });
 
 app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileProvider) {
