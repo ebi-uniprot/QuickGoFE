@@ -12,69 +12,91 @@
       </dropdown-toggle>
     </li>
     <!-- GENE PRODUCT IDs  -->
-     <li ng-class="{'inactive':query.geneProductId || query.targetSet}">
-      <button class="button" data-toggle="GPID-dropdown" >Gene Product ID</button>
-      <div class="dropdown-pane" id="GPID-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
-        <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
-      </div>
+    <li ng-class="{'inactive':query.geneProductId || query.targetSet}">
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button">Gene Product ID</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
     <!-- GENE PRODUCT TYPE  -->
     <li ng-class="{'inactive':query.geneProductType}">
-      <button class="button" data-toggle="GPType-dropdown">Gene Product Type</button>
-      <div class="dropdown-pane" id="GPType-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
-        <div ng-include src="'advancedfilters/productTypeFilter.html'"></div>
-      </div>
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button">Gene Product Type</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/productTypeFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
     <!-- GO TERMS -->
     <li ng-class="{'inactive':query.goId}">
-      <button class="button" data-toggle="goterms-dropdown">GO terms</button>
-      <div class="dropdown-pane" id="goterms-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
-        <div ng-include src="'advancedfilters/goTermsFilter.html'"></div>
-      </div>
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button">GO terms</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/goTermsFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
     <!-- ASPECT  -->
     <li ng-class="{'inactive':query.aspect}">
-      <button class="button" data-toggle="aspect-dropdown">Aspect</button>
-      <div class="dropdown-pane" id="aspect-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
-        <div ng-include src="'advancedfilters/aspectFilter.html'"></div>
-      </div>
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button">Aspect</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/aspectFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
     <!-- EVIDENCE -->
     <li ng-class="{'inactive':query.evidenceCode}">
-      <button class="button" data-toggle="evidence-dropdown">Evidence</button>
-      <div class="dropdown-pane" id="evidence-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
-        <div ng-include src="'advancedfilters/evidenceFilter.html'"></div>
-      </div>
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button">Evidence</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/evidenceFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
-    <li>
 
-      <button class="button" data-toggle="more-dropdown">More</button>
-      <div class="dropdown-pane" id="more-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
+    <!-- MORE  -->
+    <li ng-class="{'inactive':query.evidenceCode}">
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button">More</button>
+        </toggle>
+        <pane>
+          <!-- QUALIFIER -->
+            <div ng-include src="'advancedfilters/qualifierFilter.html'"></div>
 
+          <!-- REFERENCE -->
+            <div ng-include src="'advancedfilters/referencesFilter.html'"></div>
 
-        <!-- QUALIFIER -->
-          <div ng-include src="'advancedfilters/qualifierFilter.html'"></div>
+          <!-- WITH -->
+            <div ng-include src="'advancedfilters/withFromFilter.html'"></div>
 
-        <!-- REFERENCE -->
-          <div ng-include src="'advancedfilters/referencesFilter.html'"></div>
+          <!-- ASSIGNED BY -->
+            <div ng-include src="'advancedfilters/assignedByFilter.html'"></div>
 
-        <!-- WITH -->
-          <div ng-include src="'advancedfilters/withFromFilter.html'"></div>
-
-        <!-- ASSIGNED BY -->
-          <div ng-include src="'advancedfilters/assignedByFilter.html'"></div>
-
-          <button class="button" ng-click="resetAssigned()">Reset</button>
-          <button class="button" ng-click="applyFilters()">Apply</button>
-
-
-      </div>
+            <button class="button" ng-click="resetAssigned()">Reset</button>
+            <button class="button" ng-click="applyFilters()">Apply</button>
+        </pane>
+      </dropdown-toggle>
     </li>
+
   </ul>
 
 

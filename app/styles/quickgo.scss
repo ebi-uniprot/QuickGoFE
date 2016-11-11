@@ -193,6 +193,20 @@ table tbody tr:nth-child(even){
   background-color: #fff;
 }
 
+.main-content{
+  margin-top: 10px;
+}
+
+ul.menu button.button{
+  margin-left: 5px;
+}
+aspect-icon span.aspect-icon{
+
+   font-weight: bold;
+ }
+
+
+
 .results-table th span{
   font-weight: bold;
 }
@@ -385,4 +399,8 @@ div {
   &.hover{
     background-color: #2980B9;
   }
+}
+
+.button:focus, .button:hover, .button.hover {
+    background-color: #2980B9;
 }
