@@ -1,3 +1,4 @@
+'use strict';
 app.controller('goTermsFilter', function($scope, basketService, stringService,
   validationService, termService, presetsService, $rootScope){
 
@@ -5,21 +6,21 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
 
-  
+
   var init = function() {
     var termsToFetch = [];
     var checkedTerms = [];
     if($scope.$parent.query.goId) {
       checkedTerms = $scope.$parent.query.goId.split(',');
-    } 
-    
-    if (basketService.getIds().length > 0){
-      termsToFetch = termsToFetch.concat(basketService.getIds());      
     }
-    
-    termsToFetch = termsToFetch.concat(checkedTerms);    
+
+    if (basketService.getIds().length > 0){
+      termsToFetch = termsToFetch.concat(basketService.getIds());
+    }
+
+    termsToFetch = termsToFetch.concat(checkedTerms);
     termsToFetch = _.uniq(termsToFetch);
-    
+
 
     if(termsToFetch.length > 0){
       termService.getGOTerms(termsToFetch.toString()).then(function(d){
@@ -35,7 +36,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
      presetsService.getPresets().then(function(resp){
        $scope.predefinedSlimSets = resp.data.goSlimSets;
      });
-    
+
   };
 
   $scope.reset = function() {
@@ -62,11 +63,11 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
       });
     $scope.goTermsTextArea = '';
   };
-  
+
   $rootScope.$on('basketUpdate', function() {
     init();
   });
-  
+
   $scope.apply = function() {
     var selected = _.filter(_.keys($scope.goTerms), function(term){
       return $scope.goTerms[term].checked;
@@ -86,6 +87,10 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
         });
       });
     }
+  };
+
+  $scope.hasTerms = function() {
+    return Object.keys($scope.goTerms).length !== 0;
   };
 
   init();
