@@ -15,7 +15,6 @@ var app = angular
     'quickGoFeApp.ValidationModule',
     'quickGoFeApp.ServicesModule',
     'quickGoFeApp.errorHandling',
-    'ui.bootstrap',
     'duScroll',
     'config',
     'mm.foundation'

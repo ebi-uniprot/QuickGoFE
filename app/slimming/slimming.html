@@ -4,105 +4,70 @@
 
   <div class="medium-12">
     <div class="row">
-      <div class="medium-6 column">
-        <ul class="tabs" data-tabs id="change-log-tabs">
-          <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Predefined GO slims</a></li>
-          <li class="tabs-title"><a href="#panel2">Input your own</a></li>
-          <li class="tabs-title"><a href="#panel3">Select from Basket</a></li>
-        </ul>
-        <div class="tabs-content" data-tabs-content="change-log-tabs">
-          <div class="tabs-panel is-active" id="panel1">
-            <div class="select-container">
-              <table class="no-table-styling slim-table">
-                <tr>
-                  <td>
-                    <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.name for predefinedSet in predefinedSlimSets" ng-change="updatePredefinedSets()"></select>
-                  </td>
-                  <td>
-                  </td>
-                </tr>
-                <tr>
-                  <td ng-class="{'inactive': !predefinedMF.length}">
-                    <input id="mf-checkbox" ng-model="predefinedCheckboxes.MFcheckbox" ng-show="predefinedMF.length" type="checkbox" />
-                    <label for="mf-checkbox">Molecular Function terms <span ng-if="predefinedMF.length">({{predefinedMF.length -1}})</span></label>
-                  </td>
-                  <td ng-class="{'section-disabled': !rootTermMF }" ng-hide="!predefinedMF.length">
-                    <input id="mf-checkbox-root" type="checkbox" ng-model="$parent.$parent.rootTermMF">
-                    <label for="mf-checkbox-root">include root term</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td ng-class="{'inactive': !predefinedBP.length}">
-                    <input id="bp-checkbox" ng-model="predefinedCheckboxes.BPcheckbox" ng-show="predefinedBP.length" type="checkbox" />
-                    <label for="bp-checkbox">Biological Process terms <span ng-if="predefinedBP.length">({{predefinedBP.length -1}})</span></label>
-                  </td>
-                  <td ng-class="{'section-disabled': !rootTermBP }" ng-hide="!predefinedBP.length">
-                    <input id="bp-checkbox-root" type="checkbox" ng-model="$parent.$parent.rootTermBP">
-                    <label for="bp-checkbox-root">include root term</label>
-                  </td>
-                </tr>
-                <tr>
-                  <td ng-class="{'inactive': !predefinedCC.length}">
-                    <input id="cc-checkbox" ng-model="predefinedCheckboxes.CCcheckbox" ng-show="predefinedCC.length" type="checkbox" />
-                    <label for="cc-checkbox">Cellular Component terms <span ng-if="predefinedCC.length">({{predefinedCC.length -1}})</span></label>
-                  </td>
-                  <td ng-class="{'section-disabled': !rootTermCC }" ng-hide="!predefinedCC.length">
-                    <input id="cc-checkbox-root" type="checkbox" ng-model="$parent.$parent.rootTermCC">
-                    <label for="cc-checkbox-root">include root term</label>
-                  </td>
-                </tr>
-              </table>
-
-              <button class="button" ng-disabled="availablePredefinedTerms.length == 0" ng-click="addPredefined()">Add to selection</button>
-              <button class="button icon-functional view-chart-button" ng-disabled="availablePredefinedTerms.length == 0" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
-              <div class="clearfix"></div>
+      <tabset class="medium-6 column">
+        <tab heading="Predefined GO slims">
+          <div class="select-container">
+            <label>Select:</label>
+            <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.name for predefinedSet in predefinedSlimSets" ng-change="updatePredefinedSets()">
+              <option value=""></option>
+            </select>
+            <div>
+              <!-- TODO We need to ask backend if they can break down the associations list by aspect -->
+              <!-- <label ng-repeat="(aspectId, aspect) in selection"><input ng-model="predefined[aspectId]" type="checkbox"/>
+                {{aspect.name}} terms
+              </label> -->
+              <label><input type="checkbox">
+                Include root terms</label>
             </div>
+            <hr>
+            <button class="button" ng-disabled="!selectedPreDefinedSlimSet" ng-click="addPredefined()">Add
+              {{selectedPreDefinedSlimSet.associations.length}}
+              terms to selection</button>
+            <button class="button icon-functional view-chart-button" ng-disabled="!selectedPreDefinedSlimSet" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
           </div>
-          <div class="tabs-panel" id="panel2">
-            <div class="select-container">
-              <strong>Enter one or more GO terms:</strong><br />
-              <textarea class="default" placeholder="e.g. GO:0008150, GO:0055085, GO:0006811, GO:0006520" ng-model="$parent.$parent.slimOwnTerms" cg-busy="ownTermPromise"> </textarea>
-              <button class="button" ng-click="addOwnTerms()">Add your Terms</button>
-              <button class="button icon-functional view-chart-button" ng-click="showGraphOwnTerms()" data-icon="h">View Chart</button>
-              <div class="clearfix"></div>
-            </div>
+        </tab>
+        <tab heading="Input your own">
+          <div class="select-container">
+            <strong>Enter one or more GO terms:</strong><br/>
+            <textarea class="default" placeholder="e.g. GO:0008150, GO:0055085, GO:0006811, GO:0006520" ng-model="$parent.$parent.slimOwnTerms" cg-busy="ownTermPromise"></textarea>
+            <hr>
+            <button class="button" ng-disabled="!slimOwnTerms" ng-click="addOwnTerms()">Add your Terms</button>
+            <button class="button icon-functional view-chart-button" ng-click="showGraphOwnTerms()" data-icon="h" ng-disabled="!slimOwnTerms">View Chart</button>
           </div>
-          <div class="tabs-panel" id="panel3">
-            <div class="select-container">
-              <strong>Choose terms from your basket </strong>&nbsp;({{basketList.length}}&nbsp;available)
-
-              <ul>
-                <li ng-repeat="basketItem in basketList">
-                  <label><input type="checkbox" ng-model="basketItem.selected"/>
-                <strong>{{basketItem.id}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
-                </li>
-              </ul>
-
-              <button class="button" ng-click="addBasketTerms()">Add to selection</button>
-              <button class="button icon-functional view-chart-button" ng-click="showGraphBasketItems()" data-icon="h">View Chart</button>
-              <div class="clearfix"></div>
-            </div>
+        </tab>
+        <tab heading="Select from Basket">
+          <div class="select-container">
+            <strong>Choose terms from your basket
+            </strong>&nbsp;({{basketList.length}}&nbsp;available)
+            <label ng-repeat="basketItem in basketList"><input type="checkbox" ng-model="basketItem.selected"/>
+              <strong>{{basketItem.id}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
+            <hr>
+            <button class="button" ng-click="addBasketTerms()">Add to selection</button>
+            <button class="button icon-functional view-chart-button" ng-click="showGraphBasketItems()" data-icon="h">View Chart</button>
+            <div class="clearfix"></div>
           </div>
-        </div>
-      </div>
+        </tab>
+      </tabset>
       <div class="medium-6 column">
         <div ng-class="{'inactive': selectedItems.length <= 0}" class="slims-options">
           <h3>Additional Options</h3>
 
-          <ul class="accordion" data-accordion>
-            <li class="accordion-item is-active" data-accordion-item>
+          <ul class="accordion">
+            <li class="accordion-item is-active">
               <a href="#" class="accordion-title">Gene Product ID</a>
               <div class="accordion-content" data-tab-content>
                 <textarea ng-disabled="selectedItems.length <= 0" class="default" placeholder="Add your Gene Product ID(s)" ng-model="$parent.$parent.$parent.genProductID"></textarea>
 
               </div>
             </li>
-            <li class="accordion-item" data-accordion-item>
+            <li class="accordion-item">
               <a href="#" class="accordion-title">Restrict by Species</a>
               <div class="accordion-content" data-tab-content>
                 <ul>
                   <li ng-repeat="taxon in species">
-                    <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[taxon.id]" checklist-value="{{taxon.id}}"> {{taxon.displayName}} ({{taxon.id}})<br />
+                    <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[taxon.id]" checklist-value="{{taxon.id}}">
+                    {{taxon.displayName}}
+                    ({{taxon.id}})<br/>
                   </li>
                 </ul>
                 <textarea ng-disabled="selectedItems.length <= 0" class="small" placeholder=" Add your own Taxon ID(s)" ng-model="slimOwnTaxonID"></textarea>
@@ -111,9 +76,7 @@
             </li>
           </ul>
 
-
-
-<!--
+          <!--
 DO NOT DELETE!
 The restrictions of activness need to be applied from the code below when the accrodian is working and can be tested
           <uib-accordion close-others="oneAtATime">
@@ -130,72 +93,48 @@ The restrictions of activness need to be applied from the code below when the ac
     </div>
   </div>
 
-
   <div id="selection-header" class="large-12" data-spy="affix" data-offset-top="700">
-
-    <div class="callout success" ng-repeat="alert in succesAlerts" type="{{alert.type}}" data-closable>
-      {{alert.msg}}
-      <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-      <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-
-    <div class="callout alert" ng-repeat="alert in otherAlerts" type="{{alert.type}}" data-closable>
-      {{alert.msg}}
-      <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-      <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-
     <h3 ng-class="{'inactive': selectedItems.length <= 0}" class="your-selection-header">
-    Your Selection: {{selectedItems.length}}
-    <span class="pull-right">
-        <button class="button icon-functional" ng-disabled="selectedItems.length <= 0" ng-click="showGraph()" data-icon="h">View Chart</button>
-        <button class="button" ng-disabled="selectedItems.length <= 0" ng-click="clearSelection()">Clear</button>
-        <button class="button" ng-disabled="selectedItems.length <= 0" ng-click="viewAnnotations()">Submit</button>
-    </span>
-  </h3>
+      Your Selection:
+      {{selectedItems.length}}
+      <span class="pull-right">
+        <button class="button icon-functional" ng-disabled="count.total <= 0" ng-click="showGraph()" data-icon="h">View Chart</button>
+        <button class="button" ng-disabled="count.total <= 0" ng-click="clearSelection()">Clear</button>
+        <button class="button" ng-disabled="count.total <= 0" ng-click="viewAnnotations()">Submit</button>
+      </span>
+    </h3>
   </div>
 
-
   <div class="your-selection-container large-12 ">
-    <div ng-if="selectedItems.length <= 0" id="nothing-yet-selected">
+    <div ng-if="count.total <= 0">
       <h4>Choose or input GO terms above to view your selection here</h4>
     </div>
 
-  <div class="selectionContainer" ng-if="selectedItems.length >= 1">
-
-    <h5 ng-class="{'inactive': !getSelectedMFTerms().length}">Molecular Function Terms <span ng-if="getSelectedMFTerms().length">({{getSelectedMFTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
-    <ul>
-      <li ng-repeat="aTerm in getSelectedMFTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
-       <term-line id="aTerm.termId" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.termName"></term-line>
-        <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
-      </li>
-    </ul>
-
-    <h5 ng-class="{'inactive': !getSelectedBPTerms().length}">Biological Process Terms <span ng-if="getSelectedBPTerms().length">({{getSelectedBPTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
-    <ul>
-      <li ng-repeat="aTerm in getSelectedBPTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
-       <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
-        <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
-      </li>
-    </ul>
-
-    <h5 ng-class="{'inactive': !getSelectedCCTerms().length}">Cellular Component Terms <span ng-if="getSelectedCCTerms().length">({{getSelectedCCTerms().length}})</span> <span class="icon icon-functional chart-btn selectable" data-icon="h"></span></h5>
-    <ul>
-      <li ng-repeat="aTerm in getSelectedCCTerms() | orderBy:'name'" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
-         <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
-         <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
-      </li>
+    <div class="selectionContainer" ng-if="count.total > 0">
+      <div ng-repeat="aspect in selection">
+        <h5>{{aspect.name}}
+          <span ng-if="count[aspect.name] > 0">({{count[aspect.name]}})</span>
+          <span class="icon icon-functional chart-btn selectable" data-icon="h"></span>
+        </h5>
+        <p ng-repeat="aTerm in aspect.terms" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
+          <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.obsolete" name="aTerm.name"></term-line>
+          <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+        </p>
     </ul>
   </div>
+</div>
 <div id="sticky-anchor" style="float:right;"></div>
-  <div class="selectionContainer removedTerms" id="sticky" ng-if="deSelectedItems.length >= 1">
-    <h5>Excluded Terms <span>({{deSelectedItems.length}})</span></h5>
-    <ul>
-        <li ng-repeat="aTerm in deSelectedItems" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
-          <i><term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line> <a class="icon icon-functional" data-icon="+" uib-tooltip="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a></i>
-        </li>
-      </ul>
-    </div>
-  </div>
+<div class="selectionContainer removedTerms" id="sticky" ng-if="deSelectedItems.length >= 1">
+  <h5>Excluded Terms
+    <span>({{deSelectedItems.length}})</span>
+  </h5>
+  <ul>
+    <li ng-repeat="aTerm in deSelectedItems" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
+      <i>
+        <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
+        <a class="icon icon-functional" data-icon="+" uib-tooltip="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+      </i>
+    </li>
+  </ul>
+</div>
+</div>

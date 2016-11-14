@@ -1,118 +1,64 @@
-app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
-  hardCodedDataService, PreDefinedSlimSets,
-  presetsService, PreDefinedSlimSetDetail, termService, basketService,
+'use strict';
+app.controller('GOSlimCtrl', function($scope, $location,
+  hardCodedDataService, presetsService, termService, basketService,
   stringService) {
 
+  $scope.selection = {};
 
-  $scope.succesAlerts = [];
-  $scope.otherAlerts = [];
-  $scope.rootTermMFID = "GO:0003674";
-  $scope.rootTermBPID = "GO:0008150";
-  $scope.rootTermCCID = "GO:0005575";
+  var init = function() {
+    angular.forEach($scope.aspects, function(aspect) {
+      $scope.selection[aspect.id] = {
+        'name': aspect.name,
+        'terms': {}
+      };
+    });
+
+    $scope.selectedSpecies = {};
+
+    $scope.species = hardCodedDataService.mostCommonTaxonomies;
+
+    /**
+     * Get basket items
+     */
+    $scope.basketPromise = basketService.getItems();
+    $scope.basketPromise.then(function(d) {
+      angular.forEach(d.data.results, function(term) {
+        term.selected = false;
+      });
+      $scope.basketList = d.data.results;
+    });
+  };
+
+  // $scope.rootTermMFID = 'GO:0003674';
+  // $scope.rootTermBPID = 'GO:0008150';
+  // $scope.rootTermCCID = 'GO:0005575';
 
   presetsService.getPresets().then(function(d) {
     $scope.geneProducts = d.data.geneProducts;
     $scope.predefinedSlimSets = d.data.goSlimSets;
+    $scope.aspects = d.data.aspects;
+    init();
   });
 
-  $scope.species = hardCodedDataService.mostCommonTaxonomies;
-
-  $scope.selectedItems = [];
-  $scope.deSelectedItems = [];
-  $scope.basketSelection = {};
-  $scope.selectedSpecies = {};
-
-  $scope.predefinedCheckboxes = {
-    BPcheckbox: true,
-    MFcheckbox: true,
-    CCcheckbox: true
-  };
-
-  $scope.oneAtATime = true;
-  $scope.status = {
-    isFirstOpen: true
-  };
-
-  $scope.advancedFilters = {};
-
-  /**
-   * Get basket items
-   */
-  $scope.basketPromise = basketService.getItems();
-  $scope.basketPromise.then(function(d) {
-    angular.forEach(d.data.results, function(term) {
-      term.selected = false;
-    })
-    $scope.basketList = d.data.results;
-  });
-
-  // Predefined terms
-  $scope.updatePredefinedSets = function() {
-    console.log($scope.selectedPreDefinedSlimSet);
-    // $scope.availablePredefinedTerms = PreDefinedSlimSetDetail.query({
-    //   setId: $scope.selectedPreDefinedSlimSet.subset
-    // });
-    // $scope.availablePredefinedTerms.$promise.then(function(data) {
-    //
-    //   var predefinedSets = _.groupBy(data, 'aspectDescription');
-    //   $scope.predefinedBP = predefinedSets['Biological Process'];
-    //   $scope.predefinedMF = predefinedSets['Molecular Function'];
-    //   $scope.predefinedCC = predefinedSets['Cellular Component'];
-    // });
-  };
-
-  var removeTerm = function(termID) {
-    $scope.selectedItems = _.filter($scope.selectedItems, function(term) {
-      return term.termId != termID;
-    });
-  };
-
-
+  // Predefined sets
   $scope.addPredefined = function() {
-    var predefinedItems = [];
-    if ($scope.predefinedCheckboxes.BPcheckbox) {
-      if (!$scope.rootTermBP) {
-        $scope.predefinedBP = _.without($scope.predefinedBP, _.findWhere($scope.predefinedBP, {
-          name: 'biological_process'
-        }));
-      }
-      predefinedItems = _.union(predefinedItems, $scope.predefinedBP);
-    }
-    if ($scope.predefinedCheckboxes.CCcheckbox) {
-      if (!$scope.rootTermCC) {
-        $scope.predefinedCC = _.without($scope.predefinedCC, _.findWhere($scope.predefinedCC, {
-          name: 'cellular_component'
-        }));
-      }
-      predefinedItems = _.union(predefinedItems, $scope.predefinedCC);
-    }
-    if ($scope.predefinedCheckboxes.MFcheckbox) {
-      if (!$scope.rootTermMF) {
-        $scope.predefinedMF = _.without($scope.predefinedMF, _.findWhere($scope.predefinedMF, {
-          name: 'molecular_function'
-        }));
-      }
-      predefinedItems = _.union(predefinedItems, $scope.predefinedMF);
-    }
-    addItemsToSelection(predefinedItems);
-    resetPredefined();
-  };
+    console.log($scope.selectedPreDefinedSlimSet.associations);
+    termService.getGOTerms($scope.selectedPreDefinedSlimSet.associations).then(function(d){
+      angular.forEach(d.data.results, function(goTerm){
+        $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
+      });
+    });
 
-  var resetPredefined = function() {
-    $scope.predefinedBP = [];
-    $scope.predefinedCC = [];
-    $scope.predefinedMF = [];
-    $scope.predefinedCheckboxes.BPcheckbox = true;
-    $scope.predefinedCheckboxes.CCcheckbox = true;
-    $scope.predefinedCheckboxes.MFcheckbox = true;
-    $scope.selectedPreDefinedSlimSet = '';
   };
 
   // Own terms
   $scope.addOwnTerms = function() {
-    //TODO validate terms
-    console.log($scope.slimOwnTerms);
-    addItemsToSelection($scope.slimOwnTerms);
+    var terms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
+    termService.getGOTerms(terms).then(function(d){
+      angular.forEach(d.data.results, function(goTerm){
+        $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
+      });
+    });
     $scope.slimOwnTerms = '';
   };
 
@@ -121,31 +67,8 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
     var items = _.filter($scope.basketList, function(d) {
       return d.selected;
     });
-    addItemsToSelection(items);
-  };
-
-  var addItemsToSelection = function(itemsToAdd) {
-    var union = _.union($scope.selectedItems, itemsToAdd);
-    $scope.selectedItems = _.uniq(union, function(term) {
-      return term.termId;
-    });
-  };
-
-  $scope.getSelectedBPTerms = function() {
-    return _.filter($scope.selectedItems, function(item) {
-      return item.aspectDescription === 'Biological Process';
-    });
-  };
-
-  $scope.getSelectedMFTerms = function() {
-    return _.filter($scope.selectedItems, function(item) {
-      return item.aspectDescription === 'Molecular Function';
-    });
-  };
-
-  $scope.getSelectedCCTerms = function() {
-    return _.filter($scope.selectedItems, function(item) {
-      return item.aspectDescription === 'Cellular Component';
+    angular.forEach(items, function(term) {
+      $scope.selection[term.aspect].terms[term.id] = term;
     });
   };
 
@@ -156,7 +79,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
   $scope.removeFromSelection = function(termId) {
     // Remove from selected items
     $scope.selectedItems = _.filter($scope.selectedItems, function(term) {
-      return term.termId != termId;
+      return term.termId !== termId;
     });
     // Add to de-selected items
     termService.getGOTerm(termId).then(function(res) {
@@ -167,7 +90,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
   $scope.addBackIntoSelection = function(termId) {
     // Remove from deSelectedItems
     $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
-      return term.termId != termId;
+      return term.termId !== termId;
     });
     // Add back to selectedItems
     termService.getGOTerm(termId).then(function(res) {
@@ -175,39 +98,17 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
     });
   };
 
-  function sticky_relocate() {
-    var window_top = $(window).scrollTop();
-    var div_top = $('#sticky-anchor').offset().top;
-    if (window_top > div_top) {
-      $('#sticky').addClass('stick');
-      $('#sticky-anchor').height($('#sticky').outerHeight());
-    } else {
-      $('#sticky').removeClass('stick');
-      $('#sticky-anchor').height(0);
-    }
-  }
-
-  $(function() {
-    $(window).scroll(sticky_relocate);
-    sticky_relocate();
-  });
-
-  var dir = 1;
-  var MIN_TOP = 200;
-  var MAX_TOP = 350;
-
-  function autoscroll() {
-    var window_top = $(window).scrollTop() + dir;
-    if (window_top >= MAX_TOP) {
-      window_top = MAX_TOP;
-      dir = -1;
-    } else if (window_top <= MIN_TOP) {
-      window_top = MIN_TOP;
-      dir = 1;
-    }
-    $(window).scrollTop(window_top);
-    window.setTimeout(autoscroll, 100);
-  }
+  $scope.$watch('selection', function() {
+    $scope.count = {
+      total:0
+    };
+    angular.forEach($scope.selection, function(aspect) {
+      if(Object.keys(aspect.terms).length) {
+        $scope.count[aspect.name] = Object.keys(aspect.terms).length;
+        $scope.count.total = $scope.count.total + Object.keys(aspect.terms).length;
+      }
+    });
+  }, true);
 
   /**
    * Save the entered information and use it to filter the results on the annotation list page,
@@ -215,10 +116,16 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
    */
   $scope.viewAnnotations = function() {
 
-    $location.search('goTermUse', 'slim');
-    $location.search('goRelations', 'IPO');
+    $location.search('goUsage', 'slim');
+    $location.search('goUsageRelationships', 'is_a,part_of,occurs_in');
 
-    $location.search('goID', _.pluck($scope.selectedItems, 'termId').join(","));
+    console.log($scope.selection);
+    var allTerms = [];
+    angular.forEach($scope.selection, function(aspect) {
+      allTerms = allTerms.concat(_.pluck(aspect.terms, 'id'));
+    });
+    console.log(allTerms);
+    $location.search('goId', allTerms.join(','));
 
     // Add gene products
     if ($scope.genProductID) {
@@ -233,114 +140,11 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
       // if($scope.selectedSpecies[taxonId])
       // filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
     });
-    $location.path("annotations");
+    $location.path('annotations');
   };
 
   $scope.clearSelection = function() {
-    $scope.selectedItems = [];
-    $scope.deSelectedItems = [];
-  };
-
-  /**
-   * Show the  graph image modal on request.
-   * Turn the list of advancedFilters into to comma delimited list
-   */
-  $scope.showGraph = function() {
-    $uibModal.open({
-      templateUrl: 'charts/ontologyGraphModal.html',
-      controller: 'OntologyGraphCtrl',
-      windowClass: 'app-modal-window',
-      scope: $scope,
-      resolve: {
-        graphModel: function() {
-          return {
-            id: _.pluck($scope.selectedItems, 'termId').toString(),
-            scope: 'GO'
-          };
-        }
-      }
-    });
-  };
-
-  $scope.showGraphPreDef = function() {
-    var tempPredefinedItems = [];
-    if ($scope.predefinedCheckboxes.BPcheckbox) {
-      tempPredefinedItems = _.union(tempPredefinedItems, $scope.predefinedBP);
-    }
-    if ($scope.predefinedCheckboxes.CCcheckbox) {
-      tempPredefinedItems = _.union(tempPredefinedItems, $scope.predefinedCC);
-    }
-    if ($scope.predefinedCheckboxes.MFcheckbox) {
-      tempPredefinedItems = _.union(tempPredefinedItems, $scope.predefinedMF);
-    }
-    $uibModal.open({
-      templateUrl: 'charts/ontologyGraphModal.html',
-      controller: 'OntologyGraphCtrl',
-      windowClass: 'app-modal-window',
-      scope: $scope,
-      resolve: {
-        graphModel: function() {
-          return {
-            id: _.pluck(tempPredefinedItems, 'termId').toString(),
-            scope: 'GO'
-          };
-        }
-      }
-    });
-  };
-
-  $scope.showGraphOwnTerms = function() {
-    if ($scope.slimOwnTerms) {
-      var tempOwnTerms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
-      $uibModal.open({
-        templateUrl: 'charts/ontologyGraphModal.html',
-        controller: 'OntologyGraphCtrl',
-        windowClass: 'app-modal-window',
-        scope: $scope,
-        resolve: {
-          graphModel: function() {
-            return {
-              id: tempOwnTerms.toString(),
-              scope: 'GO'
-            };
-          }
-        }
-      });
-    } else {
-      $scope.succesAlerts.push({
-        type: 'info',
-        msg: 'Please add some term Id\'s first'
-      });
-    }
-  };
-
-  $scope.showGraphBasketItems = function() {
-
-    var tempItems = _.filter(_.keys($scope.basketSelection), function(item) {
-      return $scope.basketSelection[item];
-    });
-
-    if (tempItems.length >= 1) {
-      var modalInstance = $uibModal.open({
-        templateUrl: 'charts/ontologyGraphModal.html',
-        controller: 'OntologyGraphCtrl',
-        windowClass: 'app-modal-window',
-        scope: $scope,
-        resolve: {
-          graphModel: function() {
-            return {
-              id: tempItems.toString(),
-              scope: 'GO'
-            };
-          }
-        }
-      });
-    } else {
-      $scope.succesAlerts.push({
-        type: 'info',
-        msg: 'Please select some basket terms from the list first'
-      });
-    }
+    init();
   };
 
 });

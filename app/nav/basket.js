@@ -1,5 +1,5 @@
 'use strict';
-app.controller('BasketNavCtrl', function($scope, $log, $uibModal, $rootScope, basketService) {
+app.controller('BasketNavCtrl', function($scope, $log, $rootScope, basketService) {
 
   //$scope.countBasket=0;
 
