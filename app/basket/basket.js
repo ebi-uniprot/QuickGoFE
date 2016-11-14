@@ -2,7 +2,7 @@
  * Created by twardell on 27/01/2015.
  */
 
-app.controller('BasketCtrl', function($scope, $rootScope, $log, $uibModalInstance, $location, $uibModal, $q,
+app.controller('BasketCtrl', function($scope, $rootScope, $log,  $location,  $q,
                                       basketService, $cookieStore) {
 
   $scope.loadBasketItems = function() {
@@ -59,10 +59,11 @@ app.controller('BasketCtrl', function($scope, $rootScope, $log, $uibModalInstanc
    * ------------------------------------ Forward To Term --------------------------------------------------------------
    */
 
-  $scope.term = function(goId){
-    $uibModalInstance.dismiss('forward');
-    $location.path("term/"+goId); // path not hash
-  };
+
+  // $scope.term = function(goId){
+  //   $uibModalInstance.dismiss('forward');
+  //   $location.path("term/"+goId); // path not hash
+  // };
 
 
   /**
@@ -70,37 +71,37 @@ app.controller('BasketCtrl', function($scope, $rootScope, $log, $uibModalInstanc
    * Show the Ancestors graph image modal on request.
    * Turn the list of basket items into to comma delimited list
    */
-  $scope.showAncestorGraph = function () {
-    var k;
-    var itemString="";
-    for(k=0;k<$scope.basketItems.length;k++ ){
-      itemString = itemString+$scope.basketItems[k].termId;
-      itemString=itemString+',';
-    }
-    $uibModal.open({
-      templateUrl: 'charts/ontologyGraphModal.html',
-      controller: 'OntologyGraphCtrl',
-      windowClass: 'app-modal-window',
-      scope: $scope,
-      resolve: {
-        graphModel: function () {
-          return {id:itemString, scope:'GO'};
-        }
-      }
-    });
-
-  };
+  // $scope.showAncestorGraph = function () {
+  //   var k;
+  //   var itemString="";
+  //   for(k=0;k<$scope.basketItems.length;k++ ){
+  //     itemString = itemString+$scope.basketItems[k].termId;
+  //     itemString=itemString+',';
+  //   }
+  //   $uibModal.open({
+  //     templateUrl: 'charts/ontologyGraphModal.html',
+  //     controller: 'OntologyGraphCtrl',
+  //     windowClass: 'app-modal-window',
+  //     scope: $scope,
+  //     resolve: {
+  //       graphModel: function () {
+  //         return {id:itemString, scope:'GO'};
+  //       }
+  //     }
+  //   });
+  //
+  // };
 
 
   /**
    * -------------------------------------------------------------------------------------------------------------------
    * Filter using basket go terms
    */
-  $scope.filterUsingBasketTerms = function () {
-    $location.search('goID', _.pluck($scope.basketItems, 'termId').join(","));
-    $uibModalInstance.dismiss('cancel');
-    $location.path("annotations/filter");
-  };
+  // $scope.filterUsingBasketTerms = function () {
+  //   $location.search('goID', _.pluck($scope.basketItems, 'termId').join(","));
+  //   $uibModalInstance.dismiss('cancel');
+  //   $location.path("annotations/filter");
+  // };
 
   /**
    * -------------------------------------------------------------------------------------------------------------------

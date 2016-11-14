@@ -1,9 +1,9 @@
-<div id="content" class="colums large-12"  role="main" cg-busy="termPromise" ng-if="termModel.id">
+<div id="content" class="colums medium-12"  role="main" cg-busy="termPromise" ng-if="termModel.id">
 
-  <section id="container" class="large-12 row">
+  <section id="container" class="medium-9 row">
   <!-- Title section -->
-  <section class="panel columns large-9" id="overview" data-magellan-target=="overview">
-    <section>
+  <div class="panel" id="overview" data-magellan-target=="overview">
+
     <!-- Check if it is obsolete -->
     <div class="alert" ng-show="isObsolete">
       <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
@@ -21,10 +21,10 @@
 
     <!-- Ontology -->
     <p ng-show="isGoTerm"><strong>{{readableAspect}}</strong></p>
-    </section>
+
 
     <!-- Definition -->
-    <section>
+
       <h5>Definition <span ng-if="isGoTerm" style="display:inline-block">
         (<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.id}}"
             target="_blank">{{termModel.id}}
@@ -85,6 +85,7 @@
           <annotations-link termId="{{termModel.id}}"></annotations-link>
         </a>
       </div>
+
       <!-- End of title section -->
 
       <div id="termSynonyms" ng-if="termModel.synonyms.length > 0" data-magellan-target=="termSynonyms">
@@ -187,7 +188,6 @@
         </table>
       </div>
 
-
       <!-- Taxon Constraints -->
       <div id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0" data-magellan-target=="termTaxonConstraints">
         <h3 class="term-section-header">Taxon Constraints</h3>
@@ -261,8 +261,6 @@
         <span ng-show="(blacklistPageSize == termModel.blacklist.length && termModel.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
       </div>
 
-
-
       <!-- Cross References-->
       <div id="termCrossReferences" ng-if="termModel.xRefs.length > 0" data-magellan-target=="termCrossReferences">
         <h3 class="term-section-header">Cross-references</h3>
@@ -283,8 +281,6 @@
         <span ng-show="(crossrefsPageSize == termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
         <span ng-show="(crossrefsPageSize == termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
       </div>
-
-
 
       <!-- Cross Ontology Relations -->
       <div id="termCrossOntologyRelations" ng-if="termModel.xRelations.length > 0" data-magellan-target=="termCrossOntologyRelations">
@@ -336,7 +332,6 @@
         <span ng-show="(replacesPageSize == termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
       </div>
 
-
       <!-- Replaced By-->
       <div id="termReplacedBy" ng-if="termModel.replacements.length > 0" data-magellan-target=="termReplacedBy">
         <h3 class="term-section-header">Replaced By</h3>
@@ -357,8 +352,6 @@
           </tr>
         </table>
       </div>
-
-
 
       <!-- Co-occurring statistics -->
       <!-- <div id="coOcurring" ng-hide="!isGoTerm || isObsolete" data-magellan-target=="coOcurring">
@@ -478,8 +471,6 @@
             </tr>
           </table>
         </div-->
-
-
 
         <!-- Change log -->
         <div id="termHistory" data-magellan-target=="termHistory">
@@ -606,17 +597,15 @@
           </div>
         </div>
 
-
         <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
 
-
-    </section>
+    </div>
     <!-- END Overview -->
 
 
 
-
-    <div class="columns large-3" data-sticky-container>
+    <!-- Menu -->
+    <div class="columns medium-3" data-sticky-container>
       <nav class="columns docs-toc-wrap sticky is-anchored is-at-top" data-sticky="sticky" data-anchor="container1" data-sticky-on="large" data-resize="sticky" data-margin-top="8" data-events="resize">
         <ul class="vertical menu" data-magellan data-animation-easing>
           <li>
