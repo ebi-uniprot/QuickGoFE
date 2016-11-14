@@ -1,3 +1,4 @@
+'use strict';
 app.controller('goTermsFilter', function($scope, basketService, stringService,
   validationService, termService, presetsService, $rootScope){
 
@@ -85,6 +86,10 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
         });
       });
     }
+  };
+
+  $scope.hasTerms = function() {
+    return Object.keys($scope.goTerms).length !== 0;
   };
 
   init();
