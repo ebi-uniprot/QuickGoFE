@@ -9,33 +9,14 @@
 
   <!-- Table heading content TODO statistics-->
 
-      <!-- <tabset>
-        <tab heading="Annotations">
-
-            <div ng-include="'annotationsList/annotationList.html'"></div>
-
-        </tab>
-        <tab heading="Statistics">
-
-          <div ng-include="'statistics/statistics.html'"></div>
-
-        </tab>
-      </tabset> -->
-
   <div class="medium-12 main-content">
-    <ul class="tabs" data-tabs id="example-tabs">
-      <li class="tabs-title is-active"><a href="#annotationsPanel" aria-selected="true">Annotations</a></li>
-      <li class="tabs-title"><a href="#statsPanel">Statistics</a></li>
-    </ul>
-
-    <div class="tabs-content" data-tabs-content="example-tabs">
-      <div class="tabs-panel is-active" id="annotationsPanel">
+    <tabset>
+      <tab heading="Annotations">
           <div ng-include="'annotationsList/annotationList.html'"></div>
-      </div>
-      <div class="tabs-panel" id="statsPanel">
-          <div ng-include="'statistics/statistics.html'"></div>
-      </div>
-    </div>
-
+      </tab>
+      <tab heading="Statistics">
+        <div ng-include="'statistics/statistics.html'"></div>
+      </tab>
+    </tabset>
   </div>
 </div>
