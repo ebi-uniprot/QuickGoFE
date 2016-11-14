@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 07/04/2015.
  */
-app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalInstance, graphModel, ENV) {
+app.controller('OntologyGraphCtrl', function($scope, $http, $window, graphModel, ENV) {
 
   $scope.graphModel = graphModel;
   $scope.imageSource="";
@@ -50,9 +50,9 @@ app.controller('OntologyGraphCtrl', function($scope, $http, $window, $uibModalIn
   /**
    * Close window
    */
-  $scope.ok = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
+  // $scope.ok = function () {
+  //   $uibModalInstance.dismiss('cancel');
+  // };
 
   $scope.newWindow = function () {
     var imageLocation = ENV.apiEndpoint + "/chart?ids=" + $scope.graphModel.id;

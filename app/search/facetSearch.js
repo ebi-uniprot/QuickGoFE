@@ -1,4 +1,4 @@
-app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchService, ontoTypeService, $routeParams,
+app.controller('FacetSearchCtrl', function($scope, $location, searchService, ontoTypeService, $routeParams,
                                            taxonomyService) {
 
   var isTermSearch = $location.path().indexOf('searchterms') > -1;
