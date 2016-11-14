@@ -15,9 +15,13 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService){
     });
   };
 
+  var getQuery = function() {
+    return _.pluck(_.filter(_.values($scope.qualifiers), 'checked'), 'qualifier');
+  };
+
   $scope.selectAllNotQualifiers = function () {
     angular.forEach($scope.qualifiers, function(qualifier, name) {
-      if(name.startsWith('NOT')) {
+      if(name.lastIndexOf('NOT', 0) === 0) {
         $scope.qualifiers[name].checked  = true;
       }
     });
@@ -31,15 +35,11 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService){
     $scope.query.qualifier = '';
   };
 
-  var getQuery = function() {
-    return _.pluck(_.filter(_.values($scope.qualifiers), 'checked'), 'qualifier');
-  };
-
-  $scope.$on('applyMoreFilters', function(e) {
+  $scope.$on('applyMoreFilters', function() {
     $scope.apply();
   });
 
-  $scope.$on('resetMoreFilters', function(e) {
+  $scope.$on('resetMoreFilters', function() {
     $scope.reset();
   });
 
