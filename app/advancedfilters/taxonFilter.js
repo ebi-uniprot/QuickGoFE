@@ -9,8 +9,8 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
       taxon.checked = false;
       $scope.taxonIds.push(taxon);
     });
-    if($scope.$parent.query.taxonId) {
-      angular.forEach($scope.$parent.query.taxonId.split(','), function(taxon) {
+    if($scope.query.taxonId) {
+      angular.forEach($scope.query.taxonId.split(','), function(taxon) {
         var match = _.findWhere($scope.taxonIds, {'taxId' : taxon});
         if (match) {
           match.checked = true;
@@ -23,10 +23,10 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
       });
     }
   };
-  
+
   $scope.reset = function() {
-    $scope.$parent.query.taxonId = '';
-    $scope.$parent.updateQuery();
+    $scope.query.taxonId = '';
+    $scope.updateQuery();
   };
 
   $scope.apply = function() {

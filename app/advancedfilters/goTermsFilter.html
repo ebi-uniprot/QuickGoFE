@@ -1,7 +1,7 @@
 <div ng-controller="goTermsFilter">
   <form>
   <!-- 3 choices -->
-  <div class="y-scroll-200 inset-panel" ng-hide="goIDs.length <= 0">
+  <div class="y-scroll-200 inset-panel" ng-show="hasTerms()">
     <ul>
       <li ng-repeat="(id, term) in goTerms" class="checkbox">
         <label>

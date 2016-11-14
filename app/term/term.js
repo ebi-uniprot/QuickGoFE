@@ -31,8 +31,10 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
   if (termId.lastIndexOf('ECO', 0) === 0) {
     $scope.isGoTerm = false;
+    $scope.termPromise = termService.getECOTerms(termId);
   } else {
     $scope.isGoTerm = true;
+    $scope.termPromise = termService.getGOTerms(termId);
   }
 
   //Get predefined slim sets
@@ -41,8 +43,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   /**
    * Get Term Data from WS
    */
-  $scope.termPromise = termService.getGOTerms(termId);
-
     $scope.termPromise.then(function(data) {
         $scope.termModel = data.data.results[0];
 
@@ -72,14 +72,14 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         } else {
           $scope.showRestrictions = true;
         }
-      
-      
+
+
         var ids = _.pluck(_.union($scope.termModel.replaces, $scope.termModel.replacements, $scope.termModel.children), 'id');
-      
+
         if($scope.isGoTerm) {
           $scope.additionalTermsPromise = termService.getGOTerms(ids);
         } else {
-          $scope.additionalTermsPromise = termService.getECOTerms(ids);        
+          $scope.additionalTermsPromise = termService.getECOTerms(ids);
         }
 
 
