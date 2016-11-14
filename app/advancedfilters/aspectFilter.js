@@ -1,30 +1,19 @@
-app.controller('aspectFilter', function($scope){
-
-  $scope.aspects = {
-    'molecular_function':{
-      'id': 'molecular_function',
-      'label' : 'Molecular function',
-      'checked' : false
-    },
-    'biological_process':{
-      'id': 'biological_process',
-      'label' : 'Biological process',
-      'checked' : false
-    },
-    'cellular_component':{
-      'id': 'cellular_component',
-      'label' : 'Cellular Component',
-      'checked' : false
-    }
-  };
-
+app.controller('aspectFilter', function($scope, presetsService){
+  $scope.aspects = {};
 
   var init = function() {
+    var checked = [];
     if($scope.$parent.query.aspect) {
-      angular.forEach($scope.$parent.query.aspect.split(','), function(aspect) {
-        $scope.aspects[aspect].checked = true;
-      })
+      checked = checked.concat($scope.$parent.query.aspect.split(','))
     }
+
+    presetsService.getPresetsAspects().then(function(resp){
+      var allAspects = _.sortBy(resp.data.aspects, 'name');
+      angular.forEach(allAspects, function(aspect){
+        aspect.checked = _.contains(checked, aspect.id);
+        $scope.aspects[aspect.id] = aspect;
+      });
+    });
   };
 
   $scope.reset = function() {
