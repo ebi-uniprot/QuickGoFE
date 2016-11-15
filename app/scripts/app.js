@@ -39,11 +39,16 @@ app.run(function ($rootScope, dbXrefService, $window) {
   };
 
 
-  $rootScope.alerts = [];
+
+  $rootScope.alerts = [
+  { type: 'warning', msg: 'This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.' },
+
+];
 
   $rootScope.closeAlert = function (index) {
     $rootScope.alerts.splice(index, 1);
   };
+
 
 });
 

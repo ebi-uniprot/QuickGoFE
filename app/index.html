@@ -177,22 +177,8 @@
     <!-- WARNING message -->
 
     <section>
-
-      <div id="calloutWarning" class="callout warning" data-closable>
-        This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.
-        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <!-- Global error message -->
-      <div id="globalWarning" class="callout alert" ng-repeat="alert in alerts" data-closable>
-        {{alert.msg}}
-        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
+        <!-- Global error message -->
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
     </section>
 
 <!--
