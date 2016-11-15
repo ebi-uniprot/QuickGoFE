@@ -1,6 +1,6 @@
 <div id="content" class="colums medium-12"  role="main" cg-busy="termPromise" ng-if="termModel.id">
 
-  <section id="container" class="medium-9 row">
+  <section id="container" class="medium-12 row">
   <!-- Title section -->
   <div class="panel" id="overview" data-magellan-target=="overview">
 
@@ -138,7 +138,7 @@
       <div id="childTerms" ng-if="termModel.children.length > 0" ng-hide="isObsolete" data-magellan-target=="childTerms">
         <h3 class="term-section-header"><span data-tooltip class="has-tip" title="This table lists all terms that are direct descendants (child terms) of {{termModel.id}}">Child Terms</span></h3>
         <div>
-          <table class="two-colours">
+          <table>
             <tr>
               <th>Child Term</th>
               <th>Relationship to </br>{{termModel.id}}</th>
@@ -476,19 +476,11 @@
         <div id="termHistory" data-magellan-target=="termHistory">
           <h3 class="term-section-header">Change Log</h3>
 
-          <ul class="tabs" data-tabs id="change-log-tabs">
-            <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">All changes</a></li>
-            <li class="tabs-title"><a href="#panel2">Term</a></li>
-            <li class="tabs-title"><a href="#panel3">Definition / Synonyms</a></li>
-            <li class="tabs-title"><a href="#panel4">Relationships</a></li>
-            <li class="tabs-title"><a href="#panel5">Cross-references</a></li>
-            <li class="tabs-title"><a href="#panel6">Other</a></li>
-          </ul>
 
 
-          <div class="tabs-content" data-tabs-content="change-log-tabs">
-            <div class="tabs-panel is-active" id="panel1">
-              <table class="two-colours">
+          <tabset>
+            <tab heading="All changes">
+              <table>
                 <tr>
                   <th>Timestamp</th>
                   <th>Action</th>
@@ -507,10 +499,9 @@
               <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
               <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
-            </div>
-
-            <div class="tabs-panel" id="panel2">
-              <table class="two-colours">
+            </tab>
+            <tab heading="Term">
+              <table>
                 <tr>
                   <th>Timestamp</th>
                   <th>Action</th>
@@ -524,10 +515,9 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </div>
-
-            <div class="tabs-panel" id="panel3">
-              <table class="two-colours">
+            </tab>
+            <tab heading="Definition / Synonyms">
+              <table>
                 <tr>
                   <th>Timestamp</th>
                   <th>Action</th>
@@ -541,10 +531,9 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </div>
-
-            <div class="tabs-panel" id="panel4">
-              <table class="two-colours">
+            </tab>
+            <tab heading="Relationships">
+              <table>
                 <tr>
                   <th>Timestamp</th>
                   <th>Action</th>
@@ -558,10 +547,9 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </div>
-
-            <div class="tabs-panel" id="panel5">
-              <table class="two-colours">
+            </tab>
+            <tab heading="Cross-references">
+              <table>
                 <tr>
                   <th>Timestamp</th>
                   <th>Action</th>
@@ -575,10 +563,9 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </div>
-
-            <div class="tabs-panel" id="panel6">
-              <table class="two-colours">
+            </tab>
+            <tab heading="Other">
+              <table>
                 <tr>
                   <th>Timestamp</th>
                   <th>Action</th>
@@ -592,9 +579,11 @@
                   <td>{{history.text}}</td>
                 </tr>
               </table>
-            </div>
+            </tab>
+          </tabset>
 
-          </div>
+
+
         </div>
 
         <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
@@ -604,8 +593,80 @@
 
 
 
+    <!-- Sidebar: Controls what gets displayed on the main page.-->
+  <nav class="grid_4" id="term-section-nav">
+    <ul>
+      <li du-scrollspy="overview">
+        <a class="term-section-view" du-smooth-scroll="overview">Overview</a>
+      </li>
+      <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length==0))}"
+          du-scrollspy="termSynonyms">
+        <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
+      </li>
+      <li du-scrollspy="ancestorChart" ng-hide="isObsolete">
+        <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
+      </li>
+      <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length==0))}" ng-hide="isObsolete"
+          du-scrollspy="childTerms">
+        <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
+      </li>
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.annotationGuidelines || (termModel.annotationGuidelines.length==0))}"
+          du-scrollspy="termAnnotationGuidance">
+        <a class="term-section-view" du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
+      </li>
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.goDiscussions || (termModel.plannedChanges.length==0))}"
+          du-scrollspy="goDiscussions">
+        <a class="term-section-view" du-smooth-scroll="goDiscussions" >GO Discussions</a>
+      </li>
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.taxonConstraints || (termModel.taxonConstraints.length==0))}"
+          du-scrollspy="termTaxonConstraints">
+        <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>
+      </li>
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.blacklist || (termModel.blacklist.length==0))}"
+          du-scrollspy="blacklist">
+        <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
+      </li>
+      <li ng-class="{'section-disabled':(!termModel.xRefs || (termModel.xRefs.length==0))}"
+          du-scrollspy="termCrossReferences">
+        <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
+      </li>
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length==0))}"
+          du-scrollspy="termCrossOntologyRelations">
+        <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
+      </li>
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length==0))}"
+          du-scrollspy="termReplaces">
+        <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
+      </li>
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length==0))}"
+          du-scrollspy="termReplacedBy">
+        <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
+      </li>
+      <li ng-hide="!isGoTerm || isObsolete" du-scrollspy="coOcurring">
+        <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
+      </li>
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length==0))}"
+          du-scrollspy="termGOSlims">
+        <a class="term-section-view" du-smooth-scroll="termGOSlims">GO Slims</a>
+      </li>
+      <li du-scrollspy="termHistory">
+        <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
+      </li>
+    </ul>
+  </nav>
+  <!--End of side bar information-->
+
+
+
+
     <!-- Menu -->
     <div class="columns medium-3" data-sticky-container>
+      <!--
       <nav class="columns docs-toc-wrap sticky is-anchored is-at-top" data-sticky="sticky" data-anchor="container1" data-sticky-on="large" data-resize="sticky" data-margin-top="8" data-events="resize">
         <ul class="vertical menu" data-magellan data-animation-easing>
           <li>
@@ -614,9 +675,9 @@
           <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length==0))}">
             <a class="term-section-view" href="#termSynonyms">Synonyms</a>
           </li>
-          <!-- <li ng-hide="isObsolete">
+          <li ng-hide="isObsolete">
             <a class="term-section-view" href="#ancestorChart">Ancestor Chart</a>
-          </li> -->
+          </li>
           <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length==0))}" ng-hide="isObsolete">
             <a span class="term-section-view" href="#childTerms">Child Terms</a>
           </li>
@@ -644,17 +705,17 @@
           <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length==0))}">
             <a class="term-section-view" href="#termReplacedBy">Replaced By</a>
           </li>
-          <!-- <li ng-hide="!isGoTerm || isObsolete">
+          <li ng-hide="!isGoTerm || isObsolete">
             <a class="term-section-view" href="#coOcurring">Co-occurring Terms</a>
-          </li> -->
-          <!-- <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length==0))}">
+          </li>
+          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length==0))}">
             <a class="term-section-view" href="#termGOSlims">GO Slims</a>
-          </li> -->
+          </li>
           <li>
             <a class="term-section-view" href="#termHistory">Change Log</a>
           </li>
         </ul>
-      </nav>
+      </nav> -->
 
 
       </nav>

@@ -39,6 +39,20 @@ div#local-masthead {
 #local-masthead .masthead .menu > li > a { color: #666; }
 #local-masthead .masthead .menu > li > a:hover { color: #00a9de; }
 
+.tabs-title > a[aria-selected='true']{
+  background-color: #999;
+}
+.tabs-title > a:hover{
+  background-color: #666;
+  border-bottom: 0px;
+}
+table td{
+  border: 1px solid #f1f1f1;
+}
+table th{
+  border-bottom: 3px solid #f7f7f7;
+}
+
 
 /* Homepage   ----------------------------------------------------------------------------------------------------------*/
 
@@ -191,6 +205,9 @@ table tbody tr:nth-child(odd){
 }
 table tbody tr:nth-child(even){
   background-color: #fff;
+}
+table th{
+  text-align: left;
 }
 
 .main-content{
