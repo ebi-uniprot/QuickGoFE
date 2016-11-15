@@ -2,7 +2,7 @@
 <div ng-controller="taxonFilter">
   <form>
     <div class="form-group y-scroll-200">
-      <ul>
+      <ul class="no-bullet">
         <li ng-repeat="taxon in taxonIds" class="checkbox">
           <label>
             <input type="checkbox" ng-model="taxon.checked"> {{taxon.taxId}} <strong>{{taxon.title}}</strong>

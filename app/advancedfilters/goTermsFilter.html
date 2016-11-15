@@ -2,7 +2,7 @@
   <form>
   <!-- 3 choices -->
   <div class="y-scroll-200 inset-panel" ng-show="hasTerms()">
-    <ul>
+    <ul class="no-bullet">
       <li ng-repeat="(id, term) in goTerms" class="checkbox">
         <label>
           <input type="checkbox" ng-model="term.checked"> {{term.id}} {{term.name}}
