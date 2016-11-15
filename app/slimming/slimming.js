@@ -36,10 +36,6 @@ app.controller('GOSlimCtrl', function($scope, $location,
     });
   };
 
-  // $scope.rootTermMFID = 'GO:0003674';
-  // $scope.rootTermBPID = 'GO:0008150';
-  // $scope.rootTermCCID = 'GO:0005575';
-
   presetsService.getPresets().then(function(d) {
     $scope.geneProducts = d.data.geneProducts;
     $scope.predefinedSlimSets = d.data.goSlimSets;
@@ -49,13 +45,16 @@ app.controller('GOSlimCtrl', function($scope, $location,
 
   // Predefined sets
   $scope.addPredefined = function() {
-    console.log($scope.selectedPreDefinedSlimSet.associations);
-    termService.getGOTerms($scope.selectedPreDefinedSlimSet.associations).then(function(d){
+    var terms = $scope.selectedPreDefinedSlimSet.associations;
+    if($scope.includeRootTerms) {
+      terms = terms.concat(['GO:0003674','GO:0008150','GO:0005575']);
+    }
+
+    termService.getGOTerms(terms).then(function(d){
       angular.forEach(d.data.results, function(goTerm){
         $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
       });
     });
-
   };
 
   // Own terms

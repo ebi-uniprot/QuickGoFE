@@ -19,7 +19,7 @@
             <!-- <label ng-repeat="(aspectId, aspect) in selection"><input ng-model="predefined[aspectId]" type="checkbox"/>
                 {{aspect.name}} terms
               </label> -->
-            <label><input type="checkbox">
+            <label><input type="checkbox" ng-model="$parent.$parent.includeRootTerms">
               Include root terms</label>
           </div>
           <hr>
