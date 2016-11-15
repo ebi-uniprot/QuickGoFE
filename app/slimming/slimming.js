@@ -1,7 +1,7 @@
 'use strict';
 app.controller('GOSlimCtrl', function($scope, $location,
   hardCodedDataService, presetsService, termService, basketService,
-  stringService) {
+  stringService, validationService) {
 
   $scope.selection = {};
 
@@ -13,9 +13,16 @@ app.controller('GOSlimCtrl', function($scope, $location,
       };
     });
 
-    $scope.selectedSpecies = {};
-
-    $scope.species = hardCodedDataService.mostCommonTaxonomies;
+    $scope.additionalSelection = {
+      'gpIds':[],
+      'taxa':[]
+    };
+    $scope.species = {};
+    var taxa = hardCodedDataService.getMostCommonTaxonomies();
+    angular.forEach(taxa, function(taxon) {
+      taxon.checked = false;
+      $scope.species[taxon.taxId] = taxon;
+    });
 
     /**
      * Get basket items
@@ -72,6 +79,41 @@ app.controller('GOSlimCtrl', function($scope, $location,
     });
   };
 
+  //taxons
+  $scope.addNewTaxon = function() {
+    var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
+    angular.forEach(taxons, function(taxonId) {
+      if (validationService.validateTaxon(taxonId)) {
+        if($scope.species[taxonId]) {
+          $scope.species[taxonId].checked = true;
+        } else {
+          $scope.species[taxonId] = {
+            taxId: taxonId,
+            title: '',
+            checked: true
+          };
+        }
+      }
+    });
+    $scope.taxonTextArea = '';
+  };
+
+  //gpIds
+  //TODO handle gpIds
+  $scope.addGPIds = function(){
+    var ids = stringService.getTextareaItemsAsArray($scope.geneProductID);
+    angular.forEach(ids, function(id) {
+      if(validationService.validateGeneProduct(id)){
+        $scope.additionalSelection.gpIds.push(id);
+      }
+    });
+    $scope.geneProductID = '';
+  };
+
+  $scope.addTaxons = function(){
+    $scope.additionalSelection.taxa = _.pluck(_.filter($scope.species, 'checked'),'taxId');
+  };
+
   $scope.getTotalCount = function() {
     return $scope.selectedItems;
   };
@@ -119,27 +161,22 @@ app.controller('GOSlimCtrl', function($scope, $location,
     $location.search('goUsage', 'slim');
     $location.search('goUsageRelationships', 'is_a,part_of,occurs_in');
 
-    console.log($scope.selection);
     var allTerms = [];
     angular.forEach($scope.selection, function(aspect) {
       allTerms = allTerms.concat(_.pluck(aspect.terms, 'id'));
     });
-    console.log(allTerms);
     $location.search('goId', allTerms.join(','));
 
     // Add gene products
-    if ($scope.genProductID) {
-      var geneProductsAdded = stringService.getTextareaItemsAsArray($scope.genProductID);
-      angular.forEach((geneProductsAdded), function(geneProdId) {
-        $location.search('gpID', geneProdId);
-      });
+    if ($scope.additionalSelection.gpIds.length > 0) {
+      $location.search('geneProductId', $scope.additionalSelection.gpIds.toString());
     }
 
     // Add taxons
-    angular.forEach(_.keys($scope.selectedSpecies), function(taxonId) {
-      // if($scope.selectedSpecies[taxonId])
-      // filteringService.saveAppliedFilter({type: 'taxon', value: taxonId});
-    });
+    if ($scope.additionalSelection.taxa.length > 0) {
+      $location.search('taxonId', $scope.additionalSelection.taxa.toString());
+    }
+
     $location.path('annotations');
   };
 

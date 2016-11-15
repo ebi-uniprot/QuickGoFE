@@ -10,6 +10,7 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
       $scope.taxonIds.push(taxon);
     });
     if($scope.query.taxonId) {
+      console.log($scope.query.taxonId);
       angular.forEach($scope.query.taxonId.split(','), function(taxon) {
         var match = _.findWhere($scope.taxonIds, {'taxId' : taxon});
         if (match) {

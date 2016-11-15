@@ -1,115 +1,108 @@
-<div id="content">
-  <h2>Explore Biology</h2>
-  <p>Make a selection of terms below and submit to see their associated annotations</p>
-
-  <div class="medium-12">
-    <div class="row">
-      <tabset class="medium-6 column">
-        <tab heading="Predefined GO slims">
-          <div class="select-container">
-            <label>Select:</label>
-            <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.name for predefinedSet in predefinedSlimSets" ng-change="updatePredefinedSets()">
-              <option value=""></option>
-            </select>
-            <div>
-              <!-- TODO We need to ask backend if they can break down the associations list by aspect -->
-              <!-- <label ng-repeat="(aspectId, aspect) in selection"><input ng-model="predefined[aspectId]" type="checkbox"/>
+<div class="row">
+  <div class="column medium-12">
+    <h2>Explore Biology</h2>
+    <p>Make a selection of terms below and submit to see their associated annotations</p>
+  </div>
+</div>
+<div class="row">
+  <div class="medium-6 column">
+    <h3>Select terms</h3>
+    <tabset>
+      <tab heading="Predefined GO slims">
+        <div class="select-container">
+          <label>Select:</label>
+          <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.name for predefinedSet in predefinedSlimSets" ng-change="updatePredefinedSets()">
+            <option value=""></option>
+          </select>
+          <div>
+            <!-- TODO We need to ask backend if they can break down the associations list by aspect -->
+            <!-- <label ng-repeat="(aspectId, aspect) in selection"><input ng-model="predefined[aspectId]" type="checkbox"/>
                 {{aspect.name}} terms
               </label> -->
-              <label><input type="checkbox">
-                Include root terms</label>
-            </div>
-            <hr>
-            <button class="button" ng-disabled="!selectedPreDefinedSlimSet" ng-click="addPredefined()">Add
-              {{selectedPreDefinedSlimSet.associations.length}}
-              terms to selection</button>
-            <button class="button icon-functional view-chart-button" ng-disabled="!selectedPreDefinedSlimSet" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
+            <label><input type="checkbox">
+              Include root terms</label>
           </div>
-        </tab>
-        <tab heading="Input your own">
-          <div class="select-container">
-            <strong>Enter one or more GO terms:</strong><br/>
-            <textarea class="default" placeholder="e.g. GO:0008150, GO:0055085, GO:0006811, GO:0006520" ng-model="$parent.$parent.slimOwnTerms" cg-busy="ownTermPromise"></textarea>
-            <hr>
-            <button class="button" ng-disabled="!slimOwnTerms" ng-click="addOwnTerms()">Add your Terms</button>
-            <button class="button icon-functional view-chart-button" ng-click="showGraphOwnTerms()" data-icon="h" ng-disabled="!slimOwnTerms">View Chart</button>
-          </div>
-        </tab>
-        <tab heading="Select from Basket">
-          <div class="select-container">
-            <strong>Choose terms from your basket
-            </strong>&nbsp;({{basketList.length}}&nbsp;available)
-            <label ng-repeat="basketItem in basketList"><input type="checkbox" ng-model="basketItem.selected"/>
-              <strong>{{basketItem.id}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
-            <hr>
-            <button class="button" ng-click="addBasketTerms()">Add to selection</button>
-            <button class="button icon-functional view-chart-button" ng-click="showGraphBasketItems()" data-icon="h">View Chart</button>
-            <div class="clearfix"></div>
-          </div>
-        </tab>
-      </tabset>
-      <div class="medium-6 column">
-        <div ng-class="{'inactive': selectedItems.length <= 0}" class="slims-options">
-          <h3>Additional Options</h3>
-
-          <ul class="accordion">
-            <li class="accordion-item is-active">
-              <a href="#" class="accordion-title">Gene Product ID</a>
-              <div class="accordion-content" data-tab-content>
-                <textarea ng-disabled="selectedItems.length <= 0" class="default" placeholder="Add your Gene Product ID(s)" ng-model="$parent.$parent.$parent.genProductID"></textarea>
-
-              </div>
-            </li>
-            <li class="accordion-item">
-              <a href="#" class="accordion-title">Restrict by Species</a>
-              <div class="accordion-content" data-tab-content>
-                <ul>
-                  <li ng-repeat="taxon in species">
-                    <input ng-disabled="selectedItems.length <= 0" type="checkbox" ng-model="selectedSpecies[taxon.id]" checklist-value="{{taxon.id}}">
-                    {{taxon.displayName}}
-                    ({{taxon.id}})<br/>
-                  </li>
-                </ul>
-                <textarea ng-disabled="selectedItems.length <= 0" class="small" placeholder=" Add your own Taxon ID(s)" ng-model="slimOwnTaxonID"></textarea>
-
-              </div>
-            </li>
-          </ul>
-
-          <!--
-DO NOT DELETE!
-The restrictions of activness need to be applied from the code below when the accrodian is working and can be tested
-          <uib-accordion close-others="oneAtATime">
-            <uib-accordion-group heading="Gene Product ID" is-open="true" is-disabled="selectedItems.length <= 0" closeOthers="true">
-            </uib-accordion-group>
-
-            <uib-accordion-group heading="Restrict by Species" closeOthers="true" is-disabled="selectedItems.length <= 0">
-            </uib-accordion-group>
-
-          </uib-accordion> -->
-
+          <hr>
+          <button class="button" ng-disabled="!selectedPreDefinedSlimSet" ng-click="addPredefined()">Add
+            {{selectedPreDefinedSlimSet.associations.length}}
+            terms to selection</button>
+          <button class="button icon-functional view-chart-button" ng-disabled="!selectedPreDefinedSlimSet" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
         </div>
-      </div>
-    </div>
+      </tab>
+      <tab heading="Input your own">
+        <div class="select-container">
+          <strong>Enter one or more GO terms:</strong><br/>
+          <textarea class="default" placeholder="e.g. GO:0008150, GO:0055085, GO:0006811, GO:0006520" ng-model="$parent.$parent.slimOwnTerms" cg-busy="ownTermPromise"></textarea>
+          <hr>
+          <button class="button" ng-disabled="!slimOwnTerms" ng-click="addOwnTerms()">Add your Terms</button>
+          <button class="button icon-functional view-chart-button" ng-click="showGraphOwnTerms()" data-icon="h" ng-disabled="!slimOwnTerms">View Chart</button>
+        </div>
+      </tab>
+      <tab heading="Select from Basket">
+        <div class="select-container">
+          <strong>Choose terms from your basket
+          </strong>&nbsp;({{basketList.length}}&nbsp;available)
+          <label ng-repeat="basketItem in basketList"><input type="checkbox" ng-model="basketItem.selected"/>
+            <strong>{{basketItem.id}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
+          <hr>
+          <button class="button" ng-click="addBasketTerms()">Add to selection</button>
+          <button class="button icon-functional view-chart-button" ng-click="showGraphBasketItems()" data-icon="h">View Chart</button>
+          <div class="clearfix"></div>
+        </div>
+      </tab>
+    </tabset>
+    <br/>
   </div>
 
-  <div id="selection-header" class="large-12" data-spy="affix" data-offset-top="700">
-    <h3 ng-class="{'inactive': selectedItems.length <= 0}" class="your-selection-header">
-      Your Selection:
-      {{selectedItems.length}}
-      <span class="pull-right">
-        <button class="button icon-functional" ng-disabled="count.total <= 0" ng-click="showGraph()" data-icon="h">View Chart</button>
-        <button class="button" ng-disabled="count.total <= 0" ng-click="clearSelection()">Clear</button>
-        <button class="button" ng-disabled="count.total <= 0" ng-click="viewAnnotations()">Submit</button>
-      </span>
+  <div ng-class="{'inactive': selectedItems.length <= 0}" class="slims-options medium-6 column">
+    <h3>Additional Options</h3>
+    <accordion close-others="true">
+      <accordion-group heading="Gene Product ID">
+          <textarea ng-disabled="count.total <= 0" class="default" placeholder="A0A000,A0A001,..." ng-model="$parent.$parent.$parent.geneProductID"></textarea>
+          <button class="button" ng-click="addGPIds()" ng-disabled="count.total <= 0">Add to selection</button>
+      </accordion-group>
+      <accordion-group heading="Restrict by Species">
+          <ul>
+            <li ng-repeat="taxon in species" class="no-bullet">
+              <label><input ng-disabled="count.total <= 0" type="checkbox" ng-model="taxon.checked" checklist-value="{{taxon.taxId}}">
+              {{taxon.title}}
+              ({{taxon.taxId}})</label>
+            </li>
+          </ul>
+          <div class="row">
+            <div class="column medium-10">
+              <textarea ng-disabled="count.total <= 0" class="small" placeholder="9606,7955,..." ng-model="$parent.$parent.$parent.taxonTextArea"></textarea>
+            </div>
+            <div class="column medium-2">
+              <button class="small button" ng-click="addNewTaxon()" ng-disabled="!$parent.$parent.$parent.taxonTextArea">Add</button>
+            </div>
+          </div>
+          <hr>
+          <button class="button" ng-click="addTaxons()" ng-disabled="count.total <= 0">Add to selection</button>
+      </accordion-group>
+    </accordion>
+    <p ng-if="additionalSelection.taxa.length > 0">
+      <strong>{{additionalSelection.taxa.length}}</strong> species.
+    </p>
+    <p ng-if="additionalSelection.gpIds.length > 0">
+      <strong>{{additionalSelection.gpIds.length}}</strong> gene product(s).
+    </p>
+  </div>
+</div>
+<div class="row" ng-if="count.total > 0">
+  <hr>
+  <div id="selection-header" class="column medium-12 clearfix">
+    <span class="float-right">
+      <button class="button icon-functional" ng-disabled="count.total <= 0" ng-click="showGraph()" data-icon="h">View Chart</button>
+      <button class="button" ng-disabled="count.total <= 0" ng-click="clearSelection()">Clear</button>
+      <button class="button" ng-disabled="count.total <= 0" ng-click="viewAnnotations()">Submit</button>
+    </span>
+    <h3 ng-class="{'inactive': count.totalCount <= 0}" class="your-selection-header">
+      Your Selection:{{count.total}} terms
     </h3>
   </div>
 
-  <div class="your-selection-container large-12 ">
-    <div ng-if="count.total <= 0">
-      <h4>Choose or input GO terms above to view your selection here</h4>
-    </div>
-
+  <div class="your-selection-container column medium-12">
     <div class="selectionContainer" ng-if="count.total > 0">
       <div ng-repeat="aspect in selection">
         <h5>{{aspect.name}}
@@ -118,23 +111,22 @@ The restrictions of activness need to be applied from the code below when the ac
         </h5>
         <p ng-repeat="aTerm in aspect.terms" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
           <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.obsolete" name="aTerm.name"></term-line>
-          <a class="icon icon-functional" data-icon="x" uib-tooltip="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+          <a class="icon icon-functional" data-icon="x" title="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
         </p>
-    </ul>
+      </div>
+    </div>
+    <div class="selectionContainer removedTerms" ng-if="deSelectedItems.length >= 1">
+      <h5>Excluded Terms
+        <span>({{deSelectedItems.length}})</span>
+      </h5>
+      <ul>
+        <li ng-repeat="aTerm in deSelectedItems" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
+          <i>
+            <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
+            <a class="icon icon-functional" data-icon="+" uib-tooltip="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+          </i>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
-<div id="sticky-anchor" style="float:right;"></div>
-<div class="selectionContainer removedTerms" id="sticky" ng-if="deSelectedItems.length >= 1">
-  <h5>Excluded Terms
-    <span>({{deSelectedItems.length}})</span>
-  </h5>
-  <ul>
-    <li ng-repeat="aTerm in deSelectedItems" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
-      <i>
-        <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
-        <a class="icon icon-functional" data-icon="+" uib-tooltip="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
-      </i>
-    </li>
-  </ul>
-</div>
 </div>
