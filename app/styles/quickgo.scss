@@ -425,6 +425,11 @@ div {
   &.hover{
     background-color: #2980B9;
   }
+  &.active-filter {
+    color: $white !important;
+    background-color: $ebi-green !important;
+    opacity: .6;
+  }
 }
 
 .button:focus, .button:hover, .button.hover {
