@@ -47,7 +47,6 @@ app.controller('GOSlimCtrl', function($scope, $location,
   $scope.addPredefined = function() {
     var terms = $scope.selectedPreDefinedSlimSet.associations;
     if($scope.includeRootTerms) {
-      console.log('adding root terms');
       terms = terms.concat(['GO:0003674','GO:0008150','GO:0005575']);
     }
 
