@@ -1,3 +1,4 @@
+'use strict';
 angular
   .module('quickGoFeApp')
   .directive('chartIcon', ['$http', 'chartService', function ($http, chartService) {
@@ -10,19 +11,29 @@ angular
       link: function (scope) {
         scope.showGraph = false;
         scope.showChart = function () {
-          //TODO check if GO or ECO 
-          var chartPromise = chartService.getGOChart(scope.ids);
+
+          var chartPromise, imageMapPromise;
+
+          if(scope.ids.lastIndexOf('GO:') === 0) {
+            chartPromise = chartService.getGOChart(scope.ids);
+            imageMapPromise = chartService.getGOImageMap(scope.ids);
+          } else {
+            chartPromise = chartService.getECOChart(scope.ids);
+            imageMapPromise = chartService.getECOImageMap(scope.ids);
+          }
 
           chartPromise.then(function (d) {
             scope.img = d.data;
-
             //TODO use a modal when moved to Foundation
             scope.showGraph = true;
           });
-          chartService.getGOImageMap(scope.ids).then(function (d) {
-            console.log(d)
+          imageMapPromise.then(function (d) {
+            scope.title = d.data.title;
+            scope.graphImage = d.data;
+            scope.imageMapId =  'chart_' + Math.floor((1 + Math.random()) * 0x10000).toString(16);
+            console.log(scope.imageMapId);
           });
-        }
+        };
       }
     };
 	}]);
