@@ -5,11 +5,14 @@ angular
     return {
       restrict: 'E',
       scope: {
-        ids: '='
+        ids: '=',
+        modal: '=?' //default true
       },
       templateUrl: 'directives/chart.html',
       link: function (scope) {
-        scope.showGraph = false;
+        scope.modal = angular.isDefined(scope.modal) ? scope.modal : true;
+        scope.showGraph = !scope.modal;
+
         scope.showChart = function () {
 
           var chartPromise, imageMapPromise;
@@ -31,9 +34,13 @@ angular
             scope.title = d.data.title;
             scope.graphImage = d.data;
             scope.imageMapId =  'chart_' + Math.floor((1 + Math.random()) * 0x10000).toString(16);
-            console.log(scope.imageMapId);
           });
         };
+
+        if(scope.showGraph) {
+          scope.showChart();
+        }
+
       }
     };
 	}]);

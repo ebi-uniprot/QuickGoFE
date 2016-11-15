@@ -1,4 +1,4 @@
-<span ng-click="showChart()" class="chart-btn selectable" data-icon="h"></span>
+<span ng-click="showChart()" class="chart-btn selectable" data-icon="h" ng-if="modal"></span>
 
 <div cg-busy="chartPromise" ng-show="showGraph">
   <h4>{{title}}</h4>
