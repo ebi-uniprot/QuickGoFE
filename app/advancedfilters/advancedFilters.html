@@ -74,23 +74,26 @@
 
     <!-- MORE  -->
     <li ng-class="{'inactive':query.evidenceCode}">
-      <dropdown-toggle close-on-click="true">
+      <dropdown-toggle close-on-click="true" class="more-panel" pane-align="right">
         <toggle>
           <button class="button" ng-class="{'icon-functional active-filter' : isActiveFilter('qualifier')
                   || isActiveFilter('referenceSearch') || isActiveFilter('with') || isActiveFilter('assignedby')}" data-icon="/">More</button>
         </toggle>
-        <pane>
+        <pane class="more-panel">
+          <div class="medium-12 row" style="width:1000px;">
           <!-- QUALIFIER -->
-            <div ng-include src="'advancedfilters/qualifierFilter.html'"></div>
+            <div class="medium-3 column" ng-include src="'advancedfilters/qualifierFilter.html'"></div>
 
           <!-- REFERENCE -->
-            <div ng-include src="'advancedfilters/referencesFilter.html'"></div>
+            <div class="medium-3 column" ng-include src="'advancedfilters/referencesFilter.html'"></div>
 
           <!-- WITH -->
-            <div ng-include src="'advancedfilters/withFromFilter.html'"></div>
+            <div class="medium-3 column" ng-include src="'advancedfilters/withFromFilter.html'"></div>
 
           <!-- ASSIGNED BY -->
-            <div ng-include src="'advancedfilters/assignedByFilter.html'"></div>
+            <div class="medium-3 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
+
+          </div>
 
             <button class="button" ng-click="resetAssigned()">Reset</button>
             <button class="button" ng-click="applyFilters()">Apply</button>

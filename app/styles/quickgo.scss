@@ -241,6 +241,10 @@ aspect-icon span.aspect-icon{
     line-height: 1;
 }
 
+.more-panel .dropdown-pane{
+  width: 700px;
+}
+
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 
 #basket {
@@ -317,6 +321,9 @@ aspect-icon span.aspect-icon{
   }
 }
 
+.more-panel{
+  width: 600px;
+}
 
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
