@@ -58,6 +58,26 @@ table th{
   border-bottom: 3px solid #f7f7f7;
 }
 
+.typeahead-box{
+  width: 50%;
+  background: #FFF;
+  padding: 20px;
+  position: absolute;
+  z-index: 1000;
+  float: left;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  background-clip: padding-box;
+  color: #333;
+}
+#local-masthead .typeahead-box ul li a{
+   color: #2980B9;
+}
+.input-group{
+  margin-bottom: 0;
+}
 
 /* Homepage   ----------------------------------------------------------------------------------------------------------*/
 
