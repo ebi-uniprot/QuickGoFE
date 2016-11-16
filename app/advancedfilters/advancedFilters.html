@@ -61,7 +61,7 @@
 
     <!-- EVIDENCE -->
     <li ng-class="{'inactive':query.evidenceCode}">
-      <dropdown-toggle close-on-click="true">
+      <dropdown-toggle close-on-click="true" class="evidence-panel" pane-align="right">
         <toggle>
           <button class="button" ng-class="{'icon-functional active-filter' : isActiveFilter('ecoID')}" data-icon="/">Evidence</button>
         </toggle>
@@ -80,18 +80,23 @@
                   || isActiveFilter('referenceSearch') || isActiveFilter('with') || isActiveFilter('assignedby')}" data-icon="/">More</button>
         </toggle>
         <pane class="more-panel">
-          <div class="medium-12 row" style="width:1000px;">
+          <div class="medium-12 row">
           <!-- QUALIFIER -->
-            <div class="medium-3 column" ng-include src="'advancedfilters/qualifierFilter.html'"></div>
+            <div class="medium-6 column" ng-include src="'advancedfilters/qualifierFilter.html'"></div>
 
           <!-- REFERENCE -->
-            <div class="medium-3 column" ng-include src="'advancedfilters/referencesFilter.html'"></div>
+            <div class="medium-6 column" ng-include src="'advancedfilters/referencesFilter.html'"></div>
 
+          </div>
+
+
+
+          <div class="medium-12 row">
           <!-- WITH -->
-            <div class="medium-3 column" ng-include src="'advancedfilters/withFromFilter.html'"></div>
+            <div class="medium-6 column " ng-include src="'advancedfilters/withFromFilter.html'"></div>
 
           <!-- ASSIGNED BY -->
-            <div class="medium-3 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
+            <div class="medium-6 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
 
           </div>
 

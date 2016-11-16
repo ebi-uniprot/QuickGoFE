@@ -5,11 +5,13 @@
     <form>
       <p>The qualifier column specifies the relationship between the annotated gene product and the GO term.</p>
 
+      <div class="overflow-pane">
       <div ng-repeat="qualifier in qualifiers" class="checkbox">
         <label>
           <input type="checkbox" ng-model="qualifier.checked"> {{qualifier.name}}
         </label>
       </div>
+    </div>
       <div class="form-group">
         <button class="button" ng-click="selectAllNotQualifiers()" ng-hide="showAllNotQualifiers">Select all NOT qualifiers</button>
       </div>

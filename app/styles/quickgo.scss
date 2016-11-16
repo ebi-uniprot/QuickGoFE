@@ -241,8 +241,24 @@ aspect-icon span.aspect-icon{
     line-height: 1;
 }
 
+.evidence-panel .dropdown-pane{
+  width: 700px;
+}
+
 .more-panel .dropdown-pane{
   width: 700px;
+}
+.overflow-pane{
+  height: 200px;
+  overflow: auto;
+  -webkit-box-shadow: 0 2px 6px -2px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0 2px 6px -2px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.2);
+  margin-bottom:2em;
+}
+.more-panel .column{
+  height: 450px;
+  margin-bottom: 20px;
 }
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/

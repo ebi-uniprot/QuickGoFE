@@ -4,6 +4,7 @@
   <div>
     <form>
       <div class="y-scroll-200 inset-panel">
+              <div class="overflow-pane">
         <ul class="no-bullet">
           <li ng-repeat="(name, ref) in references" class="checkbox">
             <label>
@@ -12,6 +13,7 @@
             </td>
           </li>
         </ul>
+      </div>
       </div>
       <p>*: Any matches will be displayed</p>
       <a ng-click="more = !more" ng-hide="more">Add more...</a>
