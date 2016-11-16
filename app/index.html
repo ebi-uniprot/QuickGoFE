@@ -101,7 +101,7 @@
 
       <!-- local-title -->
       <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
-      <div id="local-title" class="logo-title medium-12 columns" ng-controller="LocationCtrl">
+      <div id="local-title" class="logo-title" ng-controller="LocationCtrl">
         <!-- Logo -->
         <span ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}">
           <a href="/" accesskey="1" id="logo">
@@ -111,7 +111,7 @@
         </span>
         <!-- Title -->
         <!-- local-search -->
-        <span id="search-area" class="typeaheadsearch medium-8 columns" ng-show="location.path()!=='/'">
+        <span id="search-area" class="typeaheadsearch medium-9 columns" ng-show="location.path()!=='/'">
           <form ng-submit="showSearchResults(searchText)">
             <megasearch limit="5"></megasearch>
           </form>

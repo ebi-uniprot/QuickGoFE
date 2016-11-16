@@ -1,13 +1,13 @@
-<div id="content" class="container_24" cg-busy="queryPromise">
+<div id="content" class="medium-12 row" cg-busy="queryPromise">
   <h2>Results for gene product "{{searchTerm}}"</h2>
 
-  <div class="grid_4">
+  <div class="medium-3">
       <facets endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm">
       </facets>
   </div>
 
   <!-- Main Content -->
-  <div id="searchResultsMainContent" class="grid_20">
+  <div id="searchResultsMainContent" class="medium-9">
     <div>
       <p>
         <strong>{{results.numberOfHits}}</strong> results</strong>

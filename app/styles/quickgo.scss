@@ -31,13 +31,18 @@ div#local-masthead {
 #quickgo-local-logo {
   min-width: 110px;
   min-height: 66px;
-  padding: 10px;
+
   margin-bottom: 10px;
 }
 
 #local-masthead nav ul.menu li { border-right-color: #EEE; }
-#local-masthead .masthead .menu > li > a { color: #666; }
-#local-masthead .masthead .menu > li > a:hover { color: #00a9de; }
+#local-masthead .masthead .menu > li > a { background: #00a9de; color: #fff; font-weight: bold; }
+#local-masthead .masthead .menu > li > a:hover { color: #00a9de; background-color: red;}
+
+.menu>li>a{
+  height: 40px;
+}
+
 
 .tabs-title > a[aria-selected='true']{
   background-color: #999;
@@ -60,7 +65,7 @@ table th{
   border-radius: 6px;
   padding-top: 1em;
   padding-bottom: 1em;
-  background-color: $verylightgrey;
+  // background-color: $verylightgrey;
   h3 {
     border-bottom: none;
   }
@@ -265,15 +270,23 @@ aspect-icon span.aspect-icon{
   color: #2980B9;
 }
 
+.bingo{
+  display: inline-block;
+}
+.search-box{
+  width: 90%;
+  vertical-align: top;
+}
+
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 
 #basket {
   color: black;
-  padding: 2px;
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+  padding: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .empty-basket {
@@ -379,13 +392,13 @@ aspect-icon span.aspect-icon{
 
 #searchbox {
   background-color: $white;
-  height: 34px;
+  height: 40px;
   padding: 6px 12px;
   border: 1px solid $lightgrey;
   border-radius: 4px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
-  padding-left: 10px;
+  // padding-left: 10px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
