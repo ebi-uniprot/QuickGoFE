@@ -523,3 +523,49 @@ div {
     color: #2980b9;
   }
 }
+.annotations-link {
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: $quickgo-button !important;
+  color: $white!important;
+  padding: .2em .8em !important;
+  border-bottom: none;
+  border-radius: 1em;
+  border-style: none !important;
+  &:link, &:visited {
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: $quickgo-button !important;
+    color: $white!important;
+    padding: .2em .8em !important;
+    border-bottom: none;
+    border-radius: 1em;
+    border-style: none !important;
+  }
+}
+
+.typeahead-box a.annotations-link {
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: $quickgo-button !important;
+  color: $white!important;
+  padding: .2em .8em !important;
+  border-bottom: none;
+  border-radius: 1em;
+  border-style: none !important;
+  &:link, &:visited {
+    cursor: pointer;
+    white-space: nowrap;
+    background-color: $quickgo-button !important;
+    color: $white!important;
+    padding: .2em .8em !important;
+    border-bottom: none;
+    border-radius: 1em;
+    border-style: none !important;
+  }
+}
+
+.annotations-link:hover, .typeahead-box a.annotations-link:hover {
+  opacity: .7;
+  color: $white;
+}
