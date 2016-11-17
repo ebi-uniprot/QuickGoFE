@@ -1,23 +1,25 @@
 app.controller('geneProductFilter', function ($scope, stringService,
-  validationService, hardCodedDataService) {
+  validationService, presetsService) {
 
   $scope.gpIds = [];
-  $scope.geneProductSets = [];
+  $scope.geneProductSets = {};
 
   var initgpIds = function () {
-    var predefinedGPSets = hardCodedDataService.getGeneProductSets();
-    var queryPredefined = $scope.$parent.query.targetSet;
-    angular.forEach(predefinedGPSets, function (set) {
-      if (queryPredefined && _.contains(queryPredefined.split(','), set.value)) {
-        set.checked = true;
-      } else {
-        set.checked = false;
+    presetsService.getPresetsGeneProducts().then(function(resp){
+      var predefinedGPSets = _.sortBy(resp.data.geneProducts, 'name');
+      var queryPredefined = $scope.query.targetSet;
+      angular.forEach(predefinedGPSets, function (set) {
+        if (queryPredefined && _.contains(queryPredefined.split(','), set.name)) {
+          set.checked = true;
+        } else {
+          set.checked = false;
+        }
+        $scope.geneProductSets[set.name] = set;
+      });
+      if ($scope.$parent.query.geneProductId) {
+        addGpIds($scope.$parent.query.geneProductId.split(','));
       }
-      $scope.geneProductSets.push(set);
     });
-    if ($scope.$parent.query.geneProductId) {
-      addGpIds($scope.$parent.query.geneProductId.split(','));
-    }
   };
 
   $scope.reset = function () {
@@ -30,14 +32,14 @@ app.controller('geneProductFilter', function ($scope, stringService,
     if ($scope.gpIds.length > 0) {
       $scope.$parent.addToQuery('geneProductId', _.pluck(_.filter($scope.gpIds, 'checked'), 'id'));
     }
-    if ($scope.geneProductSets.length > 0) {
-      $scope.$parent.addToQuery('targetSet', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'value'));
+    if ($scope.geneProductSets !== {}) {
+      $scope.$parent.addToQuery('targetSet', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'name'));
     }
   };
 
   var getQuery = function () {
     return;
-  }
+  };
 
   $scope.addGPs = function () {
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
@@ -55,7 +57,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
         });
       }
     });
-  }
+  } ;
 
   initgpIds();
 });
