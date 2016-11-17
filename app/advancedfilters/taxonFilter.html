@@ -3,10 +3,10 @@
   <form>
     <div class="form-group y-scroll-200">
       <ul>
-        <li ng-repeat="taxon in taxaIds" class="checkbox">
+        <li ng-repeat="taxon in taxa" class="checkbox">
           <label>
             <input type="checkbox" ng-model="taxon.checked">
-            {{taxon.name}} <strong>{{taxaMapping[taxon.name].scientificName}}</strong>
+            {{taxon.name}} <strong>{{taxon.scientificName}}</strong>
           </label>
         </li>
       </ul>
