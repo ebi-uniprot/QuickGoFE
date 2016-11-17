@@ -28,6 +28,9 @@ wsService.factory('presetsService', ['$http', 'ENV',
         },
         getPresetsAspects: function() {
             return $http.get(ENV.apiEndpoint + '/internal/presets?fields=aspects');
+        },
+        getPresetsGeneProductTypes: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProductTypes');
         }
     }
   }]);
