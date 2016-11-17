@@ -1,0 +1,42 @@
+<div id="content" class="container_24" cg-busy="queryPromise">
+  <h2>Contents of the {{gpSetName}} protein set</h2>
+
+  <!-- Main Content -->
+  <div id="searchResultsMainContent" class="grid_20">
+    <div>
+      <h3>
+        Description
+      </h3>
+      <p>{{gProteinSet.description}}</p>
+      <p><a ng-click="gProteinSet.url" target="_blank">{{gProteinSet.url}}</a></p>
+      <br/>
+      <p>
+        <strong>{{results.numberOfHits}}</strong> results</strong>
+      </p>
+      <table id="searchResults" class="two-colours">
+        <tr>
+          <th>Symbol</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Taxon</th>
+          <th>Taxon Name</th>
+        </tr>
+        <!--tr ng-repeat="searchResult in results.results">
+          <td><a ng-click="followLinkToGeneric(searchResult.database)" target="_blank">{{searchResult.database}}</a></td>
+          <td><a ng-click="followLinkToEntry(searchResult.id, searchResult.database)" target="_blank">
+            {{searchResult.id}}</a></td>
+          <td ng-bind-html="highlight(searchResult.name)"></td>
+          <td>{{searchResult.type}}</td>
+          <td>
+            <a class="quickgo-link selectable" ng-click="followLinkToEntry(searchResult.taxonId, 'TAXON')" target="_blank">
+              {{taxaMapping[searchResult.taxonId].scientificName}}
+            </a>
+          </td>
+          <td><a href="annotations/filter?gpID={{searchResult.id}}" class="annotations-link"><annotations-link
+                  productid="{{searchResult.id}}"></annotations-link></a></td>
+        </tr-->
+      </table>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
