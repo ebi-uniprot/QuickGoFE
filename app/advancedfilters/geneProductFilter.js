@@ -16,24 +16,24 @@ app.controller('geneProductFilter', function ($scope, stringService,
         }
         $scope.geneProductSets[set.name] = set;
       });
-      if ($scope.$parent.query.geneProductId) {
-        addGpIds($scope.$parent.query.geneProductId.split(','));
+      if ($scope.query.geneProductId) {
+        addGpIds($scope.query.geneProductId.split(','));
       }
     });
   };
 
   $scope.reset = function () {
-    $scope.$parent.query.geneProductId = '';
-    $scope.$parent.query.targetSet = '';
-    $scope.$parent.updateQuery();
+    $scope.query.geneProductId = '';
+    $scope.query.targetSet = '';
+    $scope.updateQuery();
   };
 
   $scope.apply = function () {
     if ($scope.gpIds.length > 0) {
-      $scope.$parent.addToQuery('geneProductId', _.pluck(_.filter($scope.gpIds, 'checked'), 'id'));
+      $scope.addToQuery('geneProductId', _.pluck(_.filter($scope.gpIds, 'checked'), 'id'));
     }
     if ($scope.geneProductSets !== {}) {
-      $scope.$parent.addToQuery('targetSet', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'name'));
+      $scope.addToQuery('targetSet', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'name'));
     }
   };
 
