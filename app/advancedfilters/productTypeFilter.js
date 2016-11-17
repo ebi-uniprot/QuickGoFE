@@ -15,7 +15,7 @@ app.controller('productTypeFilter', function($scope){
       'id': 'complex',
       'label': 'Complex',
       'checked': false
-    },
+    }
   };
 
   var init = function() {
@@ -24,16 +24,16 @@ app.controller('productTypeFilter', function($scope){
         $scope.gpTypes[type].checked = true;
       })
     }
-  }
+  };
 
   $scope.reset = function() {
     $scope.$parent.query.geneProductType = '';
     $scope.$parent.updateQuery();
-  }
+  };
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
-  }
+  };
 
   init();
 });
