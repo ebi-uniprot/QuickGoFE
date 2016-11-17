@@ -1,38 +1,39 @@
-<div id="content" class="colums medium-12"  role="main" cg-busy="termPromise" ng-if="termModel.id">
-
-  <section id="container" class="medium-12 row">
-  <!-- Title section -->
-  <div class="panel" id="overview" data-magellan-target=="overview">
-
-    <!-- Check if it is obsolete -->
-    <div class="alert" ng-show="isObsolete">
-      <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
-      <strong>This term is obsolete.</strong><br/>
-      {{termModel.comment}}
-    </div>
-    <h2 class="page-title">
-      {{termModel.id}}
-    </h2>
-      <aspect-icon aspect="termModel.aspect"></aspect-icon>
-      <basket-button termid="{{termModel.id}}" icondisabled="{{termModel.isObsolete}}"></basket-button>
-
-    <!-- Term name -->
-    <h3>{{termModel.name}}</h3>
-
-    <!-- Ontology -->
-    <p ng-show="isGoTerm"><strong>{{readableAspect}}</strong></p>
+<div id="content" role="main" cg-busy="termPromise" ng-if="termModel.id">
 
 
-    <!-- Definition -->
+  <div class="row">
+    <div class="medium-9 columns" id="container">
 
-      <h5>Definition <span ng-if="isGoTerm" style="display:inline-block">
-        (<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.id}}"
-            target="_blank">{{termModel.id}}
-        GONUTS page</a>)
-      </span></h5>
+      <div id="overview" data-magellan-target=="overview">
+        <!-- Check if it is obsolete -->
+        <div class="alert" ng-show="isObsolete">
+          <element id="warning" class="icon icon-generic" data-icon="l" href="#"></element>
+          <strong>This term is obsolete.</strong><br/> {{termModel.comment}}
+        </div>
+        <h2 class="page-title">
+          {{termModel.id}}
+        </h2>
+        <aspect-icon aspect="termModel.aspect"></aspect-icon>
+        <basket-button termid="{{termModel.id}}" icondisabled="{{termModel.isObsolete}}"></basket-button>
 
-      <p>
-        {{termModel.definition.text}}
+        <!-- Term name -->
+        <h3>{{termModel.name}}</h3>
+
+        <!-- Ontology -->
+        <p ng-show="isGoTerm"><strong>{{readableAspect}}</strong></p>
+
+
+        <!-- Definition -->
+
+        <h5>Definition <span ng-if="isGoTerm" style="display:inline-block">
+          (<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.id}}"
+              target="_blank">{{termModel.id}}
+          GONUTS page</a>)
+        </span></h5>
+
+
+        <p>
+          {{termModel.definition.text}}
           <span ng-repeat="xrefDef in termModel.definition.xrefs">
 
             <span ng-if="xrefDef.dbCode === 'PMID'">
@@ -43,54 +44,61 @@
 
           </span>
         </p>
-      </div>
 
-      <!-- Restrictions -->
-      <div ng-if="showRestrictions">
-        <h5>Restrictions</h5>
-        <p>
-          <span ng-if="termModel.usage === 'Electronic'">This term should not be used for direct manual annotation; it may, however, be used for mapping to external vocabularies in order to create electronic annotations.</span>
-          <span ng-if="termModel.usage === 'None'">This term should not be used for direct annotation.</span>
-          <br />
-          <span ng-if="termModel.comment">See comment below for further information.</span>
-        </p>
-      </div>
 
-      <!-- Comments -->
-      <div ng-if="termModel.comment">
-        <h5>Comments</h5>
-        <p>{{termModel.comment}}</p>
-      </div>
+        <!-- Restrictions -->
+        <div ng-if="showRestrictions">
+          <h5>Restrictions</h5>
+          <p>
+            <span ng-if="termModel.usage === 'Electronic'">This term should not be used for direct manual annotation; it may, however, be used for mapping to external vocabularies in order to create electronic annotations.</span>
+            <span ng-if="termModel.usage === 'None'">This term should not be used for direct annotation.</span>
+            <br />
+            <span ng-if="termModel.comment">See comment below for further information.</span>
+          </p>
+        </div>
 
-      <div ng-if="termModel.secondaryIds.length > 0">
-        <h5>Secondary IDs</h5>
-        <p class="obsolete">{{termModel.secondaryIdsString}}</p>
-      </div>
+        <!-- Comments -->
+        <div ng-if="termModel.comment">
+          <h5>Comments</h5>
+          <p>{{termModel.comment}}</p>
+        </div>
 
-      <!-- Aknowledgements -->
-      <div ng-if="termModel.credits.length > 0">
-        <h5>Acknowledgement</h5>
-        <p>
-          This term was created by the GO Consortium with support from:
-          <span ng-repeat="credit in termModel.credits">
-            <a ng-if="credit.code == 'BHF'" href="{{credit.url}}" target="_blank"><img src="https://www.bhf.org.uk/~/media/images/admin/logo/bhf-logo.png" alt="BHF image" class="credit-image"/></a>
-            <a ng-if="credit.code == 'KRUK'" href="{{credit.url}}" target="_blank"> <img src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image" class="credit-image"/></a>
-            <a ng-if="credit.code == 'PARKUK'" href="{{credit.url}}" target="_blank"> <img src="http://www.ebi.ac.uk/QuickGO/image/PARKUK.png" alt="PARK image" class="credit-image"/></a>
-          </span>
-        </p>
+        <div ng-if="termModel.secondaryIds.length > 0">
+          <h5>Secondary IDs</h5>
+          <p class="obsolete">{{termModel.secondaryIdsString}}</p>
+        </div>
+
+
+        <!-- Aknowledgements -->
+        <div ng-if="termModel.credits.length > 0">
+          <h5>Acknowledgement</h5>
+          <p>
+            This term was created by the GO Consortium with support from:
+            <span ng-repeat="credit in termModel.credits">
+              <a ng-if="credit.code == 'BHF'" href="{{credit.url}}" target="_blank"><img src="https://www.bhf.org.uk/~/media/images/admin/logo/bhf-logo.png" alt="BHF image" class="credit-image"/></a>
+              <a ng-if="credit.code == 'KRUK'" href="{{credit.url}}" target="_blank"> <img src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image" class="credit-image"/></a>
+              <a ng-if="credit.code == 'PARKUK'" href="{{credit.url}}" target="_blank"> <img src="http://www.ebi.ac.uk/QuickGO/image/PARKUK.png" alt="PARK image" class="credit-image"/></a>
+            </span>
+          </p>
+        </div>
+
+
+        <!-- Buttons -->
+        <div>
+          <a id="term-show-annotations" class="btn quickgo-btn" href="#">
+            <annotations-link termId="{{termModel.id}}"></annotations-link>
+          </a>
+        </div>
+
       </div>
-      <!-- Buttons -->
-      <div>
-        <a id="term-show-annotations" class="btn quickgo-btn" href="#">
-          <annotations-link termId="{{termModel.id}}"></annotations-link>
-        </a>
-      </div>
+      <!-- end of OVERVIEW -->
+
 
       <!-- End of title section -->
 
       <div id="termSynonyms" ng-if="termModel.synonyms.length > 0" data-magellan-target=="termSynonyms">
         <h3 class="term-section-header">
-          <span data-tooltip class="has-tip" title="Synonyms are alternative words or phrases closely related in meaning to the term name, with indication of the relationship between the name and synonym given by the synonym scope">Synonyms</span></h3>
+                      <span data-tooltip class="has-tip" title="Synonyms are alternative words or phrases closely related in meaning to the term name, with indication of the relationship between the name and synonym given by the synonym scope">Synonyms</span></h3>
         <table id="synonymsTableAccordian" class="two-colours">
           <tr>
             <th>Synonym</th>
@@ -107,32 +115,34 @@
         <span ng-show="(synonymPageSize == termModel.synonyms.length && termModel.synonyms.length > defaultPageSize)" ng-click="synonymPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
       </div>
 
+
+
       <!-- Ancestors graph -->
       <!--div id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise" ng-show="!isObsolete" data-magellan-target=="ancestorChart">
-            <h3 class="term-section-header">Ancestor Chart</h3>
-            <span ng-show="!isObsolete" id="view-full-size"><chart-icon term-id="termModel.id" term-name="termModel.name"></chart-icon> View full size</span>
-            <img class="displayed" ng-src="{{targetDomainAndPort}}/chart?ids={{graphModel.id}}"
-                 id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap" imageonload="makeMapFitImage()">
+          <h3 class="term-section-header">Ancestor Chart</h3>
+          <span ng-show="!isObsolete" id="view-full-size"><chart-icon term-id="termModel.id" term-name="termModel.name"></chart-icon> View full size</span>
+          <img class="displayed" ng-src="{{targetDomainAndPort}}/chart?ids={{graphModel.id}}"
+               id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap" imageonload="makeMapFitImage()">
 
-            <map name="ontologygraphmap" id="ontologygraphmap">
-              <span ng-repeat="layoutNode in graphImage.layoutNodes">
-                  <area shape="rect"
-                        coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
-                        ng-href="term/{{layoutNode.id}}"
-                        alt="Term {{layoutNode.id}}"
-                        title="{{layoutNode.id}} - Click for more information">
-                </span>
-              <span ng-repeat="legendNode in graphImage.legendNodes">
-                <div ng-mouseover="formattedTooltip(legendNode.topic)">
-                  <area shape="rect"
-                        id="{{legendNode.topic}}"
-                        class="relationHelp"
-                        coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                        tooltip-html-unsafe="{{tooltip}}" tooltip-placement="left">
-                </div>
-                </span>
-            </map>
-            </div-->
+          <map name="ontologygraphmap" id="ontologygraphmap">
+            <span ng-repeat="layoutNode in graphImage.layoutNodes">
+                <area shape="rect"
+                      coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
+                      ng-href="term/{{layoutNode.id}}"
+                      alt="Term {{layoutNode.id}}"
+                      title="{{layoutNode.id}} - Click for more information">
+              </span>
+            <span ng-repeat="legendNode in graphImage.legendNodes">
+              <div ng-mouseover="formattedTooltip(legendNode.topic)">
+                <area shape="rect"
+                      id="{{legendNode.topic}}"
+                      class="relationHelp"
+                      coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
+                      tooltip-html-unsafe="{{tooltip}}" tooltip-placement="left">
+              </div>
+              </span>
+          </map>
+          </div-->
 
       <!-- Child Terms -->
       <div id="childTerms" ng-if="termModel.children.length > 0" ng-hide="isObsolete" data-magellan-target=="childTerms">
@@ -159,7 +169,6 @@
           <span ng-show="(childTermsPageSize == termModel.children.length && termModel.children.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
         </div>
       </div>
-
       <!-- Annotation Guidance -->
       <div id="termAnnotationGuidance" ng-if="termModel.annotationGuidelines.length > 0" data-magellan-target=="termAnnotationGuidance">
         <h3 class="term-section-header">Annotation Guidance</h3>
@@ -188,6 +197,7 @@
         </table>
       </div>
 
+
       <!-- Taxon Constraints -->
       <div id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0" data-magellan-target=="termTaxonConstraints">
         <h3 class="term-section-header">Taxon Constraints</h3>
@@ -215,7 +225,7 @@
                   <a class="quickgo-link" ng-click="followLinkToEntry(citation.id)" target="_blank">
                     {{citation.id}}
                   </a>
-                  </span>
+                </span>
               </li>
             </td>
           </tr>
@@ -231,7 +241,7 @@
       <!--Blacklist-->
       <div id="blacklist" ng-if="termModel.blacklist.length > 0" ng-hide="!isGoTerm" data-magellan-target=="blacklist">
         <h3 class="term-section-header">
-          <span data-tooltip class="has-tip" title="This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.">Annotation Blacklist</span></h3>
+                      <span data-tooltip class="has-tip" title="This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.">Annotation Blacklist</span></h3>
 
         <table class="two-colours">
           <tr>
@@ -353,390 +363,315 @@
         </table>
       </div>
 
+
+
       <!-- Co-occurring statistics -->
       <!-- <div id="coOcurring" ng-hide="!isGoTerm || isObsolete" data-magellan-target=="coOcurring">
-        <h3 class="term-section-header"><span data-tooltip class="has-tip" title="These tables show the number of times the term listed in the table has been co-annotated">Co-occurring Terms</span></h3>
-        <ul class="tabs" data-tabs id="coOcc-stats-tabs">
-          <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Based on Entire Annotation set</a></li>
-          <li class="tabs-title"><a href="#panel2">Based on Manual Annotations only</a></li>
-        </ul>
-        <div class="tabs-content" data-tabs-content="coOcc-stats-tabs">
-          <div class="tabs-panel is-active" id="panel1">
-            <div id="allCoOccurringStats">
-              <h5 ng-show="stats.allCoOccurrenceStatsTerms.length == 0">
-                    <element class='icon icon-generic' data-icon='l'>
-                      No co-occurring terms for {{termModel.id}} based on the entire annotation set
-                    </element>
-                  </h5>
-              <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
-                <table id="allCoOccurringStatsTable" class="two-colours">
-                  <tr>
-                    <th>Co-occurring Term</th>
-                    <th>PR</th>
-                    <th>S%</th>
-                    <th>#Together</th>
-                    <th>#Compared</th>
-                  </tr>
-                  <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms | limitTo:coOccurringEntirePageSize">
-                    <td width="70%">
-                      <span data-tooltip ng-if="allStat.aspect" title="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)" class="aspect-icon aspect-{{allStat.aspect}} has-tip">{{allStat.aspect}}</span>
-                      <a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a>
-                      <basket-button termid="{{allStat.compare}}"></basket-button>
-                      <chart-icon term-id="allStat.compare" term-name="allStat.name"></chart-icon>
-                      {{allStat.name}}
-                    </td>
-                    <td>{{allStat.probabilityRatio}}</td>
-                    <td>{{allStat.significance}}</td>
-                    <td>{{allStat.together}}</td>
-                    <td>{{allStat.compared}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="5">
-                      <span ng-show="coOccurringEntirePageSize < stats.allCoOccurrenceStatsTerms.length" ng-click="coOccurringEntirePageSize = stats.allCoOccurrenceStatsTerms.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-                      <span ng-show="coOccurringEntirePageSize < stats.allCoOccurrenceStatsTerms.length" ng-click="coOccurringEntirePageSize = stats.allCoOccurrenceStatsTerms.length" class="selectable showMoreLess">show all</span>
-                      <span ng-show="(coOccurringEntirePageSize == stats.allCoOccurrenceStatsTerms.length && stats.allCoOccurrenceStatsTerms.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-                      <span ng-show="(coOccurringEntirePageSize == stats.allCoOccurrenceStatsTerms.length && stats.allCoOccurrenceStatsTerms.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="3"><strong>Totals</strong></td>
-                    <td><strong>{{totalTogetherAllStats}}</strong></td>
-                    <td><strong>{{totalComparedAllStats}}</strong></td>
-                  </tr>
-                </table>
+              <h3 class="term-section-header"><span data-tooltip class="has-tip" title="These tables show the number of times the term listed in the table has been co-annotated">Co-occurring Terms</span></h3>
+              <ul class="tabs" data-tabs id="coOcc-stats-tabs">
+              <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Based on Entire Annotation set</a></li>
+              <li class="tabs-title"><a href="#panel2">Based on Manual Annotations only</a></li>
+              </ul>
+              <div class="tabs-content" data-tabs-content="coOcc-stats-tabs">
+              <div class="tabs-panel is-active" id="panel1">
+                <div id="allCoOccurringStats">
+                  <h5 ng-show="stats.allCoOccurrenceStatsTerms.length == 0">
+                        <element class='icon icon-generic' data-icon='l'>
+                          No co-occurring terms for {{termModel.id}} based on the entire annotation set
+                        </element>
+                      </h5>
+                  <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
+                    <table id="allCoOccurringStatsTable" class="two-colours">
+                      <tr>
+                        <th>Co-occurring Term</th>
+                        <th>PR</th>
+                        <th>S%</th>
+                        <th>#Together</th>
+                        <th>#Compared</th>
+                      </tr>
+                      <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms | limitTo:coOccurringEntirePageSize">
+                        <td width="70%">
+                          <span data-tooltip ng-if="allStat.aspect" title="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)" class="aspect-icon aspect-{{allStat.aspect}} has-tip">{{allStat.aspect}}</span>
+                          <a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a>
+                          <basket-button termid="{{allStat.compare}}"></basket-button>
+                          <chart-icon term-id="allStat.compare" term-name="allStat.name"></chart-icon>
+                          {{allStat.name}}
+                        </td>
+                        <td>{{allStat.probabilityRatio}}</td>
+                        <td>{{allStat.significance}}</td>
+                        <td>{{allStat.together}}</td>
+                        <td>{{allStat.compared}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="5">
+                          <span ng-show="coOccurringEntirePageSize < stats.allCoOccurrenceStatsTerms.length" ng-click="coOccurringEntirePageSize = stats.allCoOccurrenceStatsTerms.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+                          <span ng-show="coOccurringEntirePageSize < stats.allCoOccurrenceStatsTerms.length" ng-click="coOccurringEntirePageSize = stats.allCoOccurrenceStatsTerms.length" class="selectable showMoreLess">show all</span>
+                          <span ng-show="(coOccurringEntirePageSize == stats.allCoOccurrenceStatsTerms.length && stats.allCoOccurrenceStatsTerms.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+                          <span ng-show="(coOccurringEntirePageSize == stats.allCoOccurrenceStatsTerms.length && stats.allCoOccurrenceStatsTerms.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3"><strong>Totals</strong></td>
+                        <td><strong>{{totalTogetherAllStats}}</strong></td>
+                        <td><strong>{{totalComparedAllStats}}</strong></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="tabs-panel is-active" id="panel2">
-            <div id="nonIEACoOccurringStats">
-              <h5 ng-show="stats.nonIEACOOccurrenceStatistics.length == 0">
-                    <element class='icon icon-generic' data-icon='l'>
-                      No co-occurring statistics for {{termModel.id}} based on manual annotations
-                    </element>
-                  </h5>
-              <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
-                <table id="nonIEACoOccurringStatsTable" class="two-colours">
-                  <tr>
-                    <th>Co-occurring Term</th>
-                    <th>PR</th>
-                    <th>S%</th>
-                    <th>#Together</th>
-                    <th>#Compared</th>
-                  </tr>
-                  <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics | limitTo:coOccurringManualPageSize">
-                    <td width="70%">
-                      <span data-tooltip ng-if="nonIEAStat.aspect" tite="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)" class="aspect-icon aspect-{{nonIEAStat.aspect}} has-tip">{{nonIEAStat.aspect}}</span>
-                      <a class="quickgo-link" ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
-                      <basket-button termid="{{nonIEAStat.compare}}"></basket-button>
-                      <chart-icon term-id="nonIEAStat.compare" term-name="nonIEAStat.name"></chart-icon>
-                      {{nonIEAStat.name}}
-                    </td>
-                    <td>{{nonIEAStat.probabilityRatio}}</td>
-                    <td>{{nonIEAStat.significance}}</td>
-                    <td>{{nonIEAStat.together}}</td>
-                    <td>{{nonIEAStat.compared}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="5">
-                      <span ng-show="coOccurringManualPageSize < stats.nonIEACOOccurrenceStatistics.length" ng-click="coOccurringManualPageSize = stats.nonIEACOOccurrenceStatistics.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-                      <span ng-show="coOccurringManualPageSize < stats.nonIEACOOccurrenceStatistics.length" ng-click="coOccurringManualPageSize = stats.nonIEACOOccurrenceStatistics.length" class="selectable showMoreLess">show all</span>
-                      <span ng-show="(coOccurringManualPageSize == stats.nonIEACOOccurrenceStatistics.length && stats.nonIEACOOccurrenceStatistics.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-                      <span ng-show="(coOccurringManualPageSize == stats.nonIEACOOccurrenceStatistics.length && stats.nonIEACOOccurrenceStatistics.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="3"><strong>Totals</strong></td>
-                    <td><strong>{{totalTogetherNonIEAStats}}</strong></td>
-                    <td><strong>{{totalComparedNonIEAStats}}</strong></td>
-                  </tr>
-                </table>
+              <div class="tabs-panel is-active" id="panel2">
+                <div id="nonIEACoOccurringStats">
+                  <h5 ng-show="stats.nonIEACOOccurrenceStatistics.length == 0">
+                        <element class='icon icon-generic' data-icon='l'>
+                          No co-occurring statistics for {{termModel.id}} based on manual annotations
+                        </element>
+                      </h5>
+                  <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
+                    <table id="nonIEACoOccurringStatsTable" class="two-colours">
+                      <tr>
+                        <th>Co-occurring Term</th>
+                        <th>PR</th>
+                        <th>S%</th>
+                        <th>#Together</th>
+                        <th>#Compared</th>
+                      </tr>
+                      <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics | limitTo:coOccurringManualPageSize">
+                        <td width="70%">
+                          <span data-tooltip ng-if="nonIEAStat.aspect" tite="The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)" class="aspect-icon aspect-{{nonIEAStat.aspect}} has-tip">{{nonIEAStat.aspect}}</span>
+                          <a class="quickgo-link" ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
+                          <basket-button termid="{{nonIEAStat.compare}}"></basket-button>
+                          <chart-icon term-id="nonIEAStat.compare" term-name="nonIEAStat.name"></chart-icon>
+                          {{nonIEAStat.name}}
+                        </td>
+                        <td>{{nonIEAStat.probabilityRatio}}</td>
+                        <td>{{nonIEAStat.significance}}</td>
+                        <td>{{nonIEAStat.together}}</td>
+                        <td>{{nonIEAStat.compared}}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="5">
+                          <span ng-show="coOccurringManualPageSize < stats.nonIEACOOccurrenceStatistics.length" ng-click="coOccurringManualPageSize = stats.nonIEACOOccurrenceStatistics.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+                          <span ng-show="coOccurringManualPageSize < stats.nonIEACOOccurrenceStatistics.length" ng-click="coOccurringManualPageSize = stats.nonIEACOOccurrenceStatistics.length" class="selectable showMoreLess">show all</span>
+                          <span ng-show="(coOccurringManualPageSize == stats.nonIEACOOccurrenceStatistics.length && stats.nonIEACOOccurrenceStatistics.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+                          <span ng-show="(coOccurringManualPageSize == stats.nonIEACOOccurrenceStatistics.length && stats.nonIEACOOccurrenceStatistics.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3"><strong>Totals</strong></td>
+                        <td><strong>{{totalTogetherNonIEAStats}}</strong></td>
+                        <td><strong>{{totalComparedNonIEAStats}}</strong></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div> -->
+              </div> -->
 
-        <!-- GO Slims -->
-        <!--div id="termGOSlims" ng-if="termModel.subsets.length > 0" data-magellan-target=="termGOSlims">
-          <h3 class="term-section-header">GO Slims</h3>
 
-          <p>This term is present in the following GO Consortium-maintained GO slims:</p>
-          <table id="subsetsTable" class="two-colours">
-            <tr>
-              <th>GO slim name</th>
-              <th>Total Number of Terms in Slim</th>
-            </tr>
-            <tr ng-repeat="subset in termModel.subsets">
-              <td>{{subset.name}}</td>
-              <td>{{subset.count}}</td>
-            </tr>
-          </table>
+
+      <!-- GO Slims -->
+      <!--div id="termGOSlims" ng-if="termModel.subsets.length > 0" data-magellan-target=="termGOSlims">
+        <h3 class="term-section-header">GO Slims</h3>
+
+        <p>This term is present in the following GO Consortium-maintained GO slims:</p>
+        <table id="subsetsTable" class="two-colours">
+          <tr>
+            <th>GO slim name</th>
+            <th>Total Number of Terms in Slim</th>
+          </tr>
+          <tr ng-repeat="subset in termModel.subsets">
+            <td>{{subset.name}}</td>
+            <td>{{subset.count}}</td>
+          </tr>
+        </table>
         </div-->
+      <!-- Change log -->
+      <div id="termHistory" data-magellan-target=="termHistory">
+        <h3 class="term-section-header">Change Log</h3>
+        <tabset>
+          <tab heading="All changes">
+            <table>
+              <tr>
+                <th>Timestamp</th>
+                <th>Action</th>
+                <th>Category</th>
+                <th>Detail</th>
+              </tr>
+              <tr ng-repeat="history in termModel.history | limitTo:changeLogPageSize">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.action}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+            </table>
+            <span ng-show="changeLogPageSize < termModel.history.length" ng-click="changeLogPageSize = termModel.history.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+            <span ng-show="changeLogPageSize < termModel.history.length" ng-click="changeLogPageSize = termModel.history.length" class="selectable showMoreLess">show all</span>
+            <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+            <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
-        <!-- Change log -->
-        <div id="termHistory" data-magellan-target=="termHistory">
-          <h3 class="term-section-header">Change Log</h3>
-
-
-
-          <tabset>
-            <tab heading="All changes">
-              <table>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>Action</th>
-                  <th>Category</th>
-                  <th>Detail</th>
-                </tr>
-                <tr ng-repeat="history in termModel.history | limitTo:changeLogPageSize">
-                  <td>{{history.timestamp}}</td>
-                  <td>{{history.action}}</td>
-                  <td>{{history.category}}</td>
-                  <td>{{history.text}}</td>
-                </tr>
-              </table>
-              <span ng-show="changeLogPageSize < termModel.history.length" ng-click="changeLogPageSize = termModel.history.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-              <span ng-show="changeLogPageSize < termModel.history.length" ng-click="changeLogPageSize = termModel.history.length" class="selectable showMoreLess">show all</span>
-              <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-              <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
-
-            </tab>
-            <tab heading="Term">
-              <table>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>Action</th>
-                  <th>Category</th>
-                  <th>Detail</th>
-                </tr>
-                <tr ng-repeat="history in termModel.history | filter:{category: 'TERM'}">
-                  <td>{{history.timestamp}}</td>
-                  <td>{{history.action}}</td>
-                  <td>{{history.category}}</td>
-                  <td>{{history.text}}</td>
-                </tr>
-              </table>
-            </tab>
-            <tab heading="Definition / Synonyms">
-              <table>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>Action</th>
-                  <th>Category</th>
-                  <th>Detail</th>
-                </tr>
-                <tr ng-repeat="history in termModel.historyDefSyn">
-                  <td>{{history.timestamp}}</td>
-                  <td>{{history.action}}</td>
-                  <td>{{history.category}}</td>
-                  <td>{{history.text}}</td>
-                </tr>
-              </table>
-            </tab>
-            <tab heading="Relationships">
-              <table>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>Action</th>
-                  <th>Category</th>
-                  <th>Detail</th>
-                </tr>
-                <tr ng-repeat="history in termModel.history  | filter:{category: 'RELATION'}">
-                  <td>{{history.timestamp}}</td>
-                  <td>{{history.action}}</td>
-                  <td>{{history.category}}</td>
-                  <td>{{history.text}}</td>
-                </tr>
-              </table>
-            </tab>
-            <tab heading="Cross-references">
-              <table>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>Action</th>
-                  <th>Category</th>
-                  <th>Detail</th>
-                </tr>
-                <tr ng-repeat="history in termModel.history  | filter:{category: 'XREF'}">
-                  <td>{{history.timestamp}}</td>
-                  <td>{{history.action}}</td>
-                  <td>{{history.category}}</td>
-                  <td>{{history.text}}</td>
-                </tr>
-              </table>
-            </tab>
-            <tab heading="Other">
-              <table>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>Action</th>
-                  <th>Category</th>
-                  <th>Detail</th>
-                </tr>
-                <tr ng-repeat="history in termModel.historyOther">
-                  <td>{{history.timestamp}}</td>
-                  <td>{{history.action}}</td>
-                  <td>{{history.category}}</td>
-                  <td>{{history.text}}</td>
-                </tr>
-              </table>
-            </tab>
-          </tabset>
+          </tab>
+          <tab heading="Term">
+            <table>
+              <tr>
+                <th>Timestamp</th>
+                <th>Action</th>
+                <th>Category</th>
+                <th>Detail</th>
+              </tr>
+              <tr ng-repeat="history in termModel.history | filter:{category: 'TERM'}">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.action}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+            </table>
+          </tab>
+          <tab heading="Definition / Synonyms">
+            <table>
+              <tr>
+                <th>Timestamp</th>
+                <th>Action</th>
+                <th>Category</th>
+                <th>Detail</th>
+              </tr>
+              <tr ng-repeat="history in termModel.historyDefSyn">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.action}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+            </table>
+          </tab>
+          <tab heading="Relationships">
+            <table>
+              <tr>
+                <th>Timestamp</th>
+                <th>Action</th>
+                <th>Category</th>
+                <th>Detail</th>
+              </tr>
+              <tr ng-repeat="history in termModel.history  | filter:{category: 'RELATION'}">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.action}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+            </table>
+          </tab>
+          <tab heading="Cross-references">
+            <table>
+              <tr>
+                <th>Timestamp</th>
+                <th>Action</th>
+                <th>Category</th>
+                <th>Detail</th>
+              </tr>
+              <tr ng-repeat="history in termModel.history  | filter:{category: 'XREF'}">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.action}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+            </table>
+          </tab>
+          <tab heading="Other">
+            <table>
+              <tr>
+                <th>Timestamp</th>
+                <th>Action</th>
+                <th>Category</th>
+                <th>Detail</th>
+              </tr>
+              <tr ng-repeat="history in termModel.historyOther">
+                <td>{{history.timestamp}}</td>
+                <td>{{history.action}}</td>
+                <td>{{history.category}}</td>
+                <td>{{history.text}}</td>
+              </tr>
+            </table>
+          </tab>
+        </tabset>
 
 
 
-        </div>
-
-        <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+      </div>
 
     </div>
-    <!-- END Overview -->
-
-
-
-    <!-- Sidebar: Controls what gets displayed on the main page.-->
-  <nav class="grid_4" id="term-section-nav">
-    <ul>
-      <li du-scrollspy="overview">
-        <a class="term-section-view" du-smooth-scroll="overview">Overview</a>
-      </li>
-      <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length==0))}"
-          du-scrollspy="termSynonyms">
-        <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
-      </li>
-      <li du-scrollspy="ancestorChart" ng-hide="isObsolete">
-        <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
-      </li>
-      <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length==0))}" ng-hide="isObsolete"
-          du-scrollspy="childTerms">
-        <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.annotationGuidelines || (termModel.annotationGuidelines.length==0))}"
-          du-scrollspy="termAnnotationGuidance">
-        <a class="term-section-view" du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.goDiscussions || (termModel.plannedChanges.length==0))}"
-          du-scrollspy="goDiscussions">
-        <a class="term-section-view" du-smooth-scroll="goDiscussions" >GO Discussions</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.taxonConstraints || (termModel.taxonConstraints.length==0))}"
-          du-scrollspy="termTaxonConstraints">
-        <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>
-      </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.blacklist || (termModel.blacklist.length==0))}"
-          du-scrollspy="blacklist">
-        <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
-      </li>
-      <li ng-class="{'section-disabled':(!termModel.xRefs || (termModel.xRefs.length==0))}"
-          du-scrollspy="termCrossReferences">
-        <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length==0))}"
-          du-scrollspy="termCrossOntologyRelations">
-        <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
-      </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length==0))}"
-          du-scrollspy="termReplaces">
-        <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length==0))}"
-          du-scrollspy="termReplacedBy">
-        <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
-      </li>
-      <li ng-hide="!isGoTerm || isObsolete" du-scrollspy="coOcurring">
-        <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
-      </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length==0))}"
-          du-scrollspy="termGOSlims">
-        <a class="term-section-view" du-smooth-scroll="termGOSlims">GO Slims</a>
-      </li>
-      <li du-scrollspy="termHistory">
-        <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
-      </li>
-    </ul>
-  </nav>
-  <!--End of side bar information-->
-
-
-
+    <!-- End of Left pane -->
 
     <!-- Menu -->
-    <div class="columns medium-3" data-sticky-container>
-      <!--
-      <nav class="columns docs-toc-wrap sticky is-anchored is-at-top" data-sticky="sticky" data-anchor="container1" data-sticky-on="large" data-resize="sticky" data-margin-top="8" data-events="resize">
-        <ul class="vertical menu" data-magellan data-animation-easing>
-          <li>
-            <a class="term-section-view" href="#overview">Overview</a>
+    <div class="medium-3 columns">
+      <!-- Sidebar: Controls what gets displayed on the main page.-->
+      <nav id="term-section-nav">
+        <ul>
+          <li du-scrollspy="overview">
+            <a class="term-section-view" du-smooth-scroll="overview">Overview</a>
           </li>
-          <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length==0))}">
-            <a class="term-section-view" href="#termSynonyms">Synonyms</a>
+          <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length==0))}" du-scrollspy="termSynonyms">
+            <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
           </li>
-          <li ng-hide="isObsolete">
-            <a class="term-section-view" href="#ancestorChart">Ancestor Chart</a>
+          <li du-scrollspy="ancestorChart" ng-hide="isObsolete">
+            <a class="term-section-view" du-smooth-scroll="ancestorChart">Ancestor Chart</a>
           </li>
-          <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length==0))}" ng-hide="isObsolete">
-            <a span class="term-section-view" href="#childTerms">Child Terms</a>
+          <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length==0))}" ng-hide="isObsolete" du-scrollspy="childTerms">
+            <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
           </li>
-          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.annotationGuidelines || (termModel.annotationGuidelines.length==0))}">
-            <a class="term-section-view" href="#termAnnotationGuidance">Annotation Guidance</a>
+          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.annotationGuidelines || (termModel.annotationGuidelines.length==0))}" du-scrollspy="termAnnotationGuidance">
+            <a class="term-section-view" du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
           </li>
-          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.goDiscussions || (termModel.plannedChanges.length==0))}">
-            <a class="term-section-view" href="#goDiscussions">GO Discussions</a>
+          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.goDiscussions || (termModel.plannedChanges.length==0))}" du-scrollspy="goDiscussions">
+            <a class="term-section-view" du-smooth-scroll="goDiscussions">GO Discussions</a>
           </li>
-          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.taxonConstraints || (termModel.taxonConstraints.length==0))}">
-            <a class="term-section-view" href="#termTaxonConstraints">Taxon Constraints</a>
+          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.taxonConstraints || (termModel.taxonConstraints.length==0))}" du-scrollspy="termTaxonConstraints">
+            <a class="term-section-view" du-smooth-scroll="termTaxonConstraints">Taxon Constraints</a>
           </li>
-          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.blacklist || (termModel.blacklist.length==0))}">
-            <a class="term-section-view" href="#blacklist">Blacklist</a>
+          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.blacklist || (termModel.blacklist.length==0))}" du-scrollspy="blacklist">
+            <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
           </li>
-          <li ng-class="{'section-disabled':(!termModel.xRefs || (termModel.xRefs.length==0))}">
-            <a class="term-section-view" href="#termCrossReferences">Cross-References</a>
+          <li ng-class="{'section-disabled':(!termModel.xRefs || (termModel.xRefs.length==0))}" du-scrollspy="termCrossReferences">
+            <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
           </li>
-          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length==0))}">
-            <a class="term-section-view" href="#termCrossOntologyRelations">Cross-Ontology Relations</a>
+          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length==0))}" du-scrollspy="termCrossOntologyRelations">
+            <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
           </li>
-          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length==0))}">
-            <a class="term-section-view" href="#termReplaces">Replaces</a>
+          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length==0))}" du-scrollspy="termReplaces">
+            <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
           </li>
-          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length==0))}">
-            <a class="term-section-view" href="#termReplacedBy">Replaced By</a>
+          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length==0))}" du-scrollspy="termReplacedBy">
+            <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
           </li>
-          <li ng-hide="!isGoTerm || isObsolete">
-            <a class="term-section-view" href="#coOcurring">Co-occurring Terms</a>
+          <li ng-hide="!isGoTerm || isObsolete" du-scrollspy="coOcurring">
+            <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
           </li>
-          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length==0))}">
-            <a class="term-section-view" href="#termGOSlims">GO Slims</a>
+          <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length==0))}" du-scrollspy="termGOSlims">
+            <a class="term-section-view" du-smooth-scroll="termGOSlims">GO Slims</a>
           </li>
-          <li>
-            <a class="term-section-view" href="#termHistory">Change Log</a>
+          <li du-scrollspy="termHistory">
+            <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
           </li>
         </ul>
-      </nav> -->
-
-
       </nav>
       <!--End of side bar information-->
     </div>
 
-    </div><!-- end Content  -->
+  </div>
+  <!-- end of row -->
+</div>
+<!-- end Content  -->
 
 
-    <div id="containerNotFound" class="not-found" role="main">
-      <div class="container">
-        <h1>Not found <span>:(</span></h1>
-        <p>Sorry, but the Term you were trying to view does not exist.</p>
-        <p>Reported error: {{notFoundReason.statusText}}</p>
-        <p>It looks like this may have been caused by:</p>
-        <ul class="not-found-list">
-          <li>a mistyped URL</li>
-          <li>an out-of-date link</li>
-        </ul>
-      </div>
-    </div>
+<div id="containerNotFound" class="not-found" role="main">
+  <div class="container">
+    <h1>Not found <span>:(</span></h1>
+    <p>Sorry, but the Term you were trying to view does not exist.</p>
+    <p>Reported error: {{notFoundReason.statusText}}</p>
+    <p>It looks like this may have been caused by:</p>
+    <ul class="not-found-list">
+      <li>a mistyped URL</li>
+      <li>an out-of-date link</li>
+    </ul>
+  </div>
+</div>
 
-    <!-- <script type="text/ng-template" id="synonyms.html"><span>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
+<!-- <script type="text/ng-template" id="synonyms.html"><span>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
   of the relationship between the name and synonym given by the synonym scope.</span></script> -->

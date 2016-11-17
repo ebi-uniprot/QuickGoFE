@@ -495,3 +495,22 @@ div {
 .button:focus, .button:hover, .button.hover {
     background-color: #2980B9;
 }
+
+
+/* TERM page  */
+
+#term-section-nav {
+  line-height: 2em;
+  &.fixed {
+    position: fixed;
+    top: 10px;
+  }
+  li {
+    display: block;
+    padding-left: 1em;
+    border-left: 2px solid $white;
+    &.active {
+      border-left: 2px solid $primary1;
+    }
+  }
+}
