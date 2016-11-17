@@ -199,8 +199,15 @@ wsService.factory('chartService', ['$http', 'ENV', function($http, ENV){
     },
     getGOImageMap: function(ids) {
       return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart/coords');
+    },
+    getECOChart: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/chart');
+    },
+    getECOImageMap: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/chart/coords');
     }
-  }
+
+  };
 }]);
 
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){
