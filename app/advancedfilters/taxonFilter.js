@@ -1,4 +1,4 @@
-app.controller('taxonFilter', function($scope, hardCodedDataService,
+app.controller('taxonFilter', function($scope, $q, hardCodedDataService,
   stringService, validationService, presetsService, taxonomyService){
 
   $scope.taxa = {};
@@ -6,8 +6,8 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
   var initTaxons = function(){
     presetsService.getPresetsTaxa().then(function(resp){
       var checked = [];
-      if($scope.$parent.query.taxonId) {
-        checked = checked.concat($scope.$parent.query.taxonId.split(','))
+      if($scope.query.taxonId) {
+        checked = checked.concat($scope.query.taxonId.split(','))
       }
 
       var ids = [];
@@ -17,7 +17,9 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
         taxon.checked = _.contains(checked, taxon.name);
         $scope.taxa[taxon.name] = taxon;
       });
-      getTaxaInfo(ids);
+      getTaxaInfo(ids).then(function(data) {
+        extendTaxa($scope.taxa, data.taxonomies);
+      });
     });
   };
 
@@ -27,42 +29,12 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
   };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('taxonId', getQuery());
-  };
-
-  var getQuery = function() {
-    return _.pluck(_.filter($scope.taxa, 'checked'), 'name');
-  };
-
-  var getTaxaInfo = function (taxaIds, withRedirection) {
-    if (taxaIds.length !== 0) {
-      var taxonomyPromise = taxonomyService.getTaxa(taxaIds);
-      taxonomyPromise.then(function (multipleTaxa) {
-        angular.forEach(multipleTaxa.data.taxonomies, function (taxon) {
-          _.extend($scope.taxa[taxon.taxonomyId], taxon);
-        });
-        angular.forEach(multipleTaxa.data.errors, function (error) {
-          delete $scope.taxa[error.requestedId];
-        });
-        if (withRedirection === true) {
-          var redirectedIds = [];
-          angular.forEach(multipleTaxa.data.redirects, function (redirection) {
-            var taxonId = redirection.redirectLocation.substring(redirection.redirectLocation.lastIndexOf('/')+1);
-            redirectedIds.push(taxonId);
-            $scope.taxa[taxonId] = {
-              'name': taxonId,
-              'checked': true
-            };
-            delete $scope.taxa[redirection.requestedId];
-          });
-          getTaxaInfo(redirectedIds, false);
-        }
-      });
-    }
+    $scope.addToQuery('taxonId', getQuery());
   };
 
   $scope.addTaxons = function() {
     var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
+    var tempTaxa = {};
     var validIds = [];
     angular.forEach(taxons, function(taxonId){
       if($scope.taxa[taxonId]) {
@@ -70,15 +42,70 @@ app.controller('taxonFilter', function($scope, hardCodedDataService,
       } else {
         if (validationService.validateTaxon(taxonId)) {
           validIds.push(taxonId);
-          $scope.taxa[taxonId] = {
+          tempTaxa[taxonId] = {
             'name': taxonId,
             'checked': true
           };
         }
       }
     });
-    getTaxaInfo(validIds, true);
+    getTaxaInfo(validIds).then(function(data) {
+      cleanTaxaInformation(tempTaxa, data);
+    });
     $scope.taxonTextArea = '';
+  };
+
+  var getQuery = function() {
+    return _.pluck(_.filter($scope.taxa, 'checked'), 'name');
+  };
+
+  var getTaxaInfo = function (taxaIds) {
+    var defer = $q.defer();
+    if (taxaIds.length !== 0) {
+      var taxonomyPromise = taxonomyService.getTaxa(taxaIds);
+      taxonomyPromise.then(function (multipleTaxa) {
+        defer.resolve(multipleTaxa.data);
+      });
+    } else {
+      defer.resolve({taxonomies: [], errors: [], redirects: []});
+    }
+    return defer.promise;
+  };
+
+  var extendTaxa = function (taxa, taxaInfo) {
+    angular.forEach(taxaInfo, function (taxon) {
+      _.extend(taxa[taxon.taxonomyId], taxon);
+    });
+  };
+
+  var removeTaxa = function(taxaInfo, errors) {
+    angular.forEach(errors, function (error) {
+      delete taxaInfo[error.requestedId];
+    });
+  };
+
+  var redirectTaxa = function(taxaInfo, redirections) {
+    var redirectedIds = [];
+    angular.forEach(redirections, function (redirection) {
+      var taxonId = redirection.redirectLocation.substring(redirection.redirectLocation.lastIndexOf('/')+1);
+      redirectedIds.push(taxonId);
+      taxaInfo[taxonId] = {
+        'name': taxonId,
+        'checked': true
+      };
+      delete taxaInfo[redirection.requestedId];
+    });
+    return redirectedIds;
+  };
+
+  var cleanTaxaInformation = function(taxaInfo, data) {
+    removeTaxa(taxaInfo, data.errors);
+    var redirectIds = redirectTaxa(taxaInfo, data.redirects);
+    extendTaxa(taxaInfo, data.taxonomies);
+    _.extend($scope.taxa, taxaInfo);
+    getTaxaInfo(redirectIds).then(function(redirectedData) {
+      extendTaxa($scope.taxa, redirectedData.taxonomies);
+    });
   };
 
   initTaxons();
