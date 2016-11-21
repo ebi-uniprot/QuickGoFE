@@ -286,13 +286,20 @@ aspect-icon span.aspect-icon{
   color: #2980B9;
 }
 
-.bingo{
+.search-align{
   display: inline-block;
 }
 .search-box{
   width: 90%;
   vertical-align: top;
 }
+#searchbox{
+  margin-bottom: 0;
+}
+.search-button{
+  margin-bottom: 0px;
+}
+
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
 
