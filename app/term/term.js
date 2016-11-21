@@ -31,10 +31,10 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
   if (termId.lastIndexOf('ECO', 0) === 0) {
     $scope.isGoTerm = false;
-    $scope.termPromise = termService.getECOTerms(termId);
+    $scope.termPromise = termService.getECOCompleteTerms(termId);
   } else {
     $scope.isGoTerm = true;
-    $scope.termPromise = termService.getGOTerms(termId);
+    $scope.termPromise = termService.getGOCompleteTerms(termId);
   }
 
   //Get predefined slim sets

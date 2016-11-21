@@ -33,6 +33,12 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
       getECOTerms : function(ids) {
         return $http.get(ENV.apiEndpoint+'/ontology/eco/terms/' + ids);
       },
+      getGOCompleteTerms : function(ids) {
+          return $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids + '/complete');
+      },
+      getECOCompleteTerms : function(ids) {
+          return $http.get(ENV.apiEndpoint+'/ontology/eco/terms/' + ids + '/complete');
+      },
       getStats : function(termId) {
         return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
       },
