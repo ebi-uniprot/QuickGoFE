@@ -259,7 +259,7 @@ aspect-icon span.aspect-icon{
 }
 
 .more-panel .dropdown-pane{
-  width: 700px;
+  width: 800px;
 }
 .overflow-pane{
   height: 200px;
@@ -268,7 +268,15 @@ aspect-icon span.aspect-icon{
   -moz-box-shadow: 0 2px 6px -2px rgba(0,0,0,0.2);
   box-shadow: 0 2px 6px -2px rgba(0,0,0,0.2);
   margin-bottom:2em;
+  padding: 10px;
+  &.y-scroll-400{
+    height: 400px;
+  }
 }
+
+
+
+
 .more-panel .column{
   height: 450px;
   margin-bottom: 20px;
@@ -363,9 +371,11 @@ aspect-icon span.aspect-icon{
 }
 
 .more-panel{
-  width: 600px;
+  box-shadow: 0 2px 6px -2px rgba(0, 0, 0, .2);
+  margin-bottom: 2em;
+  background-color: #fff;
+  padding: 10px;
 }
-
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
     li {

@@ -73,40 +73,31 @@
 
 
     <!-- MORE  -->
-    <li ng-class="{'inactive':query.evidenceCode}">
-      <dropdown-toggle close-on-click="true" class="more-panel" pane-align="right">
-        <toggle>
-          <button class="button dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('qualifier')
-                  || isActiveFilter('referenceSearch') || isActiveFilter('with') || isActiveFilter('assignedby')}" data-icon="/">More</button>
-        </toggle>
-        <pane class="more-panel">
-          <div class="medium-12 row">
-          <!-- QUALIFIER -->
-            <div class="medium-6 column" ng-include src="'advancedfilters/qualifierFilter.html'"></div>
 
-          <!-- REFERENCE -->
-            <div class="medium-6 column" ng-include src="'advancedfilters/referencesFilter.html'"></div>
-
-          </div>
-
-
-
-          <div class="medium-12 row">
-          <!-- WITH -->
-            <div class="medium-6 column " ng-include src="'advancedfilters/withFromFilter.html'"></div>
-
-          <!-- ASSIGNED BY -->
-            <div class="medium-6 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
-
-          </div>
-
-            <button class="button" ng-click="resetAssigned()">Reset</button>
-            <button class="button" ng-click="applyFilters()">Apply</button>
-        </pane>
-      </dropdown-toggle>
+    <li>
+      <button class="button dropdown" ng-click="moreColumnsContainer = !moreColumnsContainer">More</button>
     </li>
 
   </ul>
 
+  <div id="morePanel" class="column-selector more-panel" ng-show="moreColumnsContainer">
+    <span class="icon-functional column-selector__close" ng-click="moreColumnsContainer = !moreColumnsContainer" data-icon="x"></span>
+      <div class="medium-12 row">
+      <!-- QUALIFIER -->
+        <div class="medium-3 column" ng-include src="'advancedfilters/qualifierFilter.html'"></div>
+      <!-- REFERENCE -->
+        <div class="medium-3 column" ng-include src="'advancedfilters/referencesFilter.html'"></div>
+      <!-- WITH -->
+        <div class="medium-3 column " ng-include src="'advancedfilters/withFromFilter.html'"></div>
+      <!-- ASSIGNED BY -->
+        <div class="medium-3 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
+        <div class="float-right">
+          <button class="button" ng-click="resetAssigned()">Reset</button>
+          <button class="button" ng-click="applyFilters()">Apply</button>
+        </div>
+      </div>
+
+
+  </div>
 
 </div>
