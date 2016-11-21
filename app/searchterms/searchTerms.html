@@ -22,7 +22,7 @@
             <term-line id="searchResult.id" aspect="searchResult.aspect" obsolete="searchResult.isObsolete" name="searchResult.name"></term-line>
 <!--            <span ng-bind-html="highlight(searchResult.name)">{{searchResult.name}}</span>-->
           </td>
-          <td><a ng-href="annotations?id={{searchResult.id}}" class="annotations-link"><annotations-link termid="{{searchResult.id}}"></annotations-link></a></td>
+          <td><annotations-link term-id="searchResult.id"></annotations-link></td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
