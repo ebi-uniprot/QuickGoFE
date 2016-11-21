@@ -2,7 +2,7 @@
   <div class="search-align search-box"><input id="searchbox" type="text" autocomplete="off" ng-model="searchTerm" placeholder="{{prompt}}" ng-keydown="provideSuggestions($event.keyCode)" /></div>
   <div class="search-align"><button class="button search-button" type="submit" ng-click="submitSearch()">Search</button></div>
   <div class="items" ng-hide="!searchTerm.length || searchTerm.length < 3" ng-class="{'typeahead-box' : !noInput}">
-    <div cg-busy="goTermsPromise" style="display: inline-block">
+    <div cg-busy="goTermsPromise">
       <h3>Terms</h3>
       <ul class="results-list no-bullet" ng-show="terms.results.length > 0">
         <li ng-repeat="term in terms.results" ng-class="{'inactive':term.isObsolete==true}">
