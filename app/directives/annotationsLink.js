@@ -1,46 +1,45 @@
+'use strict';
 angular
-	.module('quickGoFeApp')
-	.directive('annotationsLink', ['searchService', function(searchService) {
-		return {
-			restrict: 'E',
-			template: '{{annotationsCount}} annotations',
-			scope: {},
-			link: function($scope, element, attrs) {
-				var termId, productId;
+  .module('quickGoFeApp')
+  .directive('annotationsLink', ['searchService', function(searchService) {
+    return {
+      restrict: 'E',
+      templateUrl: 'directives/annotationsLink.html',
+      scope: {
+        termId: '=?',
+        productId: '=?'
+      },
+      link: function(scope) {
+        if (scope.termId) {
+          if (scope.termId.indexOf('GO') === 0) {
+            searchService.findAnnotationsForTerm(scope.termId).then(function(d) {
+              scope.annotationsCount = d.data.numberOfHits.toLocaleString();
+            });
+          } else {
+            searchService.findAnnotationsForECO(scope.termId).then(function(d) {
+              scope.annotationsCount = d.data.numberOfHits.toLocaleString();
+            });
+          }
+        } else if (scope.productId) {
+          searchService.findAnnotationsForProduct(scope.productId).then(function(d) {
+            scope.annotationsCount = d.data.numberOfHits.toLocaleString();
+          });
+        }
 
-				attrs.$observe('termid', function() {
-					termId = attrs.termid;
-					if(termId) {
-						var isGoTerm = termId.indexOf("GO");
-						if(isGoTerm >= 0){
-							searchService.findAnnotationsForTerm(termId).then(function(d){
-								$scope.annotationsCount = d.data.numberOfHits.toLocaleString();
-								showHide($scope.annotationsCount);
-							});
-						} else {
-							searchService.findAnnotationsForECO(termId).then(function(d){
-								$scope.annotationsCount = d.data.numberOfHits.toLocaleString();
-								showHide($scope.annotationsCount);
-							});
-						}
-					}
-				});
+        scope.getQuerytype = function() {
+          if(scope.productId) {
+            return 'geneProductId';
+          } else if(scope.termId && scope.termId.indexOf('GO') === 0) {
+            return 'goId';
+          } else {
+            return 'evidenceCode';
+          }
+        };
 
-				attrs.$observe('productid', function() {
-					productId = attrs.productid;
-					if(productId) {
-						searchService.findAnnotationsForProduct(productId).then(function(d){
-							$scope.annotationsCount = d.data.numberOfHits.toLocaleString();
-							showHide($scope.annotationsCount);
-						});
-					}
-				});
+        scope.getId = function() {
+          return scope.termId ? scope.termId : scope.productId;
+        };
 
-				var showHide = function(n) {
-					if(n == 0) {
-						element.parent().addClass('ng-hide');
-					}
-				}
-			}
-		};
-	}]);
+      }
+    };
+  }]);
