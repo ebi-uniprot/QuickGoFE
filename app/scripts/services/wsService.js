@@ -28,22 +28,27 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   //var
   return {
       getGOTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids);
+        return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids);
       },
       getECOTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/ontology/eco/terms/' + ids);
+        return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids);
       },
       getGOCompleteTerms : function(ids) {
-          return $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids + '/complete');
+          return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/complete');
       },
       getECOCompleteTerms : function(ids) {
-          return $http.get(ENV.apiEndpoint+'/ontology/eco/terms/' + ids + '/complete');
+          return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/complete');
       },
-      getStats : function(termId) {
-        return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
+      getAllStats : function(termId, limit) {
+        return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId +
+            (limit ? '?limit=' + limit : ''));
+      },
+      getManualStats : function(termId, limit) {
+          return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId + '?source=MANUAL' +
+              (limit ? '&limit=' + limit : ''));
       },
       getBlacklist : function(termId) {
-      return $http.get(ENV.apiEndpoint+'/term/' + termId + '/blacklist');
+      return $http.get(ENV.apiEndpoint + '/term/' + termId + '/blacklist');
     }
   };
 }]);
