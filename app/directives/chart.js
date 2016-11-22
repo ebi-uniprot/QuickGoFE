@@ -1,53 +1,36 @@
 'use strict';
 angular
   .module('quickGoFeApp')
-  .directive('chartIcon', ['$http', 'chartService', '$modal', function($http, chartService, $modal) {
+  .directive('chart', ['$http', 'chartService', '$modal', function($http, chartService) {
     return {
       restrict: 'E',
       scope: {
-        ids: '='
+        ids: '=',
+        full: '=?'
       },
-      template: '<span ng-click="showChart()" class="chart-btn selectable" data-icon="h"></span>',
+      templateUrl: 'directives/chart.html',
       link: function(scope) {
-        scope.showChart = function() {
-          $modal.open({
-            templateUrl: 'modals/chartTemplate.html',
-            size:'large',
-            resolve: {
-              ids: function() {
-                return scope.ids;
-              },
-            },
-            controller: function($scope, $modalInstance, ids) {
-              var chartPromise, imageMapPromise;
-
-              if (ids.lastIndexOf('GO:') === 0) {
-                chartPromise = chartService.getGOChart(ids);
-                imageMapPromise = chartService.getGOImageMap(ids);
-              } else {
-                chartPromise = chartService.getECOChart(ids);
-                imageMapPromise = chartService.getECOImageMap(ids);
-              }
-
-              chartPromise.then(function(d) {
-                $scope.img = d.data;
-              });
-
-              imageMapPromise.then(function(d) {
-                console.log(d);
-                $scope.title = d.data.title;
-                $scope.graphImage = d.data;
-                $scope.imageMapId = 'chart_' + Math.floor((1 + Math.random()) * 0x10000).toString(16);
-                $scope.imageWidth = d.data.imageWidth;
-                $scope.imageHeight = d.data.imageHeight;
-              });
-
-              $scope.ok = function() {
-                $modalInstance.close();
-              };
-            }
-          });
-        };
+        var imageMapPromise, chartPromise;
+        if (scope.ids.lastIndexOf('GO:') === 0) {
+          chartPromise = chartService.getGOChart(scope.ids);
+          imageMapPromise = chartService.getGOImageMap(scope.ids);
+        } else {
+          chartPromise = chartService.getECOChart(scope.ids);
+          imageMapPromise = chartService.getECOImageMap(scope.ids);
+        }
+        chartPromise.then(function(d) {
+          scope.img = d.data;
+        });
+        imageMapPromise.then(function(d) {
+          scope.title = d.data.title;
+          scope.graphImage = d.data;
+          if(scope.full === true) {
+            scope.imageMapId = 'chart_' + Math.floor((1 + Math.random()) * 0x10000).toString(16);
+            scope.imageWidth = d.data.imageWidth;
+            scope.imageHeight = d.data.imageHeight;
+            scope.style = 'max-width:none';
+          }
+        });
       }
     };
   }]);
