@@ -82,12 +82,9 @@
           </p>
         </div>
 
-
         <!-- Buttons -->
         <div>
-          <a id="term-show-annotations" class="button" href="/annotations?id={{termModel.id}}">
-            <annotations-link termId="{{termModel.id}}"></annotations-link>
-          </a>
+          <annotations-link term-id="termModel.id"></annotations-link>
         </div>
 
       </div>
@@ -118,31 +115,10 @@
 
 
       <!-- Ancestors graph -->
-      <!--div id="ancestorChart" ng-controller="AncestorsGraphCtrl" cg-busy="chartPromise" ng-show="!isObsolete" data-magellan-target=="ancestorChart">
-          <h3 class="term-section-header">Ancestor Chart</h3>
-          <span ng-show="!isObsolete" id="view-full-size"><chart-icon term-id="termModel.id" term-name="termModel.name"></chart-icon> View full size</span>
-          <img class="displayed" ng-src="{{targetDomainAndPort}}/chart?ids={{graphModel.id}}"
-               id="ontologyGraphImage" class="ancestorsGraphImage" alt="Graph image" usemap="#ontologygraphmap" imageonload="makeMapFitImage()">
-
-          <map name="ontologygraphmap" id="ontologygraphmap">
-            <span ng-repeat="layoutNode in graphImage.layoutNodes">
-                <area shape="rect"
-                      coords="{{layoutNode.left}},{{layoutNode.top}},{{layoutNode.right}},{{layoutNode.bottom}}"
-                      ng-href="term/{{layoutNode.id}}"
-                      alt="Term {{layoutNode.id}}"
-                      title="{{layoutNode.id}} - Click for more information">
-              </span>
-            <span ng-repeat="legendNode in graphImage.legendNodes">
-              <div ng-mouseover="formattedTooltip(legendNode.topic)">
-                <area shape="rect"
-                      id="{{legendNode.topic}}"
-                      class="relationHelp"
-                      coords="{{legendNode.left}},{{legendNode.top}},{{legendNode.right}},{{legendNode.bottom}}"
-                      tooltip-html-unsafe="{{tooltip}}" tooltip-placement="left">
-              </div>
-              </span>
-          </map>
-          </div-->
+      <div id="ancestorChart" ng-if="!isObsolete">
+        <h3 class="term-section-header">Ancestor Chart</h3>
+        <chart-icon ids="termModel.id"></chart-icon>
+      </div>
 
       <!-- Child Terms -->
       <div id="childTerms" ng-if="termModel.children.length > 0" ng-hide="isObsolete" data-magellan-target=="childTerms">
