@@ -43,6 +43,10 @@ app.controller('GOSlimCtrl', function($scope, $location,
     init();
   });
 
+  $scope.basketItemsSelected = function() {
+    return _.any(_.pluck($scope.basketList, 'selected'));
+  };
+
   // Predefined sets
   $scope.addPredefined = function() {
     var terms = $scope.selectedPreDefinedSlimSet.associations;
@@ -97,8 +101,6 @@ app.controller('GOSlimCtrl', function($scope, $location,
     $scope.taxonTextArea = '';
   };
 
-  //gpIds
-  //TODO handle gpIds
   $scope.addGPIds = function(){
     var ids = stringService.getTextareaItemsAsArray($scope.geneProductID);
     angular.forEach(ids, function(id) {
@@ -151,10 +153,6 @@ app.controller('GOSlimCtrl', function($scope, $location,
     });
   }, true);
 
-  /**
-   * Save the entered information and use it to filter the results on the annotation list page,
-   * which we will forward to now
-   */
   $scope.viewAnnotations = function() {
 
     $location.search('goUsage', 'slim');

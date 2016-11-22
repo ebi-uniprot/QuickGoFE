@@ -43,7 +43,7 @@
           <label ng-repeat="basketItem in basketList"><input type="checkbox" ng-model="basketItem.selected"/>
             <strong>{{basketItem.id}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
           <hr>
-          <button class="button" ng-click="addBasketTerms()">Add terms to selection</button>
+          <button class="button" ng-disabled="!basketItemsSelected()" ng-click="addBasketTerms()">Add terms to selection</button>
         </div>
       </tab>
     </tabset>
