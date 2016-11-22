@@ -11,7 +11,7 @@ angular
       templateUrl: 'directives/chart.html',
       link: function(scope) {
         var imageMapPromise, chartPromise;
-        if (scope.ids.lastIndexOf('GO:') === 0) {
+        if (scope.ids.lastIndexOf('GO:') >= 0) {
           chartPromise = chartService.getGOChart(scope.ids);
           imageMapPromise = chartService.getGOImageMap(scope.ids);
         } else {

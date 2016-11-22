@@ -26,7 +26,6 @@
           <button class="button" ng-disabled="!selectedPreDefinedSlimSet" ng-click="addPredefined()">Add
             {{selectedPreDefinedSlimSet.associations.length}}
             terms to selection</button>
-          <button class="button icon-functional view-chart-button" ng-disabled="!selectedPreDefinedSlimSet" ng-click="showGraphPreDef()" data-icon="h">View Chart</button>
         </div>
       </tab>
       <tab heading="Input your own">
@@ -34,8 +33,7 @@
           <strong>Enter one or more GO terms:</strong><br/>
           <textarea class="default" placeholder="e.g. GO:0008150, GO:0055085, GO:0006811, GO:0006520" ng-model="$parent.$parent.slimOwnTerms" cg-busy="ownTermPromise"></textarea>
           <hr>
-          <button class="button" ng-disabled="!slimOwnTerms" ng-click="addOwnTerms()">Add your Terms</button>
-          <button class="button icon-functional view-chart-button" ng-click="showGraphOwnTerms()" data-icon="h" ng-disabled="!slimOwnTerms">View Chart</button>
+          <button class="button" ng-disabled="!slimOwnTerms" ng-click="addOwnTerms()">Add terms to selection</button>
         </div>
       </tab>
       <tab heading="Select from Basket">
@@ -45,9 +43,7 @@
           <label ng-repeat="basketItem in basketList"><input type="checkbox" ng-model="basketItem.selected"/>
             <strong>{{basketItem.id}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
           <hr>
-          <button class="button" ng-click="addBasketTerms()">Add to selection</button>
-          <button class="button icon-functional view-chart-button" ng-click="showGraphBasketItems()" data-icon="h">View Chart</button>
-          <div class="clearfix"></div>
+          <button class="button" ng-click="addBasketTerms()">Add terms to selection</button>
         </div>
       </tab>
     </tabset>
@@ -93,25 +89,24 @@
   <hr>
   <div id="selection-header" class="column medium-12 clearfix">
     <span class="float-right">
-      <button class="button icon-functional" ng-disabled="count.total <= 0" ng-click="showGraph()" data-icon="h">View Chart</button>
       <button class="button" ng-disabled="count.total <= 0" ng-click="clearSelection()">Clear</button>
       <button class="button" ng-disabled="count.total <= 0" ng-click="viewAnnotations()">Submit</button>
     </span>
     <h3 ng-class="{'inactive': count.totalCount <= 0}" class="your-selection-header">
-      Your Selection:{{count.total}} terms
+      Your Selection:{{count.total}} terms <small><chart-icon ids="{{getSelectedIds().toString()}}"></chart-icon></small>
     </h3>
   </div>
 
   <div class="your-selection-container column medium-12">
     <div class="selectionContainer" ng-if="count.total > 0">
-      <div ng-repeat="aspect in selection">
-        <h5>{{aspect.name}}
+      <div ng-repeat="(aspectId,aspect) in selection">
+        <h4>{{aspect.name}}
           <span ng-if="count[aspect.name] > 0">({{count[aspect.name]}})</span>
-          <span class="icon icon-functional chart-btn selectable" data-icon="h"></span>
-        </h5>
-        <p ng-repeat="aTerm in aspect.terms" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
+          <small><chart-icon ids="{{getSelectedIdsForAspect(aspectId).toString()}}"></chart-icon></small>
+        </h4>
+        <p ng-repeat="aTerm in aspect.terms">
           <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.obsolete" name="aTerm.name"></term-line>
-          <a class="icon icon-functional" data-icon="x" title="Remove from selection" ng-click="removeFromSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+          <a class="icon icon-functional" data-icon="x" title="Remove from selection" ng-click="removeFromSelection(aTerm.termId)"></a>
         </p>
       </div>
     </div>
@@ -120,10 +115,10 @@
         <span>({{deSelectedItems.length}})</span>
       </h5>
       <ul>
-        <li ng-repeat="aTerm in deSelectedItems" ng-mouseenter="showDelete[aTerm.termId] = true" ng-mouseleave="showDelete[aTerm.termId] = false">
+        <li ng-repeat="aTerm in deSelectedItems">
           <i>
             <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
-            <a class="icon icon-functional" data-icon="+" uib-tooltip="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)" ng-show="showDelete[aTerm.termId] === true"></a>
+            <a class="icon icon-functional" data-icon="+" uib-tooltip="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)"></a>
           </i>
         </li>
       </ul>

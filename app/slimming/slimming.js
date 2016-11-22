@@ -160,10 +160,7 @@ app.controller('GOSlimCtrl', function($scope, $location,
     $location.search('goUsage', 'slim');
     $location.search('goUsageRelationships', 'is_a,part_of,occurs_in');
 
-    var allTerms = [];
-    angular.forEach($scope.selection, function(aspect) {
-      allTerms = allTerms.concat(_.pluck(aspect.terms, 'id'));
-    });
+    var allTerms = $scope.getSelectedIds();
     $location.search('goId', allTerms.join(','));
 
     // Add gene products
@@ -181,6 +178,19 @@ app.controller('GOSlimCtrl', function($scope, $location,
 
   $scope.clearSelection = function() {
     init();
+  };
+
+  $scope.getSelectedIds = function() {
+    var ids = [];
+    angular.forEach($scope.selection, function(aspect) {
+      ids = ids.concat(_.pluck(aspect.terms, 'id'));
+    });
+    return ids;
+  };
+
+  $scope.getSelectedIdsForAspect = function(aspect){
+    console.log(_.pluck($scope.selection[aspect].terms, 'id'));
+    return _.pluck($scope.selection[aspect].terms, 'id');
   };
 
 });

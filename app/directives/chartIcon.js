@@ -5,7 +5,7 @@ angular
     return {
       restrict: 'E',
       scope: {
-        ids: '='
+        ids: '@'
       },
       template: '<span ng-click="showChart()" class="chart-btn selectable" data-icon="h"></span>',
       link: function(scope) {
