@@ -9,6 +9,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
   // set default row count for tables
   $scope.defaultPageSize = 10;
+  $scope.statsLimit = 100;
   $scope.blacklistPageSize = $scope.defaultPageSize;
   $scope.childTermsPageSize = $scope.defaultPageSize;
   $scope.taxonConstraintsPageSize = $scope.defaultPageSize;
@@ -24,6 +25,8 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.searchText = '';
 
   $scope.termInformation = true;
+
+  $scope.goTermMapping = {};
 
   var termId = $routeParams.goId;
   $rootScope.header = "QuickGO::Term "+termId;
@@ -82,7 +85,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
           $scope.additionalTermsPromise = termService.getECOTerms(ids);
         }
 
-
         $scope.additionalTermsPromise
             .then(function(moreData) {
                 addInformation($scope.termModel.replaces, moreData.data.results);
@@ -110,27 +112,50 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
     });
 
-  if($scope.isGoTerm) {
-    // Set up statistics for co-occurring page
-    /*$scope.statsPromise = termService.getStats(termId);
-    $scope.statsPromise.then(function(d){
-      $scope.stats = d.data;
-      $scope.totalTogetherAllStats = 0;
-      $scope.totalComparedAllStats = 0;
-      $scope.totalTogetherNonIEAStats = 0;
-      $scope.totalComparedNonIEAStats = 0;
+    var getAdditionalGOTerms = function() {
+        termService.getGOTerms(_.keys($scope.goTermMapping)).then(function (resp) {
+            angular.forEach(resp.data.results, function (goTerm) {
+                $scope.goTermMapping[goTerm.id] = goTerm;
+            });
+        });
+    };
 
-      angular.forEach(d.data.allCoOccurrenceStatsTerms, function(val){
-        $scope.totalTogetherAllStats = $scope.totalTogetherAllStats + val.together;
-        $scope.totalComparedAllStats = $scope.totalTogetherAllStats + val.compared;
-      });
+    var getAllStats = function(maxDisplay) {
+        $scope.totalTogetherAllStats = 0;
+        $scope.totalComparedAllStats = 0;
 
-      angular.forEach(d.data.nonIEACOOccurrenceStatistics, function(val, key){
-        $scope.totalTogetherNonIEAStats = $scope.totalTogetherNonIEAStats + val.together;
-        $scope.totalComparedNonIEAStats = $scope.totalComparedNonIEAStats + val.compared;
-      });
-    });
-    */
+        var statsPromise = termService.getAllStats(termId, maxDisplay);
+        statsPromise.then(function(d) {
+            $scope.allStats = d.data;
+
+            angular.forEach(d.data.results, function(val){
+                $scope.goTermMapping[val.comparedTerm] = $scope.goTermMapping[val.comparedTerm] || {};
+                $scope.totalTogetherAllStats += +val.together;
+                $scope.totalComparedAllStats += +val.compared;
+            });
+            getAdditionalGOTerms();
+        });
+    };
+
+    var getManualStats = function(maxDisplay) {
+        $scope.totalTogetherManualStats = 0;
+        $scope.totalComparedManualStats = 0;
+
+        var statsPromise = termService.getManualStats(termId, maxDisplay);
+        statsPromise.then(function(d) {
+            $scope.manualStats = d.data;
+            angular.forEach(d.data.results, function(val){
+                $scope.goTermMapping[val.comparedTerm] = $scope.goTermMapping[val.comparedTerm] || {};
+                $scope.totalTogetherManualStats += +val.together;
+                $scope.totalComparedManualStats += +val.compared;
+            });
+            getAdditionalGOTerms();
+        });
+    };
+
+    if($scope.isGoTerm) {
+      getAllStats($scope.statsLimit);
+      getManualStats($scope.statsLimit);
 
     // Set up blacklist for selected term
     /*$scope.blacklistPromise = termService.getBlacklist(termId);
@@ -138,7 +163,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
       console.log("Blacklist returned for term", d);
       $scope.termWithBlacklist = d.data;
     });*/
-  }
+    }
 
   /**
    * ---------------------------------------------- Scope methods ----------------------------------------------------

@@ -353,18 +353,65 @@
     </section>
 
     <!-- Co-occurring statistics -->
-    <!--section id="coOcurring" ng-hide="!isGoTerm || isObsolete">
-      <h3 class="term-section-header"><span uib-tooltip-template="'co-occurring.html'" tooltip-placement="top-right">Co-occurring Terms</span></h3>
-        <uib-tabset>
-          <uib-tab heading="Based on Entire Annotation set">
-            <div id="allCoOccurringStats">
-              <h5 ng-show="stats.allCoOccurrenceStatsTerms.length == 0">
-                <element class='icon icon-generic' data-icon='l'>
-                  No co-occurring terms for {{termModel.id}} based on the entire annotation set
-                </element>
-              </h5>
-            <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
-              <table id="allCoOccurringStatsTable" class="two-colours">
+    <section id="coOcurring" ng-hide="!isGoTerm || isObsolete">
+      <h3 class="term-section-header">
+        <span uib-tooltip-template="'co-occurring.html'" tooltip-placement="top-right">Co-occurring Terms</span>
+      </h3>
+      <uib-tabset>
+        <uib-tab heading="Based on Entire Annotation set">
+          <div id="allCoOccurringStats">
+            <h5 ng-show="allStats.results.length == 0">
+              <element class='icon icon-generic' data-icon='l'>
+                No co-occurring terms for {{termModel.id}} based on the entire annotation set
+              </element>
+            </h5>
+          <div ng-show="allStats.results.length > 0">
+            <table id="allCoOccurringStatsTable" class="two-colours">
+              <tr>
+                <th>Co-occurring Term</th>
+                <th>PR</th>
+                <th>S%</th>
+                <th>#Together</th>
+                <th>#Compared</th>
+              </tr>
+              <tr ng-repeat="allStat in allStats.results | limitTo:coOccurringEntirePageSize">
+                <td width="70%">
+                    <term-line id="allStat.comparedTerm" aspect="goTermMapping[allStat.comparedTerm].aspect"
+                               obsolete="goTermMapping[allStat.comparedTerm].obsolete"
+                               name="goTermMapping[allStat.comparedTerm].name"></term-line>
+                </td>
+                <td>{{allStat.probabilityRatio}}</td>
+                <td>{{allStat.significance}}</td>
+                <td>{{allStat.together}}</td>
+                <td>{{allStat.compared}}</td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <span ng-show="coOccurringEntirePageSize < allStats.results.length" ng-click="coOccurringEntirePageSize = allStats.results.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+                  <span ng-show="coOccurringEntirePageSize < allStats.results.length" ng-click="coOccurringEntirePageSize = stats.results.length" class="selectable showMoreLess">show all</span>
+                  <span ng-show="(coOccurringEntirePageSize == allStats.results.length && allStats.results.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+                  <span ng-show="(coOccurringEntirePageSize == allStats.results.length && allStats.results.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Totals</strong></td>
+                <td><strong>{{totalTogetherAllStats}}</strong></td>
+                <td><strong>{{totalComparedAllStats}}</strong></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        </uib-tab>
+
+        <uib-tab heading="Based on Manual Annotations only">
+          <div id="nonIEACoOccurringStats">
+            <h5 ng-show="manualStats.results.length == 0">
+              <element class='icon icon-generic' data-icon='l'>
+                No co-occurring statistics for {{termModel.id}} based on manual annotations
+              </element>
+            </h5>
+            <div ng-show="manualStats.results.length > 0">
+              <table id="nonIEACoOccurringStatsTable" class="two-colours">
                 <tr>
                   <th>Co-occurring Term</th>
                   <th>PR</th>
@@ -372,89 +419,39 @@
                   <th>#Together</th>
                   <th>#Compared</th>
                 </tr>
-                <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms | limitTo:coOccurringEntirePageSize">
+                <tr ng-repeat="manualStat in manualStats.results | limitTo:coOccurringManualPageSize">
                   <td width="70%">
-                    <span ng-if="allStat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{allStat.aspect}}">{{allStat.aspect}}</span>
-                    <a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a>
-                    <basket-button termid="{{allStat.compare}}"></basket-button>
-                    <chart-icon term-id="allStat.compare" term-name="allStat.name"></chart-icon>
-                    {{allStat.name}}
+                    <term-line id="manualStat.comparedTerm" aspect="goTermMapping[manualStat.comparedTerm].aspect"
+                               obsolete="goTermMapping[manualStat.comparedTerm].obsolete"
+                               name="goTermMapping[manualStat.comparedTerm].name"></term-line>
                   </td>
-                  <td>{{allStat.probabilityRatio}}</td>
-                  <td>{{allStat.significance}}</td>
-                  <td>{{allStat.together}}</td>
-                  <td>{{allStat.compared}}</td>
+                  <td>{{manualStat.probabilityRatio}}</td>
+                  <td>{{manualStat.significance}}</td>
+                  <td>{{manualStat.together}}</td>
+                  <td>{{manualStat.compared}}</td>
                 </tr>
                 <tr>
                   <td colspan="5">
-                    <span ng-show="coOccurringEntirePageSize < stats.allCoOccurrenceStatsTerms.length" ng-click="coOccurringEntirePageSize = stats.allCoOccurrenceStatsTerms.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-                    <span ng-show="coOccurringEntirePageSize < stats.allCoOccurrenceStatsTerms.length" ng-click="coOccurringEntirePageSize = stats.allCoOccurrenceStatsTerms.length" class="selectable showMoreLess">show all</span>
-                    <span ng-show="(coOccurringEntirePageSize == stats.allCoOccurrenceStatsTerms.length && stats.allCoOccurrenceStatsTerms.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-                    <span ng-show="(coOccurringEntirePageSize == stats.allCoOccurrenceStatsTerms.length && stats.allCoOccurrenceStatsTerms.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+                    <span ng-show="coOccurringManualPageSize < manualStats.results.length" ng-click="coOccurringManualPageSize = manualStats.results.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+                    <span ng-show="coOccurringManualPageSize < manualStats.results.length" ng-click="coOccurringManualPageSize = manualStats.results.length" class="selectable showMoreLess">show all</span>
+                    <span ng-show="(coOccurringManualPageSize == manualStats.results.length && manualStats.results.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+                    <span ng-show="(coOccurringManualPageSize == manualStats.results.length && manualStats.results.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
                   </td>
                 </tr>
+
                 <tr>
                   <td colspan="3"><strong>Totals</strong></td>
-                  <td><strong>{{totalTogetherAllStats}}</strong></td>
-                  <td><strong>{{totalComparedAllStats}}</strong></td>
+                  <td><strong>{{totalTogetherManualStats}}</strong></td>
+                  <td><strong>{{totalComparedManualStats}}</strong></td>
                 </tr>
               </table>
             </div>
           </div>
-          </uib-tab>
 
-          <uib-tab heading="Based on Manual Annotations only">
-            <div id="nonIEACoOccurringStats">
-              <h5 ng-show="stats.nonIEACOOccurrenceStatistics.length == 0">
-                <element class='icon icon-generic' data-icon='l'>
-                  No co-occurring statistics for {{termModel.id}} based on manual annotations
-                </element>
-              </h5>
-              <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
-                <table id="nonIEACoOccurringStatsTable" class="two-colours">
-                  <tr>
-                    <th>Co-occurring Term</th>
-                    <th>PR</th>
-                    <th>S%</th>
-                    <th>#Together</th>
-                    <th>#Compared</th>
-                  </tr>
-                  <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics | limitTo:coOccurringManualPageSize">
-                    <td width="70%">
-                      <span ng-if="nonIEAStat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{nonIEAStat.aspect}}">{{nonIEAStat.aspect}}</span>
-                      <a class="quickgo-link" ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
-                      <basket-button termid="{{nonIEAStat.compare}}"></basket-button>
-                      <chart-icon term-id="nonIEAStat.compare" term-name="nonIEAStat.name"></chart-icon>
-                      {{nonIEAStat.name}}
-                    </td>
-                    <td>{{nonIEAStat.probabilityRatio}}</td>
-                    <td>{{nonIEAStat.significance}}</td>
-                    <td>{{nonIEAStat.together}}</td>
-                    <td>{{nonIEAStat.compared}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="5">
-                      <span ng-show="coOccurringManualPageSize < stats.nonIEACOOccurrenceStatistics.length" ng-click="coOccurringManualPageSize = stats.nonIEACOOccurrenceStatistics.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-                      <span ng-show="coOccurringManualPageSize < stats.nonIEACOOccurrenceStatistics.length" ng-click="coOccurringManualPageSize = stats.nonIEACOOccurrenceStatistics.length" class="selectable showMoreLess">show all</span>
-                      <span ng-show="(coOccurringManualPageSize == stats.nonIEACOOccurrenceStatistics.length && stats.nonIEACOOccurrenceStatistics.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-                      <span ng-show="(coOccurringManualPageSize == stats.nonIEACOOccurrenceStatistics.length && stats.nonIEACOOccurrenceStatistics.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+        </uib-tab>
+      </uib-tabset>
 
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td colspan="3"><strong>Totals</strong></td>
-                    <td><strong>{{totalTogetherNonIEAStats}}</strong></td>
-                    <td><strong>{{totalComparedNonIEAStats}}</strong></td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-
-          </uib-tab>
-        </uib-tabset>
-
-    </section-->
+    </section>
 
     <!-- GO Slims -->
     <!--section id="termGOSlims" ng-if="termModel.subsets.length > 0">
@@ -678,4 +675,3 @@
 <script type="text/ng-template" id="childterms.html"><span>This table lists all terms that are direct descendants (child terms) of {{termModel.id}}</span></script>
 <script type="text/ng-template" id="blacklist.html"><span>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
   annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</span></script>
-<script type="text/ng-template" id="colAspect.html"><span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span></script>
