@@ -156,13 +156,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
     if($scope.isGoTerm) {
       getAllStats($scope.statsLimit);
       getManualStats($scope.statsLimit);
-
-    // Set up blacklist for selected term
-    /*$scope.blacklistPromise = termService.getBlacklist(termId);
-    $scope.blacklistPromise.then(function(d){
-      console.log("Blacklist returned for term", d);
-      $scope.termWithBlacklist = d.data;
-    });*/
     }
 
   /**
