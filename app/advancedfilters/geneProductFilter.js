@@ -1,3 +1,4 @@
+'use strict';
 app.controller('geneProductFilter', function ($scope, stringService,
   validationService, presetsService) {
 
