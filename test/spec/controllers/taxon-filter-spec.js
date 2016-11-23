@@ -19,12 +19,12 @@ describe('Controller: taxonFilter', function () {
     });
   }));
 
-  it('should add valid taxonIds', function () {
+  /*it('should add valid taxonIds', function () {
     expect(_.keys(scope.taxa).length).toEqual(0);
     scope.taxonTextArea = '1122';
     scope.addTaxons();
     expect(_.keys(scope.taxa).length).toEqual(1);
-  });
+  });*/
 
   it('should not add invalid taxonIds', function () {
     expect(_.keys(scope.taxa).length).toEqual(0);
