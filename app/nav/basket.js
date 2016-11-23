@@ -1,5 +1,5 @@
 'use strict';
-app.controller('BasketNavCtrl', function($scope, $log, $rootScope, basketService) {
+app.controller('BasketNavCtrl', function($scope, $log, $modal, $rootScope, basketService) {
 
   //$scope.countBasket=0;
 
@@ -16,23 +16,19 @@ app.controller('BasketNavCtrl', function($scope, $log, $rootScope, basketService
   /**
    * Show the basket modal on request
    */
-  // $scope.showBasket = function () {
-  //   var modalInstance = $uibModal.open({
-  //     templateUrl: 'basket/basketModal.html',
-  //     controller: 'BasketCtrl',
-  //     size: 'lg',
-  //     scope: $scope,
-  //     resolve: {
-  //       countBasket: function () {
-  //         return $scope.countBasket;
-  //       }
-  //     }
-  //   });
-  //
-  //   modalInstance.result.then(function (selectedItem) {
-  //     $scope.selected = selectedItem;
-  //   });
-  // };
 
+
+  $scope.openBasket = function () {
+    $modal.open({
+      templateUrl: 'basket/basketModal.html',
+      size:'large',
+
+      controller: function($scope, $modalInstance) {
+        $scope.ok = function() {
+          $modalInstance.close();
+        };
+      }
+    });
+};
 
 });
