@@ -32,8 +32,8 @@
               {{taxaMapping[searchResult.taxonId].scientificName}}
             </a>
           </td>
-          <td><a href="annotations/filter?gpID={{searchResult.id}}" class="annotations-link"><annotations-link
-                  productid="{{searchResult.id}}"></annotations-link></a></td>
+          <td><annotations-link
+                  product-id="searchResult.id"></annotations-link></a>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
