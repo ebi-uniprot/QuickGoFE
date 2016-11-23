@@ -149,7 +149,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
                     len = areas.length,
                     coords = [];
 
-               for (n = 0; n < len; n++) {
+               for (var n = 0; n < len; n++) {
                    coords[n] = areas[n].coords.split(',');
                }
                if (originalCoords.length < 1){
