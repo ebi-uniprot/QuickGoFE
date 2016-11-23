@@ -1,8 +1,8 @@
-<div class="input-group" ng-hide="noInput">
-  <div class="search-align search-box">
+<div class="input-group" >
+  <div class="search-align search-box" ng-hide="noInput">
     <input id="searchbox" type="text" autocomplete="off" ng-model="searchTerm" placeholder="{{prompt}}" ng-keydown="provideSuggestions($event.keyCode)" />
   </div>
-  <div class="search-align"><button class="button search-button" type="submit" ng-click="submitSearch()">Search</button></div>
+  <div class="search-align" ng-hide="noInput"><button class="button search-button" type="submit" ng-click="submitSearch()">Search</button></div>
   <div class="items" ng-hide="!searchTerm.length || searchTerm.length < 3" ng-class="{'typeahead-box' : !noInput}">
     <div cg-busy="goTermsPromise">
       <h3>Terms</h3>
