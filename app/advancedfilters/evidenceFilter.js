@@ -6,7 +6,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
 
   var init = function () {
-    presetsService.getPresets().then(function (d) {
+    presetsService.getPresetsEvidences().then(function (d) {
       var evidences = d.data.evidences;
       if($scope.$parent.query.evidenceCode) {
         angular.forEach($scope.query.evidenceCode.split(','), function(id) {
@@ -47,11 +47,10 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
         if($scope.ecos[ecoID]) {
           $scope.ecos[ecoID].checked = true;
         } else {
-          var eco = {
+          $scope.ecos[ecoID] = {
             'id':ecoID,
             'checked':true
           };
-          $scope.ecos[ecoID] = eco;
         }
       }
     });

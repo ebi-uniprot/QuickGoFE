@@ -17,7 +17,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
         };
       });
     }
-    presetsService.getPresets().then(function(resp){
+    presetsService.getPresetsReferences().then(function(resp){
       angular.forEach(resp.data.references, function(ref){
         ref.checked = _.contains(_.keys($scope.references), ref.name);
         $scope.references[ref.name] = ref;
@@ -53,5 +53,4 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
   });
 
   initReference();
-
 });

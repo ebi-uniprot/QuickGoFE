@@ -14,7 +14,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService)
       });
     }
 
-    presetsService.getPresets().then(function(resp){
+    presetsService.getPresetsWithFrom().then(function(resp){
       var withDBs = _.sortBy(resp.data.withFrom, 'name');
       angular.forEach(withDBs, function(withDB){
         withDB.checked = _.contains(_.keys($scope.withFrom), withDB.name);

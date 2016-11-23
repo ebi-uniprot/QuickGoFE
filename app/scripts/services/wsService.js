@@ -4,11 +4,34 @@ var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
 wsService.factory('presetsService', ['$http', 'ENV',
   function ($http, ENV) {
-    return{
-      //TODO this will be broken into different presets e.g. /goSlimSets
-      getPresets: function() {
-        return $http.get(ENV.apiEndpoint + '/internal/presets');
-      }
+    return {
+        getPresetsAssignedBy: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=assignedBy');
+        },
+        getPresetsReferences: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=references');
+        },
+        getPresetsEvidences: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=evidences');
+        },
+        getPresetsWithFrom: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=withFrom');
+        },
+        getPresetsGeneProducts: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProducts');
+        },
+        getPresetsGOSlimSets: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=goSlimSets');
+        },
+        getPresetsTaxa: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=taxons');
+        },
+        getPresetsAspects: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=aspects');
+        },
+        getPresetsGeneProductTypes: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProductTypes');
+        }
     }
   }]);
 
