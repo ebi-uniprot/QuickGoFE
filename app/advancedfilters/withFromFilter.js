@@ -9,7 +9,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService)
       checked = checked.concat($scope.$parent.query.withFrom.split(','))
     }
 
-    presetsService.getPresets().then(function(resp){
+    presetsService.getPresetsWithFrom().then(function(resp){
       var withDBs = _.sortBy(resp.data.withFrom, 'name');
       angular.forEach(withDBs, function(withDB){
         withDB.checked = _.contains(checked,withDB.name);
@@ -32,21 +32,21 @@ app.controller('withFromFilter', function($scope, presetsService, stringService)
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('withFrom', getQuery());
-  }
+  };
 
   $scope.reset = function () {
     $scope.$parent.query.withFrom = '';
-  }
+  };
 
   var getQuery = function() {
     return _.pluck(_.filter(_.values($scope.withFrom), 'checked'), 'name');
-  }
+  };
 
-  $scope.$on('applyMoreFilters', function(e) {
+  $scope.$on('applyMoreFilters', function() {
     $scope.apply();
   });
 
-  $scope.$on('resetMoreFilters', function(e) {
+  $scope.$on('resetMoreFilters', function() {
     $scope.reset();
   });
 

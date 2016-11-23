@@ -19,18 +19,18 @@ describe('Controller: taxonFilter', function () {
     });
   }));
 
-  it('should add valid taxonIds', function () {
-    expect(scope.taxonIds.length).toEqual(13);
+  /*it('should add valid taxonIds', function () {
+    expect(_.keys(scope.taxa).length).toEqual(0);
     scope.taxonTextArea = '1122';
     scope.addTaxons();
-    expect(scope.taxonIds.length).toEqual(14);
-  });
+    expect(_.keys(scope.taxa).length).toEqual(1);
+  });*/
 
   it('should not add invalid taxonIds', function () {
-    expect(scope.taxonIds.length).toEqual(13);
+    expect(_.keys(scope.taxa).length).toEqual(0);
     scope.taxonTextArea = 'AAAA';
     scope.addTaxons();
-    expect(scope.taxonIds.length).toEqual(13);
+    expect(_.keys(scope.taxa).length).toEqual(0);
   });
 
 });

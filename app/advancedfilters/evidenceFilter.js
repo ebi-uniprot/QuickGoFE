@@ -5,7 +5,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
 
   var init = function () {
-    presetsService.getPresets().then(function (d) {
+    presetsService.getPresetsEvidences().then(function (d) {
       var evidences = d.data.evidences;
       var checked = [];
       if($scope.$parent.query.evidenceCode) {
@@ -19,20 +19,20 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
       });
     });
   };
-  
+
   $scope.apply = function() {
     $scope.$parent.addToQuery('evidenceCode', getQuery());
     $scope.$parent.addToQuery('evidenceCodeUsage', $scope.evidenceCodeUsage);
-  }
-  
+  };
+
   var getQuery = function() {
     return _.pluck(_.filter(_.values($scope.ecos), 'checked'), 'id');
-  }
+  };
 
   $scope.reset = function () {
     $scope.$parent.query.evidenceCode = '';
     $scope.$parent.updateQuery();
-  }
+  };
 
   $scope.addECOs = function () {
     var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
@@ -41,11 +41,10 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
         if($scope.ecos[ecoID]) {
           $scope.ecos[ecoID].checked = true;
         } else {
-          var eco = {
+          $scope.ecos[ecoID] = {
             'id':ecoID,
             'checked':true
-          }
-          $scope.ecos[ecoID] = eco;
+          };
         }
       }
     });
