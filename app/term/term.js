@@ -28,16 +28,16 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
   $scope.goTermMapping = {};
 
-  var termId = $routeParams.goId;
-  $rootScope.header = "QuickGO::Term "+termId;
+  $scope.termId = $routeParams.goId;
+  $rootScope.header = "QuickGO::Term "+$scope.termId;
 
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
-  if (termId.lastIndexOf('ECO', 0) === 0) {
+  if ($scope.termId.lastIndexOf('ECO', 0) === 0) {
     $scope.isGoTerm = false;
-    $scope.termPromise = termService.getECOCompleteTerms(termId);
+    $scope.termPromise = termService.getECOCompleteTerms($scope.termId);
   } else {
     $scope.isGoTerm = true;
-    $scope.termPromise = termService.getGOCompleteTerms(termId);
+    $scope.termPromise = termService.getGOCompleteTerms($scope.termId);
   }
 
   //Get predefined slim sets
@@ -111,52 +111,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         $scope.notFoundReason = reason;
         angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
     });
-
-    var getAdditionalGOTerms = function() {
-        termService.getGOTerms(_.keys($scope.goTermMapping)).then(function (resp) {
-            angular.forEach(resp.data.results, function (goTerm) {
-                $scope.goTermMapping[goTerm.id] = goTerm;
-            });
-        });
-    };
-
-    var getAllStats = function(maxDisplay) {
-        $scope.totalTogetherAllStats = 0;
-        $scope.totalComparedAllStats = 0;
-
-        var statsPromise = termService.getAllStats(termId, maxDisplay);
-        statsPromise.then(function(d) {
-            $scope.allStats = d.data;
-
-            angular.forEach(d.data.results, function(val){
-                $scope.goTermMapping[val.comparedTerm] = $scope.goTermMapping[val.comparedTerm] || {};
-                $scope.totalTogetherAllStats += +val.together;
-                $scope.totalComparedAllStats += +val.compared;
-            });
-            getAdditionalGOTerms();
-        });
-    };
-
-    var getManualStats = function(maxDisplay) {
-        $scope.totalTogetherManualStats = 0;
-        $scope.totalComparedManualStats = 0;
-
-        var statsPromise = termService.getManualStats(termId, maxDisplay);
-        statsPromise.then(function(d) {
-            $scope.manualStats = d.data;
-            angular.forEach(d.data.results, function(val){
-                $scope.goTermMapping[val.comparedTerm] = $scope.goTermMapping[val.comparedTerm] || {};
-                $scope.totalTogetherManualStats += +val.together;
-                $scope.totalComparedManualStats += +val.compared;
-            });
-            getAdditionalGOTerms();
-        });
-    };
-
-    if($scope.isGoTerm) {
-      getAllStats($scope.statsLimit);
-      getManualStats($scope.statsLimit);
-    }
 
   /**
    * ---------------------------------------------- Scope methods ----------------------------------------------------

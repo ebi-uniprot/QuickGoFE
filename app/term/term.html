@@ -360,92 +360,15 @@
       <uib-tabset>
         <uib-tab heading="Based on Entire Annotation set">
           <div id="allCoOccurringStats">
-            <h5 ng-show="allStats.results.length == 0">
-              <element class='icon icon-generic' data-icon='l'>
-                No co-occurring terms for {{termModel.id}} based on the entire annotation set
-              </element>
-            </h5>
-          <div ng-show="allStats.results.length > 0">
-            <table id="allCoOccurringStatsTable" class="two-colours">
-              <tr>
-                <th>Co-occurring Term</th>
-                <th>PR</th>
-                <th>S%</th>
-                <th>#Together</th>
-                <th>#Compared</th>
-              </tr>
-              <tr ng-repeat="allStat in allStats.results | limitTo:coOccurringEntirePageSize">
-                <td width="70%">
-                    <term-line id="allStat.comparedTerm" aspect="goTermMapping[allStat.comparedTerm].aspect"
-                               obsolete="goTermMapping[allStat.comparedTerm].obsolete"
-                               name="goTermMapping[allStat.comparedTerm].name"></term-line>
-                </td>
-                <td>{{allStat.probabilityRatio}}</td>
-                <td>{{allStat.significance}}</td>
-                <td>{{allStat.together}}</td>
-                <td>{{allStat.compared}}</td>
-              </tr>
-              <tr>
-                <td colspan="5">
-                  <span ng-show="coOccurringEntirePageSize < allStats.results.length" ng-click="coOccurringEntirePageSize = allStats.results.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-                  <span ng-show="coOccurringEntirePageSize < allStats.results.length" ng-click="coOccurringEntirePageSize = stats.results.length" class="selectable showMoreLess">show all</span>
-                  <span ng-show="(coOccurringEntirePageSize == allStats.results.length && allStats.results.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-                  <span ng-show="(coOccurringEntirePageSize == allStats.results.length && allStats.results.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="3"><strong>Totals</strong></td>
-                <td><strong>{{totalTogetherAllStats}}</strong></td>
-                <td><strong>{{totalComparedAllStats}}</strong></td>
-              </tr>
-            </table>
-          </div>
+            <coterms id="termId" mode="'ALL'" limit="statsLimit" page-size="coOccurringEntirePageSize"
+                     table-id="'allCoOccurringStatsTable'"></coterms>
         </div>
         </uib-tab>
 
         <uib-tab heading="Based on Manual Annotations only">
           <div id="nonIEACoOccurringStats">
-            <h5 ng-show="manualStats.results.length == 0">
-              <element class='icon icon-generic' data-icon='l'>
-                No co-occurring statistics for {{termModel.id}} based on manual annotations
-              </element>
-            </h5>
-            <div ng-show="manualStats.results.length > 0">
-              <table id="nonIEACoOccurringStatsTable" class="two-colours">
-                <tr>
-                  <th>Co-occurring Term</th>
-                  <th>PR</th>
-                  <th>S%</th>
-                  <th>#Together</th>
-                  <th>#Compared</th>
-                </tr>
-                <tr ng-repeat="manualStat in manualStats.results | limitTo:coOccurringManualPageSize">
-                  <td width="70%">
-                    <term-line id="manualStat.comparedTerm" aspect="goTermMapping[manualStat.comparedTerm].aspect"
-                               obsolete="goTermMapping[manualStat.comparedTerm].obsolete"
-                               name="goTermMapping[manualStat.comparedTerm].name"></term-line>
-                  </td>
-                  <td>{{manualStat.probabilityRatio}}</td>
-                  <td>{{manualStat.significance}}</td>
-                  <td>{{manualStat.together}}</td>
-                  <td>{{manualStat.compared}}</td>
-                </tr>
-                <tr>
-                  <td colspan="5">
-                    <span ng-show="coOccurringManualPageSize < manualStats.results.length" ng-click="coOccurringManualPageSize = manualStats.results.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-                    <span ng-show="coOccurringManualPageSize < manualStats.results.length" ng-click="coOccurringManualPageSize = manualStats.results.length" class="selectable showMoreLess">show all</span>
-                    <span ng-show="(coOccurringManualPageSize == manualStats.results.length && manualStats.results.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-                    <span ng-show="(coOccurringManualPageSize == manualStats.results.length && manualStats.results.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td colspan="3"><strong>Totals</strong></td>
-                  <td><strong>{{totalTogetherManualStats}}</strong></td>
-                  <td><strong>{{totalComparedManualStats}}</strong></td>
-                </tr>
-              </table>
-            </div>
+            <coterms id="termId" mode="'MANUAL'" limit="statsLimit" size="10" page-size="coOccurringManualPageSize"
+              table-id="'manualCoOccurringStatsTable'"></coterms>
           </div>
 
         </uib-tab>
