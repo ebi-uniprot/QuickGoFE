@@ -10,8 +10,11 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
   $scope.rootTermBPID = "GO:0008150";
   $scope.rootTermCCID = "GO:0005575";
 
-  presetsService.getPresets().then(function(d) {
+  presetsService.getPresetsGeneProducts().then(function(d) {
     $scope.geneProducts = d.data.geneProducts;
+  });
+
+  presetsService.getPresetsGOSlimSets().then(function(d) {
     $scope.predefinedSlimSets = d.data.goSlimSets;
   });
 
@@ -42,7 +45,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
   $scope.basketPromise.then(function(d) {
     angular.forEach(d.data.results, function(term) {
       term.selected = false;
-    })
+    });
     $scope.basketList = d.data.results;
   });
 
@@ -321,7 +324,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $window, $uibModal,
     });
 
     if (tempItems.length >= 1) {
-      var modalInstance = $uibModal.open({
+      $uibModal.open({
         templateUrl: 'charts/ontologyGraphModal.html',
         controller: 'OntologyGraphCtrl',
         windowClass: 'app-modal-window',
