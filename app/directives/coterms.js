@@ -8,6 +8,7 @@ angular
                 mode: '=',
                 limit: '=',
                 pageSize: '=',
+                defaultPageSize: '=',
                 tableId: '='
             },
             templateUrl: 'directives/coterms.html',
