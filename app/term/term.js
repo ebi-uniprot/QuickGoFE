@@ -3,7 +3,7 @@
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
                                     ENV, quickGOHelperService, $document, $routeParams, termService,
-                                    ontoTypeService, PreDefinedSlimSets) {
+                                    ontoTypeService, presetsService) {
 
   $scope.targetDomainAndPort = ENV.apiEndpoint;
 
@@ -27,6 +27,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.termInformation = true;
 
   $scope.goTermMapping = {};
+  $scope.slimSetMapping = {};
 
   $scope.termId = $routeParams.goId;
   $rootScope.header = "QuickGO::Term "+$scope.termId;
@@ -39,9 +40,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
     $scope.isGoTerm = true;
     $scope.termPromise = termService.getGOCompleteTerms($scope.termId);
   }
-
-  //Get predefined slim sets
-  //$scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
   /**
    * Get Term Data from WS
@@ -81,6 +79,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
         if($scope.isGoTerm) {
           $scope.additionalTermsPromise = termService.getGOTerms(ids);
+          getSlimSet();
         } else {
           $scope.additionalTermsPromise = termService.getECOTerms(ids);
         }
@@ -96,17 +95,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
             }
         );
 
-        //Set GO Slim subset counts
-        /*angular.forEach($scope.predefinedSlimSets, function(slim) {
-          angular.forEach($scope.termModel.subsets, function(subset) {
-
-            if (subset.name === slim.subset) {
-              subset.count = slim.subsetCount;
-            }
-
-          });
-        });*/
-
     },function(reason) {
         $scope.notFoundReason = reason;
         angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
@@ -115,6 +103,16 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   /**
    * ---------------------------------------------- Scope methods ----------------------------------------------------
    */
+
+    var getSlimSet = function() {
+        presetsService.getPresetsGOSlimSets().then(function(resp) {
+            angular.forEach(resp.data.goSlimSets, function(slimSet) {
+                if (_.contains($scope.termModel.subsets, slimSet.name)) {
+                    $scope.slimSetMapping[slimSet.name] = slimSet;
+                }
+            });
+        });
+    };
 
     var addInformation = function(lst, moreDataLst) {
         angular.forEach(lst, function(term) {

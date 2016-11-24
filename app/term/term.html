@@ -377,7 +377,7 @@
     </section>
 
     <!-- GO Slims -->
-    <!--section id="termGOSlims" ng-if="termModel.subsets.length > 0">
+    <section id="termGOSlims" ng-if="termModel.subsets.length > 0">
       <h3 class="term-section-header">GO Slims</h3>
 
       <p>This term is present in the following GO Consortium-maintained GO slims:</p>
@@ -387,11 +387,11 @@
           <th>Total Number of Terms in Slim</th>
         </tr>
         <tr ng-repeat="subset in termModel.subsets">
-          <td>{{subset.name}}</td>
-          <td>{{subset.count}}</td>
+          <td>{{subset}}</td>
+          <td>{{slimSetMapping[subset].associations.length}}</td>
         </tr>
       </table>
-    </section-->
+    </section>
 
     <!-- Change log -->
     <section id="termHistory">
