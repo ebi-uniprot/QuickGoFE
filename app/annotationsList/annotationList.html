@@ -64,7 +64,7 @@
 
           <td ng-show="columns['withFrom'].visible">
             <div>
-              <span ng-if="item.withFrom.length === 1" target="_blank">{{item.withFrom[0].connectedXrefs[0].db}}{{item.withFrom[0].connectedXrefs[0].id}}</span>
+              <span ng-if="item.withFrom.length === 1">{{item.withFrom[0].connectedXrefs[0].db}}{{item.withFrom[0].connectedXrefs[0].id}}</span>
               <a ng-if="item.withFrom.length > 1" class="quickgo-link" ng-click="openFromWith(item.withFrom)" target="_blank">{{item.withFrom[0].connectedXrefs[0].db}}{{item.withFrom[0].connectedXrefs[0].id}} and more...</a>
             </div>
           </td>
@@ -73,15 +73,11 @@
             <a class="quickgo-link selectable" ng-click="followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">{{item.taxonId}}</a>
           </td>
           <td ng-show="columns['assignedBy'].visible"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(item.assignedBy)">{{item.assignedBy}}</a></td>
+
           <td ng-show="columns['annotationExtension'].visible">
-            <div ng-repeat="item in item.extensions">
-              <div ng-repeat="resource in item.connectedXrefs" class="text-center">
-                <a href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{resource.qualifier}}.md" target="_blank">{{resource.qualifier}}(<a ng-click="followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}} {{olsxrefs[resource.db + ':' + resource.id]}}</a>)
-              </div>
-              <div class="text-center">
-                <strong ng-show="!$last">OR</strong>
-              </div>
-            </div>
+            <a ng-if="item.extensions.length === 1" href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{resource.qualifier}}.md" target="_blank">
+                {{item.extensions[0].connectedXrefs[0].qualifier}} (<a ng-if="item.extensions.length === 1" ng-click="followLinkToEntry(item.extensions[0].connectedXrefs[0].db, item.extensions[0].connectedXrefs[0].id)" target="_blank">{{item.extensions[0].connectedXrefs[0].db}}:{{item.extensions[0].connectedXrefs[0].id}} {{olsxrefs[item.extensions[0].connectedXrefs[0].db + ':' + item.extensions[0].connectedXrefs[0].id]}})</a>
+            <a ng-if="item.extensions.length > 1" class="quickgo-link" ng-click="openAnnoExtension(item.extensions)" target="_blank">{{item.extensions[0].connectedXrefs[0].qualifier}} ({{item.extensions[0].connectedXrefs[0].db}}:{{item.extensions[0].connectedXrefs[0].id}} {{olsxrefs[item.extensions[0].connectedXrefs[0].db + ':' + item.extensions[0].connectedXrefs[0].id]}}) and more...</a>
           </td>
 
           <td ng-show="columns['database'].visible">{{gpMapping[item.geneProductSimpleId].database}}</td>

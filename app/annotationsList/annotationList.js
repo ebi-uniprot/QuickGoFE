@@ -166,7 +166,6 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $modal, $http
   }
 
   $scope.openFromWith = function (withFrom) {
-    console.log("in openWithFrom");
     $modal.open({
       templateUrl: 'annotationsList/withfromModal.html',
       size:'large',
@@ -182,6 +181,23 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $modal, $http
         };
       }
     });
+};
+$scope.openAnnoExtension = function (annoExt) {
+  $modal.open({
+    templateUrl: 'annotationsList/annoExtensionModal.html',
+    size:'large',
+    resolve: {
+      annoExt: function() {
+        return annoExt;
+      }
+    },
+    controller: function($scope, $modalInstance, annoExt) {
+      $scope.annoExt = annoExt;
+      $scope.ok = function() {
+        $modalInstance.close();
+      };
+    }
+  });
 };
 
   /**
