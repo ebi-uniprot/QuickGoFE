@@ -63,11 +63,9 @@
           </td>
 
           <td ng-show="columns['withFrom'].visible">
-            <div ng-repeat="item in item.withFrom">
-              <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
-              <div class="text-center">
-                <strong ng-show="!$last">OR</strong>
-              </div>
+            <div>
+              <span ng-if="item.withFrom.length === 1" target="_blank">{{item.withFrom[0].connectedXrefs[0].db}}{{item.withFrom[0].connectedXrefs[0].id}}</span>
+              <a ng-if="item.withFrom.length > 1" class="quickgo-link" ng-click="openFromWith(item.withFrom)" target="_blank">{{item.withFrom[0].connectedXrefs[0].db}}{{item.withFrom[0].connectedXrefs[0].id}} and more...</a>
             </div>
           </td>
 

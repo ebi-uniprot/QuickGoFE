@@ -1,4 +1,4 @@
-app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $routeParams,
+app.controller('AnnotationListCtrl', function ($rootScope, $scope, $modal, $http, $routeParams,
   olsService, geneProductService, searchService, termService, taxonomyService) {
   /**
    * Initialisation
@@ -164,6 +164,25 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $route
       console.log(reason);
     });
   }
+
+  $scope.openFromWith = function (withFrom) {
+    console.log("in openWithFrom");
+    $modal.open({
+      templateUrl: 'annotationsList/withfromModal.html',
+      size:'large',
+      resolve: {
+        withFrom: function() {
+          return withFrom;
+        }
+      },
+      controller: function($scope, $modalInstance, withFrom) {
+        $scope.withFrom = withFrom;
+        $scope.ok = function() {
+          $modalInstance.close();
+        };
+      }
+    });
+};
 
   /**
    * Put commas between the rather large numbers we can have here.
