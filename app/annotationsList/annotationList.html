@@ -104,7 +104,7 @@
       </tbody>
     </table>
 
-    <uib-pagination total-items="goList.numberOfHits" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
+    <pagination total-items="goList.numberOfHits" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="5" ng-click="pageChanged()"></pagination>
 
   </div>
   <!-- if there are no results tell the user explicitly -->
