@@ -512,6 +512,11 @@ div {
     opacity: .6;
   }
 }
+h5.active-filter:before{
+  color: $ebi-green !important;
+  opacity: .6;
+
+}
 
 .button:focus, .button:hover, .button.hover {
     background-color: #2980B9;
