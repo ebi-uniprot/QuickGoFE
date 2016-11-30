@@ -1,3 +1,4 @@
+'use strict';
 app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
   hardCodedDataService, dbXrefService, olsService,
   geneProductService, searchService, termService, ontoTypeService, taxonomyService) {
@@ -5,8 +6,7 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
    * Initialisation
    */
   $scope.maxSize = 25;
-  $scope.evidenceSetter = "ecoAncestorsI";
-  $rootScope.header = "QuickGO::Annotation List";
+  $rootScope.header = 'QuickGO::Annotation List';
   $scope.olsxrefs = {};
 
   $scope.currentPage = 1;
@@ -83,18 +83,37 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
     }
   };
 
-  function getResultsPage() {
-    var query = $routeParams;
-    $scope.columns.slimmedTerm.visible = (query.goUsage && query.goUsage === 'slim');
+  function postProcessTaxa(taxaIds) {
+    $scope.taxaMapping = {};
+    if (taxaIds.length !== 0) {
+      var taxonomyPromise = taxonomyService.getTaxa(taxaIds);
+      taxonomyPromise.then(function (multipleTaxa) {
+        angular.forEach(multipleTaxa.data.taxonomies, function (taxon) {
+          $scope.taxaMapping[taxon.taxonomyId] = taxon;
+        });
+      });
+    }
+  }
 
-    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
-      searchService.serializeQuery(query));
-    $scope.resultsPromise.then(function (data) {
-      $scope.goList = data.data;
-      $scope.annotations = $scope.goList.results;
+  function postProcessGeneProds(geneProductIds) {
+    $scope.gpMapping = {};
+    if (geneProductIds.length !== 0) {
+      var geneProdPromise = geneProductService.getGeneProducts(geneProductIds);
+      geneProdPromise.then(function (response) {
+        angular.forEach(response.data.results, function (geneProd) {
+          $scope.gpMapping[geneProd.id] = geneProd;
+        });
+      });
+    }
+  }
 
-      prettyPrintNumberAnnotations($scope.goList.numberOfHits);
-      postProcess();
+  function postProcessGoTerms(goTermIds) {
+    $scope.goTermMapping = {};
+
+    termService.getGOTerms(goTermIds).then(function (resp) {
+      angular.forEach(resp.data.results, function (goTerm) {
+        $scope.goTermMapping[goTerm.id] = goTerm;
+      });
     });
   }
 
@@ -130,42 +149,6 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
     postProcessGoTerms(_.unique(goTermIds));
   }
 
-  function postProcessTaxa(taxaIds) {
-    $scope.taxaMapping = {};
-    if (taxaIds.length !== 0) {
-      var taxonomyPromise = taxonomyService.getTaxa(taxaIds);
-      taxonomyPromise.then(function (multipleTaxa) {
-        angular.forEach(multipleTaxa.data.taxonomies, function (taxon) {
-          $scope.taxaMapping[taxon.taxonomyId] = taxon;
-        });
-      });
-    }
-  }
-
-  function postProcessGeneProds(geneProductIds) {
-    $scope.gpMapping = {};
-    if (geneProductIds.length !== 0) {
-      var geneProdPromise = geneProductService.getGeneProducts(geneProductIds);
-      geneProdPromise.then(function (response) {
-        angular.forEach(response.data.results, function (geneProd) {
-          $scope.gpMapping[geneProd.id] = geneProd;
-        });
-      }, function (reason) {});
-    }
-  }
-
-  function postProcessGoTerms(goTermIds) {
-    $scope.goTermMapping = {};
-
-    termService.getGOTerms(goTermIds).then(function (resp) {
-      angular.forEach(resp.data.results, function (goTerm) {
-        $scope.goTermMapping[goTerm.id] = goTerm;
-      })
-    }, function (reason) {
-      console.log(reason);
-    });
-  }
-
   /**
    * Put commas between the rather large numbers we can have here.
    */
@@ -173,6 +156,20 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
     $scope.totalItems = numberAnnotations.toLocaleString();
   }
 
+  function getResultsPage() {
+    var query = $routeParams;
+    $scope.columns.slimmedTerm.visible = (query.goUsage && query.goUsage === 'slim');
+
+    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
+      searchService.serializeQuery(query));
+    $scope.resultsPromise.then(function (data) {
+      $scope.goList = data.data;
+      $scope.annotations = $scope.goList.results;
+
+      prettyPrintNumberAnnotations($scope.goList.numberOfHits);
+      postProcess();
+    });
+  }
 
   $scope.pageChanged = function () {
     getResultsPage();
@@ -192,6 +189,6 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
     });
   };
 
-  
+
   getResultsPage();
 });
