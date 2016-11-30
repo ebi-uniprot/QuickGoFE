@@ -13,6 +13,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.blacklistPageSize = $scope.defaultPageSize;
   $scope.childTermsPageSize = $scope.defaultPageSize;
   $scope.taxonConstraintsPageSize = $scope.defaultPageSize;
+  $scope.proteinComplexesPageSize = $scope.defaultPageSize;
   $scope.crossrefsPageSize = $scope.defaultPageSize;
   $scope.crossOntologyPageSize = $scope.defaultPageSize;
   $scope.replacesPageSize = $scope.defaultPageSize;

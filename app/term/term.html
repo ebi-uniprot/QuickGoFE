@@ -125,7 +125,7 @@
     <section id="ancestorChart" ng-if="!isObsolete">
       <h3 class="term-section-header">Ancestor Chart</h3>
       <chart-icon ids="termModel.id" modal="false"></chart-icon>
-    </section
+    </section>
 
     <!-- Child Terms -->
     <section id="childTerms" ng-if="termModel.children.length > 0" ng-hide="isObsolete">
@@ -305,6 +305,36 @@
       <span ng-show="(crossOntologyPageSize === termModel.xRelations.length && termModel.xRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
       </accordion-group>
+    </section>
+
+    <!-- Protein complex -->
+    <section id="termProteinComplexes" ng-if="termModel.proteinComplexes.length > 0">
+      <h3 class="term-section-header">Protein Complexes</h3>
+
+      <table id="proteinComplexesTable" class="two-colours">
+        <tr>
+          <th>Database</th>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+        <tr ng-repeat="complex in termModel.proteinComplexes | limitTo:proteinComplexesPageSize">
+          <td>
+            <a class="quickgo-link selectable" ng-click="followLinkToGeneric(complex.dbCode)" target="_blank">
+              {{complex.dbCode}}
+            </a>
+          </td>
+          <td>
+            <a class="quickgo-link" ng-click="followLinkToEntry(complex.dbId, complex.dbCode)" target="_blank">
+              {{complex.symbol}}
+            </a>
+          </td>
+          <td>{{complex.name}}</td>
+        </tr>
+      </table>
+      <span ng-show="proteinComplexesPageSize < termModel.proteinComplexes.length" ng-click="proteinComplexesPageSize = termModel.proteinComplexes.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+      <span ng-show="proteinComplexesPageSize < termModel.proteinComplexes.length" ng-click="proteinComplexesPageSize = termModel.proteinComplexes.length" class="selectable showMoreLess">show all</span>
+      <span ng-show="(proteinComplexesPageSize === termModel.proteinComplexes.length && termModel.proteinComplexes.length > defaultPageSize)" ng-click="proteinComplexesPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(proteinComplexesPageSize === termModel.proteinComplexes.length && termModel.proteinComplexes.length > defaultPageSize)" ng-click="proteinComplexesPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
     </section>
 
     <!-- show Replaces-->
@@ -554,6 +584,11 @@
           ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length===0))}"
           du-scrollspy="termCrossOntologyRelations">
         <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
+      </li>
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.proteinComplexes || (termModel.proteinComplexes.length===0))}"
+          du-scrollspy="termProteinComplexes">
+        <a class="term-section-view" du-smooth-scroll="termProteinComplexes" >Protein Complexes</a>
       </li>
       <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length===0))}"
           du-scrollspy="termReplaces">
