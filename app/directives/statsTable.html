@@ -1,0 +1,19 @@
+<div class="grid_12">
+    <h5>{{title}}</h5>
+    <table class="two-colours">
+      <tr>
+        <th></th>
+        <th>%</th>
+        <th>Count</th>
+      </tr>
+      <tr ng-repeat="item in items">
+        <td>
+          <term-line id="item.key" ng-if="isTerm"></term-line>
+          <strong ng-if="!isTerm">{{item.key}}</strong>
+        </td>
+        <td>{{item.percentage * 100 | number:2}}</td>
+        <td>{{item.hits | number:0}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
