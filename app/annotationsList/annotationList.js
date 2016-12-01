@@ -149,13 +149,6 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
     postProcessGoTerms(_.unique(goTermIds));
   }
 
-  /**
-   * Put commas between the rather large numbers we can have here.
-   */
-  function prettyPrintNumberAnnotations(numberAnnotations) {
-    $scope.totalItems = numberAnnotations.toLocaleString();
-  }
-
   function getResultsPage() {
     var query = $routeParams;
     $scope.columns.slimmedTerm.visible = (query.goUsage && query.goUsage === 'slim');
@@ -166,7 +159,7 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
       $scope.goList = data.data;
       $scope.annotations = $scope.goList.results;
 
-      prettyPrintNumberAnnotations($scope.goList.numberOfHits);
+      $scope.totalItems = $rootScope.formatNumber($scope.goList.numberOfHits);
       postProcess();
     });
   }

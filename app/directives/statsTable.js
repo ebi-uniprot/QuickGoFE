@@ -11,9 +11,6 @@ angular
         'isTerm' : '@?'
       }, link: function(scope) {
         scope.isTerm = scope.isTerm ? scope.isTerm : false;
-        scope.formatNumber = function(number) {
-          return number.toLocaleString();
-        };
       }
     };
 }]);

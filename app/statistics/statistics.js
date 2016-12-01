@@ -26,7 +26,6 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService) {
       }
       $scope.totalNumberAnnotations += item.totalHits;
     });
-    $scope.totalNumberAnnotations = $scope.totalNumberAnnotations.toLocaleString();
   };
 
   function loadStatistics() {

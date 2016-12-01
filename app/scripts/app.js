@@ -38,6 +38,10 @@ var app = angular
       });
     };
 
+    $rootScope.formatNumber = function(number) {
+      return number.toLocaleString();
+    };
+
     $rootScope.alerts = [];
 
     $rootScope.closeAlert = function(index) {

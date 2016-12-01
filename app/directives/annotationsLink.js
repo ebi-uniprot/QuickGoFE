@@ -1,7 +1,7 @@
 'use strict';
 angular
   .module('quickGoFeApp')
-  .directive('annotationsLink', ['searchService', function(searchService) {
+  .directive('annotationsLink', ['searchService', '$rootScope', function(searchService, $rootScope) {
     return {
       restrict: 'E',
       templateUrl: 'directives/annotationsLink.html',
@@ -13,16 +13,16 @@ angular
         if (scope.termId) {
           if (scope.termId.indexOf('GO') === 0) {
             searchService.findAnnotationsForTerm(scope.termId).then(function(d) {
-              scope.annotationsCount = d.data.numberOfHits.toLocaleString();
+              scope.annotationsCount = $rootScope.formatNumber(d.data.numberOfHits);
             });
           } else {
             searchService.findAnnotationsForECO(scope.termId).then(function(d) {
-              scope.annotationsCount = d.data.numberOfHits.toLocaleString();
+              scope.annotationsCount = $rootScope.formatNumber(d.data.numberOfHits);
             });
           }
         } else if (scope.productId) {
           searchService.findAnnotationsForProduct(scope.productId).then(function(d) {
-            scope.annotationsCount = d.data.numberOfHits.toLocaleString();
+            scope.annotationsCount = $rootScope.formatNumber(d.data.numberOfHits);
           });
         }
 
