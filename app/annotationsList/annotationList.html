@@ -3,7 +3,7 @@
   <p class="buttons-under-tabs">
     <button class="btn quickgo-btn icon-functional" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="s">Customise</button>
     <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
-    <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
+    <span class="pagination-text"><strong>{{totalItems | number:0}}</strong> annotations</strong></span>
   </p>
 
   <div class="column-selector" class="animate-show" ng-show="customiseColumnsContainer">

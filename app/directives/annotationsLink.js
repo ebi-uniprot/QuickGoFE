@@ -13,16 +13,16 @@ angular
         if (scope.termId) {
           if (scope.termId.indexOf('GO') === 0) {
             searchService.findAnnotationsForTerm(scope.termId).then(function(d) {
-              scope.annotationsCount = $rootScope.formatNumber(d.data.numberOfHits);
+              scope.annotationsCount = d.data.numberOfHits;
             });
           } else {
             searchService.findAnnotationsForECO(scope.termId).then(function(d) {
-              scope.annotationsCount = $rootScope.formatNumber(d.data.numberOfHits);
+              scope.annotationsCount = d.data.numberOfHits;
             });
           }
         } else if (scope.productId) {
           searchService.findAnnotationsForProduct(scope.productId).then(function(d) {
-            scope.annotationsCount = $rootScope.formatNumber(d.data.numberOfHits);
+            scope.annotationsCount = d.data.numberOfHits;
           });
         }
 

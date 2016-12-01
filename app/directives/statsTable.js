@@ -1,7 +1,7 @@
 'use strict';
 angular
   .module('quickGoFeApp')
-  .directive('statsTable', [ function() {
+  .directive('statsTable', [function() {
     return {
       restrict: 'E',
       templateUrl: 'directives/statsTable.html',

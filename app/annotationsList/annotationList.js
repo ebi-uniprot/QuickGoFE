@@ -159,7 +159,7 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
       $scope.goList = data.data;
       $scope.annotations = $scope.goList.results;
 
-      $scope.totalItems = $rootScope.formatNumber($scope.goList.numberOfHits);
+      $scope.totalItems = $scope.goList.numberOfHits;
       postProcess();
     });
   }

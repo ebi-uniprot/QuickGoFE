@@ -13,8 +13,8 @@
           <strong ng-if="!isTerm">{{item.key}}</strong>
         </td>
         <td></td>
-        <td>{{formatNumber(item.percentage)}}</td>
-        <td>{{formatNumber(item.hits)}}</td>
+        <td>{{item.percentage * 100 | number:0}}</td>
+        <td>{{item.hits | number:0}}</td>
       </tr>
     </table>
   </div>
