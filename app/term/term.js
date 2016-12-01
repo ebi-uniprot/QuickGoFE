@@ -3,15 +3,17 @@
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
                                     ENV, quickGOHelperService, $document, $routeParams, termService,
-                                    ontoTypeService, PreDefinedSlimSets) {
+                                    ontoTypeService, presetsService) {
 
   $scope.targetDomainAndPort = ENV.apiEndpoint;
 
   // set default row count for tables
   $scope.defaultPageSize = 10;
+  $scope.statsLimit = 100;
   $scope.blacklistPageSize = $scope.defaultPageSize;
   $scope.childTermsPageSize = $scope.defaultPageSize;
   $scope.taxonConstraintsPageSize = $scope.defaultPageSize;
+  $scope.proteinComplexesPageSize = $scope.defaultPageSize;
   $scope.crossrefsPageSize = $scope.defaultPageSize;
   $scope.crossOntologyPageSize = $scope.defaultPageSize;
   $scope.replacesPageSize = $scope.defaultPageSize;
@@ -25,20 +27,20 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
   $scope.termInformation = true;
 
-  var termId = $routeParams.goId;
-  $rootScope.header = "QuickGO::Term "+termId;
+  $scope.goTermMapping = {};
+  $scope.slimSetMapping = {};
+
+  $scope.termId = $routeParams.goId;
+  $rootScope.header = "QuickGO::Term "+$scope.termId;
 
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
-  if (termId.lastIndexOf('ECO', 0) === 0) {
+  if ($scope.termId.lastIndexOf('ECO', 0) === 0) {
     $scope.isGoTerm = false;
-    $scope.termPromise = termService.getECOTerms(termId);
+    $scope.termPromise = termService.getECOCompleteTerms($scope.termId);
   } else {
     $scope.isGoTerm = true;
-    $scope.termPromise = termService.getGOTerms(termId);
+    $scope.termPromise = termService.getGOCompleteTerms($scope.termId);
   }
-
-  //Get predefined slim sets
-  //$scope.predefinedSlimSets = PreDefinedSlimSets.query();
 
   /**
    * Get Term Data from WS
@@ -78,10 +80,10 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
         if($scope.isGoTerm) {
           $scope.additionalTermsPromise = termService.getGOTerms(ids);
+          getSlimSet();
         } else {
           $scope.additionalTermsPromise = termService.getECOTerms(ids);
         }
-
 
         $scope.additionalTermsPromise
             .then(function(moreData) {
@@ -94,55 +96,24 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
             }
         );
 
-        //Set GO Slim subset counts
-        /*angular.forEach($scope.predefinedSlimSets, function(slim) {
-          angular.forEach($scope.termModel.subsets, function(subset) {
-
-            if (subset.name === slim.subset) {
-              subset.count = slim.subsetCount;
-            }
-
-          });
-        });*/
-
     },function(reason) {
         $scope.notFoundReason = reason;
         angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
     });
 
-  if($scope.isGoTerm) {
-    // Set up statistics for co-occurring page
-    /*$scope.statsPromise = termService.getStats(termId);
-    $scope.statsPromise.then(function(d){
-      $scope.stats = d.data;
-      $scope.totalTogetherAllStats = 0;
-      $scope.totalComparedAllStats = 0;
-      $scope.totalTogetherNonIEAStats = 0;
-      $scope.totalComparedNonIEAStats = 0;
-
-      angular.forEach(d.data.allCoOccurrenceStatsTerms, function(val){
-        $scope.totalTogetherAllStats = $scope.totalTogetherAllStats + val.together;
-        $scope.totalComparedAllStats = $scope.totalTogetherAllStats + val.compared;
-      });
-
-      angular.forEach(d.data.nonIEACOOccurrenceStatistics, function(val, key){
-        $scope.totalTogetherNonIEAStats = $scope.totalTogetherNonIEAStats + val.together;
-        $scope.totalComparedNonIEAStats = $scope.totalComparedNonIEAStats + val.compared;
-      });
-    });
-    */
-
-    // Set up blacklist for selected term
-    /*$scope.blacklistPromise = termService.getBlacklist(termId);
-    $scope.blacklistPromise.then(function(d){
-      console.log("Blacklist returned for term", d);
-      $scope.termWithBlacklist = d.data;
-    });*/
-  }
-
   /**
    * ---------------------------------------------- Scope methods ----------------------------------------------------
    */
+
+    var getSlimSet = function() {
+        presetsService.getPresetsGOSlimSets().then(function(resp) {
+            angular.forEach(resp.data.goSlimSets, function(slimSet) {
+                if (_.contains($scope.termModel.subsets, slimSet.name)) {
+                    $scope.slimSetMapping[slimSet.name] = slimSet;
+                }
+            });
+        });
+    };
 
     var addInformation = function(lst, moreDataLst) {
         angular.forEach(lst, function(term) {
@@ -177,7 +148,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
                     len = areas.length,
                     coords = [];
 
-               for (n = 0; n < len; n++) {
+               for (var n = 0; n < len; n++) {
                    coords[n] = areas[n].coords.split(',');
                }
                if (originalCoords.length < 1){

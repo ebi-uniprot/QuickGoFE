@@ -75,12 +75,12 @@
     <p>
         This term was created by the GO Consortium with support from:
           <span ng-repeat="credit in termModel.credits">
-            <a ng-if="credit.code == 'BHF'" href="{{credit.url}}" target="_blank"><img
+            <a ng-if="credit.code === 'BHF'" href="{{credit.url}}" target="_blank"><img
               src="https://www.bhf.org.uk/~/media/images/admin/logo/bhf-logo.png" alt="BHF image" class="credit-image"/></a>
-            <a ng-if="credit.code == 'KRUK'" href="{{credit.url}}" target="_blank"> <img
+            <a ng-if="credit.code === 'KRUK'" href="{{credit.url}}" target="_blank"> <img
               src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image"
               class="credit-image"/></a>
-            <a ng-if="credit.code == 'PARKUK'" href="{{credit.url}}" target="_blank"> <img
+            <a ng-if="credit.code === 'PARKUK'" href="{{credit.url}}" target="_blank"> <img
               src="http://www.ebi.ac.uk/QuickGO/image/PARKUK.png" alt="PARK image"
               class="credit-image"/></a>
           </span>
@@ -115,8 +115,8 @@
       </table>
       <span ng-show="synonymPageSize < termModel.synonyms.length" ng-click="synonymPageSize = termModel.synonyms.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
       <span ng-show="synonymPageSize < termModel.synonyms.length" ng-click="synonymPageSize = termModel.synonyms.length" class="selectable showMoreLess">show all</span>
-      <span ng-show="(synonymPageSize == termModel.synonyms.length && termModel.synonyms.length > defaultPageSize)" ng-click="synonymPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-      <span ng-show="(synonymPageSize == termModel.synonyms.length && termModel.synonyms.length > defaultPageSize)" ng-click="synonymPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      <span ng-show="(synonymPageSize === termModel.synonyms.length && termModel.synonyms.length > defaultPageSize)" ng-click="synonymPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(synonymPageSize === termModel.synonyms.length && termModel.synonyms.length > defaultPageSize)" ng-click="synonymPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
 
     </section>
@@ -125,7 +125,7 @@
     <section id="ancestorChart" ng-if="!isObsolete">
       <h3 class="term-section-header">Ancestor Chart</h3>
       <chart-icon ids="termModel.id" modal="false"></chart-icon>
-    </section
+    </section>
 
     <!-- Child Terms -->
     <section id="childTerms" ng-if="termModel.children.length > 0" ng-hide="isObsolete">
@@ -147,8 +147,8 @@
         </table>
         <span ng-show="childTermsPageSize < termModel.children.length" ng-click="childTermsPageSize = termModel.children.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
         <span ng-show="childTermsPageSize < termModel.children.length" ng-click="childTermsPageSize = termModel.children.length" class="selectable showMoreLess">show all</span>
-        <span ng-show="(childTermsPageSize == termModel.children.length && termModel.children.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-        <span ng-show="(childTermsPageSize == termModel.children.length && termModel.children.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+        <span ng-show="(childTermsPageSize === termModel.children.length && termModel.children.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+        <span ng-show="(childTermsPageSize === termModel.children.length && termModel.children.length > defaultPageSize)" ng-click="childTermsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
       </div>
     </section>
 
@@ -218,8 +218,8 @@
       </table>
       <span ng-show="taxonConstraintsPageSize < termModel.taxonConstraints.length" ng-click="taxonConstraintsPageSize = termModel.taxonConstraints.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
       <span ng-show="taxonConstraintsPageSize < termModel.taxonConstraints.length" ng-click="taxonConstraintsPageSize = termModel.taxonConstraints.length" class="selectable showMoreLess">show all</span>
-      <span ng-show="(taxonConstraintsPageSize == termModel.taxonConstraints.length && termModel.taxonConstraints.length > defaultPageSize)" ng-click="taxonConstraintsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-      <span ng-show="(taxonConstraintsPageSize == termModel.taxonConstraints.length && termModel.taxonConstraints.length > defaultPageSize)" ng-click="taxonConstraintsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      <span ng-show="(taxonConstraintsPageSize === termModel.taxonConstraints.length && termModel.taxonConstraints.length > defaultPageSize)" ng-click="taxonConstraintsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(taxonConstraintsPageSize === termModel.taxonConstraints.length && termModel.taxonConstraints.length > defaultPageSize)" ng-click="taxonConstraintsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
       <p>More information on taxon constraints in GO is available <a target="_blank" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000056">here</a></p>
     </section>
@@ -254,8 +254,8 @@
       </table>
       <span ng-show="blacklistPageSize < termModel.blacklist.length" ng-click="blacklistPageSize = termModel.blacklist.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
       <span ng-show="blacklistPageSize < termModel.blacklist.length" ng-click="blacklistPageSize = termModel.blacklist.length" class="selectable showMoreLess">show all</span>
-      <span ng-show="(blacklistPageSize == termModel.blacklist.length && termModel.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-      <span ng-show="(blacklistPageSize == termModel.blacklist.length && termModel.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      <span ng-show="(blacklistPageSize === termModel.blacklist.length && termModel.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(blacklistPageSize === termModel.blacklist.length && termModel.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
 
     </section>
@@ -277,8 +277,8 @@
       </table>
       <span ng-show="crossrefsPageSize < termModel.xRefs.length" ng-click="crossrefsPageSize = termModel.xRefs.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
       <span ng-show="crossrefsPageSize < termModel.xRefs.length" ng-click="crossrefsPageSize = termModel.xRefs.length" class="selectable showMoreLess">show all</span>
-      <span ng-show="(crossrefsPageSize == termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-      <span ng-show="(crossrefsPageSize == termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      <span ng-show="(crossrefsPageSize === termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(crossrefsPageSize === termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
     </section>
 
@@ -301,10 +301,40 @@
       </table>
       <span ng-show="crossOntologyPageSize < termModel.xRelations.length" ng-click="crossOntologyPageSize = termModel.xRelations.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
       <span ng-show="crossOntologyPageSize < termModel.xRelations.length" ng-click="crossOntologyPageSize = termModel.xRelations.length" class="selectable showMoreLess">show all</span>
-      <span ng-show="(crossOntologyPageSize == termModel.xRelations.length && termModel.xRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-      <span ng-show="(crossOntologyPageSize == termModel.xRelations.length && termModel.xRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      <span ng-show="(crossOntologyPageSize === termModel.xRelations.length && termModel.xRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(crossOntologyPageSize === termModel.xRelations.length && termModel.xRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
       </accordion-group>
+    </section>
+
+    <!-- Protein complex -->
+    <section id="termProteinComplexes" ng-if="termModel.proteinComplexes.length > 0">
+      <h3 class="term-section-header">Protein Complexes</h3>
+
+      <table id="proteinComplexesTable" class="two-colours">
+        <tr>
+          <th>Database</th>
+          <th>ID</th>
+          <th>Name</th>
+        </tr>
+        <tr ng-repeat="complex in termModel.proteinComplexes | limitTo:proteinComplexesPageSize">
+          <td>
+            <a class="quickgo-link selectable" ng-click="followLinkToGeneric(complex.dbCode)" target="_blank">
+              {{complex.dbCode}}
+            </a>
+          </td>
+          <td>
+            <a class="quickgo-link" ng-click="followLinkToEntry(complex.dbId, complex.dbCode)" target="_blank">
+              {{complex.symbol}}
+            </a>
+          </td>
+          <td>{{complex.name}}</td>
+        </tr>
+      </table>
+      <span ng-show="proteinComplexesPageSize < termModel.proteinComplexes.length" ng-click="proteinComplexesPageSize = termModel.proteinComplexes.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+      <span ng-show="proteinComplexesPageSize < termModel.proteinComplexes.length" ng-click="proteinComplexesPageSize = termModel.proteinComplexes.length" class="selectable showMoreLess">show all</span>
+      <span ng-show="(proteinComplexesPageSize === termModel.proteinComplexes.length && termModel.proteinComplexes.length > defaultPageSize)" ng-click="proteinComplexesPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(proteinComplexesPageSize === termModel.proteinComplexes.length && termModel.proteinComplexes.length > defaultPageSize)" ng-click="proteinComplexesPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
     </section>
 
     <!-- show Replaces-->
@@ -327,8 +357,8 @@
       </table>
       <span ng-show="replacesPageSize < termModel.replaces.length" ng-click="replacesPageSize = termModel.replaces.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
       <span ng-show="replacesPageSize < termModel.replaces.length" ng-click="replacesPageSize = termModel.replaces.length" class="selectable showMoreLess">show all</span>
-      <span ng-show="(replacesPageSize == termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-      <span ng-show="(replacesPageSize == termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      <span ng-show="(replacesPageSize === termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+      <span ng-show="(replacesPageSize === termModel.replaces.length && termModel.replaces.length > defaultPageSize)" ng-click="replacesPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
     </section>
 
     <!-- Replaced By-->
@@ -353,111 +383,31 @@
     </section>
 
     <!-- Co-occurring statistics -->
-    <!--section id="coOcurring" ng-hide="!isGoTerm || isObsolete">
-      <h3 class="term-section-header"><span uib-tooltip-template="'co-occurring.html'" tooltip-placement="top-right">Co-occurring Terms</span></h3>
-        <uib-tabset>
-          <uib-tab heading="Based on Entire Annotation set">
-            <div id="allCoOccurringStats">
-              <h5 ng-show="stats.allCoOccurrenceStatsTerms.length == 0">
-                <element class='icon icon-generic' data-icon='l'>
-                  No co-occurring terms for {{termModel.id}} based on the entire annotation set
-                </element>
-              </h5>
-            <div ng-show="stats.allCoOccurrenceStatsTerms.length > 0">
-              <table id="allCoOccurringStatsTable" class="two-colours">
-                <tr>
-                  <th>Co-occurring Term</th>
-                  <th>PR</th>
-                  <th>S%</th>
-                  <th>#Together</th>
-                  <th>#Compared</th>
-                </tr>
-                <tr ng-repeat="allStat in stats.allCoOccurrenceStatsTerms | limitTo:coOccurringEntirePageSize">
-                  <td width="70%">
-                    <span ng-if="allStat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{allStat.aspect}}">{{allStat.aspect}}</span>
-                    <a class="quickgo-link" ng-href="term/{{allStat.compare}}">{{allStat.compare}}</a>
-                    <basket-button termid="{{allStat.compare}}"></basket-button>
-                    <chart-icon term-id="allStat.compare" term-name="allStat.name"></chart-icon>
-                    {{allStat.name}}
-                  </td>
-                  <td>{{allStat.probabilityRatio}}</td>
-                  <td>{{allStat.significance}}</td>
-                  <td>{{allStat.together}}</td>
-                  <td>{{allStat.compared}}</td>
-                </tr>
-                <tr>
-                  <td colspan="5">
-                    <span ng-show="coOccurringEntirePageSize < stats.allCoOccurrenceStatsTerms.length" ng-click="coOccurringEntirePageSize = stats.allCoOccurrenceStatsTerms.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-                    <span ng-show="coOccurringEntirePageSize < stats.allCoOccurrenceStatsTerms.length" ng-click="coOccurringEntirePageSize = stats.allCoOccurrenceStatsTerms.length" class="selectable showMoreLess">show all</span>
-                    <span ng-show="(coOccurringEntirePageSize == stats.allCoOccurrenceStatsTerms.length && stats.allCoOccurrenceStatsTerms.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-                    <span ng-show="(coOccurringEntirePageSize == stats.allCoOccurrenceStatsTerms.length && stats.allCoOccurrenceStatsTerms.length > defaultPageSize)" ng-click="coOccurringEntirePageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="3"><strong>Totals</strong></td>
-                  <td><strong>{{totalTogetherAllStats}}</strong></td>
-                  <td><strong>{{totalComparedAllStats}}</strong></td>
-                </tr>
-              </table>
-            </div>
+    <section id="coOcurring" ng-hide="!isGoTerm || isObsolete">
+      <h3 class="term-section-header">
+        <span uib-tooltip-template="'co-occurring.html'" tooltip-placement="top-right">Co-occurring Terms</span>
+      </h3>
+      <uib-tabset>
+        <uib-tab heading="Based on Entire Annotation set">
+          <div id="allCoOccurringStats">
+            <coterms id="termId" mode="'ALL'" limit="statsLimit" page-size="coOccurringEntirePageSize"
+               table-id="'allCoOccurringStatsTable'" default-page-size="defaultPageSize"></coterms>
+        </div>
+        </uib-tab>
+
+        <uib-tab heading="Based on Manual Annotations only">
+          <div id="nonIEACoOccurringStats">
+            <coterms id="termId" mode="'MANUAL'" limit="statsLimit" size="10" page-size="coOccurringManualPageSize"
+              table-id="'manualCoOccurringStatsTable'" default-page-size="defaultPageSize"></coterms>
           </div>
-          </uib-tab>
 
-          <uib-tab heading="Based on Manual Annotations only">
-            <div id="nonIEACoOccurringStats">
-              <h5 ng-show="stats.nonIEACOOccurrenceStatistics.length == 0">
-                <element class='icon icon-generic' data-icon='l'>
-                  No co-occurring statistics for {{termModel.id}} based on manual annotations
-                </element>
-              </h5>
-              <div ng-show="stats.nonIEACOOccurrenceStatistics.length > 0">
-                <table id="nonIEACoOccurringStatsTable" class="two-colours">
-                  <tr>
-                    <th>Co-occurring Term</th>
-                    <th>PR</th>
-                    <th>S%</th>
-                    <th>#Together</th>
-                    <th>#Compared</th>
-                  </tr>
-                  <tr ng-repeat="nonIEAStat in stats.nonIEACOOccurrenceStatistics | limitTo:coOccurringManualPageSize">
-                    <td width="70%">
-                      <span ng-if="nonIEAStat.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{nonIEAStat.aspect}}">{{nonIEAStat.aspect}}</span>
-                      <a class="quickgo-link" ng-href="term/{{nonIEAStat.compare}}">{{nonIEAStat.compare}}</a>
-                      <basket-button termid="{{nonIEAStat.compare}}"></basket-button>
-                      <chart-icon term-id="nonIEAStat.compare" term-name="nonIEAStat.name"></chart-icon>
-                      {{nonIEAStat.name}}
-                    </td>
-                    <td>{{nonIEAStat.probabilityRatio}}</td>
-                    <td>{{nonIEAStat.significance}}</td>
-                    <td>{{nonIEAStat.together}}</td>
-                    <td>{{nonIEAStat.compared}}</td>
-                  </tr>
-                  <tr>
-                    <td colspan="5">
-                      <span ng-show="coOccurringManualPageSize < stats.nonIEACOOccurrenceStatistics.length" ng-click="coOccurringManualPageSize = stats.nonIEACOOccurrenceStatistics.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-                      <span ng-show="coOccurringManualPageSize < stats.nonIEACOOccurrenceStatistics.length" ng-click="coOccurringManualPageSize = stats.nonIEACOOccurrenceStatistics.length" class="selectable showMoreLess">show all</span>
-                      <span ng-show="(coOccurringManualPageSize == stats.nonIEACOOccurrenceStatistics.length && stats.nonIEACOOccurrenceStatistics.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-                      <span ng-show="(coOccurringManualPageSize == stats.nonIEACOOccurrenceStatistics.length && stats.nonIEACOOccurrenceStatistics.length > defaultPageSize)" ng-click="coOccurringManualPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+        </uib-tab>
+      </uib-tabset>
 
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td colspan="3"><strong>Totals</strong></td>
-                    <td><strong>{{totalTogetherNonIEAStats}}</strong></td>
-                    <td><strong>{{totalComparedNonIEAStats}}</strong></td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-
-          </uib-tab>
-        </uib-tabset>
-
-    </section-->
+    </section>
 
     <!-- GO Slims -->
-    <!--section id="termGOSlims" ng-if="termModel.subsets.length > 0">
+    <section id="termGOSlims" ng-if="termModel.subsets.length > 0">
       <h3 class="term-section-header">GO Slims</h3>
 
       <p>This term is present in the following GO Consortium-maintained GO slims:</p>
@@ -467,11 +417,11 @@
           <th>Total Number of Terms in Slim</th>
         </tr>
         <tr ng-repeat="subset in termModel.subsets">
-          <td>{{subset.name}}</td>
-          <td>{{subset.count}}</td>
+          <td>{{subset}}</td>
+          <td>{{slimSetMapping[subset].associations.length}}</td>
         </tr>
       </table>
-    </section-->
+    </section>
 
     <!-- Change log -->
     <section id="termHistory">
@@ -494,8 +444,8 @@
           </table>
           <span ng-show="changeLogPageSize < termModel.history.length" ng-click="changeLogPageSize = termModel.history.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
           <span ng-show="changeLogPageSize < termModel.history.length" ng-click="changeLogPageSize = termModel.history.length" class="selectable showMoreLess">show all</span>
-          <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-          <span ng-show="(changeLogPageSize == termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+          <span ng-show="(changeLogPageSize === termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+          <span ng-show="(changeLogPageSize === termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
 
         </uib-tab>
 
@@ -596,58 +546,63 @@
       <li du-scrollspy="overview">
         <a class="term-section-view" du-smooth-scroll="overview">Overview</a>
       </li>
-      <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length==0))}"
+      <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length===0))}"
           du-scrollspy="termSynonyms">
         <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
       </li>
       <li du-scrollspy="ancestorChart" ng-hide="isObsolete">
         <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
       </li>
-      <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length==0))}" ng-hide="isObsolete"
+      <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length===0))}" ng-hide="isObsolete"
           du-scrollspy="childTerms">
         <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
       </li>
       <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.annotationGuidelines || (termModel.annotationGuidelines.length==0))}"
+          ng-class="{'section-disabled':(!termModel.annotationGuidelines || (termModel.annotationGuidelines.length===0))}"
           du-scrollspy="termAnnotationGuidance">
         <a class="term-section-view" du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
       </li>
       <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.goDiscussions || (termModel.plannedChanges.length==0))}"
+          ng-class="{'section-disabled':(!termModel.goDiscussions || (termModel.plannedChanges.length===0))}"
           du-scrollspy="goDiscussions">
         <a class="term-section-view" du-smooth-scroll="goDiscussions" >GO Discussions</a>
       </li>
       <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.taxonConstraints || (termModel.taxonConstraints.length==0))}"
+          ng-class="{'section-disabled':(!termModel.taxonConstraints || (termModel.taxonConstraints.length===0))}"
           du-scrollspy="termTaxonConstraints">
         <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.blacklist || (termModel.blacklist.length==0))}"
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.blacklist || (termModel.blacklist.length===0))}"
           du-scrollspy="blacklist">
         <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
       </li>
-      <li ng-class="{'section-disabled':(!termModel.xRefs || (termModel.xRefs.length==0))}"
+      <li ng-class="{'section-disabled':(!termModel.xRefs || (termModel.xRefs.length===0))}"
           du-scrollspy="termCrossReferences">
         <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
       </li>
       <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length==0))}"
+          ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length===0))}"
           du-scrollspy="termCrossOntologyRelations">
         <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length==0))}"
+      <li ng-hide="!isGoTerm"
+          ng-class="{'section-disabled':(!termModel.proteinComplexes || (termModel.proteinComplexes.length===0))}"
+          du-scrollspy="termProteinComplexes">
+        <a class="term-section-view" du-smooth-scroll="termProteinComplexes" >Protein Complexes</a>
+      </li>
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length===0))}"
           du-scrollspy="termReplaces">
         <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
       </li>
       <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length==0))}"
+          ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length===0))}"
           du-scrollspy="termReplacedBy">
         <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
       </li>
       <li ng-hide="!isGoTerm || isObsolete" du-scrollspy="coOcurring">
         <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
       </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length==0))}"
+      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length===0))}"
           du-scrollspy="termGOSlims">
         <a class="term-section-view" du-smooth-scroll="termGOSlims">GO Slims</a>
       </li>
@@ -678,4 +633,3 @@
 <script type="text/ng-template" id="childterms.html"><span>This table lists all terms that are direct descendants (child terms) of {{termModel.id}}</span></script>
 <script type="text/ng-template" id="blacklist.html"><span>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
   annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</span></script>
-<script type="text/ng-template" id="colAspect.html"><span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span></script>
