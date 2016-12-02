@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: AnnotationListCtrl', function() {
+describe('Controller: StatisticsCtrl', function() {
 
   // load the controller's module
   beforeEach(module('quickGoFeApp'));
