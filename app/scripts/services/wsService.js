@@ -4,11 +4,34 @@ var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
 wsService.factory('presetsService', ['$http', 'ENV',
   function ($http, ENV) {
-    return{
-      //TODO this will be broken into different presets e.g. /goSlimSets
-      getPresets: function() {
-        return $http.get(ENV.apiEndpoint + '/internal/presets');
-      }
+    return {
+        getPresetsAssignedBy: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=assignedBy');
+        },
+        getPresetsReferences: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=references');
+        },
+        getPresetsEvidences: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=evidences');
+        },
+        getPresetsWithFrom: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=withFrom');
+        },
+        getPresetsGeneProducts: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProducts');
+        },
+        getPresetsGOSlimSets: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=goSlimSets');
+        },
+        getPresetsTaxa: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=taxons');
+        },
+        getPresetsAspects: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=aspects');
+        },
+        getPresetsGeneProductTypes: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProductTypes');
+        }
     }
   }]);
 
@@ -28,16 +51,27 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   //var
   return {
       getGOTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/ontology/go/terms/' + ids);
+        return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids);
       },
       getECOTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/ontology/eco/terms/' + ids);
+        return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids);
       },
-      getStats : function(termId) {
-        return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
+      getGOCompleteTerms : function(ids) {
+          return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/complete');
+      },
+      getECOCompleteTerms : function(ids) {
+          return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/complete');
+      },
+      getAllStats : function(termId, limit) {
+        return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId +
+            (limit ? '?limit=' + limit : ''));
+      },
+      getManualStats : function(termId, limit) {
+          return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId + '?source=MANUAL' +
+              (limit ? '&limit=' + limit : ''));
       },
       getBlacklist : function(termId) {
-      return $http.get(ENV.apiEndpoint+'/term/' + termId + '/blacklist');
+      return $http.get(ENV.apiEndpoint + '/term/' + termId + '/blacklist');
     }
   };
 }]);
@@ -114,6 +148,9 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findAnnotations: function(page, size, filters) {
           return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
       },
+      findAnnotationStatistics: function(filters) {
+          return $http.get(ENV.apiEndpoint+'/annotation/stats?' + filters);
+      },
       findAnnotationsForTerm: function(searchTerm) {
           return $http.get(ENV.apiEndpoint + '/annotation/search?goId=' + searchTerm);
       },
@@ -179,8 +216,15 @@ wsService.factory('chartService', ['$http', 'ENV', function($http, ENV){
     },
     getGOImageMap: function(ids) {
       return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart/coords');
+    },
+    getECOChart: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/chart');
+    },
+    getECOImageMap: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/chart/coords');
     }
-  }
+
+  };
 }]);
 
 wsService.factory('annotationUpdates', ['$resource', 'ENV', function($resource, ENV){

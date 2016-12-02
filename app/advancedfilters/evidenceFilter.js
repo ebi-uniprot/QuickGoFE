@@ -1,3 +1,4 @@
+'use strict';
 app.controller('evidenceFilter', function ($scope, presetsService, stringService, validationService) {
 
   $scope.ecos = {};
@@ -5,34 +6,39 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
 
   var init = function () {
-    presetsService.getPresets().then(function (d) {
+    presetsService.getPresetsEvidences().then(function (d) {
       var evidences = d.data.evidences;
-      var checked = [];
       if($scope.$parent.query.evidenceCode) {
-        checked = checked.concat($scope.$parent.query.evidenceCode.split(','))
+        angular.forEach($scope.query.evidenceCode.split(','), function(id) {
+          $scope.ecos[id] = {
+            'id':id,
+            'checked':true
+          };
+        });
       }
       //The order of the evidence codes is important
       //var evidenceTypes = _.sortBy(evidences, 'evidenceGOID');
       angular.forEach(evidences, function (evidenceType) {
-        evidenceType.checked = _.contains(checked, evidenceType.id);
+        evidenceType.checked = _.contains(_.keys($scope.ecos), evidenceType.id);
         $scope.ecos[evidenceType.id] = evidenceType;
       });
     });
   };
-  
+
+  var getQuery = function() {
+    return _.pluck(_.filter(_.values($scope.ecos), 'checked'), 'id');
+  };
+
   $scope.apply = function() {
     $scope.$parent.addToQuery('evidenceCode', getQuery());
     $scope.$parent.addToQuery('evidenceCodeUsage', $scope.evidenceCodeUsage);
-  }
-  
-  var getQuery = function() {
-    return _.pluck(_.filter(_.values($scope.ecos), 'checked'), 'id');
-  }
+  };
 
   $scope.reset = function () {
     $scope.$parent.query.evidenceCode = '';
+    $scope.$parent.query.evidenceCodeUsage = '';
     $scope.$parent.updateQuery();
-  }
+  };
 
   $scope.addECOs = function () {
     var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
@@ -41,11 +47,10 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
         if($scope.ecos[ecoID]) {
           $scope.ecos[ecoID].checked = true;
         } else {
-          var eco = {
+          $scope.ecos[ecoID] = {
             'id':ecoID,
             'checked':true
-          }
-          $scope.ecos[ecoID] = eco;
+          };
         }
       }
     });

@@ -1,39 +1,30 @@
-app.controller('productTypeFilter', function($scope){
+app.controller('productTypeFilter', function($scope, presetsService){
 
-  $scope.gpTypes = {
-    'protein': {
-      'id': 'protein',
-      'label': 'Protein',
-      'checked': false
-    },
-    'rna': {
-      'id': 'rna',
-      'label': 'RNA',
-      'checked': false
-    },
-    'complex': {
-      'id': 'complex',
-      'label': 'Complex',
-      'checked': false
-    },
-  };
+  $scope.gpTypes = {};
 
   var init = function() {
-    if($scope.$parent.query.geneProductType) {
-      angular.forEach($scope.$parent.query.geneProductType.split(','), function(type) {
-        $scope.gpTypes[type].checked = true;
-      })
+    var checked = [];
+    if($scope.query.geneProductType) {
+      checked = checked.concat($scope.query.geneProductType.split(','))
     }
-  }
+
+    presetsService.getPresetsGeneProductTypes().then(function(resp){
+      var allTypes = _.sortBy(resp.data.geneProductTypes, 'name');
+      angular.forEach(allTypes, function(type){
+        type.checked = _.contains(checked, type.id);
+        $scope.gpTypes[type.id] = type;
+      });
+    });
+  };
 
   $scope.reset = function() {
-    $scope.$parent.query.geneProductType = '';
-    $scope.$parent.updateQuery();
-  }
+    $scope.query.geneProductType = '';
+    $scope.updateQuery();
+  };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
-  }
+    $scope.addToQuery('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
+  };
 
   init();
 });
