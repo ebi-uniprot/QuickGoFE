@@ -11,7 +11,7 @@
       <p><a ng-click="gProteinSet.url" target="_blank">{{gProteinSet.url}}</a></p>
       <br/>
       <p>
-        <strong>{{results.numberOfHits}}</strong> results</strong>
+        <strong>{{data.numberOfHits}}</strong> results</strong>
       </p>
       <table id="searchResults" class="two-colours">
         <tr>
@@ -21,20 +21,28 @@
           <th>Taxon</th>
           <th>Taxon Name</th>
         </tr>
-        <!--tr ng-repeat="searchResult in results.results">
-          <td><a ng-click="followLinkToGeneric(searchResult.database)" target="_blank">{{searchResult.database}}</a></td>
-          <td><a ng-click="followLinkToEntry(searchResult.id, searchResult.database)" target="_blank">
-            {{searchResult.id}}</a></td>
-          <td ng-bind-html="highlight(searchResult.name)"></td>
-          <td>{{searchResult.type}}</td>
-          <td>
-            <a class="quickgo-link selectable" ng-click="followLinkToEntry(searchResult.taxonId, 'TAXON')" target="_blank">
-              {{taxaMapping[searchResult.taxonId].scientificName}}
-            </a>
+        <tr>
+          <th colspan="5" style="text-align: center;">
+            <span ng-repeat="(key, elements) in data.hits">
+              {{key}} |
+            </span>
+          </th>
+        </tr>
+        <tr ng-repeat="(key, elements) in data.hits">
+          <td colspan="5">
+            <table class="two-colours">
+             <th colspan="5" style="text-align: center;">{{key}} (Top)</th>
+             <tr ng-repeat="item in elements">
+               <td>{{item.symbol}}</td>
+               <td>{{item.id}}</td>
+               <td>{{item.name}}</td>
+               <td>{{item.taxonId}}</td>
+               <td>{{taxaMapping[item.taxonId].scientificName}}</td>
+               <td></td>
+             </tr>
+           </table>
           </td>
-          <td><a href="annotations/filter?gpID={{searchResult.id}}" class="annotations-link"><annotations-link
-                  productid="{{searchResult.id}}"></annotations-link></a></td>
-        </tr-->
+        </tr>
       </table>
     </div>
   </div>

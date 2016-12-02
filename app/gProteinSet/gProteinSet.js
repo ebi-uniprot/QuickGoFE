@@ -4,7 +4,7 @@ app.controller('GProteinSetCtrl', function($scope, $uibModal, $routeParams,
   $scope.gpSetName = $routeParams.gpSetName;
 
   function init() {
-    var gpSetPromise = presetsService.getPresets(); //TODO change to specific preset once available in master
+    var gpSetPromise = presetsService.getPresetsGeneProducts();
     gpSetPromise.then(
       function(response) {
         $scope.gProteinSet = _.find(response.data.geneProducts, function(gp) {
@@ -18,15 +18,30 @@ app.controller('GProteinSetCtrl', function($scope, $uibModal, $routeParams,
   function getResultsPage() {
     $scope.queryPromise = geneProductService.getTargetSet($scope.gpSetName);
     $scope.queryPromise.then(
-      function(result) {
-        $scope.results = result.data;
+      function(resp) {
+        $scope.data = resp.data;
+        $scope.data.hits = {};
         getTaxaForData();
+        postProcessData();
       });
+  }
+
+  function postProcessData() {
+    var temp = _.sortBy($scope.data.results, 'symbol');
+    angular.forEach(temp, function(geneProd) {
+      geneProd.symbol = geneProd.symbol.toUpperCase();
+      var initial = /[A-Z]/.test(geneProd.symbol.charAt(0)) ? geneProd.symbol.charAt(0) : 'other';
+      if ($scope.data.hits[initial]) {
+        $scope.data.hits[initial].push(geneProd);
+      } else {
+        $scope.data.hits[initial] = [geneProd];
+      }
+    });
   }
 
   function getTaxaForData() {
     var taxaIds = [];
-    angular.forEach($scope.results.results, function(geneProd) {
+    angular.forEach($scope.data.results, function(geneProd) {
       taxaIds.push(geneProd.taxonId);
     });
 
