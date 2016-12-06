@@ -1,0 +1,44 @@
+<h5 ng-show="stats.results.length == 0">
+  <element class='icon icon-generic' data-icon='l'>
+    No co-occurrence statistics for {{id}} based on {{mode}} annotations
+  </element>
+</h5>
+<div ng-show="stats.results.length > 0">
+  <h6>
+    The top {{displayLimit}} of {{stats.numberOfHits}} co-occurring terms
+  </h6>
+  <table id="tableId" class="two-colours">
+    <tr>
+      <th>Co-occurring Term</th>
+      <th>PR</th>
+      <th>S%</th>
+      <th>#Together</th>
+      <th>#Compared</th>
+    </tr>
+    <tr ng-repeat="stat in stats.results | limitTo:pageSize">
+      <td width="70%">
+        <term-line id="stat.comparedTerm" aspect="goTermMapping[stat.comparedTerm].aspect"
+                   obsolete="goTermMapping[stat.comparedTerm].obsolete"
+                   name="goTermMapping[stat.comparedTerm].name"></term-line>
+      </td>
+      <td>{{stat.probabilityRatio}}</td>
+      <td>{{stat.significance}}</td>
+      <td>{{stat.together}}</td>
+      <td>{{stat.compared}}</td>
+    </tr>
+    <tr>
+      <td colspan="5">
+        <span ng-show="pageSize < stats.results.length" ng-click="pageSize = stats.results.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
+        <span ng-show="pageSize < stats.results.length" ng-click="pageSize = stats.results.length" class="selectable showMoreLess">show all</span>
+        <span ng-show="(pageSize === stats.results.length && stats.results.length > defaultPageSize)" ng-click="pageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
+        <span ng-show="(pageSize === stats.results.length && stats.results.length > defaultPageSize)" ng-click="pageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3"><strong>Totals</strong></td>
+      <td><strong>{{totalTogether}}</strong></td>
+      <td><strong>{{totalCompared}}</strong></td>
+    </tr>
+  </table>
+</div>

@@ -32,8 +32,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
       });
     }
 
-    // Get predefined slim sets
-     presetsService.getPresets().then(function(resp){
+     presetsService.getPresetsGOSlimSets().then(function(resp){
        $scope.predefinedSlimSets = resp.data.goSlimSets;
      });
 
@@ -94,5 +93,4 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   };
 
   init();
-
 });

@@ -6,15 +6,12 @@
   <div ng-include src="'advancedfilters/advancedFilters.html'"></div>
 
   <!-- Main Content -->
-
-  <!-- Table heading content TODO statistics-->
-
   <div class="main-content">
     <tabset>
       <tab heading="Annotations">
-          <div ng-include="'annotationsList/annotationList.html'"></div>
+        <div ng-include="'annotationsList/annotationList.html'"></div>
       </tab>
-      <tab heading="Statistics">
+      <tab heading="Statistics" select="loadStatistics()">
         <div ng-include="'statistics/statistics.html'"></div>
       </tab>
     </tabset>

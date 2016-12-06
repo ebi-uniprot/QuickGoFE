@@ -1,257 +1,61 @@
-<div id="content" class="container_12" cg-busy="statsPromise" ng-controller="StatisticsCtrl">
+<div id="content" cg-busy="statsPromise" ng-controller="StatisticsCtrl">
 
-  <!-- Download menu -->
-  <div class="buttons-under-tabs">
-    <!-- <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button> -->
-    <h4>Annotation statistics</h4>
+  <h4>Annotation statistics</h4>
+  <div>
+    <button class="button icon-functional" ng-click="download()" data-icon="=">Download</button>
   </div>
 
-  <uib-tabset>
-    <!--<div id="statisticsTabs">-->
-
-
-    <ul class="tabs" data-tabs id="stats-tabs">
-      <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Summary</a></li>
-      <li class="tabs-title"><a href="#panel2">GO ID</a></li>
-      <li class="tabs-title"><a href="#panel3">Aspect</a></li>
-      <li class="tabs-title"><a href="#panel4">Evidence</a></li>
-      <li class="tabs-title"><a href="#panel5">Reference</a></li>
-      <li class="tabs-title"><a href="#panel6">Taxon</a></li>
-      <li class="tabs-title"><a href="#panel7">Assigned By</a></li>
-    </ul>
-
-
-    <div class="tabs-content" data-tabs-content="stats-tabs">
-      <div class="tabs-panel is-active" id="panel1">
-        <div class="stats-content">
-          <div>
-            <p>Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed will alter accordingly.</p>
-            <p>You can find full details of the datasets that comprise the full annotation set <a target="_blank" href="dataset">here</a>.</p>
-          </div>
-          <div>
-            <p>
-              <strong>Number of annotations:</strong> {{stats.totalNumberAnnotations}}
-            </p>
-          </div>
+  <tabset>
+    <tab heading="Summary">
+      <div class="row">
+        <div>
+          <p>Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed will alter accordingly.</p>
+          <p>You can find full details of the datasets that comprise the full annotation set
+            <a target="_blank" href="dataset">here</a>.</p>
+        </div>
+        <div>
+          <p>
+            <strong>Number of annotations:</strong>
+            {{totalNumberAnnotations | number:0}}
+          </p>
         </div>
       </div>
-      <div class="tabs-panel is-active" id="panel2">
-        <div class="stats-content">
-          <div>
-            <h5>Annotations per GO ID</h5>
-            <table id="annotationsByGOID" class="two-colours">
-              <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>%</th>
-                <th>Count</th>
-              </tr>
-              <tr ng-repeat="annByGOID in stats.annotationsPerGOID">
-                <td><a href="term/{{annByGOID.statisticTupleKey}}" target="_blank">{{annByGOID.statisticTupleKey}}</a></td>
-                <td>{{annByGOID.name}}</td>
-                <td>{{annByGOID.statisticTuplePercentage}}</td>
-                <td>{{annByGOID.statisticTupleHits}}</td>
-              </tr>
-            </table>
-          </div>
-          <!-- <div>
-              <h5>Gene products per GO ID</h5>
-              <table id="proteinsByGOID" class="two-colours">
-                <tr>
-                  <th>Code</th>
-                  <th>Name</th>
-                  <th>%</th>
-                  <th>Count</th>
-                </tr>
-                <tr ng-repeat="protByGOID in stats.geneProductsPerGOID">
-                  <td><a href="term/{{protByGOID.statisticTupleKey}}" target="_blank">{{protByGOID.statisticTupleKey}}</a></td>
-                  <td>{{protByGOID.name}}</td>
-                  <td>{{protByGOID.statisticTuplePercentage}}</td>
-                  <td>{{protByGOID.statisticTupleHits}}</td>
-                </tr>
-              </table>
-            </div> -->
-        </div>
+    </tab>
+    <tab heading="GO ID">
+      <div class="row">
+        <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true"></stats-table>
+        <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true"></stats-table>
       </div>
-      <div class="tabs-panel is-active" id="panel3">
-        <div class="stats-content">
-          <div>
-            <h5>Annotations per Aspect</h5>
-            <table id="annotationsByAspect" class="two-colours">
-              <tr>
-                <th>Code</th>
-                <th>%</th>
-                <th>Count</th>
-              </tr>
-              <tr ng-repeat="annByAspect in stats.annotationsPerAspect">
-                <td><strong>{{annByAspect.statisticTupleKey}}</strong></td>
-                <td>{{annByAspect.statisticTuplePercentage}}</td>
-                <td>{{annByAspect.statisticTupleHits}}</td>
-              </tr>
-            </table>
-          </div>
-          <!-- <div>
-              <h5>Gene products per Aspect</h5>
-              <table id="proteinsByAspect" class="two-colours">
-                <tr>
-                  <th>Code</th>
-                  <th>%</th>
-                  <th>Count</th>
-                </tr>
-                <tr ng-repeat="protByAspect in stats.geneProductsPerAspect">
-                  <td><strong>{{protByAspect.statisticTupleKey}}</strong></td>
-                  <td>{{protByAspect.statisticTuplePercentage}}</td>
-                  <td>{{protByAspect.statisticTupleHits}}</td>
-                </tr>
-              </table>
-            </div> -->
-        </div>
+    </tab>
+    <tab heading="Aspect">
+      <div class="row">
+        <stats-table title="Annotations per Aspect" items="stats.aspect.annotation"></stats-table>
+        <stats-table title="Gene products per Aspect" items="stats.aspect.geneProduct"></stats-table>
       </div>
-      <div class="tabs-panel is-active" id="panel4">
-        <div class="stats-content">
-          <div>
-            <h5>Annotations per Evidence</h5>
-            <table id="annotationsByEvidence" class="two-colours">
-              <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>%</th>
-                <th>Count</th>
-              </tr>
-              <tr ng-repeat="annByEvidence in stats.annotationsPerEvidence">
-                <td><strong>{{annByEvidence.statisticTupleKey}}</strong></td>
-                <td>{{annByEvidence.name}}</td>
-                <td>{{annByEvidence.statisticTuplePercentage}}</td>
-                <td>{{annByEvidence.statisticTupleHits}}</td>
-              </tr>
-            </table>
-          </div>
-          <!-- <div>
-              <h5>Gene products per Evidence</h5>
-              <table id="proteinsByEvidence" class="two-colours">
-                <tr>
-                  <th>Code</th>
-                  <th>Name</th>
-                  <th>%</th>
-                  <th>Count</th>
-                </tr>
-                <tr ng-repeat="protByEvidence in stats.geneProductsPerEvidence">
-                  <td><strong>{{protByEvidence.statisticTupleKey}}</strong></td>
-                  <td>{{protByEvidence.name}}</td>
-                  <td>{{protByEvidence.statisticTuplePercentage}}</td>
-                  <td>{{protByEvidence.statisticTupleHits}}</td>
-                </tr>
-              </table>
-            </div> -->
-        </div>
+    </tab>
+    <tab heading="Evidence">
+      <div class="row">
+        <stats-table title="Annotations per Evidence" items="stats.evidenceCode.annotation" is-term="true"></stats-table>
+        <stats-table title="Gene products per Evidence" items="stats.evidenceCode.geneProduct" is-term="true"></stats-table>
       </div>
-      <div class="tabs-panel is-active" id="panel5">
-        <div class="stats-content">
-          <div>
-            <h5>Annotations per Reference</h5>
-            <table id="annotationsByReference" class="two-colours">
-              <tr>
-                <th>Code</th>
-                <th>%</th>
-                <th>Count</th>
-              </tr>
-              <tr ng-repeat="annByReference in stats.annotationsPerReference">
-                <td><strong>{{annByReference.statisticTupleKey}}</strong></td>
-                <td>{{annByReference.statisticTuplePercentage}}</td>
-                <td>{{annByReference.statisticTupleHits}}</td>
-              </tr>
-            </table>
-          </div>
-          <!-- <div>
-              <h5>Gene products per Reference</h5>
-              <table id="proteinsByReference" class="two-colours">
-                <tr>
-                  <th>Code</th>
-                  <th>%</th>
-                  <th>Count</th>
-                </tr>
-                <tr ng-repeat="protByReference in stats.geneProductsPerReference">
-                  <td><strong>{{protByReference.statisticTupleKey}}</strong></td>
-                  <td>{{protByReference.statisticTuplePercentage}}</td>
-                  <td>{{protByReference.statisticTupleHits}}</td>
-                </tr>
-              </table>
-            </div> -->
-        </div>
+    </tab>
+    <tab heading="Reference">
+      <div class="row">
+        <stats-table title="Annotations per Reference" items="stats.reference.annotation"></stats-table>
+        <stats-table title="Gene products per Reference" items="stats.reference.geneProduct"></stats-table>
       </div>
-      <div class="tabs-panel is-active" id="panel6">
-        <div class="stats-content">
-          <div>
-            <h5>Annotations per Taxon</h5>
-            <table id="annotationsByTaxon" class="two-colours">
-              <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>%</th>
-                <th>Count</th>
-              </tr>
-              <tr ng-repeat="annByTaxon in stats.annotationsPerTaxon">
-                <td><strong>{{annByTaxon.statisticTupleKey}}</strong></td>
-                <td>{{annByTaxon.name}}</td>
-                <td>{{annByTaxon.statisticTuplePercentage}}</td>
-                <td>{{annByTaxon.statisticTupleHits}}</td>
-              </tr>
-            </table>
-          </div>
-          <!-- <div>
-              <h5>Gene products per Taxon</h5>
-              <table id="proteinsByTaxon" class="two-colours">
-                <tr>
-                  <th>Code</th>
-                  <th>Name</th>
-                  <th>%</th>
-                  <th>Count</th>
-                </tr>
-                <tr ng-repeat="protByTaxon in stats.geneProductsPerTaxon">
-                  <td><strong>{{protByTaxon.statisticTupleKey}}</strong></td>
-                  <td>{{protByTaxon.name}}</td>
-                  <td>{{protByTaxon.statisticTuplePercentage}}</td>
-                  <td>{{protByTaxon.statisticTupleHits}}</td>
-                </tr>
-              </table>
-            </div> -->
-        </div>
+    </tab>
+    <tab heading="Taxon">
+      <div class="row">
+        <stats-table title="Annotations per Taxon" items="stats.taxonId.annotation"></stats-table>
+        <stats-table title="Gene products per Taxon" items="stats.taxonId.geneProduct"></stats-table>
       </div>
-      <div class="tabs-panel is-active" id="panel7">
-        <div class="stats-content">
-          <div>
-            <h5>Annotations per Assigned By</h5>
-            <table id="annotationsByAssignedBy" class="two-colours">
-              <tr>
-                <th>Code</th>
-                <th>%</th>
-                <th>Count</th>
-              </tr>
-              <tr ng-repeat="annByAssignedBy in stats.annotationsPerAssignedBy">
-                <td><strong>{{annByAssignedBy.statisticTupleKey}}</strong></td>
-                <td>{{annByAssignedBy.statisticTuplePercentage}}</td>
-                <td>{{annByAssignedBy.statisticTupleHits}}</td>
-              </tr>
-            </table>
+    </tab>
+    <tab heading="Assigned By">
+      <div class="row">
+        <stats-table title="Annotations per Assigned By" items="stats.assignedBy.annotation"></stats-table>
+        <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table>
+      </div>
+    </tabset>
 
-          </div>
-          <!-- <div>
-              <h5>Gene products per Assigned By</h5>
-              <table id="proteinsByAssignedBy" class="two-colours">
-                <tr>
-                  <th>Code</th>
-                  <th>%</th>
-                  <th>Count</th>
-                </tr>
-                <tr ng-repeat="protByAssignedBy in stats.geneProductsPerAssignedBy">
-                  <td><strong>{{protByAssignedBy.statisticTupleKey}}</strong></td>
-                  <td>{{protByAssignedBy.statisticTuplePercentage}}</td>
-                  <td>{{protByAssignedBy.statisticTupleHits}}</td>
-                </tr>
-              </table>
-            </div> -->
-        </div>
-      </div>
-
-
-</div>
+  </div>

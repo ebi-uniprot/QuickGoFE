@@ -15,7 +15,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
 
   $scope.updateQuery = function () {
     $location.path('/annotations').search(searchService.serializeQuery($scope.query));
-  }
+  };
 
   $scope.clearFilters = function () {
     $scope.query = {};
@@ -24,7 +24,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
 
   $scope.hasSlims = function () {
     //TODO
-  }
+  };
 
   $scope.isActiveFilter = function (type) {
     return $scope.query[type] != undefined;
@@ -36,12 +36,12 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
 
   $scope.apply = function() {
     $scope.$broadcast ('applyMoreFilters');
-  }
+  };
 
   $scope.reset = function() {
     $scope.$broadcast ('resetMoreFilters');
     $scope.updateQuery();
-  }
+  };
 
   $scope.openMore = function() {
 

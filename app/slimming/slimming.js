@@ -36,8 +36,11 @@ app.controller('GOSlimCtrl', function($scope, $location,
     });
   };
 
-  presetsService.getPresets().then(function(d) {
+  presetsService.getPresetsGeneProducts().then(function(d) {
     $scope.geneProducts = d.data.geneProducts;
+  });
+
+  presetsService.getPresetsGOSlimSets().then(function(d) {
     $scope.predefinedSlimSets = d.data.goSlimSets;
     $scope.aspects = d.data.aspects;
     init();
