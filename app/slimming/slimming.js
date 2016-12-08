@@ -1,5 +1,5 @@
 'use strict';
-app.controller('GOSlimCtrl', function($scope, $location,
+app.controller('GOSlimCtrl', function($scope, $location, $q,
   hardCodedDataService, presetsService, termService, basketService,
   stringService, validationService) {
 
@@ -36,13 +36,15 @@ app.controller('GOSlimCtrl', function($scope, $location,
     });
   };
 
-  presetsService.getPresetsGeneProducts().then(function(d) {
-    $scope.geneProducts = d.data.geneProducts;
-  });
+  var promises = [];
+  promises.push(presetsService.getPresetsGeneProducts());
+  promises.push(presetsService.getPresetsGOSlimSets());
+  promises.push(presetsService.getPresetsAspects());
 
-  presetsService.getPresetsGOSlimSets().then(function(d) {
-    $scope.predefinedSlimSets = d.data.goSlimSets;
-    $scope.aspects = d.data.aspects;
+  $q.all(promises).then(function(d){
+    $scope.geneProducts = d[0].data.geneProducts;
+    $scope.predefinedSlimSets = d[1].data.goSlimSets;
+    $scope.aspects = d[2].data.aspects;
     init();
   });
 
@@ -190,7 +192,6 @@ app.controller('GOSlimCtrl', function($scope, $location,
   };
 
   $scope.getSelectedIdsForAspect = function(aspect){
-    console.log(_.pluck($scope.selection[aspect].terms, 'id'));
     return _.pluck($scope.selection[aspect].terms, 'id');
   };
 
