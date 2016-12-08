@@ -6,7 +6,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, ont
   if(isTermSearch) {
     facets = 'aspect,ontologyType';
   } else {
-    facets = 'type,taxonId'
+    facets = 'type,taxonId,dbSubset'
   }
   $scope.maxSize = 25;
   $scope.currentPage = 1;
