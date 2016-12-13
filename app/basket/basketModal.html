@@ -2,14 +2,13 @@
   <div id="basket-contents-show" cg-busy="basketPromise">
     <!-- <a class="icon icon-functional pull-right" data-icon="x" id="closeDownloadMenu"  ng-click="close()"></a> -->
 
-    <button class="close-button" ng-click="ok()">
-      <span>&times;</span>
-    </button>
+
+
+    <span class="icon-functional basket__close" ng-click="ok()" data-icon="x"></span>
 
 
     <strong>Max 400 entries</strong>
       <!--Show message if the basket is empty-->
-      :{{isBasketNotEmpty}}:
       <div ng-show="!isBasketNotEmpty()">
         <h3> Your basket is currently empty.</h3>
         <p>You can add a GO term to the Term Basket by clicking on the <element class="icon icon-static" data-icon="b"></element> icon that appears next to its identifier in QuickGO.</p>
