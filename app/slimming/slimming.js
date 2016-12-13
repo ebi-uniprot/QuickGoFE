@@ -1,9 +1,10 @@
 'use strict';
-app.controller('GOSlimCtrl', function($scope, $location, $q,
+app.controller('GOSlimCtrl', function($rootScope, $scope, $location, $q,
   hardCodedDataService, presetsService, termService, basketService,
   stringService, validationService) {
 
   $scope.selection = {};
+  $rootScope.fullWidthPage = false;
 
   var init = function() {
     angular.forEach($scope.aspects, function(aspect) {

@@ -47,6 +47,8 @@ app.run(function ($rootScope, dbXrefService, $window) {
   };
 
 
+  $rootScope.fullWidthPage = true;
+
 });
 
 app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileProvider) {

@@ -1,3 +1,4 @@
-app.controller('SearchCtrl', function($scope,  $location, $routeParams, searchService) {
+app.controller('SearchCtrl', function($rootScope, $scope,  $location, $routeParams, searchService) {
 	$scope.searchTerm = $routeParams.searchTerm;
+	$rootScope.fullWidthPage = false;
 });

@@ -1,7 +1,7 @@
 /**
  * Created by twardell on 26/02/2015.
  */
-app.controller('GoTermHistoryCtrl', function($scope, basketService, goTermHistory) {
+app.controller('GoTermHistoryCtrl', function($rootScope, $scope, basketService, goTermHistory) {
 
 
   //Use default
@@ -11,5 +11,6 @@ app.controller('GoTermHistoryCtrl', function($scope, basketService, goTermHistor
     $scope.history = data;
   });
 
-});
+  $rootScope.fullWidthPage = true;
 
+});

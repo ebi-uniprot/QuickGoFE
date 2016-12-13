@@ -1,4 +1,4 @@
-app.controller('FacetSearchCtrl', function($scope, $location, searchService, ontoTypeService, $routeParams,
+app.controller('FacetSearchCtrl', function($rootScope, $scope, $location, searchService, ontoTypeService, $routeParams,
                                            taxonomyService) {
 
   var isTermSearch = $location.path().indexOf('searchterms') > -1;
@@ -10,6 +10,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, ont
   }
   $scope.maxSize = 25;
   $scope.currentPage = 1;
+  $rootScope.fullWidthPage = true;
 
   $scope.searchTerm = $routeParams.searchTerm;
   $scope.filters = '';
