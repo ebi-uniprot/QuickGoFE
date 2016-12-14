@@ -1,7 +1,6 @@
 'use strict';
-app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibModal, $log, $location, $window, $routeParams,
-  hardCodedDataService, dbXrefService, olsService,
-  geneProductService, searchService, termService, ontoTypeService, taxonomyService) {
+app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeParams,
+   olsService, geneProductService, searchService, termService, taxonomyService) {
   /**
    * Initialisation
    */
@@ -164,24 +163,52 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http, $uibMo
     });
   }
 
+  $scope.openFromWith = function (withFrom) {
+    $modal.open({
+      templateUrl: 'annotationsList/withfromModal.html',
+      size:'large',
+      resolve: {
+        withFrom: function() {
+          return withFrom;
+        }
+      },
+      controller: function($scope, $modalInstance, withFrom) {
+        $scope.withFrom = withFrom;
+        $scope.ok = function() {
+          $modalInstance.close();
+        };
+      }
+    });
+};
+$scope.openAnnoExtension = function (annoExt) {
+  $modal.open({
+    templateUrl: 'annotationsList/annoExtensionModal.html',
+    size:'large',
+    resolve: {
+      annoExt: function() {
+        return annoExt;
+      }
+    },
+    controller: function($scope, $modalInstance, annoExt) {
+      $scope.annoExt = annoExt;
+      $scope.ok = function() {
+        $modalInstance.close();
+      };
+    }
+  });
+};
+
+  /**
+   * Put commas between the rather large numbers we can have here.
+   */
+  function prettyPrintNumberAnnotations(numberAnnotations) {
+    $scope.totalItems = numberAnnotations.toLocaleString();
+  }
+
+
   $scope.pageChanged = function () {
     getResultsPage();
   };
-
-  $scope.download = function () {
-
-    var modalInstance = $uibModal.open({
-      templateUrl: 'download/download.html',
-      controller: 'DownloadCtrl',
-      size: 'med',
-      scope: $scope
-    });
-
-    modalInstance.result.then(function () {
-      $log.info('Download modal dismissed at: ' + new Date());
-    });
-  };
-
 
   getResultsPage();
 });

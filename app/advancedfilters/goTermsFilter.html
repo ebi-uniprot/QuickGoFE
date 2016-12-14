@@ -2,7 +2,7 @@
   <form>
   <!-- 3 choices -->
   <div class="y-scroll-200 inset-panel" ng-show="hasTerms()">
-    <ul>
+    <ul class="no-bullet">
       <li ng-repeat="(id, term) in goTerms" class="checkbox">
         <label>
           <input type="checkbox" ng-model="term.checked"> {{term.id}} {{term.name}}
@@ -16,7 +16,7 @@
     </p>
     <textarea class="form-group form-control" placeholder="GO:0016021, GO:0016022, ..." ng-model="goTermsTextArea" class="default"></textarea>
     <div class="form-group">
-      <button class="btn btn-default" type="button" ng-click="addGoTerms()">Add</button>
+      <button class="hollow button" ng-click="addGoTerms()">Add</button>
     </div>
   </div>
   <div class="form-group">...or select terms from GO slim:

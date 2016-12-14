@@ -1,17 +1,19 @@
 <div ng-controller="referencesFilter">
-  <h5>Reference</h5>
+  <h5 ng-class="{'icon-functional active-filter' : isActiveFilter('reference')}" data-icon="/">Reference</h5>
   <!-- GO ID -->
   <div>
     <form>
       <div class="y-scroll-200 inset-panel">
-        <ul>
-          <li ng-repeat="(name, ref) in references" class="checkbox">
-            <label>
-              <input type="checkbox" ng-model="ref.checked"> <strong>{{ref.name}}</strong> {{ref.description}}
-            </label>
-            </td>
-          </li>
-        </ul>
+        <div class="overflow-pane">
+          <ul class="no-bullet">
+            <li ng-repeat="(name, ref) in references" class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="ref.checked"> <strong>{{ref.name}}</strong> {{ref.description}}
+              </label>
+              </td>
+            </li>
+          </ul>
+        </div>
       </div>
       <p>*: Any matches will be displayed</p>
       <a ng-click="more = !more" ng-hide="more">Add more...</a>
@@ -21,7 +23,7 @@
           <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
         </div>
         <div class="form-group">
-          <button class="btn btn-default" type="button" ng-click="addReferences()">Add</button>
+          <button class="hollow button" ng-click="addReferences()">Add</button>
         </div>
       </div>
     </form>

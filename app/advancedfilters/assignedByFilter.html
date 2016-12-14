@@ -1,10 +1,10 @@
 <div ng-controller="assignedByController">
-  <h5>Assigned by</h5>
+  <h5 ng-class="{'icon-functional active-filter' : isActiveFilter('assignedBy')}" data-icon="/">Assigned by</h5>
   <!-- GO ID -->
   <div>
     <form>
-      <div class="y-scroll-400 inset-panel">
-        <ul>
+      <div class="y-scroll-400 overflow-pane">
+        <ul class="no-bullet">
           <li ng-repeat="(dbId,val) in assignedBy" class="checkbox">
             <label>
               <input type="checkbox" ng-model="val.checked"> <strong>{{val.name}}</strong> {{val.description}}

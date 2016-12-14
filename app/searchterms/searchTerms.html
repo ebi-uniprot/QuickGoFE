@@ -1,13 +1,13 @@
-<div id="content" class="container_24" cg-busy="queryPromise">
+<div id="content" class="row" cg-busy="queryPromise">
   <h2>Results for term "{{searchTerm}}"</h2>
 
-  <div class="grid_4">
+  <div class="medium-3 columns">
       <facets endpoint="searchterms" fields="results.facet.facetFields" filters="filters"
               search-term="searchTerm" titles="facetTitles"></facets>
   </div>
 
   <!-- Main Content -->
-  <div id="searchResultsMainContent" class="grid_20">
+  <div id="searchResultsMainContent" class="medium-9 columns">
     <div>
       <p>
         <strong>{{results.numberOfHits}}</strong> results</strong>
@@ -21,7 +21,6 @@
 
           <td class="text-nowrap" ng-class="{'inactive':searchResult.isObsolete==true}">
             <term-line id="searchResult.id" aspect="searchResult.aspect" obsolete="searchResult.isObsolete" name="searchResult.name"></term-line>
-<!--            <span ng-bind-html="highlight(searchResult.name)">{{searchResult.name}}</span>-->
           </td>
           <td><annotations-link term-id="searchResult.id"></annotations-link></td>
         </tr>
@@ -31,6 +30,3 @@
   </div>
   <div class="clearfix"></div>
 </div>
-<script type="text/ng-template" id="colAspect.html">
-  <span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span>
-</script>

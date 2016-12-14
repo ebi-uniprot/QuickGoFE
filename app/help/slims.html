@@ -1,4 +1,5 @@
-<div class="help-content grid_18" id="container">
+<div class="help-content row" id="container">
+  <div class="medium-9 columns">
   <h1>Help</h1>
   <h2>GO Slims</h2>
 
@@ -8,7 +9,7 @@
     organisms consisting of GO annotations for the GO terms that you are interested in and their child terms.</p>
   <p>To use GO slims, click on the ‘Explore biology’ box on the QuickGO home page.</p>
   <br /><img src="images/slim1.png" />
-
+<hr />
   <div id="choosing">
     <h3>Choosing a GO slim</h3>
     <p>You can choose a pre-defined GO slim from the dropdown shown or select ‘Input your own’ to paste in your own list or choose ‘Select from basket’ to use the terms in your basket as your GO slim.</p>
@@ -17,19 +18,21 @@
       <img src="images/slim2.png" /> icon next to a term. You can also view a chart for all terms in your selection by clicking on the ‘View chart’ button on the right hand side of the screen.
     </p>
   </div>
-
+<hr />
   <div id="additional">
     <h3>Additional options</h3>
     <p>You can add a list of Gene product IDs that you would like to map the GO slim terms to. You can also click on the ‘Restrict by species’ area to view the list of species that you can choose to restrict the GO slim mapping to. Both of these options
       are non-mandatory.</p>
     <p>Once you have made all your selections, click on the ‘Submit’ button.</p>
   </div>
+  <hr />
   <div id="results">
 
     <h3>Results</h3>
     <p>You will now arrive at a results page that presents all annotations mapped to your GO slim terms (including annotations to child terms summed up to terms in the GO slim). These results are presented in a table with various columns.</p>
     <p>To view the numbers of annotations found to each term in the GO slim and from your Gene products input (if any), click on the ‘Statistics’ tab.</p>
   </div>
+  <hr />
   <div id="own">
     <h3>How do I make my own GO slim?</h3>
     <p><strong>If you already have a set of GO identifiers that you would like to use as a GO slim:</strong></p>
@@ -49,19 +52,24 @@
       number of annotations in the set (this value is found in the 'Statistics' section or on the top-left of the Annotation Download table).</p>
   </div>
 </div>
-<nav class="grid_4" id="term-section-nav">
-  <ul>
-    <li du-scrollspy="choosing">
-      <a class="term-section-view" du-smooth-scroll="choosing">Choosing a slim</a>
-    </li>
-    <li du-scrollspy="additional">
-      <a class="term-section-view" du-smooth-scroll="additional">Additional options</a>
-    </li>
-    <li du-scrollspy="results">
-      <a class="term-section-view" du-smooth-scroll="results">Results</a>
-    </li>
-    <li du-scrollspy="own">
-      <a class="term-section-view" du-smooth-scroll="own">Make your own</a>
-    </li>
-  </ul>
-</nav>
+<div class="medium-3 columns">
+  <nav id="term-section-nav">
+    <ul>
+      <li du-scrollspy="choosing">
+        <a class="term-section-view" du-smooth-scroll="choosing">Choosing a slim</a>
+      </li>
+      <li du-scrollspy="additional">
+        <a class="term-section-view" du-smooth-scroll="additional">Additional options</a>
+      </li>
+      <li du-scrollspy="results">
+        <a class="term-section-view" du-smooth-scroll="results">Results</a>
+      </li>
+      <li du-scrollspy="own">
+        <a class="term-section-view" du-smooth-scroll="own">Make your own</a>
+      </li>
+    </ul>
+  </nav>
+
+</div>
+
+</div>
