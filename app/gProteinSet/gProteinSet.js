@@ -1,7 +1,8 @@
-app.controller('GProteinSetCtrl', function($scope, $uibModal, $routeParams,
+app.controller('GProteinSetCtrl', function($scope, $uibModal, $routeParams, $location, $anchorScroll,
                                            presetsService, geneProductService, taxonomyService) {
 
   $scope.gpSetName = $routeParams.gpSetName;
+  $scope.location = $location.path();
 
   function init() {
     var gpSetPromise = presetsService.getPresetsGeneProducts();
@@ -14,6 +15,13 @@ app.controller('GProteinSetCtrl', function($scope, $uibModal, $routeParams,
       });
   }
   init();
+
+  $scope.scrollTo = function(id) {
+    var old = $location.hash();
+    $location.hash(id);
+    $anchorScroll();
+    $location.hash(old);
+  };
 
   function getResultsPage() {
     $scope.queryPromise = geneProductService.getTargetSet($scope.gpSetName);

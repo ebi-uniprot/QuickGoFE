@@ -11,7 +11,7 @@
       <p><a ng-click="gProteinSet.url" target="_blank">{{gProteinSet.url}}</a></p>
       <br/>
       <p>
-        <strong>{{data.numberOfHits}}</strong> results</strong>
+        <strong id="top_anchor">{{data.numberOfHits}}</strong> results</strong>
       </p>
       <table id="searchResults" class="two-colours">
         <tr>
@@ -24,21 +24,22 @@
         <tr>
           <th colspan="5" style="text-align: center;">
             <span ng-repeat="(key, elements) in data.hits">
-              {{key}} |
+              <a ng-click="scrollTo(key + '_anchor')">{{key}}</a> |
             </span>
           </th>
         </tr>
         <tr ng-repeat="(key, elements) in data.hits">
           <td colspan="5">
             <table class="two-colours">
-             <th colspan="5" style="text-align: center;">{{key}} (Top)</th>
+             <th colspan="5" style="text-align: center;">
+               <strong id="{{key}}_anchor">{{key}}</strong> <a ng-click="scrollTo('top_anchor')">(Top)</a>
+             </th>
              <tr ng-repeat="item in elements">
                <td>{{item.symbol}}</td>
                <td>{{item.id}}</td>
                <td>{{item.name}}</td>
                <td>{{item.taxonId}}</td>
                <td>{{taxaMapping[item.taxonId].scientificName}}</td>
-               <td></td>
              </tr>
            </table>
           </td>
