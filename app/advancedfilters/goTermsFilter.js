@@ -11,7 +11,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
     var termsToFetch = [];
     var checkedTerms = [];
     if($scope.$parent.query.goId) {
-      checkedTerms = $scope.$parent.query.goId.split(',');
+      checkedTerms = $scope.query.goId.split(',');
     }
 
     if (basketService.getIds().length > 0){

@@ -1,0 +1,14 @@
+
+  <button class="close-button" ng-click="ok()">
+    <span>&times;</span>
+  </button>
+  <h3>Annotation Extension</h3>
+
+  <div ng-repeat="item in annoExt">
+    <div ng-repeat="resource in item.connectedXrefs" class="text-center">
+      <a href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{resource.qualifier}}.md" target="_blank">{{resource.qualifier}} (<a ng-click="followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}} {{olsxrefs[resource.db + ':' + resource.id]}} ({{resource.db}}:{{resource.id}} {{olsxrefs[resource.db + ':' + resource.id]}})</a>
+    </div>
+    <div class="text-center">
+      <strong ng-show="!$last">OR</strong>
+    </div>
+  </div>

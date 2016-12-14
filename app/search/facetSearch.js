@@ -1,4 +1,4 @@
-app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchService, ontoTypeService, $routeParams,
+app.controller('FacetSearchCtrl', function($scope, $location, searchService, ontoTypeService, $routeParams,
                                            taxonomyService) {
 
   var isTermSearch = $location.path().indexOf('searchterms') > -1;
@@ -6,7 +6,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, $uibModal, searchS
   if(isTermSearch) {
     facets = 'aspect,ontologyType';
   } else {
-    facets = 'type,taxonId'
+    facets = 'type,taxonId,dbSubset'
   }
   $scope.maxSize = 25;
   $scope.currentPage = 1;

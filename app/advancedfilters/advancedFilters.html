@@ -1,88 +1,103 @@
-<div class="grid_23" ng-controller="AdvancedFiltersCtrl">
-  <ul class="list-inline">
-    <li>Filter by:</li>
-
-    <!-- TAXON -->
+<div ng-controller="AdvancedFiltersCtrl">
+  <ul class="menu">
+    <li>Filter by: </li>
     <li>
-      <filter-dropdown name="Taxonomy" active="{{query.taxonId}}">
-        <div ng-include src="'advancedfilters/taxonFilter.html'"></div>
-      </filter-dropdown>
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('taxonId')}" data-icon="/">Taxon</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/taxonFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
+    </li>
+    <!-- GENE PRODUCT IDs  -->
+    <li ng-class="{'inactive':query.geneProductId || query.targetSet}">
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('geneProductId') ||  isActiveFilter('geneProductSet')}" data-icon="/">Gene Product ID</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
-    <!-- GENE PRODUCT IDs -->
-    <li>
-      <filter-dropdown name="Gene product IDs" active="{{query.geneProductId || query.targetSet}}">
-        <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
-      </filter-dropdown>
-    </li>
-
-    <!-- GENE PRODUCT TYPE -->
-    <li>
-      <filter-dropdown name="Gene Product Type" active="{{query.geneProductType}}">
-        <div ng-include src="'advancedfilters/productTypeFilter.html'"></div>
-      </filter-dropdown>
+    <!-- GENE PRODUCT TYPE  -->
+    <li ng-class="{'inactive':query.geneProductType}">
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('geneProductType')}" data-icon="/">Gene Product Type</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/productTypeFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
     <!-- GO TERMS -->
-    <li>
-      <filter-dropdown name="GO terms" active="{{query.goId}}">
-        <div ng-include src="'advancedfilters/goTermsFilter.html'"></div>
-      </filter-dropdown>
+    <li ng-class="{'inactive':query.goId}">
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('goId')}" data-icon="/">GO terms</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/goTermsFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
-    <!-- ASPECT -->
-    <li>
-      <filter-dropdown name="Aspect" active="{{query.aspect}}">
-        <div ng-include src="'advancedfilters/aspectFilter.html'"></div>
-      </filter-dropdown>
+    <!-- ASPECT  -->
+    <li ng-class="{'inactive':query.aspect}" >
+      <dropdown-toggle close-on-click="true">
+        <toggle>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('aspect')}" data-icon="/">Aspect</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/aspectFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
     <!-- EVIDENCE -->
-    <li>
-      <filter-dropdown name="Evidence" active="{{query.evidenceCode}}">
-        <div ng-include src="'advancedfilters/evidenceFilter.html'"></div>
-      </filter-dropdown>
+    <li ng-class="{'inactive':query.evidenceCode}">
+      <dropdown-toggle close-on-click="true" class="evidence-panel" pane-align="right">
+        <toggle>
+          <button class="button dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('evidenceCode')}" data-icon="/">Evidence</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/evidenceFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
     </li>
 
+
+    <!-- MORE  -->
+
     <li>
-      <button type="button" class="btn btn-default quickgo-btn icon" ng-class="{'icon-functional active-filter' : isActiveFilter('qualifier')
-        || isActiveFilter('reference') || isActiveFilter('withFrom') || isActiveFilter('assignedBy')}" data-icon="/" ng-click="showMore = (showMore? false : true)">
-        More <span class="caret"></span>
-      </button>
+      <button class="button dropdown" ng-click="moreColumnsContainer = !moreColumnsContainer" ng-class="{'icon-functional active-filter' : isActiveFilter('qualifier') ||  isActiveFilter('reference') || isActiveFilter('withFrom') || isActiveFilter('assignedBy')}" data-icon="/">More</button>
     </li>
 
-    <li><a ng-click="clearFilters()">Clear all</a></li>
   </ul>
 
-  <div ng-show="showMore" class="inset-panel animate-show">
-    <hr>
-    <!-- QUALIFIER -->
-    <div class="grid_6">
-      <div ng-include src="'advancedfilters/qualifierFilter.html'"></div>
-    </div>
-
-    <!-- REFERENCE -->
-    <div class="grid_6">
-      <div ng-include src="'advancedfilters/referencesFilter.html'"></div>
-    </div>
-
-
-    <!-- WITH -->
-    <div class="grid_6">
-      <div ng-include src="'advancedfilters/withFromFilter.html'"></div>
-    </div>
-
-    <!-- ASSIGNED BY -->
-    <div class="grid_6">
-      <div ng-include src="'advancedfilters/assignedByFilter.html'"></div>
-    </div>
-
-    <div class="clearfix"></div>
-      <div class="pull-right">
-        <filter-buttons></filter-buttons>
+  <div id="morePanel" class="column-selector more-panel" ng-show="moreColumnsContainer">
+    <span class="icon-functional column-selector__close" ng-click="moreColumnsContainer = !moreColumnsContainer" data-icon="x"></span>
+      <div class="medium-12 row">
+      <!-- QUALIFIER -->
+        <div class="medium-3 column" ng-include src="'advancedfilters/qualifierFilter.html'"></div>
+      <!-- REFERENCE -->
+        <div class="medium-3 column" ng-include src="'advancedfilters/referencesFilter.html'"></div>
+      <!-- WITH -->
+        <div class="medium-3 column " ng-include src="'advancedfilters/withFromFilter.html'"></div>
+      <!-- ASSIGNED BY -->
+        <div class="medium-3 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
+        <div class="float-right">
+          <button class="button" ng-click="reset()">Reset</button>
+          <button class="button" ng-click="apply()">Apply</button>
+        </div>
       </div>
-    <div class="clearfix"></div>
-    <hr>
+
+
   </div>
 
 </div>

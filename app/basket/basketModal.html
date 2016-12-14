@@ -1,6 +1,11 @@
 <div class="quickgo-modal" cg-busy="basketPromises">
   <div id="basket-contents-show" cg-busy="basketPromise">
-    <a class="icon icon-functional pull-right" data-icon="x" id="closeDownloadMenu"  ng-click="close()"></a>
+    <!-- <a class="icon icon-functional pull-right" data-icon="x" id="closeDownloadMenu"  ng-click="close()"></a> -->
+
+    <button class="close-button" ng-click="ok()">
+      <span>&times;</span>
+    </button>
+
 
     <strong>Max 400 entries</strong>
       <!--Show message if the basket is empty-->
@@ -30,10 +35,10 @@
         </table>
       </div>
       <div class="pull-right">
-        <button class="btn quickgo-btn icon-functional" data-icon="h" ng-click="showAncestorGraph()">View Chart</button>
-        <button class="btn quickgo-btn" ng-click="filterUsingBasketTerms()">Filter With Terms</button>
-        <button class="btn quickgo-btn" ng-click="emptyBasket()">Clear</button>
-        <button class="btn quickgo-btn" ng-click="exportBasket()">Export</button>
+        <button class="button icon-functional" data-icon="h" ng-click="showAncestorGraph()">View Chart</button>
+        <button class="button" ng-click="filterUsingBasketTerms()">Filter With Terms</button>
+        <button class="button" ng-click="emptyBasket()">Clear</button>
+        <button class="button" ng-click="exportBasket()">Export</button>
       </div>
       <div class="clearfix"></div>
       <hr>
@@ -45,7 +50,7 @@
             <label for="termsListToAdd">Enter a list of terms to be added to your basket:</label>
             <textarea id="termsListToAdd" class="form-control" ng-model="input_terms" cols="5"></textarea>
           </div>
-          <button class="btn quickgo-btn pull-right" ng-click="submit()">Add Terms</button>
+          <button class="button pull-right" ng-click="submit()">Add Terms</button>
         </form>
       </div>
       <div class="clearfix"></div>

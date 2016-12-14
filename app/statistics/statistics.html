@@ -1,59 +1,61 @@
-<div id="content" class="container_12" cg-busy="statsPromise" ng-controller="StatisticsCtrl">
+<div id="content" cg-busy="statsPromise" ng-controller="StatisticsCtrl">
 
-  <div class="buttons-under-tabs">
-    <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
-    <h4>Annotation statistics</h4>
+  <h4>Annotation statistics</h4>
+  <div>
+    <button class="button icon-functional" ng-click="download()" data-icon="=">Download</button>
   </div>
 
-  <uib-tabset>
-    <uib-tab heading="Summary">
-      <div class="stats-content">
+  <tabset>
+    <tab heading="Summary">
+      <div class="row">
         <div>
           <p>Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed will alter accordingly.</p>
-          <p>You can find full details of the datasets that comprise the full annotation set <a target="_blank" href="dataset">here</a>.</p>
+          <p>You can find full details of the datasets that comprise the full annotation set
+            <a target="_blank" href="dataset">here</a>.</p>
         </div>
         <div>
           <p>
-            <strong>Number of annotations:</strong> {{totalNumberAnnotations | number:0}}
+            <strong>Number of annotations:</strong>
+            {{totalNumberAnnotations | number:0}}
           </p>
         </div>
       </div>
-    </uib-tab>
-    <uib-tab heading="GO ID">
-      <div class="stats-content">
+    </tab>
+    <tab heading="GO ID">
+      <div class="row">
         <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true"></stats-table>
         <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true"></stats-table>
       </div>
-    </uib-tab>
-    <uib-tab heading="Aspect">
-      <div class="stats-content">
+    </tab>
+    <tab heading="Aspect">
+      <div class="row">
         <stats-table title="Annotations per Aspect" items="stats.aspect.annotation"></stats-table>
         <stats-table title="Gene products per Aspect" items="stats.aspect.geneProduct"></stats-table>
       </div>
-    </uib-tab>
-    <uib-tab heading="Evidence">
-      <div class="stats-content">
+    </tab>
+    <tab heading="Evidence">
+      <div class="row">
         <stats-table title="Annotations per Evidence" items="stats.evidenceCode.annotation" is-term="true"></stats-table>
-        <stats-table title="Gene products per Evidence" items="stats.evidenceCode.geneProduct"  is-term="true"></stats-table>
+        <stats-table title="Gene products per Evidence" items="stats.evidenceCode.geneProduct" is-term="true"></stats-table>
       </div>
-    </uib-tab>
-    <uib-tab heading="Reference">
-      <div class="stats-content">
+    </tab>
+    <tab heading="Reference">
+      <div class="row">
         <stats-table title="Annotations per Reference" items="stats.reference.annotation"></stats-table>
         <stats-table title="Gene products per Reference" items="stats.reference.geneProduct"></stats-table>
       </div>
-    </uib-tab>
-    <uib-tab heading="Taxon">
-      <div class="stats-content">
+    </tab>
+    <tab heading="Taxon">
+      <div class="row">
         <stats-table title="Annotations per Taxon" items="stats.taxonId.annotation"></stats-table>
         <stats-table title="Gene products per Taxon" items="stats.taxonId.geneProduct"></stats-table>
       </div>
-    </uib-tab>
-    <uib-tab heading="Assigned By">
-      <div class="stats-content">
+    </tab>
+    <tab heading="Assigned By">
+      <div class="row">
         <stats-table title="Annotations per Assigned By" items="stats.assignedBy.annotation"></stats-table>
         <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table>
       </div>
-    </uib-tab>
-  </uib-tabset>
-</div>
+    </tabset>
+
+  </div>
