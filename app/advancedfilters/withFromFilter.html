@@ -1,9 +1,9 @@
 <div ng-controller="withFromFilter">
-  <h5>With/From</h5>
+  <h5 ng-class="{'icon-functional active-filter' : isActiveFilter('withFrom')}" data-icon="/">With/From</h5>
   <div>
     <form>
-      <div class="y-scroll-200 inset-panel">
-        <ul>
+      <div class="y-scroll-200 overflow-pane">
+        <ul class="no-bullet">
           <li ng-repeat="(withID, obj) in withFrom" class="checkbox">
             <label>
               <input type="checkbox" ng-model="obj.checked">
@@ -20,7 +20,7 @@
           <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
         </div>
         <div class="form-group">
-          <button class="btn btn-default" type="button" ng-click="addWith()">Add</button>
+          <button class="hollow button" ng-click="addWith()">Add</button>
         </div>
       </div>
     </form>

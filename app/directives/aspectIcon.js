@@ -6,6 +6,6 @@ angular
       scope: {
         aspect: '='
       },
-      template: '<span title="{{aspect}}" class="has-tip aspect-icon aspect-{{aspect}}"></span>'
+      template: '<span tooltip="{{aspect}}" class="has-tip aspect-icon aspect-{{aspect}}"></span>'
     };
   }]);

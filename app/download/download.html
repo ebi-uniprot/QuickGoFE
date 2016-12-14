@@ -1,11 +1,14 @@
 <!-- Download modal dialogue-->
-<div style="margin: 20px" cg-busy="downloadPromise">
-  <a class="icon icon-functional pull-right" data-icon="x" id="closeDownloadMenu"  ng-click="close()"></a>
-  <h5>QuickGO Download</h5>
+<div cg-busy="downloadPromise" ng-controller="DownloadCtrl">
+  <button class="close-button" data-close type="button">
+    <span>&times;</span>
+  </button>
 
- <form>
+  <h4>QuickGO Download</h4>
+
+  <form>
     <label class="bold-label">Format:</label>
-    <select ng-model="selectedFormat"  ng-options="downloadFormat.format for downloadFormat in downloadFileFormats"></select>
+    <select ng-model="selectedFormat" ng-options="downloadFormat.format for downloadFormat in downloadFileFormats"></select>
     <br/>
     <br/>
     <label class="bold-label">Limit:</label>
@@ -13,10 +16,10 @@
     <br/>
     <br/>
     <!-- Version 1 -->
-    <button class="btn quickgo-btn" ng-click="submit(selectedFormat, selectedLimit)">Submit</button>
-    <button class="btn quickgo-btn" ng-click="close()">Close</button>
- </form>
+    <button class="button" ng-click="submit(selectedFormat, selectedLimit)">Submit</button>
+    <button class="button" ng-click="close()">Close</button>
+  </form>
 
-  </div>
+</div>
 
 </div>

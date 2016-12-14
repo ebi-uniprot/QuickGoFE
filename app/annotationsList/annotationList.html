@@ -1,21 +1,29 @@
-<div class="container_12" cg-busy="resultsPromise" ng-controller="AnnotationListCtrl">
+<div cg-busy="resultsPromise" ng-controller="AnnotationListCtrl">
   <!-- Buttons -->
-  <p class="buttons-under-tabs">
-    <button class="btn quickgo-btn icon-functional" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="s">Customise</button>
-    <button class="btn quickgo-btn icon-functional" ng-click="download()" data-icon="=">Download</button>
-    <span class="pagination-text"><strong>{{totalItems | number:0}}</strong> annotations</strong></span>
-  </p>
-
-  <div class="column-selector" class="animate-show" ng-show="customiseColumnsContainer">
-    <span class="icon-functional column-selector__close" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="x"></span>
-    <h3>Choose columns</h3>
-    <div class="column-selector__columns">
-      <p ng-repeat="column in columns">
-        <label>
-          <input type="checkbox" ng-model="column.visible"> {{column.label}}
-        </label>
-      </p>
+  <div>
+    <button class="button icon-functional" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="s">Customise</button>
+    <div id="customiseColumns" class="column-selector" class="animate-show" ng-show="customiseColumnsContainer">
+      <span class="icon-functional column-selector__close" ng-click="customiseColumnsContainer = !customiseColumnsContainer" data-icon="x"></span>
+      <h3>Choose columns</h3>
+      <div class="column-selector__columns">
+        <span ng-repeat="column in columns">
+          <label>
+            <input type="checkbox" ng-model="column.visible"> {{column.label}}
+          </label>
+        </span>
+      </div>
     </div>
+
+    <dropdown-toggle close-on-click="true">
+      <toggle>
+        <button class="button icon-functional" data-icon="=">Download</button>
+      </toggle>
+      <pane>
+        <div ng-include src="'download/download.html'"></div>
+      </pane>
+    </dropdown-toggle>
+
+    <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
   </div>
 
   <div>
@@ -53,11 +61,9 @@
           </td>
 
           <td ng-show="columns['withFrom'].visible">
-            <div ng-repeat="item in item.withFrom">
-              <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
-              <div class="text-center">
-                <strong ng-show="!$last">OR</strong>
-              </div>
+            <div>
+              <span ng-if="item.withFrom.length === 1">{{item.withFrom[0].connectedXrefs[0].db}}{{item.withFrom[0].connectedXrefs[0].id}}</span>
+              <a ng-if="item.withFrom.length > 1" class="quickgo-link" ng-click="openFromWith(item.withFrom)" target="_blank">{{item.withFrom[0].connectedXrefs[0].db}}{{item.withFrom[0].connectedXrefs[0].id}} and more...</a>
             </div>
           </td>
 
@@ -65,15 +71,11 @@
             <a class="quickgo-link selectable" ng-click="followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">{{item.taxonId}}</a>
           </td>
           <td ng-show="columns['assignedBy'].visible"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(item.assignedBy)">{{item.assignedBy}}</a></td>
+
           <td ng-show="columns['annotationExtension'].visible">
-            <div ng-repeat="item in item.extensions">
-              <div ng-repeat="resource in item.connectedXrefs" class="text-center">
-                <a href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{resource.qualifier}}.md" target="_blank">{{resource.qualifier}}(<a ng-click="followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}} {{olsxrefs[resource.db + ':' + resource.id]}}</a>)
-              </div>
-              <div class="text-center">
-                <strong ng-show="!$last">OR</strong>
-              </div>
-            </div>
+            <a ng-if="item.extensions.length === 1" href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{resource.qualifier}}.md" target="_blank">
+                {{item.extensions[0].connectedXrefs[0].qualifier}} (<a ng-if="item.extensions.length === 1" ng-click="followLinkToEntry(item.extensions[0].connectedXrefs[0].db, item.extensions[0].connectedXrefs[0].id)" target="_blank">{{item.extensions[0].connectedXrefs[0].db}}:{{item.extensions[0].connectedXrefs[0].id}} {{olsxrefs[item.extensions[0].connectedXrefs[0].db + ':' + item.extensions[0].connectedXrefs[0].id]}})</a>
+            <a ng-if="item.extensions.length > 1" class="quickgo-link" ng-click="openAnnoExtension(item.extensions)" target="_blank">{{item.extensions[0].connectedXrefs[0].qualifier}} ({{item.extensions[0].connectedXrefs[0].db}}:{{item.extensions[0].connectedXrefs[0].id}} {{olsxrefs[item.extensions[0].connectedXrefs[0].db + ':' + item.extensions[0].connectedXrefs[0].id]}}) and more...</a>
           </td>
 
           <td ng-show="columns['database'].visible">{{gpMapping[item.geneProductSimpleId].database}}</td>
@@ -96,29 +98,11 @@
       </tbody>
     </table>
 
-    <uib-pagination total-items="goList.numberOfHits" max-size="5" rotate="false" ng-model="currentPage" items-per-page="maxSize" ng-change="pageChanged()"></uib-pagination>
+    <pagination total-items="goList.numberOfHits" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="5" ng-click="pageChanged()"></pagination>
 
   </div>
   <!-- if there are no results tell the user explicitly -->
   <div ng-show="goList.numberOfHits == 0" class="jumbotron">
     <h4>No matching annotations have been found</h4>
   </div>
-
-  <div class="clearfix"></div>
-
-  <!-- Dynamicaly inserted tootltips for column headings -->
-  <script type="text/ng-template" id="colDatabase.html"><span>The souce database of the annotation</span></script>
-  <script type="text/ng-template" id="colGeneProductID.html"><span>The sequence IDs that have been annotated with GO Terms.</span></script>
-  <script type="text/ng-template" id="colSymbol.html"><span>The symbols corresponding to the Gene Product ID. An officially approved gene symbol when available or other gene symbols or locus names.</span></script>
-  <script type="text/ng-template" id="colQualifier.html"><span>Defines the relationship between Gene product and GO term.</span></script>
-  <script type="text/ng-template" id="colGOIdentifier.html"><span>The unique, stable identifier of the GO term.</span></script>
-  <script type="text/ng-template" id="colGOTermName.html"><span>The GO term name corresponding to the GO Identifier.</span></script>
-  <script type="text/ng-template" id="colAspect.html"><span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span></script>
-  <script type="text/ng-template" id="colEvidence.html"><span>GO terms are assigned to proteins based on different evidence. This is represented by an evidence code.</span></script>
-  <script type="text/ng-template" id="colReference.html"><span>A PubMed reference or a GO_REF identifier which contains either the data supporting the annotation or details of the electronic method applied to generate the annotation.</span></script>
-  <script type="text/ng-template" id="colWith.html"><span>An additional ID to support annotations using certain evidence codes (including IEA, IPI, IGI, IC and ISS evidences). E.g. UniProtKB:O00341, InterPro:IPROO1878 …</span></script>
-  <script type="text/ng-template" id="colTaxon.html"><span>The taxonomic ID for the species being annotated.</span></script>
-  <script type="text/ng-template" id="colAssignedBy.html"><span>The database which created the annotation. The GO annotation may not be copied without acknowledgement of the data source.</span></script>
-  <script type="text/ng-template" id="colAnnotationExtension.html"><span>Annotation Extension</span></script>
-  <script type="text/ng-template" id="colOrigID.html"><span>The orginal GO ID</span></script>
-  <script type="text/ng-template" id="colOrigName.html"><span>Original name of the slim</span></script>
+</div>

@@ -2,7 +2,7 @@
 <div ng-controller="taxonFilter">
   <form>
     <div class="form-group y-scroll-200">
-      <ul>
+      <ul class="no-bullet">
         <li ng-repeat="taxon in taxa" class="checkbox">
           <label>
             <input type="checkbox" ng-model="taxon.checked">
@@ -22,7 +22,7 @@
         </small></p>
       </div>
       <div class="form-group">
-        <button class="btn btn-default" type="button" ng-click="addTaxons()">Add</button>
+        <button class="hollow button" ng-click="addTaxons()">Add</button>
       </div>
     </div>
     <hr>

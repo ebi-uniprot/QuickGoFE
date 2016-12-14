@@ -2,7 +2,7 @@
  * Created by twardell on 07/05/2015.
  */
 
-app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $location,
+app.controller('DownloadCtrl', function($scope, $http, $location,
                                             hardCodedDataService, ENV) {
 
   $scope.selectedLimit=1000; //default
@@ -38,17 +38,9 @@ app.controller('DownloadCtrl', function($scope, $http, $uibModalInstance, $locat
 
     $scope.downloadPromise.success(function(data) {
       downloadFile(fileName, data, format.strMimeType);
-      $uibModalInstance.dismiss('cancel');
     });
   };
 
-
-    /**
-   * Close window
-   */
-  $scope.close = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
 
   function downloadFile(fileName, data, strMimeType) {
     strMimeType = strMimeType || 'text/plain;charset=utf-8;';
