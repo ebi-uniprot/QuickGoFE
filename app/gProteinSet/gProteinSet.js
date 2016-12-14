@@ -1,4 +1,4 @@
-app.controller('GProteinSetCtrl', function($scope, $uibModal, $routeParams, $location, $anchorScroll,
+app.controller('GProteinSetCtrl', function($scope, $routeParams, $location, $anchorScroll,
                                            presetsService, geneProductService, taxonomyService) {
 
   $scope.gpSetName = $routeParams.gpSetName;
