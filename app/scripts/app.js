@@ -183,6 +183,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
     .when('/404', {
       templateUrl: 'errors/404.html'
     })
+    .when('/GProteinSet/:gpSetName', {
+      templateUrl: 'gProteinSet/gProteinSet.html',
+      controller: 'GProteinSetCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });
