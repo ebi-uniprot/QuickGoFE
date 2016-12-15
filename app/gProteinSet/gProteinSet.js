@@ -1,8 +1,9 @@
-app.controller('GProteinSetCtrl', function($scope, $routeParams, $location, $anchorScroll,
+app.controller('GProteinSetCtrl', function($rootScope, $scope, $routeParams, $location, $anchorScroll,
                                            presetsService, geneProductService, taxonomyService) {
 
   $scope.gpSetName = $routeParams.gpSetName;
   $scope.location = $location.path();
+  $rootScope.fullWidthPage = true;
 
   function init() {
     var gpSetPromise = presetsService.getPresetsGeneProducts();
