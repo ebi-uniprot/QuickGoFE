@@ -96,10 +96,11 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
   };
 
   $scope.highlight = function(text) {//TODO check this is still working
+    console.log(text);
     if (!text) {
       return text;
     }
-    return text.replace(new RegExp($scope.searchTerm, 'gi'), '<span class="highlighted">' + $scope.searchTerm + '</span>');
+    return text.replace(new RegExp($scope.searchTerm, 'gi'), '<em>' + $scope.searchTerm + '</em>');
   };
 
   getResultsPage(type);
