@@ -3,6 +3,7 @@ app.controller('productTypeFilter', function($scope, presetsService){
   $scope.gpTypes = {};
 
   var init = function() {
+    $scope.gpTypes = {};
     var checked = [];
     if($scope.query.geneProductType) {
       checked = checked.concat($scope.query.geneProductType.split(','))
@@ -19,6 +20,7 @@ app.controller('productTypeFilter', function($scope, presetsService){
 
   $scope.reset = function() {
     $scope.query.geneProductType = '';
+    init();
     $scope.updateQuery();
   };
 

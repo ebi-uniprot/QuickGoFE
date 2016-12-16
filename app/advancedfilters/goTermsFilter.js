@@ -8,6 +8,9 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
 
 
   var init = function() {
+    $scope.goTerms = {};
+    $scope.goTermUse = $scope.$parent.query.goUsage ? $scope.$parent.query.goUsage : 'descendants';
+    $scope.goRelations = $scope.$parent.query.goUsageRelationships ? $scope.$parent.query.goUsageRelationships : 'is_a,part_of,occurs_in';
     var termsToFetch = [];
     var checkedTerms = [];
     if($scope.$parent.query.goId) {
@@ -42,8 +45,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
     $scope.$parent.query.goId = '';
     $scope.$parent.query.goUsage = '';
     $scope.$parent.query.goUsageRelationships = '';
-    $scope.goTermUse = 'ancestor';
-    $scope.goRelations = 'IPO';
+    init();
     $scope.$parent.updateQuery();
   };
 

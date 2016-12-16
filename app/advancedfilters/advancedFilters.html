@@ -15,7 +15,7 @@
     <li ng-class="{'inactive':query.geneProductId || query.targetSet}">
       <dropdown-toggle close-on-click="true">
         <toggle>
-          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['geneProductId'] ||  query['geneProductSet']}" data-icon="/">Gene Product ID</button>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['geneProductId'] ||  query['targetSet']}" data-icon="/">Gene Product ID</button>
         </toggle>
         <pane>
           <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>

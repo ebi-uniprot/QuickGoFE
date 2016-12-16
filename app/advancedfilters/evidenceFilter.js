@@ -6,6 +6,8 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
 
   var init = function () {
+    $scope.ecos = {};
+    $scope.evidenceCodeUsage = 'descendants';
     presetsService.getPresetsEvidences().then(function (d) {
       var evidences = d.data.evidences;
       if($scope.$parent.query.evidenceCode) {
@@ -37,6 +39,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   $scope.reset = function () {
     $scope.$parent.query.evidenceCode = '';
     $scope.$parent.query.evidenceCodeUsage = '';
+    init();
     $scope.$parent.updateQuery();
   };
 
