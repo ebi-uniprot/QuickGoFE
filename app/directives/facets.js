@@ -7,6 +7,7 @@ angular
         searchTerm: '=',
         endpoint: '@',
         fields: '=',
+        titles: '=',
         filters: '='
       },
       templateUrl: 'directives/facets.html',

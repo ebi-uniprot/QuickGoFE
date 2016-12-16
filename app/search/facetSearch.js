@@ -3,10 +3,13 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, ont
 
   var isTermSearch = $location.path().indexOf('searchterms') > -1;
   var facets;
+  $scope.facetTitles = {};
   if(isTermSearch) {
     facets = 'aspect,ontologyType';
+    $scope.facetTitles = {aspect: 'Aspect', ontologyType: 'Ontology type'};
   } else {
-    facets = 'type,taxonId,dbSubset'
+    facets = 'type,taxonId,dbSubset';
+    $scope.facetTitles = {type: 'Type', taxonId: 'Organism', dbSubset: 'DB Subset'};
   }
   $scope.maxSize = 25;
   $scope.currentPage = 1;
