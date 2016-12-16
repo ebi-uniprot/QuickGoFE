@@ -1,0 +1,33 @@
+<!-- Download modal dialogue-->
+<div cg-busy="downloadPromise" ng-controller="DownloadStatsCtrl">
+  <button class="close-button" data-close type="button">
+    <span>&times;</span>
+  </button>
+
+  <h4>Statistics Download</h4>
+
+  <form>
+    <label class="bold-label">Categories:</label>
+    <div ng-repeat="item in stats">
+      <label>
+        <input ng-checked="item.selected" ng-click="item.selected = !item.selected" type="checkbox"> {{item.label}}
+      </label>
+    </div>
+    <br/>
+    <br/>
+    <label class="bold-label">Grouped by:</label>
+    <div ng-repeat="item in groupedBy">
+      <label>
+        <input ng-model="groupedByValue.selection" type="radio" value="{{item.value}}">{{item.label}}
+      </label>
+    </div>
+    <br/>
+    <br/>
+    <!-- Version 1 -->
+    <button class="button" ng-click="submit()">Download</button>
+    <button class="button" ng-click="close()">Cancel</button>
+  </form>
+
+</div>
+
+</div>

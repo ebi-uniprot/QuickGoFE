@@ -2,12 +2,12 @@
 app.controller('StatisticsCtrl', function($scope, $routeParams, searchService) {
 
   $scope.stats = {
-    'reference': {},
-    'goId': {},
-    'assignedBy': {},
-    'taxonId': {},
-    'evidenceCode': {},
-    'aspect': {}
+    'reference': {label: 'Reference', selected: true},
+    'goId': {label: 'GO ID', selected: true},
+    'assignedBy': {label: 'Assigned By', selected: true},
+    'taxonId': {label: 'Taxon', selected: true},
+    'evidenceCode': {label: 'Evidence', selected: true},
+    'aspect': {label: 'Aspect', selected: true}
   };
 
   $scope.totalNumberAnnotations = 0;
