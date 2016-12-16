@@ -5,6 +5,8 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService){
   $scope.showAllNotQualifiers = 0;
 
   var initQualifiers = function() {
+    $scope.qualifiers = {};
+    $scope.showAllNotQualifiers = 0;
     var checked = [];
     if($scope.query.qualifier) {
       checked = checked.concat($scope.query.qualifier.split(','));
@@ -33,6 +35,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService){
 
   $scope.reset = function () {
     $scope.query.qualifier = '';
+    initQualifiers();
   };
 
   $scope.$on('applyMoreFilters', function() {
