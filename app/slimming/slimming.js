@@ -4,6 +4,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   stringService, validationService) {
 
   $scope.selection = {};
+  $scope.deSelectedItems = [];
 
   var init = function() {
     angular.forEach($scope.aspects, function(aspect) {
@@ -54,16 +55,28 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   // Predefined sets
   $scope.addPredefined = function() {
-    var terms = $scope.selectedPreDefinedSlimSet.associations;
-    if($scope.includeRootTerms) {
-      terms = terms.concat(['GO:0003674','GO:0008150','GO:0005575']);
-    }
-
-    termService.getGOTerms(terms).then(function(d){
-      angular.forEach(d.data.results, function(goTerm){
-        $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
-      });
+    //TODO this is needed as the service currently returns aspect name not id
+    var aspectMap = {};
+    angular.forEach($scope.aspects, function(aspect) {
+      aspectMap[aspect.name] = aspect.id;
     });
+
+    var terms = $scope.selectedPreDefinedSlimSet.associations;
+
+    if($scope.includeRootTerms) {
+      termService.getGOTerms(['GO:0003674','GO:0008150','GO:0005575']).then(function(d){
+        angular.forEach(d.data.results, function(goTerm){
+          $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
+        });
+      });
+    }
+    angular.forEach(terms, function(term){
+      if(aspectMap[term.aspect]) { //TODO remove when service has correct aspect
+        term.aspect = aspectMap[term.aspect];
+      }
+      $scope.selection[term.aspect].terms[term.id] = term;
+    });
+    $scope.selectedPreDefinedSlimSet = '';
   };
 
   // Own terms
@@ -124,25 +137,19 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     return $scope.selectedItems;
   };
 
-  $scope.removeFromSelection = function(termId) {
+  $scope.removeFromSelection = function(termToRemove) {
     // Remove from selected items
-    $scope.selectedItems = _.filter($scope.selectedItems, function(term) {
-      return term.termId !== termId;
-    });
+    delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
     // Add to de-selected items
-    termService.getGOTerm(termId).then(function(res) {
-      $scope.deSelectedItems.push(res.data);
-    });
+    $scope.deSelectedItems.push(termToRemove);
   };
 
-  $scope.addBackIntoSelection = function(termId) {
+  $scope.addBackIntoSelection = function(termToAdd) {
+    // Add back to selectedItems
+    $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
     // Remove from deSelectedItems
     $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
-      return term.termId !== termId;
-    });
-    // Add back to selectedItems
-    termService.getGOTerm(termId).then(function(res) {
-      $scope.selectedItems.push(res.data);
+      return term.id !== termToAdd.id;
     });
   };
 
