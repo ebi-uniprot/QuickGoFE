@@ -78,18 +78,16 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
 
   $scope.addPredefinedSet = function() {
     if($scope.selectedPreDefinedSlimSet) {
-      termService.getGOTerms($scope.selectedPreDefinedSlimSet.associations).then(function(d){
-        var data = d.data.results;
-        angular.forEach(data, function(goTerm){
-          goTerm.checked = true;
-          $scope.goTerms[goTerm.id] = goTerm;
-        });
+      angular.forEach($scope.selectedPreDefinedSlimSet.associations, function(slimTerm) {
+        slimTerm.checked = true;
+        $scope.goTerms[slimTerm.id] = slimTerm;
       });
+      $scope.selectedPreDefinedSlimSet = '';
     }
   };
 
-  $scope.hasTerms = function() {
-    return Object.keys($scope.goTerms).length !== 0;
+  $scope.selectedTermSize = function() {
+    return Object.keys($scope.goTerms).length;
   };
 
   init();
