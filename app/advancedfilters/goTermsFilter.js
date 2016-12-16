@@ -5,6 +5,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   $scope.goTerms = {};
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
+  $scope.uploadLimit = 100;
 
 
   var init = function() {

@@ -2,15 +2,15 @@
   <form>
   <!-- 3 choices -->
   <div class="y-scroll-200 inset-panel" ng-show="selectedTermSize() > 0">
-    <ul class="no-bullet"ng-show="selectedTermSize() < 20">
+    <ul class="no-bullet"ng-show="selectedTermSize() < uploadLimit">
       <li ng-repeat="(id, term) in goTerms" class="checkbox">
         <label>
           <input type="checkbox" ng-model="term.checked"> {{term.id}} {{term.name}}
         </label>
       </li>
     </ul>
-    <div ng-show="selectedTermSize() > 100" class="text-center">
-      <strong>More than 100 terms selected.</strong>
+    <div ng-show="selectedTermSize() > uploadLimit" class="text-center">
+      <strong>More than {{uploadLimit}} terms selected.</strong>
     </div>
   </div>
   <hr>
