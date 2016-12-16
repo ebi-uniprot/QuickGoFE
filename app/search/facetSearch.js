@@ -1,19 +1,51 @@
-app.controller('FacetSearchCtrl', function($scope, $location, searchService, ontoTypeService, $routeParams,
+'use strict';
+app.controller('FacetSearchCtrl', function($scope, $location, searchService, $routeParams,
                                            taxonomyService) {
 
-  var isTermSearch = $location.path().indexOf('searchterms') > -1;
-  var facets;
-  if(isTermSearch) {
-    facets = 'aspect,ontologyType';
-  } else {
-    facets = 'type,taxonId,dbSubset'
-  }
+  var allFacets = [{
+    'name':'Aspect',
+    'id':'aspect',
+    'type':'term'
+  }, {
+    'name':'Ontology Type',
+    'id':'ontologyType',
+    'type':'term'
+  }, {
+    'name':'Type',
+    'id':'type',
+    'type':'gp'
+  }, {
+    'name':'Organism',
+    'id':'taxonId',
+    'type':'gp'
+  }, {
+    'name':'UniProtKB',
+    'id':'dbSubset',
+    'type':'gp'
+  }];
+
+  var getFacets = function(type) {
+    return _.filter(allFacets, function(d){
+      return d.type === type;
+    });
+  };
+
+  var type = $location.path().indexOf('searchterms') > -1 ? 'term' : 'gp';
+  var facets = getFacets(type);
+
+  $scope.taxaMapping = {};
+  $scope.facetNames = {};
+
+  _.each(facets, function(facet) {
+    $scope.facetNames[facet.id] = facet.name;
+  });
+
   $scope.maxSize = 25;
   $scope.currentPage = 1;
 
   $scope.searchTerm = $routeParams.searchTerm;
   $scope.filters = '';
-  angular.forEach(facets.split(','), function(facet) {
+  angular.forEach(_.pluck(facets,'id'), function(facet) {
     $scope.filters += $routeParams[facet] ? facet + '=' + $routeParams[facet] + '&' : '';
   });
   $scope.filters = $scope.filters === '' ? '' : $scope.filters.slice(0, -1);
@@ -22,96 +54,53 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, ont
     current: 1
   };
 
-  function getResultsPage() {
-    if(isTermSearch) {
-      $scope.queryPromise = searchService.findTerms($scope.searchTerm, $scope.maxSize, $scope.currentPage, facets,
-          $scope.filters);
-    } else {
-      $scope.queryPromise = searchService.findGeneProducts($scope.searchTerm, $scope.maxSize, $scope.currentPage,
-          facets, $scope.filters);
-    }
-    $scope.queryPromise.then(
-      function(result) {
-        $scope.results = result.data;
-        postProcess();
-      });
-  }
-
-  $scope.pageChanged = function() {
-    getResultsPage();
-  };
-
-  $scope.isGoTerm = function(termId) {
-    return ontoTypeService.isGoTerm(termId);
-  };
-
-  $scope.highlight = function(text) {
-    if (!text) {
-      return text;
-    }
-
-    return text.replace(new RegExp($scope.searchTerm, 'gi'), "<span class='highlighted'>" + $scope.searchTerm + "</span>");
-  };
-
-  getResultsPage();
-
-  function postProcess() {
-    postProcessTaxaForData();
-    sortAndTrimFacets();
-    addTaxaNamesToFacets();
-  }
-
-  function postProcessTaxaForData() {
-    if (!isTermSearch) {
-      var taxaIds = [];
-      angular.forEach($scope.results.results, function(annotation) {
-        taxaIds.push(annotation.taxonId);
-      });
-
-      $scope.taxaMapping = {};
-      if (taxaIds.length !== 0) {
-        var taxonomyPromise = taxonomyService.getTaxa(_.unique(taxaIds));
-        taxonomyPromise.then(function(multipleTaxa) {
-          angular.forEach(multipleTaxa.data.taxonomies, function(taxon) {
-            $scope.taxaMapping[taxon.taxonomyId] = taxon;
-          });
-        });
-      }
-    }
-  }
-
-  function addTaxaNamesToFacets() {
-    if (!isTermSearch) {
-      var taxaIds = [];
-      var data = _.find($scope.results.facet.facetFields, function(facet) {
-        return facet.field === 'taxonId';
-      });
-      angular.forEach(data.categories, function (category) {
-        taxaIds.push(category.name);
-      });
-
-      if (taxaIds.length !== 0) {
-        var taxonomyPromise = taxonomyService.getTaxa(_.unique(taxaIds));
-        taxonomyPromise.then(function(multipleTaxa) {
-          angular.forEach(data.categories, function(datum) {
-            var inResult = _.find(multipleTaxa.data.taxonomies, function(taxon) {
-              return taxon.taxonomyId === +datum.name;
-            });
-            if (inResult) {
-              datum.display = inResult.scientificName;
-            }
-          });
-        });
-      }
-    }
-  }
-
-  function sortAndTrimFacets() {
-    _.each($scope.results.facet.facetFields, function(facet) {
+  function sortAndTrimFacets(fields) {
+    _.each(fields, function(facet) {
+      // _.each($scope.results.facet.facetFields, function(facet) {
       facet.categories = _.sortBy(facet.categories, function(category) {
         return category.count;
       });
       facet.categories = _.last(facet.categories, 10).reverse();
     });
   }
+
+  function getResultsPage(type) {
+    if(type === 'term') {
+      $scope.queryPromise = searchService.findTerms($scope.searchTerm, $scope.maxSize, $scope.currentPage, _.pluck(facets,'id'),
+          $scope.filters);
+    } else {
+      $scope.queryPromise = searchService.findGeneProducts($scope.searchTerm, $scope.maxSize, $scope.currentPage,
+          _.pluck(facets,'id'), $scope.filters);
+    }
+    $scope.queryPromise.then(
+      function(result) {
+        $scope.results = result.data;
+        sortAndTrimFacets($scope.results.facet.facetFields);
+
+        var taxaIds = _.uniq(_.pluck(result.data.results, 'taxonId'));
+        if(type === 'gp') {
+          taxaIds = taxaIds.concat(_.pluck(_.find($scope.results.facet.facetFields, function(d){
+              return d.field === 'taxonId';
+          }).categories,'name'));
+          taxonomyService.getTaxa(taxaIds).then(function(response){
+            angular.forEach(response.data.taxonomies, function(taxon) {
+              $scope.taxaMapping[taxon.taxonomyId] = taxon.scientificName;
+            });
+          });
+        }
+      });
+  }
+
+  $scope.pageChanged = function() {
+    getResultsPage(type);
+  };
+
+  $scope.highlight = function(text) {//TODO check this is still working
+    if (!text) {
+      return text;
+    }
+    return text.replace(new RegExp($scope.searchTerm, 'gi'), '<em>' + $scope.searchTerm + '</em>');
+  };
+
+  getResultsPage(type);
 });

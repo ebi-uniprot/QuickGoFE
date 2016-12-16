@@ -4,10 +4,12 @@ angular
     return {
       restrict: 'E',
       scope: {
+        facetNames: '=',
         searchTerm: '=',
         endpoint: '@',
         fields: '=',
-        filters: '='
+        filters: '=',
+        nameMapping: '=?'
       },
       templateUrl: 'directives/facets.html',
       link: function($scope) {
@@ -25,8 +27,7 @@ angular
               return !filter.startsWith(field);
           });
           return filters.join();
-        }
-
+        };
       }
     };
   }]);
