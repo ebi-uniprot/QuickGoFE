@@ -4,7 +4,7 @@
     <li>
       <dropdown-toggle close-on-click="true">
         <toggle>
-          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('taxonId')}" data-icon="/">Taxon</button>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['taxonId']}" data-icon="/">Taxon</button>
         </toggle>
         <pane>
           <div ng-include src="'advancedfilters/taxonFilter.html'"></div>
@@ -15,7 +15,7 @@
     <li ng-class="{'inactive':query.geneProductId || query.targetSet}">
       <dropdown-toggle close-on-click="true">
         <toggle>
-          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('geneProductId') ||  isActiveFilter('geneProductSet')}" data-icon="/">Gene Product ID</button>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['geneProductId'] ||  query['geneProductSet']}" data-icon="/">Gene Product ID</button>
         </toggle>
         <pane>
           <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
@@ -27,7 +27,7 @@
     <li ng-class="{'inactive':query.geneProductType}">
       <dropdown-toggle close-on-click="true">
         <toggle>
-          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('geneProductType')}" data-icon="/">Gene Product Type</button>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['geneProductType']}" data-icon="/">Gene Product Type</button>
         </toggle>
         <pane>
           <div ng-include src="'advancedfilters/productTypeFilter.html'"></div>
@@ -39,7 +39,7 @@
     <li ng-class="{'inactive':query.goId}">
       <dropdown-toggle close-on-click="true">
         <toggle>
-          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('goId')}" data-icon="/">GO terms</button>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['goId']}" data-icon="/">GO terms</button>
         </toggle>
         <pane>
           <div ng-include src="'advancedfilters/goTermsFilter.html'"></div>
@@ -51,7 +51,7 @@
     <li ng-class="{'inactive':query.aspect}" >
       <dropdown-toggle close-on-click="true">
         <toggle>
-          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('aspect')}" data-icon="/">Aspect</button>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['aspect']}" data-icon="/">Aspect</button>
         </toggle>
         <pane>
           <div ng-include src="'advancedfilters/aspectFilter.html'"></div>
@@ -63,7 +63,7 @@
     <li ng-class="{'inactive':query.evidenceCode}">
       <dropdown-toggle close-on-click="true" class="evidence-panel" pane-align="right">
         <toggle>
-          <button class="button dropdown" ng-class="{'icon-functional active-filter' : isActiveFilter('evidenceCode')}" data-icon="/">Evidence</button>
+          <button class="button dropdown" ng-class="{'icon-functional active-filter' : query['evidenceCode']}" data-icon="/">Evidence</button>
         </toggle>
         <pane>
           <div ng-include src="'advancedfilters/evidenceFilter.html'"></div>
@@ -75,7 +75,7 @@
     <!-- MORE  -->
 
     <li>
-      <button class="button dropdown" ng-click="moreColumnsContainer = !moreColumnsContainer" ng-class="{'icon-functional active-filter' : isActiveFilter('qualifier') ||  isActiveFilter('reference') || isActiveFilter('withFrom') || isActiveFilter('assignedBy')}" data-icon="/">More</button>
+      <button class="button dropdown" ng-click="moreColumnsContainer = !moreColumnsContainer" ng-class="{'icon-functional active-filter' : query['qualifier'] ||  query['reference'] || query['withFrom'] || query['assignedBy']}" data-icon="/">More</button>
     </li>
 
   </ul>
