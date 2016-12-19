@@ -3,5 +3,4 @@
  */
 app.controller('FeedbackCtrl', function() {
 
-
 });

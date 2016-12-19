@@ -78,6 +78,13 @@
       <button class="button dropdown" ng-click="moreColumnsContainer = !moreColumnsContainer" ng-class="{'icon-functional active-filter' : query['qualifier'] ||  query['reference'] || query['withFrom'] || query['assignedBy']}" data-icon="/">More</button>
     </li>
 
+
+    <!-- MORE  -->
+
+    <li>
+      <button class="button hollow" ng-click="clearFilters()">Clear all</button>
+    </li>
+
   </ul>
 
   <div id="morePanel" class="column-selector more-panel" ng-show="moreColumnsContainer">
@@ -92,8 +99,8 @@
       <!-- ASSIGNED BY -->
         <div class="medium-3 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
         <div class="float-right">
-          <button class="button" ng-click="reset()">Reset</button>
-          <button class="button" ng-click="apply()">Apply</button>
+          <button class="button hollow" ng-click="reset()">Reset</button>
+          <button class="button hollow" ng-click="apply()">Apply</button>
         </div>
       </div>
 
