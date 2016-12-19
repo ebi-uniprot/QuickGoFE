@@ -12,4 +12,3 @@ app.controller('GoTermHistoryCtrl', function($scope, basketService, goTermHistor
   });
 
 });
-

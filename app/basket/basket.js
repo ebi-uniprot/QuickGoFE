@@ -1,8 +1,5 @@
-/**
- * Created by twardell on 27/01/2015.
- */
-
-app.controller('BasketCtrl', function($scope, $rootScope, $log,  $location,  $q,
+'use strict';
+app.controller('BasketCtrl', function($scope, $rootScope, $log, $modal,  $location,  $q,
                                       basketService, $cookieStore) {
 
   $scope.loadBasketItems = function() {
@@ -89,8 +86,32 @@ app.controller('BasketCtrl', function($scope, $rootScope, $log,  $location,  $q,
   //       }
   //     }
   //   });
-  //
-  // };
+  $scope.showAncestorGraph = function() {
+      var k;
+      var itemString="";
+      for(k=0;k<$scope.basketItems.length;k++ ){
+        itemString = itemString+$scope.basketItems[k].termId;
+        itemString=itemString+',';
+      }
+    $modal.open({
+      template: '<a class="float-right" ng-click="ok()">Close</a><h3>Ancestor chart</h3><chart ids="ids" full="true"></chart>',
+      size:'large',
+      resolve: {
+        ids: function() {
+          return {id:itemString, scope:'GO'};
+        }
+      },
+      controller: function($scope, $modalInstance, ids) {
+        console.log("itemString contents:", itemString);
+        $scope.ids = itemString;
+        $scope.ok = function() {
+          $modalInstance.close();
+        };
+      }
+    });
+  };
+
+
 
 
   /**
@@ -129,7 +150,6 @@ app.controller('BasketCtrl', function($scope, $rootScope, $log,  $location,  $q,
   };
 
   $scope.isBasketNotEmpty = function (){
-    console.log("ran isBasketNotEmpty");
     return basketService.basketQuantity() > 0;
   };
 

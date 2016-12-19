@@ -20,7 +20,9 @@ var app = angular
     'mm.foundation'
   ]);
 
-app.run(function ($rootScope, dbXrefService, $window) {
+var fullWidthPages = ['annotations','dataset','searchterms','searchproducts'];
+
+app.run(function ($rootScope, dbXrefService, $window, $location) {
   $rootScope.followLinkToGeneric = function (database) {
     dbXrefService.getDbXrefs().then(function (xrefs) {
       $window.open(dbXrefService.getGenericLink(database, xrefs.data));
@@ -46,6 +48,16 @@ app.run(function ($rootScope, dbXrefService, $window) {
     $rootScope.alerts.splice(index, 1);
   };
 
+  $rootScope.$on('$viewContentLoaded', function () {
+    angular.forEach(fullWidthPages, function(pageName) {
+      var regEx = new RegExp(pageName,'g');
+      if($location.url().match(regEx)){
+        $rootScope.fullWidthPage = true;
+        return;
+      }
+    });
+    $rootScope.fullWidthPage = false;
+  });
 
 });
 
@@ -183,9 +195,9 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
     .when('/404', {
       templateUrl: 'errors/404.html'
     })
-    .when('/GProteinSet/:gpSetName', {
-      templateUrl: 'gProteinSet/gProteinSet.html',
-      controller: 'GProteinSetCtrl'
+    .when('/targetset/:gpSetName', {
+      templateUrl: 'targetSet/targetSet.html',
+      controller: 'TargetSetCtrl'
     })
     .otherwise({
       redirectTo: '/'

@@ -8,6 +8,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
   };
 
   var initReference = function() {
+    $scope.references = {};
     //References
     if($scope.query.reference) {
       angular.forEach($scope.query.reference.split(','), function(id) {
@@ -42,6 +43,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
 
   $scope.reset = function () {
     $scope.$parent.query.reference = '';
+    initReference();
   };
 
   $scope.$on('applyMoreFilters', function() {

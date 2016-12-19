@@ -11,7 +11,7 @@
       <tab heading="Predefined GO slims">
         <div class="select-container">
           <label>Select:</label>
-          <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.name for predefinedSet in predefinedSlimSets" ng-change="updatePredefinedSets()">
+          <select ng-model="$parent.$parent.selectedPreDefinedSlimSet" ng-options="predefinedSet.name for predefinedSet in predefinedSlimSets">
             <option value=""></option>
           </select>
           <div>
@@ -106,22 +106,20 @@
         </h4>
         <p ng-repeat="aTerm in aspect.terms">
           <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.obsolete" name="aTerm.name"></term-line>
-          <a class="icon icon-functional" data-icon="x" title="Remove from selection" ng-click="removeFromSelection(aTerm.termId)"></a>
+          <a class="icon icon-functional" data-icon="x" title="Remove from selection" ng-click="removeFromSelection(aTerm)"></a>
         </p>
       </div>
     </div>
     <div class="selectionContainer removedTerms" ng-if="deSelectedItems.length >= 1">
-      <h5>Excluded Terms
+      <h4>Excluded Terms
         <span>({{deSelectedItems.length}})</span>
-      </h5>
-      <ul>
-        <li ng-repeat="aTerm in deSelectedItems">
-          <i>
-            <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
-            <a class="icon icon-functional" data-icon="+" uib-tooltip="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm.termId)"></a>
-          </i>
-        </li>
-      </ul>
+      </h4>
+      <p ng-repeat="aTerm in deSelectedItems">
+        <i>
+          <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
+          <a class="icon icon-functional" data-icon="+" title="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm)"></a>
+        </i>
+      </p>
     </div>
   </div>
 </div>

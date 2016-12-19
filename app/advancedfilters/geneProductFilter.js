@@ -6,6 +6,8 @@ app.controller('geneProductFilter', function ($scope, stringService,
   $scope.geneProductSets = {};
 
   var initgpIds = function () {
+    $scope.gpIds = [];
+    $scope.geneProductSets = {};
     presetsService.getPresetsGeneProducts().then(function(resp){
       var predefinedGPSets = _.sortBy(resp.data.geneProducts, 'name');
       var queryPredefined = $scope.query.targetSet;
@@ -26,6 +28,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
   $scope.reset = function () {
     $scope.query.geneProductId = '';
     $scope.query.targetSet = '';
+    initgpIds();
     $scope.updateQuery();
   };
 

@@ -2,7 +2,7 @@
   <h2>Results for gene product "{{searchTerm}}"</h2>
 
   <div class="medium-3 columns">
-      <facets endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm">
+      <facets  facet-names="facetNames" endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm" name-mapping="taxaMapping">
       </facets>
   </div>
 
@@ -29,7 +29,7 @@
           <td>{{searchResult.type}}</td>
           <td>
             <a class="quickgo-link selectable" ng-click="followLinkToEntry(searchResult.taxonId, 'TAXON')" target="_blank">
-              {{taxaMapping[searchResult.taxonId].scientificName}}
+              {{taxaMapping[searchResult.taxonId]}}
             </a>
           </td>
           <td><annotations-link

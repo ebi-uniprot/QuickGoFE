@@ -4,6 +4,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService)
   $scope.withFrom = {};
 
   var init = function() {
+    $scope.withFrom = {};
     // Get With DBs
     if($scope.query.withFrom) {
       angular.forEach($scope.query.withFrom.split(','), function(item) {
@@ -46,6 +47,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService)
 
   $scope.reset = function () {
     $scope.query.withFrom = '';
+    init();
   };
 
   $scope.$on('applyMoreFilters', function() {
