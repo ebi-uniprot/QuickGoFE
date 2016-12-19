@@ -42,7 +42,6 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
 
   $scope.maxSize = 25;
   $scope.currentPage = 1;
-  $rootScope.fullWidthPage = true;
 
   $scope.searchTerm = $routeParams.searchTerm;
   $scope.filters = '';

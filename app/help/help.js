@@ -1,4 +1,4 @@
-app.controller('HelpCtrl', function($rootScope, $document, $anchorScroll){
+app.controller('HelpCtrl', function($document, $anchorScroll){
   /**
   * Deals with making the right nav menu fixed
   */
@@ -15,6 +15,4 @@ app.controller('HelpCtrl', function($rootScope, $document, $anchorScroll){
       }
     }
   });
-
-  $rootScope.fullWidthPage = false;
 });

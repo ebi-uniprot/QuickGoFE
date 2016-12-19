@@ -1,10 +1,9 @@
 'use strict';
-app.controller('GOSlimCtrl', function($rootScope, $scope, $location, $q,
+app.controller('GOSlimCtrl', function($scope, $location, $q,
   hardCodedDataService, presetsService, termService, basketService,
   stringService, validationService) {
 
   $scope.selection = {};
-  $rootScope.fullWidthPage = false;
   $scope.deSelectedItems = [];
 
   var init = function() {

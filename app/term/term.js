@@ -33,7 +33,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
 
   $scope.termId = $routeParams.goId;
   $rootScope.header = "QuickGO::Term "+$scope.termId;
-  $rootScope.fullWidthPage = false;
 
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
   if ($scope.termId.lastIndexOf('ECO', 0) === 0) {

@@ -7,7 +7,6 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
   $scope.maxSize = 25;
   $rootScope.header = 'QuickGO::Annotation List';
   $scope.olsxrefs = {};
-  $rootScope.fullWidthPage = true;
 
   $scope.currentPage = 1;
 
