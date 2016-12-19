@@ -86,12 +86,15 @@ wsService.factory('taxonomyService', ['$http', function($http){
 
 wsService.factory('geneProductService', ['$http', 'ENV', function($http, ENV){
     return {
-        getGeneProducts : function(ids) {
+        getGeneProducts: function(ids) {
             if (typeof ids === Array) {
                 return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids.join(','));
             } else {
                 return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids);
             }
+        },
+        getTargetSet: function(id) {
+            return $http.get(ENV.apiEndpoint + '/geneproduct/targetset/' + id);
         }
     };
 }]);

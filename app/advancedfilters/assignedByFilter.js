@@ -3,6 +3,7 @@ app.controller('assignedByController', function($scope, presetsService){
   $scope.assignedBy = {};
 
   var init = function() {
+      $scope.assignedBy = {};
       // Get Assigned DBs
       var checked = [];
       if($scope.$parent.query.assignedBy) {
@@ -24,6 +25,7 @@ app.controller('assignedByController', function($scope, presetsService){
 
   $scope.reset = function () {
     $scope.$parent.query.assignedBy = '';
+    init();
   };
 
   var getQuery = function() {

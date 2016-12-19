@@ -24,10 +24,4 @@ describe('Testing annotation filters', function(){
     expect(scope.query).toEqual({});
   });
 
-  it('should tell me whether the filter is active', function() {
-    scope.addToQuery('test',['value 1', 'value2']);
-    expect(scope.isActiveFilter('test')).toEqual(true);
-    expect(scope.isActiveFilter('blah')).toEqual(false);
-  });
-
 });

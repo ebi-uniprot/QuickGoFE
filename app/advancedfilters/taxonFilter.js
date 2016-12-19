@@ -58,6 +58,7 @@ app.controller('taxonFilter', function($scope, $q, hardCodedDataService,
   };
 
   var initTaxons = function(){
+    $scope.taxa = {};
     presetsService.getPresetsTaxa().then(function(resp){
       var checked = [];
       if($scope.query.taxonId) {
@@ -79,6 +80,7 @@ app.controller('taxonFilter', function($scope, $q, hardCodedDataService,
 
   $scope.reset = function() {
     $scope.query.taxonId = '';
+    initTaxons();
     $scope.updateQuery();
   };
 

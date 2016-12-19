@@ -3,9 +3,10 @@
  */
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
                                     ENV, quickGOHelperService, $document, $routeParams, termService,
-                                    ontoTypeService, presetsService) {
+                                    ontoTypeService, presetsService, filterFilter) {
 
   $scope.targetDomainAndPort = ENV.apiEndpoint;
+  $scope.filter = filterFilter;
 
   // set default row count for tables
   $scope.defaultPageSize = 10;
@@ -48,7 +49,6 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
    */
     $scope.termPromise.then(function(data) {
         $scope.termModel = data.data.results[0];
-
         //set secondary ids string
         $scope.termModel.secondaryIdsString = $scope.termModel.secondaryIds ?
             $scope.termModel.secondaryIds.join() : '';

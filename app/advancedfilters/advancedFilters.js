@@ -26,10 +26,6 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     //TODO
   };
 
-  $scope.isActiveFilter = function (type) {
-    return $scope.query[type] != undefined;
-  };
-
   $scope.toggled = function (open) {
     if (!open) {}
   };
