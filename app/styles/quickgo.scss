@@ -184,6 +184,11 @@ html.fontface .help-icon::before {
   }
 }
 
+.basket__close{
+  float: right;
+  cursor: pointer;
+}
+
 li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
   color: rgba(18, 80, 84, 0.24) !important;
   cursor: default;
@@ -230,8 +235,8 @@ table th{
 ul.menu button.button{
   margin-left: 5px;
 }
-aspect-icon span.aspect-icon{
 
+aspect-icon span.aspect-icon{
    font-weight: bold;
  }
 
