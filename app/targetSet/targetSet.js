@@ -1,4 +1,4 @@
-app.controller('GProteinSetCtrl', function($scope, $routeParams, $location, $anchorScroll,
+app.controller('TargetSetCtrl', function($scope, $routeParams, $location, $anchorScroll,
                                            presetsService, geneProductService, taxonomyService) {
 
   $scope.gpSetName = $routeParams.gpSetName;
@@ -8,7 +8,7 @@ app.controller('GProteinSetCtrl', function($scope, $routeParams, $location, $anc
     var gpSetPromise = presetsService.getPresetsGeneProducts();
     gpSetPromise.then(
       function(response) {
-        $scope.gProteinSet = _.find(response.data.geneProducts, function(gp) {
+        $scope.targetSet = _.find(response.data.geneProducts, function(gp) {
           return gp.name === $scope.gpSetName;
         });
         getResultsPage();
