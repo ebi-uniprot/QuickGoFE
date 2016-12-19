@@ -150,7 +150,6 @@ app.controller('BasketCtrl', function($scope, $rootScope, $log, $modal,  $locati
   };
 
   $scope.isBasketNotEmpty = function (){
-    console.log("ran isBasketNotEmpty");
     return basketService.basketQuantity() > 0;
   };
 

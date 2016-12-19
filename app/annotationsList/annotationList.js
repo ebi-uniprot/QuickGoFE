@@ -1,6 +1,6 @@
 'use strict';
 app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeParams,
-   olsService, geneProductService, searchService, termService, taxonomyService) {
+   olsService, geneProductService, searchService, termService, taxonomyService, $modal) {
   /**
    * Initialisation
    */
