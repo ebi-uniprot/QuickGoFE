@@ -25,7 +25,7 @@
           <li ng-repeat="gpSet in geneProductSets" class="checkbox">
             <label>
               <input id="{{gpSet.value}}_chk" type="checkbox" ng-model="gpSet.checked">
-              <a href="/GProteinSet/{{gpSet.name}}" target="_blank">{{gpSet.name}}</a> {{gpSet.description}}
+              <a href="/targetset/{{gpSet.name}}" target="_blank">{{gpSet.name}}</a> {{gpSet.description}}
               (<a href="{{gpSet.url}}" target="_blank">{{gpSet.url}}</a>)
             </label>
           </li>
