@@ -5,6 +5,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   $scope.goTerms = {};
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
+  $scope.uploadLimit = 100;
 
 
   var init = function() {
@@ -25,13 +26,20 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
     termsToFetch = _.uniq(termsToFetch);
 
 
-    if(termsToFetch.length > 0){
+    if(termsToFetch.length > 0 && termsToFetch.length < $scope.uploadLimit){
       termService.getGOTerms(termsToFetch.toString()).then(function(d){
         var data = d.data.results;
         angular.forEach(data, function(goTerm){
           goTerm.checked = _.contains(checkedTerms,goTerm.id);
           $scope.goTerms[goTerm.id] = goTerm;
         });
+      });
+    } else {
+      angular.forEach(termsToFetch, function(termId) {
+        $scope.goTerms[termId] = {
+          'id':termId,
+          'checked':true
+        };
       });
     }
 
@@ -51,17 +59,23 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
 
   $scope.addGoTerms = function() {
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
-    termService.getGOTerms(goterms)
-      .success(function(d){
-        angular.forEach(d.results, function(goTerm){
-          goTerm.checked = true;
-          $scope.goTerms[goTerm.id] = goTerm;
-        });
-      })
-      .error(function(e){
-        //TODO handle messaging
-        console.log(e);
+    if(goterms.length > $scope.uploadLimit) {
+      $rootScope.alerts.push({
+        'msg': 'Sorry, we can only handle uploads of less than ' + $scope.uploadLimit + 'terms.'
       });
+    } else {
+      termService.getGOTerms(goterms)
+        .success(function(d){
+          angular.forEach(d.results, function(goTerm){
+            goTerm.checked = true;
+            $scope.goTerms[goTerm.id] = goTerm;
+          });
+        })
+        .error(function(e){
+          //TODO handle messaging
+          console.log(e);
+        });
+    }
     $scope.goTermsTextArea = '';
   };
 
@@ -80,18 +94,16 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
 
   $scope.addPredefinedSet = function() {
     if($scope.selectedPreDefinedSlimSet) {
-      termService.getGOTerms($scope.selectedPreDefinedSlimSet.associations).then(function(d){
-        var data = d.data.results;
-        angular.forEach(data, function(goTerm){
-          goTerm.checked = true;
-          $scope.goTerms[goTerm.id] = goTerm;
-        });
+      angular.forEach($scope.selectedPreDefinedSlimSet.associations, function(slimTerm) {
+        slimTerm.checked = true;
+        $scope.goTerms[slimTerm.id] = slimTerm;
       });
+      $scope.selectedPreDefinedSlimSet = '';
     }
   };
 
-  $scope.hasTerms = function() {
-    return Object.keys($scope.goTerms).length !== 0;
+  $scope.selectedTermSize = function() {
+    return Object.keys($scope.goTerms).length;
   };
 
   init();
