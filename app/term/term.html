@@ -427,7 +427,10 @@
     <section id="termHistory">
       <h3 class="term-section-header">Change Log</h3>
       <tabset>
-        <tab ng-if="termModel.history.length > 0" heading="All changes">
+        <li class="section-disabled tabs-title" ng-show="termModel.history.length <= 0">
+          <a>All changes</a>
+        </li>
+        <tab ng-show="termModel.history.length > 0" heading="All changes">
           <table class="two-colours">
             <tr>
               <th>Timestamp</th>
@@ -446,10 +449,12 @@
           <span ng-show="changeLogPageSize < termModel.history.length" ng-click="changeLogPageSize = termModel.history.length" class="selectable showMoreLess">show all</span>
           <span ng-show="(changeLogPageSize === termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
           <span ng-show="(changeLogPageSize === termModel.history.length && termModel.history.length > defaultPageSize)" ng-click="changeLogPageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
-
         </tab>
 
-        <tab ng-if="filter(termModel.history,'TERM').length > 0" heading="Term">
+        <li class="section-disabled tabs-title" ng-show="filter(termModel.history,'TERM').length <= 0">
+          <a>Term</a>
+        </li>
+        <tab ng-show="filter(termModel.history,'TERM').length > 0" heading="Term">
           <table class="two-colours">
             <tr>
               <th>Timestamp</th>
@@ -466,7 +471,10 @@
           </table>
         </tab>
 
-        <tab  ng-if="termModel.historyDefSyn.length > 0" heading="Definition / Synonyms">
+        <li class="section-disabled tabs-title" ng-show="termModel.historyDefSyn.length <= 0">
+          <a>Definition / Synonyms</a>
+        </li>
+        <tab  ng-show="termModel.historyDefSyn.length > 0" heading="Definition / Synonyms">
           <table class="two-colours">
             <tr>
               <th>Timestamp</th>
@@ -483,7 +491,10 @@
           </table>
         </tab>
 
-        <tab  ng-if="filter(termModel.history,'RELATION').length > 0" heading="Relationships">
+        <li class="section-disabled tabs-title" ng-show="filter(termModel.history,'RELATION').length <= 0">
+          <a>Relationships</a>
+        </li>
+        <tab  ng-show="filter(termModel.history,'RELATION').length > 0" heading="Relationships">
           <table class="two-colours">
             <tr>
               <th>Timestamp</th>
@@ -500,7 +511,10 @@
           </table>
         </tab>
 
-        <tab ng-if="filter(termModel.history,'XREF').length > 0"  heading="Cross-references">
+        <li class="section-disabled tabs-title" ng-show="filter(termModel.history,'XREF').length <= 0">
+          <a>Cross-references</a>
+        </li>
+        <tab ng-show="filter(termModel.history,'XREF').length > 0"  heading="Cross-references">
           <table class="two-colours">
             <tr>
               <th>Timestamp</th>
@@ -517,7 +531,10 @@
           </table>
         </tab>
 
-        <tab ng-if="termModel.historyOther.length > 0"  heading="Other">
+        <li class="section-disabled tabs-title" ng-show="termModel.historyOther.length <= 0">
+          <a>Other</a>
+        </li>
+        <tab ng-show="termModel.historyOther.length > 0"  heading="Other">
           <table class="two-colours">
             <tr>
               <th>Timestamp</th>
