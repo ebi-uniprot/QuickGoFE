@@ -1,6 +1,6 @@
 <!-- Download modal dialogue-->
 <div cg-busy="downloadPromise" ng-controller="DownloadCtrl">
-  <button class="close-button" data-close type="button">
+  <button class="close-button" data-close type="button" ng-click="$close()">
     <span>&times;</span>
   </button>
 
@@ -17,7 +17,7 @@
     <br/>
     <!-- Version 1 -->
     <button class="button" ng-click="submit(selectedFormat, selectedLimit)">Submit</button>
-    <button class="button" ng-click="close()">Close</button>
+    <button class="button" ng-click="$close()">Close</button>
   </form>
 
 </div>
