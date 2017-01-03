@@ -1,9 +1,14 @@
 <div id="content" cg-busy="statsPromise" ng-controller="StatisticsCtrl">
 
   <h4>Annotation statistics</h4>
-  <div>
-    <button class="button icon-functional" ng-click="download()" data-icon="=">Download</button>
-  </div>
+  <dropdown-toggle close-on-click="true">
+    <toggle>
+      <button class="button icon-functional" data-icon="=">Download</button>
+    </toggle>
+    <pane>
+      <div ng-include src="'download/downloadStatistics.html'"></div>
+    </pane>
+  </dropdown-toggle>
 
   <tabset>
     <tab heading="Summary">
@@ -21,41 +26,42 @@
         </div>
       </div>
     </tab>
-    <tab heading="GO ID">
+    <tab heading="{{stats.goId.label}}">
       <div class="row">
         <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true"></stats-table>
         <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true"></stats-table>
       </div>
     </tab>
-    <tab heading="Aspect">
+    <tab heading="{{stats.aspect.label}}">
       <div class="row">
         <stats-table title="Annotations per Aspect" items="stats.aspect.annotation"></stats-table>
         <stats-table title="Gene products per Aspect" items="stats.aspect.geneProduct"></stats-table>
       </div>
     </tab>
-    <tab heading="Evidence">
+    <tab heading="{{stats.evidenceCode.label}}">
       <div class="row">
         <stats-table title="Annotations per Evidence" items="stats.evidenceCode.annotation" is-term="true"></stats-table>
         <stats-table title="Gene products per Evidence" items="stats.evidenceCode.geneProduct" is-term="true"></stats-table>
       </div>
     </tab>
-    <tab heading="Reference">
+    <tab heading="{{stats.reference.label}}">
       <div class="row">
         <stats-table title="Annotations per Reference" items="stats.reference.annotation"></stats-table>
         <stats-table title="Gene products per Reference" items="stats.reference.geneProduct"></stats-table>
       </div>
     </tab>
-    <tab heading="Taxon">
+    <tab heading="{{stats.taxonId.label}}">
       <div class="row">
         <stats-table title="Annotations per Taxon" items="stats.taxonId.annotation"></stats-table>
         <stats-table title="Gene products per Taxon" items="stats.taxonId.geneProduct"></stats-table>
       </div>
     </tab>
-    <tab heading="Assigned By">
+    <tab heading="{{stats.assignedBy.label}}">
       <div class="row">
         <stats-table title="Annotations per Assigned By" items="stats.assignedBy.annotation"></stats-table>
         <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table>
       </div>
-    </tabset>
+    </tab>
+  </tabset>
 
-  </div>
+</div>
