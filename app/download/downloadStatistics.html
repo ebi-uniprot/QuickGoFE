@@ -1,11 +1,5 @@
 <!-- Download modal dialogue-->
 <div cg-busy="downloadPromise" ng-controller="DownloadStatsCtrl">
-  <button class="close-button" data-close type="button" ng-click="$close()">
-    <span>&times;</span>
-  </button>
-
-  <h4>Statistics Download</h4>
-
   <form>
     <label class="bold-label">Categories:</label>
     <div ng-repeat="item in stats">
@@ -25,7 +19,7 @@
     <br/>
     <!-- Version 1 -->
     <button class="button" ng-click="submit()">Submit</button>
-    <button class="button" ng-click="$close()">Close</button>
+    <button class="button" ng-click="$close()">Cancel</button>
   </form>
 
 </div>
