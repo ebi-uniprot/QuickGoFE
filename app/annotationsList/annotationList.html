@@ -23,7 +23,7 @@
       </pane>
     </dropdown-toggle>
 
-    <span class="pagination-text"><strong>{{totalItems}}</strong> annotations</strong></span>
+    <span class="pagination-text"><strong>{{totalItems | number}}</strong> annotations</strong></span>
   </div>
 
   <div>
@@ -98,7 +98,7 @@
       </tbody>
     </table>
 
-    <pagination total-items="goList.numberOfHits" page="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="5" ng-click="pageChanged()"></pagination>
+    <pagination total-items="getNumberOfElementsForPaging()" page="currentPage" max-size="5" items-per-page="itemsPerPage" class="pagination-sm" ng-click="pageChanged()"></pagination>
 
   </div>
   <!-- if there are no results tell the user explicitly -->
