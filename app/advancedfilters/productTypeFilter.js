@@ -1,20 +1,15 @@
-app.controller('productTypeFilter', function($scope, presetsService){
+'use strict';
+app.controller('productTypeFilter', function($scope, presetsService, filterService){
 
-  $scope.gpTypes = {};
+  $scope.gpTypes = [];
 
   var init = function() {
-    $scope.gpTypes = {};
-    var checked = [];
-    if($scope.query.geneProductType) {
-      checked = checked.concat($scope.query.geneProductType.split(','))
-    }
+    $scope.gpTypes = filterService.getQueryFilterItems($scope.query.geneProductType);
 
     presetsService.getPresetsGeneProductTypes().then(function(resp){
-      var allTypes = _.sortBy(resp.data.geneProductTypes, 'name');
-      angular.forEach(allTypes, function(type){
-        type.checked = _.contains(checked, type.id);
-        $scope.gpTypes[type.id] = type;
-      });
+      var queryFilterItems = filterService.getQueryFilterItems($scope.query.geneProductType);
+      var presetFilterItems = filterService.getPresetFilterItems(resp.data.geneProductTypes, 'id');
+      $scope.gpTypes = _.sortBy(filterService.concatUniqueAsChecked(queryFilterItems, presetFilterItems), 'name');
     });
   };
 
