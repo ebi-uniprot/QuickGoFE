@@ -41,22 +41,16 @@ app.service('filterService', function(){
   };
 
   this.concatUniqueAsChecked = function(array1, array2) {
-    var duplicateIds = _.intersection(_.pluck(array1,'id'),_.pluck(array2,'id'));
-    if(duplicateIds) {
-      //TODO we need to merge the objects
-      var concat = array1.concat(array2);
-      _.map(concat, function(d){
-        if(_.contains(duplicateIds,d.id)) {
-          d.checked = true;
-          return d;
-        }
-      });
-      return _.uniq(concat, function(d){
-        return d.id;
-      });
-    } else {
-      return array1.concat(array2);
-    }
+    var concat = array1; //copy the array
+    var map1 = _.indexBy(array1,'id');
+    angular.forEach(array2, function(item) {
+      if(map1[item.id]) {
+        map1[item.id].item = item.item;
+      } else {
+        concat.push(item);
+      }
+    });
+    return concat;
   };
 
 });
