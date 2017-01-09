@@ -28,6 +28,17 @@ describe('Controller: AnnotationListCtrl', function () {
 
 
   it('should have a maxSize of 25', function () {
-    expect(scope.maxSize).toBe(25);
+    expect(scope.itemsPerPage).toBe(25);
+  });
+
+  it('should never have more than 25 pages', function() {
+    scope.totalItems = (scope.pageLimit * scope.itemsPerPage) -1;
+    scope.currentPage = 19;
+    var count = scope.getNumberOfElementsForPaging();
+    expect(count).toBeLessThan(scope.pageLimit * scope.itemsPerPage);
+    scope.totalItems = (scope.pageLimit * scope.itemsPerPage) +1;
+    scope.currentPage = 21;
+    count = scope.getNumberOfElementsForPaging();
+    expect(count).toBe(scope.pageLimit * scope.itemsPerPage);
   });
 });
