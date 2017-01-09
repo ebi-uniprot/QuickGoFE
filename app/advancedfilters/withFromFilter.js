@@ -1,43 +1,28 @@
 'use strict';
-app.controller('withFromFilter', function($scope, presetsService, stringService) {
+app.controller('withFromFilter', function($scope, presetsService, stringService, validationService, filterService) {
 
-  $scope.withFrom = {};
+  $scope.withFrom = [];
 
   var init = function() {
-    $scope.withFrom = {};
-    // Get With DBs
-    if($scope.query.withFrom) {
-      angular.forEach($scope.query.withFrom.split(','), function(item) {
-        $scope.withFrom[item] = {
-          'name':item,
-          'checked':true
-        };
-      });
-    }
+    $scope.withFrom = filterService.getQueryFilterItems($scope.query.withFrom);
 
     presetsService.getPresetsWithFrom().then(function(resp){
       var withDBs = _.sortBy(resp.data.withFrom, 'name');
-      angular.forEach(withDBs, function(withDB){
-        withDB.checked = _.contains(_.keys($scope.withFrom), withDB.name);
-        $scope.withFrom[withDB.name] = withDB;
-      });
+      var withPresetItems = filterService.getPresetFilterItems(withDBs, 'name');
+      $scope.withFrom = filterService.mergeRightToLeft($scope.withFrom, withPresetItems);
     });
 
   };
 
   var getQuery = function() {
-    return _.pluck(_.filter(_.values($scope.withFrom), 'checked'), 'name');
+    return _.pluck(_.filter(_.values($scope.withFrom), 'checked'), 'id');
   };
 
 
   $scope.addWith = function() {
     var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
-    angular.forEach(withs, function(withId){
-      $scope.withFrom[withId] = {
-        'name':withId,
-        'checked':true
-      };
-    });
+    var filterItems = filterService.addFilterItems(withs, validationService.validateOther);
+    $scope.withFrom = filterService.mergeRightToLeft(filterItems, $scope.withFrom);
     $scope.withTextArea = '';
   };
 
