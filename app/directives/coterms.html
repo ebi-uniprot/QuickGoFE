@@ -5,7 +5,7 @@
 </h5>
 <div ng-show="stats.results.length > 0">
   <h6>
-    The top {{displayLimit}} of {{stats.numberOfHits}} co-occurring terms
+    The top {{displayLimit | number}} of {{stats.numberOfHits | number}} co-occurring terms
   </h6>
   <table id="tableId" class="two-colours">
     <tr>
@@ -21,10 +21,10 @@
                    obsolete="goTermMapping[stat.comparedTerm].obsolete"
                    name="goTermMapping[stat.comparedTerm].name"></term-line>
       </td>
-      <td>{{stat.probabilityRatio}}</td>
-      <td>{{stat.significance}}</td>
-      <td>{{stat.together}}</td>
-      <td>{{stat.compared}}</td>
+      <td>{{stat.probabilityRatio | number:2}}</td>
+      <td>{{stat.similarityRatio | number:2}}</td>
+      <td>{{stat.together | number}}</td>
+      <td>{{stat.compared | number}}</td>
     </tr>
     <tr>
       <td colspan="5">
