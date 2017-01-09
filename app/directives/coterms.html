@@ -28,10 +28,8 @@
     </tr>
     <tr>
       <td colspan="5">
-        <span ng-show="pageSize < stats.results.length" ng-click="pageSize = stats.results.length" class="glyphicon glyphicon-collapse-down selectable showMoreLess"></span>
-        <span ng-show="pageSize < stats.results.length" ng-click="pageSize = stats.results.length" class="selectable showMoreLess">show all</span>
-        <span ng-show="(pageSize === stats.results.length && stats.results.length > defaultPageSize)" ng-click="pageSize = defaultPageSize" class="glyphicon glyphicon-collapse-up selectable showMoreLess"></span>
-        <span ng-show="(pageSize === stats.results.length && stats.results.length > defaultPageSize)" ng-click="pageSize = defaultPageSize" class="selectable showMoreLess">show less</span>
+        <button ng-show="pageSize < stats.results.length" ng-click="pageSize = stats.results.length" class="button hollow">show all</button>
+        <button ng-show="(pageSize === stats.results.length && stats.results.length > defaultPageSize)" ng-click="pageSize = defaultPageSize" class="button hollow">show less</span>
       </td>
     </tr>
 
