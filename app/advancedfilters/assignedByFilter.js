@@ -1,21 +1,13 @@
-app.controller('assignedByController', function($scope, presetsService){
+app.controller('assignedByController', function($scope, presetsService, filterService){
 
-  $scope.assignedBy = {};
+  $scope.assignedBy = [];
 
   var init = function() {
-      $scope.assignedBy = {};
-      // Get Assigned DBs
-      var checked = [];
-      if($scope.$parent.query.assignedBy) {
-        checked = checked.concat($scope.$parent.query.assignedBy.split(','))
-      }
-
+      $scope.assignedBy = filterService.getQueryFilterItems($scope.query.assignedBy);
       presetsService.getPresetsAssignedBy().then(function(resp){
         var assignDBs = _.sortBy(resp.data.assignedBy, 'name');
-        angular.forEach(assignDBs, function(assignDB){
-          assignDB.checked = _.contains(checked, assignDB.name);
-          $scope.assignedBy[assignDB.name] = assignDB;
-        });
+        var filterItems = filterService.getPresetFilterItems(assignDBs, 'name');
+        $scope.assignedBy = filterService.mergeRightToLeft($scope.assignedBy, filterItems)
       });
   };
 
@@ -29,7 +21,7 @@ app.controller('assignedByController', function($scope, presetsService){
   };
 
   var getQuery = function() {
-    return _.pluck(_.filter(_.values($scope.assignedBy), 'checked'), 'name');
+    return _.pluck(_.filter(_.values($scope.assignedBy), 'checked'), 'id');
   };
 
   $scope.$on('applyMoreFilters', function() {
