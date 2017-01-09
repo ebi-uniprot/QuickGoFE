@@ -10,7 +10,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
     presetsService.getPresetsGeneProducts().then(function(resp){
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.targetSet);
       var presetFilterItems = filterService.getPresetFilterItems(_.sortBy(resp.data.geneProducts, 'name'), 'name');
-      $scope.geneProductSets = filterService.concatUniqueAsChecked(queryFilterItems, presetFilterItems);
+      $scope.geneProductSets = filterService.mergeRightToLeft(queryFilterItems, presetFilterItems);
     });
   };
 
@@ -33,7 +33,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
   $scope.addGPs = function () {
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
     var filterItems = filterService.addFilterItems(gps, validationService.validateGeneProduct);
-    $scope.gpIds = filterService.concatUniqueAsChecked(filterItems, $scope.gpIds);
+    $scope.gpIds = filterService.mergeRightToLeft(filterItems, $scope.gpIds);
      $scope.gpTextArea = '';
   };
 

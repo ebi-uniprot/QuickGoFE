@@ -9,7 +9,7 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
     presetsService.getPresetsGeneProductTypes().then(function(resp){
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.geneProductType);
       var presetFilterItems = filterService.getPresetFilterItems(resp.data.geneProductTypes, 'id');
-      $scope.gpTypes = _.sortBy(filterService.concatUniqueAsChecked(queryFilterItems, presetFilterItems), 'name');
+      $scope.gpTypes = _.sortBy(filterService.mergeRightToLeft(queryFilterItems, presetFilterItems), 'name');
     });
   };
 
