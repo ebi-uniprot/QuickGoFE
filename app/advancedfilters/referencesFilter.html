@@ -6,9 +6,9 @@
       <div class="y-scroll-200 inset-panel">
         <div class="overflow-pane">
           <ul class="no-bullet">
-            <li ng-repeat="(name, ref) in references" class="checkbox">
+            <li ng-repeat="ref in references" class="checkbox">
               <label>
-                <input type="checkbox" ng-model="ref.checked"> <strong>{{ref.name}}</strong> {{ref.description}}
+                <input type="checkbox" ng-model="ref.checked"> <strong>{{ref.id}}</strong> {{ref.item.description}}
               </label>
               </td>
             </li>
