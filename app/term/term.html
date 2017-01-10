@@ -365,7 +365,7 @@
     </section>
 
     <!-- Co-occurring statistics -->
-    <section id="coOcurring" ng-hide="!isGoTerm || isObsolete">
+    <section id="coOcurring" ng-if="isGoTerm && !isObsolete">
       <h3 class="term-section-header">
         <span uib-tooltip-template="'co-occurring.html'" tooltip-placement="top-right">Co-occurring Terms</span>
       </h3>
