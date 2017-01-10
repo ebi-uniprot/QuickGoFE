@@ -24,7 +24,7 @@
           </div>
           <hr>
           <button class="button" ng-disabled="!selectedPreDefinedSlimSet" ng-click="addPredefined()">Add
-            {{selectedPreDefinedSlimSet.associations.length}}
+            {{selectedPreDefinedSlimSet.associations.length | number}}
             terms to selection</button>
         </div>
       </tab>
@@ -39,7 +39,7 @@
       <tab heading="Select from Basket">
         <div class="select-container">
           <strong>Choose terms from your basket
-          </strong>&nbsp;({{basketList.length}}&nbsp;available)
+          </strong>&nbsp;({{basketList.length | number}}&nbsp;available)
           <label ng-repeat="basketItem in basketList"><input type="checkbox" ng-model="basketItem.selected"/>
             <strong>{{basketItem.id}}</strong>&nbsp;{{basketItem.name | limitTo : 40}}</label>
           <hr>
@@ -78,10 +78,10 @@
       </accordion-group>
     </accordion>
     <p ng-if="additionalSelection.taxa.length > 0">
-      <strong>{{additionalSelection.taxa.length}}</strong> species.
+      <strong>{{additionalSelection.taxa.length | number}}</strong> species.
     </p>
     <p ng-if="additionalSelection.gpIds.length > 0">
-      <strong>{{additionalSelection.gpIds.length}}</strong> gene product(s).
+      <strong>{{additionalSelection.gpIds.length | number}}</strong> gene product(s).
     </p>
   </div>
 </div>
@@ -93,7 +93,8 @@
       <button class="button" ng-disabled="count.total <= 0" ng-click="viewAnnotations()">Submit</button>
     </span>
     <h3 ng-class="{'inactive': count.totalCount <= 0}" class="your-selection-header">
-      Your Selection:{{count.total}} terms <small><chart-icon ids="{{getSelectedIds().toString()}}"></chart-icon></small>
+      Your Selection:{{count.total | number}} terms
+      <small><chart-icon ids="{{getSelectedIds().toString()}}"></chart-icon></small>
     </h3>
   </div>
 
@@ -112,7 +113,7 @@
     </div>
     <div class="selectionContainer removedTerms" ng-if="deSelectedItems.length >= 1">
       <h4>Excluded Terms
-        <span>({{deSelectedItems.length}})</span>
+        <span>({{deSelectedItems.length | number}})</span>
       </h4>
       <p ng-repeat="aTerm in deSelectedItems">
         <i>

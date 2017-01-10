@@ -4,7 +4,8 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
   /**
    * Initialisation
    */
-  $scope.maxSize = 25;
+  $scope.itemsPerPage = 25;
+  $scope.pageLimit = 25;
   $rootScope.header = 'QuickGO::Annotation List';
   $scope.olsxrefs = {};
 
@@ -152,12 +153,11 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
     var query = $routeParams;
     $scope.columns.slimmedTerm.visible = (query.goUsage && query.goUsage === 'slim');
 
-    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.maxSize,
+    $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.itemsPerPage,
       searchService.serializeQuery(query));
     $scope.resultsPromise.then(function (data) {
       $scope.goList = data.data;
       $scope.annotations = $scope.goList.results;
-
       $scope.totalItems = $scope.goList.numberOfHits;
       postProcess();
     });
@@ -208,6 +208,15 @@ $scope.openAnnoExtension = function (annoExt) {
 
   $scope.pageChanged = function () {
     getResultsPage();
+  };
+
+  $scope.getNumberOfElementsForPaging = function() {
+    //The backend wants us to stop paginating after 25 pages
+    if($scope.totalItems && $scope.totalItems > ($scope.pageLimit * $scope.itemsPerPage) && $scope.currentPage > 20 ) {
+      return ($scope.pageLimit*$scope.itemsPerPage);
+    } else {
+      return $scope.totalItems;
+    }
   };
 
   getResultsPage();

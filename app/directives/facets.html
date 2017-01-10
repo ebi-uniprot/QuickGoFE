@@ -9,7 +9,7 @@
     <a ng-switch-when="false"
        ng-href="{{endpoint}}/{{searchTerm}}?{{getFilterUrl(facet.field, category.name)}}">
         <span>{{nameMapping[category.name] || category.name}}</span>
-        <span>({{category.count}})</span>
+        <span>({{category.count | number}})</span>
     </a>
   </li>
 </ul>

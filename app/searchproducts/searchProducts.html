@@ -10,7 +10,7 @@
   <div id="searchResultsMainContent" class="medium-9 columns">
     <div>
       <p>
-        <strong>{{results.numberOfHits}}</strong> results</strong>
+        <strong>{{results.numberOfHits | number}}</strong> results</strong>
       </p>
       <table id="searchResults" class="two-colours">
         <tr>
@@ -34,6 +34,7 @@
           </td>
           <td><annotations-link
                   product-id="searchResult.id"></annotations-link></a>
+          </td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
