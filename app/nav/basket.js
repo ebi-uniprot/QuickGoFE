@@ -1,9 +1,6 @@
 'use strict';
 app.controller('BasketNavCtrl', function($scope, $log, $modal, $rootScope, basketService) {
 
-  //$scope.countBasket=0;
-  console.log("loaded basket.js in NAV");
-
   $scope.countBasket = basketService.basketQuantity();
 
   /**
