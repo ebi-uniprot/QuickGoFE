@@ -1,5 +1,5 @@
 'use strict';
-app.controller('taxonFilter', function($scope, $q, hardCodedDataService,
+app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataService,
   stringService, validationService, presetsService, taxonomyService, filterService){
 
   $scope.taxa = [];
@@ -35,14 +35,29 @@ app.controller('taxonFilter', function($scope, $q, hardCodedDataService,
     $scope.taxonTextArea = '';
   };
 
+  $scope.removeTaxIds = function(idsToRemove, taxa) {
+    return _.filter(taxa, function(d){
+      return !_.contains(idsToRemove, parseInt(d.id));
+    });
+  }
+
   var updateTaxonInfo = function() {
     taxonomyService.getTaxa(_.pluck($scope.taxa,'id')).then(function(data){
       filterService.enrichFilterItemObject($scope.taxa, data.data.taxonomies, 'taxonomyId');
       if(data.data.errors) {
-        //TODO remove from list?
+        // remove from list
+        var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
+        $rootScope.alerts = _.map(data.data.errors, function(message){
+          return {
+            msg: message.requestedId + ': ' + message.errorMessage
+          }
+        });
+        $scope.taxa = $scope.removeTaxIds(obsoleteIds, $scope.taxa);
       }
       if(data.data.redirects) {
-        //TODO update object in list?
+        // update object in list
+        $scope.taxa = redirectTaxa($scope.taxa, data.data.redirects);
+        updateTaxonInfo();
       }
     });
   }
@@ -50,16 +65,16 @@ app.controller('taxonFilter', function($scope, $q, hardCodedDataService,
 
   var redirectTaxa = function(taxaInfo, redirections) {
     var redirectedIds = [];
-    angular.forEach(redirections, function (redirection) {
-      var taxonId = redirection.redirectLocation.substring(redirection.redirectLocation.lastIndexOf('/')+1);
-      redirectedIds.push(taxonId);
-      taxaInfo[taxonId] = {
-        'name': taxonId,
-        'checked': true
-      };
-      delete taxaInfo[redirection.requestedId];
+    var redirectionMap = _.indexBy(redirections, 'requestedId');
+    return _.map(taxaInfo, function(d){
+      if(redirectionMap[d.id]) {
+        var updatedId = redirectionMap[d.id].redirectLocation.substring(redirectionMap[d.id].redirectLocation.lastIndexOf('/')+1);
+        $rootScope.alerts.push({msg: d.id + ' was updated to ' + updatedId});
+        d.id = updatedId;
+      }
+      return d;
     });
-    return redirectedIds;
+    return redirectionMap;
   };
 
   initTaxons();
