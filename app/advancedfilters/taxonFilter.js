@@ -39,7 +39,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     return _.filter(taxa, function(d){
       return !_.contains(idsToRemove, parseInt(d.id));
     });
-  }
+  };
 
   var updateTaxonInfo = function() {
     taxonomyService.getTaxa(_.pluck($scope.taxa,'id')).then(function(data){
