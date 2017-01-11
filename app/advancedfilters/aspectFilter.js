@@ -1,18 +1,12 @@
-app.controller('aspectFilter', function($scope, presetsService){
-  $scope.aspects = {};
+app.controller('aspectFilter', function($scope, presetsService, filterService){
+  $scope.aspects = [];
 
   var init = function() {
-    var checked = [];
-    if($scope.$parent.query.aspect) {
-      checked = checked.concat($scope.$parent.query.aspect.split(','))
-    }
+    $scope.aspects = filterService.getQueryFilterItems($scope.query.aspect);
 
     presetsService.getPresetsAspects().then(function(resp){
-      var allAspects = _.sortBy(resp.data.aspects, 'name');
-      angular.forEach(allAspects, function(aspect){
-        aspect.checked = _.contains(checked, aspect.id);
-        $scope.aspects[aspect.id] = aspect;
-      });
+      var aspects = filterService.getPresetFilterItems(resp.data.aspects, 'id');
+      $scope.aspects = _.sortBy(filterService.mergeRightToLeft($scope.aspects, aspects), 'name');
     });
   };
 

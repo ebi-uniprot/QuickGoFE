@@ -7,7 +7,7 @@
         <li ng-repeat="eco in ecos" class="checkbox">
           <label>
             <input type="checkbox" ng-model="eco.checked">
-            <term-line id="eco.id" name="eco.name"></term-line> {{eco.description}}
+            <term-line id="eco.id" name="eco.item.name"></term-line> {{eco.item.description}}
           </label>
         </li>
       </ul>

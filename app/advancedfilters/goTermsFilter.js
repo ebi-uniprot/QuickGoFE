@@ -1,52 +1,42 @@
 'use strict';
 app.controller('goTermsFilter', function($scope, basketService, stringService,
-  validationService, termService, presetsService, $rootScope){
+  validationService, termService, presetsService, $rootScope, filterService){
 
   $scope.goTerms = {};
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
-  $scope.uploadLimit = 100;
+  $scope.uploadLimit = 600;
 
 
   var init = function() {
-    $scope.goTerms = {};
+    //Get terms from url
+    $scope.goTerms = filterService.getQueryFilterItems($scope.query.goId);
+
     $scope.goTermUse = $scope.$parent.query.goUsage ? $scope.$parent.query.goUsage : 'descendants';
     $scope.goRelations = $scope.$parent.query.goUsageRelationships ? $scope.$parent.query.goUsageRelationships : 'is_a,part_of,occurs_in';
-    var termsToFetch = [];
-    var checkedTerms = [];
-    if($scope.$parent.query.goId) {
-      checkedTerms = $scope.query.goId.split(',');
-    }
 
     if (basketService.getIds().length > 0){
-      termsToFetch = termsToFetch.concat(basketService.getIds());
-    }
-
-    termsToFetch = termsToFetch.concat(checkedTerms);
-    termsToFetch = _.uniq(termsToFetch);
-
-
-    if(termsToFetch.length > 0 && termsToFetch.length < $scope.uploadLimit){
-      termService.getGOTerms(termsToFetch.toString()).then(function(d){
-        var data = d.data.results;
-        angular.forEach(data, function(goTerm){
-          goTerm.checked = _.contains(checkedTerms,goTerm.id);
-          $scope.goTerms[goTerm.id] = goTerm;
-        });
-      });
-    } else {
-      angular.forEach(termsToFetch, function(termId) {
-        $scope.goTerms[termId] = {
-          'id':termId,
-          'checked':true
-        };
-      });
+      $scope.goTerms = filterService.mergeRightToLeft($scope.goTerms,
+        filterService.getFilterItemsForIds(basketService.getIds()));
     }
 
      presetsService.getPresetsGOSlimSets().then(function(resp){
        $scope.predefinedSlimSets = resp.data.goSlimSets;
      });
 
+     updateTermInfo();
+  };
+
+  var updateTermInfo = function() {
+    if($scope.goTerms.length > 0 && $scope.goTerms.length < $scope.uploadLimit){
+      var termsToGet = _.filter($scope.goTerms, function(d){
+        return d.term === undefined;
+      });
+      termService.getGOTerms(_.pluck(termsToGet,'id')).then(function(d){
+        var data = d.data.results;
+        filterService.enrichFilterItemObject($scope.goTerms, data, 'id');
+      });
+    }
   };
 
   $scope.reset = function() {
@@ -64,17 +54,9 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
         'msg': 'Sorry, we can only handle uploads of less than ' + $scope.uploadLimit + 'terms.'
       });
     } else {
-      termService.getGOTerms(goterms)
-        .success(function(d){
-          angular.forEach(d.results, function(goTerm){
-            goTerm.checked = true;
-            $scope.goTerms[goTerm.id] = goTerm;
-          });
-        })
-        .error(function(e){
-          //TODO handle messaging
-          console.log(e);
-        });
+      var terms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
+      $scope.goTerms = filterService.mergeRightToLeft(terms,$scope.goTerms);
+      updateTermInfo();
     }
     $scope.goTermsTextArea = '';
   };
@@ -84,9 +66,9 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   });
 
   $scope.apply = function() {
-    var selected = _.filter(_.keys($scope.goTerms), function(term){
-      return $scope.goTerms[term].checked;
-    });
+    var selected = _.pluck(_.filter($scope.goTerms, function(term){
+      return term.checked;
+    }), 'id');
     $scope.$parent.addToQuery('goId', selected);
     $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
     $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
@@ -94,10 +76,8 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
 
   $scope.addPredefinedSet = function() {
     if($scope.selectedPreDefinedSlimSet) {
-      angular.forEach($scope.selectedPreDefinedSlimSet.associations, function(slimTerm) {
-        slimTerm.checked = true;
-        $scope.goTerms[slimTerm.id] = slimTerm;
-      });
+      var filterItems = filterService.getPresetFilterItems($scope.selectedPreDefinedSlimSet.associations, 'id', true);
+      $scope.goTerms = filterService.mergeRightToLeft($scope.goTerms, filterItems);
       $scope.selectedPreDefinedSlimSet = '';
     }
   };

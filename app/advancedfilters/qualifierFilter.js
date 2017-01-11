@@ -1,30 +1,25 @@
 'use strict';
-app.controller('qualifierFilter', function($scope, hardCodedDataService){
+app.controller('qualifierFilter', function($scope, hardCodedDataService, filterService){
 
-  $scope.qualifiers = {};
+  $scope.qualifiers = [];
   $scope.showAllNotQualifiers = 0;
 
   var initQualifiers = function() {
-    $scope.qualifiers = {};
+    $scope.qualifiers = filterService.getQueryFilterItems($scope.query.qualifier);
     $scope.showAllNotQualifiers = 0;
-    var checked = [];
-    if($scope.query.qualifier) {
-      checked = checked.concat($scope.query.qualifier.split(','));
-    }
-    angular.forEach(hardCodedDataService.getQualifiers(), function(qualifier) {
-      qualifier.checked = _.contains(checked, qualifier.qualifier);
-      $scope.qualifiers[qualifier.qualifier] = qualifier;
-    });
+
+    var allQualifiers = filterService.getPresetFilterItems(hardCodedDataService.getQualifiers(), 'qualifier');
+    $scope.qualifiers = filterService.mergeRightToLeft($scope.qualifiers, allQualifiers);
   };
 
   var getQuery = function() {
-    return _.pluck(_.filter(_.values($scope.qualifiers), 'checked'), 'qualifier');
+    return _.pluck(_.filter(_.values($scope.qualifiers), 'checked'), 'id');
   };
 
   $scope.selectAllNotQualifiers = function () {
-    angular.forEach($scope.qualifiers, function(qualifier, name) {
-      if(name.lastIndexOf('NOT', 0) === 0) {
-        $scope.qualifiers[name].checked  = true;
+    angular.forEach($scope.qualifiers, function(qualifier) {
+      if(qualifier.item.name.lastIndexOf('NOT', 0) === 0) {
+        qualifier.checked = true;
       }
     });
   };

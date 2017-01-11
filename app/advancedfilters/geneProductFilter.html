@@ -2,9 +2,9 @@
   <form>
     <div class="form-group">
       <ul class="no-bullet">
-        <li ng-repeat="gpId in gpIds" class="checkbox">
+        <li ng-repeat="gp in gpIds" class="checkbox">
           <label>
-            <input type="checkbox" ng-model="gpId.checked"> {{gpId.id}}
+            <input type="checkbox" ng-model="gp.checked"> {{gp.id}}
           </label>
         </li>
       </ul>
@@ -24,9 +24,9 @@
         <ul>
           <li ng-repeat="gpSet in geneProductSets" class="checkbox">
             <label>
-              <input id="{{gpSet.value}}_chk" type="checkbox" ng-model="gpSet.checked">
-              <a href="targetset/{{gpSet.name}}" target="_blank">{{gpSet.name}}</a> {{gpSet.description}}
-              (<a href="{{gpSet.url}}" target="_blank">{{gpSet.url}}</a>)
+              <input id="{{gpSet.id}}_chk" type="checkbox" ng-model="gpSet.checked">
+              <a href="targetset/{{gpSet.id}}" target="_blank">{{gpSet.id}}</a> {{gpSet.item.description}}
+              (<a href="{{gpSet.item.url}}" target="_blank">{{gpSet.item.url}}</a>)
             </label>
           </li>
         </ul>

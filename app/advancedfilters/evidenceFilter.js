@@ -1,29 +1,17 @@
 'use strict';
-app.controller('evidenceFilter', function ($scope, presetsService, stringService, validationService) {
+app.controller('evidenceFilter', function ($scope, presetsService, stringService, validationService, filterService) {
 
   $scope.ecos = {};
   $scope.evidenceCodeUsage = 'descendants';
 
 
   var init = function () {
-    $scope.ecos = {};
+    $scope.ecos = filterService.getQueryFilterItems($scope.query.evidenceCode);
     $scope.evidenceCodeUsage = 'descendants';
+
     presetsService.getPresetsEvidences().then(function (d) {
-      var evidences = d.data.evidences;
-      if($scope.$parent.query.evidenceCode) {
-        angular.forEach($scope.query.evidenceCode.split(','), function(id) {
-          $scope.ecos[id] = {
-            'id':id,
-            'checked':true
-          };
-        });
-      }
-      //The order of the evidence codes is important
-      //var evidenceTypes = _.sortBy(evidences, 'evidenceGOID');
-      angular.forEach(evidences, function (evidenceType) {
-        evidenceType.checked = _.contains(_.keys($scope.ecos), evidenceType.id);
-        $scope.ecos[evidenceType.id] = evidenceType;
-      });
+      var filterItems = filterService.getPresetFilterItems(d.data.evidences, 'id');
+      $scope.ecos = filterService.mergeRightToLeft($scope.ecos, filterItems);
     });
   };
 
@@ -45,18 +33,8 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
   $scope.addECOs = function () {
     var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
-    angular.forEach(ecos, function (ecoID) {
-      if (validationService.validateECOTerm(ecoID)) {
-        if($scope.ecos[ecoID]) {
-          $scope.ecos[ecoID].checked = true;
-        } else {
-          $scope.ecos[ecoID] = {
-            'id':ecoID,
-            'checked':true
-          };
-        }
-      }
-    });
+    var addedFilterItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
+    $scope.ecos = filterService.mergeRightToLeft(addedFilterItems, $scope.ecos);
     $scope.ecoTextArea = '';
   };
 
