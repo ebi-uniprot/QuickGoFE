@@ -50,7 +50,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
         $rootScope.alerts = _.map(data.data.errors, function(message){
           return {
             msg: message.requestedId + ': ' + message.errorMessage
-          }
+          };
         });
         $scope.taxa = $scope.removeTaxIds(obsoleteIds, $scope.taxa);
       }
@@ -60,11 +60,10 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
         updateTaxonInfo();
       }
     });
-  }
+  };
 
 
   var redirectTaxa = function(taxaInfo, redirections) {
-    var redirectedIds = [];
     var redirectionMap = _.indexBy(redirections, 'requestedId');
     return _.map(taxaInfo, function(d){
       if(redirectionMap[d.id]) {
@@ -74,7 +73,6 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
       }
       return d;
     });
-    return redirectionMap;
   };
 
   initTaxons();

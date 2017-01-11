@@ -37,7 +37,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
         filterService.enrichFilterItemObject($scope.goTerms, data, 'id');
       });
     }
-  }
+  };
 
   $scope.reset = function() {
     $scope.$parent.query.goId = '';

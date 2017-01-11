@@ -5,7 +5,7 @@ app.controller('aspectFilter', function($scope, presetsService, filterService){
     $scope.aspects = filterService.getQueryFilterItems($scope.query.aspect);
 
     presetsService.getPresetsAspects().then(function(resp){
-      var aspects = filterService.getPresetFilterItems(_.sortBy(resp.data.aspects, 'name'), 'id');
+      var aspects = filterService.getPresetFilterItems(resp.data.aspects, 'id');
       $scope.aspects = _.sortBy(filterService.mergeRightToLeft($scope.aspects, aspects), 'name');
     });
   };

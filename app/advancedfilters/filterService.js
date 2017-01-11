@@ -50,14 +50,14 @@ app.service('filterService', function(){
       });
     });
     return filterItems;
-  }
+  };
 
   this.enrichFilterItemObject = function(filterItems, data, id) {
     var filterMap = _.indexBy(filterItems,'id');
     angular.forEach(data, function(item) {
       filterMap[item[id]].item = item;
     });
-  }
+  };
 
   this.mergeRightToLeft = function(array1, array2) {
     var concat = array1; //copy the array
