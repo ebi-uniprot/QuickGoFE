@@ -57,10 +57,6 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
       'label': 'Annotation Extension',
       'visible': true
     },
-    'database': {
-      'label': 'Database',
-      'visible': false
-    },
     'date': {
       'label': 'Date',
       'visible': false
