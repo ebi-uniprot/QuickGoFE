@@ -431,6 +431,17 @@ aspect-icon span.aspect-icon{
   background-color: #fff;
   padding: 10px;
 }
+
+.dropdown-pane{
+  width: 450px;
+}
+.y-scroll-200 {
+  overflow-y: auto;
+  height: 200px;
+}
+
+
+
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
     li {
