@@ -103,11 +103,11 @@
       <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
       <div id="local-title" class="logo-title row" ng-controller="LocationCtrl">
         <!-- Logo -->
-        <span ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}">
+        <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}">
           <a href="/" accesskey="1" id="logo">
-            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo.png">
+            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo2.png">
           </a>
-          <span><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
+          <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
         </span>
         <!-- Title -->
         <!-- local-search -->

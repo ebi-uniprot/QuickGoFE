@@ -8,20 +8,32 @@
 div#local-masthead {
   background-color: $white;
   background-position: top right;
-  background-image: url(../images/bg4.png);
+  background-image: url(../images/bg5.png);
   background-repeat: no-repeat;
 }
 
 #local-title.logo-title {
   h1 {
-    color: $primary6;
-    text-shadow: 2px 1px #fff;
+    // color: $primary6;
+    // text-shadow: 2px 1px #fff;
+    margin-left: 50px;
   }
   .typeahead-box span {
     margin: 0;
     float: none;
     display: inline-block;
   }
+  span{
+    margin-top: 10px;
+  }
+}
+
+#quickgo-logo{
+  margin-top: 10px;
+}
+
+#local-title span#search-area, #local-title span#quickgo-header-subtext{
+  margin-top: 50px;
 }
 
 #beta-message {
@@ -38,6 +50,10 @@ div#local-masthead {
 #local-masthead nav ul.menu li { border-right-color: #EEE; }
 #local-masthead .masthead .menu > li > a { background: #00a9de; color: #fff; font-weight: bold; }
 #local-masthead .masthead .menu > li > a:hover { color: #fff; background-color: #006f91;}
+
+header .masthead{
+  padding-top: 0px;
+}
 
 .menu>li>a{
   height: 40px;
