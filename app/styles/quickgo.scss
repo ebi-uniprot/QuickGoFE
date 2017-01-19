@@ -59,6 +59,9 @@ header .masthead{
   height: 40px;
 }
 
+a, a:visited{
+  border-bottom: 0px;
+}
 
 .tabs-title > a[aria-selected='true']{
   background-color: #999;
