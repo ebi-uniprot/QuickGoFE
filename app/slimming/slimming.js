@@ -6,6 +6,31 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.selection = {};
   $scope.deSelectedItems = [];
 
+
+
+  function sticky_relocate() {
+    console.log("s-r.2");
+      var window_top = $(window).scrollTop();
+      if (document.getElementById('sticky-anchor')) {
+      var div_top = $('#sticky-anchor').offset().top;
+    }
+      console.log(div_top);
+      if (window_top > div_top) {
+          $('#sticky').addClass('stick');
+          $('#sticky-anchor').height($('#sticky').outerHeight());
+      } else {
+          $('#sticky').removeClass('stick');
+          $('#sticky-anchor').height(0);
+      }
+  }
+
+  $(function() {
+      $(window).scroll(sticky_relocate);
+      sticky_relocate();
+  });
+
+
+
   var init = function() {
     angular.forEach($scope.aspects, function(aspect) {
       $scope.selection[aspect.id] = {

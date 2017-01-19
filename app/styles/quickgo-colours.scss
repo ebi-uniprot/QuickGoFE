@@ -52,9 +52,13 @@ a.button.icon-functional:before,
 .icon-static:before,
 .icon-generic:before{
   font-size: 108%;
-  color: $white;
+  color: $primary1;
 }
 
+#global-nav .icon-generic:before{
+  font-size: 108%;
+  color: $white;
+}
 
 /* Headings */
 h1, h2, h3, h4, h5, h6{

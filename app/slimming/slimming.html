@@ -85,6 +85,9 @@
     </p>
   </div>
 </div>
+
+
+
 <div class="row" ng-if="count.total > 0">
   <hr>
   <div id="selection-header" class="column medium-12 clearfix">
@@ -99,6 +102,21 @@
   </div>
 
   <div class="your-selection-container column medium-12">
+
+
+        <div id="sticky-anchor" style="float: right; height: 0px;"></div>
+        <div class="selectionContainer removedTerms" id="sticky" ng-if="deSelectedItems.length >= 1">
+          <h4>Excluded Terms
+            <span>({{deSelectedItems.length | number}})</span>
+          </h4>
+          <p ng-repeat="aTerm in deSelectedItems">
+            <i>
+              <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
+              <a class="icon icon-functional" data-icon="+" title="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm)"></a>
+            </i>
+          </p>
+        </div>
+
     <div class="selectionContainer" ng-if="count.total > 0">
       <div ng-repeat="(aspectId,aspect) in selection">
         <h4>{{aspect.name}}
@@ -111,16 +129,8 @@
         </p>
       </div>
     </div>
-    <div class="selectionContainer removedTerms" ng-if="deSelectedItems.length >= 1">
-      <h4>Excluded Terms
-        <span>({{deSelectedItems.length | number}})</span>
-      </h4>
-      <p ng-repeat="aTerm in deSelectedItems">
-        <i>
-          <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
-          <a class="icon icon-functional" data-icon="+" title="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm)"></a>
-        </i>
-      </p>
-    </div>
+
+
+
   </div>
 </div>
