@@ -9,12 +9,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
 
   function sticky_relocate() {
-    console.log("s-r.2");
       var window_top = $(window).scrollTop();
       if (document.getElementById('sticky-anchor')) {
       var div_top = $('#sticky-anchor').offset().top;
     }
-      console.log(div_top);
       if (window_top > div_top) {
           $('#sticky').addClass('stick');
           $('#sticky-anchor').height($('#sticky').outerHeight());
