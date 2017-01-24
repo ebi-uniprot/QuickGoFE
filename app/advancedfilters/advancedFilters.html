@@ -71,6 +71,17 @@
       </dropdown-toggle>
     </li>
 
+    <!-- ANNOTATION EXTENSION -->
+    <li ng-class="{'inactive':query.extension}">
+      <dropdown-toggle close-on-click="true" class="evidence-panel" pane-align="right">
+        <toggle>
+          <button class="button dropdown" ng-class="{'icon-functional active-filter' : query['extension']}" data-icon="/">Annotation Extension</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/annotationExtensionFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
+    </li>
 
     <!-- MORE  -->
 
