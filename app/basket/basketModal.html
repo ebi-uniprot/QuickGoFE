@@ -1,59 +1,58 @@
-<div class="quickgo-modal" cg-busy="basketPromises" ng-controller="BasketCtrl">
-  <div id="basket-contents-show" cg-busy="basketPromise">
-    <!-- <a class="icon icon-functional pull-right" data-icon="x" id="closeDownloadMenu"  ng-click="close()"></a> -->
+<span ng-click="openBasket()"> Basket &nbsp;
+<span id="basket" class="pop-basket" ng-show="countBasket>0"><strong>{{countBasket}}</strong></span></span>
 
-
-
-    <span class="icon-functional basket__close" ng-click="ok()" data-icon="x"></span>
-
-
-    <strong>Max 400 entries</strong>
+<script type="text/ng-template" id="basketModalContent.html">
+  <div class="quickgo-modal" cg-busy="basketPromises">
+    <div id="basket-contents-show" cg-busy="basketPromise">
+      <button ng-click="ok()" class="close-button" aria-label="Close reveal" type="button">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>Max 400 entries</strong>
       <!--Show message if the basket is empty-->
-      <div ng-show="!isBasketNotEmpty()">
+      <div ng-show="basketItems.length <= 0">
         <h3> Your basket is currently empty.</h3>
-        <p>You can add a GO term to the Term Basket by clicking on the <element class="icon icon-static" data-icon="b"></element> icon that appears next to its identifier in QuickGO.</p>
+        <p>You can add a GO term to the Term Basket by clicking on the
+          <element class="icon icon-static" data-icon="b"></element> icon that appears next to its identifier in QuickGO.</p>
       </div>
-
       <!--List GO Terms in the basket-->
-      <div ng-show="isBasketNotEmpty()">
+      <div ng-show="basketItems.length > 0">
         <div>
           <table id="basketTermsTable">
             <thead>
-            <tr>
-              <th>Term ID</th>
-              <th>Term name</th>
-              <th>Remove</th>
-            </tr>
+              <tr>
+                <th>Term ID</th>
+                <th>Term name</th>
+                <th>Remove</th>
+              </tr>
             </thead>
             <tbody id="basketTermsRows" class="basket-rows">
-            <tr ng-repeat="basketItem in basketItems">
-              <td><a href="term/{{basketItem.id}}" class="quickgo-link selectable" ng-click="ok()">{{basketItem.id}}</a></td>
-              <td>{{basketItem.name}}</td>
-              <td><img src="images/cross.png" class="selectable" ng-click="removeItem(basketItem)"/></td>
-            </tr>
+              <tr ng-repeat="basketItem in basketItems">
+                <td><a href="term/{{basketItem.id}}" class="quickgo-link selectable" ng-click="ok()">{{basketItem.id}}</a></td>
+                <td>{{basketItem.name}}</td>
+                <td><a ng-click="removeItem(basketItem)" class="icon icon-functional basket-remove" data-icon="d"></a></td>
+              </tr>
             </tbody>
           </table>
         </div>
         <div class="pull-right">
-          <button class="button icon-functional" data-icon="h" ng-click="showAncestorGraph()">View Chart</button>
+          <chart-icon ids="{{basketIds}}"></chart-icon>
           <button class="button" ng-click="filterUsingBasketTerms()">Filter With Terms</button>
           <button class="button" ng-click="emptyBasket()">Clear</button>
           <button class="button" ng-click="exportBasket()">Export</button>
         </div>
-        <div class="clearfix"></div>
         <hr>
       </div>
       <div>
         <!-- Enter GO Terms Directly-->
         <form>
-          <div class="form-group">
+          <div>
             <label for="termsListToAdd">Enter a list of terms to be added to your basket:</label>
-            <textarea id="termsListToAdd" class="form-control" ng-model="input_terms" cols="5"></textarea>
+            <textarea ng-model="form.inputTerms"></textarea>
           </div>
-          <button class="button pull-right" ng-click="submit()">Add Terms</button>
+          <button class="button float-right" ng-click="submit()">Add Terms</button>
         </form>
       </div>
-      <div class="clearfix"></div>
-  </div><!--End of basket-->
-
-</div>
+    </div>
+    <!--End of basket-->
+  </div>
+</script>

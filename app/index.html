@@ -134,15 +134,15 @@
 
 
       <!-- local-nav -->
-
-      <nav ng-controller="BasketNavCtrl">
+      <nav>
         <ul class="dropdown menu float-left quickgo-nav" data-description="navigational" id="local-nav">
           <li><a href="help">Help</a></li>
           <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\">Contact</a></li>
-          <li class="functional"><a ng-click="openBasket()"> Basket &nbsp;
-            <span id="basket"  ng-class="{'empty-basket': countBasket==0, 'pop-basket': countBasket>0}"><strong>{{countBasket}}</strong></span></a>
+          <li class="functional">
+            <a href="#">
+            <basket-modal></basket-modal>
+            </a>
           </li>
-
         </ul>
       </nav>
 
@@ -289,7 +289,6 @@
 <script src="nav/webservices.js"></script>
 <script src="help/help.js"></script>
 <script src="nav/feedback.js"></script>
-<script src="nav/basket.js"></script>
 <script src="search/facetSearch.js"></script>
 <script src="scripts/services/basketService.js"></script>
 <script src="scripts/services/hardcoded-data.js"></script>
@@ -299,7 +298,7 @@
 <script src="scripts/services/validationService.js"></script>
 <script src="scripts/services/quickgoHelper.js"></script>
 <script src="scripts/config.js"></script>
-<script src="basket/basket.js"></script>
+<script src="basket/basketModal.js"></script>
 <script src="directives/basket.js"></script>
 <script src="directives/chartIcon.js"></script>
 <script src="directives/chart.js"></script>
