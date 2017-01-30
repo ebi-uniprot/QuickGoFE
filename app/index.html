@@ -105,7 +105,7 @@
         <!-- Logo -->
         <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}">
           <a href="/" accesskey="1" id="logo">
-            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo2.png">
+            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
           </a>
           <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
         </span>
@@ -138,7 +138,7 @@
       <nav ng-controller="BasketNavCtrl">
         <ul class="dropdown menu float-left quickgo-nav" data-description="navigational" id="local-nav">
           <li><a href="help">Help</a></li>
-          <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\">Contact</a></li>
+          <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\"> Contact</a></li>
           <li class="functional"><a ng-click="openBasket()"> Basket &nbsp;
             <span id="basket"  ng-class="{'empty-basket': countBasket==0, 'pop-basket': countBasket>0}"><strong>{{countBasket}}</strong></span></a>
           </li>
@@ -263,6 +263,7 @@
 <script src="advancedfilters/referencesFilter.js"></script>
 <script src="advancedfilters/qualifierFilter.js"></script>
 <script src="advancedfilters/assignedByFilter.js"></script>
+<script src="advancedfilters/annotationExtensionFilter.js"></script>
 <script src="advancedfilters/filterButtons.js"></script>
 <script src="download/download.js"></script>
 <script src="download/downloadStatistics.js"></script>
