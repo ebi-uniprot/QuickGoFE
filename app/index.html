@@ -156,27 +156,14 @@
 </div> <!-- /local-masthead -->
 
 
-  <div id="main-content-area" role="main">
+  <!-- WARNING message -->
+  <section class="row">
+      <!-- Global error message -->
+    <alert  class="column small-12" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+  </section>
 
-
-  <div class="columns">
-
-    <!-- WARNING message -->
-
-    <section>
-        <!-- Global error message -->
-      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-    </section>
-
-<!--
-
-  <div class="clearfix"></div> -->
-
-  <!-- Add your site or application content here -->
-  <div ng-view=""></div>
-
-  <!--End of main content container-->
-</div>
+  <!-- MAIN CONTAINER -->
+  <div ng-view="" role="main"></div>
 
   <footer>
     <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
@@ -216,7 +203,6 @@
     </div>
 
   </footer>
-</div> <!--! end of #wrapper -->
 
 
 <!-- JavaScript at the bottom for fast page loading -->
