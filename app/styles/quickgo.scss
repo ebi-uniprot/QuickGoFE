@@ -205,9 +205,6 @@ span.has-tip{
 .in-form-button {
   margin-top: 1.6em;
 }
-
-
-
 /*   RESULTS page  -------------------------------------------------------*/
 
 .column-selector{
@@ -439,6 +436,21 @@ aspect-icon span.aspect-icon{
   background-color: #fff;
   padding: 10px;
 }
+
+.dropdown-pane{
+  width: 550px;
+}
+.y-scroll-200 {
+  overflow-y: auto;
+  height: 200px;
+}
+
+select {
+  width: auto;
+}
+
+
+
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
     li {
