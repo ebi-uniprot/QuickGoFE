@@ -34,6 +34,9 @@ div#local-masthead {
 
 #local-title span#search-area, #local-title span#quickgo-header-subtext{
   margin-top: 50px;
+ h1{
+     font-weight: bold;
+ }
 }
 
 #beta-message {
@@ -48,8 +51,10 @@ div#local-masthead {
 }
 
 #local-masthead nav ul.menu li { border-right-color: #EEE; }
-#local-masthead .masthead .menu > li > a { background: #00a9de; color: #fff; font-weight: bold; }
-#local-masthead .masthead .menu > li > a:hover { color: #fff; background-color: #006f91;}
+#local-masthead .masthead .menu > li > a { background: #006f91; color: #fff; font-weight: bold; }
+#local-masthead .masthead .menu > li > a:hover { color: #fff; background-color: #00a9de;}
+
+// 00a9de   006f91
 
 header .masthead{
   padding-top: 0px;
@@ -197,7 +202,9 @@ span.has-tip{
 }
 
 
-
+.in-form-button {
+  margin-top: 1.6em;
+}
 /*   RESULTS page  -------------------------------------------------------*/
 
 .column-selector{
@@ -424,6 +431,21 @@ aspect-icon span.aspect-icon{
   background-color: #fff;
   padding: 10px;
 }
+
+.dropdown-pane{
+  width: 550px;
+}
+.y-scroll-200 {
+  overflow-y: auto;
+  height: 200px;
+}
+
+select {
+  width: auto;
+}
+
+
+
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
     li {
@@ -548,6 +570,9 @@ h5.active-filter:before{
     background-color: #2980B9;
 }
 
+.embl-selector .button{
+  border: 0px;
+}
 
 /* TERM page  */
 
@@ -585,6 +610,9 @@ h5.active-filter:before{
   }
   a{
     color: #2980b9;
+  }
+  h2{
+    color: #006f91;
   }
 }
 .annotations-link, #term-show-annotations {

@@ -20,8 +20,6 @@ var app = angular
     'mm.foundation'
   ]);
 
-var fullWidthPages = ['annotations','dataset','searchterms','searchproducts'];
-
 app.run(function ($rootScope, dbXrefService, $window, $location) {
   $rootScope.followLinkToGeneric = function (database) {
     dbXrefService.getDbXrefs().then(function (xrefs) {
@@ -47,17 +45,6 @@ app.run(function ($rootScope, dbXrefService, $window, $location) {
   $rootScope.closeAlert = function (index) {
     $rootScope.alerts.splice(index, 1);
   };
-
-  $rootScope.$on('$viewContentLoaded', function () {
-    angular.forEach(fullWidthPages, function(pageName) {
-      var regEx = new RegExp(pageName,'g');
-      if($location.url().match(regEx)){
-        $rootScope.fullWidthPage = true;
-        return;
-      }
-    });
-    $rootScope.fullWidthPage = false;
-  });
 
 });
 

@@ -1,4 +1,4 @@
-<div ng-controller="AdvancedFiltersCtrl">
+<div ng-controller="AdvancedFiltersCtrl" class="columns small-12">
   <ul class="menu">
     <li>Filter by: </li>
     <li>
@@ -71,6 +71,17 @@
       </dropdown-toggle>
     </li>
 
+    <!-- ANNOTATION EXTENSION -->
+    <li ng-class="{'inactive':query.extension}">
+      <dropdown-toggle close-on-click="true" class="evidence-panel" pane-align="right">
+        <toggle>
+          <button class="button dropdown" ng-class="{'icon-functional active-filter' : query['extension']}" data-icon="/">Annotation Extension</button>
+        </toggle>
+        <pane>
+          <div ng-include src="'advancedfilters/annotationExtensionFilter.html'"></div>
+        </pane>
+      </dropdown-toggle>
+    </li>
 
     <!-- MORE  -->
 
@@ -89,7 +100,7 @@
 
   <div id="morePanel" class="column-selector more-panel" ng-show="moreColumnsContainer">
     <span class="icon-functional column-selector__close" ng-click="moreColumnsContainer = !moreColumnsContainer" data-icon="x"></span>
-      <div class="medium-12 row">
+      <div class="medium-12 expanded row">
       <!-- QUALIFIER -->
         <div class="medium-3 column" ng-include src="'advancedfilters/qualifierFilter.html'"></div>
       <!-- REFERENCE -->
@@ -103,8 +114,6 @@
           <button class="button" ng-click="apply()">Apply</button>
         </div>
       </div>
-
-
   </div>
 
 </div>

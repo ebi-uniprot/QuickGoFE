@@ -1,19 +1,17 @@
-<!-- header templates -->
-<div id="content" cg-busy="resultsPromise">
+<div class="row expanded">
+  <h2 class="columns small-12">GO annotations</h2>
+</div>
 
-  <h2>GO annotations</h2>
+<div class="row expanded" ng-include="'advancedfilters/advancedFilters.html'"></div>
 
-  <div ng-include src="'advancedfilters/advancedFilters.html'"></div>
-
-  <!-- Main Content -->
-  <div class="main-content">
-    <tabset>
-      <tab heading="Annotations">
-        <div ng-include="'annotationsList/annotationList.html'"></div>
-      </tab>
-      <tab heading="Statistics" select="loadStatistics()">
-        <div ng-include="'statistics/statistics.html'"></div>
-      </tab>
-    </tabset>
-  </div>
+<!-- Main Content -->
+<div class="main-content row expanded">
+  <tabset class="columns small-12">
+    <tab heading="Annotations">
+      <div ng-include="'annotationsList/annotationList.html'"></div>
+    </tab>
+    <tab heading="Statistics" select="loadStatistics()">
+      <div ng-include="'statistics/statistics.html'"></div>
+    </tab>
+  </tabset>
 </div>
