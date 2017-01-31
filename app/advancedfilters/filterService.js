@@ -72,4 +72,11 @@ app.service('filterService', function(){
     return concat;
   };
 
+  this.removeRootTerms = function(items) {
+    var rootTerms = ['GO:0003674','GO:0008150','GO:0005575'];
+    return _.filter(items, function(d){
+      return !_.contains(rootTerms, d.id);
+    });
+  };
+
 });
