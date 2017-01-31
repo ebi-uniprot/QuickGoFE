@@ -52,7 +52,7 @@
   <script src="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/libraries/modernizr/modernizr.custom.49274.js"></script>
 </head>
 
-<body class="level2" ng-class="{'full-width' : fullWidthPage}">
+<body class="level2">
 <div id="skip-to">
   <ul>
     <li><a href="#content">Skip to main content</a></li>
@@ -105,7 +105,7 @@
         <!-- Logo -->
         <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}">
           <a href="/" accesskey="1" id="logo">
-            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo2.png">
+            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
           </a>
           <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
         </span>
@@ -134,15 +134,15 @@
 
 
       <!-- local-nav -->
-
-      <nav ng-controller="BasketNavCtrl">
+      <nav>
         <ul class="dropdown menu float-left quickgo-nav" data-description="navigational" id="local-nav">
           <li><a href="help">Help</a></li>
           <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\">Contact</a></li>
-          <li class="functional"><a ng-click="openBasket()"> Basket &nbsp;
-            <span id="basket"  ng-class="{'empty-basket': countBasket==0, 'pop-basket': countBasket>0}"><strong>{{countBasket}}</strong></span></a>
+          <li class="functional">
+            <a href="#">
+            <basket-modal></basket-modal>
+            </a>
           </li>
-
         </ul>
       </nav>
 
@@ -156,27 +156,14 @@
 </div> <!-- /local-masthead -->
 
 
-  <div id="main-content-area" role="main">
+  <!-- WARNING message -->
+  <section class="row">
+      <!-- Global error message -->
+    <alert  class="column small-12" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+  </section>
 
-
-  <div class="columns">
-
-    <!-- WARNING message -->
-
-    <section>
-        <!-- Global error message -->
-      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-    </section>
-
-<!--
-
-  <div class="clearfix"></div> -->
-
-  <!-- Add your site or application content here -->
-  <div ng-view=""></div>
-
-  <!--End of main content container-->
-</div>
+  <!-- MAIN CONTAINER -->
+  <div ng-view="" role="main"></div>
 
   <footer>
     <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
@@ -216,7 +203,6 @@
     </div>
 
   </footer>
-</div> <!--! end of #wrapper -->
 
 
 <!-- JavaScript at the bottom for fast page loading -->
@@ -277,6 +263,7 @@
 <script src="advancedfilters/referencesFilter.js"></script>
 <script src="advancedfilters/qualifierFilter.js"></script>
 <script src="advancedfilters/assignedByFilter.js"></script>
+<script src="advancedfilters/annotationExtensionFilter.js"></script>
 <script src="advancedfilters/filterButtons.js"></script>
 <script src="download/download.js"></script>
 <script src="download/downloadStatistics.js"></script>
@@ -289,7 +276,6 @@
 <script src="nav/webservices.js"></script>
 <script src="help/help.js"></script>
 <script src="nav/feedback.js"></script>
-<script src="nav/basket.js"></script>
 <script src="search/facetSearch.js"></script>
 <script src="scripts/services/basketService.js"></script>
 <script src="scripts/services/hardcoded-data.js"></script>
@@ -299,7 +285,7 @@
 <script src="scripts/services/validationService.js"></script>
 <script src="scripts/services/quickgoHelper.js"></script>
 <script src="scripts/config.js"></script>
-<script src="basket/basket.js"></script>
+<script src="basket/basketModal.js"></script>
 <script src="directives/basket.js"></script>
 <script src="directives/chartIcon.js"></script>
 <script src="directives/chart.js"></script>

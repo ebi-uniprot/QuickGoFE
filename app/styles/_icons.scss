@@ -15,8 +15,8 @@
 // ASPECT ICONS
 
 .aspect-biological_process:before, .aspect-Process:before {
-  @include action-icon(#FEC4C7, $white, #FEC4C7);
-  content:'P';  
+  @include action-icon(#FE9FA4, $white, #FE9FA4);
+  content:'P';
 }
 
 .aspect-cellular_component:before, .aspect-Component:before{
@@ -45,7 +45,7 @@
 .basket-added:hover:before {
   @include action-icon($white,red, red);
   font-family: 'EBI-Functional';
-  content:'x';  
+  content:'x';
 }
 
 .basket-disabled:before {

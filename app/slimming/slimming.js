@@ -1,7 +1,7 @@
 'use strict';
 app.controller('GOSlimCtrl', function($scope, $location, $q,
   hardCodedDataService, presetsService, $document, termService, basketService,
-  stringService, validationService) {
+  stringService, validationService, filterService) {
 
   $scope.selection = {};
   $scope.deSelectedItems = [];
@@ -81,14 +81,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     });
 
     var terms = $scope.selectedPreDefinedSlimSet.associations;
-
-    if($scope.includeRootTerms) {
-      termService.getGOTerms(['GO:0003674','GO:0008150','GO:0005575']).then(function(d){
-        angular.forEach(d.data.results, function(goTerm){
-          $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
-        });
-      });
+    if(!$scope.includeRootTerms) {
+      terms = filterService.removeRootTerms(terms);
     }
+
     angular.forEach(terms, function(term){
       if(aspectMap[term.aspect]) { //TODO remove when service has correct aspect
         term.aspect = aspectMap[term.aspect];

@@ -11,6 +11,14 @@ angular
 			},
 			link: function(scope, elem) {
 				scope.provideSuggestions = function(keyCode) {
+
+					// size the mega search box to match the input field
+					if($location.path()==='/'){
+						angular.element($document[0].querySelector('#search-terms #megasearchbox')).width(angular.element($document[0].querySelector('#search-terms #searchbox')).width()-18);
+					}else{
+						angular.element($document[0].querySelector('#megasearchbox')).width(angular.element($document[0].querySelector('#searchbox')).width()-18);
+					}
+
 					$timeout.cancel(scope.timePromise); //cancel previous request
 
 					if(keyCode === 27) {

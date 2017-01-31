@@ -34,6 +34,9 @@ div#local-masthead {
 
 #local-title span#search-area, #local-title span#quickgo-header-subtext{
   margin-top: 50px;
+ h1{
+     font-weight: bold;
+ }
 }
 
 #beta-message {
@@ -48,8 +51,10 @@ div#local-masthead {
 }
 
 #local-masthead nav ul.menu li { border-right-color: #EEE; }
-#local-masthead .masthead .menu > li > a { background: #00a9de; color: #fff; font-weight: bold; }
-#local-masthead .masthead .menu > li > a:hover { color: #fff; background-color: #006f91;}
+#local-masthead .masthead .menu > li > a { background: #006f91; color: #fff; font-weight: bold; }
+#local-masthead .masthead .menu > li > a:hover { color: #fff; background-color: #00a9de;}
+
+// 00a9de   006f91
 
 header .masthead{
   padding-top: 0px;
@@ -59,6 +64,9 @@ header .masthead{
   height: 40px;
 }
 
+a, a:visited, #local-masthead #local-title .columns a{
+  border-bottom: 0px;
+}
 
 .tabs-title > a[aria-selected='true']{
   background-color: #999;
@@ -214,7 +222,9 @@ span.has-tip{
 }
 
 
-
+.in-form-button {
+  margin-top: 1.6em;
+}
 /*   RESULTS page  -------------------------------------------------------*/
 
 .column-selector{
@@ -227,11 +237,6 @@ span.has-tip{
     float: right;
     cursor: pointer;
   }
-}
-
-.basket__close{
-  float: right;
-  cursor: pointer;
 }
 
 li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
@@ -309,9 +314,6 @@ aspect-icon span.aspect-icon{
   width: 700px;
 }
 
-.more-panel .dropdown-pane{
-  width: 800px;
-}
 .overflow-pane{
   height: 200px;
   overflow: auto;
@@ -379,12 +381,12 @@ aspect-icon span.aspect-icon{
   border-bottom-right-radius: 5px;
 }
 
-.empty-basket {
-  background-color: red;
-}
-
 .pop-basket {
   background-color: $white;
+}
+
+.basket-remove:before {
+  color: $primary1;
 }
 
 /* PAGINATION   ------------------------------------------------------------------------------------------------------*/
@@ -446,6 +448,15 @@ aspect-icon span.aspect-icon{
   background-color: #fff;
   padding: 10px;
 }
+
+.dropdown-pane{
+  width: 550px;
+}
+.y-scroll-200 {
+  overflow-y: auto;
+  height: 200px;
+}
+
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
     li {
@@ -570,6 +581,9 @@ h5.active-filter:before{
     background-color: #2980B9;
 }
 
+.embl-selector .button{
+  border: 0px;
+}
 
 /* TERM page  */
 
@@ -607,6 +621,9 @@ h5.active-filter:before{
   }
   a{
     color: #2980b9;
+  }
+  h2{
+    color: #006f91;
   }
 }
 .annotations-link, #term-show-annotations {
