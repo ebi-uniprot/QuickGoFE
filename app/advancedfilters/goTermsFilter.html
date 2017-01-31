@@ -30,14 +30,12 @@
   </div>
   <a ng-click="more = !more" ng-hide="more">Options</a>
   <div ng-show="more" class="row columns small-12">
-    <hr>
     <fieldset class="fieldset">
       <legend>Select how you want to use the terms that you have chosen:</legend>
       <label><input type="radio" ng-model="goTermUse" value="descendants">Find annotations to <strong>descendants</strong> of these terms.</label>
       <label><input type="radio" ng-model="goTermUse" value="slim">Use these terms as a <strong>GO slim</strong>.</label>
       <label><input type="radio" ng-model="goTermUse" value="">Use these terms as an <strong>exact</strong> match.</label>
     </fieldset>
-    <hr>
 
     <!-- Select Relationship-->
     <fieldset ng-show="goTermUse=='slim' || goTermUse=='descendants'" class="fieldset">
