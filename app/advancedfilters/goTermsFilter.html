@@ -33,7 +33,7 @@
 
     <hr>
     <div><strong>Select how you want to use the terms that you have chosen:</strong>
-      <ul>
+      <ul class="no-bullet">
         <li class="checkbox">
           <input type="radio" ng-model="goTermUse" value="descendants"> Find annotations to <strong>descendants</strong> of these terms.
         </li>
@@ -47,7 +47,7 @@
 
     <!-- Select Relationship-->
     <div ng-show="goTermUse=='slim' || goTermUse=='descendants'"><strong>Select which relationship an annotated term should have to the terms above <a href="http://geneontology.org/page/ontology-relations" target="_blank">(more info)</a>:</strong>
-      <ul>
+      <ul class="no-bullet">
         <li class="checkbox">
           <input type="radio" name="closure" value="is_a" ng-model="goRelations"> is_a
         </li>
