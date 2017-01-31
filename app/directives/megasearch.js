@@ -14,9 +14,9 @@ angular
 
 					// size the mega search box to match the input field
 					if($location.path()==='/'){
-						$('#search-terms #megasearchbox').width($('#search-terms #searchbox').width()-18);
+						angular.element($document[0].querySelector('#search-terms #megasearchbox')).width(angular.element($document[0].querySelector('#search-terms #searchbox')).width()-18);
 					}else{
-						$('#megasearchbox').width($('#searchbox').width()-18);
+						angular.element($document[0].querySelector('#megasearchbox')).width(angular.element($document[0].querySelector('#searchbox')).width()-18);
 					}
 
 					$timeout.cancel(scope.timePromise); //cancel previous request
