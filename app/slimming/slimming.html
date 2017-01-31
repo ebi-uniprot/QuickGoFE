@@ -90,33 +90,18 @@
 
 <div class="row" ng-if="count.total > 0">
   <hr>
-  <div id="selection-header" class="column medium-12 clearfix">
+  <div id="selectionHeader" class="column medium-12 clearfix">
     <span class="float-right">
       <button class="button" ng-disabled="count.total <= 0" ng-click="clearSelection()">Clear</button>
       <button class="button" ng-disabled="count.total <= 0" ng-click="viewAnnotations()">Apply</button>
     </span>
-    <h3 ng-class="{'inactive': count.totalCount <= 0}" class="your-selection-header">
+    <h3 ng-class="{'inactive': count.totalCount <= 0}" class="your-selectionHeader">
       Your Selection:{{count.total | number}} terms
       <small><chart-icon ids="{{getSelectedIds().toString()}}"></chart-icon></small>
     </h3>
   </div>
 
-  <div class="your-selection-container column medium-12">
-
-
-        <div id="sticky-anchor" style="float: right; height: 0px;"></div>
-        <div class="selectionContainer removedTerms" id="sticky" ng-if="deSelectedItems.length >= 1">
-          <h4>Excluded Terms
-            <span>({{deSelectedItems.length | number}})</span>
-          </h4>
-          <p ng-repeat="aTerm in deSelectedItems">
-            <i>
-              <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
-              <a class="icon icon-functional" data-icon="+" title="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm)"></a>
-            </i>
-          </p>
-        </div>
-
+  <div class="your-selection-container column medium-7">
     <div class="selectionContainer" ng-if="count.total > 0">
       <div ng-repeat="(aspectId,aspect) in selection">
         <h4>{{aspect.name}}
@@ -129,8 +114,21 @@
         </p>
       </div>
     </div>
-
-
-
   </div>
+
+  <div class="column medium-5">
+  <div class="selectionContainer removedTerms" id="removedTerms" ng-if="deSelectedItems.length >= 1">
+    <h4>Excluded Terms
+      <span>({{deSelectedItems.length | number}})</span>
+    </h4>
+    <p ng-repeat="aTerm in deSelectedItems">
+      <i>
+        <term-line id="aTerm.id" aspect="aTerm.aspect" obsolete="aTerm.isObsolete" name="aTerm.name"></term-line>
+        <a class="icon icon-functional" data-icon="+" title="Add back into Your Selection" ng-click="addBackIntoSelection(aTerm)"></a>
+      </i>
+    </p>
+  </div>
+
+</div>
+
 </div>

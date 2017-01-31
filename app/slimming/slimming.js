@@ -1,31 +1,27 @@
 'use strict';
 app.controller('GOSlimCtrl', function($scope, $location, $q,
-  hardCodedDataService, presetsService, termService, basketService,
+  hardCodedDataService, presetsService, $document, termService, basketService,
   stringService, validationService) {
 
   $scope.selection = {};
   $scope.deSelectedItems = [];
 
-
-
-  function sticky_relocate() {
-      var window_top = $(window).scrollTop();
-      if (document.getElementById('sticky-anchor')) {
-      var div_top = $('#sticky-anchor').offset().top;
-    }
-      if (window_top > div_top) {
-          $('#sticky').addClass('stick');
-          $('#sticky-anchor').height($('#sticky').outerHeight());
-      } else {
-          $('#sticky').removeClass('stick');
-          $('#sticky-anchor').height(0);
+  // Fixes the removed terms box to the top of the screen when scrolling
+  $document.on('scroll', function() {
+      var container = angular.element($document[0].querySelector('#selectionHeader'));
+      if (container[0]) {
+        if (container[0].getBoundingClientRect().top <= 10) {
+          angular.element($document[0].querySelector('#removedTerms')).addClass('fixed');
+          console.log("added class");
+        } else {
+          var nav = angular.element($document[0].querySelector('#removedTerms'));
+          if (nav.hasClass('fixed')) {
+            nav.removeClass('fixed');
+          }
+        }
       }
-  }
-
-  $(function() {
-      $(window).scroll(sticky_relocate);
-      sticky_relocate();
   });
+
 
 
 

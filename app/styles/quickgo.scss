@@ -158,13 +158,6 @@ table th{
 }
 
 .removedTerms{
-  border: 1px solid #666;
-  background-color: $verylightgrey;
-  padding: 10px;
-  border-radius: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  float: right;
     li{
       color: $midgrey;
     }
@@ -580,7 +573,7 @@ h5.active-filter:before{
 
 /* TERM page  */
 
-#term-section-nav {
+#term-section-nav, #removedTerms {
   line-height: 2em;
   &.fixed {
     position: fixed;
