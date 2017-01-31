@@ -2,7 +2,7 @@
 app.controller('goTermsFilter', function($scope, basketService, stringService,
   validationService, termService, presetsService, $rootScope, filterService){
 
-  $scope.goTerms = {};
+  $scope.goTerms = [];
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
   $scope.uploadLimit = 600;
@@ -11,6 +11,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   var init = function() {
     //Get terms from url
     $scope.goTerms = filterService.getQueryFilterItems($scope.query.goId);
+    $scope.includeRootTerms = false;
 
     $scope.goTermUse = $scope.$parent.query.goUsage ? $scope.$parent.query.goUsage : 'descendants';
     $scope.goRelations = $scope.$parent.query.goUsageRelationships ? $scope.$parent.query.goUsageRelationships : 'is_a,part_of,occurs_in';
@@ -76,7 +77,11 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
 
   $scope.addPredefinedSet = function() {
     if($scope.selectedPreDefinedSlimSet) {
-      var filterItems = filterService.getPresetFilterItems($scope.selectedPreDefinedSlimSet.associations, 'id', true);
+      var slimSetItems = $scope.selectedPreDefinedSlimSet.associations;
+      if(!$scope.includeRootTerms) {
+        slimSetItems = filterService.removeRootTerms(slimSetItems);
+      }
+      var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
       $scope.goTerms = filterService.mergeRightToLeft($scope.goTerms, filterItems);
       $scope.selectedPreDefinedSlimSet = '';
     }
