@@ -50,7 +50,6 @@ angular
               // Add items to basket
               $scope.submit = function() {
                 var terms = $scope.form.inputTerms;
-                console.log(terms);
                 angular.forEach(terms.split(','), function(term) {
                   if(validationService.validateGOTerm(term)) {
                     basketService.addBasketItem(term);
@@ -77,9 +76,7 @@ angular
               $scope.exportBasket = function () {
                 var text = '';
                 angular.forEach($scope.basketItems, function(item){
-                  text += item.id + '\t';
-                  text += item.aspect + '\t';
-                  text += item.name + '\n';
+                  text += item.id + '\t' + item.aspect + '\t' + item.name + '\n';
                 });
                 var blob = new Blob([text], {type: 'text/tsv;charset=utf-8;'});
                 saveAs(blob, 'basket.tsv');

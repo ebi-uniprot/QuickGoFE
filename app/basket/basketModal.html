@@ -4,19 +4,21 @@
 <script type="text/ng-template" id="basketModalContent.html">
   <div class="quickgo-modal" cg-busy="basketPromises">
     <div id="basket-contents-show" cg-busy="basketPromise">
-      <button ng-click="ok()" class="close-button" aria-label="Close reveal" type="button">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      <strong>Max 400 entries</strong>
+      <div class="row column small-12">
+        <h2>Basket <small>(maximum 400 entries)</small></h2>
+        <button ng-click="ok()" class="close-button" aria-label="Close reveal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <!--Show message if the basket is empty-->
-      <div ng-show="basketItems.length <= 0">
+      <div ng-show="basketItems.length <= 0" class="row column small-12">
         <h3> Your basket is currently empty.</h3>
         <p>You can add a GO term to the Term Basket by clicking on the
           <element class="icon icon-static" data-icon="b"></element> icon that appears next to its identifier in QuickGO.</p>
       </div>
       <!--List GO Terms in the basket-->
-      <div ng-show="basketItems.length > 0">
-        <div>
+      <div ng-show="basketItems.length > 0" class="row">
+        <div class="column small-12 overflow-pane">
           <table id="basketTermsTable">
             <thead>
               <tr>
@@ -34,23 +36,24 @@
             </tbody>
           </table>
         </div>
-        <div class="pull-right">
-          <chart-icon ids="{{basketIds}}"></chart-icon>
-          <button class="button" ng-click="filterUsingBasketTerms()">Filter With Terms</button>
-          <button class="button" ng-click="emptyBasket()">Clear</button>
-          <button class="button" ng-click="exportBasket()">Export</button>
+        <div class="row column small-12">
+          <div class="float-right">
+            <chart-icon ids="{{basketIds}}"></chart-icon>
+            <button class="button" ng-click="filterUsingBasketTerms()">Filter With Terms</button>
+            <button class="button" ng-click="emptyBasket()">Clear</button>
+            <button class="button" ng-click="exportBasket()">Export</button>
+          </div>
         </div>
         <hr>
       </div>
-      <div>
+      <div class="row columns small-12">
         <!-- Enter GO Terms Directly-->
-        <form>
-          <div>
-            <label for="termsListToAdd">Enter a list of terms to be added to your basket:</label>
-            <textarea ng-model="form.inputTerms"></textarea>
-          </div>
-          <button class="button float-right" ng-click="submit()">Add Terms</button>
-        </form>
+        <div>
+          <label>Enter a list of terms to be added to your basket:
+            <textarea ng-model="form.inputTerms" placeholder="e.g. GO:0016887,GO:0000166, ..."></textarea>
+          </label>
+        </div>
+        <button class="button float-right" ng-click="submit()">Add Terms</button>
       </div>
     </div>
     <!--End of basket-->
