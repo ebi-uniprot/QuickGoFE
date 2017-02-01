@@ -5,8 +5,8 @@
       <li ng-repeat="(id, term) in goTerms" class="checkbox">
         <label>
           <input type="checkbox" ng-model="term.checked">
-          <term-line id="term.id" aspect="goTermMapping[term].item.aspect" obsolete="goTermMapping[term].item.isObsolete" name="goTermMapping[term].name"></term-line>
-          {{term.item.name}}
+          <term-line id="term.id" aspect="term.item.aspect" obsolete="term.item.isObsolete"
+             name="term.item.name"></term-line>
         </label>
       </li>
 
