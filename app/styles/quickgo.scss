@@ -219,11 +219,6 @@ span.has-tip{
   }
 }
 
-.basket__close{
-  float: right;
-  cursor: pointer;
-}
-
 li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
   color: rgba(18, 80, 84, 0.24) !important;
   cursor: default;
@@ -299,9 +294,6 @@ aspect-icon span.aspect-icon{
   width: 700px;
 }
 
-.more-panel .dropdown-pane{
-  width: 800px;
-}
 .overflow-pane{
   height: 200px;
   overflow: auto;
@@ -369,12 +361,12 @@ aspect-icon span.aspect-icon{
   border-bottom-right-radius: 5px;
 }
 
-.empty-basket {
-  background-color: red;
-}
-
 .pop-basket {
   background-color: $white;
+}
+
+.basket-remove:before {
+  color: $primary1;
 }
 
 /* PAGINATION   ------------------------------------------------------------------------------------------------------*/
@@ -444,12 +436,6 @@ aspect-icon span.aspect-icon{
   overflow-y: auto;
   height: 200px;
 }
-
-select {
-  width: auto;
-}
-
-
 
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
