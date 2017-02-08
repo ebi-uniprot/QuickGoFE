@@ -5,13 +5,16 @@
     <select ng-model="selectedFormat" ng-options="downloadFormat.format for downloadFormat in downloadFileFormats"></select>
     <br/>
     <br/>
-    <label class="bold-label">Limit:</label>
+    <label class="bold-label">
+      Limit (<a href="/faq/gene_product_download" target="_blank">maximum {{50000 | number}}</a>):
+    </label>
     <input ng-model="selectedLimit" ng-bind="selectedLimit">
     <br/>
     <br/>
     <!-- Version 1 -->
-    <button class="button" ng-click="submit(selectedFormat, selectedLimit)">Submit</button>
-    <button class="button" ng-click="$close()">Cancel</button>
+    <div class="float-right">
+      <button class="button" ng-click="submit(selectedFormat, selectedLimit)">Go</button>
+    </div>
   </form>
 
 </div>

@@ -15,7 +15,7 @@ angular
         if($scope.termid.lastIndexOf('ECO', 0) === 0){
           $scope.showIcon = false;
         }
-        
+
         var getClass = function() {
           if($scope.icondisabled === 'true') {
             return 'basket-disabled'
@@ -24,7 +24,7 @@ angular
 					} else {
 						return 'basket-default';
 					}
-        }
+        };
 
         $scope.className = getClass();
 
@@ -39,7 +39,7 @@ angular
             $scope.className = getClass();
 						$scope.$apply();
 				});
-        
+
         $rootScope.$on('basketUpdate', function(){
 						$scope.inBasket = basketService.containsGoTerm($scope.termid);
             $scope.className = getClass();

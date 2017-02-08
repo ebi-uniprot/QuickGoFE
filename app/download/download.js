@@ -1,43 +1,21 @@
-/**
- * Created by twardell on 07/05/2015.
- */
-
-app.controller('DownloadCtrl', function($scope, $http, $location,
-                                            hardCodedDataService, ENV) {
+app.controller('DownloadCtrl', function($scope, $http, $routeParams, hardCodedDataService, downloadService) {
 
   $scope.selectedLimit=1000; //default
 
   $scope.downloadFileFormats=hardCodedDataService.getDownloadFileFormats();
   $scope.selectedFormat = $scope.downloadFileFormats[1] ; //default to gpad
 
-  //New
-
-
   /**
    * process request and start download
    */
-  $scope.submit = function(format,limit) {
-
-    var filterRequest = {};
-    // filterRequest.list =  filteringService.populateAppliedFilters();
-    filterRequest.limit = limit;
-    filterRequest.format = format.ext;
-    var fileName='download.'+ format.ext;
-
-    // Post the filter request to the webservice
-    var request = {
-      method: 'POST',
-      url: ENV.apiEndpoint+"/downloadPostNewNamesNotSpring",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: filterRequest
-    };
-
-    $scope.downloadPromise = $http(request);
-
-    $scope.downloadPromise.success(function(data) {
-      downloadFile(fileName, data, format.strMimeType);
+  $scope.submit = function(format, limit) {
+    limit = Math.min(limit, downloadService.getMaxLimit());
+    $scope.downloadPromise = downloadService.getAnnotationsData(format.ext, limit, $routeParams);
+    $scope.downloadPromise.then(function(response) {
+      var now = new Date();
+      var filename = 'QuickGO-annotations-' + now.getTime() + '-' + now.toISOString().split('T')[0].replace(/-/g,'')
+          + '.' + format.ext;
+      downloadFile(filename, response.data, format.strMimeType);
     });
   };
 
@@ -48,6 +26,4 @@ app.controller('DownloadCtrl', function($scope, $http, $location,
     var blob = new Blob([data], {type: strMimeType});
     saveAs(blob, fileName);
   }
-
-
 });
