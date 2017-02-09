@@ -158,6 +158,26 @@ table th{
   background-color: $primary5;
 }
 
+.your-selection-container a.icon-functional{
+  border-bottom: 0px;
+}
+
+.removedTerms{
+    li{
+      color: $midgrey;
+    }
+}
+#sticky{
+  width: 500px;
+}
+#sticky.stick {
+    margin-top: 0 !important;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10000;
+}
+
 .intro_text {
   margin-top: 1em;
   margin-bottom: 0;
@@ -564,7 +584,7 @@ h5.active-filter:before{
 
 /* TERM page  */
 
-#term-section-nav {
+#term-section-nav, #removedTerms {
   line-height: 2em;
   background-color: #ffffff;
   &.fixed {
