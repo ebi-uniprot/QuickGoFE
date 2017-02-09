@@ -184,6 +184,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   $scope.clearSelection = function() {
     init();
+    $scope.deSelectedItems = [];
   };
 
   $scope.getSelectedIds = function() {
