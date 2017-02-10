@@ -84,6 +84,24 @@ wsService.factory('taxonomyService', ['$http', function($http){
     };
 }]);
 
+wsService.factory('downloadService', ['$http', function($http){
+    return {
+        getAnnotationsData : function(accept, limit, filters) {
+            var url = 'http://wwwdev.ebi.ac.uk/QuickGO/services/annotation/downloadSearch';
+            var params = _.extend(filters, {downloadLimit: limit});
+            return $http.get(url, {
+              params: params,
+              headers: {
+                accept: 'text/' + accept
+              }
+            });
+        },
+        getMaxLimit: function() {
+            return 50000;
+        }
+    };
+}]);
+
 wsService.factory('geneProductService', ['$http', 'ENV', function($http, ENV){
     return {
         getGeneProducts: function(ids) {

@@ -1,16 +1,4 @@
 <div cg-busy="statsPromise" ng-controller="StatisticsCtrl">
-  <div class="row expanded" ng-show="totalNumberAnnotations > 0">
-    <div class="columns small-12">
-      <dropdown-toggle close-on-click="true">
-        <toggle>
-          <button class="button icon-functional" data-icon="=">Download</button>
-        </toggle>
-        <pane>
-          <div ng-include src="'download/downloadStatistics.html'"></div>
-        </pane>
-      </dropdown-toggle>
-    </div>
-  </div>
 
 <div class="row expanded" ng-show="totalNumberAnnotations > 0">
   <tabset class="column small-12">
