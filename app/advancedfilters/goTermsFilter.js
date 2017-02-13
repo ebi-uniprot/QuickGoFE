@@ -1,11 +1,11 @@
 'use strict';
-app.controller('goTermsFilter', function($scope, basketService, stringService,
+app.controller('goTermsFilter', function($scope, basketService, stringService, hardCodedDataService,
   validationService, termService, presetsService, $rootScope, filterService){
 
   $scope.goTerms = [];
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
-  $scope.uploadLimit = 600;
+  $scope.uploadLimit = hardCodedDataService.getMaxTerms();
 
 
   var init = function() {
@@ -52,7 +52,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
     if(goterms.length > $scope.uploadLimit) {
       $rootScope.alerts.push({
-        'msg': 'Sorry, we can only handle uploads of less than ' + $scope.uploadLimit + 'terms.'
+        'msg': 'Sorry, maximum ' + $scope.uploadLimit + ' terms are allowed.'
       });
     } else {
       var terms = filterService.addFilterItems(goterms,validationService.validateGOTerm);

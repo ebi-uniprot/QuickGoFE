@@ -1,10 +1,14 @@
 'use strict';
 app.controller('GOSlimCtrl', function($scope, $location, $q,
   hardCodedDataService, presetsService, $document, termService, basketService,
-  stringService, validationService, filterService) {
+  stringService, validationService, filterService, $rootScope) {
 
   $scope.selection = {};
   $scope.deSelectedItems = [];
+  $scope.uploadLimit = hardCodedDataService.getMaxTerms();
+  $scope.total = 0;
+  var limitErrorMsg = [{msg: 'Sorry, maximum ' + $scope.uploadLimit + ' terms allowed. ' +
+    'Please revise your term selection and try again.'}];
 
   // Fixes the removed terms box to the top of the screen when scrolling
   $document.on('scroll', function() {
@@ -21,9 +25,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       }
   });
 
-
-
-
   var init = function() {
     angular.forEach($scope.aspects, function(aspect) {
       $scope.selection[aspect.id] = {
@@ -31,6 +32,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
         'terms': {}
       };
     });
+    $scope.total = 0;
 
     $scope.additionalSelection = {
       'gpIds':[],
@@ -84,22 +86,35 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       terms = filterService.removeRootTerms(terms);
     }
 
-    angular.forEach(terms, function(term){
-      if(aspectMap[term.aspect]) { //TODO remove when service has correct aspect
-        term.aspect = aspectMap[term.aspect];
-      }
-      $scope.selection[term.aspect].terms[term.id] = term;
-    });
+    if (($scope.total + terms.length) > $scope.uploadLimit) {
+      $rootScope.alerts = limitErrorMsg;
+    } else {
+      angular.forEach(terms, function(term){
+        if(aspectMap[term.aspect]) { //TODO remove when service has correct aspect
+          term.aspect = aspectMap[term.aspect];
+        }
+        $scope.total += $scope.selection[term.aspect].terms[term.id] ? 0 : 1;
+        $scope.selection[term.aspect].terms[term.id] = term;
+      });
+    }
     $scope.selectedPreDefinedSlimSet = '';
   };
 
+  var addTerms = function(terms) {
+    if (($scope.total + terms.length) > $scope.uploadLimit) {
+        $rootScope.alerts = limitErrorMsg;
+    } else {
+      angular.forEach(terms, function(goTerm){
+        $scope.total += $scope.selection[goTerm.aspect].terms[goTerm.id] ? 0 : 1;
+        $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
+      });
+    }
+  };
   // Own terms
   $scope.addOwnTerms = function() {
     var terms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
     termService.getGOTerms(terms).then(function(d){
-      angular.forEach(d.data.results, function(goTerm){
-        $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
-      });
+      addTerms(d.data.results);
     });
     $scope.slimOwnTerms = '';
   };
@@ -109,9 +124,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     var items = _.filter($scope.basketList, function(d) {
       return d.selected;
     });
-    angular.forEach(items, function(term) {
-      $scope.selection[term.aspect].terms[term.id] = term;
-    });
+    addTerms(items);
   };
 
   //taxons
@@ -154,6 +167,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.removeFromSelection = function(termToRemove) {
     // Remove from selected items
     delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
+    $scope.total--;
     // Add to de-selected items
     $scope.deSelectedItems.push(termToRemove);
   };
@@ -161,6 +175,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.addBackIntoSelection = function(termToAdd) {
     // Add back to selectedItems
     $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
+    $scope.total++;
     // Remove from deSelectedItems
     $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
       return term.id !== termToAdd.id;

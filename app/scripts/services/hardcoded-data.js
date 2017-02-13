@@ -172,5 +172,9 @@ hardCodedModule.factory('hardCodedDataService', function() {
     return geneProductSets;
   };
 
+    hardCodedService.getMaxTerms = function() {
+        return 600;
+    };
+
   return hardCodedService;
 });
