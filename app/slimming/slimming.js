@@ -12,7 +12,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       if (container[0]) {
         if (container[0].getBoundingClientRect().top <= 10) {
           angular.element($document[0].querySelector('#removedTerms')).addClass('fixed');
-          console.log("added class");
         } else {
           var nav = angular.element($document[0].querySelector('#removedTerms'));
           if (nav.hasClass('fixed')) {

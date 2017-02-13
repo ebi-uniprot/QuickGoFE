@@ -54,7 +54,6 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
    */
   basketList.basketQuantity = function () {
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
-    // console.log("Items in Basket: ", items.length);
     return items.length;
   };
 

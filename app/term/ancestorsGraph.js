@@ -39,7 +39,6 @@ app.controller('AncestorsGraphCtrl', function($scope, $http, $location, ENV) {
 
 
   $scope.formattedTooltip = function (element)  {
-    //console.log("formatted Too tip", element);
 
     var content = element;
     if (element == 'is_a') {

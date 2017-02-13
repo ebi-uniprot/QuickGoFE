@@ -17,7 +17,6 @@ servicesModule.factory('quickGOHelperService', function() {
     if(aspectName === 'Biological Process'){
       return 'P';
     }
-    console.log('Unknown Aspect Description', aspectName);
     return '?';
   };
 

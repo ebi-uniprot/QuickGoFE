@@ -8,7 +8,6 @@ app.controller('OntologyTermsCtrl', function($scope, $location, ontologies) {
   var ontology=pathVals[(pathVals.length-1)];
 
   ontologies.query({ontology : ontology}, function(ontologyList){
-    console.log("found ontologyList data ", ontologyList);
     $scope.ontology = ontologyList;
   });
 
