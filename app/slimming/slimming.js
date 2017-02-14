@@ -7,8 +7,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.deSelectedItems = [];
   $scope.uploadLimit = hardCodedDataService.getMaxTerms();
   $scope.total = 0;
-  var limitErrorMsg = [{msg: 'Sorry, maximum ' + $scope.uploadLimit + ' terms allowed. ' +
-    'Please revise your term selection and try again.'}];
 
   // Fixes the removed terms box to the top of the screen when scrolling
   $document.on('scroll', function() {
@@ -73,6 +71,38 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     return _.any(_.pluck($scope.basketList, 'selected'));
   };
 
+  var getEstimatedSelection = function(terms, aspectMap) {
+    var estimatedTotal = $scope.total;
+    var estimatedSelection = {};
+    angular.forEach($scope.aspects, function(aspect) {
+        estimatedSelection[aspect.id] = {
+            'name': aspect.name,
+            'terms': _.extend({}, $scope.selection[aspect.id].terms)
+        };
+    });
+
+    angular.forEach(terms, function(goTerm){
+      if (aspectMap && aspectMap[goTerm.aspect]) { //TODO remove when service has correct aspect
+          goTerm.aspect = aspectMap[goTerm.aspect];
+      }
+      estimatedTotal += estimatedSelection[goTerm.aspect].terms[goTerm.id] ? 0 : 1;
+      estimatedSelection[goTerm.aspect].terms[goTerm.id] = goTerm;
+    });
+
+    return {total: estimatedTotal, selection: estimatedSelection};
+  };
+
+  var updateSelection = function(terms, aspectMap) {
+      var estimated = getEstimatedSelection(terms, aspectMap);
+      if (estimated.total > $scope.uploadLimit) {
+          $rootScope.alerts = [hardCodedDataService.getLimitReachedMsg($scope.uploadLimit)];
+      } else {
+          $scope.total = estimated.total;
+          $scope.selection = estimated.selection;
+          $rootScope.alerts = [];
+      }
+  };
+
   // Predefined sets
   $scope.addPredefined = function() {
     //TODO this is needed as the service currently returns aspect name not id
@@ -86,35 +116,16 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       terms = filterService.removeRootTerms(terms);
     }
 
-    if (($scope.total + terms.length) > $scope.uploadLimit) {
-      $rootScope.alerts = limitErrorMsg;
-    } else {
-      angular.forEach(terms, function(term){
-        if(aspectMap[term.aspect]) { //TODO remove when service has correct aspect
-          term.aspect = aspectMap[term.aspect];
-        }
-        $scope.total += $scope.selection[term.aspect].terms[term.id] ? 0 : 1;
-        $scope.selection[term.aspect].terms[term.id] = term;
-      });
-    }
+    updateSelection(terms, aspectMap);
     $scope.selectedPreDefinedSlimSet = '';
   };
 
-  var addTerms = function(terms) {
-    if (($scope.total + terms.length) > $scope.uploadLimit) {
-        $rootScope.alerts = limitErrorMsg;
-    } else {
-      angular.forEach(terms, function(goTerm){
-        $scope.total += $scope.selection[goTerm.aspect].terms[goTerm.id] ? 0 : 1;
-        $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
-      });
-    }
-  };
+
   // Own terms
   $scope.addOwnTerms = function() {
     var terms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
     termService.getGOTerms(terms).then(function(d){
-      addTerms(d.data.results);
+      updateSelection(d.data.results);
     });
     $scope.slimOwnTerms = '';
   };
@@ -124,7 +135,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     var items = _.filter($scope.basketList, function(d) {
       return d.selected;
     });
-    addTerms(items);
+    updateSelection(items);
   };
 
   //taxons
@@ -143,6 +154,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
         }
       }
     });
+    $rootScope.alerts = [];
     $scope.taxonTextArea = '';
   };
 
@@ -153,6 +165,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
         $scope.additionalSelection.gpIds.push(id);
       }
     });
+    $rootScope.alerts = [];
     $scope.geneProductID = '';
   };
 
@@ -168,18 +181,25 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     // Remove from selected items
     delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
     $scope.total--;
+    $rootScope.alerts = [];
     // Add to de-selected items
     $scope.deSelectedItems.push(termToRemove);
   };
 
   $scope.addBackIntoSelection = function(termToAdd) {
     // Add back to selectedItems
-    $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
-    $scope.total++;
-    // Remove from deSelectedItems
-    $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
-      return term.id !== termToAdd.id;
-    });
+    if (($scope.total + 1) > $scope.uploadLimit) {
+        $rootScope.alerts = [hardCodedDataService.getLimitReachedMsg()];
+    } else {
+        $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
+        $scope.total++;
+        $rootScope.alerts = [];
+
+        // Remove from deSelectedItems
+        $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
+            return term.id !== termToAdd.id;
+        });
+    }
   };
 
   $scope.$watch('selection', function() {
@@ -195,7 +215,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   }, true);
 
   $scope.viewAnnotations = function() {
-
     $location.search('goUsage', 'slim');
     $location.search('goUsageRelationships', 'is_a,part_of,occurs_in');
 
@@ -212,12 +231,14 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       $location.search('taxonId', $scope.additionalSelection.taxa.toString());
     }
 
+    $rootScope.alerts = [];
     $location.path('annotations');
   };
 
   $scope.clearSelection = function() {
     init();
     $scope.deSelectedItems = [];
+    $rootScope.alerts = [];
   };
 
   $scope.getSelectedIds = function() {
