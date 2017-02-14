@@ -173,10 +173,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     $scope.additionalSelection.taxa = _.pluck(_.filter($scope.species, 'checked'),'taxId');
   };
 
-  $scope.getTotalCount = function() {
-    return $scope.selectedItems;
-  };
-
   $scope.removeFromSelection = function(termToRemove) {
     // Remove from selected items
     delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
