@@ -24,7 +24,7 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService) {
           $scope.stats[type.type].geneProduct = type.values;
         });
       }
-      $scope.totalNumberAnnotations += item.totalHits;
+      $scope.totalNumberAnnotations = item.totalHits;
     });
   };
 
