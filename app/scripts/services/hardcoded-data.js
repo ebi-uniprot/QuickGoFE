@@ -176,7 +176,7 @@ hardCodedModule.factory('hardCodedDataService', function() {
         return 600;
     };
 
-    hardCodedService.getLimitReachedMsg = function(limit) {
+    hardCodedService.getTermsLimitMsg = function(limit) {
         return {msg: 'Sorry, maximum ' + limit + ' terms allowed. ' +
         'Please revise your term selection and try again.'};
     };

@@ -3,10 +3,10 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   validationService, termService, presetsService, $rootScope, filterService){
 
   $scope.goTerms = [];
+  $scope.totalChecked = 0;
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
   $scope.uploadLimit = hardCodedDataService.getMaxTerms();
-
 
   var init = function() {
     //Get terms from url
@@ -21,17 +21,18 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
         filterService.getFilterItemsForIds(basketService.getIds()));
     }
 
-     presetsService.getPresetsGOSlimSets().then(function(resp){
-       $scope.predefinedSlimSets = resp.data.goSlimSets;
-     });
+    presetsService.getPresetsGOSlimSets().then(function(resp){
+      $scope.predefinedSlimSets = resp.data.goSlimSets;
+    });
 
-     updateTermInfo();
+    updateTermInfo();
+    $scope.totalChecked = _.where($scope.goTerms, {checked: true}).length;
   };
 
   var updateTermInfo = function() {
-    if($scope.goTerms.length > 0 && $scope.goTerms.length < $scope.uploadLimit){
-      var termsToGet = _.filter($scope.goTerms, function(d){
-        return d.term === undefined;
+    if($scope.goTerms.length > 0){
+      var termsToGet = _.filter($scope.goTerms, function(term){
+        return term.item === undefined;
       });
       termService.getGOTerms(_.pluck(termsToGet,'id')).then(function(d){
         var data = d.data.results;
@@ -46,19 +47,28 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $scope.$parent.query.goUsageRelationships = '';
     init();
     $scope.$parent.updateQuery();
+    $rootScope.alerts = [];
+  };
+
+  var updateSelectedTerms = function(terms, update) {
+    var mergedTerms = filterService.mergeRightToLeft(terms, $scope.goTerms);
+    var checked = _.where(mergedTerms, {checked: true});
+    if (checked.length > $scope.uploadLimit) {
+      $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
+    } else {
+      $scope.goTerms = mergedTerms;
+      $scope.totalChecked = checked.length;
+      if (update === true) {
+          updateTermInfo();
+      }
+      $rootScope.alerts = [];
+    }
   };
 
   $scope.addGoTerms = function() {
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
-    if(goterms.length > $scope.uploadLimit) {
-      $rootScope.alerts.push({
-        'msg': 'Sorry, maximum ' + $scope.uploadLimit + ' terms are allowed.'
-      });
-    } else {
-      var terms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
-      $scope.goTerms = filterService.mergeRightToLeft(terms,$scope.goTerms);
-      updateTermInfo();
-    }
+    var terms = filterService.addFilterItems(goterms, validationService.validateGOTerm);
+    updateSelectedTerms(terms, true);
     $scope.goTermsTextArea = '';
   };
 
@@ -67,9 +77,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   });
 
   $scope.apply = function() {
-    var selected = _.pluck(_.filter($scope.goTerms, function(term){
-      return term.checked;
-    }), 'id');
+    var selected = _.pluck(_.where($scope.goTerms, {checked: true}), 'id');
     $scope.$parent.addToQuery('goId', selected);
     $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
     $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
@@ -82,13 +90,20 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
         slimSetItems = filterService.removeRootTerms(slimSetItems);
       }
       var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
-      $scope.goTerms = filterService.mergeRightToLeft($scope.goTerms, filterItems);
+      updateSelectedTerms(filterItems, false);
       $scope.selectedPreDefinedSlimSet = '';
     }
   };
 
-  $scope.selectedTermSize = function() {
-    return Object.keys($scope.goTerms).length;
+  $scope.updateTotalChecked = function(term) {
+    var newTotal = $scope.totalChecked + (term.checked ? 1 : -1);
+    if (newTotal > $scope.uploadLimit) {
+      $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
+      term.checked = !term.checked;
+    } else {
+      $scope.totalChecked = newTotal;
+      $rootScope.alerts = [];
+    }
   };
 
   init();

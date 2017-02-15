@@ -95,7 +95,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   var updateSelection = function(terms, aspectMap) {
       var estimated = getEstimatedSelection(terms, aspectMap);
       if (estimated.total > $scope.uploadLimit) {
-          $rootScope.alerts = [hardCodedDataService.getLimitReachedMsg($scope.uploadLimit)];
+          $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
       } else {
           $scope.total = estimated.total;
           $scope.selection = estimated.selection;
@@ -185,7 +185,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.addBackIntoSelection = function(termToAdd) {
     // Add back to selectedItems
     if (($scope.total + 1) > $scope.uploadLimit) {
-        $rootScope.alerts = [hardCodedDataService.getLimitReachedMsg()];
+        $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
     } else {
         $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
         $scope.total++;
