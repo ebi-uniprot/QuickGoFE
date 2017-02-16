@@ -5,7 +5,7 @@
       <ul class="no-bullet">
         <li ng-repeat="taxon in taxa" class="checkbox">
           <label>
-            <input type="checkbox" ng-model="taxon.checked">
+            <input type="checkbox" ng-model="taxon.checked" ng-click="updateTotalChecked(taxon)">
             {{taxon.id}} <strong>{{taxon.item.scientificName}}</strong>
           </label>
         </li>
@@ -27,7 +27,7 @@
     </div>
     <hr>
   <div class="float-right">
-      <filter-buttons></filter-buttons>
+      <filter-buttons apply-condition="applyCondition"></filter-buttons>
     </div>
   </form>
 </div>

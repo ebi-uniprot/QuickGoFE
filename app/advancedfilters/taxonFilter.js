@@ -3,6 +3,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   stringService, validationService, presetsService, taxonomyService, filterService){
 
   $scope.taxa = [];
+  $scope.totalChecked = 0;
 
   var getQuery = function() {
     return _.pluck(_.filter($scope.taxa, 'checked'), 'id');
@@ -15,6 +16,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
       $scope.taxa = filterService.mergeRightToLeft($scope.taxa, presetItems);
       updateTaxonInfo();
     });
+    $scope.totalChecked = _.filter($scope.taxa, 'checked').length;
   };
 
   $scope.reset = function() {
@@ -32,6 +34,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     var items = filterService.addFilterItems(taxons, validationService.validateTaxon);
     $scope.taxa = filterService.mergeRightToLeft(items, $scope.taxa);
     updateTaxonInfo();
+    $scope.totalChecked = _.filter($scope.taxa, 'checked').length;
     $scope.taxonTextArea = '';
   };
 
@@ -73,6 +76,10 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
       }
       return d;
     });
+  };
+
+  $scope.updateTotalChecked = function(taxon) {
+    $scope.totalChecked += taxon.checked ? 1 : -1;
   };
 
   initTaxons();
