@@ -2,7 +2,7 @@
 
 var basketModule = angular.module('quickGoFeApp.BasketModule', []);
 
-basketModule.factory('basketService', function($cookieStore, termService, $q, stringService, validationService) {
+basketModule.factory('basketService', function($cookieStore, termService, $q) {
 
   var basketList = {};
 
@@ -72,14 +72,14 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
         data: {
           results: []
         }
-      }
+      };
       return $q.resolve(d);
     }
   };
 
   basketList.getIds = function() {
     return $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
-  }
+  };
 
 
   /**

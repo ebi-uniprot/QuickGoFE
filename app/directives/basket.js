@@ -1,3 +1,4 @@
+'use strict';
 angular
 	.module('quickGoFeApp')
 	.directive('basketButton', ['basketService', '$rootScope', function(basketService, $rootScope) {
@@ -8,7 +9,7 @@ angular
 				termid: '@',
 				icondisabled: '@'
 			},
-			link: function($scope,element, attrs) {
+			link: function($scope, element) {
 				$scope.showIcon = true;
 
         $scope.inBasket = basketService.containsGoTerm($scope.termid);
@@ -18,12 +19,12 @@ angular
 
         var getClass = function() {
           if($scope.icondisabled === 'true') {
-            return 'basket-disabled'
+            return 'basket-disabled';
           } else if($scope.inBasket) {
-						return 'basket-added';
-					} else {
-						return 'basket-default';
-					}
+			return 'basket-added';
+		  } else {
+			return 'basket-default';
+		  }
         };
 
         $scope.className = getClass();

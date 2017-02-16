@@ -1,3 +1,4 @@
+'use strict';
 app.controller('assignedByController', function($scope, presetsService, filterService){
 
   $scope.assignedBy = [];
@@ -7,7 +8,7 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
       presetsService.getPresetsAssignedBy().then(function(resp){
         var assignDBs = _.sortBy(resp.data.assignedBy, 'name');
         var filterItems = filterService.getPresetFilterItems(assignDBs, 'name');
-        $scope.assignedBy = filterService.mergeRightToLeft($scope.assignedBy, filterItems)
+        $scope.assignedBy = filterService.mergeRightToLeft($scope.assignedBy, filterItems);
       });
   };
 

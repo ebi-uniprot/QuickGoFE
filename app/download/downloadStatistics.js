@@ -1,4 +1,5 @@
-app.controller('DownloadStatsCtrl', function($scope, $http, $location) {
+'use strict';
+app.controller('DownloadStatsCtrl', function($scope) {
 
   $scope.groupedBy = {
     annotationCount: {label: 'Annotation count', value: 'annotationCount'},
@@ -14,8 +15,9 @@ app.controller('DownloadStatsCtrl', function($scope, $http, $location) {
     stat.selected = true;
   });
 
-  $scope.submit = function() {
-      //TODO download
+  //TODO, whenever the service is ready
+  /*$scope.submit = function() {
+      downloadFile('', '', '');
   };
 
   function downloadFile(fileName, data, strMimeType) {
@@ -23,6 +25,6 @@ app.controller('DownloadStatsCtrl', function($scope, $http, $location) {
 
     var blob = new Blob([data], {type: strMimeType});
     saveAs(blob, fileName);
-  }
+  } */
 
 });
