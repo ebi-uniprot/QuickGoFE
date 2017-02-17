@@ -32,6 +32,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   $scope.clearFilters = function () {
     $scope.query = {};
     $scope.updateQuery();
+    $rootScope.alerts = [];
   };
 
   $scope.hasSlims = function () {
