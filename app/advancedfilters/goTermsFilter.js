@@ -26,6 +26,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
      });
 
      updateTermInfo();
+     $rootScope.alerts = [];
   };
 
   var updateTermInfo = function() {
@@ -73,6 +74,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
     $scope.$parent.addToQuery('goId', selected);
     $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
     $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
+    $rootScope.alerts = [];
   };
 
   $scope.addPredefinedSet = function() {

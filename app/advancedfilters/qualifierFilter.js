@@ -1,5 +1,5 @@
 'use strict';
-app.controller('qualifierFilter', function($scope, hardCodedDataService, filterService){
+app.controller('qualifierFilter', function($scope, hardCodedDataService, filterService, $rootScope){
 
   $scope.qualifiers = [];
   $scope.showAllNotQualifiers = 0;
@@ -10,6 +10,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
 
     var allQualifiers = filterService.getPresetFilterItems(hardCodedDataService.getQualifiers(), 'qualifier');
     $scope.qualifiers = filterService.mergeRightToLeft($scope.qualifiers, allQualifiers);
+    $rootScope.alerts = [];
   };
 
   var getQuery = function() {
@@ -26,6 +27,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
 
   $scope.apply = function() {
     $scope.addToQuery('qualifier', getQuery());
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function () {

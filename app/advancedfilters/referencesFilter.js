@@ -1,5 +1,6 @@
 'use strict';
-app.controller('referencesFilter', function($scope, presetsService, stringService, validationService, filterService){
+app.controller('referencesFilter', function($scope, presetsService, stringService, validationService, filterService,
+                                            $rootScope){
 
   $scope.references = [];
 
@@ -13,6 +14,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
       var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
       $scope.references = filterService.mergeRightToLeft($scope.references, referencePresetItems);
     });
+    $rootScope.alerts = [];
   };
 
   $scope.addReferences = function() {
@@ -24,6 +26,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('reference', getQuery());
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function () {

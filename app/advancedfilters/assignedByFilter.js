@@ -1,4 +1,4 @@
-app.controller('assignedByController', function($scope, presetsService, filterService){
+app.controller('assignedByController', function($scope, presetsService, filterService, $rootScope){
 
   $scope.assignedBy = [];
 
@@ -9,10 +9,12 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
         var filterItems = filterService.getPresetFilterItems(assignDBs, 'name');
         $scope.assignedBy = filterService.mergeRightToLeft($scope.assignedBy, filterItems)
       });
+      $rootScope.alerts = [];
   };
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('assignedBy', getQuery());
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function () {
