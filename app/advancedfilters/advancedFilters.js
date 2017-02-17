@@ -1,8 +1,20 @@
 'use strict';
 app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
-  searchService) {
+  searchService, $rootScope) {
 
   $scope.query = $routeParams;
+
+  $scope.stackErrors = function(elements, type, message, field) {
+    $rootScope.alerts = $rootScope.alerts.concat(_.map(
+      elements,
+      function(elem){
+        return {
+          type: type,
+          msg: (field ? elem[field] : elem) + ' ' + message
+        };
+      })
+    );
+  };
 
   $scope.addToQuery = function (type, values) {
     if(values.length <= 0){

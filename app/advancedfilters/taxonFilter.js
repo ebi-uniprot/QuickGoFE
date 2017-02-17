@@ -8,18 +8,6 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     return _.pluck(_.filter($scope.taxa, 'checked'), 'id');
   };
 
-  var addErrors = function(elements, type, message, field) {
-    $rootScope.alerts = $rootScope.alerts.concat(_.map(
-      elements,
-      function(elem){
-        return {
-          type: type,
-          msg: (field ? elem[field] : elem) + ' ' + message
-        };
-      })
-    );
-  };
-
   var initTaxons = function(){
     $scope.taxa = filterService.getQueryFilterItems($scope.query.taxonId);
     presetsService.getPresetsTaxa().then(function(resp){
@@ -45,7 +33,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     $rootScope.alerts = [];
 
     var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
-    addErrors(_.filter(taxons, function(id) {return !validationService.validateTaxon(id);}), 'alert',
+    $scope.stackErrors(_.filter(taxons, function(id) {return !validationService.validateTaxon(id);}), 'alert',
         'is not a valid taxon id');
     var items = filterService.addFilterItems(taxons, validationService.validateTaxon);
     $scope.taxa = filterService.mergeRightToLeft(items, $scope.taxa);
@@ -64,7 +52,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
       filterService.enrichFilterItemObject($scope.taxa, data.data.taxonomies, 'taxonomyId');
       if(data.data.errors) {
         var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
-        addErrors(data.data.errors, 'warning', 'was not found', 'requestedId');
+        $scope.stackErrors(data.data.errors, 'warning', 'was not found', 'requestedId');
         $scope.taxa = $scope.removeTaxIds(obsoleteIds, $scope.taxa);
       }
       if(data.data.redirects) {
