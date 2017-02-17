@@ -6,6 +6,8 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.selection = {};
   $scope.deSelectedItems = [];
 
+
+
   // Fixes the removed terms box to the top of the screen when scrolling
   $document.on('scroll', function() {
       var container = angular.element($document[0].querySelector('#selectionHeader'));
@@ -156,6 +158,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
     // Add to de-selected items
     $scope.deSelectedItems.push(termToRemove);
+    $scope.testIfSelectionIsEmpty();
   };
 
   $scope.addBackIntoSelection = function(termToAdd) {
@@ -217,4 +220,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     return _.pluck($scope.selection[aspect].terms, 'id');
   };
 
+  $scope.testIfSelectionIsEmpty = function(){
+    if ($scope.count.total === 1){
+      $scope.deSelectedItems = [];
+    }
+  };
 });
