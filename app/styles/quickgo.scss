@@ -28,11 +28,18 @@ div#local-masthead {
   }
 }
 
+div#local-title{
+  margin-bottom: 0px;
+}
+
 #quickgo-logo{
   margin-top: 10px;
 }
 
-#local-title span#search-area, #local-title span#quickgo-header-subtext{
+#local-title span#search-area{
+  margin-top: 10px;
+}
+#local-title span#quickgo-header-subtext{
   margin-top: 50px;
 }
 
@@ -514,10 +521,22 @@ div {
 }
 
 #search-area {
-  margin: 7px;
+  // margin: 7px;
   padding: 3px;
   border-color: $primary4;
-  min-width: 60%;
+  min-width: 50%;
+}
+
+#local-header.sub-page #local-title.logo-title span.search-area{
+  // width: 50%;
+
+// MArk - this one needs to overdie the default. or change names to exclude the incorrect heirarcy.
+// the foundation large-offset-1 is being trumped by the ebi style sheet
+// we need to shift the searh box to the right.  Possibly we could insert a BLANK <span> to push it across a bit. but the proper way is to offset
+    // This overides the EBI style sheet, which may change in the future if minimal headers are fully adopted
+    margin-left: 25%;
+
+
 }
 
 
