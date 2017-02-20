@@ -36,12 +36,10 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   $scope.addECOs = function () {
     $rootScope.alerts = [];
 
-    var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
-    $scope.stackErrors(_.filter(ecos, function(id) {return !validationService.validateECOTerm(id);}), 'alert',
-      'is not a valid evidence code');
-
-    var addedFilterItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
-    $scope.ecos = filterService.mergeRightToLeft(addedFilterItems, $scope.ecos);
+    var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
+    var allItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
+    $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid evidence code');
+    $scope.ecos = filterService.mergeRightToLeft(allItems.filteredItems, $scope.ecos);
     $scope.ecoTextArea = '';
   };
 

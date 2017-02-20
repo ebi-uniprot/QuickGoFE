@@ -33,10 +33,11 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.addGPs = function () {
-    var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
-    var filterItems = filterService.addFilterItems(gps, validationService.validateGeneProduct);
-    $scope.gpIds = filterService.mergeRightToLeft(filterItems, $scope.gpIds);
-     $scope.gpTextArea = '';
+    var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
+    var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
+    $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
+    $scope.gpIds = filterService.mergeRightToLeft(allItems.filteredItems, $scope.gpIds);
+    $scope.gpTextArea = '';
   };
 
   initgpIds();

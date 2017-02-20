@@ -33,10 +33,9 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     $rootScope.alerts = [];
 
     var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
-    $scope.stackErrors(_.filter(taxons, function(id) {return !validationService.validateTaxon(id);}), 'alert',
-        'is not a valid taxon id');
-    var items = filterService.addFilterItems(taxons, validationService.validateTaxon);
-    $scope.taxa = filterService.mergeRightToLeft(items, $scope.taxa);
+    var allItems = filterService.addFilterItems(taxons, validationService.validateTaxon);
+    $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid taxon id');
+    $scope.taxa = filterService.mergeRightToLeft(allItems.filteredItems, $scope.taxa);
     updateTaxonInfo();
     $scope.taxonTextArea = '';
   };

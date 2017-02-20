@@ -18,9 +18,10 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
   };
 
   $scope.addReferences = function() {
-    var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea);
-    var filterItems = filterService.addFilterItems(refs, validationService.validateOther);
-    $scope.references = filterService.mergeRightToLeft(filterItems, $scope.references);
+    var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
+    var allItems = filterService.addFilterItems(refs, validationService.validateOther);
+    $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid reference');
+    $scope.references = filterService.mergeRightToLeft(allItems.filterItems, $scope.references);
     $scope.referenceTextArea = '';
   };
 
