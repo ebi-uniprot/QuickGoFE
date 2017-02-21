@@ -52,25 +52,15 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $rootScope.alerts = [];
   };
 
-  var updateSelectedTerms = function(terms, update) {
-    var mergedTerms = filterService.mergeRightToLeft(terms, $scope.goTerms);
-    var checked = $scope.getAllChecked(mergedTerms);
-    if (checked.length > $scope.uploadLimit) {
-      $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
-    } else {
-      $scope.goTerms = mergedTerms;
-      $scope.totalChecked = checked.length;
-      if (update === true) {
-          updateTermInfo();
-      }
-      $rootScope.alerts = [];
-    }
-  };
-
   $scope.addGoTerms = function() {
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
     var terms = filterService.addFilterItems(goterms, validationService.validateGOTerm);
-    updateSelectedTerms(terms, true);
+    var response = $scope.updateSelectedTerms($scope.goTerms, terms, $scope.uploadLimit);
+    if (response) {
+      $scope.goTerms = response.selection;
+      $scope.totalChecked = response.totalChecked;
+      updateTermInfo();
+    }
     $scope.goTermsTextArea = '';
   };
 
@@ -92,7 +82,11 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
         slimSetItems = filterService.removeRootTerms(slimSetItems);
       }
       var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
-      updateSelectedTerms(filterItems, false);
+      var response = $scope.updateSelectedTerms($scope.goTerms, filterItems, $scope.uploadLimit);
+      if (response) {
+        $scope.goTerms = response.selection;
+        $scope.totalChecked = response.totalChecked;
+      }
       $scope.selectedPreDefinedSlimSet = '';
     }
   };

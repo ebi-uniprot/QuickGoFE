@@ -1,6 +1,6 @@
 'use strict';
 app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
-  searchService, $rootScope, hardCodedDataService) {
+  searchService, $rootScope, hardCodedDataService, filterService) {
 
   $scope.query = $routeParams;
 
@@ -18,6 +18,18 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
       $rootScope.alerts = [];
     }
     return newTotal;
+  };
+
+  $scope.updateSelectedTerms = function(selection, terms, uploadLimit) {
+    var mergedTerms = filterService.mergeRightToLeft(terms, selection);
+    var checked = $scope.getAllChecked(mergedTerms);
+    if (checked.length > uploadLimit) {
+      $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg(uploadLimit)];
+      return undefined;
+    } else {
+      $rootScope.alerts = [];
+      return {selection: mergedTerms, totalChecked: checked.length}
+    }
   };
 
   $scope.addToQuery = function (type, values) {
