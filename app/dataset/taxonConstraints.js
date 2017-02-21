@@ -1,6 +1,4 @@
-/**
- * Created by twardell on 02/03/2015.
- */
+'use strict';
 app.controller('TaxonConstraintsCtrl', function($scope, basketService, taxonConstraints) {
 
   $scope.taxonConstraints = taxonConstraints.query({});

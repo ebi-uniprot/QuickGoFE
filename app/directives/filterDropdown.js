@@ -1,6 +1,7 @@
+'use strict';
 angular
 	.module('quickGoFeApp')
-	.directive('filterDropdown', ['$http', function($http) {
+	.directive('filterDropdown', ['$http', function() {
 		return {
 			restrict: 'E',
 			transclude: true,
@@ -9,7 +10,7 @@ angular
 				active: '@'
 			},
 			templateUrl: 'directives/filterDropdown.html',
-			link: function(scope, attrs) {
+			link: function() {
 			}
 		};
 	}]);

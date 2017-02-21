@@ -1,6 +1,5 @@
-/**
- * Created by twardell on 02/02/2015.
- */
+/*jshint laxbreak: true */
+'use strict';
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
                                     ENV, quickGOHelperService, $document, $routeParams, termService,
                                     ontoTypeService, presetsService, filterFilter) {
@@ -32,7 +31,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.slimSetMapping = {};
 
   $scope.termId = $routeParams.goId;
-  $rootScope.header = "QuickGO::Term "+$scope.termId;
+  $rootScope.header = 'QuickGO::Term ' + $scope.termId;
 
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
   if ($scope.termId.lastIndexOf('ECO', 0) === 0) {

@@ -32,7 +32,7 @@ wsService.factory('presetsService', ['$http', 'ENV',
         getPresetsGeneProductTypes: function() {
             return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProductTypes');
         }
-    }
+    };
   }]);
 
 wsService.factory('PreDefinedSlimSets', ['$resource', 'ENV', function($resource, ENV){
@@ -120,15 +120,15 @@ wsService.factory('geneProductService', ['$http', 'ENV', function($http, ENV){
 wsService.factory('stringService', [function(){
   return {
     getTextareaItemsAsArray : function(str) {
-      return _.uniq(str.replace( /\n/g, " " ).split(/[\s,]+/));
+      return _.uniq(str.replace( /\n/g, ' ').split(/[\s,]+/));
     }
-  }
+  };
 }]);
 
 wsService.factory('ontoTypeService', [function(){
     return {
         isGoTerm : function(termId) {
-            return !(termId.indexOf('ECO') === 0);
+            return (termId.indexOf('ECO') !== 0);
         },
         ontoReadableText: function(ontoName) {
             switch(ontoName) {
@@ -138,7 +138,7 @@ wsService.factory('ontoTypeService', [function(){
                 default: return ontoName;
             }
         }
-    }
+    };
 }]);
 
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
@@ -156,13 +156,13 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           });
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        var url = ENV.apiEndpoint + '/geneproduct/search?query=' + searchTerm + "&limit=" + limit +
+        var url = ENV.apiEndpoint + '/geneproduct/search?query=' + searchTerm + '&limit=' + limit +
             '&page=' + (page ? page : 1) + '&facet=' + (facet ? facet : '') + '&' + (filters ? filters : '');
         return $http.get(url);
       },
-      findPublications: function(searchTerm, limit) {
+      /*findPublications: function(searchTerm, limit) {
         //TODO
-      },
+      },*/
       findAnnotations: function(page, size, filters) {
           return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
       },

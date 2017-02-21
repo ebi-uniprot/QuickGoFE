@@ -1,3 +1,5 @@
+/*jshint laxbreak: true */
+'use strict';
 angular
     .module('quickGoFeApp')
     .directive('coterms', ['$http', 'termService', function($http, termService){
@@ -39,5 +41,5 @@ angular
                     getAdditionalGOTerms();
                 });
             }
-        }
+        };
     }]);

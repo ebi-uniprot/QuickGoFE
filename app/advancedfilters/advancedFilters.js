@@ -41,5 +41,5 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
 
   $scope.openMore = function() {
 
-  }
+  };
 });

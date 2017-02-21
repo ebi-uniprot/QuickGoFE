@@ -1,3 +1,4 @@
+'use strict';
 angular
   .module('quickGoFeApp')
   .directive('facets', ['$http','$location', function() {

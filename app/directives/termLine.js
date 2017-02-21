@@ -1,4 +1,4 @@
-angular
+'use strict';angular
 	.module('quickGoFeApp')
 	.directive('termLine', [function(){
   return {
@@ -15,5 +15,5 @@ angular
         scope.isECO = true;
       }
     }
-  }
+  };
 }]);
