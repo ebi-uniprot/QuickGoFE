@@ -347,7 +347,7 @@ aspect-icon span.aspect-icon{
   display: inline-block;
 }
 .search-box{
-  width: 90%;
+  width: 80%;
   vertical-align: top;
 }
 #searchbox{
@@ -539,6 +539,10 @@ div {
 
 }
 
+.sub-page #local-nav-container{
+  position: absolute;
+  top: 95px;
+}
 
 /* Alert boxes*/
 
