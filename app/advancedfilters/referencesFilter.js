@@ -1,5 +1,6 @@
 'use strict';
-app.controller('referencesFilter', function($scope, presetsService, stringService, validationService, filterService){
+app.controller('referencesFilter', function($scope, presetsService, stringService, validationService, filterService,
+                                            $rootScope){
 
   $scope.references = [];
 
@@ -13,17 +14,20 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
       var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
       $scope.references = filterService.mergeRightToLeft($scope.references, referencePresetItems);
     });
+    $rootScope.alerts = [];
   };
 
   $scope.addReferences = function() {
-    var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea);
-    var filterItems = filterService.addFilterItems(refs, validationService.validateOther);
-    $scope.references = filterService.mergeRightToLeft(filterItems, $scope.references);
+    var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
+    var allItems = filterService.addFilterItems(refs, validationService.validateOther);
+    $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid reference');
+    $scope.references = filterService.mergeRightToLeft(allItems.filterItems, $scope.references);
     $scope.referenceTextArea = '';
   };
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('reference', getQuery());
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function () {

@@ -1,5 +1,5 @@
 'use strict';
-app.controller('productTypeFilter', function($scope, presetsService, filterService){
+app.controller('productTypeFilter', function($scope, presetsService, filterService, $rootScope){
 
   $scope.gpTypes = [];
 
@@ -11,6 +11,7 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
       var presetFilterItems = filterService.getPresetFilterItems(resp.data.geneProductTypes, 'id');
       $scope.gpTypes = _.sortBy(filterService.mergeRightToLeft(queryFilterItems, presetFilterItems), 'name');
     });
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function() {
@@ -21,6 +22,7 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
 
   $scope.apply = function() {
     $scope.addToQuery('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
+    $rootScope.alerts = [];
   };
 
   init();

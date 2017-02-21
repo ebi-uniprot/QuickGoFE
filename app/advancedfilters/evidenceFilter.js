@@ -1,9 +1,9 @@
 'use strict';
-app.controller('evidenceFilter', function ($scope, presetsService, stringService, validationService, filterService) {
+app.controller('evidenceFilter', function ($scope, presetsService, stringService, validationService, filterService,
+                                           $rootScope) {
 
   $scope.ecos = {};
   $scope.evidenceCodeUsage = 'descendants';
-
 
   var init = function () {
     $scope.ecos = filterService.getQueryFilterItems($scope.query.evidenceCode);
@@ -13,6 +13,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
       var filterItems = filterService.getPresetFilterItems(d.data.evidences, 'id');
       $scope.ecos = filterService.mergeRightToLeft($scope.ecos, filterItems);
     });
+    $rootScope.alerts = [];
   };
 
   var getQuery = function() {
@@ -22,6 +23,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   $scope.apply = function() {
     $scope.$parent.addToQuery('evidenceCode', getQuery());
     $scope.$parent.addToQuery('evidenceCodeUsage', $scope.evidenceCodeUsage);
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function () {
@@ -32,10 +34,17 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   };
 
   $scope.addECOs = function () {
-    var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
-    var addedFilterItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
-    $scope.ecos = filterService.mergeRightToLeft(addedFilterItems, $scope.ecos);
+    $rootScope.alerts = [];
+
+    var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
+    var allItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
+    $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid evidence code');
+    $scope.ecos = filterService.mergeRightToLeft(allItems.filteredItems, $scope.ecos);
     $scope.ecoTextArea = '';
+  };
+
+  $scope.updateChecked = function() {
+    $rootScope.alerts = [];
   };
 
   init();

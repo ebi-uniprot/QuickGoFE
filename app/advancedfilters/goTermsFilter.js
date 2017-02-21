@@ -26,6 +26,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
      });
 
      updateTermInfo();
+     $rootScope.alerts = [];
   };
 
   var updateTermInfo = function() {
@@ -49,14 +50,15 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   };
 
   $scope.addGoTerms = function() {
-    var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
+    var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     if(goterms.length > $scope.uploadLimit) {
       $rootScope.alerts.push({
         'msg': 'Sorry, we can only handle uploads of less than ' + $scope.uploadLimit + 'terms.'
       });
     } else {
-      var terms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
-      $scope.goTerms = filterService.mergeRightToLeft(terms,$scope.goTerms);
+      var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
+      $scope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
+      $scope.goTerms = filterService.mergeRightToLeft(allTerms.filteredItems, $scope.goTerms);
       updateTermInfo();
     }
     $scope.goTermsTextArea = '';
@@ -73,6 +75,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
     $scope.$parent.addToQuery('goId', selected);
     $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
     $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
+    $rootScope.alerts = [];
   };
 
   $scope.addPredefinedSet = function() {

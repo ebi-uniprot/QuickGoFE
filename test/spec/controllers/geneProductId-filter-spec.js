@@ -12,6 +12,7 @@ describe('Controller: geneProductFilter', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     scope.query = {};
+    scope.stackErrors = function() {};
     geneProductFilter = $controller('geneProductFilter', {
       $scope: scope
     });

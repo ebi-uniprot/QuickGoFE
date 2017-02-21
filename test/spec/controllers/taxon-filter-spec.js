@@ -14,6 +14,7 @@ describe('Controller: taxonFilter', function () {
     scope.query = {
       'taxonId':'9606'
     };
+    scope.stackErrors = function() {};
     taxonFilter = $controller('taxonFilter', {
       $scope: scope
     });
