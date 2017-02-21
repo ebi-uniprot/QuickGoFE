@@ -6,7 +6,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   $scope.totalChecked = 0;
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
-  $scope.uploadLimit = hardCodedDataService.getMaxTerms();
+  $scope.uploadLimit = hardCodedDataService.getServiceLimits().goId;
 
   var init = function() {
     //Get terms from url
@@ -26,7 +26,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     });
 
     updateTermInfo();
-    $scope.totalChecked = _.where($scope.goTerms, {checked: true}).length;
+    $scope.totalChecked = $scope.getAllChecked($scope.goTerms).length;
   };
 
   var updateTermInfo = function() {
@@ -34,10 +34,12 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
       var termsToGet = _.filter($scope.goTerms, function(term){
         return term.item === undefined;
       });
-      termService.getGOTerms(_.pluck(termsToGet,'id')).then(function(d){
-        var data = d.data.results;
-        filterService.enrichFilterItemObject($scope.goTerms, data, 'id');
-      });
+      if (termsToGet.length !== 0) {
+        termService.getGOTerms(_.pluck(termsToGet,'id')).then(function(d){
+          var data = d.data.results;
+          filterService.enrichFilterItemObject($scope.goTerms, data, 'id');
+        });
+      }
     }
   };
 
@@ -52,7 +54,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
   var updateSelectedTerms = function(terms, update) {
     var mergedTerms = filterService.mergeRightToLeft(terms, $scope.goTerms);
-    var checked = _.where(mergedTerms, {checked: true});
+    var checked = $scope.getAllChecked(mergedTerms);
     if (checked.length > $scope.uploadLimit) {
       $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
     } else {
@@ -77,7 +79,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   });
 
   $scope.apply = function() {
-    var selected = _.pluck(_.where($scope.goTerms, {checked: true}), 'id');
+    var selected = _.pluck($scope.getAllChecked($scope.goTerms), 'id');
     $scope.$parent.addToQuery('goId', selected);
     $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
     $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
@@ -95,15 +97,8 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     }
   };
 
-  $scope.updateTotalChecked = function(term) {
-    var newTotal = $scope.totalChecked + (term.checked ? 1 : -1);
-    if (newTotal > $scope.uploadLimit) {
-      $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
-      term.checked = !term.checked;
-    } else {
-      $scope.totalChecked = newTotal;
-      $rootScope.alerts = [];
-    }
+  $scope.updateSelection = function(term){
+    $scope.totalChecked = $scope.$parent.updateSelection($scope.goTerms, term, $scope.uploadLimit);
   };
 
   init();

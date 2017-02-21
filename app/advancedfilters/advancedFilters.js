@@ -1,8 +1,24 @@
 'use strict';
 app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
-  searchService) {
+  searchService, $rootScope, hardCodedDataService) {
 
   $scope.query = $routeParams;
+
+  $scope.getAllChecked = function(collection) {
+    return _.where(collection, {checked: true});
+  };
+
+  $scope.updateSelection = function(collection, term, uploadLimit) {
+    var newTotal = $scope.getAllChecked(collection).length;
+    if (uploadLimit && (newTotal > uploadLimit)) {
+      $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
+      term.checked = !term.checked;
+      newTotal--;
+    } else {
+      $rootScope.alerts = [];
+    }
+    return newTotal;
+  };
 
   $scope.addToQuery = function (type, values) {
     if(values.length <= 0){
