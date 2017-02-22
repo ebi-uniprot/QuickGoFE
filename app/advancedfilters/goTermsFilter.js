@@ -73,6 +73,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $scope.$parent.addToQuery('goId', selected);
     $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
     $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
+    $rootScope.alerts = [];
   };
 
   $scope.addPredefinedSet = function() {
