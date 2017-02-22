@@ -528,6 +528,25 @@ module.exports = function (grunt) {
     'replace:prod'
   ]);
 
+  grunt.registerTask('build-beta', [
+    'clean:dist',
+    'wiredep',
+    'useminPrepare',
+    'concurrent:dist',
+    'postcss',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'filerev',
+    'usemin',
+    'htmlmin',
+    'replace:beta'
+  ]);
+
   grunt.registerTask('default', [
     'newer:jshint',
     'build'
