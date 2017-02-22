@@ -1,0 +1,14 @@
+<div class="form-group" ng-controller="productTypeFilter">
+  <form>
+    <ul class="no-bullet">
+      <li class="checkbox" ng-repeat="gpType in gpTypes">
+        <label>
+          <input type="checkbox" ng-model="gpType.checked"> {{gpType.item.name}}</label>
+      </li>
+    </ul>
+    <hr>
+  <div class="float-right">
+      <filter-buttons></filter-buttons>
+    </div>
+  </form>
+</div>

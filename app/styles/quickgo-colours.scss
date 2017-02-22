@@ -55,14 +55,14 @@ a.button.icon-functional:before,
   color: $primary1;
 }
 
+#global-nav .icon-generic:before{
+  font-size: 108%;
+  color: $white;
+}
 
 /* Headings */
 h1, h2, h3, h4, h5, h6{
   color: $primary2;
-}
-
-h3 {
-  border-bottom: 1px dotted $primary1;
 }
 
 h1 a:link,
@@ -86,24 +86,24 @@ th {
  }
 
 /* Colour the faux-underline for local menu items */
-div#local-masthead ul li a:hover,
-div#local-masthead ul li a:focus,
-div#local-masthead ul li a:active {
-border-bottom: 3px solid $primary1;
-}
+// div#local-masthead ul li a:hover,
+// div#local-masthead ul li a:focus,
+// div#local-masthead ul li a:active {
+// border-bottom: 3px solid $primary1;
+// }
 
 /* Buttons */
-ul.action-buttons-grouped {
-	padding:0;
-	margin:0 0 1px 0;
-	padding-bottom: 2px;
-}
-.action-buttons-grouped li {
-	list-style: none;
-	display: inline-block;
-	margin: 0;
-}
-
-#warning.icon-generic:before {
-    color: $black;
-}
+// ul.action-buttons-grouped {
+// 	padding:0;
+// 	margin:0 0 1px 0;
+// 	padding-bottom: 2px;
+// }
+// .action-buttons-grouped li {
+// 	list-style: none;
+// 	display: inline-block;
+// 	margin: 0;
+// }
+//
+// #warning.icon-generic:before {
+//     color: $black;
+// }

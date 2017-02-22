@@ -1,46 +1,44 @@
-/**
- * Created by twardell on 16/03/2015.
- */
-app.controller('StatisticsCtrl', function($http, $scope, $rootScope, ENV,
-  filteringService) {
-  $scope.stats = {};
-  $scope.statsBean={};
-  var statsLoaded = false;
+'use strict';
+app.controller('StatisticsCtrl', function($scope, $routeParams, searchService) {
+
+  $scope.stats = {
+    'reference': {label: 'Reference', selected: true},
+    'goId': {label: 'GO ID', selected: true},
+    'assignedBy': {label: 'Assigned By', selected: true},
+    'taxonId': {label: 'Taxon', selected: true},
+    'evidenceCode': {label: 'Evidence', selected: true},
+    'aspect': {label: 'Aspect', selected: true}
+  };
+
+  $scope.totalNumberAnnotations = 0;
+  var query = $routeParams;
+
+  $scope.processStatistics = function(stats) {
+    $scope.totalNumberAnnotations = 0;
+    angular.forEach(stats, function(item) {
+      if (item.groupName === 'annotation') {
+        angular.forEach(item.types, function(type) {
+          $scope.stats[type.type].annotation = type.values;
+        });
+      } else if (item.groupName === 'geneProduct') {
+        angular.forEach(item.types, function(type) {
+          $scope.stats[type.type].geneProduct = type.values;
+        });
+      }
+      $scope.totalNumberAnnotations += item.totalHits;
+    });
+  };
+
+  function loadStatistics() {
+    $scope.statsPromise = searchService
+      .findAnnotationStatistics(searchService.serializeQuery(query));
+    $scope.statsPromise.then(function(data) {
+      $scope.processStatistics(data.data.results);
+    });
+  }
 
   $scope.$on('loadStatistics', function() {
     loadStatistics();
-  });
-
-  function loadStatistics() {
-
-    //Create the object to send to the server
-    var filterRequest = {};
-    filterRequest.list = filteringService.populateAppliedFilters();
-
-
-    // Post the filter request to the webservice
-    var request = {
-      method: 'POST',
-      url: ENV.apiEndpoint + '/statsPostNewNamesNotSpring',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: filterRequest
-    };
-
-
-    $scope.statsPromise = $http(request);
-    $scope.statsPromise.success(function (data) {
-      $scope.stats = data;
-      statsLoaded = true;
-    });
-
-  }
-
-  $scope.$on('filtersUpdate', function() {
-    if(statsLoaded) {
-      loadStatistics();
-    }
   });
 
 });

@@ -1,4 +1,7 @@
-<span
-  ng-click="createChart()"
-  class="icon icon-functional quickgo-btn chart-btn selectable" data-icon="h">
-</span>
+<div>{{title}}</div>
+<img ng-src="data:image/png;base64,{{img}}" alt="Ancestor chart" usemap="#{{imageMapId}}" width="{{imageWidth}}" height="{{imageHeight}}" style="{{style}}" cg-busy="chartPromise"/>
+
+<map name="{{imageMapId}}">
+  <area shape="rect" coords="{{node.left}},{{node.top}},{{node.right}},{{node.bottom}}" href="term/{{node.id}}" title="Term {{node.id}}" title="{{node.id}} - Click for more information" ng-repeat="node in graphImage.nodePositions">
+  <area shape="rect" coords="{{node.left}},{{node.top}},{{node.right}},{{node.bottom}}" title="{{tooltip}}" ng-repeat="node in graphImage.legendPositions">
+</map>

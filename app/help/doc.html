@@ -1,8 +1,10 @@
-<div class="grid_18 help-content" id="container">
-  <h1>Help</h1>
+<div class="row help-content" id="container">
+  <h2>Help</h2>
+
+<div class="medium-9 columns">
 
   <div id="co-occurence">
-    <h2>Co-occurence</h2>
+    <h3>Co-occurence</h3>
     <p>A list of terms which are most often annotated to the same proteins as the selected term, and the terms least often annotated to the same proteins.
       <p>
 
@@ -40,7 +42,7 @@
 
   <div id="qualifiers">
 
-    <h2>Qualifiers</h2>
+    <h3>Qualifiers</h3>
 
     <h4>The NOT Qualifier</h4>
     <p>NOT is used to make an explicit note that the gene product is not associated with the GO term.<a class="lb-cancel" href="http://www.geneontology.org/GO.annotation.conventions.shtml#not">GO Consortium documentation</a></p>
@@ -53,7 +55,7 @@
   </div>
   <hr>
   <div id="references">
-    <h2>GO References</h2>
+    <h3>GO References</h3>
 
     <h4>GO_REF:0000002</h4>
     <p>Electronic annotation created from application of the <a class="lb-cancel" href="http://www.geneontology.org/external2go/interpro2go">InterPro to GO mapping </a> over UniProtKB. <a class="lb-cancel" href="http://www.geneontology.org/cgi-bin/references.cgi#GO_REF:0000002/">GO Consortium documentation </a></p>
@@ -85,7 +87,7 @@
   </div>
   <hr>
   <div id="ecos">
-    <h2>Evidence Codes</h2>
+    <h3>Evidence Codes</h3>
 
     <h4>EXP</h4>
     <p>Inferred from experiment. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
@@ -138,9 +140,9 @@
     <h4>IEA</h4>
     <p>Inferred by electronic annotation. See <a class="lb-cancel" href="http://www.geneontology.org/GO.evidence.shtml">GO Consortium documentation</a>.</p>
   </div>
-
+  <hr>
   <div id="relationship">
-    <h2>Relationship Types</h2>
+    <h3>Relationship Types</h3>
 
     <h4>IS_A</h4>
     <p>
@@ -184,9 +186,9 @@
       Documentation coming shortly...
     </p>
   </div>
-
+  <hr>
   <div id="formats">
-    <h2>Data Download Formats</h2>
+    <h3>Data Download Formats</h3>
     <p>
       The filtered annotation sets you have created can be downloaded from QuickGO in a number of formats (see 'Tab-separated Values' below for a user-specified download format).
     </p>
@@ -208,9 +210,9 @@
     <h4>Tab-separated Values</h4>
     <p>A tab-separated format that reflects the columns selected in the QuickGO Protein Annotation table. The default table display can be altered by adding or removing columns using the options provided in the 'Display' pop-up.</p>
   </div>
-
+  <hr>
   <div id="with">
-    <h2>'With' Strings</h2>
+    <h3>'With' Strings</h3>
 
     <h4>With:Not_supplied</h4>
     <p>
@@ -218,30 +220,34 @@
       <br /> Where the 'with' field is populated with 'With:Not_supplied', the annotation group that created the annotation did not provide any entry for this field.
     </p>
   </div>
+
+</div>
+<div class="medium-3 columns">
+  <nav id="term-section-nav">
+    <ul>
+      <li du-scrollspy="co-occurence">
+        <a class="term-section-view" du-smooth-scroll="co-occurence">Co-occurence</a>
+      </li>
+      <li du-scrollspy="qualifiers">
+        <a class="term-section-view" du-smooth-scroll="qualifiers">Qualifiers</a>
+      </li>
+      <li du-scrollspy="references">
+        <a class="term-section-view" du-smooth-scroll="references">GO references</a>
+      </li>
+      <li du-scrollspy="ecos">
+        <a class="term-section-view" du-smooth-scroll="ecos">Evidence Codes</a>
+      </li>
+      <li du-scrollspy="relationship">
+        <a class="term-section-view" du-smooth-scroll="relationship">Relationship types</a>
+      </li>
+      <li du-scrollspy="formats">
+        <a class="term-section-view" du-smooth-scroll="formats">Download formats</a>
+      </li>
+      <li du-scrollspy="with">
+        <a class="term-section-view" du-smooth-scroll="with">'With' strings</a>
+      </li>
+    </ul>
+  </nav>
 </div>
 
-<nav class="grid_4" id="term-section-nav">
-  <ul>
-    <li du-scrollspy="co-occurence">
-      <a class="term-section-view" du-smooth-scroll="co-occurence">Co-occurence</a>
-    </li>
-    <li du-scrollspy="qualifiers">
-      <a class="term-section-view" du-smooth-scroll="qualifiers">Qualifiers</a>
-    </li>
-    <li du-scrollspy="references">
-      <a class="term-section-view" du-smooth-scroll="references">GO references</a>
-    </li>
-    <li du-scrollspy="ecos">
-      <a class="term-section-view" du-smooth-scroll="ecos">Evidence Codes</a>
-    </li>
-    <li du-scrollspy="relationship">
-      <a class="term-section-view" du-smooth-scroll="relationship">Relationship types</a>
-    </li>
-    <li du-scrollspy="formats">
-      <a class="term-section-view" du-smooth-scroll="formats">Download formats</a>
-    </li>
-    <li du-scrollspy="with">
-      <a class="term-section-view" du-smooth-scroll="with">'With' strings</a>
-    </li>
-  </ul>
-</nav>
+</div>

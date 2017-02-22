@@ -1,7 +1,4 @@
-/**
- * Created by twardell on 06/07/2015.
- */
-
+'use strict';
 angular.module('quickGoFeApp').controller('LocationCtrl', function ($scope, $location) {
   $scope.location = $location;
 });

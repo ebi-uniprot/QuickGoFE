@@ -1,6 +1,4 @@
-/**
- * Created by twardell on 02/03/2015.
- */
+'use strict';
 app.controller('AnnotationBlacklistCtrl', function($scope, term, annotationBlacklist) {
 
   $scope.annotationBlacklist ={};

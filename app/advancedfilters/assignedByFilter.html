@@ -1,0 +1,17 @@
+<div ng-controller="assignedByController">
+  <h5 ng-class="{'icon-functional active-filter' : query['assignedBy']}" data-icon="/">Assigned by</h5>
+  <!-- GO ID -->
+  <div>
+    <form>
+      <div class="y-scroll-400 overflow-pane">
+        <ul class="no-bullet">
+          <li ng-repeat="assigned in assignedBy" class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="assigned.checked"> <strong>{{assigned.id}}</strong> {{assigned.item.description}}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</div>

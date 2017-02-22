@@ -1,17 +1,19 @@
-/**
- * Created by twardell on 02/02/2015.
- */
+/*jshint laxbreak: true */
+'use strict';
 app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $anchorScroll, basketService,
-                                    ENV, filteringService, quickGOHelperService, $document, $routeParams, termService,
-                                    PreDefinedSlimSets) {
+                                    ENV, quickGOHelperService, $document, $routeParams, termService,
+                                    ontoTypeService, presetsService, filterFilter) {
 
-  $scope.targetDomainAndPort=ENV.apiEndpoint;
+  $scope.targetDomainAndPort = ENV.apiEndpoint;
+  $scope.filter = filterFilter;
 
   // set default row count for tables
   $scope.defaultPageSize = 10;
+  $scope.statsLimit = 100;
   $scope.blacklistPageSize = $scope.defaultPageSize;
   $scope.childTermsPageSize = $scope.defaultPageSize;
   $scope.taxonConstraintsPageSize = $scope.defaultPageSize;
+  $scope.proteinComplexesPageSize = $scope.defaultPageSize;
   $scope.crossrefsPageSize = $scope.defaultPageSize;
   $scope.crossOntologyPageSize = $scope.defaultPageSize;
   $scope.replacesPageSize = $scope.defaultPageSize;
@@ -21,100 +23,122 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   $scope.synonymPageSize = $scope.defaultPageSize;
 
   //Clear search term
-  $scope.searchText ='';
+  $scope.searchText = '';
 
-  $scope.termInformation=true;
+  $scope.termInformation = true;
 
-  var termId=$routeParams.goId;
-  $rootScope.header = "QuickGO::Term "+termId;
+  $scope.goTermMapping = {};
+  $scope.slimSetMapping = {};
+
+  $scope.termId = $routeParams.goId;
+  $rootScope.header = 'QuickGO::Term ' + $scope.termId;
 
   //Setup and easy flag to see if this is a goterm or and ECO code we are looking at.
-  $scope.isGoTerm = termId.lastIndexOf('ECO', 0) === 0 ? $scope.isGoTerm = false : $scope.isGoTerm = true;
-
-  //Get predefined slim sets
-  $scope.predefinedSlimSets = PreDefinedSlimSets.query();
+  if ($scope.termId.lastIndexOf('ECO', 0) === 0) {
+    $scope.isGoTerm = false;
+    $scope.termPromise = termService.getECOCompleteTerms($scope.termId);
+  } else {
+    $scope.isGoTerm = true;
+    $scope.termPromise = termService.getGOCompleteTerms($scope.termId);
+  }
 
   /**
    * Get Term Data from WS
    */
-  $scope.termPromise = termService.getTerm(termId);
+    $scope.termPromise.then(function(data) {
+        $scope.termModel = data.data.results[0];
+        //set secondary ids string
+        $scope.termModel.secondaryIdsString = $scope.termModel.secondaryIds ?
+            $scope.termModel.secondaryIds.join() : '';
 
-  $scope.termPromise.then(function(data) {
-    $scope.termModel = data.data;
+        //set function filters for history/change log
+        $scope.termModel.historyDefSyn = _.filter($scope.termModel.history, function(hist) {
+            return hist.category === 'DEFINITION' || hist.category === 'SYNONYM';
+        });
+        $scope.termModel.historyOther = _.filter($scope.termModel.history, function(hist) {
+            return hist.category !== 'TERM' && hist.category !== 'DEFINITION' && hist.category !== 'SYNONYM'
+                && hist.category !== 'RELATION' && hist.category !== 'XREF';
+        });
 
-    //Set active show
-    if($scope.termModel.active != true){
-      $scope.isObsolete = true;
-    }
-
-
-    //Set restrictions show
-      $scope.showRestrictions = !(($scope.termModel.usage === 'Unrestricted') || (!$scope.termModel.goTerm));
-
-    //Set GO Slim subset counts
-    angular.forEach($scope.predefinedSlimSets, function(slim) {
-      angular.forEach($scope.termModel.subsets, function(subset) {
-
-        if (subset.name === slim.subset) {
-          subset.count = slim.subsetCount;
+        //Set active show
+        if($scope.termModel.isObsolete === true){
+          $scope.isObsolete = true;
         }
 
-      });
+        $scope.readableAspect = ontoTypeService.ontoReadableText($scope.termModel.aspect);
+
+        //Set restrictions show
+        if(($scope.termModel.usage === 'Unrestricted') || (!$scope.isGoTerm)) {
+          $scope.showRestrictions = false;
+        } else {
+          $scope.showRestrictions = true;
+        }
+
+
+        var ids = _.pluck(_.union($scope.termModel.replaces, $scope.termModel.replacements, $scope.termModel.children), 'id');
+
+        if($scope.isGoTerm) {
+          $scope.additionalTermsPromise = termService.getGOTerms(ids);
+          getSlimSet();
+        } else {
+          $scope.additionalTermsPromise = termService.getECOTerms(ids);
+        }
+
+        $scope.additionalTermsPromise
+            .then(function(moreData) {
+                addInformation($scope.termModel.replaces, moreData.data.results);
+                addInformation($scope.termModel.replacements, moreData.data.results);
+                addInformation($scope.termModel.children, moreData.data.results);
+            }, function (reason) {
+                $scope.notFoundAdditionaTermsReason = reason;
+                console.log(reason);
+            }
+        );
+
+    },function(reason) {
+        $scope.notFoundReason = reason;
+        angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
     });
-
-  }, function(reason) {
-  $scope.notFoundReason = reason;
-  angular.element($document[0].querySelector('#containerNotFound')).addClass('show-not-found');
-  });
-
-  if($scope.isGoTerm) {
-    // Set up statistics for co-occurring page
-    $scope.statsPromise = termService.getStats(termId);
-    $scope.statsPromise.then(function(d){
-      $scope.stats = d.data;
-      $scope.totalTogetherAllStats = 0;
-      $scope.totalComparedAllStats = 0;
-      $scope.totalTogetherNonIEAStats = 0;
-      $scope.totalComparedNonIEAStats = 0;
-
-      angular.forEach(d.data.allCoOccurrenceStatsTerms, function(val){
-        $scope.totalTogetherAllStats = $scope.totalTogetherAllStats + val.together;
-        $scope.totalComparedAllStats = $scope.totalTogetherAllStats + val.compared;
-      });
-
-      angular.forEach(d.data.nonIEACOOccurrenceStatistics, function(val, key){
-        $scope.totalTogetherNonIEAStats = $scope.totalTogetherNonIEAStats + val.together;
-        $scope.totalComparedNonIEAStats = $scope.totalComparedNonIEAStats + val.compared;
-      });
-    });
-
-
-    // Set up blacklist for selected term
-    $scope.blacklistPromise = termService.getBlacklist(termId);
-    $scope.blacklistPromise.then(function(d){
-      console.log("Blacklist returned for term", d);
-      $scope.termWithBlacklist = d.data;
-    });
-  }
 
   /**
    * ---------------------------------------------- Scope methods ----------------------------------------------------
    */
 
+    var getSlimSet = function() {
+        presetsService.getPresetsGOSlimSets().then(function(resp) {
+            angular.forEach(resp.data.goSlimSets, function(slimSet) {
+                if (_.contains($scope.termModel.subsets, slimSet.name)) {
+                    $scope.slimSetMapping[slimSet.name] = slimSet;
+                }
+            });
+        });
+    };
 
-function copyArray(array) {
-   return array.map(function(arr) {
-     return arr.slice();
-   });
-}
+    var addInformation = function(lst, moreDataLst) {
+        angular.forEach(lst, function(term) {
+          var inResult = _.find(moreDataLst, function(datum) {
+              return datum.id === term.id;
+          });
+          if (inResult) {
+              term.name = inResult.name;
+              term.aspect = ontoTypeService.ontoReadableText(inResult.aspect);
+          }
+        });
+    };
 
-var originalCoords = [];
+    var copyArray = function(array) {
+        return array.map(function(arr) {
+            return arr.slice();
+        });
+    };
 
-angular.element(window).ready(function () {
-  makeMapFitImage();
-});
+    var originalCoords = [];
 
-var makeMapFitImage = function(){
+    angular.element(window).ready(function () {
+        //makeMapFitImage();
+    });
+
+    var makeMapFitImage = function(){
         var ImageMap = function () {
                 var map = document.getElementById('ontologygraphmap'),
                     img = document.getElementById('ontologyGraphImage'),
@@ -123,7 +147,7 @@ var makeMapFitImage = function(){
                     len = areas.length,
                     coords = [];
 
-               for (n = 0; n < len; n++) {
+               for (var n = 0; n < len; n++) {
                    coords[n] = areas[n].coords.split(',');
                }
                if (originalCoords.length < 1){
@@ -147,13 +171,11 @@ var makeMapFitImage = function(){
            },
            imageMap = new ImageMap();
            imageMap.resize();
-};
+    };
 
-window.onresize = function () {
-   makeMapFitImage();
-};
-
-
+    window.onresize = function () {
+       makeMapFitImage();
+    };
 
   /**
   * Deals with making the right nav menu fixed

@@ -1,15 +1,15 @@
-<div id="content" class="container_24" cg-busy="queryPromise">
+<div id="content" class="row" cg-busy="queryPromise">
   <h2>Results for term "{{searchTerm}}"</h2>
 
-  <div class="grid_4">
-      <facets endpoint="searchterms" fields="results.facet.facetFields" filters="filters" search-term="searchTerm"></facets>
+  <div class="medium-3 columns">
+      <facets facet-names="facetNames" endpoint="searchterms" fields="results.facet.facetFields" filters="filters" search-term="searchTerm"></facets>
   </div>
 
   <!-- Main Content -->
-  <div id="searchResultsMainContent" class="grid_20">
+  <div id="searchResultsMainContent" class="medium-9 columns">
     <div>
       <p>
-        <strong>{{results.numberOfHits}}</strong> results</strong>
+        <strong>{{results.numberOfHits | number}}</strong> results</strong>
       </p>
       <table id="searchResults" class="two-colours">
         <tr>
@@ -19,14 +19,9 @@
         <tr ng-repeat="searchResult in results.results">
 
           <td class="text-nowrap" ng-class="{'inactive':searchResult.isObsolete==true}">
-
-            <span ng-if="searchResult.aspect" uib-tooltip-template="'colAspect.html'" class="aspect-icon aspect-{{searchResult.aspect}}">{{searchResult.aspect}}</span>
-            <span><a href="term/{{searchResult.id}}">{{searchResult.id}}</a></span>
-            <basket-button ng-if="!searchResult.ecoterm" termid="{{searchResult.id}}" icondisabled="{{searchResult.isObsolete}}"></basket-button>
-            <chart-icon ng-show="{{!searchResult.isObsolete}}" term-id="searchResult.id" term-name="searchResult.name"></chart-icon>
-            <span ng-bind-html="highlight(searchResult.name)">{{searchResult.name}}</span>
+            <term-line id="searchResult.id" aspect="searchResult.aspect" obsolete="searchResult.isObsolete" name="searchResult.name"></term-line>
           </td>
-          <td><a ng-href="annotations?id={{searchResult.id}}" class="annotations-link"><annotations-link termid="{{searchResult.id}}"></annotations-link></a></td>
+          <td><annotations-link term-id="searchResult.id"></annotations-link></td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
@@ -34,4 +29,3 @@
   </div>
   <div class="clearfix"></div>
 </div>
-<script type="text/ng-template" id="colAspect.html"><span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span></script>

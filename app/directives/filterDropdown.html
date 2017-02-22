@@ -1,0 +1,6 @@
+<div uib-dropdown is-open="status.isopen" auto-close="outsideClick" on-toggle="toggled(open)">
+  <button type="button" class="button btn-default icon" ng-class="{'icon-functional active-filter' : active}" data-icon="/" uib-dropdown-toggle>
+    {{name}} <span class="caret"></span>
+  </button>
+  <div class="advanced-filter-content" uib-dropdown-menu ng-transclude>
+</div>

@@ -2,7 +2,7 @@
 
 var basketModule = angular.module('quickGoFeApp.BasketModule', []);
 
-basketModule.factory('basketService', function($cookieStore, termService, $q, stringService) {
+basketModule.factory('basketService', function($cookieStore, termService, $q) {
 
   var basketList = {};
 
@@ -65,7 +65,20 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
    */
   basketList.getItems = function(){
     var cookieItems = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
-    return termService.getTerms(cookieItems.toString());
+    if(cookieItems.length>0){
+      return termService.getGOTerms(cookieItems.toString());
+    } else {
+      var d = {
+        data: {
+          results: []
+        }
+      };
+      return $q.resolve(d);
+    }
+  };
+
+  basketList.getIds = function() {
+    return $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
   };
 
 
@@ -78,20 +91,6 @@ basketModule.factory('basketService', function($cookieStore, termService, $q, st
     var items = $cookieStore.get('uk.ac.ebi.quickgo.basket') || []  ;
     return items.indexOf(termId) > -1;
   };
-
-  basketList.validateTerms = function(terms) {
-    var ownTerms = stringService.getTextareaItemsAsArray(terms);
-
-    var data = {};
-    data.valid = _.filter( ownTerms, function(item){
-      // TODO return filteringService.validateGOTerm(item);
-      return item;
-    });
-    data.missmatches = _.difference(ownTerms, data.valid);
-
-    return data;
-  };
-
 
   return basketList;
 });

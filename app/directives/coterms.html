@@ -1,0 +1,42 @@
+<h5 ng-show="stats.results.length == 0">
+  <element class='icon icon-generic' data-icon='l'>
+    No co-occurrence statistics for {{id}} based on {{mode}} annotations
+  </element>
+</h5>
+<div ng-show="stats.results.length > 0">
+  <h6>
+    The top {{displayLimit | number}} of {{stats.numberOfHits | number}} co-occurring terms
+  </h6>
+  <table id="tableId" class="two-colours">
+    <tr>
+      <th>Co-occurring Term</th>
+      <th>PR</th>
+      <th>S%</th>
+      <th>#Together</th>
+      <th>#Compared</th>
+    </tr>
+    <tr ng-repeat="stat in stats.results | limitTo:pageSize">
+      <td width="70%">
+        <term-line id="stat.comparedTerm" aspect="goTermMapping[stat.comparedTerm].aspect"
+                   obsolete="goTermMapping[stat.comparedTerm].obsolete"
+                   name="goTermMapping[stat.comparedTerm].name"></term-line>
+      </td>
+      <td>{{stat.probabilityRatio | number:2}}</td>
+      <td>{{stat.similarityRatio | number:2}}</td>
+      <td>{{stat.together | number}}</td>
+      <td>{{stat.compared | number}}</td>
+    </tr>
+    <tr>
+      <td colspan="5">
+        <button ng-show="pageSize < stats.results.length" ng-click="pageSize = stats.results.length" class="button hollow">show all</button>
+        <button ng-show="(pageSize === stats.results.length && stats.results.length > defaultPageSize)" ng-click="pageSize = defaultPageSize" class="button hollow">show less</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3"><strong>Totals</strong></td>
+      <td><strong>{{totalTogether}}</strong></td>
+      <td><strong>{{totalCompared}}</strong></td>
+    </tr>
+  </table>
+</div>

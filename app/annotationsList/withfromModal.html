@@ -1,0 +1,11 @@
+
+  <button class="close-button" ng-click="ok()">
+    <span>&times;</span>
+  </button>
+  <h3>With / From</h3>
+  <div ng-repeat="item in withFrom">
+    <div ng-repeat="resource in item.connectedXrefs" class="text-center"><a class="quickgo-link ellipsis" ng-click="followLinkToEntry(resource.db, resource.id)" target="_blank">{{resource.db}}:{{resource.id}}</a></div>
+    <div class="text-center">
+      <strong ng-show="!$last">OR</strong>
+    </div>
+  </div>

@@ -1,7 +1,8 @@
+'use strict';
 angular
 	.module('quickGoFeApp')
-	.directive('megasearch', ['$q', '$timeout', 'searchService', '$location', '$document',
-		function($q, $timeout, searchService, $location, $document) {
+	.directive('megasearch', ['$q', '$timeout', 'searchService', '$location', '$document', 'ontoTypeService',
+		function($q, $timeout, searchService, $location, $document, ontoTypeService) {
 		return {
 			restrict: 'AEC',
 			scope: {
@@ -11,6 +12,14 @@ angular
 			},
 			link: function(scope, elem) {
 				scope.provideSuggestions = function(keyCode) {
+
+					// size the mega search box to match the input field
+					if($location.path()==='/'){
+						angular.element($document[0].querySelector('#search-terms #megasearchbox')).width(angular.element($document[0].querySelector('#search-terms #searchbox')).width()-18);
+					}else{
+						angular.element($document[0].querySelector('#megasearchbox')).width(angular.element($document[0].querySelector('#searchbox')).width()-18);
+					}
+
 					$timeout.cancel(scope.timePromise); //cancel previous request
 
 					if(keyCode === 27) {
@@ -27,7 +36,11 @@ angular
 				};
 
 				scope.submitSearch = function() {
-				    $location.path("search/" + scope.searchTerm);
+				    $location.path('search/' + scope.searchTerm);
+				};
+
+				scope.isGoTerm = function(termId) {
+					return ontoTypeService.isGoTerm(termId);
 				};
 
 				var loadData = function() {

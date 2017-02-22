@@ -2,6 +2,38 @@
 
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
+wsService.factory('presetsService', ['$http', 'ENV',
+  function ($http, ENV) {
+    return {
+        getPresetsAssignedBy: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=assignedBy');
+        },
+        getPresetsReferences: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=references');
+        },
+        getPresetsEvidences: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=evidences');
+        },
+        getPresetsWithFrom: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=withFrom');
+        },
+        getPresetsGeneProducts: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProducts');
+        },
+        getPresetsGOSlimSets: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=goSlimSets');
+        },
+        getPresetsTaxa: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=taxons');
+        },
+        getPresetsAspects: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=aspects');
+        },
+        getPresetsGeneProductTypes: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProductTypes');
+        }
+    };
+  }]);
 
 wsService.factory('PreDefinedSlimSets', ['$resource', 'ENV', function($resource, ENV){
     return $resource(ENV.apiEndpoint+'/predefinedslims', {}, {
@@ -16,20 +48,73 @@ wsService.factory('PreDefinedSlimSetDetail', ['$resource', 'ENV', function($reso
 }]);
 
 wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
+  //var
   return {
-      getTerm : function(termId) {
-        return $http.get(ENV.apiEndpoint+'/term/' + termId);
+      getGOTerms : function(ids) {
+        return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids);
       },
-      getTerms : function(ids) {
-        return $http.get(ENV.apiEndpoint+'/terms', {params: {ids: ids}});
+      getECOTerms : function(ids) {
+        return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids);
       },
-      getStats : function(termId) {
-        return $http.get(ENV.apiEndpoint+'/term/' + termId + '/costats');
+      getGOCompleteTerms : function(ids) {
+          return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/complete');
+      },
+      getECOCompleteTerms : function(ids) {
+          return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/complete');
+      },
+      getAllStats : function(termId, limit) {
+        return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId +
+            (limit ? '?limit=' + limit : ''));
+      },
+      getManualStats : function(termId, limit) {
+          return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId + '?source=MANUAL' +
+              (limit ? '&limit=' + limit : ''));
       },
       getBlacklist : function(termId) {
-      return $http.get(ENV.apiEndpoint+'/term/' + termId + '/blacklist');
+      return $http.get(ENV.apiEndpoint + '/term/' + termId + '/blacklist');
     }
   };
+}]);
+
+wsService.factory('taxonomyService', ['$http', function($http){
+    return {
+        getTaxa : function(ids) {
+            return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
+        }
+    };
+}]);
+
+wsService.factory('downloadService', ['$http', function($http){
+    return {
+        getAnnotationsData : function(accept, limit, filters) {
+            var url = 'http://wwwdev.ebi.ac.uk/QuickGO/services/annotation/downloadSearch';
+            var params = _.extend(filters, {downloadLimit: limit});
+            return $http.get(url, {
+              params: params,
+              headers: {
+                accept: 'text/' + accept
+              }
+            });
+        },
+        getMaxLimit: function() {
+            return 50000;
+        }
+    };
+}]);
+
+wsService.factory('geneProductService', ['$http', 'ENV', function($http, ENV){
+    return {
+        getGeneProducts: function(ids) {
+            if (typeof ids === Array) {
+                return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids.join(','));
+            } else {
+                return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids);
+            }
+        },
+        getTargetSet: function(id) {
+            return $http.get(ENV.apiEndpoint + '/geneproduct/targetset/' + id);
+        }
+    };
 }]);
 
 wsService.factory('stringService', [function(){
@@ -40,10 +125,26 @@ wsService.factory('stringService', [function(){
   };
 }]);
 
+wsService.factory('ontoTypeService', [function(){
+    return {
+        isGoTerm : function(termId) {
+            return (termId.indexOf('ECO') !== 0);
+        },
+        ontoReadableText: function(ontoName) {
+            switch(ontoName) {
+                case 'biological_process' : return 'Biological Process';
+                case 'molecular_function' : return 'Molecular Function';
+                case 'cellular_component' : return 'Cellular Component';
+                default: return ontoName;
+            }
+        }
+    };
+}]);
+
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/ontology',
+        return $http.get(ENV.apiEndpoint + '/internal/search/ontology',
           {
             params: {
               query : searchTerm,
@@ -55,67 +156,36 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           });
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/search/geneproduct',
-          {
-            params: {
-              query : searchTerm,
-              limit : limit,
-              page : page ? page : 1,
-              facet : facet ? facet : '',
-              filterQuery : filters ? filters : ''
-            }
-          });
+        var url = ENV.apiEndpoint + '/geneproduct/search?query=' + searchTerm + '&limit=' + limit +
+            '&page=' + (page ? page : 1) + '&facet=' + (facet ? facet : '') + '&' + (filters ? filters : '');
+        return $http.get(url);
       },
-      findPublications: function() {
+      /*findPublications: function(searchTerm, limit) {
         //TODO
+      },*/
+      findAnnotations: function(page, size, filters) {
+          return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
+      },
+      findAnnotationStatistics: function(filters) {
+          return $http.get(ENV.apiEndpoint+'/annotation/stats?' + filters);
       },
       findAnnotationsForTerm: function(searchTerm) {
-        var request = {
-          method: 'POST',
-          url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          data: {
-            list: [{
-              type: 'goID',
-              value: searchTerm
-            }]
-          }
-        };
-        return $http(request);
+          return $http.get(ENV.apiEndpoint + '/annotation/search?goId=' + searchTerm);
       },
       findAnnotationsForECO: function(searchTerm) {
-        var request = {
-          method: 'POST',
-          url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          data: {
-            list: [{
-              type: 'ecoID',
-              value: searchTerm
-            }]
-          }
-        };
-        return $http(request);
+          return $http.get(ENV.apiEndpoint + '/annotation/search?ecoId=' + searchTerm);
       },
       findAnnotationsForProduct: function(searchTerm) {
-        var request = {
-          method: 'POST',
-          url: ENV.apiEndpoint + '/annotationPostNewNamesNotSpring',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          data: {
-            list: [{
-              type: 'gpID',
-              value: searchTerm
-            }]
+          return $http.get(ENV.apiEndpoint+'/annotation/search?geneProductId=' + searchTerm);
+      },
+      serializeQuery: function(query) {
+        var queryString = '';
+        angular.forEach(query, function(values, key) {
+          if(values) {
+            queryString = queryString + '&' + key + '=' + values;
           }
-        };
-        return $http(request);
+        });
+        return queryString;
       }
   };
 }]);
@@ -135,6 +205,10 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
       //Overwrite for QuickGO instead of AMIGO
       if(name === 'GO') {
         return $location.absUrl().replace($location.path(), '/term/GO:' + id);
+      } else if (name === 'TAXON') {
+          return 'http://www.uniprot.org/taxonomy/' + id;
+      } else if (name === 'PMID') {
+          return 'http://europepmc.org/abstract/MED/' + id;
       } else {
         var match = _.find(xrefs, function(xref){
           return xref.database === name || _.contains(xref.synonyms, name);
@@ -147,9 +221,27 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
 
 wsService.factory('olsService', ['$http', function($http) {
   return {
-    getTermName: function(xref) {
-      return $http.get('http://www.ebi.ac.uk/ols/api/ontologies/' + xref.db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + xref.db + '_' + xref.id);
+    getTermName: function(db, id) {
+      return $http.get('http://www.ebi.ac.uk/ols/api/ontologies/' + db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + db + '_' + id);
     }
+  };
+}]);
+
+wsService.factory('chartService', ['$http', 'ENV', function($http, ENV){
+  return {
+    getGOChart: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart');
+    },
+    getGOImageMap: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart/coords');
+    },
+    getECOChart: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/chart');
+    },
+    getECOImageMap: function(ids) {
+      return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/chart/coords');
+    }
+
   };
 }]);
 
@@ -180,18 +272,6 @@ wsService.factory('annotationPostProRules', ['$resource', 'ENV', function($resou
 wsService.factory('annotationBlacklist', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/dataset/annotationBlacklist', {}, {
     query: {method:'GET', Cache:true}
-  });
-}]);
-
-wsService.factory('evidencetypes', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/evidencetypes', {}, {
-    query: {method:'GET',  isArray:true, Cache:true}
-  });
-}]);
-
-wsService.factory('withDBs', ['$resource', 'ENV', function($resource, ENV){
-  return $resource(ENV.apiEndpoint+'/withdbs', {}, {
-    query: {method:'GET',  isArray:true, Cache:true}
   });
 }]);
 

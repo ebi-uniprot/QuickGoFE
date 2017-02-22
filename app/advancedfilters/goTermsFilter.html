@@ -1,0 +1,55 @@
+<div ng-controller="goTermsFilter">
+  <!-- 3 choices -->
+  <div class="y-scroll-200 inset-panel row column small-12" ng-show="selectedTermSize() > 0">
+    <ul class="no-bullet" ng-show="selectedTermSize() < uploadLimit">
+      <li ng-repeat="(id, term) in goTerms" class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="term.checked">
+          <term-line id="term.id" aspect="term.item.aspect" obsolete="term.item.isObsolete"
+             name="term.item.name"></term-line>
+        </label>
+      </li>
+
+    </ul>
+    <div ng-show="selectedTermSize() > uploadLimit" class="text-center">
+      <strong>More than {{uploadLimit}} terms selected.</strong>
+    </div>
+  </div>
+  <hr>
+  <div class="row columns small-12">
+    <label>
+      Add your own identifiers:
+      <textarea placeholder="GO:0016021, GO:0016022, ..." ng-model="goTermsTextArea"></textarea>
+    </label>
+    <button class="hollow button float-right" ng-click="addGoTerms()">Add</button>
+  </div>
+  <div class="row column small-12">
+    <label>...or select terms from GO slim:
+      <fieldset>
+        <label><input type="checkbox" ng-model="includeRootTerms">include root terms</label>
+    </fieldset>
+    <select ng-model="selectedPreDefinedSlimSet" ng-options="predefinedSet.name for predefinedSet in predefinedSlimSets" ng-change="addPredefinedSet()"></select>
+    </label>
+  </div>
+  <a ng-click="more = !more" ng-hide="more">Options</a>
+  <div ng-show="more" class="row columns small-12">
+    <fieldset class="fieldset">
+      <legend>Select how you want to use the terms that you have chosen:</legend>
+      <label><input type="radio" ng-model="goTermUse" value="descendants">Find annotations to <strong>descendants</strong> of these terms.</label>
+      <label><input type="radio" ng-model="goTermUse" value="slim">Use these terms as a <strong>GO slim</strong>.</label>
+      <label><input type="radio" ng-model="goTermUse" value="">Use these terms as an <strong>exact</strong> match.</label>
+    </fieldset>
+
+    <!-- Select Relationship-->
+    <fieldset ng-show="goTermUse=='slim' || goTermUse=='descendants'" class="fieldset">
+      <legend>Select which relationship an annotated term should have to the terms above <a href="http://geneontology.org/page/ontology-relations" target="_blank">(more info)</a>:</legend>
+      <input type="radio" name="closure" value="is_a" ng-model="goRelations"><label>is_a</label>
+      <label><input type="radio" name="closure" value="is_a,part_of,occurs_in" ng-model="goRelations"> is_a, part_of, occurs_in</label>
+      <label><input type="radio" name="closure" value="is_a,part_of,occurs_in,regulates" ng-model="goRelations"> is_a, part_of, occurs_in, regulates</label>
+    </fieldset>
+  </div>
+  <hr>
+  <div class="float-right">
+    <filter-buttons></filter-buttons>
+  </div>
+</div>

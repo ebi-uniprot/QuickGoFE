@@ -1,48 +1,50 @@
+'use strict';
 angular
 	.module('quickGoFeApp')
-	.directive('basketButton', ['basketService', function(basketService) {
+	.directive('basketButton', ['basketService', '$rootScope', function(basketService, $rootScope) {
 		return {
 			restrict: 'E',
 			templateUrl: 'directives/basket.html',
-			link: function($scope, element, attrs) {
-				var termId;
+      scope: {
+				termid: '@',
+				icondisabled: '@'
+			},
+			link: function($scope, element) {
 				$scope.showIcon = true;
-				//var iconDisabledStatus;
-				$scope.hoverBasket = false ;
 
-				attrs.$observe('termid', function() {
-					termId = attrs.termid;
-					$scope.inBasket = basketService.containsGoTerm(termId);
-					if(attrs.termid.lastIndexOf('ECO', 0) === 0){
-						$scope.showIcon = false;
-					}
-				});
+        $scope.inBasket = basketService.containsGoTerm($scope.termid);
+        if($scope.termid.lastIndexOf('ECO', 0) === 0){
+          $scope.showIcon = false;
+        }
 
+        var getClass = function() {
+          if($scope.icondisabled === 'true') {
+            return 'basket-disabled';
+          } else if($scope.inBasket) {
+			return 'basket-added';
+		  } else {
+			return 'basket-default';
+		  }
+        };
 
-				attrs.$observe('icondisabled', function() {
-					$scope.iconDisabledStatus = attrs.icondisabled;
-				});
+        $scope.className = getClass();
 
 				element.bind('click', function() {
-						if (basketService.containsGoTerm(termId)) {
-							basketService.removeBasketItem(termId);
+						if (basketService.containsGoTerm($scope.termid)) {
+							basketService.removeBasketItem($scope.termid);
 						} else {
-							basketService.addBasketItem(termId);
+							basketService.addBasketItem($scope.termid);
 						}
-						$scope.$emit('basketUpdate', basketService.basketQuantity());
-						$scope.inBasket = basketService.containsGoTerm(termId);
+            $rootScope.$emit('basketUpdate', basketService.basketQuantity());
+						$scope.inBasket = basketService.containsGoTerm($scope.termid);
+            $scope.className = getClass();
 						$scope.$apply();
 				});
 
-				$scope.getDataIcon = function() {
-					if(!$scope.hoverBasket) {
-						return 'b';
-					} else if ($scope.inBasket) {
-						return 'x';
-					} else {
-						return '/';
-					}
-				}
-			}
+        $rootScope.$on('basketUpdate', function(){
+						$scope.inBasket = basketService.containsGoTerm($scope.termid);
+            $scope.className = getClass();
+        });
+      }
 		};
 	}]);

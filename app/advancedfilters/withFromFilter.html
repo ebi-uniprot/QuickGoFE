@@ -1,0 +1,28 @@
+<div ng-controller="withFromFilter">
+  <h5 ng-class="{'icon-functional active-filter' : query['withFrom']}" data-icon="/">With/From</h5>
+  <div>
+    <form>
+      <div class="y-scroll-200 overflow-pane">
+        <ul class="no-bullet">
+          <li ng-repeat="(withID, obj) in withFrom" class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="obj.checked">
+              <strong>{{obj.id}}</strong> {{obj.item.description}}
+            </label>
+          </li>
+        </ul>
+      </div>
+      <hr>
+      <p>* Any matches will be displayed</p>
+      <a ng-click="more = !more" ng-hide="more">Add more...</a>
+      <div ng-show="more">
+        <div class="form-group">
+          <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
+        </div>
+        <div class="form-group">
+          <button class="hollow button" ng-click="addWith()">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

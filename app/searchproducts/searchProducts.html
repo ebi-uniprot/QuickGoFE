@@ -1,17 +1,16 @@
-<div id="content" class="container_24" cg-busy="queryPromise">
+<div id="content" class="medium-12 row" cg-busy="queryPromise">
   <h2>Results for gene product "{{searchTerm}}"</h2>
 
-  <div class="grid_4">
-      <div ng-repeat="facet in results.facet.facetFields">
-        <facets endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm"></facets>
-      </div>
+  <div class="medium-3 columns">
+      <facets  facet-names="facetNames" endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm" name-mapping="taxaMapping">
+      </facets>
   </div>
 
   <!-- Main Content -->
-  <div id="searchResultsMainContent" class="grid_20">
+  <div id="searchResultsMainContent" class="medium-9 columns">
     <div>
       <p>
-        <strong>{{results.numberOfHits}}</strong> results</strong>
+        <strong>{{results.numberOfHits | number}}</strong> results</strong>
       </p>
       <table id="searchResults" class="two-colours">
         <tr>
@@ -20,17 +19,22 @@
           <th>Name</th>
           <th>Type</th>
           <th>Taxon</th>
-          <th>Source</th>
           <th>Annotations</th>
         </tr>
         <tr ng-repeat="searchResult in results.results">
-          <td><a ng-click="followLinkToGeneric(searchResult.db)" target="_blank">{{searchResult.db}}</td>
-          <td><a ng-click="followLinkToEntry(searchResult.db, searchResult.dbObjectId)" target="_blank">{{searchResult.dbObjectId}}</td>
-          <td ng-bind-html="highlight(searchResult.dbObjectName)"></td>
+          <td><a ng-click="followLinkToGeneric(searchResult.database)" target="_blank">{{searchResult.database}}</a></td>
+          <td><a ng-click="followLinkToEntry(searchResult.id, searchResult.database)" target="_blank">
+            {{searchResult.id}}</a></td>
+          <td ng-bind-html="highlight(searchResult.name)"></td>
           <td>{{searchResult.type}}</td>
-          <td>{{searchResult.taxonName}}</td>
-          <td>{{searchResult.db}}</td>
-          <td><a href="annotations?gpID={{searchResult.dbObjectId}}" class="annotations-link"><annotations-link productid="{{searchResult.dbObjectId}}"></annotations-link></a></td>
+          <td>
+            <a class="quickgo-link selectable" ng-click="followLinkToEntry(searchResult.taxonId, 'TAXON')" target="_blank">
+              {{taxaMapping[searchResult.taxonId]}}
+            </a>
+          </td>
+          <td><annotations-link
+                  product-id="searchResult.id"></annotations-link></a>
+          </td>
         </tr>
       </table>
       <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
