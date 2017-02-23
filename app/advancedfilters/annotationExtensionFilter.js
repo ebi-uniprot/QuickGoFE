@@ -1,7 +1,5 @@
 'use strict';
-app.controller('annotationExtensionFilterController', function($scope){
-app.controller('annotationExtensionFilterController', function($scope, $rootScope,
-                                                               presetsService, filterService, validationService){
+app.controller('annotationExtensionFilterController', function($scope, $rootScope){
 
   $scope.extension = '';
 
