@@ -24,15 +24,15 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     var mergedTerms = filterService.mergeRightToLeft(terms, selection);
     var checked = $scope.getAllChecked(mergedTerms);
     if (checked.length > uploadLimit) {
-      $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg(uploadLimit)];
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
       return undefined;
     } else {
-      $rootScope.alerts = [];
       return {selection: mergedTerms, totalChecked: checked.length}
     }
   };
 
   $scope.stackErrors = function(elements, type, message, field) {
+    console.log('stackErrors', elements);
     $rootScope.alerts = $rootScope.alerts.concat(_.map(
       elements,
       function(elem){
@@ -42,6 +42,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
         };
       })
     );
+    console.log($rootScope.alerts);
   };
 
   $scope.addToQuery = function (type, values) {
