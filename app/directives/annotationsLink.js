@@ -1,7 +1,7 @@
 'use strict';
 angular
   .module('quickGoFeApp')
-  .directive('annotationsLink', ['searchService', '$rootScope', function(searchService, $rootScope) {
+  .directive('annotationsLink', ['searchService', '$rootScope', function(searchService) {
     return {
       restrict: 'E',
       templateUrl: 'directives/annotationsLink.html',

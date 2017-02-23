@@ -14,6 +14,7 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService) {
   var query = $routeParams;
 
   $scope.processStatistics = function(stats) {
+    $scope.totalNumberAnnotations = 0;
     angular.forEach(stats, function(item) {
       if (item.groupName === 'annotation') {
         angular.forEach(item.types, function(type) {

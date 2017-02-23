@@ -1,3 +1,4 @@
+'use strict';
 angular
 	.module('quickGoFeApp')
 	.directive('megasearch', ['$q', '$timeout', 'searchService', '$location', '$document', 'ontoTypeService',
@@ -35,7 +36,7 @@ angular
 				};
 
 				scope.submitSearch = function() {
-				    $location.path("search/" + scope.searchTerm);
+				    $location.path('search/' + scope.searchTerm);
 				};
 
 				scope.isGoTerm = function(termId) {

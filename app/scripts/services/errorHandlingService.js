@@ -29,7 +29,7 @@ errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$root
           $rootScope.alerts = _.map(response.data.messages, function(message){
             return {
               msg: message
-            }
+            };
           });
         }
         return $q.reject(response);

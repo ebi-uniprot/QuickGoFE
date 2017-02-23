@@ -1,6 +1,4 @@
-/**
- * Created by twardell on 018/01/2016.
- */
+'use strict';
 app.controller('OtherCtrl', function($scope, annotationPostProRules) {
 
   $scope.annotationPostProRules = {};

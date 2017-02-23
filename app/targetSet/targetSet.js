@@ -1,3 +1,4 @@
+'use strict';
 app.controller('TargetSetCtrl', function($scope, $routeParams, $location, $anchorScroll,
                                            presetsService, geneProductService, taxonomyService) {
 
