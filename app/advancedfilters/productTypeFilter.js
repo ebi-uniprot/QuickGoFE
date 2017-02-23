@@ -2,6 +2,7 @@
 app.controller('productTypeFilter', function($scope, presetsService, filterService, $rootScope){
 
   $scope.gpTypes = [];
+  $scope.totalChecked = 0;
 
   var init = function() {
     $scope.gpTypes = filterService.getQueryFilterItems($scope.query.geneProductType);
@@ -23,6 +24,10 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
   $scope.apply = function() {
     $scope.addToQuery('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
     $rootScope.alerts = [];
+  };
+
+  $scope.updateSelection = function(term){
+    $scope.totalChecked += term.checked ? 1 : -1;
   };
 
   init();

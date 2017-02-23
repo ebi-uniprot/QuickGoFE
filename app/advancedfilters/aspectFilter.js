@@ -1,6 +1,7 @@
 'use strict';
 app.controller('aspectFilter', function($scope, presetsService, filterService, $rootScope){
   $scope.aspects = [];
+  $scope.totalChecked = 0;
 
   var init = function() {
     $scope.aspects = filterService.getQueryFilterItems($scope.query.aspect);
@@ -22,6 +23,10 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
   $scope.apply = function() {
     $scope.$parent.addToQuery('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
     $rootScope.alerts = [];
+  };
+
+  $scope.updateSelection = function(term){
+    $scope.totalChecked += term.checked ? 1 : -1;
   };
 
   init();
