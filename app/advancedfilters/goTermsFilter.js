@@ -54,6 +54,8 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.addGoTerms = function() {
+    $rootScope.alerts = [];
+
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
     $scope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
@@ -79,6 +81,8 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.addPredefinedSet = function() {
+    $rootScope.alerts = [];
+
     if($scope.selectedPreDefinedSlimSet) {
       var slimSetItems = $scope.selectedPreDefinedSlimSet.associations;
       if(!$scope.includeRootTerms) {

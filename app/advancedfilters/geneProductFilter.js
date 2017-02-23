@@ -37,6 +37,8 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.addGPs = function () {
+    $rootScope.alerts = [];
+
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
