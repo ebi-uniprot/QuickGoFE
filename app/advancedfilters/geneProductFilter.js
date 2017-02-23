@@ -15,6 +15,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
       $scope.geneProductSets = filterService.mergeRightToLeft(queryFilterItems, presetFilterItems);
     });
     $scope.totalChecked = $scope.getAllChecked($scope.gpIds).length;
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function () {
@@ -36,9 +37,10 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.addGPs = function () {
-    var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea);
-    var filterItems = filterService.addFilterItems(gps, validationService.validateGeneProduct);
-    var response = $scope.updateSelectedTerms($scope.gpIds, filterItems, $scope.uploadLimit);
+    var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
+    var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
+    $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
+    var response = $scope.updateSelectedTerms($scope.gpIds, allItems.filteredItems, $scope.uploadLimit);
     if (response) {
       $scope.gpIds = response.selection;
       $scope.totalChecked = response.totalChecked;

@@ -32,6 +32,18 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     }
   };
 
+  $scope.stackErrors = function(elements, type, message, field) {
+    $rootScope.alerts = $rootScope.alerts.concat(_.map(
+      elements,
+      function(elem){
+        return {
+          type: type,
+          msg: (field ? elem[field] : elem) + ' ' + message
+        };
+      })
+    );
+  };
+
   $scope.addToQuery = function (type, values) {
     if(values.length <= 0){
       delete $scope.query[type];
@@ -48,6 +60,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   $scope.clearFilters = function () {
     $scope.query = {};
     $scope.updateQuery();
+    $rootScope.alerts = [];
   };
 
   $scope.hasSlims = function () {

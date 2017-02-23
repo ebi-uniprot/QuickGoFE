@@ -16,6 +16,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
       $scope.ecos = filterService.mergeRightToLeft($scope.ecos, filterItems);
       $scope.totalChecked = $scope.getAllChecked($scope.ecos).length;
     });
+    $rootScope.alerts = [];
   };
 
   var getQuery = function() {
@@ -37,9 +38,12 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   };
 
   $scope.addECOs = function () {
-    var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
-    var addedFilterItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
-    var response = $scope.updateSelectedTerms($scope.ecos, addedFilterItems, $scope.uploadLimit);
+    $rootScope.alerts = [];
+
+    var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
+    var allItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
+    $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid evidence code');
+    var response = $scope.updateSelectedTerms($scope.ecos, allItems.filteredItems, $scope.uploadLimit);
     if (response) {
       $scope.ecos = response.selection;
       $scope.totalChecked = response.totalChecked;

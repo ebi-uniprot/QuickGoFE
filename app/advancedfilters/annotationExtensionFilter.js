@@ -1,14 +1,18 @@
 'use strict';
 app.controller('annotationExtensionFilterController', function($scope){
+app.controller('annotationExtensionFilterController', function($scope, $rootScope,
+                                                               presetsService, filterService, validationService){
 
   $scope.extension = '';
 
   var init = function() {
     $scope.extension = $scope.$parent.query.extension ? $scope.$parent.query.extension : '';
+    $rootScope.alerts = [];
   };
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('extension', $scope.extension);
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function () {

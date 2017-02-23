@@ -1,5 +1,5 @@
 'use strict';
-app.controller('aspectFilter', function($scope, presetsService, filterService){
+app.controller('aspectFilter', function($scope, presetsService, filterService, $rootScope){
   $scope.aspects = [];
 
   var init = function() {
@@ -9,6 +9,8 @@ app.controller('aspectFilter', function($scope, presetsService, filterService){
       var aspects = filterService.getPresetFilterItems(resp.data.aspects, 'id');
       $scope.aspects = _.sortBy(filterService.mergeRightToLeft($scope.aspects, aspects), 'name');
     });
+
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function() {
@@ -19,6 +21,7 @@ app.controller('aspectFilter', function($scope, presetsService, filterService){
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
+    $rootScope.alerts = [];
   };
 
   init();

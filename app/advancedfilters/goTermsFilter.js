@@ -27,6 +27,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
     updateTermInfo();
     $scope.totalChecked = $scope.getAllChecked($scope.goTerms).length;
+    $rootScope.alerts = [];
   };
 
   var updateTermInfo = function() {
@@ -53,9 +54,10 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.addGoTerms = function() {
-    var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
-    var terms = filterService.addFilterItems(goterms, validationService.validateGOTerm);
-    var response = $scope.updateSelectedTerms($scope.goTerms, terms, $scope.uploadLimit);
+    var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
+    var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
+    $scope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
+    var response = $scope.updateSelectedTerms($scope.goTerms, allTerms.filteredItems, $scope.uploadLimit);
     if (response) {
       $scope.goTerms = response.selection;
       $scope.totalChecked = response.totalChecked;

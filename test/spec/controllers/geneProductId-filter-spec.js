@@ -15,6 +15,7 @@ describe('Controller: geneProductFilter', function () {
     scope.getAllChecked = function() {
       return [];
     };
+    scope.stackErrors = function() {};
     geneProductFilter = $controller('geneProductFilter', {
       $scope: scope
     });
