@@ -18,10 +18,11 @@ app.controller('annotationExtensionFilterController', function($scope){
   };
 
   $scope.addComponent = function() {
-      var component = $scope.relationship + '(' + $scope.dbId + ')';
+      var component = $scope.relationship + '(' + $scope.db + ':' + $scope.id + ')';
       $scope.extension = $scope.extension + ($scope.extension ? ',' : '') + component;
       $scope.relationship = '';
-      $scope.dbId = '';
+      $scope.db = '';
+      $scope.id = '';
   };
 
   $scope.$on('applyAEFilters', function() {
