@@ -7,7 +7,7 @@
         <ul class="no-bullet">
           <li ng-repeat="assigned in assignedBy" class="checkbox">
             <label>
-              <input type="checkbox" ng-model="assigned.checked" ng-change="updateCheck(assigned)">
+              <input type="checkbox" ng-model="assigned.checked" ng-change="updateCheckStatus(assigned)">
               <strong>{{assigned.id}}</strong> {{assigned.item.description}}
             </label>
           </li>
