@@ -27,6 +27,10 @@ app.run(function ($rootScope, dbXrefService, $window) {
     });
   };
 
+  $rootScope.cleanErrorMessages = function() {
+    $rootScope.alerts = [];
+  };
+
   $rootScope.followLinkToEntry = function (id, database) {
     if (!database) {
       var pos = id.indexOf(':');

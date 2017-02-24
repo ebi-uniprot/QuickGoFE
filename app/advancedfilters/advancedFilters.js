@@ -9,16 +9,22 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     return _.where(collection, {checked: true});
   };
 
-  $scope.updateSelection = function(collection, term, uploadLimit) {
-    var newTotal = $scope.getAllChecked(collection).length;
-    if (uploadLimit && (newTotal > uploadLimit)) {
-      $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
-      term.checked = !term.checked;
-      newTotal--;
+  $scope.getNewTotalBasedOnLimit = function(total, limit) {
+      return total > limit ? limit : total;
+  };
+
+  var addAboveLimitError = function(uploadLimit) {
+    $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
+  };
+
+  $scope.getTotalCheckedAfterHandlingLimitError = function(currentTotalChecked, uploadLimit) {
+    var totalChecked = $scope.getNewTotalBasedOnLimit(currentTotalChecked, uploadLimit);
+    if (totalChecked === currentTotalChecked) {
+      $rootScope.cleanErrorMessages();
     } else {
-      $rootScope.alerts = [];
+      addAboveLimitError(uploadLimit);
     }
-    return newTotal;
+    return totalChecked;
   };
 
   $scope.updateSelectedTerms = function(selection, terms, uploadLimit) {
@@ -33,7 +39,6 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   };
 
   $scope.stackErrors = function(elements, type, message, field) {
-    console.log('stackErrors', elements);
     $rootScope.alerts = $rootScope.alerts.concat(_.map(
       elements,
       function(elem){
@@ -43,7 +48,6 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
         };
       })
     );
-    console.log($rootScope.alerts);
   };
 
   $scope.addToQuery = function (type, values) {

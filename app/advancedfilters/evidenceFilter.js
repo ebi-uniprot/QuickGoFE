@@ -51,8 +51,9 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     $scope.ecoTextArea = '';
   };
 
-  $scope.updateSelection = function(term){
-    $scope.totalChecked = $scope.$parent.updateSelection($scope.ecos, term, $scope.uploadLimit);
+  $scope.updateNumberOfCheckedItems = function(term){
+    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.ecos),
+      $scope.uploadLimit);
   };
 
   init();
