@@ -18,8 +18,12 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
   };
 
   $scope.selectAllNotQualifiers = function () {
+    $rootScope.alerts = [];
     angular.forEach($scope.qualifiers, function(qualifier) {
       if(qualifier.item.name.lastIndexOf('NOT', 0) === 0) {
+        if (!qualifier.checked) {
+          $scope.updateCheck(qualifier);
+        }
         qualifier.checked = true;
       }
     });

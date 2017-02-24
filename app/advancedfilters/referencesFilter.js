@@ -1,8 +1,9 @@
 'use strict';
 app.controller('referencesFilter', function($scope, presetsService, stringService, validationService, filterService,
-                                            $rootScope){
+                                            $rootScope, hardCodedDataService){
 
   $scope.references = [];
+  $scope.uploadLimit = hardCodedDataService.getServiceLimits().reference;
 
   var getQuery = function() {
     return _.pluck(_.filter(_.values($scope.references), 'checked'), 'id');
@@ -18,10 +19,16 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
   };
 
   $scope.addReferences = function() {
+    $rootScope.alerts = [];
+
     var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(refs, validationService.validateOther);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid reference');
-    $scope.references = filterService.mergeRightToLeft(allItems.filterItems, $scope.references);
+    var response = $scope.updateSelectedTerms($scope.references, allItems.filteredItems, $scope.uploadLimit);
+    if (response) {
+      $scope.references = response.selection;
+      $scope.updateTotalChecked($scope.references);
+    }
     $scope.referenceTextArea = '';
   };
 

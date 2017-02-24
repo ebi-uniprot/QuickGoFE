@@ -6,7 +6,7 @@
         <ul class="no-bullet">
           <li ng-repeat="(withID, obj) in withFrom" class="checkbox">
             <label>
-              <input type="checkbox" ng-model="obj.checked">
+              <input type="checkbox" ng-model="obj.checked" ng-change="updateCheck(obj)">
               <strong>{{obj.id}}</strong> {{obj.item.description}}
             </label>
           </li>

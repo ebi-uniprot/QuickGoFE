@@ -3,6 +3,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   searchService, $rootScope, hardCodedDataService, filterService) {
 
   $scope.query = $routeParams;
+  $scope.totalChecked = 0;
 
   $scope.getAllChecked = function(collection) {
     return _.where(collection, {checked: true});
@@ -23,7 +24,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   $scope.updateSelectedTerms = function(selection, terms, uploadLimit) {
     var mergedTerms = filterService.mergeRightToLeft(terms, selection);
     var checked = $scope.getAllChecked(mergedTerms);
-    if (checked.length > uploadLimit) {
+    if (uploadLimit && (checked.length > uploadLimit)) {
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
       return undefined;
     } else {
@@ -74,14 +75,24 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
 
   $scope.apply = function() {
     $scope.$broadcast ('applyMoreFilters');
+    $rootScope.alerts = [];
   };
 
   $scope.reset = function() {
     $scope.$broadcast ('resetMoreFilters');
     $scope.updateQuery();
+    $rootScope.alerts = [];
   };
 
   $scope.openMore = function() {
 
   };
+
+  $scope.updateCheck = function(term) {
+    $scope.totalChecked += term.checked ? 1 : -1;
+  };
+
+  $scope.updateTotalChecked = function(collection) {
+    $scope.totalChecked = $scope.getAllChecked(collection).length;
+  }
 });

@@ -19,12 +19,13 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
     return _.pluck(_.filter(_.values($scope.withFrom), 'checked'), 'id');
   };
 
-
   $scope.addWith = function() {
+    $rootScope.alerts = [];
+
     var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
     var allItems = filterService.addFilterItems(withs, validationService.validateOther);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a with/from value');
-    $scope.withFrom = filterService.mergeRightToLeft(allItems.filterItems, $scope.withFrom);
+    $scope.withFrom = filterService.mergeRightToLeft(allItems.filteredItems, $scope.withFrom);
     $scope.withTextArea = '';
   };
 
