@@ -51,7 +51,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.updateNumberOfCheckedItems = function(){
-    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.gpIds).length,
+    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingOneOnlyLimitError($scope.getAllChecked($scope.gpIds).length,
           $scope.uploadLimit);
   };
 

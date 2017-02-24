@@ -50,5 +50,16 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $scope.reset();
   });
 
+    $scope.updateNumberOfCheckedItems = function(){
+        $scope.totalChecked = $scope.getTotalCheckedAfterHandlingOneOnlyLimitError($scope.getAllChecked($scope.references).length,
+            $scope.uploadLimit);
+    };
+
+    $scope.updateCheckStatus = function(term) {
+        var currentTotalCheck = $scope.getAllChecked($scope.references).length;
+        $scope.updateNumberOfCheckedItems();
+        term.checked = $scope.totalChecked === currentTotalCheck ? term.checked : !term.checked;
+    };
+
   initReference();
 });

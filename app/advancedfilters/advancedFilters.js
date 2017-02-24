@@ -17,12 +17,11 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
   };
 
-  $scope.getTotalCheckedAfterHandlingLimitError = function(currentTotalChecked, uploadLimit) {
+  $scope.getTotalCheckedAfterHandlingOneOnlyLimitError = function(currentTotalChecked, uploadLimit) {
+    $rootScope.cleanErrorMessages();
     var totalChecked = $scope.getNewTotalBasedOnLimit(currentTotalChecked, uploadLimit);
-    if (totalChecked === currentTotalChecked) {
-      $rootScope.cleanErrorMessages();
-    } else {
-      addAboveLimitError(uploadLimit);
+    if (totalChecked !== currentTotalChecked) {
+        addAboveLimitError(uploadLimit);
     }
     return totalChecked;
   };

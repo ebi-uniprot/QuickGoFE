@@ -52,7 +52,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   };
 
   $scope.updateNumberOfCheckedItems = function(){
-    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.ecos).length,
+    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingOneOnlyLimitError($scope.getAllChecked($scope.ecos).length,
       $scope.uploadLimit);
   };
 

@@ -99,7 +99,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.updateNumberOfCheckedItems = function(){
-    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.goTerms).length,
+    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingOneOnlyLimitError($scope.getAllChecked($scope.goTerms).length,
       $scope.uploadLimit);
   };
 
