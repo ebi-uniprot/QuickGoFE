@@ -38,13 +38,13 @@ describe('Testing annotation filters', function(){
 
   it('should add limit error', function() {
     rootScope.cleanErrorMessages();
-    scope.getTotalCheckedAfterHandlingLimitError(3,2);
+    scope.getTotalCheckedAfterHandlingOneOnlyLimitError(3,2);
     expect(rootScope.alerts.length).toEqual(1);
   });
 
   it('should add limit error', function() {
     rootScope.cleanErrorMessages();
-    scope.getTotalCheckedAfterHandlingLimitError(2,3);
+    scope.getTotalCheckedAfterHandlingOneOnlyLimitError(2,3);
     expect(rootScope.alerts.length).toEqual(0);
   });
 
