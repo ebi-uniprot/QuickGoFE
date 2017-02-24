@@ -50,10 +50,16 @@ app.controller('geneProductFilter', function ($scope, stringService,
     $scope.gpTextArea = '';
   };
 
-  $scope.updateNumberOfCheckedItems = function(term){
-    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.gpIds),
+  $scope.updateNumberOfCheckedItems = function(){
+    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.gpIds).length,
           $scope.uploadLimit);
   };
+
+    $scope.updateCheckStatus = function(term) {
+        var currentTotalCheck = $scope.getAllChecked($scope.gpIds).length;
+        $scope.updateNumberOfCheckedItems();
+        term.checked = $scope.totalChecked === currentTotalCheck ? term.checked : !term.checked;
+    };
 
   initgpIds();
 });

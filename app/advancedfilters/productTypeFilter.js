@@ -26,7 +26,7 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
     $rootScope.alerts = [];
   };
 
-  $scope.updateNumberOfCheckedItems = function(term){
+  $scope.updateCheckStatus = function(term){
     $scope.totalChecked += term.checked ? 1 : -1;
   };
 

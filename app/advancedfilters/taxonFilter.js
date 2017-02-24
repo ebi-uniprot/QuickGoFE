@@ -76,7 +76,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     });
   };
 
-  $scope.updateChecked = function() {
+  $scope.updateCheckStatus = function() {
     $rootScope.alerts = [];
   };
 

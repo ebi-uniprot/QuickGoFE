@@ -92,7 +92,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
 
   };
 
-  $scope.updateCheck = function(term) {
+  $scope.updateCheckStatus = function(term) {
     $scope.totalChecked += term.checked ? 1 : -1;
   };
 

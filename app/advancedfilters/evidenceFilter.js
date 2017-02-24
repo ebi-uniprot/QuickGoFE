@@ -51,9 +51,15 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     $scope.ecoTextArea = '';
   };
 
-  $scope.updateNumberOfCheckedItems = function(term){
-    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.ecos),
+  $scope.updateNumberOfCheckedItems = function(){
+    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.ecos).length,
       $scope.uploadLimit);
+  };
+
+  $scope.updateCheckStatus = function(term) {
+    var currentTotalCheck = $scope.getAllChecked($scope.ecos).length;
+    $scope.updateNumberOfCheckedItems();
+    term.checked = $scope.totalChecked === currentTotalCheck ? term.checked : !term.checked;
   };
 
   init();

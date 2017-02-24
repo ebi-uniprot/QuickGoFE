@@ -25,7 +25,7 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
     $rootScope.alerts = [];
   };
 
-  $scope.updateNumberOfCheckedItems = function(term){
+  $scope.updateCheckStatus = function(term){
     $scope.totalChecked += term.checked ? 1 : -1;
   };
 
