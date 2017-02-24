@@ -30,7 +30,7 @@
     <table id="assignedByCount" class="two-colours results-table small">
       <thead>
         <tr>
-          <th ng-repeat="column in columns" ng-show="column.visible">{{column.label}}</th>
+          <th ng-repeat="column in columns" ng-show="column.visible"><span tooltip="{{column.tooltip}}">{{column.label}}</span></th>
           <!--      <th  ng-show="columns['goIdentifier'].visible && showSlimColumns">Slimmed GO Term</th>-->
         </tr>
       </thead>

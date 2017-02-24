@@ -218,6 +218,9 @@ span.has-tip{
     background: rgba(0, 0, 0, 0);
 }
 
+th.has-tip{
+  background: none;
+}
 
 .in-form-button {
   margin-top: 1.6em;
@@ -669,4 +672,20 @@ h5.active-filter:before{
 .annotations-link:hover, .typeahead-box a.annotations-link:hover {
   opacity: .7;
   color: $white;
+}
+
+section{
+  th {
+  vertical-align: top;
+  }
+  span.has-tip{
+      font-weight: bold;
+  }
+}
+
+#main-container .row{
+  margin-bottom: 2em;
+}
+#main-container .start-page .row{
+  margin-bottom: 0px;
 }
