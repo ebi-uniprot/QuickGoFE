@@ -26,7 +26,7 @@ describe('Controller: geneProductFilter', function () {
 
   it('should add valid gene products', function () {
     scope.getEffectiveTotalCheckedAndMergedTerms = function() {
-      return {selection: [{checked: true, id: 'A0A000'}], totalChecked: 1};
+      return {mergedTerms: [{checked: true, id: 'A0A000'}], totalChecked: 1};
     };
     expect(scope.gpIds.length).toEqual(0);
     scope.gpTextArea = 'A0A000';
@@ -36,7 +36,7 @@ describe('Controller: geneProductFilter', function () {
 
   it('should not add invalid gene products', function () {
     scope.getEffectiveTotalCheckedAndMergedTerms = function() {
-      return {selection: [], totalChecked: 0};
+      return {mergedTerms: [], totalChecked: 0};
     };
     expect(scope.gpIds.length).toEqual(0);
     scope.gpTextArea = 'ABCDEFGHIJ_1234567890';
