@@ -59,10 +59,11 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
     $scope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
-    var response = $scope.updateSelectedTerms($scope.goTerms, allTerms.filteredItems, $scope.uploadLimit);
-    if (response) {
-      $scope.goTerms = response.selection;
-      $scope.totalChecked = response.totalChecked;
+    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, allTerms.filteredItems,
+      $scope.uploadLimit);
+    if ($scope.hasTotalChanged($scope.totalChecked, merge.totalChecked)) {
+      $scope.goTerms = merge.mergedTerms;
+      $scope.totalChecked = merge.totalChecked;
       updateTermInfo();
     }
     $scope.goTermsTextArea = '';
@@ -89,10 +90,10 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
         slimSetItems = filterService.removeRootTerms(slimSetItems);
       }
       var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
-      var response = $scope.updateSelectedTerms($scope.goTerms, filterItems, $scope.uploadLimit);
-      if (response) {
-        $scope.goTerms = response.selection;
-        $scope.totalChecked = response.totalChecked;
+      var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, filterItems, $scope.uploadLimit);
+      if ($scope.hasTotalChanged($scope.totalChecked, merge.totalChecked)) {
+        $scope.goTerms = merge.mergedTerms;
+        $scope.totalChecked = merge.totalChecked;
       }
       $scope.selectedPreDefinedSlimSet = '';
     }

@@ -42,10 +42,10 @@ app.controller('geneProductFilter', function ($scope, stringService,
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
-    var response = $scope.updateSelectedTerms($scope.gpIds, allItems.filteredItems, $scope.uploadLimit);
-    if (response) {
-      $scope.gpIds = response.selection;
-      $scope.totalChecked = response.totalChecked;
+    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.gpIds, allItems.filteredItems, $scope.uploadLimit);
+    if ($scope.hasTotalChanged($scope.totalChecked, merge.totalChecked)) {
+      $scope.gpIds = merge.mergedTerms;
+      $scope.totalChecked = merge.totalChecked;
     }
     $scope.gpTextArea = '';
   };

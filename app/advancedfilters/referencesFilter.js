@@ -24,9 +24,9 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(refs, validationService.validateOther);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid reference');
-    var response = $scope.updateSelectedTerms($scope.references, allItems.filteredItems, $scope.uploadLimit);
-    if (response) {
-      $scope.references = response.selection;
+    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.references, allItems.filteredItems, $scope.uploadLimit);
+    if ($scope.hasTotalChanged($scope.totalChecked, merge.totalChecked)) {
+      $scope.references = merge.mergedTerms;
       $scope.updateTotalChecked($scope.references);
     }
     $scope.referenceTextArea = '';

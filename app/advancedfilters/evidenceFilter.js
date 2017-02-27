@@ -43,10 +43,10 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid evidence code');
-    var response = $scope.updateSelectedTerms($scope.ecos, allItems.filteredItems, $scope.uploadLimit);
-    if (response) {
-      $scope.ecos = response.selection;
-      $scope.totalChecked = response.totalChecked;
+    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.ecos, allItems.filteredItems, $scope.uploadLimit);
+    if ($scope.hasTotalChanged($scope.totalChecked, merge.totalChecked)) {
+      $scope.ecos = merge.mergedTerms;
+      $scope.totalChecked = merge.totalChecked;
     }
     $scope.ecoTextArea = '';
   };

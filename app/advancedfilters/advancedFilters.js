@@ -25,15 +25,16 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     return totalChecked;
   };
 
-  $scope.updateSelectedTerms = function(selection, terms, uploadLimit) {
-    var mergedTerms = filterService.mergeRightToLeft(terms, selection);
-    var checked = $scope.getAllChecked(mergedTerms);
-    if (uploadLimit && (checked.length > uploadLimit)) {
-      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
-      return undefined;
-    } else {
-      return {selection: mergedTerms, totalChecked: checked.length}
-    }
+  $scope.hasTotalChanged = function (oldTotal, newTotal) {
+    return oldTotal !== newTotal;
+  }
+
+  $scope.getEffectiveTotalCheckedAndMergedTerms = function(displayedTerms, newTerms, uploadLimit) {
+    var mergedTerms = filterService.mergeRightToLeft(newTerms, displayedTerms);
+    var totalCheckedAfterMerge = $scope.getAllChecked(mergedTerms).length;
+    var totalCheckedAfterHandlingError = $scope.getTotalCheckedAfterHandlingLimitError(totalCheckedAfterMerge,
+            uploadLimit);
+    return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterHandlingError}
   };
 
   $scope.stackErrors = function(elements, type, message, field) {
@@ -94,7 +95,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     $scope.totalChecked += term.checked ? 1 : -1;
   };
 
-  $scope.updateTotalChecked = function(collection) {
-    $scope.totalChecked = $scope.getAllChecked(collection).length;
+  $scope.updateTotalChecked = function(displayedTerms) {
+    $scope.totalChecked = $scope.getAllChecked(displayedTerms).length;
   }
 });
