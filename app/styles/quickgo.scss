@@ -65,6 +65,10 @@ a, a:visited, #local-masthead #local-title .columns a{
   border-bottom: 0px;
 }
 
+a:hover{
+  opacity:inherit;
+}
+
 .tabs-title > a[aria-selected='true']{
   background-color: #999;
 }
