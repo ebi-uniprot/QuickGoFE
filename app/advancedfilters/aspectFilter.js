@@ -1,3 +1,4 @@
+'use strict';
 app.controller('aspectFilter', function($scope, presetsService, filterService){
   $scope.aspects = [];
 

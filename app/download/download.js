@@ -1,3 +1,5 @@
+/*jshint laxbreak: true */
+'use strict';
 app.controller('DownloadCtrl', function($scope, $http, $routeParams, hardCodedDataService, downloadService) {
 
   $scope.selectedLimit=1000; //default

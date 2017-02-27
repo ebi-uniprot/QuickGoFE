@@ -210,13 +210,6 @@ $scope.openAnnoExtension = function (annoExt) {
   });
 };
 
-  /**
-   * Put commas between the rather large numbers we can have here.
-   */
-  function prettyPrintNumberAnnotations(numberAnnotations) {
-    $scope.totalItems = numberAnnotations.toLocaleString();
-  }
-
 
   $scope.pageChanged = function () {
     getResultsPage();

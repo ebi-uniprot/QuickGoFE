@@ -3,20 +3,26 @@
     <small>{{extension.length > 0 ? extension : 'Annotation extension query'}}</small>
   </div>
   <div class="row">
-    <div class="medium-4 columns">
+    <div class="medium-3 columns">
       <label>
         Relationship
-        <input type="text" placeholder=" *, occurs_in, has_input, directly_regulates, ..." ng-model="relationship">
+        <input type="text" placeholder="occurs_in, has_input, directly_regulates, ..." ng-model="relationship">
       </label>
     </div>
-    <div class="medium-6 columns">
+    <div class="medium-4 columns">
       <label>
-        Database ID
-        <input type="text" placeholder=" *, UniProtKB, UBERON:0000922, ..." ng-model="dbId">
+        Database
+        <input type="text" placeholder="UniProtKB, UBERON, ..." ng-model="db">
+      </label>
+    </div>
+    <div class="medium-3 columns">
+      <label>
+        Identifier
+        <input type="text" placeholder="0000922, ..." ng-model="id">
       </label>
     </div>
     <div class="medium-2 columns">
-      <button type="button" class="hollow button in-form-button" ng-click="addComponent()" ng-disabled="!relationship || !dbId">Add</button>
+      <button type="button" class="hollow button in-form-button" ng-click="addComponent()" ng-disabled="!relationship || !db || !id ">Add</button>
     </div>
   </div>
   <hr>
