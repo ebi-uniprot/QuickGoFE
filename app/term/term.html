@@ -1,7 +1,4 @@
-
-
 <div id="content"  class="row" role="main" cg-busy="termPromise" ng-if="termModel.id">
-
   <section class="columns medium-9" id="container">
   <!-- Title section -->
   <section class="panel" id="overview">
@@ -22,10 +19,14 @@
     <!-- Term name -->
     <h3>{{termModel.name}}</h3>
 
-    </section>
+
+    <!-- Ontology -->
+    <p ng-show="isGoTerm"><strong>{{readableAspect}}</strong></p>
+
+
 
     <!-- Definition -->
-    <section>
+
       <h5>Definition <span ng-if="isGoTerm" style="display:inline-block">
         (<a class="quickgo-link gonuts-link" href="http://gowiki.tamu.edu/wiki/index.php/Category:{{termModel.id}}"
             target="_blank">{{termModel.id}}
@@ -46,7 +47,7 @@
 
 
     <!-- Restrictions -->
-    <section ng-if="showRestrictions">
+    <section ng-if="showRestrictions" class="column row">
     <h5>Restrictions</h5>
     <p>
       <span ng-if="termModel.usage === 'Electronic'">This term should not be used for direct manual annotation; it may, however, be used for mapping to external vocabularies in order to create electronic annotations.</span>
@@ -54,7 +55,6 @@
       <br />
       <span ng-if="termModel.comment">See comment below for further information.</span>
     </p>
-
     </section>
 
     <!-- Comments -->
@@ -64,26 +64,26 @@
     </section>
 
     <section ng-if="termModel.secondaryIds.length > 0">
-    <h5>Secondary IDs</h5>
-    <p class="obsolete">{{termModel.secondaryIdsString}}</p>
+      <h5>Secondary IDs</h5>
+      <p class="obsolete">{{termModel.secondaryIdsString}}</p>
     </section>
 
     <!-- Aknowledgements -->
     <section ng-if="termModel.credits.length > 0">
-    <h5>Acknowledgement</h5>
-    <p>
-        This term was created by the GO Consortium with support from:
-          <span ng-repeat="credit in termModel.credits">
-            <a ng-if="credit.code === 'BHF'" href="{{credit.url}}" target="_blank"><img
-              src="https://www.bhf.org.uk/~/media/images/admin/logo/bhf-logo.png" alt="BHF image" class="credit-image"/></a>
-            <a ng-if="credit.code === 'KRUK'" href="{{credit.url}}" target="_blank"> <img
-              src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image"
-              class="credit-image"/></a>
-            <a ng-if="credit.code === 'PARKUK'" href="{{credit.url}}" target="_blank"> <img
-              src="http://www.ebi.ac.uk/QuickGO/image/PARKUK.png" alt="PARK image"
-              class="credit-image"/></a>
-          </span>
-    </p>
+      <h5>Acknowledgement</h5>
+      <p>
+          This term was created by the GO Consortium with support from:
+            <span ng-repeat="credit in termModel.credits">
+              <a ng-if="credit.code === 'BHF'" href="{{credit.url}}" target="_blank"><img
+                src="https://www.bhf.org.uk/~/media/images/admin/logo/bhf-logo.png" alt="BHF image" class="credit-image"/></a>
+              <a ng-if="credit.code === 'KRUK'" href="{{credit.url}}" target="_blank"> <img
+                src="http://www.kidneyresearchuk.org/img/logos/kidneyresearchuk-logo_201x85.png" alt="KRUK image"
+                class="credit-image"/></a>
+              <a ng-if="credit.code === 'PARKUK'" href="{{credit.url}}" target="_blank"> <img
+                src="http://www.ebi.ac.uk/QuickGO/image/PARKUK.png" alt="PARK image"
+                class="credit-image"/></a>
+            </span>
+      </p>
     </section>
 
     <!-- Buttons -->
@@ -97,12 +97,11 @@
 
   <!-- Main Content -->
   <div>
-
-    <section id="termSynonyms" ng-if="termModel.synonyms.length > 0">
-      <h3 class="term-section-header">
-        <span uib-tooltip-template="'synonyms.html'" tooltip-placement="top-right">Synonyms</span>
-      </h3>
-      <table id="synonymsTableAccordian" class="two-colours">
+    <section id="termSynonyms" ng-if="termModel.synonyms.length > 0" class="column row">
+      <h3 class="term-section-header">Synonyms</h3>
+      <p>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
+        of the relationship between the name and synonym given by the synonym scope.</p>
+      <table id="synonymsTableAccordian">
         <tr>
           <th>Synonym</th>
           <th>Type</th>
@@ -117,20 +116,19 @@
     </section>
 
     <!-- Ancestors graph -->
-    <section id="ancestorChart" ng-if="!isObsolete">
+    <section id="ancestorChart" ng-if="!isObsolete" class="column row">
       <h3 class="term-section-header">Ancestor Chart <small><chart-icon ids="{{termModel.id}}"></chart-icon></small></h3>
       <chart ids="termModel.id"></chart-icon>
-     </section>
+    </section>
 
     <!-- Child Terms -->
-    <section id="childTerms" ng-if="termModel.children.length > 0" ng-hide="isObsolete">
-
-      <h3 class="term-section-header"><span uib-tooltip-template="'childterms.html'" tooltip-placement="top-right">Child Terms</span></h3>
+    <section id="childTerms" ng-if="termModel.children.length > 0" ng-hide="isObsolete" class="column row">
+      <h3 class="term-section-header">Child Terms</h3>
+      <p>This table lists all terms that are direct descendants (child terms) of {{termModel.id}}</p>
       <div>
-        <table class="two-colours">
+        <table>
           <tr>
             <th>Child Term</th>
-
             <th>Relationship to </br>{{termModel.id}}</th>
           </tr>
           <tr ng-repeat="childRelation in termModel.children | limitTo:childTermsPageSize">
@@ -146,11 +144,10 @@
     </section>
 
     <!-- Annotation Guidance -->
-    <section id="termAnnotationGuidance" ng-if="termModel.annotationGuidelines.length > 0">
+    <section id="termAnnotationGuidance" ng-if="termModel.annotationGuidelines.length > 0" class="column row">
       <h3 class="term-section-header">Annotation Guidance</h3>
-
       <p>Usage of this term is subject to the following annotation guidelines:</p>
-      <table id="guidelineTable" class="two-colours">
+      <table id="guidelineTable">
 
         <tr ng-repeat="guideline in termModel.annotationGuidelines">
           <td>{{guideline.description}}</td>
@@ -160,13 +157,12 @@
     </section>
 
     <!-- GO Discussions AKA Planned Changes-->
-    <section id="goDiscussions" ng-if="termModel.goDiscussions.length > 0">
+    <section id="goDiscussions" ng-if="termModel.goDiscussions.length > 0" class="column row">
       <h3 class="term-section-header">GO Discussions</h3>
-
       <p>The GO editorial group is intending to improve the information provided in this area of the GO.
         If you would like to be involved in discussions regarding this development activity, please email the GO Consortium.
         Please note that it is still appropriate to use this term for curation or analysis purpose:</p>
-      <table id="plannedChangesTable" class="two-colours">
+      <table id="plannedChangesTable">
         <tr>
           <th colspan="2">Ontology Development Project</th>
         </tr>
@@ -178,11 +174,10 @@
     </section>
 
     <!-- Taxon Constraints -->
-    <section id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0">
+    <section id="termTaxonConstraints" ng-if="termModel.taxonConstraints.length > 0" class="column row">
       <h3 class="term-section-header">Taxon Constraints</h3>
-
       <p>The use of this term should conform to the following taxon constraints:</p>
-      <table id="taxonconstraintsTable" class="two-colours">
+      <table id="taxonconstraintsTable">
         <tr>
           <th>Ancestor GO ID</th>
           <th>Ancestor GO Term Name</th>
@@ -216,12 +211,10 @@
     </section>
 
     <!--Blacklist-->
-    <section id="blacklist" ng-if="termModel.blacklist.length > 0" ng-hide="!isGoTerm">
-      <h3 class="term-section-header">
-        <span uib-tooltip-template="'blacklist.html'" tooltip-placement="top-right">Annotation Blacklist</span>
-      </h3>
-
-      <table class="two-colours">
+    <section id="blacklist" ng-if="termModel.blacklist.length > 0" ng-hide="!isGoTerm" class="column row">
+      <h3 class="term-section-header">Annotation Blacklist</h3>
+      <p>This list aims to correct incorrect annotations to UniProtKB accessions inferred from electronic annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium:</p>
+      <table>
         <tr>
           <th>Category</th>
           <th>Entity Type</th>
@@ -245,14 +238,12 @@
       </table>
       <button ng-show="blacklistPageSize < termModel.blacklist.length" ng-click="blacklistPageSize = termModel.blacklist.length" class="button hollow">show all</button>
       <button ng-show="(blacklistPageSize === termModel.blacklist.length && termModel.blacklist.length > defaultPageSize)" ng-click="blacklistPageSize = defaultPageSize" class="button hollow">show less</button>
-
-
     </section>
 
     <!-- Cross References-->
-    <section id="termCrossReferences" ng-if="termModel.xRefs.length > 0">
+    <section id="termCrossReferences" ng-if="termModel.xRefs.length > 0" class="column row">
       <h3 class="term-section-header">Cross-references</h3>
-      <table id="termCrossReferencesTable" class="two-colours">
+      <table id="termCrossReferencesTable">
       <tr>
         <th>Database</th>
         <th>ID</th>
@@ -266,13 +257,12 @@
       </table>
       <button ng-show="crossrefsPageSize < termModel.xRefs.length" ng-click="crossrefsPageSize = termModel.xRefs.length" class="button hollow">show all</button>
       <button ng-show="(crossrefsPageSize === termModel.xRefs.length && termModel.xRefs.length > defaultPageSize)" ng-click="crossrefsPageSize = defaultPageSize" class="button hollow">show less</button>
-
     </section>
 
     <!-- Cross Ontology Relations -->
-    <section id="termCrossOntologyRelations" ng-if="termModel.xRelations.length > 0">
+    <section id="termCrossOntologyRelations" ng-if="termModel.xRelations.length > 0" class="column row">
       <h3 class="term-section-header">Cross-Ontology Relations</h3>
-      <table id="ontologyrelationsTable" class="two-colours">
+      <table id="ontologyrelationsTable">
         <tr>
           <th>Relation</th>
           <th>Other Ontology</th>
@@ -288,15 +278,12 @@
       </table>
       <button ng-show="crossOntologyPageSize < termModel.xRelations.length" ng-click="crossOntologyPageSize = termModel.xRelations.length" class="button hollow">show all</button>
       <button ng-show="(crossOntologyPageSize === termModel.xRelations.length && termModel.xRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="button hollow">show less</button>
-
-      </accordion-group>
     </section>
 
     <!-- Protein complex -->
-    <section id="termProteinComplexes" ng-if="termModel.proteinComplexes.length > 0">
+    <section id="termProteinComplexes" ng-if="termModel.proteinComplexes.length > 0" class="column row">
       <h3 class="term-section-header">Protein Complexes</h3>
-
-      <table id="proteinComplexesTable" class="two-colours">
+      <table id="proteinComplexesTable">
         <tr>
           <th>Database</th>
           <th>ID</th>
@@ -321,11 +308,10 @@
     </section>
 
     <!-- show Replaces-->
-    <section id="termReplaces" ng-if="termModel.replaces.length > 0">
+    <section id="termReplaces" ng-if="termModel.replaces.length > 0" class="column row">
       <h3 class="term-section-header">Replaces</h3>
-
       <p>This term can be used instead of these obsolete terms:</p>
-      <table id="replacesTable" class="two-colours">
+      <table id="replacesTable">
         <tr>
           <th>GO Identifier</th>
           <th>GO Term Name</th>
@@ -343,11 +329,10 @@
     </section>
 
     <!-- Replaced By-->
-    <section id="termReplacedBy" ng-if="termModel.replacements.length > 0">
+    <section id="termReplacedBy" ng-if="termModel.replacements.length > 0" class="column row">
       <h3 class="term-section-header">Replaced By</h3>
-
       <p>This term is obsolete. Try one of these terms:</p>
-      <table id="replacementsTable" class="two-colours">
+      <table id="replacementsTable">
         <tr>
           <th>Advice</th>
           <th>GO Identifier</th>
@@ -364,16 +349,15 @@
     </section>
 
     <!-- Co-occurring statistics -->
-    <section id="coOcurring" ng-if="isGoTerm && !isObsolete">
-      <h3 class="term-section-header">
-        <span uib-tooltip-template="'co-occurring.html'" tooltip-placement="top-right">Co-occurring Terms</span>
-      </h3>
+    <section id="coOcurring" ng-if="isGoTerm && !isObsolete" class="column row">
+      <h3 class="term-section-header">Co-occurring Terms</h3>
+      <p>These tables show the number of times the term listed in the table has been co-annotated.</p>
       <tabset>
         <tab heading="Based on Entire Annotation set">
           <div id="allCoOccurringStats">
             <coterms id="termId" mode="'ALL'" limit="statsLimit" page-size="coOccurringEntirePageSize"
                table-id="'allCoOccurringStatsTable'" default-page-size="defaultPageSize"></coterms>
-        </div>
+          </div>
         </tab>
 
         <tab heading="Based on Manual Annotations only">
@@ -381,18 +365,15 @@
             <coterms id="termId" mode="'MANUAL'" limit="statsLimit" size="10" page-size="coOccurringManualPageSize"
               table-id="'manualCoOccurringStatsTable'" default-page-size="defaultPageSize"></coterms>
           </div>
-
           </tab>
-        </tabset>
-
+      </tabset>
     </section>
 
     <!-- GO Slims -->
-    <section id="termGOSlims" ng-if="termModel.subsets.length > 0">
+    <section id="termGOSlims" ng-if="termModel.subsets.length > 0" class="column row">
       <h3 class="term-section-header">GO Slims</h3>
-
       <p>This term is present in the following GO Consortium-maintained GO slims:</p>
-      <table id="subsetsTable" class="two-colours">
+      <table id="subsetsTable">
         <tr>
           <th>GO slim name</th>
           <th>Total Number of Terms in Slim</th>
@@ -405,14 +386,14 @@
     </section>
 
     <!-- Change log -->
-    <section id="termHistory">
+    <section id="termHistory" class="column row">
       <h3 class="term-section-header">Change Log</h3>
       <tabset>
         <li class="section-disabled tabs-title" ng-show="termModel.history.length <= 0">
           <a>All changes</a>
         </li>
         <tab ng-show="termModel.history.length > 0" heading="All changes">
-          <table class="two-colours">
+          <table>
             <tr>
               <th>Timestamp</th>
               <th>Action</th>
@@ -434,7 +415,7 @@
           <a>Term</a>
         </li>
         <tab ng-show="filter(termModel.history,'TERM').length > 0" heading="Term">
-          <table class="two-colours">
+          <table>
             <tr>
               <th>Timestamp</th>
               <th>Action</th>
@@ -454,7 +435,7 @@
           <a>Definition / Synonyms</a>
         </li>
         <tab  ng-show="termModel.historyDefSyn.length > 0" heading="Definition / Synonyms">
-          <table class="two-colours">
+          <table>
             <tr>
               <th>Timestamp</th>
               <th>Action</th>
@@ -474,7 +455,7 @@
           <a>Relationships</a>
         </li>
         <tab  ng-show="filter(termModel.history,'RELATION').length > 0" heading="Relationships">
-          <table class="two-colours">
+          <table>
             <tr>
               <th>Timestamp</th>
               <th>Action</th>
@@ -494,7 +475,7 @@
           <a>Cross-references</a>
         </li>
         <tab ng-show="filter(termModel.history,'XREF').length > 0"  heading="Cross-references">
-          <table class="two-colours">
+          <table>
             <tr>
               <th>Timestamp</th>
               <th>Action</th>
@@ -514,7 +495,7 @@
           <a>Other</a>
         </li>
         <tab ng-show="termModel.historyOther.length > 0"  heading="Other">
-          <table class="two-colours">
+          <table>
             <tr>
               <th>Timestamp</th>
               <th>Action</th>
@@ -531,10 +512,8 @@
         </tab>
       </tabset>
     </section>
-
   </div>
   </section>
-
 
     <!-- Sidebar: Controls what gets displayed on the main page.-->
   <div class="columns medium-3">
@@ -625,11 +604,3 @@
     </ul>
   </div>
 </div>
-
-<!-- <script type="text/ng-template" id="synonyms.html"><span>Synonyms are alternative words or phrases closely related in meaning to the term name, with indication
-  of the relationship between the name and synonym given by the synonym scope.</span></script>
-<script type="text/ng-template" id="co-occurring.html"><span>These tables show the number of times the term listed in the table has been co-annotated.</span></script>
-<script type="text/ng-template" id="childterms.html"><span>This table lists all terms that are direct descendants (child terms) of {{termModel.id}}</span></script>
-<script type="text/ng-template" id="blacklist.html"><span>This list aims to correct annotations to UniProtKB accessions from incorrect annotations inferred from electronic
-  annotation (IEA) methods that are supplied by the UniProt-GOA project to the GO Consortium.</span></script>
-<script type="text/ng-template" id="colAspect.html"><span>The ontology to which <br />the GO term belongs:<br />F (Molecular Function)<br />P (Biological Process)<br />C (Cellular Component)</span></script> -->
