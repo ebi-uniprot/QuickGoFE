@@ -14,15 +14,14 @@
     </div>
     <h2 class="page-title">
       {{termModel.id}}
-    </h2>
       <aspect-icon aspect="termModel.aspect"></aspect-icon>
       <basket-button termid="{{termModel.id}}" icondisabled="{{termModel.isObsolete}}"></basket-button>
+
+    </h2>
 
     <!-- Term name -->
     <h3>{{termModel.name}}</h3>
 
-    <!-- Ontology -->
-    <p ng-show="isGoTerm"><strong>{{readableAspect}}</strong></p>
     </section>
 
     <!-- Definition -->
