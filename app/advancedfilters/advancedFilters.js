@@ -17,8 +17,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
   };
 
-  $scope.getTotalCheckedAfterHandlingOneOnlyLimitError = function(currentTotalChecked, uploadLimit) {
-    $rootScope.cleanErrorMessages();
+  $scope.getTotalCheckedAfterHandlingLimitError = function(currentTotalChecked, uploadLimit) {
     var totalChecked = $scope.getNewTotalBasedOnLimit(currentTotalChecked, uploadLimit);
     if (totalChecked !== currentTotalChecked) {
         addAboveLimitError(uploadLimit);
