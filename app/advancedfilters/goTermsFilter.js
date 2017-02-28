@@ -105,7 +105,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
       $scope.uploadLimit);
   };
 
-  $scope.updateCheckStatus = function(term) {
+  $scope.updateTotalCheckedOnChange = function(term) {
     var currentTotalCheck = $scope.getAllChecked($scope.goTerms).length;
     $scope.updateNumberOfCheckedItems();
     term.checked = $scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;

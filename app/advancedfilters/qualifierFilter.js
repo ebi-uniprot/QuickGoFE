@@ -22,7 +22,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
     angular.forEach($scope.qualifiers, function(qualifier) {
       if(qualifier.item.name.lastIndexOf('NOT', 0) === 0) {
         if (!qualifier.checked) {
-          $scope.updateCheckStatus(qualifier);
+          $scope.updateTotalCheckedOnChange(qualifier);
         }
         qualifier.checked = true;
       }

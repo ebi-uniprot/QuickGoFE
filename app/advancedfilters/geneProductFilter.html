@@ -7,7 +7,7 @@
       <ul class="no-bullet">
         <li ng-repeat="gp in gpIds" class="checkbox">
           <label>
-            <input type="checkbox" ng-model="gp.checked" ng-change="updateCheckStatus(gp)"> {{gp.id}}
+            <input type="checkbox" ng-model="gp.checked" ng-change="updateTotalCheckedOnChange(gp)"> {{gp.id}}
           </label>
         </li>
       </ul>

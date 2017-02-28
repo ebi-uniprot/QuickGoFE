@@ -56,7 +56,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
           $scope.uploadLimit);
   };
 
-    $scope.updateCheckStatus = function(term) {
+    $scope.updateTotalCheckedOnChange = function(term) {
         var currentTotalCheck = $scope.getAllChecked($scope.gpIds).length;
         $scope.updateNumberOfCheckedItems();
         term.checked = $scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;

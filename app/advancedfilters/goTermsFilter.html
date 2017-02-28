@@ -7,7 +7,7 @@
     <ul class="no-bullet">
       <li ng-repeat="term in goTerms" class="checkbox">
         <label>
-          <input type="checkbox" ng-model="term.checked" ng-change="updateCheckStatus(term)">
+          <input type="checkbox" ng-model="term.checked" ng-change="updateTotalCheckedOnChange(term)">
           <term-line id="term.id" aspect="term.item.aspect" obsolete="term.item.isObsolete"
              name="term.item.name"></term-line>
         </label>

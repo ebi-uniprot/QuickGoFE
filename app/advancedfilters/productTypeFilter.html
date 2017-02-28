@@ -3,7 +3,7 @@
     <ul class="no-bullet">
       <li class="checkbox" ng-repeat="gpType in gpTypes">
         <label>
-          <input type="checkbox" ng-model="gpType.checked" ng-change="updateCheckStatus(gpType)">
+          <input type="checkbox" ng-model="gpType.checked" ng-change="updateTotalCheckedOnChange(gpType)">
           {{gpType.item.name}}</label>
       </li>
     </ul>

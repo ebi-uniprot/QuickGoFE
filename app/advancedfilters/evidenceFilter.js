@@ -57,7 +57,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
       $scope.uploadLimit);
   };
 
-  $scope.updateCheckStatus = function(term) {
+  $scope.updateTotalCheckedOnChange = function(term) {
     var currentTotalCheck = $scope.getAllChecked($scope.ecos).length;
     $scope.updateNumberOfCheckedItems();
     term.checked = $scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;;

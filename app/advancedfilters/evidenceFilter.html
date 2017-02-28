@@ -8,7 +8,7 @@
       <ul class="no-bullet">
         <li ng-repeat="eco in ecos" class="checkbox">
           <label>
-            <input type="checkbox" ng-model="eco.checked" ng-change="updateCheckStatus(eco)">
+            <input type="checkbox" ng-model="eco.checked" ng-change="updateTotalCheckedOnChange(eco)">
             <term-line id="eco.id" name="eco.item.name"></term-line> {{eco.item.description}}
           </label>
         </li>

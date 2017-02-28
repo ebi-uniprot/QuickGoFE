@@ -25,7 +25,7 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
     $rootScope.cleanErrorMessages();
   };
 
-  $scope.updateCheckStatus = function(term){
+  $scope.updateTotalCheckedOnChange = function(term){
     $scope.totalChecked += term.checked ? 1 : -1;
   };
 

@@ -56,13 +56,13 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
       $scope.uploadLimit);
   };
 
-  $scope.updateCheckStatus = function(term) {
-    $scope.$parent.updateCheckStatus(term);
+  $scope.updateTotalCheckedOnChange = function(term) {
+    $scope.$parent.updateTotalCheckedOnChange(term);
     var currentTotalCheck = $scope.getAllChecked($scope.references).length;
     $scope.updateNumberOfCheckedItems();
     if ($scope.totalChecked !== currentTotalCheck) {
       term.checked = !term.checked;
-      $scope.$parent.updateCheckStatus(term);
+      $scope.$parent.updateTotalCheckedOnChange(term);
     }
   };
 

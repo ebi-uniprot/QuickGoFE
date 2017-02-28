@@ -76,7 +76,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     });
   };
 
-  $scope.updateCheckStatus = function() {
+  $scope.updateTotalCheckedOnChange = function() {
     $rootScope.cleanErrorMessages();
   };
 
