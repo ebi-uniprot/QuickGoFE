@@ -17,6 +17,7 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
     $scope.$parent.query.extension = '';
     init();
     $scope.$parent.updateQuery();
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.addComponent = function() {
