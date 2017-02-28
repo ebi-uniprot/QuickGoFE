@@ -12,7 +12,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
       var withPresetItems = filterService.getPresetFilterItems(withDBs, 'name');
       $scope.withFrom = filterService.mergeRightToLeft($scope.withFrom, withPresetItems);
     });
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   var getQuery = function() {
@@ -20,7 +20,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   };
 
   $scope.addWith = function() {
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
 
     var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
     var allItems = filterService.addFilterItems(withs, validationService.validateOther);
@@ -31,7 +31,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
 
   $scope.apply = function() {
     $scope.addToQuery('withFrom', getQuery());
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function () {

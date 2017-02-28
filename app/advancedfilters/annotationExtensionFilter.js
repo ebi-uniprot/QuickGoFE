@@ -5,12 +5,12 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
 
   var init = function() {
     $scope.extension = $scope.$parent.query.extension ? $scope.$parent.query.extension : '';
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('extension', $scope.extension);
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function () {

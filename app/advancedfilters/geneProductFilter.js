@@ -15,7 +15,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
       $scope.geneProductSets = filterService.mergeRightToLeft(queryFilterItems, presetFilterItems);
     });
     $scope.totalChecked = $scope.getAllChecked($scope.gpIds).length;
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function () {
@@ -23,7 +23,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
     $scope.query.targetSet = '';
     initgpIds();
     $scope.updateQuery();
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.apply = function () {
@@ -33,11 +33,11 @@ app.controller('geneProductFilter', function ($scope, stringService,
     if ($scope.geneProductSets.length > 0) {
       $scope.addToQuery('targetSet', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'id'));
     }
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.addGPs = function () {
-    $rootScope.alerts = [];
+     rootScope.cleanErrorMessages();
 
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);

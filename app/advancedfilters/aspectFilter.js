@@ -11,7 +11,7 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
       $scope.aspects = _.sortBy(filterService.mergeRightToLeft($scope.aspects, aspects), 'name');
     });
 
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function() {
@@ -22,7 +22,7 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.updateCheckStatus = function(term){

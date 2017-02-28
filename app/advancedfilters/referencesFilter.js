@@ -15,11 +15,11 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
       var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
       $scope.references = filterService.mergeRightToLeft($scope.references, referencePresetItems);
     });
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.addReferences = function() {
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
 
     var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(refs, validationService.validateOther);
@@ -34,7 +34,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('reference', getQuery());
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function () {

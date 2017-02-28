@@ -10,7 +10,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
 
     var allQualifiers = filterService.getPresetFilterItems(hardCodedDataService.getQualifiers(), 'qualifier');
     $scope.qualifiers = filterService.mergeRightToLeft($scope.qualifiers, allQualifiers);
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   var getQuery = function() {
@@ -18,7 +18,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
   };
 
   $scope.selectAllNotQualifiers = function () {
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
     angular.forEach($scope.qualifiers, function(qualifier) {
       if(qualifier.item.name.lastIndexOf('NOT', 0) === 0) {
         if (!qualifier.checked) {
@@ -31,7 +31,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
 
   $scope.apply = function() {
     $scope.addToQuery('qualifier', getQuery());
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function () {

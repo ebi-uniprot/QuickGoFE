@@ -16,7 +16,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
       $scope.ecos = filterService.mergeRightToLeft($scope.ecos, filterItems);
       $scope.totalChecked = $scope.getAllChecked($scope.ecos).length;
     });
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   var getQuery = function() {
@@ -26,7 +26,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   $scope.apply = function() {
     $scope.$parent.addToQuery('evidenceCode', getQuery());
     $scope.$parent.addToQuery('evidenceCodeUsage', $scope.evidenceCodeUsage);
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function () {
@@ -34,11 +34,11 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     $scope.$parent.query.evidenceCodeUsage = '';
     init();
     $scope.$parent.updateQuery();
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.addECOs = function () {
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
 
     var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);

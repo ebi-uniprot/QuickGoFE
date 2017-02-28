@@ -27,7 +27,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
     updateTermInfo();
     $scope.totalChecked = $scope.getAllChecked($scope.goTerms).length;
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   var updateTermInfo = function() {
@@ -50,11 +50,11 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $scope.$parent.query.goUsageRelationships = '';
     init();
     $scope.$parent.updateQuery();
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.addGoTerms = function() {
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
 
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
@@ -78,11 +78,11 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $scope.$parent.addToQuery('goId', selected);
     $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
     $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.addPredefinedSet = function() {
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
 
     if($scope.selectedPreDefinedSlimSet) {
       var slimSetItems = $scope.selectedPreDefinedSlimSet.associations;

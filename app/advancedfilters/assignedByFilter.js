@@ -10,12 +10,12 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
         var filterItems = filterService.getPresetFilterItems(assignDBs, 'name');
         $scope.assignedBy = filterService.mergeRightToLeft($scope.assignedBy, filterItems);
       });
-      $rootScope.alerts = [];
+      $rootScope.cleanErrorMessages();
   };
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('assignedBy', getQuery());
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function () {
