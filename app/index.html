@@ -94,14 +94,14 @@
 
 
 
-     <div id="local-header" class="masthead row" ng-class="{'sub-page' : location.path()==='/'}">
+     <div id="local-header" ng-class="{'masthead row ': location.path()==='/', 'masthead row  sub-page ' : location.path()!=='/'}" ng-controller="LocationCtrl">
 
       <!-- local-title -->
       <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
-      <div id="local-title" class="logo-title2 row" ng-controller="LocationCtrl">
+      <div id="local-title" ng-class="{'logo-title row': location.path()==='/', 'row ' : location.path()!=='/'}">
 
           <!-- Logo -->
-          <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path()==='/', 'medium-1 columns' : location.path()!=='/'}">
+          <span id="quickgo-logo" ng-class="{'medium-12 columns': location.path()==='/', 'medium-1 columns ' : location.path()!=='/'}">
             <a href="/" accesskey="1" id="logo">
               <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
             </a>
