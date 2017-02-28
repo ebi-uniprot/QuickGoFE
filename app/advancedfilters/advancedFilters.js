@@ -95,7 +95,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     $scope.totalChecked += term.checked ? 1 : -1;
   };
 
-  $scope.updateTotalChecked = function(displayedTerms) {
+  $scope.updateTotalCheckedFromDisplay = function(displayedTerms) {
     $scope.totalChecked = $scope.getAllChecked(displayedTerms).length;
   }
 });

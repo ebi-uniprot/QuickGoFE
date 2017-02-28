@@ -27,7 +27,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.references, allItems.filteredItems, $scope.uploadLimit);
     if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.references = merge.mergedTerms;
-      $scope.updateTotalChecked($scope.references);
+      $scope.updateTotalCheckedFromDisplay($scope.references);
     }
     $scope.referenceTextArea = '';
   };
