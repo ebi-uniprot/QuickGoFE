@@ -37,7 +37,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.addGPs = function () {
-     rootScope.cleanErrorMessages();
+     $rootScope.cleanErrorMessages();
 
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);

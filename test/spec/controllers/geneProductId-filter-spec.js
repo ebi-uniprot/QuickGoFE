@@ -16,8 +16,8 @@ describe('Controller: geneProductFilter', function () {
       return [];
     };
     scope.hasTotalChanged = function (oldTotal, newTotal) {
-    return oldTotal !== newTotal;
-    }
+      return oldTotal !== newTotal;
+    };
     scope.stackErrors = function() {};
     geneProductFilter = $controller('geneProductFilter', {
       $scope: scope
