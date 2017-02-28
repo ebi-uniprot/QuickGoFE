@@ -99,7 +99,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     }
   };
 
-  $scope.updateNumberOfCheckedItems = function(){
+  $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
     $rootScope.cleanErrorMessages();
     $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.goTerms).length,
       $scope.uploadLimit);
@@ -107,7 +107,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
   $scope.updateTotalCheckedOnChange = function(term) {
     var currentTotalCheck = $scope.getAllChecked($scope.goTerms).length;
-    $scope.updateNumberOfCheckedItems();
+    $scope.updateTotalCheckedAfterCheckAndHandlingLimitError();
     term.checked = $scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
   };
 
