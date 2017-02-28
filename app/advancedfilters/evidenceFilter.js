@@ -60,7 +60,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   $scope.updateCheckStatus = function(term) {
     var currentTotalCheck = $scope.getAllChecked($scope.ecos).length;
     $scope.updateNumberOfCheckedItems();
-    term.checked = $scope.totalChecked === currentTotalCheck ? term.checked : !term.checked;
+    term.checked = $scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;;
   };
 
   init();

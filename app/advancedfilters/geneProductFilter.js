@@ -59,7 +59,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
     $scope.updateCheckStatus = function(term) {
         var currentTotalCheck = $scope.getAllChecked($scope.gpIds).length;
         $scope.updateNumberOfCheckedItems();
-        term.checked = $scope.totalChecked === currentTotalCheck ? term.checked : !term.checked;
+        term.checked = $scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
     };
 
   initgpIds();
