@@ -21,6 +21,7 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
   $scope.reset = function () {
     $scope.$parent.query.assignedBy = '';
     init();
+    $rootScope.cleanErrorMessages();
   };
 
   var getQuery = function() {

@@ -37,6 +37,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   $scope.reset = function () {
     $scope.query.withFrom = '';
     init();
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.$on('applyMoreFilters', function() {

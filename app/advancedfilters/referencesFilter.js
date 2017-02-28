@@ -40,6 +40,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
   $scope.reset = function () {
     $scope.$parent.query.reference = '';
     initReference();
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.$on('applyMoreFilters', function() {

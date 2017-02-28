@@ -18,6 +18,7 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
     $scope.$parent.query.aspect = '';
     init();
     $scope.$parent.updateQuery();
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.apply = function() {

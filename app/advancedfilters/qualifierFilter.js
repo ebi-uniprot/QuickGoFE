@@ -37,6 +37,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
   $scope.reset = function () {
     $scope.query.qualifier = '';
     initQualifiers();
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.$on('applyMoreFilters', function() {

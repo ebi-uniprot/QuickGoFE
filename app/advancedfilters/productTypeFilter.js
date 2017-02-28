@@ -19,6 +19,7 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
     $scope.query.geneProductType = '';
     init();
     $scope.updateQuery();
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.apply = function() {
