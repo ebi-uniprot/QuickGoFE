@@ -44,7 +44,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     var allItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid evidence code');
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.ecos, allItems.filteredItems, $scope.uploadLimit);
-    if ($scope.hasTotalChanged($scope.totalChecked, merge.totalChecked)) {
+    if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.ecos = merge.mergedTerms;
       $scope.totalChecked = merge.totalChecked;
     }

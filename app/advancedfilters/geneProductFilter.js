@@ -43,7 +43,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
     var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.gpIds, allItems.filteredItems, $scope.uploadLimit);
-    if ($scope.hasTotalChanged($scope.totalChecked, merge.totalChecked)) {
+    if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.gpIds = merge.mergedTerms;
       $scope.totalChecked = merge.totalChecked;
     }

@@ -15,7 +15,7 @@ describe('Controller: geneProductFilter', function () {
     scope.getAllChecked = function() {
       return [];
     };
-    scope.hasTotalChanged = function (oldTotal, newTotal) {
+    scope.isTotalDifferent = function (oldTotal, newTotal) {
       return oldTotal !== newTotal;
     };
     scope.stackErrors = function() {};

@@ -25,9 +25,9 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     return totalChecked;
   };
 
-  $scope.hasTotalChanged = function (oldTotal, newTotal) {
+  $scope.isTotalDifferent = function (oldTotal, newTotal) {
     return oldTotal !== newTotal;
-  }
+  };
 
   $scope.getEffectiveTotalCheckedAndMergedTerms = function(displayedTerms, newTerms, uploadLimit) {
     var mergedTerms = filterService.mergeRightToLeft(newTerms, displayedTerms);

@@ -61,7 +61,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $scope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, allTerms.filteredItems,
       $scope.uploadLimit);
-    if ($scope.hasTotalChanged($scope.totalChecked, merge.totalChecked)) {
+    if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.goTerms = merge.mergedTerms;
       $scope.totalChecked = merge.totalChecked;
       updateTermInfo();
@@ -91,7 +91,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
       }
       var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
       var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, filterItems, $scope.uploadLimit);
-      if ($scope.hasTotalChanged($scope.totalChecked, merge.totalChecked)) {
+      if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
         $scope.goTerms = merge.mergedTerms;
         $scope.totalChecked = merge.totalChecked;
       }
