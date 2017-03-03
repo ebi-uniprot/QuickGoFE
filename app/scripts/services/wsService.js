@@ -169,14 +169,17 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findAnnotationStatistics: function(filters) {
           return $http.get(ENV.apiEndpoint+'/annotation/stats?' + filters);
       },
-      findAnnotationsForTerm: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint + '/annotation/search?goId=' + searchTerm);
+      getAnnotationsForTermUrl: function(searchTerm) {
+        return 'goUsage=descendants&goUsageRelationships=is_a,part_of,occurs_in&goId=' + searchTerm;
       },
-      findAnnotationsForECO: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint + '/annotation/search?evidenceCode=' + searchTerm);
+      getAnnotationsForECOUrl: function(searchTerm) {
+        return 'evidenceCodeUsage=descendants&evidenceCode=' + searchTerm;
       },
-      findAnnotationsForProduct: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint+'/annotation/search?geneProductId=' + searchTerm);
+      getAnnotationsForProductUrl: function(searchTerm) {
+        return 'geneProductId=' + searchTerm;
+      },
+      findAnnotationsForFilterUrl: function(url) {
+        return $http.get(ENV.apiEndpoint + '/annotation/search?' + url);
       },
       serializeQuery: function(query) {
         var queryString = '';
