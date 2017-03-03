@@ -199,9 +199,12 @@ $scope.openAnnoExtension = function (annoExt) {
     resolve: {
       annoExt: function() {
         return annoExt;
+      },olsxrefs: function() {
+        return $scope.olsxrefs;
       }
     },
-    controller: function($scope, $modalInstance, annoExt) {
+    controller: function($scope, $modalInstance, annoExt, olsxrefs) {
+      $scope.olsxrefs = olsxrefs;
       $scope.annoExt = annoExt;
       $scope.ok = function() {
         $modalInstance.close();
