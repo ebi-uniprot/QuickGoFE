@@ -160,11 +160,8 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
             '&page=' + (page ? page : 1) + '&facet=' + (facet ? facet : '') + '&' + (filters ? filters : '');
         return $http.get(url);
       },
-      /*findPublications: function(searchTerm, limit) {
-        //TODO
-      },*/
       findAnnotations: function(page, size, filters) {
-          return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
+          return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + filters);
       },
       findAnnotationStatistics: function(filters) {
           return $http.get(ENV.apiEndpoint+'/annotation/stats?' + filters);
