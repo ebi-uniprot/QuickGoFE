@@ -39,7 +39,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     $scope.species = {};
     var taxa = 
         
-        DataService.getMostCommonTaxonomies();
+    DataService.getMostCommonTaxonomies();
     angular.forEach(taxa, function(taxon) {
       taxon.checked = false;
       $scope.species[taxon.taxId] = taxon;
@@ -55,6 +55,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       });
       $scope.basketList = d.data.results;
     });
+    $rootScope.cleanErrorMessages();
   };
 
   var promises = [];
@@ -95,18 +96,20 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   var updateSelection = function(terms, aspectMap) {
-      var estimated = getEstimatedSelection(terms, aspectMap);
-      if (estimated.total > $scope.uploadLimit) {
-          $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
-      } else {
-          $scope.total = estimated.total;
-          $scope.selection = estimated.selection;
-          $rootScope.alerts = [];
-      }
+    var estimated = getEstimatedSelection(terms, aspectMap);
+    if (estimated.total > $scope.uploadLimit) {
+      $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
+    } else {
+      $scope.total = estimated.total;
+      $scope.selection = estimated.selection;
+      $rootScope.cleanErrorMessages();
+    }
   };
 
   // Predefined sets
   $scope.addPredefined = function() {
+    $rootScope.cleanErrorMessages();
+    
     //TODO this is needed as the service currently returns aspect name not id
     var aspectMap = {};
     angular.forEach($scope.aspects, function(aspect) {
@@ -125,6 +128,8 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   // Own terms
   $scope.addOwnTerms = function() {
+    $rootScope.cleanErrorMessages();
+    
     var terms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
     termService.getGOTerms(terms).then(function(d){
       updateSelection(d.data.results);
@@ -134,6 +139,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   //Basket terms
   $scope.addBasketTerms = function() {
+    $rootScope.cleanErrorMessages();
     var items = _.filter($scope.basketList, function(d) {
       return d.selected;
     });
@@ -142,6 +148,8 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   //taxons
   $scope.addNewTaxon = function() {
+    $rootScope.cleanErrorMessages();
+    
     var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
     angular.forEach(taxons, function(taxonId) {
       if (validationService.validateTaxon(taxonId)) {
@@ -156,18 +164,20 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
         }
       }
     });
-    $rootScope.alerts = [];
+
     $scope.taxonTextArea = '';
   };
 
   $scope.addGPIds = function(){
+    $rootScope.cleanErrorMessages();
+    
     var ids = stringService.getTextareaItemsAsArray($scope.geneProductID);
     angular.forEach(ids, function(id) {
       if(validationService.validateGeneProduct(id)){
         $scope.additionalSelection.gpIds.push(id);
       }
     });
-    $rootScope.alerts = [];
+    
     $scope.geneProductID = '';
   };
 
@@ -179,7 +189,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     // Remove from selected items
     delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
     $scope.total--;
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
     // Add to de-selected items
     $scope.deSelectedItems.push(termToRemove);
   };
@@ -191,7 +201,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     } else {
         $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
         $scope.total++;
-        $rootScope.alerts = [];
+        $rootScope.cleanErrorMessages();
 
         // Remove from deSelectedItems
         $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
@@ -229,14 +239,14 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       $location.search('taxonId', $scope.additionalSelection.taxa.toString());
     }
 
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
     $location.path('annotations');
   };
 
   $scope.clearSelection = function() {
     init();
     $scope.deSelectedItems = [];
-    $rootScope.alerts = [];
+    $rootScope.cleanErrorMessages();
   };
 
   $scope.getSelectedIds = function() {
