@@ -74,15 +74,20 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     return _.any(_.pluck($scope.basketList, 'selected'));
   };
 
+  var cloneAspectAndTermsSelection = function() {
+    var clone = {};
+    angular.forEach($scope.aspects, function(aspect) {
+      clone[aspect.id] = {
+        'name': aspect.name,
+        'terms': _.extend({}, $scope.selection[aspect.id].terms)
+      };
+    });
+    return clone;
+  };
+  
   var getEstimatedSelection = function(terms, aspectMap) {
     var estimatedTotal = $scope.total;
-    var estimatedSelection = {};
-    angular.forEach($scope.aspects, function(aspect) {
-        estimatedSelection[aspect.id] = {
-            'name': aspect.name,
-            'terms': _.extend({}, $scope.selection[aspect.id].terms)
-        };
-    });
+    var estimatedSelection = cloneAspectAndTermsSelection();
 
     angular.forEach(terms, function(goTerm){
       if (aspectMap && aspectMap[goTerm.aspect]) { //TODO remove when service has correct aspect
