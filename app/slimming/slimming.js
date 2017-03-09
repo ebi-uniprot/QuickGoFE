@@ -5,7 +5,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   $scope.selection = {};
   $scope.deSelectedItems = [];
-  $scope.uploadLimit = hardCodedDataService.getMaxTerms();
+  $scope.uploadLimit = hardCodedDataService.getServiceLimits().goId;
   $scope.total = 0;
 
   // Fixes the removed terms box to the top of the screen when scrolling
@@ -37,7 +37,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       'taxa':[]
     };
     $scope.species = {};
-    var taxa = hardCodedDataService.getMostCommonTaxonomies();
+    var taxa = 
+        
+        DataService.getMostCommonTaxonomies();
     angular.forEach(taxa, function(taxon) {
       taxon.checked = false;
       $scope.species[taxon.taxId] = taxon;
