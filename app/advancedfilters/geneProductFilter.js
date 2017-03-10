@@ -43,7 +43,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
     var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.gpIds, allItems.filteredItems, $scope.uploadLimit);
-    if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+    if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.gpIds = merge.mergedTerms;
       $scope.totalChecked = merge.totalChecked;
     }
@@ -52,14 +52,14 @@ app.controller('geneProductFilter', function ($scope, stringService,
 
   $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
     $rootScope.cleanErrorMessages();
-    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.gpIds).length,
+    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.gpIds).length,
           $scope.uploadLimit);
   };
 
     $scope.updateTotalCheckedOnChange = function(term) {
         var currentTotalCheck = $scope.getAllChecked($scope.gpIds).length;
         $scope.updateTotalCheckedAfterCheckAndHandlingLimitError();
-        term.checked = $scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
+        term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
     };
 
   initgpIds();

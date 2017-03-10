@@ -9,30 +9,10 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     return _.where(collection, {checked: true});
   };
 
-  $scope.getNewTotalBasedOnLimit = function(total, limit) {
-      return total > limit ? limit : total;
-  };
-
-  var addAboveLimitError = function(uploadLimit) {
-    $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
-  };
-
-  $scope.getTotalCheckedAfterHandlingLimitError = function(currentTotalChecked, uploadLimit) {
-    var totalChecked = $scope.getNewTotalBasedOnLimit(currentTotalChecked, uploadLimit);
-    if (totalChecked !== currentTotalChecked) {
-        addAboveLimitError(uploadLimit);
-    }
-    return totalChecked;
-  };
-
-  $scope.isTotalDifferent = function (oldTotal, newTotal) {
-    return oldTotal !== newTotal;
-  };
-
   $scope.getEffectiveTotalCheckedAndMergedTerms = function(displayedTerms, newTerms, uploadLimit) {
     var mergedTerms = filterService.mergeRightToLeft(newTerms, displayedTerms);
     var totalCheckedAfterMerge = $scope.getAllChecked(mergedTerms).length;
-    var totalCheckedAfterHandlingError = $scope.getTotalCheckedAfterHandlingLimitError(totalCheckedAfterMerge,
+    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError(totalCheckedAfterMerge,
             uploadLimit);
     return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterHandlingError}
   };

@@ -44,7 +44,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     var allItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid evidence code');
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.ecos, allItems.filteredItems, $scope.uploadLimit);
-    if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+    if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.ecos = merge.mergedTerms;
       $scope.totalChecked = merge.totalChecked;
     }
@@ -53,14 +53,14 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
   $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
     $rootScope.cleanErrorMessages();
-    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.ecos).length,
+    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.ecos).length,
       $scope.uploadLimit);
   };
 
   $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(term) {
     var currentTotalCheck = $scope.getAllChecked($scope.ecos).length;
     $scope.updateNumberOfCheckedItems();
-    term.checked = $scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;;
+    term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;;
   };
 
   init();

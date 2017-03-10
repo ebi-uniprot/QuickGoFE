@@ -61,7 +61,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $scope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, allTerms.filteredItems,
       $scope.uploadLimit);
-    if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+    if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.goTerms = merge.mergedTerms;
       $scope.totalChecked = merge.totalChecked;
       updateTermInfo();
@@ -91,7 +91,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
       }
       var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
       var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, filterItems, $scope.uploadLimit);
-      if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+      if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
         $scope.goTerms = merge.mergedTerms;
         $scope.totalChecked = merge.totalChecked;
       }
@@ -101,14 +101,14 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
   $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
     $rootScope.cleanErrorMessages();
-    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.goTerms).length,
+    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.goTerms).length,
       $scope.uploadLimit);
   };
 
   $scope.updateTotalCheckedOnChange = function(term) {
     var currentTotalCheck = $scope.getAllChecked($scope.goTerms).length;
     $scope.updateTotalCheckedAfterCheckAndHandlingLimitError();
-    term.checked = $scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
+    term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
   };
 
   init();

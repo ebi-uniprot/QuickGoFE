@@ -25,7 +25,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     var allItems = filterService.addFilterItems(refs, validationService.validateOther);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid reference');
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.references, allItems.filteredItems, $scope.uploadLimit);
-    if ($scope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+    if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.references = merge.mergedTerms;
       $scope.updateTotalCheckedFromDisplay($scope.references);
     }
@@ -53,7 +53,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
 
   $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
     $rootScope.cleanErrorMessages();
-    $scope.totalChecked = $scope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.references).length,
+    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.references).length,
       $scope.uploadLimit);
   };
 
@@ -61,7 +61,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $scope.$parent.updateTotalCheckedOnChange(term);
     var currentTotalCheck = $scope.getAllChecked($scope.references).length;
     $scope.updateTotalCheckedAfterCheckAndHandlingLimitError();
-    if ($scope.isTotalDifferent(currentTotalCheck, $scope.totalChecked)) {
+    if ($rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked)) {
       term.checked = !term.checked;
       $scope.$parent.updateTotalCheckedOnChange(term);
     }
