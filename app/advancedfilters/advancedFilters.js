@@ -11,9 +11,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
 
   $scope.getEffectiveTotalCheckedAndMergedTerms = function(displayedTerms, displayedChecked, newTerms, uploadLimit) {
     var mergedTerms = filterService.mergeRightToLeft(newTerms, displayedTerms);
-    console.log('mergedTerms', mergedTerms);
     var totalCheckedAfterMerge = $scope.getAllChecked(mergedTerms).length;
-    console.log('totalCheckedAfterMerge', totalCheckedAfterMerge);
     var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError(displayedChecked,
       totalCheckedAfterMerge, uploadLimit);
     return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterHandlingError}
