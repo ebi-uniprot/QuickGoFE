@@ -24,7 +24,8 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(refs, validationService.validateOther);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid reference');
-    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.references, allItems.filteredItems, $scope.uploadLimit);
+    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.references, $scope.totalChecked,
+      allItems.filteredItems, $scope.uploadLimit);
     if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.references = merge.mergedTerms;
       $scope.updateTotalCheckedFromDisplay($scope.references);
@@ -53,7 +54,8 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
 
   $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
     $rootScope.cleanErrorMessages();
-    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.references).length,
+    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError(
+      $scope.getAllChecked($scope.references).length, $scope.getAllChecked($scope.references).length,
       $scope.uploadLimit);
   };
 

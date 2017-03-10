@@ -59,8 +59,8 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
     $scope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
-    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, allTerms.filteredItems,
-      $scope.uploadLimit);
+    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
+      allTerms.filteredItems, $scope.uploadLimit);
     if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.goTerms = merge.mergedTerms;
       $scope.totalChecked = merge.totalChecked;
@@ -90,7 +90,9 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
         slimSetItems = filterService.removeRootTerms(slimSetItems);
       }
       var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
-      var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, filterItems, $scope.uploadLimit);
+      var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
+        filterItems, $scope.uploadLimit);
+      console.log('totals', $scope.totalChecked, merge.totalChecked);
       if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
         $scope.goTerms = merge.mergedTerms;
         $scope.totalChecked = merge.totalChecked;
@@ -102,13 +104,15 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
     $rootScope.cleanErrorMessages();
     $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.goTerms).length,
-      $scope.uploadLimit);
+      $scope.getAllChecked($scope.goTerms).length, $scope.uploadLimit);
   };
 
   $scope.updateTotalCheckedOnChange = function(term) {
+    console.log('just checked', $scope.getAllChecked($scope.goTerms).length);
     var currentTotalCheck = $scope.getAllChecked($scope.goTerms).length;
     $scope.updateTotalCheckedAfterCheckAndHandlingLimitError();
     term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
+    console.log('adjusted', $scope.getAllChecked($scope.goTerms).length);
   };
 
   init();

@@ -89,10 +89,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   var getEffectiveTotalCheckedAndMergedTerms = function(terms, aspectMap) {
     var mergedTermsAndTotal = getMergedTermsAndTotal(terms, aspectMap);
-    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError(
+    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.total,
         mergedTermsAndTotal.totalChecked, $scope.uploadLimit);
     if ($rootScope.isTotalDifferent(mergedTermsAndTotal.totalChecked, totalCheckedAfterHandlingError)) {
-      return {mergedTerms: $scope.selection, totalChecked: $scope.total}
+      return {mergedTerms: $scope.selection, totalChecked: $scope.total};
     } else {
       return mergedTermsAndTotal;
     }

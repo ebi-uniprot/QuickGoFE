@@ -9,11 +9,13 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     return _.where(collection, {checked: true});
   };
 
-  $scope.getEffectiveTotalCheckedAndMergedTerms = function(displayedTerms, newTerms, uploadLimit) {
+  $scope.getEffectiveTotalCheckedAndMergedTerms = function(displayedTerms, displayedChecked, newTerms, uploadLimit) {
     var mergedTerms = filterService.mergeRightToLeft(newTerms, displayedTerms);
+    console.log('mergedTerms', mergedTerms);
     var totalCheckedAfterMerge = $scope.getAllChecked(mergedTerms).length;
-    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError(totalCheckedAfterMerge,
-            uploadLimit);
+    console.log('totalCheckedAfterMerge', totalCheckedAfterMerge);
+    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError(displayedChecked,
+      totalCheckedAfterMerge, uploadLimit);
     return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterHandlingError}
   };
 

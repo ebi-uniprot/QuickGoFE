@@ -31,8 +31,8 @@ app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
     $rootScope.alerts = [];
   };
 
-  $rootScope.getNewTotalBasedOnLimit = function(total, limit) {
-    return total > limit ? limit : total;
+  $rootScope.getNewTotalBasedOnLimit = function(oldTotal, newTotal, limit) {
+    return newTotal <= limit ? newTotal : oldTotal <= limit ? oldTotal : limit;
   };
 
   $rootScope.isTotalDifferent = function (oldTotal, newTotal) {
@@ -43,9 +43,9 @@ app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
     $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
   };
 
-  $rootScope.getTotalCheckedAfterHandlingLimitError = function(currentTotalChecked, uploadLimit) {
-    var totalChecked = $rootScope.getNewTotalBasedOnLimit(currentTotalChecked, uploadLimit);
-    if (totalChecked !== currentTotalChecked) {
+  $rootScope.getTotalCheckedAfterHandlingLimitError = function(currentTotalChecked, mergedTotalChecked, uploadLimit) {
+    var totalChecked = $rootScope.getNewTotalBasedOnLimit(currentTotalChecked, mergedTotalChecked, uploadLimit);
+    if (totalChecked !== mergedTotalChecked) {
         $rootScope.addAboveLimitError(uploadLimit);
     }
     return totalChecked;
