@@ -37,9 +37,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       'taxa':[]
     };
     $scope.species = {};
-    var taxa =
-
-    DataService.getMostCommonTaxonomies();
+    var taxa = hardCodedDataService.getMostCommonTaxonomies();
     angular.forEach(taxa, function(taxon) {
       taxon.checked = false;
       $scope.species[taxon.taxId] = taxon;
