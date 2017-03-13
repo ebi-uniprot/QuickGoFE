@@ -10,7 +10,7 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
 
   $scope.apply = function() {
     $rootScope.cleanErrorMessages();
-    $scope.$parent.addToQuery('extension', $scope.extension);
+    $scope.$parent.addToQueryAndUpdate('extension', $scope.extension);
   };
 
   $scope.reset = function () {

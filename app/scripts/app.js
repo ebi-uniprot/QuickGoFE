@@ -132,11 +132,17 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
     .when('/faq/amigo', {
       templateUrl: 'faq/amigo.html'
     })
-    .when('/faq/gene_product_download', {
-      templateUrl: 'faq/gene_product_download.html'
+    .when('/faq/gene_product_export', {
+      templateUrl: 'faq/gene_product_export.html'
     })
     .when('/faq/gp_list', {
       templateUrl: 'faq/gp_list.html'
+    })
+    .when('/faq/export_limit', {
+      templateUrl: 'faq/export_limit.html'
+    })
+    .when('/faq/filter_limits', {
+      templateUrl: 'faq/filter_limits.html'
     })
     .when('/faq/human_proteome', {
       templateUrl: 'faq/human_proteome.html'

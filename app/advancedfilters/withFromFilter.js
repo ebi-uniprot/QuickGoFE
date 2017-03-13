@@ -32,7 +32,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
 
   $scope.apply = function() {
     $rootScope.cleanErrorMessages();
-    $scope.addToQuery('withFrom', getQuery());
+    $scope.addToQueryAndUpdate('withFrom', getQuery());
   };
 
   $scope.reset = function () {

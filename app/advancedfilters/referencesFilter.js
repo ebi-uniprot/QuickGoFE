@@ -36,7 +36,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
 
   $scope.apply = function() {
     $rootScope.cleanErrorMessages();
-    $scope.$parent.addToQuery('reference', getQuery());
+    $scope.$parent.addToQueryAndUpdate('reference', getQuery());
   };
 
   $scope.reset = function () {

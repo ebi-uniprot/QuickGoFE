@@ -25,7 +25,7 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
 
   $scope.apply = function() {
     $rootScope.cleanErrorMessages();
-    $scope.addToQuery('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
+    $scope.addToQueryAndUpdate('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
   };
 
   $scope.updateTotalCheckedOnChange = function(term){
