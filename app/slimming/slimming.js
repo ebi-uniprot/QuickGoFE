@@ -196,9 +196,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.addBackIntoSelection = function(termToAdd) {
     $rootScope.cleanErrorMessages();
     // Add back to selectedItems
-    if (($scope.total + 1) > $scope.uploadLimit) {
-        $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
-    } else {
+    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.total,
+      $scope.total + 1, $scope.uploadLimit);
+    if ($rootScope.isTotalDifferent($scope.total, totalCheckedAfterHandlingError)) {
         $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
         $scope.total++;
         // Remove from deSelectedItems
