@@ -43,9 +43,9 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   };
 
   $scope.clearFilters = function () {
+    $rootScope.cleanErrorMessages();
     $scope.query = {};
     $scope.updateQuery();
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.hasSlims = function () {
@@ -57,14 +57,14 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   };
 
   $scope.apply = function() {
-    $scope.$broadcast ('applyMoreFilters');
     $rootScope.cleanErrorMessages();
+    $scope.$broadcast ('applyMoreFilters');
   };
 
   $scope.reset = function() {
+    $rootScope.cleanErrorMessages();
     $scope.$broadcast ('resetMoreFilters');
     $scope.updateQuery();
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.openMore = function() {

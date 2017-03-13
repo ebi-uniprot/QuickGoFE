@@ -8,6 +8,8 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().eco;
 
   var init = function () {
+    $rootScope.cleanErrorMessages();
+
     $scope.ecos = filterService.getQueryFilterItems($scope.query.evidenceCode);
     $scope.evidenceCodeUsage = 'descendants';
 
@@ -16,7 +18,6 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
       $scope.ecos = filterService.mergeRightToLeft($scope.ecos, filterItems);
       $scope.totalChecked = $scope.getAllChecked($scope.ecos).length;
     });
-    $rootScope.cleanErrorMessages();
   };
 
   var getQuery = function() {
@@ -24,17 +25,17 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   };
 
   $scope.apply = function() {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.addToQuery('evidenceCode', getQuery());
     $scope.$parent.addToQuery('evidenceCodeUsage', $scope.evidenceCodeUsage);
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function () {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.query.evidenceCode = '';
     $scope.$parent.query.evidenceCodeUsage = '';
     init();
     $scope.$parent.updateQuery();
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.addECOs = function () {

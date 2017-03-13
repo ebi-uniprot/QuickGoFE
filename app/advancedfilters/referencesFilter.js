@@ -10,12 +10,13 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
   };
 
   var initReference = function() {
+    $rootScope.cleanErrorMessages();
+
     $scope.references = filterService.getQueryFilterItems($scope.query.reference);
     presetsService.getPresetsReferences().then(function(resp){
       var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
       $scope.references = filterService.mergeRightToLeft($scope.references, referencePresetItems);
     });
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.addReferences = function() {
@@ -34,14 +35,14 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
   };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('reference', getQuery());
     $rootScope.cleanErrorMessages();
+    $scope.$parent.addToQuery('reference', getQuery());
   };
 
   $scope.reset = function () {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.query.reference = '';
     initReference();
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.$on('applyMoreFilters', function() {
@@ -54,6 +55,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
 
   $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
     $rootScope.cleanErrorMessages();
+
     $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError(
       $scope.getAllChecked($scope.references).length, $scope.getAllChecked($scope.references).length,
       $scope.uploadLimit);

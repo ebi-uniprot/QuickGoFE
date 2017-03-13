@@ -9,24 +9,27 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   };
 
   var initTaxons = function(){
+    $rootScope.cleanErrorMessages();
+
     $scope.taxa = filterService.getQueryFilterItems($scope.query.taxonId);
     presetsService.getPresetsTaxa().then(function(resp){
       var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'name');
       $scope.taxa = filterService.mergeRightToLeft($scope.taxa, presetItems);
       updateTaxonInfo();
-      $rootScope.cleanErrorMessages();
     });
   };
 
   $scope.reset = function() {
+    $rootScope.cleanErrorMessages();
+
     $scope.query.taxonId = '';
     initTaxons();
     $scope.updateQuery();
   };
 
   $scope.apply = function() {
-    $scope.addToQuery('taxonId', getQuery());
     $rootScope.cleanErrorMessages();
+    $scope.addToQuery('taxonId', getQuery());
   };
 
   $scope.addTaxons = function() {

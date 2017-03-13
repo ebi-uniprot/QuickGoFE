@@ -9,6 +9,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().goId;
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
     //Get terms from url
     $scope.goTerms = filterService.getQueryFilterItems($scope.query.goId);
     $scope.includeRootTerms = false;
@@ -27,7 +28,6 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
     updateTermInfo();
     $scope.totalChecked = $scope.getAllChecked($scope.goTerms).length;
-    $rootScope.cleanErrorMessages();
   };
 
   var updateTermInfo = function() {
@@ -45,12 +45,12 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.reset = function() {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.query.goId = '';
     $scope.$parent.query.goUsage = '';
     $scope.$parent.query.goUsageRelationships = '';
     init();
     $scope.$parent.updateQuery();
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.addGoTerms = function() {
@@ -74,11 +74,11 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   });
 
   $scope.apply = function() {
+    $rootScope.cleanErrorMessages();
     var selected = _.pluck($scope.getAllChecked($scope.goTerms), 'id');
     $scope.$parent.addToQuery('goId', selected);
     $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
     $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.addPredefinedSet = function() {

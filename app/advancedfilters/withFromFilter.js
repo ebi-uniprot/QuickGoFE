@@ -5,6 +5,8 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   $scope.withFrom = [];
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
+
     $scope.withFrom = filterService.getQueryFilterItems($scope.query.withFrom);
 
     presetsService.getPresetsWithFrom().then(function(resp){
@@ -12,7 +14,6 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
       var withPresetItems = filterService.getPresetFilterItems(withDBs, 'name');
       $scope.withFrom = filterService.mergeRightToLeft($scope.withFrom, withPresetItems);
     });
-    $rootScope.cleanErrorMessages();
   };
 
   var getQuery = function() {
@@ -30,14 +31,14 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   };
 
   $scope.apply = function() {
-    $scope.addToQuery('withFrom', getQuery());
     $rootScope.cleanErrorMessages();
+    $scope.addToQuery('withFrom', getQuery());
   };
 
   $scope.reset = function () {
+    $rootScope.cleanErrorMessages();
     $scope.query.withFrom = '';
     init();
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.$on('applyMoreFilters', function() {

@@ -4,26 +4,26 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
   $scope.totalChecked = 0;
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
+
     $scope.aspects = filterService.getQueryFilterItems($scope.query.aspect);
 
     presetsService.getPresetsAspects().then(function(resp){
       var aspects = filterService.getPresetFilterItems(resp.data.aspects, 'id');
       $scope.aspects = _.sortBy(filterService.mergeRightToLeft($scope.aspects, aspects), 'name');
     });
-
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function() {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.query.aspect = '';
     init();
     $scope.$parent.updateQuery();
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
     $rootScope.cleanErrorMessages();
+    $scope.$parent.addToQuery('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
   };
 
   $scope.updateTotalCheckedOnChange = function(term){

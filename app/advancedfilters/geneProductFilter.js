@@ -8,6 +8,8 @@ app.controller('geneProductFilter', function ($scope, stringService,
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().geneProductId;
 
   var initgpIds = function () {
+    $rootScope.cleanErrorMessages();
+
     $scope.gpIds = filterService.getQueryFilterItems($scope.query.geneProductId);
     presetsService.getPresetsGeneProducts().then(function(resp){
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.targetSet);
@@ -15,25 +17,24 @@ app.controller('geneProductFilter', function ($scope, stringService,
       $scope.geneProductSets = filterService.mergeRightToLeft(queryFilterItems, presetFilterItems);
     });
     $scope.totalChecked = $scope.getAllChecked($scope.gpIds).length;
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.reset = function () {
+    $rootScope.cleanErrorMessages();
     $scope.query.geneProductId = '';
     $scope.query.targetSet = '';
     initgpIds();
     $scope.updateQuery();
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.apply = function () {
+    $rootScope.cleanErrorMessages();
     if ($scope.gpIds.length > 0) {
       $scope.addToQuery('geneProductId', _.pluck(_.filter($scope.gpIds, 'checked'), 'id'));
     }
     if ($scope.geneProductSets.length > 0) {
       $scope.addToQuery('targetSet', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'id'));
     }
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.addGPs = function () {
