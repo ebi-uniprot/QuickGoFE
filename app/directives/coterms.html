@@ -10,10 +10,10 @@
   <table id="tableId" class="two-colours">
     <tr>
       <th>Co-occurring Term</th>
-      <th>PR</th>
-      <th>S%</th>
-      <th>#Together</th>
-      <th>#Compared</th>
+      <th><span class="has-tip" tooltip="Probability ratio of compared term =(#together/selected) / (#compared/#all).">PR</span></th>
+      <th><span class="has-tip" tooltip="Probability similarity ratio">S%</span></th>
+      <th><span class="has-tip" tooltip="Count of proteins where both selected and compared terms are annotated">#Together</span></th>
+      <th><span class="has-tip" tooltip="Count of proteins where compared term is annotated">#Compared</span></th>
     </tr>
     <tr ng-repeat="stat in stats.results | limitTo:pageSize">
       <td width="70%">

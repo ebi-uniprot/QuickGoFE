@@ -173,7 +173,7 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
           return $http.get(ENV.apiEndpoint + '/annotation/search?goId=' + searchTerm);
       },
       findAnnotationsForECO: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint + '/annotation/search?ecoId=' + searchTerm);
+          return $http.get(ENV.apiEndpoint + '/annotation/search?evidenceCode=' + searchTerm);
       },
       findAnnotationsForProduct: function(searchTerm) {
           return $http.get(ENV.apiEndpoint+'/annotation/search?geneProductId=' + searchTerm);
