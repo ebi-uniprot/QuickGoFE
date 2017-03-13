@@ -53,18 +53,16 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $scope.reset();
   });
 
-  $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
+  $scope.updateTotalCheckedOnChange = function(term) {
     $rootScope.cleanErrorMessages();
 
-    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError(
-      $scope.getAllChecked($scope.references).length, $scope.getAllChecked($scope.references).length,
-      $scope.uploadLimit);
-  };
-
-  $scope.updateTotalCheckedOnChange = function(term) {
     $scope.$parent.updateTotalCheckedOnChange(term);
+
     var currentTotalCheck = $scope.getAllChecked($scope.references).length;
-    $scope.updateTotalCheckedAfterCheckAndHandlingLimitError();
+    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError(
+          $scope.getAllChecked($scope.references).length, $scope.getAllChecked($scope.references).length,
+          $scope.uploadLimit);
+
     if ($rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked)) {
       term.checked = !term.checked;
       $scope.$parent.updateTotalCheckedOnChange(term);

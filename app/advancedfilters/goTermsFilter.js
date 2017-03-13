@@ -100,15 +100,11 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     }
   };
 
-  $scope.updateTotalCheckedAfterCheckAndHandlingLimitError = function(){
-    $rootScope.cleanErrorMessages();
-    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.goTerms).length,
-      $scope.getAllChecked($scope.goTerms).length, $scope.uploadLimit);
-  };
-
   $scope.updateTotalCheckedOnChange = function(term) {
+    $rootScope.cleanErrorMessages();
     var currentTotalCheck = $scope.getAllChecked($scope.goTerms).length;
-    $scope.updateTotalCheckedAfterCheckAndHandlingLimitError();
+    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.goTerms).length,
+          $scope.getAllChecked($scope.goTerms).length, $scope.uploadLimit);
     term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
   };
 
