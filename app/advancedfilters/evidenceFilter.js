@@ -21,7 +21,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('evidenceCode', getQuery());
-    $scope.$parent.addToQuery('evidenceCodeUsage', $scope.evidenceCodeUsage);
+    $scope.$parent.addToQueryAndUpdate('evidenceCodeUsage', $scope.evidenceCodeUsage);
   };
 
   $scope.reset = function () {

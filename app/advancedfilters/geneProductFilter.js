@@ -28,6 +28,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
     if ($scope.geneProductSets.length > 0) {
       $scope.addToQuery('targetSet', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'id'));
     }
+    $scope.updateQuery();
   };
 
   $scope.addGPs = function () {

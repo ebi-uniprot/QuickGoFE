@@ -27,7 +27,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   };
 
   $scope.apply = function() {
-    $scope.addToQuery('withFrom', getQuery());
+    $scope.addToQueryAndUpdate('withFrom', getQuery());
   };
 
   $scope.reset = function () {
