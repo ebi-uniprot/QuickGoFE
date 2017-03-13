@@ -18,7 +18,7 @@ app.controller('aspectFilter', function($scope, presetsService, filterService){
   };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
+    $scope.$parent.addToQueryAndUpdate('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
   };
 
   init();

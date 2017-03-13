@@ -24,7 +24,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   };
 
   $scope.apply = function() {
-    $scope.addToQuery('taxonId', getQuery());
+    $scope.addToQueryAndUpdate('taxonId', getQuery());
   };
 
   $scope.addTaxons = function() {
