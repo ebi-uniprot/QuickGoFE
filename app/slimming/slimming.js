@@ -24,6 +24,8 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   });
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
+
     angular.forEach($scope.aspects, function(aspect) {
       $scope.selection[aspect.id] = {
         'name': aspect.name,
@@ -53,7 +55,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       });
       $scope.basketList = d.data.results;
     });
-    $rootScope.cleanErrorMessages();
   };
 
   var promises = [];
@@ -184,23 +185,22 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.removeFromSelection = function(termToRemove) {
+    $rootScope.cleanErrorMessages();
     // Remove from selected items
     delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
     $scope.total--;
-    $rootScope.cleanErrorMessages();
     // Add to de-selected items
     $scope.deSelectedItems.push(termToRemove);
   };
 
   $scope.addBackIntoSelection = function(termToAdd) {
+    $rootScope.cleanErrorMessages();
     // Add back to selectedItems
     if (($scope.total + 1) > $scope.uploadLimit) {
         $rootScope.alerts = [hardCodedDataService.getTermsLimitMsg($scope.uploadLimit)];
     } else {
         $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
         $scope.total++;
-        $rootScope.cleanErrorMessages();
-
         // Remove from deSelectedItems
         $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
             return term.id !== termToAdd.id;
@@ -221,6 +221,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   }, true);
 
   $scope.viewAnnotations = function() {
+    $rootScope.cleanErrorMessages();
     $location.search('goUsage', 'slim');
     $location.search('goUsageRelationships', 'is_a,part_of,occurs_in');
 
@@ -237,14 +238,13 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       $location.search('taxonId', $scope.additionalSelection.taxa.toString());
     }
 
-    $rootScope.cleanErrorMessages();
     $location.path('annotations');
   };
 
   $scope.clearSelection = function() {
+    $rootScope.cleanErrorMessages();
     init();
     $scope.deSelectedItems = [];
-    $rootScope.cleanErrorMessages();
   };
 
   $scope.getSelectedIds = function() {
