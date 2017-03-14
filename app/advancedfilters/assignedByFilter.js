@@ -13,7 +13,7 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
   };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('assignedBy', getQuery());
+    $scope.$parent.addToQueryAndUpdate('assignedBy', getQuery());
   };
 
   $scope.reset = function () {

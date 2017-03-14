@@ -8,7 +8,7 @@ app.controller('annotationExtensionFilterController', function($scope){
   };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('extension', $scope.extension);
+    $scope.$parent.addToQueryAndUpdate('extension', $scope.extension);
   };
 
   $scope.reset = function () {
