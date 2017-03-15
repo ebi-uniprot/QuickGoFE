@@ -11,7 +11,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   var initTaxons = function(){
     $scope.taxa = filterService.getQueryFilterItems($scope.query.taxonId);
     presetsService.getPresetsTaxa().then(function(resp){
-      var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'name');
+      var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'id');
       $scope.taxa = filterService.mergeRightToLeft($scope.taxa, presetItems);
       updateTaxonInfo();
     });
