@@ -76,12 +76,68 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   };
 }]);
 
-wsService.factory('taxonomyService', ['$http', function($http){
-    return {
-        getTaxa : function(ids) {
-            return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
-        }
+wsService.factory('taxonomyService',
+  ['$http', 'presetsService', 'filterService', 'stringService', 'validationService', '$rootScope', '$q',
+  function($http, presetsService, filterService, stringService, validationService, $rootScope, $q){
+    var removeTaxIds = function(idsToRemove, taxa) {
+      return _.filter(taxa, function(d){
+          return !_.contains(idsToRemove, parseInt(d.id));
+      });
     };
+    var redirectTaxa = function(taxaInfo, redirections) {
+      var redirectionMap = _.indexBy(redirections, 'requestedId');
+      return _.map(taxaInfo, function(d){
+          if(redirectionMap[d.id]) {
+              var updatedId = redirectionMap[d.id]
+                  .redirectLocation.substring(redirectionMap[d.id].redirectLocation.lastIndexOf('/')+1);
+              $rootScope.alerts.push({msg: d.id + ' was updated to ' + updatedId});
+              d.id = updatedId;
+          }
+          return d;
+      });
+    };
+    return {
+      getTaxa: function (ids) {
+        return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
+      },
+      initTaxa: function (taxaArray) {
+          presetsService.getPresetsTaxa().then(function (resp) {
+              var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'name');
+              taxaArray = filterService.mergeRightToLeft(taxaArray, presetItems);
+          });
+      },
+      updateTaxonInfo: function(defer, taxaArray) {
+          var self = this;
+          self.getTaxa(_.pluck(taxaArray,'id')).then(function(data){
+              filterService.enrichFilterItemObject(taxaArray, data.data.taxonomies, 'taxonomyId');
+              if(data.data.errors) {
+                  // remove from list
+                  var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
+                  $rootScope.alerts = _.map(data.data.errors, function(message){
+                    return {
+                        msg: message.requestedId + ': ' + message.errorMessage
+                    };
+                  });
+                  taxaArray = removeTaxIds(obsoleteIds, taxaArray);
+              }
+              if(data.data.redirects) {
+                  // update object in list
+                  taxaArray = redirectTaxa(taxaArray, data.data.redirects);
+                  self.updateTaxonInfo(defer, taxaArray);
+              } else {
+                  defer.resolve(taxaArray);
+              }
+          });
+      },
+      addNewTaxa: function(taxaArray, taxonTextArea) {
+          var defer = $q.defer();
+          var taxons = stringService.getTextareaItemsAsArray(taxonTextArea);
+          var items = filterService.addFilterItems(taxons, validationService.validateTaxon);
+          taxaArray = filterService.mergeRightToLeft(items, taxaArray);
+          this.updateTaxonInfo(defer, taxaArray);
+          return defer.promise;
+      }
+    }
 }]);
 
 wsService.factory('downloadService', ['$http', function($http){

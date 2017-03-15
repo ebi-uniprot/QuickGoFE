@@ -1,11 +1,10 @@
 'use strict';
 app.controller('GOSlimCtrl', function($scope, $location, $q,
   hardCodedDataService, presetsService, $document, termService, basketService,
-  stringService, validationService, filterService) {
+  stringService, validationService, filterService, taxonomyService, $rootScope) {
 
   $scope.selection = {};
   $scope.deSelectedItems = [];
-
   // Fixes the removed terms box to the top of the screen when scrolling
   $document.on('scroll', function() {
       var container = angular.element($document[0].querySelector('#selectionHeader'));
@@ -21,9 +20,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       }
   });
 
-
-
-
   var init = function() {
     angular.forEach($scope.aspects, function(aspect) {
       $scope.selection[aspect.id] = {
@@ -36,12 +32,8 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       'gpIds':[],
       'taxa':[]
     };
-    $scope.species = {};
-    var taxa = hardCodedDataService.getMostCommonTaxonomies();
-    angular.forEach(taxa, function(taxon) {
-      taxon.checked = false;
-      $scope.species[taxon.taxId] = taxon;
-    });
+    $scope.species = [];
+    taxonomyService.initTaxa($scope.species);
 
     /**
      * Get basket items
@@ -116,21 +108,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   //taxons
   $scope.addNewTaxon = function() {
-    var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
-    angular.forEach(taxons, function(taxonId) {
-      if (validationService.validateTaxon(taxonId)) {
-        if($scope.species[taxonId]) {
-          $scope.species[taxonId].checked = true;
-        } else {
-          $scope.species[taxonId] = {
-            taxId: taxonId,
-            title: '',
-            checked: true
-          };
-        }
-      }
+    taxonomyService.addNewTaxa($scope.species, $scope.taxonTextArea).then(function(data) {
+        $scope.species = data;
+        $scope.taxonTextArea = '';
     });
-    $scope.taxonTextArea = '';
   };
 
   $scope.addGPIds = function(){
@@ -144,7 +125,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.addTaxons = function(){
-    $scope.additionalSelection.taxa = _.pluck(_.filter($scope.species, 'checked'),'taxId');
+    $scope.additionalSelection.taxa = _.pluck(_.filter($scope.species, 'checked'),'id');
   };
 
   $scope.getTotalCount = function() {
