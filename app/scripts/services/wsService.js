@@ -101,10 +101,13 @@ wsService.factory('taxonomyService',
         return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
       },
       initTaxa: function (taxaArray) {
+          var defer = $q.defer();
           presetsService.getPresetsTaxa().then(function (resp) {
               var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'name');
               taxaArray = filterService.mergeRightToLeft(taxaArray, presetItems);
+              defer.resolve(taxaArray);
           });
+          return defer.promise;
       },
       updateTaxonInfo: function(defer, taxaArray) {
           var self = this;

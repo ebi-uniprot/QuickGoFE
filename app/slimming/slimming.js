@@ -33,7 +33,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       'taxa':[]
     };
     $scope.species = [];
-    taxonomyService.initTaxa($scope.species);
+    taxonomyService.initTaxa($scope.species).then(function(data) {
+      $scope.species = data;
+    });
 
     /**
      * Get basket items
