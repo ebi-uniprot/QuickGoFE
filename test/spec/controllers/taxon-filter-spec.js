@@ -26,11 +26,4 @@ describe('Controller: taxonFilter', function () {
     expect(scope.taxa.length).toEqual(1);
   });
 
-  it('should remove taxIds', function() {
-    var taxas = [{id: '1234'},{id: '2345'},{id: '3456'}];
-    var removeTaxIds = [1234, 3456];
-    var results = scope.removeTaxIds(removeTaxIds, taxas);
-    expect(results.length).toEqual(1);
-  });
-
 });
