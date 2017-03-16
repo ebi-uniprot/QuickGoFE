@@ -6,7 +6,7 @@
         <li ng-repeat="taxon in taxa" class="checkbox">
           <label>
             <input type="checkbox" ng-model="taxon.checked">
-            {{taxon.id}} <strong>{{taxon.item.scientificName}}</strong>
+            {{taxon.id}} <strong>{{taxon.item.scientificName || taxon.item.name}}</strong>
           </label>
         </li>
       </ul>
