@@ -3,6 +3,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   stringService, validationService, presetsService, taxonomyService, filterService){
 
   $scope.taxa = [];
+  $scope.totalChecked = 1; //TODO refactor when GOA-2692 is done
 
   var getQuery = function() {
     return _.pluck(_.filter($scope.taxa, 'checked'), 'id');
