@@ -26,6 +26,18 @@
       </div>
     </div>
     <hr>
+
+    <a ng-click="more = !more" ng-hide="more">Options</a>
+    <div ng-show="more" class="row columns small-12">
+      <fieldset class="fieldset">
+        <legend>Select how you want to use the terms that you have chosen:</legend>
+        <label><input type="radio" ng-model="taxonUsage" value="descendants">Include child terms.</label>
+        <label><input type="radio" ng-model="taxonUsage" value="exact">Use these terms as an <strong>exact</strong>
+          match.</label>
+      </fieldset>
+    </div>
+    <hr>
+
   <div class="float-right">
       <filter-buttons></filter-buttons>
     </div>

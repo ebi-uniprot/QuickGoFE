@@ -3,6 +3,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   stringService, validationService, presetsService, taxonomyService, filterService){
 
   $scope.taxa = [];
+  $scope.taxonUsage = 'descendants';
 
   var getQuery = function() {
     return _.pluck(_.filter($scope.taxa, 'checked'), 'id');
@@ -10,6 +11,9 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
 
   var initTaxons = function(){
     $scope.taxa = filterService.getQueryFilterItems($scope.query.taxonId);
+
+    $scope.taxonUsage = $scope.$parent.query.taxonUsage ? $scope.$parent.query.taxonUsage : 'descendants';
+
     presetsService.getPresetsTaxa().then(function(resp){
       var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'id');
       $scope.taxa = filterService.mergeRightToLeft($scope.taxa, presetItems);
@@ -24,6 +28,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   };
 
   $scope.apply = function() {
+    $scope.addToQuery('taxonUsage', $scope.taxonUsage);
     $scope.addToQueryAndUpdate('taxonId', getQuery());
   };
 
