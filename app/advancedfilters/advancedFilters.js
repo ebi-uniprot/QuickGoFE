@@ -68,6 +68,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   $scope.reset = function() {
     $rootScope.cleanErrorMessages();
     $scope.$broadcast ('resetMoreFilters');
+    $scope.totalChecked = 0;
     $scope.updateQuery();
   };
 
