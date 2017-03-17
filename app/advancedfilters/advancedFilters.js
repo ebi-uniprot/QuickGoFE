@@ -14,7 +14,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
       delete $scope.query[type];
     } else {
       $scope.query[type] = values;
-    };
+    }
   };
 
   $scope.updateQuery = function () {
