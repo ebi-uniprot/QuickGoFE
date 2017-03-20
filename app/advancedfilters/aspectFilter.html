@@ -3,7 +3,8 @@
     <ul class="form-group no-bullet">
       <li ng-repeat="aspect in aspects">
         <label class="checkbox">
-          <input type="checkbox" ng-model="aspect.checked"> {{aspect.item.name}}
+          <input type="checkbox" ng-model="aspect.checked" ng-change="updateTotalCheckedOnChange(aspect)">
+          {{aspect.item.name}}
         </label>
       </li>
     </ul>

@@ -2,6 +2,17 @@
 
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
+wsService.factory('informationService', ['$http', 'ENV',
+  function ($http, ENV) {
+    return {
+        getGoReleaseInfo: function() {
+            return $http.get(ENV.apiEndpoint + '/ontology/go/about');
+        }, getAnnotationReleaseInfo: function() {
+            return $http.get(ENV.apiEndpoint + '/annotation/about');
+        }
+    };
+  }]);
+
 wsService.factory('presetsService', ['$http', 'ENV',
   function ($http, ENV) {
     return {

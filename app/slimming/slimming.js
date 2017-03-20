@@ -5,6 +5,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   $scope.selection = {};
   $scope.deSelectedItems = [];
+  $scope.uploadLimit = hardCodedDataService.getServiceLimits().goId;
+  $scope.total = 0;
+
   // Fixes the removed terms box to the top of the screen when scrolling
   $document.on('scroll', function() {
       var container = angular.element($document[0].querySelector('#selectionHeader'));
@@ -21,12 +24,15 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   });
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
+
     angular.forEach($scope.aspects, function(aspect) {
       $scope.selection[aspect.id] = {
         'name': aspect.name,
         'terms': {}
       };
     });
+    $scope.total = 0;
 
     $scope.additionalSelection = {
       'gpIds':[],
@@ -65,8 +71,42 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     return _.any(_.pluck($scope.basketList, 'selected'));
   };
 
+  var getMergedTermsAndTotal = function(terms, aspectMap) {
+    var mergedTerms = jQuery.extend(true, {}, $scope.selection);
+    var totalCheckedAfterMerge = $scope.total;
+
+    angular.forEach(terms, function(goTerm){
+      if (aspectMap && aspectMap[goTerm.aspect]) { //TODO remove when service has correct aspect
+          goTerm.aspect = aspectMap[goTerm.aspect];
+      }
+      totalCheckedAfterMerge += mergedTerms[goTerm.aspect].terms[goTerm.id] ? 0 : 1;
+      mergedTerms[goTerm.aspect].terms[goTerm.id] = goTerm;
+    });
+
+    return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterMerge}
+  };
+
+  var getEffectiveTotalCheckedAndMergedTerms = function(terms, aspectMap) {
+    var mergedTermsAndTotal = getMergedTermsAndTotal(terms, aspectMap);
+    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.total,
+        mergedTermsAndTotal.totalChecked, $scope.uploadLimit);
+    if ($rootScope.isTotalDifferent(mergedTermsAndTotal.totalChecked, totalCheckedAfterHandlingError)) {
+      return {mergedTerms: $scope.selection, totalChecked: $scope.total};
+    } else {
+      return mergedTermsAndTotal;
+    }
+  };
+
+  var updateSelectionAndTotal = function(terms, aspectMap) {
+    var effectiveMergedTerms = getEffectiveTotalCheckedAndMergedTerms(terms, aspectMap);
+    $scope.selection = effectiveMergedTerms.mergedTerms;
+    $scope.total = effectiveMergedTerms.totalChecked;
+  };
+
   // Predefined sets
   $scope.addPredefined = function() {
+    $rootScope.cleanErrorMessages();
+
     //TODO this is needed as the service currently returns aspect name not id
     var aspectMap = {};
     angular.forEach($scope.aspects, function(aspect) {
@@ -78,38 +118,35 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       terms = filterService.removeRootTerms(terms);
     }
 
-    angular.forEach(terms, function(term){
-      if(aspectMap[term.aspect]) { //TODO remove when service has correct aspect
-        term.aspect = aspectMap[term.aspect];
-      }
-      $scope.selection[term.aspect].terms[term.id] = term;
-    });
+    updateSelectionAndTotal(terms, aspectMap);
     $scope.selectedPreDefinedSlimSet = '';
   };
 
+
   // Own terms
   $scope.addOwnTerms = function() {
+    $rootScope.cleanErrorMessages();
+
     var terms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
     termService.getGOTerms(terms).then(function(d){
-      angular.forEach(d.data.results, function(goTerm){
-        $scope.selection[goTerm.aspect].terms[goTerm.id] = goTerm;
-      });
+      updateSelectionAndTotal(d.data.results);
     });
     $scope.slimOwnTerms = '';
   };
 
   //Basket terms
   $scope.addBasketTerms = function() {
+    $rootScope.cleanErrorMessages();
     var items = _.filter($scope.basketList, function(d) {
       return d.selected;
     });
-    angular.forEach(items, function(term) {
-      $scope.selection[term.aspect].terms[term.id] = term;
-    });
+    updateSelectionAndTotal(items);
   };
 
   //taxons
   $scope.addNewTaxon = function() {
+    $rootScope.cleanErrorMessages();
+
     taxonomyService.addNewTaxa($scope.species, $scope.taxonTextArea).then(function(data) {
         $scope.species = data;
         $scope.taxonTextArea = '';
@@ -117,12 +154,15 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.addGPIds = function(){
+    $rootScope.cleanErrorMessages();
+
     var ids = stringService.getTextareaItemsAsArray($scope.geneProductID);
     angular.forEach(ids, function(id) {
       if(validationService.validateGeneProduct(id)){
         $scope.additionalSelection.gpIds.push(id);
       }
     });
+
     $scope.geneProductID = '';
   };
 
@@ -130,24 +170,28 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     $scope.additionalSelection.taxa = _.pluck(_.filter($scope.species, 'checked'),'id');
   };
 
-  $scope.getTotalCount = function() {
-    return $scope.selectedItems;
-  };
-
   $scope.removeFromSelection = function(termToRemove) {
+    $rootScope.cleanErrorMessages();
     // Remove from selected items
     delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
+    $scope.total--;
     // Add to de-selected items
     $scope.deSelectedItems.push(termToRemove);
   };
 
   $scope.addBackIntoSelection = function(termToAdd) {
+    $rootScope.cleanErrorMessages();
     // Add back to selectedItems
-    $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
-    // Remove from deSelectedItems
-    $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
-      return term.id !== termToAdd.id;
-    });
+    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.total,
+      $scope.total + 1, $scope.uploadLimit);
+    if ($rootScope.isTotalDifferent($scope.total, totalCheckedAfterHandlingError)) {
+        $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
+        $scope.total++;
+        // Remove from deSelectedItems
+        $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
+            return term.id !== termToAdd.id;
+        });
+    }
   };
 
   $scope.$watch('selection', function() {
@@ -163,7 +207,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   }, true);
 
   $scope.viewAnnotations = function() {
-
+    $rootScope.cleanErrorMessages();
     $location.search('goUsage', 'slim');
     $location.search('goUsageRelationships', 'is_a,part_of,occurs_in');
 
@@ -184,6 +228,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.clearSelection = function() {
+    $rootScope.cleanErrorMessages();
     init();
     $scope.deSelectedItems = [];
   };

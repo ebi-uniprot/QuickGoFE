@@ -20,11 +20,35 @@ var app = angular
     'mm.foundation'
   ]);
 
-app.run(function ($rootScope, dbXrefService, $window) {
+app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
   $rootScope.followLinkToGeneric = function (database) {
     dbXrefService.getDbXrefs().then(function (xrefs) {
       $window.open(dbXrefService.getGenericLink(database, xrefs.data));
     });
+  };
+
+  $rootScope.cleanErrorMessages = function() {
+    $rootScope.alerts = [];
+  };
+
+  $rootScope.getNewTotalBasedOnLimit = function(oldTotal, newTotal, limit) {
+    return newTotal <= limit ? newTotal : oldTotal <= limit ? oldTotal : limit;
+  };
+
+  $rootScope.isTotalDifferent = function (oldTotal, newTotal) {
+    return oldTotal !== newTotal;
+  };
+
+  $rootScope.addAboveLimitError = function(uploadLimit) {
+    $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
+  };
+
+  $rootScope.getTotalCheckedAfterHandlingLimitError = function(currentTotalChecked, mergedTotalChecked, uploadLimit) {
+    var totalChecked = $rootScope.getNewTotalBasedOnLimit(currentTotalChecked, mergedTotalChecked, uploadLimit);
+    if (totalChecked !== mergedTotalChecked) {
+        $rootScope.addAboveLimitError(uploadLimit);
+    }
+    return totalChecked;
   };
 
   $rootScope.followLinkToEntry = function (id, database) {
