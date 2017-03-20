@@ -12,12 +12,22 @@ describe('Controller: geneProductFilter', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     scope.query = {};
+    scope.getAllChecked = function() {
+      return [];
+    };
+    scope.isTotalDifferent = function (oldTotal, newTotal) {
+      return oldTotal !== newTotal;
+    };
+    scope.stackErrors = function() {};
     geneProductFilter = $controller('geneProductFilter', {
       $scope: scope
     });
   }));
 
   it('should add valid gene products', function () {
+    scope.getEffectiveTotalCheckedAndMergedTerms = function() {
+      return {mergedTerms: [{checked: true, id: 'A0A000'}], totalChecked: 1};
+    };
     expect(scope.gpIds.length).toEqual(0);
     scope.gpTextArea = 'A0A000';
     scope.addGPs();
@@ -25,6 +35,9 @@ describe('Controller: geneProductFilter', function () {
   });
 
   it('should not add invalid gene products', function () {
+    scope.getEffectiveTotalCheckedAndMergedTerms = function() {
+      return {mergedTerms: [], totalChecked: 0};
+    };
     expect(scope.gpIds.length).toEqual(0);
     scope.gpTextArea = 'ABCDEFGHIJ_1234567890';
     scope.addGPs();

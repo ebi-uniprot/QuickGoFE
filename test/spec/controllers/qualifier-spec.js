@@ -12,6 +12,7 @@ describe('Controller: qualifierFilter', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     scope.query = {};
+    scope.updateTotalCheckedOnChange = function(term) {};
     qualifierFilter = $controller('qualifierFilter', {
       $scope: scope
     });
