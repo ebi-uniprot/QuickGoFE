@@ -5,6 +5,8 @@ app.controller('geneProductFilter', function ($scope, stringService,
   $scope.gpIds = [];
   $scope.geneProductSets = [];
   $scope.totalChecked = 0;
+  $scope.totalCheckedIds = 0;
+  $scope.totalCheckedSets = 0;
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().geneProductId;
 
   var initgpIds = function () {
@@ -15,8 +17,9 @@ app.controller('geneProductFilter', function ($scope, stringService,
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.targetSet);
       var presetFilterItems = filterService.getPresetFilterItems(_.sortBy(resp.data.geneProducts, 'name'), 'name');
       $scope.geneProductSets = filterService.mergeRightToLeft(queryFilterItems, presetFilterItems);
+      $scope.totalCheckedSets = $scope.getAllChecked($scope.geneProductSets).length;
     });
-    $scope.totalChecked = $scope.getAllChecked($scope.gpIds).length;
+    $scope.totalCheckedIds = $scope.getAllChecked($scope.gpIds).length;
   };
 
   $scope.reset = function () {
@@ -44,11 +47,11 @@ app.controller('geneProductFilter', function ($scope, stringService,
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
     $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
-    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.gpIds, $scope.totalChecked,
+    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.gpIds, $scope.totalCheckedIds,
       allItems.filteredItems, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+    if ($rootScope.isTotalDifferent($scope.totalCheckedIds, merge.totalChecked)) {
       $scope.gpIds = merge.mergedTerms;
-      $scope.totalChecked = merge.totalChecked;
+      $scope.totalCheckedIds = merge.totalChecked;
     }
     $scope.gpTextArea = '';
   };
@@ -56,10 +59,22 @@ app.controller('geneProductFilter', function ($scope, stringService,
   $scope.updateTotalCheckedOnChange = function(term) {
     $rootScope.cleanErrorMessages();
     var currentTotalCheck = $scope.getAllChecked($scope.gpIds).length;
-    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.gpIds).length,
+    $scope.totalCheckedIds = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.gpIds).length,
           $scope.getAllChecked($scope.gpIds).length, $scope.uploadLimit);
-    term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
+    term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalCheckedIds) ? !term.checked : term.checked;
   };
+
+  $scope.updateTotalCheckedOnSetChange = function(set) {
+    $scope.totalCheckedSets += set.checked ? 1 : -1;
+  };
+
+  $scope.$watch('totalCheckedIds', function() {
+    $scope.totalChecked = $scope.totalCheckedIds + $scope.totalCheckedSets;
+  });
+
+  $scope.$watch('totalCheckedSets', function() {
+    $scope.totalChecked = $scope.totalCheckedIds + $scope.totalCheckedSets;
+  });
 
   initgpIds();
 });
