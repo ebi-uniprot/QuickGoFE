@@ -7,7 +7,8 @@ angular
       templateUrl: 'directives/annotationsLink.html',
       scope: {
         termId: '=?',
-        productId: '=?'
+        productId: '=?',
+        obsolete: '=?'
       },
       link: function(scope) {
         if (scope.termId) {
@@ -23,6 +24,7 @@ angular
           scope.annotationsCount = d.data.numberOfHits;
         }, function(e){
           // obsolete terms
+          console.log(e);
           scope.annotationsCount = -1;
         });
       }

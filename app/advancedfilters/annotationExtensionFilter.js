@@ -15,6 +15,9 @@ app.controller('annotationExtensionFilterController', function($scope){
     $scope.$parent.query.extension = '';
     init();
     $scope.$parent.updateQuery();
+    $scope.relationship = '';
+    $scope.db = '';
+    $scope.id = '';
   };
 
   $scope.addComponent = function() {
@@ -24,6 +27,23 @@ app.controller('annotationExtensionFilterController', function($scope){
       $scope.db = '';
       $scope.id = '';
   };
+
+  $scope.relationshipData = [
+    {
+      'name':'part_of'
+    },{
+      'name':'is_a'
+    }
+  ];
+
+  $scope.databaseData = [
+    {
+      'name':'UBERON'
+    },{
+      'name':'Swissprot'
+    }
+  ];
+
 
   $scope.$on('applyAEFilters', function() {
     $scope.apply();
