@@ -58,7 +58,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
-    $scope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
+    $rootScope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
       allTerms.filteredItems, $scope.uploadLimit);
     if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
@@ -77,8 +77,10 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $rootScope.cleanErrorMessages();
     var selected = _.pluck($scope.getAllChecked($scope.goTerms), 'id');
     $scope.$parent.addToQuery('goId', selected);
-    $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
-    $scope.$parent.addToQueryAndUpdate('goUsageRelationships', $scope.goRelations);
+    if ($scope.goTermUse !== 'exact') {
+      $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
+    }
+    $scope.$parent.addToQueryAndUpdate('goUsage', $scope.goTermUse);
   };
 
   $scope.addPredefinedSet = function() {

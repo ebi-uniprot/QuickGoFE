@@ -1,7 +1,7 @@
 'use strict';
 app.controller('GOSlimCtrl', function($scope, $location, $q,
   hardCodedDataService, presetsService, $document, termService, basketService,
-  stringService, validationService, filterService, $rootScope) {
+  stringService, validationService, filterService, taxonomyService, $rootScope) {
 
   $scope.selection = {};
   $scope.deSelectedItems = [];
@@ -38,11 +38,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       'gpIds':[],
       'taxa':[]
     };
-    $scope.species = {};
-    var taxa = hardCodedDataService.getMostCommonTaxonomies();
-    angular.forEach(taxa, function(taxon) {
-      taxon.checked = false;
-      $scope.species[taxon.taxId] = taxon;
+    $scope.species = [];
+    taxonomyService.initTaxa($scope.species).then(function(data) {
+      $scope.species = data;
     });
 
     /**
@@ -149,22 +147,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.addNewTaxon = function() {
     $rootScope.cleanErrorMessages();
 
-    var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea);
-    angular.forEach(taxons, function(taxonId) {
-      if (validationService.validateTaxon(taxonId)) {
-        if($scope.species[taxonId]) {
-          $scope.species[taxonId].checked = true;
-        } else {
-          $scope.species[taxonId] = {
-            taxId: taxonId,
-            title: '',
-            checked: true
-          };
-        }
-      }
+    taxonomyService.addNewTaxa($scope.species, $scope.taxonTextArea).then(function(data) {
+        $scope.species = data;
+        $scope.taxonTextArea = '';
     });
-
-    $scope.taxonTextArea = '';
   };
 
   $scope.addGPIds = function(){
@@ -181,7 +167,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.addTaxons = function(){
-    $scope.additionalSelection.taxa = _.pluck(_.filter($scope.species, 'checked'),'taxId');
+    $scope.additionalSelection.taxa = _.pluck(_.filter($scope.species, 'checked'),'id');
   };
 
   $scope.removeFromSelection = function(termToRemove) {
