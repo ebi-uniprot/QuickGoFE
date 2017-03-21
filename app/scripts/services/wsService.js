@@ -155,16 +155,9 @@ wsService.factory('ontoTypeService', [function(){
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/internal/search/ontology',
-          {
-            params: {
-              query : searchTerm,
-              limit : limit,
-              page : page ? page : 1,
-              facet : facet ? facet : '',
-              filterQuery : filters ? filters : ''
-            }
-          });
+        var url = ENV.apiEndpoint + '/internal/search/ontology?query=' + searchTerm + '&limit=' + limit +
+            '&page=' + (page ? page : 1) + '&facet=' + (facet ? facet : '') + '&' + (filters ? filters : '');
+        return $http.get(url);
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
         var url = ENV.apiEndpoint + '/geneproduct/search?query=' + searchTerm + '&limit=' + limit +
