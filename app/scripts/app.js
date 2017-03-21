@@ -51,6 +51,18 @@ app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
     return totalChecked;
   };
 
+  $rootScope.stackErrors = function(elements, type, message, field) {
+    $rootScope.alerts = $rootScope.alerts.concat(_.map(
+      elements,
+      function(elem){
+        return {
+          type: type,
+          msg: (field ? elem[field] : elem) + ' ' + message
+        };
+      })
+    );
+  };
+
   $rootScope.followLinkToEntry = function (id, database) {
     if (!database) {
       var pos = id.indexOf(':');

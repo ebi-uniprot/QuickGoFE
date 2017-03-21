@@ -58,7 +58,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
-    $scope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
+    $rootScope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
     var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
       allTerms.filteredItems, $scope.uploadLimit);
     if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
