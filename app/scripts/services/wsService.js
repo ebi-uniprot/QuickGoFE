@@ -101,7 +101,10 @@ wsService.factory('taxonomyService',
           if(redirectionMap[d.id]) {
               var updatedId = redirectionMap[d.id]
                   .redirectLocation.substring(redirectionMap[d.id].redirectLocation.lastIndexOf('/')+1);
-              $rootScope.alerts.push({msg: d.id + ' was updated to ' + updatedId});
+              $rootScope.alerts.push({
+                  type: 'warning',
+                  msg: 'Taxon ' + d.id + ' was updated to ' + updatedId
+              });
               d.id = updatedId;
           }
           return d;
@@ -112,42 +115,38 @@ wsService.factory('taxonomyService',
         return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
       },
       initTaxa: function (taxaArray) {
-          var defer = $q.defer();
-          presetsService.getPresetsTaxa().then(function (resp) {
-              var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'name');
-              taxaArray = filterService.mergeRightToLeft(taxaArray, presetItems);
-              defer.resolve(taxaArray);
-          });
-          return defer.promise;
+        var self = this;
+        var defer = $q.defer();
+        presetsService.getPresetsTaxa().then(function (resp) {
+          var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'id');
+          taxaArray = filterService.mergeRightToLeft(taxaArray, presetItems);
+          self.updateTaxonInfo(defer, taxaArray);
+        });
+        return defer.promise;
       },
       updateTaxonInfo: function(defer, taxaArray) {
-          var self = this;
-          self.getTaxa(_.pluck(taxaArray,'id')).then(function(data){
-              filterService.enrichFilterItemObject(taxaArray, data.data.taxonomies, 'taxonomyId');
-              if(data.data.errors) {
-                  // remove from list
-                  var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
-                  $rootScope.alerts = _.map(data.data.errors, function(message){
-                    return {
-                        msg: message.requestedId + ': ' + message.errorMessage
-                    };
-                  });
-                  taxaArray = removeTaxIds(obsoleteIds, taxaArray);
-              }
-              if(data.data.redirects) {
-                  // update object in list
-                  taxaArray = redirectTaxa(taxaArray, data.data.redirects);
-                  self.updateTaxonInfo(defer, taxaArray);
-              } else {
-                  defer.resolve(taxaArray);
-              }
-          });
+        var self = this;
+        self.getTaxa(_.pluck(taxaArray,'id')).then(function(data){
+          filterService.enrichFilterItemObject(taxaArray, data.data.taxonomies, 'taxonomyId');
+          if(data.data.errors) {
+            var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
+            $rootScope.stackErrors(data.data.errors, 'warning', 'was not found', 'requestedId');
+            taxaArray = removeTaxIds(obsoleteIds, taxaArray);
+          }
+          if(data.data.redirects) {
+            taxaArray = redirectTaxa(taxaArray, data.data.redirects);
+            self.updateTaxonInfo(defer, taxaArray);
+          } else {
+            defer.resolve(taxaArray);
+          }
+        });
       },
       addNewTaxa: function(taxaArray, taxonTextArea) {
           var defer = $q.defer();
-          var taxons = stringService.getTextareaItemsAsArray(taxonTextArea);
-          var items = filterService.addFilterItems(taxons, validationService.validateTaxon);
-          taxaArray = filterService.mergeRightToLeft(items, taxaArray);
+          var taxons = stringService.getTextareaItemsAsArray(taxonTextArea.toUpperCase());
+          var allItems = filterService.addFilterItems(taxons, validationService.validateTaxon);
+          $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid taxon id');
+          taxaArray = filterService.mergeRightToLeft(allItems.filteredItems, taxaArray);
           this.updateTaxonInfo(defer, taxaArray);
           return defer.promise;
       }
