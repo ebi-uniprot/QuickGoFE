@@ -20,11 +20,35 @@ var app = angular
     'mm.foundation'
   ]);
 
-app.run(function ($rootScope, dbXrefService, $window) {
+app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
   $rootScope.followLinkToGeneric = function (database) {
     dbXrefService.getDbXrefs().then(function (xrefs) {
       $window.open(dbXrefService.getGenericLink(database, xrefs.data));
     });
+  };
+
+  $rootScope.cleanErrorMessages = function() {
+    $rootScope.alerts = [];
+  };
+
+  $rootScope.getNewTotalBasedOnLimit = function(oldTotal, newTotal, limit) {
+    return newTotal <= limit ? newTotal : oldTotal <= limit ? oldTotal : limit;
+  };
+
+  $rootScope.isTotalDifferent = function (oldTotal, newTotal) {
+    return oldTotal !== newTotal;
+  };
+
+  $rootScope.addAboveLimitError = function(uploadLimit) {
+    $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
+  };
+
+  $rootScope.getTotalCheckedAfterHandlingLimitError = function(currentTotalChecked, mergedTotalChecked, uploadLimit) {
+    var totalChecked = $rootScope.getNewTotalBasedOnLimit(currentTotalChecked, mergedTotalChecked, uploadLimit);
+    if (totalChecked !== mergedTotalChecked) {
+        $rootScope.addAboveLimitError(uploadLimit);
+    }
+    return totalChecked;
   };
 
   $rootScope.followLinkToEntry = function (id, database) {
@@ -108,11 +132,17 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
     .when('/faq/amigo', {
       templateUrl: 'faq/amigo.html'
     })
-    .when('/faq/gene_product_download', {
-      templateUrl: 'faq/gene_product_download.html'
+    .when('/faq/gene_product_export', {
+      templateUrl: 'faq/gene_product_export.html'
     })
     .when('/faq/gp_list', {
       templateUrl: 'faq/gp_list.html'
+    })
+    .when('/faq/export_limit', {
+      templateUrl: 'faq/export_limit.html'
+    })
+    .when('/faq/filter_limits', {
+      templateUrl: 'faq/filter_limits.html'
     })
     .when('/faq/human_proteome', {
       templateUrl: 'faq/human_proteome.html'

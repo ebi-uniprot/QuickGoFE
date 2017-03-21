@@ -65,6 +65,10 @@ a, a:visited, #local-masthead #local-title .columns a{
   border-bottom: 0px;
 }
 
+a:hover{
+  opacity:inherit;
+}
+
 .tabs-title > a[aria-selected='true']{
   background-color: #999;
 }
@@ -218,6 +222,9 @@ span.has-tip{
     background: rgba(0, 0, 0, 0);
 }
 
+th.has-tip{
+  background: none;
+}
 
 .in-form-button {
   margin-top: 1.6em;
@@ -449,10 +456,7 @@ aspect-icon span.aspect-icon{
 .dropdown-pane{
   width: 550px;
 }
-.y-scroll-200 {
-  overflow-y: auto;
-  height: 200px;
-}
+
 
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
@@ -669,4 +673,24 @@ h5.active-filter:before{
 .annotations-link:hover, .typeahead-box a.annotations-link:hover {
   opacity: .7;
   color: $white;
+}
+
+section{
+  th {
+  vertical-align: top;
+  }
+  span.has-tip{
+      font-weight: bold;
+  }
+}
+
+#main-container .row{
+  margin-bottom: 2em;
+}
+#main-container .start-page .row{
+  margin-bottom: 0px;
+}
+h2 aspect-icon, h2 basket-button{
+  font-size: 1rem;
+
 }

@@ -1,27 +1,31 @@
 'use strict';
-app.controller('annotationExtensionFilterController', function($scope){
+app.controller('annotationExtensionFilterController', function($scope, $rootScope){
 
   $scope.extension = '';
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
     $scope.extension = $scope.$parent.query.extension ? $scope.$parent.query.extension : '';
   };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('extension', $scope.extension);
+    $rootScope.cleanErrorMessages();
+    $scope.$parent.addToQueryAndUpdate('extension', $scope.extension);
   };
 
   $scope.reset = function () {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.query.extension = '';
     init();
     $scope.$parent.updateQuery();
   };
 
   $scope.addComponent = function() {
-      var component = $scope.relationship + '(' + $scope.dbId + ')';
+      var component = $scope.relationship + '(' + $scope.db + ':' + $scope.id + ')';
       $scope.extension = $scope.extension + ($scope.extension ? ',' : '') + component;
       $scope.relationship = '';
-      $scope.dbId = '';
+      $scope.db = '';
+      $scope.id = '';
   };
 
   $scope.$on('applyAEFilters', function() {

@@ -1,8 +1,11 @@
 'use strict';
-app.controller('aspectFilter', function($scope, presetsService, filterService){
+app.controller('aspectFilter', function($scope, presetsService, filterService, $rootScope){
   $scope.aspects = [];
+  $scope.totalChecked = 0;
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
+
     $scope.aspects = filterService.getQueryFilterItems($scope.query.aspect);
 
     presetsService.getPresetsAspects().then(function(resp){
@@ -12,13 +15,19 @@ app.controller('aspectFilter', function($scope, presetsService, filterService){
   };
 
   $scope.reset = function() {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.query.aspect = '';
     init();
     $scope.$parent.updateQuery();
   };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
+    $rootScope.cleanErrorMessages();
+    $scope.$parent.addToQueryAndUpdate('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
+  };
+
+  $scope.updateTotalCheckedOnChange = function(term){
+    $scope.totalChecked += term.checked ? 1 : -1;
   };
 
   init();

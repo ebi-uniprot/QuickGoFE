@@ -2,6 +2,17 @@
 
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
+wsService.factory('informationService', ['$http', 'ENV',
+  function ($http, ENV) {
+    return {
+        getGoReleaseInfo: function() {
+            return $http.get(ENV.apiEndpoint + '/ontology/go/about');
+        }, getAnnotationReleaseInfo: function() {
+            return $http.get(ENV.apiEndpoint + '/annotation/about');
+        }
+    };
+  }]);
+
 wsService.factory('presetsService', ['$http', 'ENV',
   function ($http, ENV) {
     return {
@@ -169,14 +180,17 @@ wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
       findAnnotationStatistics: function(filters) {
           return $http.get(ENV.apiEndpoint+'/annotation/stats?' + filters);
       },
-      findAnnotationsForTerm: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint + '/annotation/search?goId=' + searchTerm);
+      getAnnotationsForTermUrl: function(searchTerm) {
+        return 'goUsage=descendants&goUsageRelationships=is_a,part_of,occurs_in&goId=' + searchTerm;
       },
-      findAnnotationsForECO: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint + '/annotation/search?ecoId=' + searchTerm);
+      getAnnotationsForECOUrl: function(searchTerm) {
+        return 'evidenceCodeUsage=descendants&evidenceCode=' + searchTerm;
       },
-      findAnnotationsForProduct: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint+'/annotation/search?geneProductId=' + searchTerm);
+      getAnnotationsForProductUrl: function(searchTerm) {
+        return 'geneProductId=' + searchTerm;
+      },
+      findAnnotationsForFilterUrl: function(url) {
+        return $http.get(ENV.apiEndpoint + '/annotation/search?' + url);
       },
       serializeQuery: function(query) {
         var queryString = '';

@@ -1,19 +1,19 @@
 <div ng-controller="goTermsFilter">
   <!-- 3 choices -->
-  <div class="y-scroll-200 inset-panel row column small-12" ng-show="selectedTermSize() > 0">
-    <ul class="no-bullet" ng-show="selectedTermSize() < uploadLimit">
-      <li ng-repeat="(id, term) in goTerms" class="checkbox">
+  <div class="inset-panel row column small-12">
+    <div>
+      Your selection: {{totalChecked}} GO terms
+    </div>
+    <ul class="no-bullet">
+      <li ng-repeat="term in goTerms" class="checkbox">
         <label>
-          <input type="checkbox" ng-model="term.checked">
+          <input type="checkbox" ng-model="term.checked" ng-change="updateTotalCheckedOnChange(term)">
           <term-line id="term.id" aspect="term.item.aspect" obsolete="term.item.isObsolete"
              name="term.item.name"></term-line>
         </label>
       </li>
 
     </ul>
-    <div ng-show="selectedTermSize() > uploadLimit" class="text-center">
-      <strong>More than {{uploadLimit}} terms selected.</strong>
-    </div>
   </div>
   <hr>
   <div class="row columns small-12">
@@ -35,7 +35,7 @@
   <div ng-show="more" class="row columns small-12">
     <fieldset class="fieldset">
       <legend>Select how you want to use the terms that you have chosen:</legend>
-      <label><input type="radio" ng-model="goTermUse" value="descendants">Find annotations to <strong>descendants</strong> of these terms.</label>
+      <label><input type="radio" ng-model="goTermUse" value="descendants">Include child terms</label>
       <label><input type="radio" ng-model="goTermUse" value="slim">Use these terms as a <strong>GO slim</strong>.</label>
       <label><input type="radio" ng-model="goTermUse" value="">Use these terms as an <strong>exact</strong> match.</label>
     </fieldset>

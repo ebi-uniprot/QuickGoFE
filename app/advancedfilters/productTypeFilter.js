@@ -1,9 +1,12 @@
 'use strict';
-app.controller('productTypeFilter', function($scope, presetsService, filterService){
+app.controller('productTypeFilter', function($scope, presetsService, filterService, $rootScope){
 
   $scope.gpTypes = [];
+  $scope.totalChecked = 0;
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
+
     $scope.gpTypes = filterService.getQueryFilterItems($scope.query.geneProductType);
 
     presetsService.getPresetsGeneProductTypes().then(function(resp){
@@ -14,13 +17,19 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
   };
 
   $scope.reset = function() {
+    $rootScope.cleanErrorMessages();
     $scope.query.geneProductType = '';
     init();
     $scope.updateQuery();
   };
 
   $scope.apply = function() {
-    $scope.addToQuery('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
+    $rootScope.cleanErrorMessages();
+    $scope.addToQueryAndUpdate('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
+  };
+
+  $scope.updateTotalCheckedOnChange = function(term){
+    $scope.totalChecked += term.checked ? 1 : -1;
   };
 
   init();
