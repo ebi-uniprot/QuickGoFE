@@ -77,8 +77,10 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $rootScope.cleanErrorMessages();
     var selected = _.pluck($scope.getAllChecked($scope.goTerms), 'id');
     $scope.$parent.addToQuery('goId', selected);
-    $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
-    $scope.$parent.addToQueryAndUpdate('goUsageRelationships', $scope.goRelations);
+    if ($scope.goTermUse !== 'exact') {
+      $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
+    }
+    $scope.$parent.addToQueryAndUpdate('goUsage', $scope.goTermUse);
   };
 
   $scope.addPredefinedSet = function() {
