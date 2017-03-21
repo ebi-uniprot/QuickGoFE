@@ -2,6 +2,17 @@
 
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
+wsService.factory('informationService', ['$http', 'ENV',
+  function ($http, ENV) {
+    return {
+        getGoReleaseInfo: function() {
+            return $http.get(ENV.apiEndpoint + '/ontology/go/about');
+        }, getAnnotationReleaseInfo: function() {
+            return $http.get(ENV.apiEndpoint + '/annotation/about');
+        }
+    };
+  }]);
+
 wsService.factory('presetsService', ['$http', 'ENV',
   function ($http, ENV) {
     return {
@@ -144,16 +155,9 @@ wsService.factory('ontoTypeService', [function(){
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/internal/search/ontology',
-          {
-            params: {
-              query : searchTerm,
-              limit : limit,
-              page : page ? page : 1,
-              facet : facet ? facet : '',
-              filterQuery : filters ? filters : ''
-            }
-          });
+        var url = ENV.apiEndpoint + '/internal/search/ontology?query=' + searchTerm + '&limit=' + limit +
+            '&page=' + (page ? page : 1) + '&facet=' + (facet ? facet : '') + '&' + (filters ? filters : '');
+        return $http.get(url);
       },
       findGeneProducts: function(searchTerm, limit, page, facet, filters) {
         var url = ENV.apiEndpoint + '/geneproduct/search?query=' + searchTerm + '&limit=' + limit +
