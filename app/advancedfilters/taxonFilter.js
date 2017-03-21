@@ -13,6 +13,8 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     $rootScope.cleanErrorMessages();
 
     $scope.taxa = filterService.getQueryFilterItems($scope.query.taxonId);
+    $scope.taxonUsage = ($scope.query.taxonUsage) ?
+                        $scope.query.taxonUsage: 'descendants';
     taxonomyService.initTaxa($scope.taxa).then(function (data) {
       $scope.taxa = data;
     });
@@ -29,6 +31,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   $scope.apply = function() {
     $rootScope.cleanErrorMessages();
     $scope.addToQueryAndUpdate('taxonId', getQuery());
+    $scope.addToQueryAndUpdate('taxonUsage', $scope.taxonUsage);
   };
 
   $scope.addTaxons = function() {
