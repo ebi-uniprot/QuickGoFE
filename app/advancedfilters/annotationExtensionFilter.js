@@ -2,7 +2,6 @@
 app.controller('annotationExtensionFilterController', function($scope, $rootScope){
 
   $scope.extension = '';
-  $scope.totalChecked = 0;
 
   var init = function() {
     $rootScope.cleanErrorMessages();
