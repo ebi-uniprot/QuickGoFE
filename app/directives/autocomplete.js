@@ -25,7 +25,7 @@ angular
           }
 
           if (scope.searchTerm && scope.data && scope.data.length > 0) {
-            angular.extend(scope.items, _.find(scope.data, function(d) {
+            angular.extend(scope.items, _.filter(scope.data, function(d) {
               return d.name.includes(scope.searchTerm);
             }));
           }

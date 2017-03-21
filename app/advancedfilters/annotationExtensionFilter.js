@@ -1,5 +1,5 @@
 'use strict';
-app.controller('annotationExtensionFilterController', function($scope){
+app.controller('annotationExtensionFilterController', function($scope, presetsService){
 
   $scope.extension = '';
 
@@ -28,13 +28,14 @@ app.controller('annotationExtensionFilterController', function($scope){
       $scope.id = '';
   };
 
-  $scope.relationshipData = [
-    {
-      'name':'part_of'
-    },{
-      'name':'is_a'
-    }
-  ];
+  presetsService.getPresetsExtensionRelations().then(function(d){
+    var data = d.data.extRelations;
+    $scope.relationshipData = _.map(data, function(item){
+      return {
+        'name':item.id
+      };
+    });
+  });
 
   $scope.databaseData = [
     {
