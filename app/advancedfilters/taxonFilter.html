@@ -6,7 +6,7 @@
         <li ng-repeat="taxon in taxa" class="checkbox">
           <label>
             <input type="checkbox" ng-model="taxon.checked" ng-click="updateTotalCheckedOnChange(taxon)">
-            {{taxon.id}} <strong>{{taxon.item.scientificName}}</strong>
+            {{taxon.id}} <strong>{{taxon.item.scientificName || taxon.item.name}}</strong>
           </label>
         </li>
       </ul>
@@ -26,6 +26,8 @@
       </div>
     </div>
     <hr>
+    <label><input type="radio" ng-model="taxonUsage" value="descendants">Include descendants</label>
+    <label><input type="radio" ng-model="taxonUsage" value="exact">Exact match</label>
   <div class="float-right">
       <filter-buttons></filter-buttons>
     </div>

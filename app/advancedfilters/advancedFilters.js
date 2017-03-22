@@ -17,18 +17,6 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterHandlingError}
   };
 
-  $scope.stackErrors = function(elements, type, message, field) {
-    $rootScope.alerts = $rootScope.alerts.concat(_.map(
-      elements,
-      function(elem){
-        return {
-          type: type,
-          msg: (field ? elem[field] : elem) + ' ' + message
-        };
-      })
-    );
-  };
-
   $scope.addToQueryAndUpdate = function (type, values) {
     $scope.addToQuery(type, values);
     $scope.updateQuery();

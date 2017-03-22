@@ -25,7 +25,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
 
     var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
     var allItems = filterService.addFilterItems(withs, validationService.validateOther);
-    $scope.stackErrors(allItems.dismissedItems, 'alert', 'is not a with/from value');
+    $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a with/from value');
     $scope.withFrom = filterService.mergeRightToLeft(allItems.filteredItems, $scope.withFrom);
     $scope.withTextArea = '';
   };

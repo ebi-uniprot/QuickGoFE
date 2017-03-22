@@ -58,9 +58,10 @@
       <accordion-group heading="Restrict by Species">
           <ul>
             <li ng-repeat="taxon in species" class="no-bullet">
-              <label><input ng-disabled="count.total <= 0" type="checkbox" ng-model="taxon.checked" checklist-value="{{taxon.taxId}}">
-              {{taxon.title}}
-              ({{taxon.taxId}})</label>
+              <label><input ng-disabled="count.total <= 0" type="checkbox" ng-model="taxon.checked"
+                            checklist-value="{{taxon.id}}">
+              {{taxon.item.scientificName || taxon.item.name}}
+              ({{taxon.id}})</label>
             </li>
           </ul>
           <div class="row">
