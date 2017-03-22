@@ -110,6 +110,22 @@ wsService.factory('taxonomyService',
           return d;
       });
     };
+    var updateTaxonInfo = function(self, defer, taxaArray) {
+      self.getTaxa(_.pluck(taxaArray,'id')).then(function(data){
+          filterService.enrichFilterItemObject(taxaArray, data.data.taxonomies, 'taxonomyId');
+          if(data.data.errors) {
+              var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
+              $rootScope.stackErrors(data.data.errors, 'warning', 'was not found', 'requestedId');
+              taxaArray = removeTaxIds(obsoleteIds, taxaArray);
+          }
+          if(data.data.redirects) {
+              taxaArray = redirectTaxa(taxaArray, data.data.redirects);
+              updateTaxonInfo(self, defer, taxaArray);
+          } else {
+              defer.resolve(taxaArray);
+          }
+      });
+    };
     return {
       getTaxa: function (ids) {
         return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
@@ -120,35 +136,19 @@ wsService.factory('taxonomyService',
         presetsService.getPresetsTaxa().then(function (resp) {
           var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'id');
           taxaArray = filterService.mergeRightToLeft(taxaArray, presetItems);
-          self.updateTaxonInfo(defer, taxaArray);
+          updateTaxonInfo(self, defer, taxaArray);
         });
         return defer.promise;
       },
-      updateTaxonInfo: function(defer, taxaArray) {
-        var self = this;
-        self.getTaxa(_.pluck(taxaArray,'id')).then(function(data){
-          filterService.enrichFilterItemObject(taxaArray, data.data.taxonomies, 'taxonomyId');
-          if(data.data.errors) {
-            var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
-            $rootScope.stackErrors(data.data.errors, 'warning', 'was not found', 'requestedId');
-            taxaArray = removeTaxIds(obsoleteIds, taxaArray);
-          }
-          if(data.data.redirects) {
-            taxaArray = redirectTaxa(taxaArray, data.data.redirects);
-            self.updateTaxonInfo(defer, taxaArray);
-          } else {
-            defer.resolve(taxaArray);
-          }
-        });
-      },
       addNewTaxa: function(taxaArray, taxonTextArea) {
-          var defer = $q.defer();
-          var taxons = stringService.getTextareaItemsAsArray(taxonTextArea.toUpperCase());
-          var allItems = filterService.addFilterItems(taxons, validationService.validateTaxon);
-          $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid taxon id');
-          taxaArray = filterService.mergeRightToLeft(allItems.filteredItems, taxaArray);
-          this.updateTaxonInfo(defer, taxaArray);
-          return defer.promise;
+        var self = this;
+        var defer = $q.defer();
+        var taxons = stringService.getTextareaItemsAsArray(taxonTextArea.toUpperCase());
+        var allItems = filterService.addFilterItems(taxons, validationService.validateTaxon);
+        $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid taxon id');
+        taxaArray = filterService.mergeRightToLeft(allItems.filteredItems, taxaArray);
+        updateTaxonInfo(self, defer, taxaArray);
+        return defer.promise;
       }
     }
 }]);
