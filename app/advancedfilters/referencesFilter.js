@@ -1,6 +1,6 @@
 'use strict';
 app.controller('referencesFilter', function($scope, presetsService, stringService, validationService, filterService,
-                                            $rootScope, hardCodedDataService){
+                                            $rootScope, hardCodedDataService, limitChecker){
 
   $scope.references = [];
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().reference;
@@ -25,9 +25,9 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(refs, validationService.validateOther);
     $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid reference');
-    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.references, $scope.totalChecked,
+    var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.references, $scope.totalChecked,
       allItems.filteredItems, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+    if (limitChecker.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.references = merge.mergedTerms;
       $scope.updateTotalCheckedFromDisplay($scope.references);
     }
@@ -58,12 +58,12 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
 
     $scope.$parent.updateTotalCheckedOnChange(term);
 
-    var currentTotalCheck = $scope.getAllChecked($scope.references).length;
-    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError(
-          $scope.getAllChecked($scope.references).length, $scope.getAllChecked($scope.references).length,
+    var currentTotalCheck = limitChecker.getAllChecked($scope.references).length;
+    $scope.totalChecked = limitChecker.getTotalCheckedAfterHandlingLimitError(
+        limitChecker.getAllChecked($scope.references).length, limitChecker.getAllChecked($scope.references).length,
           $scope.uploadLimit);
 
-    if ($rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked)) {
+    if (limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalChecked)) {
       term.checked = !term.checked;
       $scope.$parent.updateTotalCheckedOnChange(term);
     }

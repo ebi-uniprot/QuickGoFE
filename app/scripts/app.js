@@ -31,26 +31,6 @@ app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
     $rootScope.alerts = [];
   };
 
-  $rootScope.getNewTotalBasedOnLimit = function(oldTotal, newTotal, limit) {
-    return newTotal <= limit ? newTotal : oldTotal <= limit ? oldTotal : limit;
-  };
-
-  $rootScope.isTotalDifferent = function (oldTotal, newTotal) {
-    return oldTotal !== newTotal;
-  };
-
-  $rootScope.addAboveLimitError = function(uploadLimit) {
-    $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
-  };
-
-  $rootScope.getTotalCheckedAfterHandlingLimitError = function(currentTotalChecked, mergedTotalChecked, uploadLimit) {
-    var totalChecked = $rootScope.getNewTotalBasedOnLimit(currentTotalChecked, mergedTotalChecked, uploadLimit);
-    if (totalChecked !== mergedTotalChecked) {
-        $rootScope.addAboveLimitError(uploadLimit);
-    }
-    return totalChecked;
-  };
-
   $rootScope.stackErrors = function(elements, type, message, field) {
     $rootScope.alerts = $rootScope.alerts.concat(_.map(
       elements,

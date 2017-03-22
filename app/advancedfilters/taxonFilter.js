@@ -1,9 +1,10 @@
 'use strict';
 app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataService,
-  stringService, validationService, presetsService, taxonomyService, filterService){
+  stringService, validationService, presetsService, taxonomyService, filterService, limitChecker){
 
   $scope.taxa = [];
-  $scope.totalChecked = 1; //TODO refactor when GOA-2692 is done
+  $scope.totalChecked = 0;
+  $scope.uploadLimit = hardCodedDataService.getServiceLimits().taxonId;
 
   var getQuery = function() {
     return _.pluck(_.filter($scope.taxa, 'checked'), 'id');
@@ -13,10 +14,11 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     $rootScope.cleanErrorMessages();
 
     $scope.taxa = filterService.getQueryFilterItems($scope.query.taxonId);
-    $scope.taxonUsage = ($scope.query.taxonUsage) ?
-                        $scope.query.taxonUsage: 'descendants';
+    $scope.taxonUsage = ($scope.query.taxonUsage) ? $scope.query.taxonUsage: 'descendants';
+
     taxonomyService.initTaxa($scope.taxa).then(function (data) {
       $scope.taxa = data;
+      $scope.totalChecked = limitChecker.getAllChecked($scope.taxa).length;
     });
   };
 

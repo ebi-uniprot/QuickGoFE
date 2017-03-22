@@ -355,6 +355,38 @@ wsService.factory('search', ['$resource', 'ENV', function($resource, ENV){
   });
 }]);
 
+wsService.factory('limitChecker', ['hardCodedDataService', 'filterService', '$rootScope',
+    function(hardCodedDataService, filterService, $rootScope){
+  return {
+    getNewTotalBasedOnLimit: function(oldTotal, newTotal, limit) {
+      return newTotal <= limit ? newTotal : oldTotal <= limit ? oldTotal : limit;
+    },
+    isTotalDifferent: function (oldTotal, newTotal) {
+      return oldTotal !== newTotal;
+    },
+    addAboveLimitError: function(uploadLimit) {
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
+    },
+    getTotalCheckedAfterHandlingLimitError: function(currentTotalChecked, mergedTotalChecked, uploadLimit) {
+      var totalChecked = this.getNewTotalBasedOnLimit(currentTotalChecked, mergedTotalChecked, uploadLimit);
+      if (totalChecked !== mergedTotalChecked) {
+        this.addAboveLimitError(uploadLimit);
+      }
+      return totalChecked;
+    },
+    getAllChecked: function(collection) {
+        return _.where(collection, {checked: true});
+    },
+    getEffectiveTotalCheckedAndMergedTerms: function(displayedTerms, displayedChecked, newTerms, uploadLimit) {
+        var mergedTerms = filterService.mergeRightToLeft(newTerms, displayedTerms);
+        var totalCheckedAfterMerge = this.getAllChecked(mergedTerms).length;
+        var totalCheckedAfterHandlingError = this.getTotalCheckedAfterHandlingLimitError(displayedChecked,
+            totalCheckedAfterMerge, uploadLimit);
+        return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterHandlingError}
+    }
+  };
+}]);
+
 //@deprecated
 wsService.factory('searchfull', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/searchfull', {text: '@text',format:'JSON', page:'@page', row:'@rows', viewBy:'@viewBy'}, {

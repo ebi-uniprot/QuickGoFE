@@ -1,7 +1,7 @@
 'use strict';
 app.controller('GOSlimCtrl', function($scope, $location, $q,
   hardCodedDataService, presetsService, $document, termService, basketService,
-  stringService, validationService, filterService, taxonomyService, $rootScope) {
+  stringService, validationService, filterService, taxonomyService, $rootScope, limitChecker) {
 
   $scope.selection = {};
   $scope.deSelectedItems = [];
@@ -88,9 +88,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   var getEffectiveTotalCheckedAndMergedTerms = function(terms, aspectMap) {
     var mergedTermsAndTotal = getMergedTermsAndTotal(terms, aspectMap);
-    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.total,
+    var totalCheckedAfterHandlingError = limitChecker.getTotalCheckedAfterHandlingLimitError($scope.total,
         mergedTermsAndTotal.totalChecked, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent(mergedTermsAndTotal.totalChecked, totalCheckedAfterHandlingError)) {
+    if (limitChecker.isTotalDifferent(mergedTermsAndTotal.totalChecked, totalCheckedAfterHandlingError)) {
       return {mergedTerms: $scope.selection, totalChecked: $scope.total};
     } else {
       return mergedTermsAndTotal;
@@ -182,9 +182,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.addBackIntoSelection = function(termToAdd) {
     $rootScope.cleanErrorMessages();
     // Add back to selectedItems
-    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.total,
+    var totalCheckedAfterHandlingError = limitChecker.getTotalCheckedAfterHandlingLimitError($scope.total,
       $scope.total + 1, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent($scope.total, totalCheckedAfterHandlingError)) {
+    if (limitChecker.isTotalDifferent($scope.total, totalCheckedAfterHandlingError)) {
         $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
         $scope.total++;
         // Remove from deSelectedItems
