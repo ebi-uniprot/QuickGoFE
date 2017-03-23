@@ -17,8 +17,8 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     $scope.taxonUsage = ($scope.query.taxonUsage) ? $scope.query.taxonUsage: 'descendants';
 
     taxonomyService.initTaxa($scope.taxa).then(function (data) {
-      $scope.taxa = data;
-      $scope.totalChecked = limitChecker.getAllChecked($scope.taxa).length;
+      $scope.taxa = data.taxa;
+      $scope.totalChecked = data.totalChecked;
     });
   };
 
@@ -39,14 +39,21 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   $scope.addTaxons = function() {
     $rootScope.cleanErrorMessages();
 
-    taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea).then(function(data) {
-      $scope.taxa = data;
-      $scope.taxonTextArea = '';
+    taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea, $scope.totalChecked, $scope.uploadLimit)
+      .then(function(data) {
+        $scope.taxa = data.taxa;
+        $scope.totalChecked = data.totalChecked;
+        $scope.taxonTextArea = '';
     });
   };
 
-  $scope.updateTotalCheckedOnChange = function() {
+  $scope.updateTotalCheckedOnChange = function(term) {
     $rootScope.cleanErrorMessages();
+    var currentTotalCheck = limitChecker.getAllChecked($scope.taxa).length;
+    $scope.totalChecked = limitChecker.getTotalCheckedAfterHandlingLimitError(
+      limitChecker.getAllChecked($scope.taxa).length, limitChecker.getAllChecked($scope.taxa).length,
+      $scope.uploadLimit);
+    term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
   };
 
   initTaxons();
