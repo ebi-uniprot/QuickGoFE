@@ -25,27 +25,4 @@ describe('Testing annotation filters', function(){
     expect(scope.query).toEqual({});
   });
 
-  it('should return a total below limit', function() {
-    var total = scope.getNewTotalBasedOnLimit(3, 2, 2);
-    expect(total).toEqual(2);
-
-    var total = scope.getNewTotalBasedOnLimit(1, 1, 2);
-    expect(total).toEqual(1);
-
-    var total = scope.getNewTotalBasedOnLimit(2, 2, 2);
-    expect(total).toEqual(2);
-  });
-
-  it('should add limit error', function() {
-    rootScope.cleanErrorMessages();
-    scope.getTotalCheckedAfterHandlingLimitError(3,2);
-    expect(rootScope.alerts.length).toEqual(1);
-  });
-
-  it('should add limit error', function() {
-    rootScope.cleanErrorMessages();
-    rootScope.getTotalCheckedAfterHandlingLimitError(1, 2,3);
-    expect(rootScope.alerts.length).toEqual(0);
-  });
-
 });

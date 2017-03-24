@@ -1,12 +1,14 @@
 'use strict';
 app.controller('GOSlimCtrl', function($scope, $location, $q,
   hardCodedDataService, presetsService, $document, termService, basketService,
-  stringService, validationService, filterService, taxonomyService, $rootScope) {
+  stringService, validationService, filterService, taxonomyService, $rootScope, limitChecker) {
 
   $scope.selection = {};
   $scope.deSelectedItems = [];
-  $scope.uploadLimit = hardCodedDataService.getServiceLimits().goId;
-  $scope.total = 0;
+  $scope.uploadLimitGO = hardCodedDataService.getServiceLimits().goId;
+  $scope.uploadLimitTaxon = hardCodedDataService.getServiceLimits().taxonId;
+  $scope.totalGO = 0;
+  $scope.totalTaxon = 0;
 
   // Fixes the removed terms box to the top of the screen when scrolling
   $document.on('scroll', function() {
@@ -32,7 +34,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
         'terms': {}
       };
     });
-    $scope.total = 0;
+    $scope.totalGO = 0;
 
     $scope.additionalSelection = {
       'gpIds':[],
@@ -40,7 +42,8 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     };
     $scope.species = [];
     taxonomyService.initTaxa($scope.species).then(function(data) {
-      $scope.species = data;
+      $scope.species = data.taxa;
+      $scope.totalTaxon = data.totalChecked;
     });
 
     /**
@@ -73,7 +76,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   var getMergedTermsAndTotal = function(terms, aspectMap) {
     var mergedTerms = jQuery.extend(true, {}, $scope.selection);
-    var totalCheckedAfterMerge = $scope.total;
+    var totalCheckedAfterMerge = $scope.totalGO;
 
     angular.forEach(terms, function(goTerm){
       if (aspectMap && aspectMap[goTerm.aspect]) { //TODO remove when service has correct aspect
@@ -88,10 +91,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   var getEffectiveTotalCheckedAndMergedTerms = function(terms, aspectMap) {
     var mergedTermsAndTotal = getMergedTermsAndTotal(terms, aspectMap);
-    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.total,
-        mergedTermsAndTotal.totalChecked, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent(mergedTermsAndTotal.totalChecked, totalCheckedAfterHandlingError)) {
-      return {mergedTerms: $scope.selection, totalChecked: $scope.total};
+    var totalCheckedAfterHandlingError = limitChecker.getTotalCheckedAfterHandlingLimitError($scope.totalGO,
+        mergedTermsAndTotal.totalChecked, $scope.uploadLimitGO);
+    if (limitChecker.isTotalDifferent(mergedTermsAndTotal.totalChecked, totalCheckedAfterHandlingError)) {
+      return {mergedTerms: $scope.selection, totalChecked: $scope.totalGO};
     } else {
       return mergedTermsAndTotal;
     }
@@ -100,7 +103,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   var updateSelectionAndTotal = function(terms, aspectMap) {
     var effectiveMergedTerms = getEffectiveTotalCheckedAndMergedTerms(terms, aspectMap);
     $scope.selection = effectiveMergedTerms.mergedTerms;
-    $scope.total = effectiveMergedTerms.totalChecked;
+    $scope.totalGO = effectiveMergedTerms.totalChecked;
   };
 
   // Predefined sets
@@ -147,8 +150,10 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.addNewTaxon = function() {
     $rootScope.cleanErrorMessages();
 
-    taxonomyService.addNewTaxa($scope.species, $scope.taxonTextArea).then(function(data) {
-        $scope.species = data;
+    taxonomyService.addNewTaxa($scope.species, $scope.taxonTextArea, $scope.totalTaxon, $scope.uploadLimitTaxon)
+      .then(function(data) {
+        $scope.species = data.taxa;
+        $scope.totalTaxon = data.totalChecked;
         $scope.taxonTextArea = '';
     });
   };
@@ -174,7 +179,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     $rootScope.cleanErrorMessages();
     // Remove from selected items
     delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
-    $scope.total--;
+    $scope.totalGO--;
     // Add to de-selected items
     $scope.deSelectedItems.push(termToRemove);
   };
@@ -182,11 +187,11 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.addBackIntoSelection = function(termToAdd) {
     $rootScope.cleanErrorMessages();
     // Add back to selectedItems
-    var totalCheckedAfterHandlingError = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.total,
-      $scope.total + 1, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent($scope.total, totalCheckedAfterHandlingError)) {
+    var totalCheckedAfterHandlingError = limitChecker.getTotalCheckedAfterHandlingLimitError($scope.totalGO,
+      $scope.totalGO + 1, $scope.uploadLimitGO);
+    if (limitChecker.isTotalDifferent($scope.totalGO, totalCheckedAfterHandlingError)) {
         $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
-        $scope.total++;
+        $scope.totalGO++;
         // Remove from deSelectedItems
         $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
             return term.id !== termToAdd.id;
@@ -243,6 +248,15 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   $scope.getSelectedIdsForAspect = function(aspect){
     return _.pluck($scope.selection[aspect].terms, 'id');
+  };
+
+  $scope.updateTotalCheckedTaxaOnChange = function(term) {
+    $rootScope.cleanErrorMessages();
+    var currentTotalCheck = limitChecker.getAllChecked($scope.species).length;
+    $scope.totalTaxon = limitChecker.getTotalCheckedAfterHandlingLimitError(
+      limitChecker.getAllChecked($scope.species).length, limitChecker.getAllChecked($scope.species).length,
+      $scope.uploadLimitTaxon);
+    term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalTaxon) ? !term.checked : term.checked;
   };
 
 });

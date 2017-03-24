@@ -1,7 +1,7 @@
 <div class="row">
   <div class="column medium-12">
     <h2>Explore Biology</h2>
-    <p>Make a selection of terms below (maximum {{uploadLimit}}) and submit to see their associated annotations</p>
+    <p>Make a selection of terms below (maximum {{uploadLimitGO}}) and submit to see their associated annotations</p>
   </div>
 </div>
 <div class="row">
@@ -55,11 +55,14 @@
           <textarea ng-disabled="count.total <= 0" class="default" placeholder="A0A000,A0A001,..." ng-model="$parent.$parent.$parent.geneProductID"></textarea>
           <button class="button" ng-click="addGPIds()" ng-disabled="count.total <= 0">Add to selection</button>
       </accordion-group>
-      <accordion-group heading="Restrict by Species">
+      <accordion-group heading="Restrict by Taxonomy">
+        <div>
+          Your selection: {{totalTaxon}} taxa
+        </div>
           <ul>
             <li ng-repeat="taxon in species" class="no-bullet">
               <label><input ng-disabled="count.total <= 0" type="checkbox" ng-model="taxon.checked"
-                            checklist-value="{{taxon.id}}">
+                            checklist-value="{{taxon.id}}" ng-click="updateTotalCheckedTaxaOnChange(taxon)">
               {{taxon.item.scientificName || taxon.item.name}}
               ({{taxon.id}})</label>
             </li>

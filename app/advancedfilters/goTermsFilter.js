@@ -1,6 +1,6 @@
 'use strict';
 app.controller('goTermsFilter', function($scope, basketService, stringService, hardCodedDataService,
-  validationService, termService, presetsService, $rootScope, filterService){
+  validationService, termService, presetsService, $rootScope, filterService, limitChecker){
 
   $scope.goTerms = [];
   $scope.totalChecked = 0;
@@ -27,7 +27,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     });
 
     updateTermInfo();
-    $scope.totalChecked = $scope.getAllChecked($scope.goTerms).length;
+    $scope.totalChecked = limitChecker.getAllChecked($scope.goTerms).length;
   };
 
   var updateTermInfo = function() {
@@ -59,9 +59,9 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
     $rootScope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
-    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
+    var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
       allTerms.filteredItems, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+    if (limitChecker.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.goTerms = merge.mergedTerms;
       $scope.totalChecked = merge.totalChecked;
       updateTermInfo();
@@ -75,7 +75,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
   $scope.apply = function() {
     $rootScope.cleanErrorMessages();
-    var selected = _.pluck($scope.getAllChecked($scope.goTerms), 'id');
+    var selected = _.pluck(limitChecker.getAllChecked($scope.goTerms), 'id');
     $scope.$parent.addToQuery('goId', selected);
     if ($scope.goTermUse !== 'exact') {
       $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
@@ -92,9 +92,9 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
         slimSetItems = filterService.removeRootTerms(slimSetItems);
       }
       var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
-      var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
+      var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
         filterItems, $scope.uploadLimit);
-      if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+      if (limitChecker.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
         $scope.goTerms = merge.mergedTerms;
         $scope.totalChecked = merge.totalChecked;
       }
@@ -104,10 +104,11 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
 
   $scope.updateTotalCheckedOnChange = function(term) {
     $rootScope.cleanErrorMessages();
-    var currentTotalCheck = $scope.getAllChecked($scope.goTerms).length;
-    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.goTerms).length,
-          $scope.getAllChecked($scope.goTerms).length, $scope.uploadLimit);
-    term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
+    var currentTotalCheck = limitChecker.getAllChecked($scope.goTerms).length;
+    $scope.totalChecked = limitChecker.getTotalCheckedAfterHandlingLimitError(
+      limitChecker.getAllChecked($scope.goTerms).length, limitChecker.getAllChecked($scope.goTerms).length,
+      $scope.uploadLimit);
+    term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
   };
 
   init();

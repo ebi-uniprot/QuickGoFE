@@ -2,6 +2,9 @@
 <div ng-controller="taxonFilter">
   <form>
     <div class="form-group overflow-pane">
+      <div>
+        Your selection: {{totalChecked}} taxa
+      </div>
       <ul class="no-bullet">
         <li ng-repeat="taxon in taxa" class="checkbox">
           <label>

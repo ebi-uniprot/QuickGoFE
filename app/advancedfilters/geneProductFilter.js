@@ -1,6 +1,6 @@
 'use strict';
 app.controller('geneProductFilter', function ($scope, stringService,
-  validationService, presetsService, filterService, hardCodedDataService, $rootScope) {
+  validationService, presetsService, filterService, hardCodedDataService, $rootScope, limitChecker) {
 
   $scope.gpIds = [];
   $scope.geneProductSets = [];
@@ -17,9 +17,9 @@ app.controller('geneProductFilter', function ($scope, stringService,
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.targetSet);
       var presetFilterItems = filterService.getPresetFilterItems(_.sortBy(resp.data.geneProducts, 'name'), 'name');
       $scope.geneProductSets = filterService.mergeRightToLeft(queryFilterItems, presetFilterItems);
-      $scope.totalCheckedSets = $scope.getAllChecked($scope.geneProductSets).length;
+      $scope.totalCheckedSets = limitChecker.getAllChecked($scope.geneProductSets).length;
     });
-    $scope.totalCheckedIds = $scope.getAllChecked($scope.gpIds).length;
+    $scope.totalCheckedIds = limitChecker.getAllChecked($scope.gpIds).length;
   };
 
   $scope.reset = function () {
@@ -47,9 +47,9 @@ app.controller('geneProductFilter', function ($scope, stringService,
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
     var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
     $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
-    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.gpIds, $scope.totalCheckedIds,
+    var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.gpIds, $scope.totalCheckedIds,
       allItems.filteredItems, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent($scope.totalCheckedIds, merge.totalChecked)) {
+    if (limitChecker.isTotalDifferent($scope.totalCheckedIds, merge.totalChecked)) {
       $scope.gpIds = merge.mergedTerms;
       $scope.totalCheckedIds = merge.totalChecked;
     }
@@ -58,10 +58,11 @@ app.controller('geneProductFilter', function ($scope, stringService,
 
   $scope.updateTotalCheckedOnChange = function(term) {
     $rootScope.cleanErrorMessages();
-    var currentTotalCheck = $scope.getAllChecked($scope.gpIds).length;
-    $scope.totalCheckedIds = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.gpIds).length,
-          $scope.getAllChecked($scope.gpIds).length, $scope.uploadLimit);
-    term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalCheckedIds) ? !term.checked : term.checked;
+    var currentTotalCheck = limitChecker.getAllChecked($scope.gpIds).length;
+    $scope.totalCheckedIds = limitChecker.getTotalCheckedAfterHandlingLimitError(
+      limitChecker.getAllChecked($scope.gpIds).length, limitChecker.getAllChecked($scope.gpIds).length,
+      $scope.uploadLimit);
+    term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalCheckedIds) ? !term.checked : term.checked;
   };
 
   $scope.updateTotalCheckedOnSetChange = function(set) {
