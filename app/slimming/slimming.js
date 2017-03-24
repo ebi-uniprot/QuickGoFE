@@ -4,6 +4,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   stringService, validationService, filterService, taxonomyService, $rootScope, limitChecker) {
 
   $scope.selection = {};
+  $scope.totalPerAspect = {};
   $scope.deSelectedItems = [];
   $scope.uploadLimitGO = hardCodedDataService.getServiceLimits().goId;
   $scope.uploadLimitTaxon = hardCodedDataService.getServiceLimits().taxonId;
@@ -33,6 +34,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
         'name': aspect.name,
         'terms': {}
       };
+      $scope.totalPerAspect[aspect.id] = 0;
     });
     $scope.totalGO = 0;
 
@@ -175,6 +177,12 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     $scope.additionalSelection.taxa = _.pluck(_.filter($scope.species, 'checked'),'id');
   };
 
+  var cleanWhenEmpty = function() {
+    if ($scope.totalGO === 0) {
+      $scope.deSelectedItems = [];
+    }
+  };
+
   $scope.removeFromSelection = function(termToRemove) {
     $rootScope.cleanErrorMessages();
     // Remove from selected items
@@ -182,7 +190,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     $scope.totalGO--;
     // Add to de-selected items
     $scope.deSelectedItems.push(termToRemove);
-    $scope.testIfSelectionIsEmpty();
+    cleanWhenEmpty();
   };
 
   $scope.addBackIntoSelection = function(termToAdd) {
@@ -200,15 +208,9 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     }
   };
 
-  $scope.$watch('selection', function() {
-    $scope.count = {
-      total:0
-    };
+  $scope.$watch('totalGO', function() {
     angular.forEach($scope.selection, function(aspect) {
-      if(Object.keys(aspect.terms).length) {
-        $scope.count[aspect.name] = Object.keys(aspect.terms).length;
-        $scope.count.total = $scope.count.total + Object.keys(aspect.terms).length;
-      }
+        $scope.totalPerAspect[aspect.name] = _.keys(aspect.terms).length;
     });
   }, true);
 
@@ -259,11 +261,4 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       $scope.uploadLimitTaxon);
     term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalTaxon) ? !term.checked : term.checked;
   };
-
-    $scope.testIfSelectionIsEmpty = function(){
-        if ($scope.count.total === 1){
-            $scope.deSelectedItems = [];
-        }
-    };
-
 });
