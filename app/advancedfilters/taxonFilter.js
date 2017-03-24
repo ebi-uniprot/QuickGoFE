@@ -26,6 +26,7 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     $rootScope.cleanErrorMessages();
 
     $scope.query.taxonId = '';
+    $scope.query.taxonUsage = '';
     initTaxons();
     $scope.updateQuery();
   };
