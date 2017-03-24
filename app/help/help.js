@@ -1,4 +1,5 @@
-app.controller('HelpCtrl', function($document, $anchorScroll){
+'use strict';
+app.controller('HelpCtrl', function($document){
   /**
   * Deals with making the right nav menu fixed
   */

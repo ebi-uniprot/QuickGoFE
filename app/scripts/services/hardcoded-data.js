@@ -156,6 +156,14 @@ hardCodedModule.factory('hardCodedDataService', function() {
     }
   ];
 
+  var serviceLimits = {
+      taxonId: 50,
+      geneProductId: 500,
+      goId: 600,
+      eco: 100,
+      reference: 50
+  };
+
   hardCodedService.getMostCommonTaxonomies = function() {
     return mostCommonTaxonomies;
   };
@@ -170,6 +178,16 @@ hardCodedModule.factory('hardCodedDataService', function() {
 
   hardCodedService.getGeneProductSets = function() {
     return geneProductSets;
+  };
+
+  hardCodedService.getServiceLimits = function() {
+    return serviceLimits;
+  };
+
+  hardCodedService.getTermsLimitMsg = function(limit) {
+    return {
+      type: 'alert',
+      msg: 'Sorry, maximum ' + limit + ' terms allowed. Please revise your term selection and try again.'};
   };
 
   return hardCodedService;

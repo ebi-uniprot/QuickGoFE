@@ -20,11 +20,27 @@ var app = angular
     'mm.foundation'
   ]);
 
-app.run(function ($rootScope, dbXrefService, $window, $location) {
+app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
   $rootScope.followLinkToGeneric = function (database) {
     dbXrefService.getDbXrefs().then(function (xrefs) {
       $window.open(dbXrefService.getGenericLink(database, xrefs.data));
     });
+  };
+
+  $rootScope.cleanErrorMessages = function() {
+    $rootScope.alerts = [];
+  };
+
+  $rootScope.stackErrors = function(elements, type, message, field) {
+    $rootScope.alerts = $rootScope.alerts.concat(_.map(
+      elements,
+      function(elem){
+        return {
+          type: type,
+          msg: (field ? elem[field] : elem) + ' ' + message
+        };
+      })
+    );
   };
 
   $rootScope.followLinkToEntry = function (id, database) {
@@ -108,11 +124,17 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
     .when('/faq/amigo', {
       templateUrl: 'faq/amigo.html'
     })
-    .when('/faq/gene_product_download', {
-      templateUrl: 'faq/gene_product_download.html'
+    .when('/faq/gene_product_export', {
+      templateUrl: 'faq/gene_product_export.html'
     })
     .when('/faq/gp_list', {
       templateUrl: 'faq/gp_list.html'
+    })
+    .when('/faq/export_limit', {
+      templateUrl: 'faq/export_limit.html'
+    })
+    .when('/faq/filter_limits', {
+      templateUrl: 'faq/filter_limits.html'
     })
     .when('/faq/human_proteome', {
       templateUrl: 'faq/human_proteome.html'

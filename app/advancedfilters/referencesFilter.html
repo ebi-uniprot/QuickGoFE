@@ -3,12 +3,13 @@
   <!-- GO ID -->
   <div>
     <form>
-      <div class="y-scroll-200 inset-panel">
+      <div class="inset-panel">
         <div class="overflow-pane">
           <ul class="no-bullet">
             <li ng-repeat="ref in references" class="checkbox">
               <label>
-                <input type="checkbox" ng-model="ref.checked"> <strong>{{ref.id}}</strong> {{ref.item.description}}
+                <input type="checkbox" ng-model="ref.checked" ng-change="updateTotalCheckedOnChange(ref)">
+                <strong>{{ref.id}}</strong> {{ref.item.description}}
               </label>
               </td>
             </li>

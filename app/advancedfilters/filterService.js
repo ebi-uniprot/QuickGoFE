@@ -15,17 +15,21 @@ app.service('filterService', function(){
     return filterItems;
   };
 
-  this.addFilterItems = function(items, validator) {
-    var filterItems = [];
+  this.addFilterItems = function(items, validator, modify) {
+    var filterItems = {};
+    var dismissedItems = [];
     angular.forEach(items, function (item) {
-      if (validator(item)) {
-        filterItems.push({
-          id: item,
+      var validation = validator(item);
+      if (validation) {
+        filterItems[modify ? validation : item] = {
+          id: modify ? validation : item,
           checked: true
-        });
+        };
+      } else {
+        dismissedItems.push(item);
       }
     });
-    return filterItems;
+    return {filteredItems: _.values(filterItems), dismissedItems: dismissedItems};
   };
 
   this.getPresetFilterItems = function(items, idField, checked) {

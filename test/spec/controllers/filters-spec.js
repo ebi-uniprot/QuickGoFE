@@ -4,10 +4,11 @@ describe('Testing annotation filters', function(){
 
   beforeEach(module('quickGoFeApp'));
 
-  var AdvancedFiltersCtrl, scope;
+  var AdvancedFiltersCtrl, scope, rootScope;
 
   beforeEach(inject(function($controller, $rootScope) {
     scope = $rootScope.$new();
+    rootScope = $rootScope;
     AdvancedFiltersCtrl = $controller('AdvancedFiltersCtrl', {
       $scope: scope
     });

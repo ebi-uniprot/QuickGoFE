@@ -1,9 +1,12 @@
 'use strict';
-app.controller('withFromFilter', function($scope, presetsService, stringService, validationService, filterService) {
+app.controller('withFromFilter', function($scope, presetsService, stringService, validationService, filterService,
+                                          $rootScope) {
 
   $scope.withFrom = [];
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
+
     $scope.withFrom = filterService.getQueryFilterItems($scope.query.withFrom);
 
     presetsService.getPresetsWithFrom().then(function(resp){
@@ -11,26 +14,29 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
       var withPresetItems = filterService.getPresetFilterItems(withDBs, 'name');
       $scope.withFrom = filterService.mergeRightToLeft($scope.withFrom, withPresetItems);
     });
-
   };
 
   var getQuery = function() {
     return _.pluck(_.filter(_.values($scope.withFrom), 'checked'), 'id');
   };
 
-
   $scope.addWith = function() {
+    $rootScope.cleanErrorMessages();
+
     var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
-    var filterItems = filterService.addFilterItems(withs, validationService.validateOther);
-    $scope.withFrom = filterService.mergeRightToLeft(filterItems, $scope.withFrom);
+    var allItems = filterService.addFilterItems(withs, validationService.validateOther);
+    $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a with/from value');
+    $scope.withFrom = filterService.mergeRightToLeft(allItems.filteredItems, $scope.withFrom);
     $scope.withTextArea = '';
   };
 
   $scope.apply = function() {
-    $scope.addToQuery('withFrom', getQuery());
+    $rootScope.cleanErrorMessages();
+    $scope.addToQueryAndUpdate('withFrom', getQuery());
   };
 
   $scope.reset = function () {
+    $rootScope.cleanErrorMessages();
     $scope.query.withFrom = '';
     init();
   };

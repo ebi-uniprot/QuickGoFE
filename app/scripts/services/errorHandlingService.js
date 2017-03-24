@@ -28,8 +28,9 @@ errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$root
         if (response.data.messages) {
           $rootScope.alerts = _.map(response.data.messages, function(message){
             return {
+              type: 'alert',
               msg: message
-            }
+            };
           });
         }
         return $q.reject(response);

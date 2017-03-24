@@ -1,6 +1,5 @@
 <div ng-controller="AdvancedFiltersCtrl" class="columns small-12">
   <ul class="menu">
-    <li>Filter by: </li>
     <li>
       <dropdown-toggle close-on-click="true">
         <toggle>
@@ -75,7 +74,7 @@
     <li ng-class="{'inactive':query.extension}">
       <dropdown-toggle close-on-click="true" class="evidence-panel" pane-align="right">
         <toggle>
-          <button class="button dropdown" ng-class="{'icon-functional active-filter' : query['extension']}" data-icon="/">Annotation Extension</button>
+          <button class="button dropdown" ng-class="{'icon-functional active-filter' : query['extension']}" data-icon="/">Extension</button>
         </toggle>
         <pane>
           <div ng-include src="'advancedfilters/annotationExtensionFilter.html'"></div>
@@ -110,8 +109,7 @@
       <!-- ASSIGNED BY -->
         <div class="medium-3 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
         <div class="float-right">
-          <button class="button" ng-click="reset()">Reset</button>
-          <button class="button" ng-click="apply()">Apply</button>
+          <filter-buttons></filter-buttons>
         </div>
       </div>
   </div>

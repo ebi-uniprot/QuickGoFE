@@ -2,11 +2,11 @@
   <h5 ng-class="{'icon-functional active-filter' : query['withFrom']}" data-icon="/">With/From</h5>
   <div>
     <form>
-      <div class="y-scroll-200 overflow-pane">
+      <div class="overflow-pane">
         <ul class="no-bullet">
           <li ng-repeat="(withID, obj) in withFrom" class="checkbox">
             <label>
-              <input type="checkbox" ng-model="obj.checked">
+              <input type="checkbox" ng-model="obj.checked" ng-change="updateTotalCheckedOnChange(obj)">
               <strong>{{obj.id}}</strong> {{obj.item.description}}
             </label>
           </li>

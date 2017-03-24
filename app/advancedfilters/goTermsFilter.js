@@ -1,14 +1,15 @@
 'use strict';
-app.controller('goTermsFilter', function($scope, basketService, stringService,
-  validationService, termService, presetsService, $rootScope, filterService){
+app.controller('goTermsFilter', function($scope, basketService, stringService, hardCodedDataService,
+  validationService, termService, presetsService, $rootScope, filterService, limitChecker){
 
   $scope.goTerms = [];
+  $scope.totalChecked = 0;
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
-  $scope.uploadLimit = 600;
-
+  $scope.uploadLimit = hardCodedDataService.getServiceLimits().goId;
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
     //Get terms from url
     $scope.goTerms = filterService.getQueryFilterItems($scope.query.goId);
     $scope.includeRootTerms = false;
@@ -21,26 +22,30 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
         filterService.getFilterItemsForIds(basketService.getIds()));
     }
 
-     presetsService.getPresetsGOSlimSets().then(function(resp){
-       $scope.predefinedSlimSets = resp.data.goSlimSets;
-     });
+    presetsService.getPresetsGOSlimSets().then(function(resp){
+      $scope.predefinedSlimSets = resp.data.goSlimSets;
+    });
 
-     updateTermInfo();
+    updateTermInfo();
+    $scope.totalChecked = limitChecker.getAllChecked($scope.goTerms).length;
   };
 
   var updateTermInfo = function() {
-    if($scope.goTerms.length > 0 && $scope.goTerms.length < $scope.uploadLimit){
-      var termsToGet = _.filter($scope.goTerms, function(d){
-        return d.term === undefined;
+    if($scope.goTerms.length > 0){
+      var termsToGet = _.filter($scope.goTerms, function(term){
+        return term.item === undefined;
       });
-      termService.getGOTerms(_.pluck(termsToGet,'id')).then(function(d){
-        var data = d.data.results;
-        filterService.enrichFilterItemObject($scope.goTerms, data, 'id');
-      });
+      if (termsToGet.length !== 0) {
+        termService.getGOTerms(_.pluck(termsToGet,'id')).then(function(d){
+          var data = d.data.results;
+          filterService.enrichFilterItemObject($scope.goTerms, data, 'id');
+        });
+      }
     }
   };
 
   $scope.reset = function() {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.query.goId = '';
     $scope.$parent.query.goUsage = '';
     $scope.$parent.query.goUsageRelationships = '';
@@ -49,14 +54,16 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   };
 
   $scope.addGoTerms = function() {
-    var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea);
-    if(goterms.length > $scope.uploadLimit) {
-      $rootScope.alerts.push({
-        'msg': 'Sorry, we can only handle uploads of less than ' + $scope.uploadLimit + 'terms.'
-      });
-    } else {
-      var terms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
-      $scope.goTerms = filterService.mergeRightToLeft(terms,$scope.goTerms);
+    $rootScope.cleanErrorMessages();
+
+    var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
+    var allTerms = filterService.addFilterItems(goterms,validationService.validateGOTerm);
+    $rootScope.stackErrors(allTerms.dismissedItems, 'alert', 'is not a valid GO term id');
+    var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
+      allTerms.filteredItems, $scope.uploadLimit);
+    if (limitChecker.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+      $scope.goTerms = merge.mergedTerms;
+      $scope.totalChecked = merge.totalChecked;
       updateTermInfo();
     }
     $scope.goTermsTextArea = '';
@@ -67,28 +74,41 @@ app.controller('goTermsFilter', function($scope, basketService, stringService,
   });
 
   $scope.apply = function() {
-    var selected = _.pluck(_.filter($scope.goTerms, function(term){
-      return term.checked;
-    }), 'id');
+    $rootScope.cleanErrorMessages();
+    var selected = _.pluck(limitChecker.getAllChecked($scope.goTerms), 'id');
     $scope.$parent.addToQuery('goId', selected);
-    $scope.$parent.addToQuery('goUsage', $scope.goTermUse);
-    $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
+    if ($scope.goTermUse !== 'exact') {
+      $scope.$parent.addToQuery('goUsageRelationships', $scope.goRelations);
+    }
+    $scope.$parent.addToQueryAndUpdate('goUsage', $scope.goTermUse);
   };
 
   $scope.addPredefinedSet = function() {
+    $rootScope.cleanErrorMessages();
+
     if($scope.selectedPreDefinedSlimSet) {
       var slimSetItems = $scope.selectedPreDefinedSlimSet.associations;
       if(!$scope.includeRootTerms) {
         slimSetItems = filterService.removeRootTerms(slimSetItems);
       }
       var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
-      $scope.goTerms = filterService.mergeRightToLeft($scope.goTerms, filterItems);
+      var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.goTerms, $scope.totalChecked,
+        filterItems, $scope.uploadLimit);
+      if (limitChecker.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
+        $scope.goTerms = merge.mergedTerms;
+        $scope.totalChecked = merge.totalChecked;
+      }
       $scope.selectedPreDefinedSlimSet = '';
     }
   };
 
-  $scope.selectedTermSize = function() {
-    return Object.keys($scope.goTerms).length;
+  $scope.updateTotalCheckedOnChange = function(term) {
+    $rootScope.cleanErrorMessages();
+    var currentTotalCheck = limitChecker.getAllChecked($scope.goTerms).length;
+    $scope.totalChecked = limitChecker.getTotalCheckedAfterHandlingLimitError(
+      limitChecker.getAllChecked($scope.goTerms).length, limitChecker.getAllChecked($scope.goTerms).length,
+      $scope.uploadLimit);
+    term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
   };
 
   init();
