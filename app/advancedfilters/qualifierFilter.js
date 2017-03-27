@@ -12,6 +12,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
 
     var allQualifiers = filterService.getPresetFilterItems(hardCodedDataService.getQualifiers(), 'qualifier');
     $scope.qualifiers = filterService.mergeArrays(allQualifiers, $scope.qualifiers);
+    $scope.subscribedFilters.qualifier = $scope.getTotalChecked();
   };
 
   var getQuery = function() {
@@ -23,12 +24,14 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
 
     angular.forEach($scope.qualifiers, function(qualifier) {
       if(qualifier.item.name.lastIndexOf('NOT', 0) === 0) {
-        if (!qualifier.checked) {
-          $scope.updateTotalCheckedOnChange(qualifier);
-        }
         qualifier.checked = true;
       }
     });
+    $scope.subscribedFilters.qualifier = $scope.getTotalChecked();
+  };
+
+  $scope.selectItem = function() {
+    $scope.subscribedFilters.qualifier = $scope.getTotalChecked();
   };
 
   $scope.apply = function() {
@@ -49,6 +52,11 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
   $scope.$on('resetMoreFilters', function() {
     $scope.reset();
   });
+
+
+  $scope.getTotalChecked = function(){
+    return _.filter($scope.qualifiers, 'checked').length;
+  };
 
   initQualifiers();
 

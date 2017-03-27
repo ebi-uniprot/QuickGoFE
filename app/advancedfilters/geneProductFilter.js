@@ -45,7 +45,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
     $scope.gpTextArea = '';
   };
 
-  $scope.updateTotalCheckedOnChange = function(term) {
+  $scope.selectItem = function(term) {
     $rootScope.cleanErrorMessages();
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.gpIds), $scope.uploadLimit)) {
       _.find($scope.gpIds, term).checked = false;

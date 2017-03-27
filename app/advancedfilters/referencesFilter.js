@@ -16,6 +16,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     presetsService.getPresetsReferences().then(function(resp){
       var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
       $scope.references = filterService.mergeArrays(referencePresetItems, $scope.references);
+      $scope.subscribedFilters.reference = $scope.getTotalChecked();
     });
   };
 
@@ -53,6 +54,11 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
       _.find($scope.references, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
+    $scope.subscribedFilters.reference = $scope.getTotalChecked();
+  };
+
+  $scope.getTotalChecked = function(){
+    return _.filter($scope.references, 'checked').length;
   };
 
   initReference();

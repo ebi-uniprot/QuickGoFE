@@ -36,5 +36,13 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
     $scope.reset();
   });
 
+  $scope.selectItem = function() {
+    $scope.subscribedFilters.assignedBy = $scope.getTotalChecked();
+  };
+
+  $scope.getTotalChecked = function(){
+    return _.filter($scope.assignedBy, 'checked').length;
+  };
+
   init();
 });
