@@ -12,7 +12,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
     presetsService.getPresetsWithFrom().then(function(resp){
       var withDBs = _.sortBy(resp.data.withFrom, 'name');
       var withPresetItems = filterService.getPresetFilterItems(withDBs, 'name');
-      $scope.withFrom = filterService.mergeArrays($scope.withFrom, withPresetItems);
+      $scope.withFrom = filterService.mergeArrays(withPresetItems, $scope.withFrom);
     });
   };
 

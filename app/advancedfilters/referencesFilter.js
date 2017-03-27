@@ -15,7 +15,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $scope.references = filterService.getQueryFilterItems($scope.query.reference);
     presetsService.getPresetsReferences().then(function(resp){
       var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
-      $scope.references = filterService.mergeArrays($scope.references, referencePresetItems);
+      $scope.references = filterService.mergeArrays(referencePresetItems, $scope.references);
     });
   };
 
