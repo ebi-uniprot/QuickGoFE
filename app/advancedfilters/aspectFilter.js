@@ -9,7 +9,7 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
 
     presetsService.getPresetsAspects().then(function(resp){
       var aspects = filterService.getPresetFilterItems(resp.data.aspects, 'id');
-      $scope.aspects = _.sortBy(filterService.mergeArrays($scope.aspects, aspects), 'name');
+      $scope.aspects = _.sortBy(filterService.mergeArrays(aspects, $scope.aspects), 'name');
     });
   };
 

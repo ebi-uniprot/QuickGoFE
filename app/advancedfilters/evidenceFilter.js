@@ -14,7 +14,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
     presetsService.getPresetsEvidences().then(function (d) {
       var filterItems = filterService.getPresetFilterItems(d.data.evidences, 'id');
-      $scope.ecos = filterService.mergeArrays($scope.ecos, filterItems);
+      $scope.ecos = filterService.mergeArrays(filterItems, $scope.ecos);
     });
   };
 

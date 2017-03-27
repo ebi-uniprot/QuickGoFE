@@ -11,7 +11,7 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
     presetsService.getPresetsGeneProductTypes().then(function(resp){
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.geneProductType);
       var presetFilterItems = filterService.getPresetFilterItems(resp.data.geneProductTypes, 'id');
-      $scope.gpTypes = _.sortBy(filterService.mergeArrays(queryFilterItems, presetFilterItems), 'name');
+      $scope.gpTypes = _.sortBy(filterService.mergeArrays(presetFilterItems, queryFilterItems), 'name');
     });
   };
 

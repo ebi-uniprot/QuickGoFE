@@ -46,8 +46,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $scope.goRelations = $scope.$parent.query.goUsageRelationships ? $scope.$parent.query.goUsageRelationships : 'is_a,part_of,occurs_in';
 
     if (basketService.getIds().length > 0){
-      $scope.goTerms = filterService.mergeArrays($scope.goTerms,
-        filterService.getFilterItemsForIds(basketService.getIds()));
+      $scope.goTerms = filterService.mergeArrays(filterService.getFilterItemsForIds(basketService.getIds()),$scope.goTerms);
     }
 
     presetsService.getPresetsGOSlimSets().then(function(resp){
