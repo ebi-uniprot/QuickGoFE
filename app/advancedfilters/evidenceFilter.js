@@ -39,17 +39,17 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   $scope.addECOs = function () {
     $rootScope.cleanErrorMessages();
     var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
-    var filterItems = filterService.validateItems(ecos, validationService.validateECOTerm);
-    $rootScope.stackErrors(filterItems.invalidItems, 'alert', 'is not a valid evidence code');
-    if(limitChecker.isOverLimit(filterService.mergeArrays($scope.ecos, filterItems), $scope.uploadLimit)) {
+    var validatedItems = filterService.validateItems(ecos, validationService.validateECOTerm);
+    $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid evidence code');
+    if(limitChecker.isOverLimit(filterService.mergeArrays($scope.ecos, validatedItems.validItems), $scope.uploadLimit)) {
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     } else {
-      $scope.ecos = filterService.mergeArrays(filterItems.validItems, $scope.ecos);
+      $scope.ecos = filterService.mergeArrays(validatedItems.validItems, $scope.ecos);
     }
     $scope.ecoTextArea = '';
   };
 
-  $scope.updateTotalCheckedOnChange = function(term) {
+  $scope.selectTerm = function(term) {
     $rootScope.cleanErrorMessages();
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.ecos), $scope.uploadLimit)) {
       _.find($scope.ecos, term).checked = false;
