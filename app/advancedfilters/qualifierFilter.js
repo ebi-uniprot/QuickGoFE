@@ -11,7 +11,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
     $scope.showAllNotQualifiers = 0;
 
     var allQualifiers = filterService.getPresetFilterItems(hardCodedDataService.getQualifiers(), 'qualifier');
-    $scope.qualifiers = filterService.mergeRightToLeft($scope.qualifiers, allQualifiers);
+    $scope.qualifiers = filterService.mergeArrays($scope.qualifiers, allQualifiers);
   };
 
   var getQuery = function() {

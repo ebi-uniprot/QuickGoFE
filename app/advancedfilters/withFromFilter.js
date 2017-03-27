@@ -12,7 +12,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
     presetsService.getPresetsWithFrom().then(function(resp){
       var withDBs = _.sortBy(resp.data.withFrom, 'name');
       var withPresetItems = filterService.getPresetFilterItems(withDBs, 'name');
-      $scope.withFrom = filterService.mergeRightToLeft($scope.withFrom, withPresetItems);
+      $scope.withFrom = filterService.mergeArrays($scope.withFrom, withPresetItems);
     });
   };
 
@@ -24,9 +24,9 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
     $rootScope.cleanErrorMessages();
 
     var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
-    var allItems = filterService.addFilterItems(withs, validationService.validateOther);
-    $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a with/from value');
-    $scope.withFrom = filterService.mergeRightToLeft(allItems.filteredItems, $scope.withFrom);
+    var allItems = filterService.validateItems(withs, validationService.validateOther);
+    $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a with/from value');
+    $scope.withFrom = filterService.mergeArrays(allItems.validItems, $scope.withFrom);
     $scope.withTextArea = '';
   };
 

@@ -15,7 +15,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $scope.references = filterService.getQueryFilterItems($scope.query.reference);
     presetsService.getPresetsReferences().then(function(resp){
       var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
-      $scope.references = filterService.mergeRightToLeft($scope.references, referencePresetItems);
+      $scope.references = filterService.mergeArrays($scope.references, referencePresetItems);
     });
   };
 
@@ -23,10 +23,10 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $rootScope.cleanErrorMessages();
 
     var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
-    var allItems = filterService.addFilterItems(refs, validationService.validateOther);
-    $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid reference');
+    var allItems = filterService.validateItems(refs, validationService.validateOther);
+    $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a valid reference');
     var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.references, $scope.totalChecked,
-      allItems.filteredItems, $scope.uploadLimit);
+      allItems.validItems, $scope.uploadLimit);
     if (limitChecker.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
       $scope.references = merge.mergedTerms;
       $scope.updateTotalCheckedFromDisplay($scope.references);

@@ -153,7 +153,7 @@ wsService.factory('taxonomyService',
         var defer = $q.defer();
         presetsService.getPresetsTaxa().then(function (resp) {
           var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'id');
-          taxaArray = filterService.mergeRightToLeft(taxaArray, presetItems);
+          taxaArray = filterService.mergeArrays(taxaArray, presetItems);
           updateTaxonInfo(self, defer, taxaArray);
         });
         return defer.promise;
@@ -162,10 +162,10 @@ wsService.factory('taxonomyService',
         var self = this;
         var defer = $q.defer();
         var taxons = stringService.getTextareaItemsAsArray(taxonTextArea.toUpperCase());
-        var allItems = filterService.addFilterItems(taxons, validationService.validateTaxon);
-        $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid taxon id');
+        var allItems = filterService.validateItems(taxons, validationService.validateTaxon);
+        $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a valid taxon id');
         var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms(taxaArray, totalChecked,
-          allItems.filteredItems, uploadLimit);
+          allItems.validItems, uploadLimit);
         if (limitChecker.isTotalDifferent(totalChecked, merge.totalChecked)) {
           updateTaxonInfo(self, defer, merge.mergedTerms);
         }
@@ -399,11 +399,14 @@ wsService.factory('limitChecker', ['hardCodedDataService', 'filterService', '$ro
         return _.where(collection, {checked: true});
     },
     getEffectiveTotalCheckedAndMergedTerms: function(displayedTerms, displayedChecked, newTerms, uploadLimit) {
-        var mergedTerms = filterService.mergeRightToLeft(newTerms, displayedTerms);
+        var mergedTerms = filterService.mergeArrays(newTerms, displayedTerms);
         var totalCheckedAfterMerge = this.getAllChecked(mergedTerms).length;
         var totalCheckedAfterHandlingError = this.getTotalCheckedAfterHandlingLimitError(displayedChecked,
             totalCheckedAfterMerge, uploadLimit);
         return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterHandlingError}
+    },
+    isOverLimit: function(itemList, uploadLimit) {
+      return this.getAllChecked(itemList).length > uploadLimit;
     }
   };
 }]);

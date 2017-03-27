@@ -16,7 +16,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
     presetsService.getPresetsGeneProducts().then(function(resp){
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.targetSet);
       var presetFilterItems = filterService.getPresetFilterItems(_.sortBy(resp.data.geneProducts, 'name'), 'name');
-      $scope.geneProductSets = filterService.mergeRightToLeft(queryFilterItems, presetFilterItems);
+      $scope.geneProductSets = filterService.mergeArrays(queryFilterItems, presetFilterItems);
       $scope.totalCheckedSets = limitChecker.getAllChecked($scope.geneProductSets).length;
     });
     $scope.totalCheckedIds = limitChecker.getAllChecked($scope.gpIds).length;
@@ -45,10 +45,10 @@ app.controller('geneProductFilter', function ($scope, stringService,
      $rootScope.cleanErrorMessages();
 
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
-    var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
-    $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
+    var allItems = filterService.validateItems(gps, validationService.validateGeneProduct, true);
+    $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a valid gene product id');
     var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.gpIds, $scope.totalCheckedIds,
-      allItems.filteredItems, $scope.uploadLimit);
+      allItems.validItems, $scope.uploadLimit);
     if (limitChecker.isTotalDifferent($scope.totalCheckedIds, merge.totalChecked)) {
       $scope.gpIds = merge.mergedTerms;
       $scope.totalCheckedIds = merge.totalChecked;
