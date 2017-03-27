@@ -4,7 +4,6 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
   $scope.ecos = {};
   $scope.evidenceCodeUsage = 'descendants';
-  $scope.totalChecked = 0;
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().eco;
 
   var init = function () {
@@ -16,7 +15,6 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     presetsService.getPresetsEvidences().then(function (d) {
       var filterItems = filterService.getPresetFilterItems(d.data.evidences, 'id');
       $scope.ecos = filterService.mergeArrays($scope.ecos, filterItems);
-      $scope.totalChecked = limitChecker.getAllChecked($scope.ecos).length;
     });
   };
 
@@ -40,25 +38,27 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
   $scope.addECOs = function () {
     $rootScope.cleanErrorMessages();
-
     var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
-    var allItems = filterService.validateItems(ecos, validationService.validateECOTerm);
-    $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a valid evidence code');
-    var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.ecos, $scope.totalChecked,
-      allItems.validItems, $scope.uploadLimit);
-    if (limitChecker.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
-      $scope.ecos = merge.mergedTerms;
-      $scope.totalChecked = merge.totalChecked;
+    var filterItems = filterService.validateItems(ecos, validationService.validateECOTerm);
+    $rootScope.stackErrors(filterItems.invalidItems, 'alert', 'is not a valid evidence code');
+    if(limitChecker.isOverLimit(filterService.mergeArrays($scope.ecos, filterItems), $scope.uploadLimit)) {
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
+    } else {
+      $scope.ecos = filterService.mergeArrays(filterItems.validItems, $scope.ecos);
     }
     $scope.ecoTextArea = '';
   };
 
   $scope.updateTotalCheckedOnChange = function(term) {
     $rootScope.cleanErrorMessages();
-    var currentTotalCheck = limitChecker.getAllChecked($scope.ecos).length;
-    $scope.totalChecked = limitChecker.getTotalCheckedAfterHandlingLimitError(
-      limitChecker.getAllChecked($scope.ecos).length, limitChecker.getAllChecked($scope.ecos).length, $scope.uploadLimit);
-    term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
+    if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.ecos), $scope.uploadLimit)) {
+      _.find($scope.ecos, term).checked = false;
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
+    }
+  };
+
+  $scope.getTotalChecked = function() {
+    return limitChecker.getAllChecked($scope.ecos).length;
   };
 
   init();
