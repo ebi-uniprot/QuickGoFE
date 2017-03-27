@@ -407,6 +407,13 @@ wsService.factory('limitChecker', ['hardCodedDataService', 'filterService', '$ro
     },
     isOverLimit: function(itemList, uploadLimit) {
       return this.getAllChecked(itemList).length > uploadLimit;
+    }, getMergedItems: function(dest, items, limit) {
+      if (this.isOverLimit(filterService.mergeArrays(dest, items), limit)) {
+        $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(limit));
+        return dest;
+      } else {
+        return filterService.mergeArrays(dest, items);
+      }
     }
   };
 }]);

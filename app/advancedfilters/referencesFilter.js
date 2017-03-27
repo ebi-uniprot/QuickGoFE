@@ -21,16 +21,10 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
 
   $scope.addReferences = function() {
     $rootScope.cleanErrorMessages();
-
     var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
-    var allItems = filterService.validateItems(refs, validationService.validateOther);
-    $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a valid reference');
-    var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms($scope.references, $scope.totalChecked,
-      allItems.validItems, $scope.uploadLimit);
-    if (limitChecker.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
-      $scope.references = merge.mergedTerms;
-      $scope.updateTotalCheckedFromDisplay($scope.references);
-    }
+    var validatedItems = filterService.validateItems(refs, validationService.validateOther);
+    $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid reference');
+    $scope.references = limitChecker.getMergedItems($scope.references, validatedItems.validItems, $scope.uploadLimit);
     $scope.referenceTextArea = '';
   };
 
@@ -53,19 +47,11 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $scope.reset();
   });
 
-  $scope.updateTotalCheckedOnChange = function(term) {
+  $scope.selectTerm = function(term) {
     $rootScope.cleanErrorMessages();
-
-    $scope.$parent.updateTotalCheckedOnChange(term);
-
-    var currentTotalCheck = limitChecker.getAllChecked($scope.references).length;
-    $scope.totalChecked = limitChecker.getTotalCheckedAfterHandlingLimitError(
-        limitChecker.getAllChecked($scope.references).length, limitChecker.getAllChecked($scope.references).length,
-          $scope.uploadLimit);
-
-    if (limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalChecked)) {
-      term.checked = !term.checked;
-      $scope.$parent.updateTotalCheckedOnChange(term);
+    if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.references), $scope.uploadLimit)) {
+      _.find($scope.references, term).checked = false;
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
   };
 

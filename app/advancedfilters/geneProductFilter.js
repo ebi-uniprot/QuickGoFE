@@ -40,17 +40,10 @@ app.controller('geneProductFilter', function ($scope, stringService,
 
   $scope.addGPs = function() {
     $rootScope.cleanErrorMessages();
-
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
     var validatedItems = filterService.validateItems(gps, validationService.validateGeneProduct, true);
-
     $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid gene product id');
-
-    if (limitChecker.isOverLimit(filterService.mergeArrays($scope.gpIds, validatedItems.validItems), $scope.uploadLimit)) {
-      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
-    } else {
-      $scope.gpIds = filterService.mergeArrays(validatedItems.validItems, $scope.gpIds);
-    }
+    $scope.gpIds = limitChecker.getMergedItems($scope.gpIds, validatedItems.validItems, $scope.uploadLimit);
     $scope.gpTextArea = '';
   };
 

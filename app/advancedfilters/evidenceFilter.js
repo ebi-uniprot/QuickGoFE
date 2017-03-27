@@ -41,11 +41,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
     var validatedItems = filterService.validateItems(ecos, validationService.validateECOTerm);
     $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid evidence code');
-    if(limitChecker.isOverLimit(filterService.mergeArrays($scope.ecos, validatedItems.validItems), $scope.uploadLimit)) {
-      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
-    } else {
-      $scope.ecos = filterService.mergeArrays(validatedItems.validItems, $scope.ecos);
-    }
+    $scope.ecos = limitChecker.getMergedItems($scope.ecos, validatedItems.validItems, $scope.uploadLimit);
     $scope.ecoTextArea = '';
   };
 

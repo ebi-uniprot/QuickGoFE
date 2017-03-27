@@ -3,7 +3,6 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   validationService, termService, presetsService, $rootScope, filterService, limitChecker){
 
   $scope.goTerms = [];
-  $scope.totalChecked = 0;
   $scope.goTermUse = 'descendants';
   $scope.goRelations = 'is_a,part_of,occurs_in';
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().goId;
@@ -71,15 +70,9 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
     $rootScope.cleanErrorMessages();
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     var validatedTerms = filterService.validateItems(goterms,validationService.validateGOTerm);
-
     $rootScope.stackErrors(validatedTerms.invalidItems, 'alert', 'is not a valid GO term id');
-
-    if(limitChecker.isOverLimit(filterService.mergeArrays($scope.goTerms, validatedTerms.validItems), $scope.uploadLimit)) {
-      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
-    } else {
-      $scope.goTerms = filterService.mergeArrays($scope.goTerms, validatedTerms.validItems);
-      updateTermInfo();
-    }
+    $scope.goTerms = limitChecker.getMergedItems($scope.goTerms, validatedTerms.validItems, $scope.uploadLimit);
+    updateTermInfo();
     $scope.goTermsTextArea = '';
   };
 
@@ -109,13 +102,8 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
         slimSetItems = filterService.removeRootTerms(slimSetItems);
       }
       var filterItems = filterService.getPresetFilterItems(slimSetItems, 'id', true);
-
-      if(limitChecker.isOverLimit(filterService.mergeArrays($scope.goTerms, filterItems), $scope.uploadLimit)) {
-        $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
-      } else {
-        $scope.goTerms = filterService.mergeArrays($scope.goTerms, filterItems);
-        updateTermInfo();
-      }
+      $scope.goTerms = limitChecker.getMergedItems($scope.goTerms, filterItems, $scope.uploadLimit);
+      updateTermInfo();
       $scope.selectedPreDefinedSlimSet = '';
     }
   };
