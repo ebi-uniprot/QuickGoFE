@@ -3,12 +3,12 @@
   <form>
     <div class="form-group overflow-pane">
       <div>
-        Your selection: {{totalChecked}} taxa
+        Your selection: {{getTotalChecked()}} taxa
       </div>
       <ul class="no-bullet">
         <li ng-repeat="taxon in taxa" class="checkbox">
           <label>
-            <input type="checkbox" ng-model="taxon.checked" ng-click="updateTotalCheckedOnChange(taxon)">
+            <input type="checkbox" ng-model="taxon.checked" ng-click="selectTaxon(taxon)">
             {{taxon.id}} <strong>{{taxon.item.scientificName || taxon.item.name}}</strong>
           </label>
         </li>

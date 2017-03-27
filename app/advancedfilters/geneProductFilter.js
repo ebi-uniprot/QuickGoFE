@@ -14,9 +14,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.targetSet);
       var presetFilterItems = filterService.getPresetFilterItems(_.sortBy(resp.data.geneProducts, 'name'), 'name');
       $scope.geneProductSets = filterService.mergeArrays(queryFilterItems, presetFilterItems);
-      $scope.totalCheckedSets = limitChecker.getAllChecked($scope.geneProductSets).length;
     });
-    $scope.totalCheckedIds = limitChecker.getAllChecked($scope.gpIds).length;
   };
 
   $scope.reset = function () {
@@ -65,10 +63,6 @@ app.controller('geneProductFilter', function ($scope, stringService,
 
   $scope.getCheckedSets = function() {
     return limitChecker.getAllChecked($scope.geneProductSets).length;
-  };
-
-  $scope.updateTotalCheckedOnSetChange = function(set) {
-    $scope.totalCheckedSets += set.checked ? 1 : -1;
   };
 
   initgpIds();

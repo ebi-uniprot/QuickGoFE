@@ -68,12 +68,13 @@ app.service('filterService', function(){
     var dstMap = _.indexBy(dst,'id');
     angular.forEach(src, function(item) {
       if(dstMap[item.id]) {
-        dstMap[item.id].item = item.item;
+        dstMap[item.id].checked = item.checked;
+        dstMap[item.id].item = (item.item) ? item.item : dstMap[item.id].item;
       } else {
         concat.push(item);
       }
     });
-    return concat;
+    return _.sortBy(concat, 'checked').reverse();
   };
 
   this.removeRootTerms = function(items) {

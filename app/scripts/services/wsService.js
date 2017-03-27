@@ -162,10 +162,14 @@ wsService.factory('taxonomyService',
         var self = this;
         var defer = $q.defer();
         var taxons = stringService.getTextareaItemsAsArray(taxonTextArea.toUpperCase());
+
         var allItems = filterService.validateItems(taxons, validationService.validateTaxon);
+
         $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a valid taxon id');
+
         var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms(taxaArray, totalChecked,
           allItems.validItems, uploadLimit);
+
         if (limitChecker.isTotalDifferent(totalChecked, merge.totalChecked)) {
           updateTaxonInfo(self, defer, merge.mergedTerms);
         }
@@ -379,35 +383,16 @@ wsService.factory('search', ['$resource', 'ENV', function($resource, ENV){
 wsService.factory('limitChecker', ['hardCodedDataService', 'filterService', '$rootScope',
     function(hardCodedDataService, filterService, $rootScope){
   return {
-    getNewTotalBasedOnLimit: function(oldTotal, newTotal, limit) {
-      return newTotal <= limit ? newTotal : oldTotal <= limit ? oldTotal : limit;
-    },
-    isTotalDifferent: function (oldTotal, newTotal) {
-      return oldTotal !== newTotal;
-    },
     addAboveLimitError: function(uploadLimit) {
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
-    },
-    getTotalCheckedAfterHandlingLimitError: function(currentTotalChecked, mergedTotalChecked, uploadLimit) {
-      var totalChecked = this.getNewTotalBasedOnLimit(currentTotalChecked, mergedTotalChecked, uploadLimit);
-      if (totalChecked !== mergedTotalChecked) {
-        this.addAboveLimitError(uploadLimit);
-      }
-      return totalChecked;
     },
     getAllChecked: function(collection) {
         return _.where(collection, {checked: true});
     },
-    getEffectiveTotalCheckedAndMergedTerms: function(displayedTerms, displayedChecked, newTerms, uploadLimit) {
-        var mergedTerms = filterService.mergeArrays(newTerms, displayedTerms);
-        var totalCheckedAfterMerge = this.getAllChecked(mergedTerms).length;
-        var totalCheckedAfterHandlingError = this.getTotalCheckedAfterHandlingLimitError(displayedChecked,
-            totalCheckedAfterMerge, uploadLimit);
-        return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterHandlingError}
-    },
     isOverLimit: function(itemList, uploadLimit) {
       return this.getAllChecked(itemList).length > uploadLimit;
-    }, getMergedItems: function(dest, items, limit) {
+    },
+    getMergedItems: function(dest, items, limit) {
       if (this.isOverLimit(filterService.mergeArrays(dest, items), limit)) {
         $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(limit));
         return dest;
