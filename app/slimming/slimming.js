@@ -106,7 +106,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   var validateLimitAndUpdateSelection = function(tempSelection) {
     if (tempSelection.totalSelection <= $scope.uploadLimitGO) {
-      $scope.selection = tempSelection;
+      $scope.selection = tempSelection.selection;
     } else {
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimitGO));
     }
