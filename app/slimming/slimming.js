@@ -129,7 +129,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     var items = _.filter($scope.basketList, function(d) {
       return d.selected;
     });
-    //updateSelectionAndTotal(items);
+    updateGOSelection(items);
   };
 
   //taxons
