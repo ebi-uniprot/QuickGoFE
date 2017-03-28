@@ -169,26 +169,19 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   $scope.removeFromSelection = function(termToRemove) {
     $rootScope.cleanErrorMessages();
-    // Remove from selected items
-    delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
-    // Add to de-selected items
+    $scope.selection[termToRemove.aspect].terms = _.reject($scope.selection[termToRemove.aspect].terms, function (term){
+      return term.id === termToRemove.id;
+    });
     $scope.deSelectedItems.push(termToRemove);
     cleanWhenEmpty();
   };
 
   $scope.addBackIntoSelection = function(termToAdd) {
     $rootScope.cleanErrorMessages();
-    // Add back to selectedItems
-      /*
-    var totalCheckedAfterHandlingError = limitChecker.getTotalCheckedAfterHandlingLimitError($scope.getTotalChecked().allAspects,
-      $scope.getTotalChecked().allAspects + 1, $scope.uploadLimitGO);
-    if (limitChecker.isTotalDifferent($scope.getTotalChecked().allAspects, totalCheckedAfterHandlingError)) {
-        $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
-        // Remove from deSelectedItems
-        $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
-            return term.id !== termToAdd.id;
-        });
-    }   */
+    $scope.selection[termToAdd.aspect].terms.push(termToAdd);
+    $scope.deSelectedItems = _.reject($scope.deSelectedItems, function (term) {
+      return term.id === termToAdd.id;
+    });
   };
 
   $scope.viewAnnotations = function() {
