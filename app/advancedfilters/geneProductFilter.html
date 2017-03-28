@@ -1,13 +1,13 @@
 <div ng-controller="geneProductFilter">
   <form>
     <div>
-      Your selection: {{totalCheckedIds}} gene product IDs
+      Your selection: {{getCheckedIds()}} gene product IDs
     </div>
     <div class="form-group">
       <ul class="no-bullet">
         <li ng-repeat="gp in gpIds" class="checkbox">
           <label>
-            <input type="checkbox" ng-model="gp.checked" ng-change="updateTotalCheckedOnChange(gp)"> {{gp.id}}
+            <input type="checkbox" ng-model="gp.checked" ng-change="selectItem(gp)"> {{gp.id}}
           </label>
         </li>
       </ul>
@@ -19,16 +19,16 @@
       <button class="hollow button" ng-click="addGPs()">Add</button>
     </div>
     <a ng-click="more = !more" ng-hide="more">Add more...</a>
-    <div ng-show="more">
+    <div ng-show="more || getCheckedSets() > 0">
       <hr>
       <div class="form-group">
         <!-- 4 choices -->
+        Your selection: {{getCheckedSets()}} gene product sets
         <p>List of gene product sets:</p>
         <ul class="no-bullet">
           <li ng-repeat="gpSet in geneProductSets" class="checkbox">
             <label>
-              <input id="{{gpSet.id}}_chk" type="checkbox" ng-model="gpSet.checked"
-                     ng-change="updateTotalCheckedOnSetChange(gpSet)">
+              <input id="{{gpSet.id}}_chk" type="checkbox" ng-model="gpSet.checked">
               <a href="targetset/{{gpSet.id}}" target="_blank">{{gpSet.id}}</a> {{gpSet.item.description}}
               (<a href="{{gpSet.item.url}}" target="_blank">{{gpSet.item.url}}</a>)
             </label>

@@ -8,7 +8,7 @@
       <div class="inset-panel overflow-pane">
       <div ng-repeat="qualifier in qualifiers" class="checkbox">
         <label>
-          <input type="checkbox" ng-model="qualifier.checked" ng-change="updateTotalCheckedOnChange(qualifier)"> {{qualifier.item.name}}
+          <input type="checkbox" ng-model="qualifier.checked" ng-change="selectItem(qualifier)"> {{qualifier.item.name}}
         </label>
       </div>
     </div>

@@ -1,9 +1,8 @@
 'use strict';
 app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
-  searchService, $rootScope, limitChecker) {
+  searchService, $rootScope) {
 
   $scope.query = $routeParams;
-  $scope.totalChecked = 0;
 
   $scope.addToQueryAndUpdate = function (type, values) {
     $scope.addToQuery(type, values);
@@ -28,35 +27,4 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
     $scope.updateQuery();
   };
 
-  $scope.hasSlims = function () {
-    //TODO
-  };
-
-  $scope.toggled = function (open) {
-    if (!open) {}
-  };
-
-  $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
-    $scope.$broadcast ('applyMoreFilters');
-  };
-
-  $scope.reset = function() {
-    $rootScope.cleanErrorMessages();
-    $scope.$broadcast ('resetMoreFilters');
-    $scope.totalChecked = 0;
-    $scope.updateQuery();
-  };
-
-  $scope.openMore = function() {
-
-  };
-
-  $scope.updateTotalCheckedOnChange = function(term) {
-    $scope.totalChecked += term.checked ? 1 : -1;
-  };
-
-  $scope.updateTotalCheckedFromDisplay = function(displayedTerms) {
-    $scope.totalChecked = limitChecker.getAllChecked(displayedTerms).length;
-  }
 });
