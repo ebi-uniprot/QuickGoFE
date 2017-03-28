@@ -399,6 +399,9 @@ wsService.factory('limitChecker', ['hardCodedDataService', 'filterService', '$ro
       } else {
         return filterService.mergeArrays(dest, items);
       }
+    },
+    getMergedAllItems: function(dest, items) {
+      return filterService.mergeArrays(dest, items);
     }
   };
 }]);

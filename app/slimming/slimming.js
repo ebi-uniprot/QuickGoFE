@@ -88,16 +88,34 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     return separated;
   };
 
-  var updateActivesInGOSelection = function(termsByAspect) {
-    angular.forEach($scope.selection, function (aspect, aspectId) {
-      aspect.terms = limitChecker.getMergedItems(aspect.terms, termsByAspect[aspectId], $scope.uploadLimitGO);
+  var getActivesInTempGOSelection = function(termsByAspect) {
+    var tempSelection= {};
+    angular.forEach($scope.aspects, function(aspect) {
+      tempSelection[aspect.id] = {
+        'name': aspect.name,
+        'terms': []
+      };
     });
+    var totalAfterMerge = 0;
+    angular.forEach($scope.selection, function (aspect, aspectId) {
+      tempSelection[aspectId].terms = limitChecker.getMergedAllItems(aspect.terms, termsByAspect[aspectId]);
+      totalAfterMerge += tempSelection[aspectId].terms.length;
+    });
+    return {selection: tempSelection, totalSelection: totalAfterMerge};
+  };
+
+  var validateLimitAndUpdateSelection = function(tempSelection) {
+    if (tempSelection.totalSelection <= $scope.uploadLimitGO) {
+      $scope.selection = tempSelection;
+    } else {
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimitGO));
+    }
   };
 
   var updateGOSelection = function(terms) {
     var separated = separateGOTerms(terms);
     $rootScope.stackErrors(separated.obsolete, 'warning', 'is obsolete');
-    updateActivesInGOSelection(separated.active);
+    validateLimitAndUpdateSelection(getActivesInTempGOSelection(separated.active));
   };
 
   // Predefined sets
