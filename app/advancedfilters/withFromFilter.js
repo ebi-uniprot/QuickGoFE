@@ -1,6 +1,5 @@
 'use strict';
-app.controller('withFromFilter', function($scope, presetsService, stringService, validationService, filterService,
-                                          $rootScope) {
+app.controller('withFromFilter', function($scope, presetsService, stringService, validationService, filterService, $rootScope) {
 
   $scope.withFrom = [];
 
@@ -12,8 +11,9 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
     presetsService.getPresetsWithFrom().then(function(resp){
       var withDBs = _.sortBy(resp.data.withFrom, 'name');
       var withPresetItems = filterService.getPresetFilterItems(withDBs, 'name');
-      $scope.withFrom = filterService.mergeRightToLeft($scope.withFrom, withPresetItems);
+      $scope.withFrom = filterService.mergeArrays(withPresetItems, $scope.withFrom);
     });
+    $scope.subscribedFilters.withFrom = $scope.getTotalChecked();
   };
 
   var getQuery = function() {
@@ -22,11 +22,11 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
 
   $scope.addWith = function() {
     $rootScope.cleanErrorMessages();
-
     var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
-    var allItems = filterService.addFilterItems(withs, validationService.validateOther);
-    $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a with/from value');
-    $scope.withFrom = filterService.mergeRightToLeft(allItems.filteredItems, $scope.withFrom);
+    var allItems = filterService.validateItems(withs, validationService.validateOther);
+    $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a with/from value');
+    $scope.withFrom = filterService.mergeArrays(allItems.validItems, $scope.withFrom);
+    $scope.subscribedFilters.withFrom = $scope.getTotalChecked();
     $scope.withTextArea = '';
   };
 
@@ -41,6 +41,10 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
     init();
   };
 
+  $scope.selectItem = function() {
+    $scope.subscribedFilters.withFrom = $scope.getTotalChecked();
+  };
+
   $scope.$on('applyMoreFilters', function() {
     $scope.apply();
   });
@@ -48,6 +52,10 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   $scope.$on('resetMoreFilters', function() {
     $scope.reset();
   });
+
+  $scope.getTotalChecked = function(){
+    return _.filter($scope.withFrom, 'checked').length;
+  };
 
   init();
 });

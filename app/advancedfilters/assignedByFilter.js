@@ -9,7 +9,7 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
       presetsService.getPresetsAssignedBy().then(function(resp){
         var assignDBs = _.sortBy(resp.data.assignedBy, 'name');
         var filterItems = filterService.getPresetFilterItems(assignDBs, 'name');
-        $scope.assignedBy = filterService.mergeRightToLeft($scope.assignedBy, filterItems);
+        $scope.assignedBy = filterService.mergeArrays(filterItems, $scope.assignedBy);
       });
   };
 
@@ -35,6 +35,14 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
   $scope.$on('resetMoreFilters', function() {
     $scope.reset();
   });
+
+  $scope.selectItem = function() {
+    $scope.subscribedFilters.assignedBy = $scope.getTotalChecked();
+  };
+
+  $scope.getTotalChecked = function(){
+    return _.filter($scope.assignedBy, 'checked').length;
+  };
 
   init();
 });

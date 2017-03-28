@@ -77,7 +77,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   var getMergedTermsAndTotal = function(terms, aspectMap) {
-    var mergedTerms = jQuery.extend(true, {}, $scope.selection);
+    var mergedTerms = jQuery.extend(true, {}, $scope.selection); //NOTE: use angular's extend, not jQuery
     var totalCheckedAfterMerge = $scope.totalGO;
 
     angular.forEach(terms, function(goTerm){

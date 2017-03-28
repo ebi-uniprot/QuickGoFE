@@ -3,7 +3,6 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   stringService, validationService, presetsService, taxonomyService, filterService, limitChecker){
 
   $scope.taxa = [];
-  $scope.totalChecked = 0;
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().taxonId;
 
   var getQuery = function() {
@@ -12,19 +11,14 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
 
   var initTaxons = function(){
     $rootScope.cleanErrorMessages();
-
-    $scope.taxa = filterService.getQueryFilterItems($scope.query.taxonId);
     $scope.taxonUsage = ($scope.query.taxonUsage) ? $scope.query.taxonUsage: 'descendants';
-
     taxonomyService.initTaxa($scope.taxa).then(function (data) {
-      $scope.taxa = data.taxa;
-      $scope.totalChecked = data.totalChecked;
+      $scope.taxa = filterService.mergeArrays(data.taxa, filterService.getQueryFilterItems($scope.query.taxonId));
     });
   };
 
   $scope.reset = function() {
     $rootScope.cleanErrorMessages();
-
     $scope.query.taxonId = '';
     $scope.query.taxonUsage = '';
     initTaxons();
@@ -39,22 +33,23 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
 
   $scope.addTaxons = function() {
     $rootScope.cleanErrorMessages();
-
-    taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea, $scope.totalChecked, $scope.uploadLimit)
-      .then(function(data) {
-        $scope.taxa = data.taxa;
-        $scope.totalChecked = data.totalChecked;
-        $scope.taxonTextArea = '';
-    });
+    var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea.toUpperCase());
+    var validatedTaxons = filterService.validateItems(taxons, validationService.validateTaxon);
+    $rootScope.stackErrors(validatedTaxons.invalidItems, 'alert', 'is not a valid taxon id');
+    $scope.taxa = limitChecker.getMergedItems($scope.taxa, validatedTaxons.validItems, $scope.uploadLimit);
+    $scope.taxonTextArea = '';
   };
 
-  $scope.updateTotalCheckedOnChange = function(term) {
+  $scope.selectTaxon = function(term) {
     $rootScope.cleanErrorMessages();
-    var currentTotalCheck = limitChecker.getAllChecked($scope.taxa).length;
-    $scope.totalChecked = limitChecker.getTotalCheckedAfterHandlingLimitError(
-      limitChecker.getAllChecked($scope.taxa).length, limitChecker.getAllChecked($scope.taxa).length,
-      $scope.uploadLimit);
-    term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalChecked) ? !term.checked : term.checked;
+    if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.taxa), $scope.uploadLimit)) {
+      _.find($scope.taxa, term).checked = false;
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
+    }
+  };
+
+  $scope.getTotalChecked = function() {
+    return limitChecker.getAllChecked($scope.taxa).length;
   };
 
   initTaxons();
