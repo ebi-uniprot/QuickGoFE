@@ -26,6 +26,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
     var allItems = filterService.validateItems(withs, validationService.validateOther);
     $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a with/from value');
     $scope.withFrom = filterService.mergeArrays(allItems.validItems, $scope.withFrom);
+    $scope.subscribedFilters.withFrom = $scope.getTotalChecked();
     $scope.withTextArea = '';
   };
 

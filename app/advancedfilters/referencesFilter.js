@@ -26,6 +26,7 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     var validatedItems = filterService.validateItems(refs, validationService.validateOther);
     $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid reference');
     $scope.references = limitChecker.getMergedItems($scope.references, validatedItems.validItems, $scope.uploadLimit);
+    $scope.subscribedFilters.reference = $scope.getTotalChecked();
     $scope.referenceTextArea = '';
   };
 
