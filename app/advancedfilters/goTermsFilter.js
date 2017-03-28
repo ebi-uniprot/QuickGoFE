@@ -26,7 +26,7 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
               if(term.item.isObsolete) {
                 removeTerm(term.id);
                 $rootScope.alerts.push({
-                  type: 'alert',
+                  type: 'warning',
                   msg:term.id + ' is obsolete'
                 });
               }
