@@ -58,12 +58,12 @@
       </accordion-group>
       <accordion-group heading="Restrict by Taxonomy">
         <div>
-          Your selection: {{totalTaxon}} taxa
+          Your selection: {{getTotalTaxonChecked()}} taxa
         </div>
           <ul>
-            <li ng-repeat="taxon in species" class="no-bullet">
+            <li ng-repeat="taxon in taxa" class="no-bullet">
               <label><input ng-disabled="getTotalGOChecked().allAspects <= 0" type="checkbox" ng-model="taxon.checked"
-                            checklist-value="{{taxon.id}}" ng-click="updateTotalCheckedTaxaOnChange(taxon)">
+                            checklist-value="{{taxon.id}}" ng-click="selectTaxon(taxon)">
               {{taxon.item.scientificName || taxon.item.name}}
               ({{taxon.id}})</label>
             </li>
@@ -81,7 +81,7 @@
       </accordion-group>
     </accordion>
     <p ng-if="additionalSelection.taxa.length > 0">
-      <strong>{{additionalSelection.taxa.length | number}}</strong> species.
+      <strong>{{additionalSelection.taxa.length | number}}</strong> taxa.
     </p>
     <p ng-if="additionalSelection.gpIds.length > 0">
       <strong>{{additionalSelection.gpIds.length | number}}</strong> gene product(s).
