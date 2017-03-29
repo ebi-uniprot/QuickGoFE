@@ -184,9 +184,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   //taxons
   $scope.addNewTaxon = function() {
     $rootScope.cleanErrorMessages();
-
-    taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea, $scope.getTotalTaxonChecked(), $scope.uploadLimitTaxon)
-      .then(function(data) {
+    taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea, $scope.uploadLimitTaxon).then(function(data) {
         $scope.taxa = data.taxa;
         $scope.taxonTextArea = '';
     });
