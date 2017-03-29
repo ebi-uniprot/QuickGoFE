@@ -8,6 +8,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.deSelectedItems = [];
   $scope.uploadLimitGO = hardCodedDataService.getServiceLimits().goId;
   $scope.uploadLimitTaxon = hardCodedDataService.getServiceLimits().taxonId;
+  $scope.uploadLimitGeneProd = hardCodedDataService.getServiceLimits().geneProductId;
 
   // Fixes the removed terms box to the top of the screen when scrolling
   $document.on('scroll', function() {
@@ -38,6 +39,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       'gpIds':[],
       'taxa':[]
     };
+    $scope.gpIds = [];
     $scope.taxa = [];
     taxonomyService.initTaxa($scope.taxa).then(function(data) {
       $scope.taxa = data.taxa;
@@ -156,7 +158,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     $scope.selectedPreDefinedSlimSet = '';
   };
 
-  // Own terms     GO:0006915,dsfd,GO:0006916,GO:0004200
+  // Own terms
   $scope.addOwnTerms = function() {
     $rootScope.cleanErrorMessages();
     var goterms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms.toUpperCase());
@@ -209,14 +211,11 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   //GPIds
   $scope.addGPIds = function(){
     $rootScope.cleanErrorMessages();
-
-    var ids = stringService.getTextareaItemsAsArray($scope.geneProductID);
-    angular.forEach(ids, function(id) {
-      if(validationService.validateGeneProduct(id)){
-        $scope.additionalSelection.gpIds.push(id);
-      }
-    });
-
+    var gps = stringService.getTextareaItemsAsArray($scope.geneProductID.toUpperCase());
+    var validatedItems = filterService.validateItems(gps, validationService.validateGeneProduct, true);
+    $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid gene product id');
+    $scope.gpIds = limitChecker.getMergedItems($scope.gpIds, validatedItems.validItems, $scope.uploadLimitGeneProd);
+    $scope.additionalSelection.gpIds = _.pluck($scope.gpIds, 'id');
     $scope.geneProductID = '';
   };
 
