@@ -74,11 +74,11 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
           return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/complete');
       },
       getAllStats : function(termId, limit) {
-        return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId +
+        return $http.get(ENV.apiEndpoint + '/annotation/coterms/' + termId +
             (limit ? '?limit=' + limit : ''));
       },
       getManualStats : function(termId, limit) {
-          return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId + '?source=MANUAL' +
+          return $http.get(ENV.apiEndpoint + '/annotation/coterms/' + termId + '?source=MANUAL' +
               (limit ? '&limit=' + limit : ''));
       },
       getBlacklist : function(termId) {
