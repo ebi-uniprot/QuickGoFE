@@ -180,7 +180,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   var cleanWhenEmpty = function() {
-    if ($scope.getTotalChecked().allAspects === 0) {
+    if ($scope.getTotalGOChecked().allAspects === 0) {
       $scope.deSelectedItems = [];
     }
   };
@@ -250,7 +250,7 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalTaxon) ? !term.checked : term.checked;*/
   };
 
-  $scope.getTotalChecked = function() {
+  $scope.getTotalGOChecked = function() {
     $scope.totalPerAspect = {};
     $scope.totalPerAspect.allAspects = 0;
     angular.forEach($scope.aspects, function(aspect) {
@@ -259,4 +259,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     });
     return $scope.totalPerAspect;
   };
+
+
 });
