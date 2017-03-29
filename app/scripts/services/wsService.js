@@ -178,10 +178,10 @@ wsService.factory('taxonomyService',
     }
 }]);
 
-wsService.factory('downloadService', ['$http', function($http){
+wsService.factory('downloadService', ['$http', 'ENV', function($http, ENV){
     return {
         getAnnotationsData : function(accept, limit, filters) {
-            var url = 'http://wwwdev.ebi.ac.uk/QuickGO/services/annotation/downloadSearch';
+            var url = ENV.apiEndpoint + '/annotation/downloadSearch';
             var params = _.extend(filters, {downloadLimit: limit});
             return $http.get(url, {
               params: params,
