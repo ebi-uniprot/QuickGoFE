@@ -42,6 +42,9 @@ wsService.factory('presetsService', ['$http', 'ENV',
         },
         getPresetsGeneProductTypes: function() {
             return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProductTypes');
+        },
+        getPresetsQualifiers: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=qualifiers');
         }
     };
   }]);
