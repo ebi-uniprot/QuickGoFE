@@ -70,38 +70,6 @@ hardCodedModule.factory('hardCodedDataService', function() {
     }*/
   ];
 
-  var geneProductSets = [{
-      name: 'BHF-UCL',
-      value: 'BHF-UCL',
-      link: 'http://www.ucl.ac.uk/cardiovasculargeneontology',
-      description: 'The set of Cardiovascular-associated proteins being prioritised for annotation by the Cardiovascular Gene Ontology Annotation Initiative located at University College London.'
-    },
-    {
-      name: 'Exosome',
-      value: 'Exosome',
-      link: 'http://www.ebi.ac.uk/GOA/exosome',
-      description: 'The set of exosomal human proteins being prioritised for comprehensive annotation by the UniProt curators at the EBI.'
-    },
-    {
-      name: 'KRUK',
-      value: 'KRUK',
-      link: 'http://www.ebi.ac.uk/GOA/kidney',
-      description: 'The set of proteins associated with renal processes being prioritised for annotation by the EBI\'s Renal Gene Ontology Annotation Initiative'
-    },
-    {
-      name: 'ParkinsonsUK-UCL',
-      value: 'ParkinsonsUK-UCL',
-      link: 'http://www.ucl.ac.uk/functional-gene-annotation/neurological',
-      description: 'The set of Parkinson\'s Disease relevant proteins being prioritised for annotation by the Parkinson\'s Disease Gene Ontology Annotation Initiative located at University College London.'
-    },
-    {
-      name: 'Reference Genome',
-      value: 'ReferenceGenome',
-      link: 'http://www.geneontology.org/GO.refgenome.shtml',
-      description: 'The set of human proteins being comprehensively curated by the UniProt-GOA project as part of the GO Consortium\'s Reference Genome initiative.'
-    }
-  ];
-
   var serviceLimits = {
       taxonId: 50,
       geneProductId: 500,
@@ -109,17 +77,13 @@ hardCodedModule.factory('hardCodedDataService', function() {
       eco: 100,
       reference: 50
   };
-  
+
   hardCodedService.getQualifiers = function() {
     return qualifiers;
   };
 
   hardCodedService.getDownloadFileFormats = function() {
     return downloadFileFormats;
-  };
-
-  hardCodedService.getGeneProductSets = function() {
-    return geneProductSets;
   };
 
   hardCodedService.getServiceLimits = function() {
