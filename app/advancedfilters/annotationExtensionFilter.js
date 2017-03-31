@@ -40,14 +40,14 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
     });
   });
 
-  $scope.databaseData = [
-    {
-      'name':'UBERON'
-    },{
-      'name':'Swissprot'
-    }
-  ];
-
+  presetsService.getPresetsExtensionDatabases().then(function(d){
+    var data = d.data.extDatabases;
+    $scope.databaseData = _.map(data, function(item){
+      return {
+        'name':item.id
+      };
+    });
+  });
 
   $scope.$on('applyAEFilters', function() {
     $scope.apply();

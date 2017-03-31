@@ -45,6 +45,9 @@ wsService.factory('presetsService', ['$http', 'ENV',
         },
         getPresetsExtensionRelations: function() {
             return $http.get(ENV.apiEndpoint + '/internal/presets?fields=extRelations');
+        },
+        getPresetsExtensionDatabases: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=extDatabases');
         }
     };
   }]);
