@@ -74,11 +74,11 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
           return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/complete');
       },
       getAllStats : function(termId, limit) {
-        return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId +
+        return $http.get(ENV.apiEndpoint + '/annotation/coterms/' + termId +
             (limit ? '?limit=' + limit : ''));
       },
       getManualStats : function(termId, limit) {
-          return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId + '?source=MANUAL' +
+          return $http.get(ENV.apiEndpoint + '/annotation/coterms/' + termId + '?source=MANUAL' +
               (limit ? '&limit=' + limit : ''));
       },
       getBlacklist : function(termId) {
@@ -88,8 +88,8 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
 }]);
 
 wsService.factory('taxonomyService',
-  ['$http', 'presetsService', 'filterService', 'stringService', 'validationService', '$rootScope', '$q',
-  function($http, presetsService, filterService, stringService, validationService, $rootScope, $q){
+  ['$http', 'presetsService', 'filterService', 'stringService', 'validationService', '$rootScope', '$q', 'limitChecker',
+  function($http, presetsService, filterService, stringService, validationService, $rootScope, $q, limitChecker){
     var removeTaxIds = function(idsToRemove, taxa) {
       return _.filter(taxa, function(d){
           return !_.contains(idsToRemove, parseInt(d.id));
@@ -97,18 +97,52 @@ wsService.factory('taxonomyService',
     };
     var redirectTaxa = function(taxaInfo, redirections) {
       var redirectionMap = _.indexBy(redirections, 'requestedId');
-      return _.map(taxaInfo, function(d){
+      var repeatedIds = [];
+      var taxaInfoWithRedirectedId = _.map(taxaInfo, function(d){
           if(redirectionMap[d.id]) {
               var updatedId = redirectionMap[d.id]
-                  .redirectLocation.substring(redirectionMap[d.id].redirectLocation.lastIndexOf('/')+1);
+                .redirectLocation.substring(redirectionMap[d.id].redirectLocation.lastIndexOf('/')+1);
               $rootScope.alerts.push({
-                  type: 'warning',
-                  msg: 'Taxon ' + d.id + ' was updated to ' + updatedId
+                type: 'warning',
+                msg: 'Taxon ' + d.id + ' was updated to ' + updatedId
               });
-              d.id = updatedId;
+              if (_.findWhere(taxaInfo, {id: updatedId})) {
+                  repeatedIds.push(parseInt(d.id));
+              } else {
+                  d.id = updatedId;
+              }
           }
           return d;
       });
+      return removeTaxIds(repeatedIds, taxaInfoWithRedirectedId);
+    };
+    var updateTaxonInfo = function(self, defer, taxaArray) {
+      var idsToUpdate = _.pluck(_.filter(taxaArray, function(taxon) {
+          return taxon.checked && !taxon.hasOwnProperty('item');
+      }),'id');
+
+      if (idsToUpdate.length !== 0) {
+        self.getTaxa(idsToUpdate).then(function(data){
+          filterService.enrichFilterItemObject(taxaArray, data.data.taxonomies, 'taxonomyId');
+          if(data.data.errors) {
+            var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
+            $rootScope.stackErrors(data.data.errors, 'warning', 'was not found', 'requestedId');
+            taxaArray = removeTaxIds(obsoleteIds, taxaArray);
+          }
+          if(data.data.redirects) {
+            taxaArray = redirectTaxa(taxaArray, data.data.redirects);
+            updateTaxonInfo(self, defer, taxaArray);
+          } else {
+            defer.resolve({
+              taxa: taxaArray, totalChecked: limitChecker.getAllChecked(taxaArray).length
+            });
+          }
+        });
+      } else {
+        defer.resolve({
+          taxa: taxaArray, totalChecked: limitChecker.getAllChecked(taxaArray).length
+        });
+      }
     };
     return {
       getTaxa: function (ids) {
@@ -119,44 +153,35 @@ wsService.factory('taxonomyService',
         var defer = $q.defer();
         presetsService.getPresetsTaxa().then(function (resp) {
           var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'id');
-          taxaArray = filterService.mergeRightToLeft(taxaArray, presetItems);
-          self.updateTaxonInfo(defer, taxaArray);
+          taxaArray = filterService.mergeArrays(taxaArray, presetItems);
+          updateTaxonInfo(self, defer, taxaArray);
         });
         return defer.promise;
       },
-      updateTaxonInfo: function(defer, taxaArray) {
+      addNewTaxa: function(taxaArray, taxonTextArea, totalChecked, uploadLimit) {
         var self = this;
-        self.getTaxa(_.pluck(taxaArray,'id')).then(function(data){
-          filterService.enrichFilterItemObject(taxaArray, data.data.taxonomies, 'taxonomyId');
-          if(data.data.errors) {
-            var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
-            $rootScope.stackErrors(data.data.errors, 'warning', 'was not found', 'requestedId');
-            taxaArray = removeTaxIds(obsoleteIds, taxaArray);
-          }
-          if(data.data.redirects) {
-            taxaArray = redirectTaxa(taxaArray, data.data.redirects);
-            self.updateTaxonInfo(defer, taxaArray);
-          } else {
-            defer.resolve(taxaArray);
-          }
-        });
-      },
-      addNewTaxa: function(taxaArray, taxonTextArea) {
-          var defer = $q.defer();
-          var taxons = stringService.getTextareaItemsAsArray(taxonTextArea.toUpperCase());
-          var allItems = filterService.addFilterItems(taxons, validationService.validateTaxon);
-          $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid taxon id');
-          taxaArray = filterService.mergeRightToLeft(allItems.filteredItems, taxaArray);
-          this.updateTaxonInfo(defer, taxaArray);
-          return defer.promise;
+        var defer = $q.defer();
+        var taxons = stringService.getTextareaItemsAsArray(taxonTextArea.toUpperCase());
+
+        var allItems = filterService.validateItems(taxons, validationService.validateTaxon);
+
+        $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a valid taxon id');
+
+        var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms(taxaArray, totalChecked,
+          allItems.validItems, uploadLimit);
+
+        if (limitChecker.isTotalDifferent(totalChecked, merge.totalChecked)) {
+          updateTaxonInfo(self, defer, merge.mergedTerms);
+        }
+        return defer.promise;
       }
     }
 }]);
 
-wsService.factory('downloadService', ['$http', function($http){
+wsService.factory('downloadService', ['$http', 'ENV', function($http, ENV){
     return {
         getAnnotationsData : function(accept, limit, filters) {
-            var url = 'http://wwwdev.ebi.ac.uk/QuickGO/services/annotation/downloadSearch';
+            var url = ENV.apiEndpoint + '/annotation/downloadSearch';
             var params = _.extend(filters, {downloadLimit: limit});
             return $http.get(url, {
               params: params,
@@ -353,6 +378,29 @@ wsService.factory('search', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/search', {query: '@query', format:'JSON'}, {
     query: {method:'GET'}
   });
+}]);
+
+wsService.factory('limitChecker', ['hardCodedDataService', 'filterService', '$rootScope',
+    function(hardCodedDataService, filterService, $rootScope){
+  return {
+    addAboveLimitError: function(uploadLimit) {
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
+    },
+    getAllChecked: function(collection) {
+        return _.where(collection, {checked: true});
+    },
+    isOverLimit: function(itemList, uploadLimit) {
+      return this.getAllChecked(itemList).length > uploadLimit;
+    },
+    getMergedItems: function(dest, items, limit) {
+      if (this.isOverLimit(filterService.mergeArrays(dest, items), limit)) {
+        $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(limit));
+        return dest;
+      } else {
+        return filterService.mergeArrays(dest, items);
+      }
+    }
+  };
 }]);
 
 //@deprecated

@@ -1,6 +1,6 @@
 'use strict';
 app.controller('referencesFilter', function($scope, presetsService, stringService, validationService, filterService,
-                                            $rootScope, hardCodedDataService){
+                                            $rootScope, hardCodedDataService, limitChecker){
 
   $scope.references = [];
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().reference;
@@ -15,22 +15,18 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $scope.references = filterService.getQueryFilterItems($scope.query.reference);
     presetsService.getPresetsReferences().then(function(resp){
       var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
-      $scope.references = filterService.mergeRightToLeft($scope.references, referencePresetItems);
+      $scope.references = filterService.mergeArrays(referencePresetItems, $scope.references);
+      $scope.subscribedFilters.reference = $scope.getTotalChecked();
     });
   };
 
   $scope.addReferences = function() {
     $rootScope.cleanErrorMessages();
-
     var refs = stringService.getTextareaItemsAsArray($scope.referenceTextArea.toUpperCase());
-    var allItems = filterService.addFilterItems(refs, validationService.validateOther);
-    $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid reference');
-    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.references, $scope.totalChecked,
-      allItems.filteredItems, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent($scope.totalChecked, merge.totalChecked)) {
-      $scope.references = merge.mergedTerms;
-      $scope.updateTotalCheckedFromDisplay($scope.references);
-    }
+    var validatedItems = filterService.validateItems(refs, validationService.validateOther);
+    $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid reference');
+    $scope.references = limitChecker.getMergedItems($scope.references, validatedItems.validItems, $scope.uploadLimit);
+    $scope.subscribedFilters.reference = $scope.getTotalChecked();
     $scope.referenceTextArea = '';
   };
 
@@ -53,20 +49,17 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $scope.reset();
   });
 
-  $scope.updateTotalCheckedOnChange = function(term) {
+  $scope.selectTerm = function(term) {
     $rootScope.cleanErrorMessages();
-
-    $scope.$parent.updateTotalCheckedOnChange(term);
-
-    var currentTotalCheck = $scope.getAllChecked($scope.references).length;
-    $scope.totalChecked = $rootScope.getTotalCheckedAfterHandlingLimitError(
-          $scope.getAllChecked($scope.references).length, $scope.getAllChecked($scope.references).length,
-          $scope.uploadLimit);
-
-    if ($rootScope.isTotalDifferent(currentTotalCheck, $scope.totalChecked)) {
-      term.checked = !term.checked;
-      $scope.$parent.updateTotalCheckedOnChange(term);
+    if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.references), $scope.uploadLimit)) {
+      _.find($scope.references, term).checked = false;
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
+    $scope.subscribedFilters.reference = $scope.getTotalChecked();
+  };
+
+  $scope.getTotalChecked = function(){
+    return _.filter($scope.references, 'checked').length;
   };
 
   initReference();

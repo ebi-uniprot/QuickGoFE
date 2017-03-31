@@ -1,9 +1,9 @@
 'use strict';
 app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataService,
-  stringService, validationService, presetsService, taxonomyService, filterService){
+  stringService, validationService, presetsService, taxonomyService, filterService, limitChecker){
 
   $scope.taxa = [];
-  $scope.totalChecked = 1; //TODO refactor when GOA-2692 is done
+  $scope.uploadLimit = hardCodedDataService.getServiceLimits().taxonId;
 
   var getQuery = function() {
     return _.pluck(_.filter($scope.taxa, 'checked'), 'id');
@@ -11,19 +11,16 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
 
   var initTaxons = function(){
     $rootScope.cleanErrorMessages();
-
-    $scope.taxa = filterService.getQueryFilterItems($scope.query.taxonId);
-    $scope.taxonUsage = ($scope.query.taxonUsage) ?
-                        $scope.query.taxonUsage: 'descendants';
+    $scope.taxonUsage = ($scope.query.taxonUsage) ? $scope.query.taxonUsage: 'descendants';
     taxonomyService.initTaxa($scope.taxa).then(function (data) {
-      $scope.taxa = data;
+      $scope.taxa = filterService.mergeArrays(data.taxa, filterService.getQueryFilterItems($scope.query.taxonId));
     });
   };
 
   $scope.reset = function() {
     $rootScope.cleanErrorMessages();
-
     $scope.query.taxonId = '';
+    $scope.query.taxonUsage = '';
     initTaxons();
     $scope.updateQuery();
   };
@@ -36,15 +33,23 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
 
   $scope.addTaxons = function() {
     $rootScope.cleanErrorMessages();
-
-    taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea).then(function(data) {
-      $scope.taxa = data;
-      $scope.taxonTextArea = '';
-    });
+    var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea.toUpperCase());
+    var validatedTaxons = filterService.validateItems(taxons, validationService.validateTaxon);
+    $rootScope.stackErrors(validatedTaxons.invalidItems, 'alert', 'is not a valid taxon id');
+    $scope.taxa = limitChecker.getMergedItems($scope.taxa, validatedTaxons.validItems, $scope.uploadLimit);
+    $scope.taxonTextArea = '';
   };
 
-  $scope.updateTotalCheckedOnChange = function() {
+  $scope.selectTaxon = function(term) {
     $rootScope.cleanErrorMessages();
+    if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.taxa), $scope.uploadLimit)) {
+      _.find($scope.taxa, term).checked = false;
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
+    }
+  };
+
+  $scope.getTotalChecked = function() {
+    return limitChecker.getAllChecked($scope.taxa).length;
   };
 
   initTaxons();

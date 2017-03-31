@@ -15,9 +15,9 @@ app.service('filterService', function(){
     return filterItems;
   };
 
-  this.addFilterItems = function(items, validator, modify) {
+  this.validateItems = function(items, validator, modify) {
     var filterItems = {};
-    var dismissedItems = [];
+    var invalidItems = [];
     angular.forEach(items, function (item) {
       var validation = validator(item);
       if (validation) {
@@ -26,10 +26,10 @@ app.service('filterService', function(){
           checked: true
         };
       } else {
-        dismissedItems.push(item);
+        invalidItems.push(item);
       }
     });
-    return {filteredItems: _.values(filterItems), dismissedItems: dismissedItems};
+    return {validItems: _.values(filterItems), invalidItems: invalidItems};
   };
 
   this.getPresetFilterItems = function(items, idField, checked) {
@@ -63,17 +63,18 @@ app.service('filterService', function(){
     });
   };
 
-  this.mergeRightToLeft = function(array1, array2) {
-    var concat = array1; //copy the array
-    var map1 = _.indexBy(array1,'id');
-    angular.forEach(array2, function(item) {
-      if(map1[item.id]) {
-        map1[item.id].item = item.item;
+  this.mergeArrays = function(dst, src) {
+    var concat = dst.slice(); //copy the array
+    var dstMap = _.indexBy(dst,'id');
+    angular.forEach(src, function(item) {
+      if(dstMap[item.id]) {
+        dstMap[item.id].checked = item.checked;
+        dstMap[item.id].item = (item.item) ? item.item : dstMap[item.id].item;
       } else {
         concat.push(item);
       }
     });
-    return concat;
+    return _.sortBy(concat, 'checked').reverse();
   };
 
   this.removeRootTerms = function(items) {

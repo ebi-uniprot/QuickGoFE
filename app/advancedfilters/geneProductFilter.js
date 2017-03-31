@@ -1,12 +1,9 @@
 'use strict';
 app.controller('geneProductFilter', function ($scope, stringService,
-  validationService, presetsService, filterService, hardCodedDataService, $rootScope) {
+  validationService, presetsService, filterService, hardCodedDataService, $rootScope, limitChecker) {
 
   $scope.gpIds = [];
   $scope.geneProductSets = [];
-  $scope.totalChecked = 0;
-  $scope.totalCheckedIds = 0;
-  $scope.totalCheckedSets = 0;
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().geneProductId;
 
   var initgpIds = function () {
@@ -16,10 +13,8 @@ app.controller('geneProductFilter', function ($scope, stringService,
     presetsService.getPresetsGeneProducts().then(function(resp){
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.targetSet);
       var presetFilterItems = filterService.getPresetFilterItems(_.sortBy(resp.data.geneProducts, 'name'), 'name');
-      $scope.geneProductSets = filterService.mergeRightToLeft(queryFilterItems, presetFilterItems);
-      $scope.totalCheckedSets = $scope.getAllChecked($scope.geneProductSets).length;
+      $scope.geneProductSets = filterService.mergeArrays(queryFilterItems, presetFilterItems);
     });
-    $scope.totalCheckedIds = $scope.getAllChecked($scope.gpIds).length;
   };
 
   $scope.reset = function () {
@@ -41,40 +36,34 @@ app.controller('geneProductFilter', function ($scope, stringService,
     $scope.updateQuery();
   };
 
-  $scope.addGPs = function () {
-     $rootScope.cleanErrorMessages();
-
+  $scope.addGPs = function() {
+    $rootScope.cleanErrorMessages();
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
-    var allItems = filterService.addFilterItems(gps, validationService.validateGeneProduct, true);
-    $rootScope.stackErrors(allItems.dismissedItems, 'alert', 'is not a valid gene product id');
-    var merge = $scope.getEffectiveTotalCheckedAndMergedTerms($scope.gpIds, $scope.totalCheckedIds,
-      allItems.filteredItems, $scope.uploadLimit);
-    if ($rootScope.isTotalDifferent($scope.totalCheckedIds, merge.totalChecked)) {
-      $scope.gpIds = merge.mergedTerms;
-      $scope.totalCheckedIds = merge.totalChecked;
-    }
+    var validatedItems = filterService.validateItems(gps, validationService.validateGeneProduct, true);
+    $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid gene product id');
+    $scope.gpIds = limitChecker.getMergedItems($scope.gpIds, validatedItems.validItems, $scope.uploadLimit);
     $scope.gpTextArea = '';
   };
 
-  $scope.updateTotalCheckedOnChange = function(term) {
+  $scope.selectItem = function(term) {
     $rootScope.cleanErrorMessages();
-    var currentTotalCheck = $scope.getAllChecked($scope.gpIds).length;
-    $scope.totalCheckedIds = $rootScope.getTotalCheckedAfterHandlingLimitError($scope.getAllChecked($scope.gpIds).length,
-          $scope.getAllChecked($scope.gpIds).length, $scope.uploadLimit);
-    term.checked = $rootScope.isTotalDifferent(currentTotalCheck, $scope.totalCheckedIds) ? !term.checked : term.checked;
+    if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.gpIds), $scope.uploadLimit)) {
+      _.find($scope.gpIds, term).checked = false;
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
+    }
   };
 
-  $scope.updateTotalCheckedOnSetChange = function(set) {
-    $scope.totalCheckedSets += set.checked ? 1 : -1;
+  $scope.getTotalChecked = function() {
+    return limitChecker.getAllChecked($scope.gpIds).length + limitChecker.getAllChecked($scope.geneProductSets).length;
   };
 
-  $scope.$watch('totalCheckedIds', function() {
-    $scope.totalChecked = $scope.totalCheckedIds + $scope.totalCheckedSets;
-  });
+  $scope.getCheckedIds = function() {
+    return limitChecker.getAllChecked($scope.gpIds).length;
+  };
 
-  $scope.$watch('totalCheckedSets', function() {
-    $scope.totalChecked = $scope.totalCheckedIds + $scope.totalCheckedSets;
-  });
+  $scope.getCheckedSets = function() {
+    return limitChecker.getAllChecked($scope.geneProductSets).length;
+  };
 
   initgpIds();
 });
