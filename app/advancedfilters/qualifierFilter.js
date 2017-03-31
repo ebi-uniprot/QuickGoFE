@@ -7,10 +7,11 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
   var initQualifiers = function() {
     $rootScope.cleanErrorMessages();
     $scope.showAllNotQualifiers = 0;
+
+    $scope.qualifiers = filterService.getQueryFilterItems($scope.query.qualifier);
     presetsService.getPresetsQualifiers().then(function(resp){
-      var queryFilterItems = filterService.getQueryFilterItems($scope.query.qualifier);
       var presetFilterItems = filterService.getPresetFilterItems(_.sortBy(resp.data.qualifiers, 'name'), 'name');
-      $scope.qualifiers = filterService.mergeArrays(queryFilterItems, presetFilterItems);
+      $scope.qualifiers = filterService.mergeArrays(presetFilterItems, $scope.qualifiers);
       $scope.subscribedFilters.qualifier = $scope.getTotalChecked();
     });
   };
