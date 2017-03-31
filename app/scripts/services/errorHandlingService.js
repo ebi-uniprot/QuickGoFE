@@ -25,7 +25,7 @@ errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$root
             $location.path('/404');
             console.log('ERROR:', response);
         }
-        if (response.data.messages) {
+        if (response.data && response.data.messages) {
           $rootScope.alerts = _.map(response.data.messages, function(message){
             return {
               type: 'alert',
