@@ -1,17 +1,20 @@
 'use strict';
-app.controller('annotationExtensionFilterController', function($scope, presetsService){
+app.controller('annotationExtensionFilterController', function($scope, $rootScope, presetsService){
 
   $scope.extension = '';
 
   var init = function() {
+    $rootScope.cleanErrorMessages();
     $scope.extension = $scope.$parent.query.extension ? $scope.$parent.query.extension : '';
   };
 
   $scope.apply = function() {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.addToQueryAndUpdate('extension', $scope.extension);
   };
 
   $scope.reset = function () {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.query.extension = '';
     init();
     $scope.$parent.updateQuery();
@@ -53,6 +56,10 @@ app.controller('annotationExtensionFilterController', function($scope, presetsSe
   $scope.$on('resetAEFilters', function() {
     $scope.reset();
   });
+
+  $scope.getTotalChecked = function() {
+    return $scope.extension.length;
+  };
 
   init();
 });

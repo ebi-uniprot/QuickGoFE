@@ -1,22 +1,25 @@
 'use strict';
-app.controller('assignedByController', function($scope, presetsService, filterService){
+app.controller('assignedByController', function($scope, presetsService, filterService, $rootScope){
 
   $scope.assignedBy = [];
 
   var init = function() {
+      $rootScope.cleanErrorMessages();
       $scope.assignedBy = filterService.getQueryFilterItems($scope.query.assignedBy);
       presetsService.getPresetsAssignedBy().then(function(resp){
         var assignDBs = _.sortBy(resp.data.assignedBy, 'name');
         var filterItems = filterService.getPresetFilterItems(assignDBs, 'name');
-        $scope.assignedBy = filterService.mergeRightToLeft($scope.assignedBy, filterItems);
+        $scope.assignedBy = filterService.mergeArrays(filterItems, $scope.assignedBy);
       });
   };
 
   $scope.apply = function() {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.addToQueryAndUpdate('assignedBy', getQuery());
   };
 
   $scope.reset = function () {
+    $rootScope.cleanErrorMessages();
     $scope.$parent.query.assignedBy = '';
     init();
   };
@@ -32,6 +35,14 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
   $scope.$on('resetMoreFilters', function() {
     $scope.reset();
   });
+
+  $scope.selectItem = function() {
+    $scope.subscribedFilters.assignedBy = $scope.getTotalChecked();
+  };
+
+  $scope.getTotalChecked = function(){
+    return _.filter($scope.assignedBy, 'checked').length;
+  };
 
   init();
 });

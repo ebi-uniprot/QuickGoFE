@@ -1,6 +1,6 @@
 'use strict';
 app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
-  searchService) {
+  searchService, $rootScope) {
 
   $scope.query = $routeParams;
 
@@ -14,7 +14,7 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
       delete $scope.query[type];
     } else {
       $scope.query[type] = values;
-    };
+    }
   };
 
   $scope.updateQuery = function () {
@@ -22,28 +22,9 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   };
 
   $scope.clearFilters = function () {
+    $rootScope.cleanErrorMessages();
     $scope.query = {};
     $scope.updateQuery();
   };
 
-  $scope.hasSlims = function () {
-    //TODO
-  };
-
-  $scope.toggled = function (open) {
-    if (!open) {}
-  };
-
-  $scope.apply = function() {
-    $scope.$broadcast ('applyMoreFilters');
-  };
-
-  $scope.reset = function() {
-    $scope.$broadcast ('resetMoreFilters');
-    $scope.updateQuery();
-  };
-
-  $scope.openMore = function() {
-
-  };
 });

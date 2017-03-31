@@ -12,6 +12,10 @@ describe('Controller: qualifierFilter', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     scope.query = {};
+    scope.selectItem = function() {};
+    scope.subscribedFilters = {
+      qualifier:0
+    };
     qualifierFilter = $controller('qualifierFilter', {
       $scope: scope
     });

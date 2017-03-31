@@ -12,25 +12,26 @@ describe('Controller: taxonFilter', function () {
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     scope.query = {
-      'taxonId':'9606'
+      'taxonId':''
     };
+
+    scope.stackErrors = function() {};
     taxonFilter = $controller('taxonFilter', {
       $scope: scope
     });
   }));
 
-  it('should not add invalid taxonIds', function () {
-    expect(scope.taxa.length).toEqual(1);
-    scope.taxonTextArea = 'AAAA';
+
+  it('should add valid taxonIds', function () {
+    scope.taxonTextArea = '9606';
     scope.addTaxons();
     expect(scope.taxa.length).toEqual(1);
   });
 
-  it('should remove taxIds', function() {
-    var taxas = [{id: '1234'},{id: '2345'},{id: '3456'}];
-    var removeTaxIds = [1234, 3456];
-    var results = scope.removeTaxIds(removeTaxIds, taxas);
-    expect(results.length).toEqual(1);
+  it('should not add invalid taxonIds', function () {
+    scope.taxonTextArea = 'AAAA';
+    scope.addTaxons();
+    expect(scope.taxa.length).toEqual(0);
   });
 
 });

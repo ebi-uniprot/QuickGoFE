@@ -20,11 +20,27 @@ var app = angular
     'mm.foundation'
   ]);
 
-app.run(function ($rootScope, dbXrefService, $window) {
+app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
   $rootScope.followLinkToGeneric = function (database) {
     dbXrefService.getDbXrefs().then(function (xrefs) {
       $window.open(dbXrefService.getGenericLink(database, xrefs.data));
     });
+  };
+
+  $rootScope.cleanErrorMessages = function() {
+    $rootScope.alerts = [];
+  };
+
+  $rootScope.stackErrors = function(elements, type, message, field) {
+    $rootScope.alerts = $rootScope.alerts.concat(_.map(
+      elements,
+      function(elem){
+        return {
+          type: type,
+          msg: (field ? elem[field] : elem) + ' ' + message
+        };
+      })
+    );
   };
 
   $rootScope.followLinkToEntry = function (id, database) {
