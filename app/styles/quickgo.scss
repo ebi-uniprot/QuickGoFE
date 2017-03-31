@@ -605,7 +605,32 @@ h5.active-filter:before{
   }
 }
 
-.typeahead-box{
+.autocomplete-box {
+  background: #FFF;
+  position: absolute;
+  z-index: 1000;
+  float: left;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  background-clip: padding-box;
+  color: #333;
+  ul, li {
+    margin:0;
+  }
+  li{
+    padding: .2em 1em;
+    display: block;
+    text-align: left;
+    &:hover {
+      background-color: $yellow-highlight;
+      cursor: pointer;
+    }
+  }
+}
+
+.typeahead-box {
   width: 50%;
   background: #FFF;
   padding: 20px;
