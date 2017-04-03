@@ -3,16 +3,16 @@
     <small>{{extension.length > 0 ? extension : 'Annotation extension query'}}</small>
   </div>
   <div class="row">
-    <div class="medium-3 columns">
-      <label>
-        Relationship
-        <input type="text" placeholder="occurs_in, has_input, directly_regulates, ..." ng-model="relationship">
-      </label>
-    </div>
     <div class="medium-4 columns">
       <label>
+        Relationship
+        <autocomplete placeholder="occurs_in, has_input, directly_regulates, ..." model="relationship" data="relationshipData"></autocomplete>
+      </label>
+    </div>
+    <div class="medium-3 columns">
+      <label>
         Database
-        <input type="text" placeholder="UniProtKB, UBERON, ..." ng-model="db">
+        <autocomplete placeholder="UniProtKB, UBERON, ..." model="db" data="databaseData"></autocomplete>
       </label>
     </div>
     <div class="medium-3 columns">
