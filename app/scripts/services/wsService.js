@@ -139,15 +139,11 @@ wsService.factory('taxonomyService',
             taxaArray = redirectTaxa(taxaArray, data.data.redirects);
             updateTaxonInfo(self, defer, taxaArray);
           } else {
-            defer.resolve({
-              taxa: taxaArray, totalChecked: limitChecker.getAllChecked(taxaArray).length
-            });
+            defer.resolve({taxa: taxaArray});
           }
         });
       } else {
-        defer.resolve({
-          taxa: taxaArray, totalChecked: limitChecker.getAllChecked(taxaArray).length
-        });
+        defer.resolve({taxa: taxaArray});
       }
     };
     return {
@@ -164,21 +160,14 @@ wsService.factory('taxonomyService',
         });
         return defer.promise;
       },
-      addNewTaxa: function(taxaArray, taxonTextArea, totalChecked, uploadLimit) {
+      addNewTaxa: function(taxaArray, taxonTextArea, uploadLimit) {
         var self = this;
         var defer = $q.defer();
         var taxons = stringService.getTextareaItemsAsArray(taxonTextArea.toUpperCase());
-
-        var allItems = filterService.validateItems(taxons, validationService.validateTaxon);
-
-        $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a valid taxon id');
-
-        var merge = limitChecker.getEffectiveTotalCheckedAndMergedTerms(taxaArray, totalChecked,
-          allItems.validItems, uploadLimit);
-
-        if (limitChecker.isTotalDifferent(totalChecked, merge.totalChecked)) {
-          updateTaxonInfo(self, defer, merge.mergedTerms);
-        }
+        var validatedTaxons = filterService.validateItems(taxons, validationService.validateTaxon);
+        $rootScope.stackErrors(validatedTaxons.invalidItems, 'alert', 'is not a valid taxon id');
+        var merge = limitChecker.getMergedItems(taxaArray, validatedTaxons.validItems, uploadLimit);
+        updateTaxonInfo(self, defer, merge);
         return defer.promise;
       }
     }
@@ -399,12 +388,16 @@ wsService.factory('limitChecker', ['hardCodedDataService', 'filterService', '$ro
       return this.getAllChecked(itemList).length > uploadLimit;
     },
     getMergedItems: function(dest, items, limit) {
-      if (this.isOverLimit(filterService.mergeArrays(dest, items), limit)) {
+      var merged = filterService.mergeArrays(dest, items);
+      if (this.isOverLimit(merged, limit)) {
         $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(limit));
         return dest;
       } else {
-        return filterService.mergeArrays(dest, items);
+        return merged;
       }
+    },
+    getMergedAllItems: function(dest, items) {
+      return filterService.mergeArrays(dest, items);
     }
   };
 }]);

@@ -52,35 +52,36 @@
     <h3>Additional Options</h3>
     <accordion close-others="true">
       <accordion-group heading="Gene Product ID">
-          <textarea ng-disabled="count.total <= 0" class="default" placeholder="A0A000,A0A001,..." ng-model="$parent.$parent.$parent.geneProductID"></textarea>
-          <button class="button" ng-click="addGPIds()" ng-disabled="count.total <= 0">Add to selection</button>
+          <textarea ng-disabled="getTotalGOChecked().allAspects <= 0" class="default" placeholder="A0A000,A0A001,..."
+                    ng-model="$parent.$parent.$parent.geneProductID"></textarea>
+          <button class="button" ng-click="addGPIds()" ng-disabled="getTotalGOChecked().allAspects <= 0">Add to selection</button>
       </accordion-group>
       <accordion-group heading="Restrict by Taxonomy">
         <div>
-          Your selection: {{totalTaxon}} taxa
+          Your selection: {{getTotalTaxonChecked()}} taxa
         </div>
           <ul>
-            <li ng-repeat="taxon in species" class="no-bullet">
-              <label><input ng-disabled="count.total <= 0" type="checkbox" ng-model="taxon.checked"
-                            checklist-value="{{taxon.id}}" ng-click="updateTotalCheckedTaxaOnChange(taxon)">
+            <li ng-repeat="taxon in taxa" class="no-bullet">
+              <label><input ng-disabled="getTotalGOChecked().allAspects <= 0" type="checkbox" ng-model="taxon.checked"
+                            checklist-value="{{taxon.id}}" ng-click="selectTaxon(taxon)">
               {{taxon.item.scientificName || taxon.item.name}}
               ({{taxon.id}})</label>
             </li>
           </ul>
           <div class="row">
             <div class="column medium-10">
-              <textarea ng-disabled="count.total <= 0" class="small" placeholder="9606,7955,..." ng-model="$parent.$parent.$parent.taxonTextArea"></textarea>
+              <textarea ng-disabled="getTotalGOChecked().allAspects <= 0" class="small" placeholder="9606,7955,..." ng-model="$parent.$parent.$parent.taxonTextArea"></textarea>
             </div>
             <div class="column medium-2">
               <button class="small button" ng-click="addNewTaxon()" ng-disabled="!$parent.$parent.$parent.taxonTextArea">Add</button>
             </div>
           </div>
           <hr>
-          <button class="button" ng-click="addTaxons()" ng-disabled="count.total <= 0">Add to selection</button>
+          <button class="button" ng-click="addTaxons()" ng-disabled="getTotalGOChecked().allAspects <= 0">Add to selection</button>
       </accordion-group>
     </accordion>
     <p ng-if="additionalSelection.taxa.length > 0">
-      <strong>{{additionalSelection.taxa.length | number}}</strong> species.
+      <strong>{{additionalSelection.taxa.length | number}}</strong> taxa.
     </p>
     <p ng-if="additionalSelection.gpIds.length > 0">
       <strong>{{additionalSelection.gpIds.length | number}}</strong> gene product(s).
@@ -90,24 +91,24 @@
 
 
 
-<div class="row" ng-if="count.total > 0">
+<div class="row" ng-if="getTotalGOChecked().allAspects > 0">
   <hr>
   <div id="selectionHeader" class="column medium-12 clearfix">
     <span class="float-right">
-      <button class="button" ng-disabled="count.total <= 0" ng-click="clearSelection()">Clear</button>
-      <button class="button" ng-disabled="count.total <= 0" ng-click="viewAnnotations()">Apply</button>
+      <button class="button" ng-disabled="getTotalGOChecked().allAspects <= 0" ng-click="clearSelection()">Clear</button>
+      <button class="button" ng-disabled="getTotalGOChecked().allAspects <= 0" ng-click="viewAnnotations()">Apply</button>
     </span>
-    <h3 ng-class="{'inactive': count.totalCount <= 0}" class="your-selectionHeader">
-      Your Selection:{{count.total | number}} terms
+    <h3 ng-class="{'inactive': getTotalGOChecked().allAspects <= 0}" class="your-selectionHeader">
+      Your Selection:{{getTotalGOChecked().allAspects | number}} terms
       <small><chart-icon ids="{{getSelectedIds().toString()}}"></chart-icon></small>
     </h3>
   </div>
 
   <div class="your-selection-container column medium-7">
-    <div class="selectionContainer" ng-if="count.total > 0">
+    <div class="selectionContainer" ng-if="getTotalGOChecked().allAspects > 0">
       <div ng-repeat="(aspectId,aspect) in selection">
         <h4>{{aspect.name}}
-          <span ng-if="count[aspect.name] > 0">({{count[aspect.name]}})</span>
+          <span ng-if="getTotalGOChecked()[aspectId] > 0">({{totalPerAspect[aspectId]}})</span>
           <small><chart-icon ids="{{getSelectedIdsForAspect(aspectId).toString()}}"></chart-icon></small>
         </h4>
         <p ng-repeat="aTerm in aspect.terms">

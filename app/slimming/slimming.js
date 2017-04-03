@@ -4,11 +4,11 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   stringService, validationService, filterService, taxonomyService, $rootScope, limitChecker) {
 
   $scope.selection = {};
+  $scope.totalPerAspect = {};
   $scope.deSelectedItems = [];
   $scope.uploadLimitGO = hardCodedDataService.getServiceLimits().goId;
   $scope.uploadLimitTaxon = hardCodedDataService.getServiceLimits().taxonId;
-  $scope.totalGO = 0;
-  $scope.totalTaxon = 0;
+  $scope.uploadLimitGeneProd = hardCodedDataService.getServiceLimits().geneProductId;
 
   // Fixes the removed terms box to the top of the screen when scrolling
   $document.on('scroll', function() {
@@ -27,23 +27,22 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   var init = function() {
     $rootScope.cleanErrorMessages();
-
     angular.forEach($scope.aspects, function(aspect) {
       $scope.selection[aspect.id] = {
         'name': aspect.name,
-        'terms': {}
+        'terms': []
       };
+      $scope.totalPerAspect[aspect.id] = 0;
     });
-    $scope.totalGO = 0;
 
     $scope.additionalSelection = {
       'gpIds':[],
       'taxa':[]
     };
-    $scope.species = [];
-    taxonomyService.initTaxa($scope.species).then(function(data) {
-      $scope.species = data.taxa;
-      $scope.totalTaxon = data.totalChecked;
+    $scope.gpIds = [];
+    $scope.taxa = [];
+    taxonomyService.initTaxa($scope.taxa).then(function(data) {
+      $scope.taxa = data.taxa;
     });
 
     /**
@@ -70,146 +69,155 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
     init();
   });
 
-  $scope.basketItemsSelected = function() {
-    return _.any(_.pluck($scope.basketList, 'selected'));
+  var separateGOTerms = function(terms) {
+    var separated = {obsolete: [], active: {}};
+    angular.forEach(terms, function(term) {
+      if (term.isObsolete) {
+        separated.obsolete.push(term.id);
+      } else {
+         if (!separated.active[term.aspect]) {
+           separated.active[term.aspect] = [];
+         }
+           separated.active[term.aspect].push(term);
+         }
+      });
+    return separated;
   };
 
-  var getMergedTermsAndTotal = function(terms, aspectMap) {
-    var mergedTerms = jQuery.extend(true, {}, $scope.selection); //NOTE: use angular's extend, not jQuery
-    var totalCheckedAfterMerge = $scope.totalGO;
-
-    angular.forEach(terms, function(goTerm){
-      if (aspectMap && aspectMap[goTerm.aspect]) { //TODO remove when service has correct aspect
-          goTerm.aspect = aspectMap[goTerm.aspect];
-      }
-      totalCheckedAfterMerge += mergedTerms[goTerm.aspect].terms[goTerm.id] ? 0 : 1;
-      mergedTerms[goTerm.aspect].terms[goTerm.id] = goTerm;
+  var getActivesInTempGOSelection = function(termsByAspect) {
+    var tempSelection= {};
+    angular.forEach($scope.aspects, function(aspect) {
+      tempSelection[aspect.id] = {
+        'name': aspect.name,
+        'terms': []
+      };
     });
-
-    return {mergedTerms: mergedTerms, totalChecked: totalCheckedAfterMerge}
+    var totalAfterMerge = 0;
+    angular.forEach($scope.selection, function (aspect, aspectId) {
+      tempSelection[aspectId].terms = limitChecker.getMergedAllItems(aspect.terms, termsByAspect[aspectId]);
+      totalAfterMerge += tempSelection[aspectId].terms.length;
+    });
+    return {selection: tempSelection, totalSelection: totalAfterMerge};
   };
 
-  var getEffectiveTotalCheckedAndMergedTerms = function(terms, aspectMap) {
-    var mergedTermsAndTotal = getMergedTermsAndTotal(terms, aspectMap);
-    var totalCheckedAfterHandlingError = limitChecker.getTotalCheckedAfterHandlingLimitError($scope.totalGO,
-        mergedTermsAndTotal.totalChecked, $scope.uploadLimitGO);
-    if (limitChecker.isTotalDifferent(mergedTermsAndTotal.totalChecked, totalCheckedAfterHandlingError)) {
-      return {mergedTerms: $scope.selection, totalChecked: $scope.totalGO};
+  var validateLimitAndUpdateSelection = function(tempSelection) {
+    if (tempSelection.totalSelection <= $scope.uploadLimitGO) {
+      $scope.selection = tempSelection.selection;
     } else {
-      return mergedTermsAndTotal;
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimitGO));
     }
   };
 
-  var updateSelectionAndTotal = function(terms, aspectMap) {
-    var effectiveMergedTerms = getEffectiveTotalCheckedAndMergedTerms(terms, aspectMap);
-    $scope.selection = effectiveMergedTerms.mergedTerms;
-    $scope.totalGO = effectiveMergedTerms.totalChecked;
+  var updateGOSelection = function(terms) {
+    var separated = separateGOTerms(terms);
+    $rootScope.stackErrors(separated.obsolete, 'warning', 'is obsolete');
+    validateLimitAndUpdateSelection(getActivesInTempGOSelection(separated.active));
+  };
+
+  var cleanWhenEmpty = function() {
+    if ($scope.getTotalGOChecked().allAspects === 0) {
+      $scope.deSelectedItems = [];
+    }
+  };
+
+  $scope.getTotalGOChecked = function() {
+    $scope.totalPerAspect = {};
+    $scope.totalPerAspect.allAspects = 0;
+    angular.forEach($scope.aspects, function(aspect) {
+      $scope.totalPerAspect[aspect.id] = $scope.selection[aspect.id].terms.length;
+      $scope.totalPerAspect.allAspects += $scope.totalPerAspect[aspect.id];
+    });
+    return $scope.totalPerAspect;
+  };
+
+  $scope.removeFromSelection = function(termToRemove) {
+    $rootScope.cleanErrorMessages();
+    $scope.selection[termToRemove.aspect].terms = _.reject($scope.selection[termToRemove.aspect].terms, function (term){
+      return term.id === termToRemove.id;
+    });
+    $scope.deSelectedItems.push(termToRemove);
+    cleanWhenEmpty();
+  };
+
+  $scope.addBackIntoSelection = function(termToAdd) {
+    $rootScope.cleanErrorMessages();
+    $scope.selection[termToAdd.aspect].terms.push(termToAdd);
+    $scope.deSelectedItems = _.reject($scope.deSelectedItems, function (term) {
+      return term.id === termToAdd.id;
+    });
   };
 
   // Predefined sets
   $scope.addPredefined = function() {
     $rootScope.cleanErrorMessages();
-
-    //TODO this is needed as the service currently returns aspect name not id
-    var aspectMap = {};
-    angular.forEach($scope.aspects, function(aspect) {
-      aspectMap[aspect.name] = aspect.id;
-    });
-
     var terms = $scope.selectedPreDefinedSlimSet.associations;
     if(!$scope.includeRootTerms) {
       terms = filterService.removeRootTerms(terms);
     }
-
-    updateSelectionAndTotal(terms, aspectMap);
+    updateGOSelection(terms);
     $scope.selectedPreDefinedSlimSet = '';
   };
-
 
   // Own terms
   $scope.addOwnTerms = function() {
     $rootScope.cleanErrorMessages();
-
-    var terms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms);
-    termService.getGOTerms(terms).then(function(d){
-      updateSelectionAndTotal(d.data.results);
+    var goterms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms.toUpperCase());
+    var validatedTerms = filterService.validateItems(goterms, validationService.validateGOTerm);
+    $rootScope.stackErrors(validatedTerms.invalidItems, 'alert', 'is not a valid GO term id');
+    termService.getGOTerms(_.pluck(validatedTerms.validItems, 'id')).then(function(d) {
+      updateGOSelection(d.data.results);
     });
     $scope.slimOwnTerms = '';
   };
 
   //Basket terms
+  $scope.basketItemsSelected = function() {
+    return _.any(_.pluck($scope.basketList, 'selected'));
+  };
+
   $scope.addBasketTerms = function() {
     $rootScope.cleanErrorMessages();
     var items = _.filter($scope.basketList, function(d) {
       return d.selected;
     });
-    updateSelectionAndTotal(items);
+    updateGOSelection(items);
   };
 
   //taxons
   $scope.addNewTaxon = function() {
     $rootScope.cleanErrorMessages();
-
-    taxonomyService.addNewTaxa($scope.species, $scope.taxonTextArea, $scope.totalTaxon, $scope.uploadLimitTaxon)
-      .then(function(data) {
-        $scope.species = data.taxa;
-        $scope.totalTaxon = data.totalChecked;
+    taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea, $scope.uploadLimitTaxon).then(function(data) {
+        $scope.taxa = data.taxa;
         $scope.taxonTextArea = '';
     });
   };
 
-  $scope.addGPIds = function(){
-    $rootScope.cleanErrorMessages();
-
-    var ids = stringService.getTextareaItemsAsArray($scope.geneProductID);
-    angular.forEach(ids, function(id) {
-      if(validationService.validateGeneProduct(id)){
-        $scope.additionalSelection.gpIds.push(id);
-      }
-    });
-
-    $scope.geneProductID = '';
-  };
-
   $scope.addTaxons = function(){
-    $scope.additionalSelection.taxa = _.pluck(_.filter($scope.species, 'checked'),'id');
+    $scope.additionalSelection.taxa = _.pluck(_.filter($scope.taxa, 'checked'),'id');
   };
 
-  $scope.removeFromSelection = function(termToRemove) {
+  $scope.selectTaxon = function(term) {
     $rootScope.cleanErrorMessages();
-    // Remove from selected items
-    delete $scope.selection[termToRemove.aspect].terms[termToRemove.id];
-    $scope.totalGO--;
-    // Add to de-selected items
-    $scope.deSelectedItems.push(termToRemove);
-  };
-
-  $scope.addBackIntoSelection = function(termToAdd) {
-    $rootScope.cleanErrorMessages();
-    // Add back to selectedItems
-    var totalCheckedAfterHandlingError = limitChecker.getTotalCheckedAfterHandlingLimitError($scope.totalGO,
-      $scope.totalGO + 1, $scope.uploadLimitGO);
-    if (limitChecker.isTotalDifferent($scope.totalGO, totalCheckedAfterHandlingError)) {
-        $scope.selection[termToAdd.aspect].terms[termToAdd.id] = termToAdd;
-        $scope.totalGO++;
-        // Remove from deSelectedItems
-        $scope.deSelectedItems = _.filter($scope.deSelectedItems, function(term) {
-            return term.id !== termToAdd.id;
-        });
+    if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.taxa), $scope.uploadLimitTaxon)) {
+      _.find($scope.taxa, term).checked = false;
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimitTaxon));
     }
   };
 
-  $scope.$watch('selection', function() {
-    $scope.count = {
-      total:0
-    };
-    angular.forEach($scope.selection, function(aspect) {
-      if(Object.keys(aspect.terms).length) {
-        $scope.count[aspect.name] = Object.keys(aspect.terms).length;
-        $scope.count.total = $scope.count.total + Object.keys(aspect.terms).length;
-      }
-    });
-  }, true);
+  $scope.getTotalTaxonChecked = function() {
+    return limitChecker.getAllChecked($scope.taxa).length;
+  };
+
+  //GPIds
+  $scope.addGPIds = function(){
+    $rootScope.cleanErrorMessages();
+    var gps = stringService.getTextareaItemsAsArray($scope.geneProductID.toUpperCase());
+    var validatedItems = filterService.validateItems(gps, validationService.validateGeneProduct, true);
+    $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid gene product id');
+    $scope.gpIds = limitChecker.getMergedItems($scope.gpIds, validatedItems.validItems, $scope.uploadLimitGeneProd);
+    $scope.additionalSelection.gpIds = _.pluck($scope.gpIds, 'id');
+    $scope.geneProductID = '';
+  };
 
   $scope.viewAnnotations = function() {
     $rootScope.cleanErrorMessages();
@@ -249,14 +257,4 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   $scope.getSelectedIdsForAspect = function(aspect){
     return _.pluck($scope.selection[aspect].terms, 'id');
   };
-
-  $scope.updateTotalCheckedTaxaOnChange = function(term) {
-    $rootScope.cleanErrorMessages();
-    var currentTotalCheck = limitChecker.getAllChecked($scope.species).length;
-    $scope.totalTaxon = limitChecker.getTotalCheckedAfterHandlingLimitError(
-      limitChecker.getAllChecked($scope.species).length, limitChecker.getAllChecked($scope.species).length,
-      $scope.uploadLimitTaxon);
-    term.checked = limitChecker.isTotalDifferent(currentTotalCheck, $scope.totalTaxon) ? !term.checked : term.checked;
-  };
-
 });
