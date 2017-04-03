@@ -64,8 +64,8 @@ app.service('filterService', function(){
   };
 
   this.mergeArrays = function(dst, src) {
-    var concat = dst.slice(); //copy the array
-    var dstMap = _.indexBy(dst,'id');
+    var concat = angular.copy(dst); //deep copy the array
+    var dstMap = _.indexBy(concat,'id');
     angular.forEach(src, function(item) {
       if(dstMap[item.id]) {
         dstMap[item.id].checked = item.checked;

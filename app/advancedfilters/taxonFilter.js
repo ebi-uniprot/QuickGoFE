@@ -33,11 +33,10 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
 
   $scope.addTaxons = function() {
     $rootScope.cleanErrorMessages();
-    var taxons = stringService.getTextareaItemsAsArray($scope.taxonTextArea.toUpperCase());
-    var validatedTaxons = filterService.validateItems(taxons, validationService.validateTaxon);
-    $rootScope.stackErrors(validatedTaxons.invalidItems, 'alert', 'is not a valid taxon id');
-    $scope.taxa = limitChecker.getMergedItems($scope.taxa, validatedTaxons.validItems, $scope.uploadLimit);
-    $scope.taxonTextArea = '';
+    taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea, $scope.uploadLimit).then(function(data) {
+      $scope.taxa = data.taxa;
+      $scope.taxonTextArea = '';
+    });
   };
 
   $scope.selectTaxon = function(term) {
