@@ -28,6 +28,10 @@ app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
   };
 
   $rootScope.cleanErrorMessages = function() {
+    var allAlerts = document.querySelectorAll('div.alert,div.warning');
+    angular.forEach(allAlerts, function(anAlert) {
+      clearTimeout($rootScope.fadeAlert(angular.element(anAlert)));
+    });
     $rootScope.alerts = [];
   };
 
@@ -54,12 +58,21 @@ app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
     });
   };
 
-  $rootScope.alerts = [
-  { type: 'warning', msg: 'This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.' },
-  ];
+  $rootScope.alerts = [{
+    type: 'warning',
+    msg: 'This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.'
+  }];
 
   $rootScope.closeAlert = function (index) {
-    $rootScope.alerts.splice(index, 1);
+  var allAlerts = document.querySelectorAll('div.alert,div.warning');
+  clearTimeout($rootScope.fadeAlert(angular.element(allAlerts[index])));
+  $rootScope.alerts.splice(index, 1);
+  };
+
+  $rootScope.fadeAlert = function(anAlert) {
+    setTimeout(function(){
+      anAlert.fadeOut('slow')
+    }, 5000);
   };
 
 });
