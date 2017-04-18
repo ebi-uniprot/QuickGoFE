@@ -54,6 +54,9 @@ a.button.icon-functional:before,
   font-size: 108%;
   color: $white;
 }
+.your-selection-container .icon-functional:before{
+  color: $primary1;
+}
 
 #global-nav .icon-generic:before{
   font-size: 108%;
