@@ -1,18 +1,19 @@
 'use strict';
-app.controller('qualifierFilter', function($scope, hardCodedDataService, filterService, $rootScope){
+app.controller('qualifierFilter', function($scope, hardCodedDataService, filterService, $rootScope, presetsService){
 
   $scope.qualifiers = [];
   $scope.showAllNotQualifiers = 0;
 
   var initQualifiers = function() {
     $rootScope.cleanErrorMessages();
-
-    $scope.qualifiers = filterService.getQueryFilterItems($scope.query.qualifier);
     $scope.showAllNotQualifiers = 0;
 
-    var allQualifiers = filterService.getPresetFilterItems(hardCodedDataService.getQualifiers(), 'qualifier');
-    $scope.qualifiers = filterService.mergeArrays(allQualifiers, $scope.qualifiers);
-    $scope.subscribedFilters.qualifier = $scope.getTotalChecked();
+    $scope.qualifiers = filterService.getQueryFilterItems($scope.query.qualifier);
+    presetsService.getPresetsQualifiers().then(function(resp){
+      var presetFilterItems = filterService.getPresetFilterItems(_.sortBy(resp.data.qualifiers, 'name'), 'name');
+      $scope.qualifiers = filterService.mergeArrays(presetFilterItems, $scope.qualifiers);
+      $scope.subscribedFilters.qualifier = $scope.getTotalChecked();
+    });
   };
 
   var getQuery = function() {
@@ -23,7 +24,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
     $rootScope.cleanErrorMessages();
 
     angular.forEach($scope.qualifiers, function(qualifier) {
-      if(qualifier.item.name.lastIndexOf('NOT', 0) === 0) {
+      if(qualifier.item.name.toUpperCase().lastIndexOf('NOT', 0) === 0) {
         qualifier.checked = true;
       }
     });
