@@ -524,25 +524,15 @@ div {
 
 
 /* Alert boxes*/
-
-.alert {
-  &.ng-hide-add, &.ng-hide-remove {
-    -moz-transition: 0.5s linear all;
-    -o-transition: 0.5s linear all;
-    -webkit-transition: 0.5s linear all;
-    transition: 0.5s linear all;
-    display: block !important;
-    opacity: 1;
-  }
-  &.ng-hide {
-    opacity: 0;
+.messages-container {
+  z-index: 99999;
+  position: fixed;
+  top: 1rem;
+  right: .1rem;
+  .callout {
+    padding-right: 2rem !important;
   }
 }
-
-.alert-info-half{
-  width: 49%;
-}
-
 
 /*  BUTTONS */
 

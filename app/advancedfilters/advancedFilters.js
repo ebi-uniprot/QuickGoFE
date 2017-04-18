@@ -22,7 +22,6 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   };
 
   $scope.clearFilters = function () {
-    $rootScope.cleanErrorMessages();
     $scope.query = {};
     $scope.updateQuery();
   };

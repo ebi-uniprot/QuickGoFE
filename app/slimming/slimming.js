@@ -26,7 +26,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   });
 
   var init = function() {
-    $rootScope.cleanErrorMessages();
     angular.forEach($scope.aspects, function(aspect) {
       $scope.selection[aspect.id] = {
         'name': aspect.name,
@@ -131,7 +130,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.removeFromSelection = function(termToRemove) {
-    $rootScope.cleanErrorMessages();
     $scope.selection[termToRemove.aspect].terms = _.reject($scope.selection[termToRemove.aspect].terms, function (term){
       return term.id === termToRemove.id;
     });
@@ -140,7 +138,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.addBackIntoSelection = function(termToAdd) {
-    $rootScope.cleanErrorMessages();
     $scope.selection[termToAdd.aspect].terms.push(termToAdd);
     $scope.deSelectedItems = _.reject($scope.deSelectedItems, function (term) {
       return term.id === termToAdd.id;
@@ -149,7 +146,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   // Predefined sets
   $scope.addPredefined = function() {
-    $rootScope.cleanErrorMessages();
     var terms = $scope.selectedPreDefinedSlimSet.associations;
     if(!$scope.includeRootTerms) {
       terms = filterService.removeRootTerms(terms);
@@ -160,7 +156,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   // Own terms
   $scope.addOwnTerms = function() {
-    $rootScope.cleanErrorMessages();
     var goterms = stringService.getTextareaItemsAsArray($scope.slimOwnTerms.toUpperCase());
     var validatedTerms = filterService.validateItems(goterms, validationService.validateGOTerm);
     $rootScope.stackErrors(validatedTerms.invalidItems, 'alert', 'is not a valid GO term id');
@@ -176,7 +171,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.addBasketTerms = function() {
-    $rootScope.cleanErrorMessages();
     var items = _.filter($scope.basketList, function(d) {
       return d.selected;
     });
@@ -185,7 +179,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   //taxons
   $scope.addNewTaxon = function() {
-    $rootScope.cleanErrorMessages();
     taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea, $scope.uploadLimitTaxon).then(function(data) {
         $scope.taxa = data.taxa;
         $scope.taxonTextArea = '';
@@ -197,7 +190,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.selectTaxon = function(term) {
-    $rootScope.cleanErrorMessages();
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.taxa), $scope.uploadLimitTaxon)) {
       _.find($scope.taxa, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimitTaxon));
@@ -210,7 +202,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
 
   //GPIds
   $scope.addGPIds = function(){
-    $rootScope.cleanErrorMessages();
     var gps = stringService.getTextareaItemsAsArray($scope.geneProductID.toUpperCase());
     var validatedItems = filterService.validateItems(gps, validationService.validateGeneProduct, true);
     $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid gene product id');
@@ -220,7 +211,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.viewAnnotations = function() {
-    $rootScope.cleanErrorMessages();
     $location.search('goUsage', 'slim');
     $location.search('goUsageRelationships', 'is_a,part_of,occurs_in');
 
@@ -241,7 +231,6 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
   };
 
   $scope.clearSelection = function() {
-    $rootScope.cleanErrorMessages();
     init();
     $scope.deSelectedItems = [];
   };

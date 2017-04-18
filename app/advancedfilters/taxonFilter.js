@@ -10,7 +10,6 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   };
 
   var initTaxons = function(){
-    $rootScope.cleanErrorMessages();
     $scope.taxonUsage = ($scope.query.taxonUsage) ? $scope.query.taxonUsage: 'descendants';
     taxonomyService.initTaxa($scope.taxa).then(function (data) {
       $scope.taxa = filterService.mergeArrays(data.taxa, filterService.getQueryFilterItems($scope.query.taxonId));
@@ -18,7 +17,6 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   };
 
   $scope.reset = function() {
-    $rootScope.cleanErrorMessages();
     $scope.query.taxonId = '';
     $scope.query.taxonUsage = '';
     initTaxons();
@@ -26,13 +24,11 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   };
 
   $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
     $scope.addToQueryAndUpdate('taxonId', getQuery());
     $scope.addToQueryAndUpdate('taxonUsage', $scope.taxonUsage);
   };
 
   $scope.addTaxons = function() {
-    $rootScope.cleanErrorMessages();
     taxonomyService.addNewTaxa($scope.taxa, $scope.taxonTextArea, $scope.uploadLimit).then(function(data) {
       $scope.taxa = data.taxa;
       $scope.taxonTextArea = '';
@@ -40,7 +36,6 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
   };
 
   $scope.selectTaxon = function(term) {
-    $rootScope.cleanErrorMessages();
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.taxa), $scope.uploadLimit)) {
       _.find($scope.taxa, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
