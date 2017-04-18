@@ -27,10 +27,6 @@ app.run(function ($rootScope, dbXrefService, $window) {
     });
   };
 
-  $rootScope.cleanErrorMessages = function() {
-    $rootScope.alerts = [];
-  };
-
   $rootScope.stackErrors = function(elements, type, message, field) {
     $rootScope.alerts = $rootScope.alerts.concat(_.map(
       elements,
@@ -54,14 +50,14 @@ app.run(function ($rootScope, dbXrefService, $window) {
     });
   };
 
-  $rootScope.alerts = [
-  { type: 'warning', msg: 'This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.' },
-  ];
+  $rootScope.alerts = [{
+    type: 'warning',
+    msg: 'This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.'
+  }];
 
   $rootScope.closeAlert = function (index) {
     $rootScope.alerts.splice(index, 1);
   };
-
 });
 
 app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileProvider) {

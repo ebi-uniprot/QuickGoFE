@@ -4,17 +4,14 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
   $scope.extension = '';
 
   var init = function() {
-    $rootScope.cleanErrorMessages();
     $scope.extension = $scope.$parent.query.extension ? $scope.$parent.query.extension : '';
   };
 
   $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
     $scope.$parent.addToQueryAndUpdate('extension', $scope.extension);
   };
 
   $scope.reset = function () {
-    $rootScope.cleanErrorMessages();
     $scope.$parent.query.extension = '';
     init();
     $scope.$parent.updateQuery();

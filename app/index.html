@@ -157,9 +157,11 @@
 
 
   <!-- WARNING message -->
-  <section class="row">
+  <section class="messages-container column small-4">
       <!-- Global error message -->
-    <alert  class="column small-12" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)" add-fading>
+      {{alert.msg}}
+    </alert>
   </section>
 
   <!-- MAIN CONTAINER -->
@@ -300,6 +302,7 @@
 <script src="directives/statsTable.js"></script>
 <script src="directives/coterms.js"></script>
 <script src="directives/autocomplete.js"></script>
+<script src="directives/addFading.js"></script>
 <script src="scripts/controllers/annotationExtensionRelations.js"></script>
 <script src="scripts/cytoscape/min/AC_OETags.min.js"></script>
 <script src="scripts/cytoscape/min/cytoscapeweb.min.js"></script>

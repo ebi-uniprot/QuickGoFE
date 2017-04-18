@@ -7,8 +7,6 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().eco;
 
   var init = function () {
-    $rootScope.cleanErrorMessages();
-
     $scope.ecos = filterService.getQueryFilterItems($scope.query.evidenceCode);
     $scope.evidenceCodeUsage = 'descendants';
 
@@ -23,13 +21,11 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   };
 
   $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
     $scope.$parent.addToQuery('evidenceCode', getQuery());
     $scope.$parent.addToQueryAndUpdate('evidenceCodeUsage', $scope.evidenceCodeUsage);
   };
 
   $scope.reset = function () {
-    $rootScope.cleanErrorMessages();
     $scope.$parent.query.evidenceCode = '';
     $scope.$parent.query.evidenceCodeUsage = '';
     init();
@@ -37,7 +33,6 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   };
 
   $scope.addECOs = function () {
-    $rootScope.cleanErrorMessages();
     var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
     var validatedItems = filterService.validateItems(ecos, validationService.validateECOTerm);
     $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid evidence code');
@@ -46,7 +41,6 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   };
 
   $scope.selectTerm = function(term) {
-    $rootScope.cleanErrorMessages();
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.ecos), $scope.uploadLimit)) {
       _.find($scope.ecos, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));

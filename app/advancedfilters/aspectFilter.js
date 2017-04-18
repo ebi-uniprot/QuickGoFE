@@ -3,8 +3,6 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
   $scope.aspects = [];
 
   var init = function() {
-    $rootScope.cleanErrorMessages();
-
     $scope.aspects = filterService.getQueryFilterItems($scope.query.aspect);
 
     presetsService.getPresetsAspects().then(function(resp){
@@ -14,14 +12,12 @@ app.controller('aspectFilter', function($scope, presetsService, filterService, $
   };
 
   $scope.reset = function() {
-    $rootScope.cleanErrorMessages();
     $scope.$parent.query.aspect = '';
     init();
     $scope.$parent.updateQuery();
   };
 
   $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
     $scope.$parent.addToQueryAndUpdate('aspect', _.pluck(_.filter($scope.aspects, 'checked'), 'id'));
   };
 

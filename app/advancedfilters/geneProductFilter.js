@@ -7,8 +7,6 @@ app.controller('geneProductFilter', function ($scope, stringService,
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().geneProductId;
 
   var initgpIds = function () {
-    $rootScope.cleanErrorMessages();
-
     $scope.gpIds = filterService.getQueryFilterItems($scope.query.geneProductId);
     presetsService.getPresetsGeneProducts().then(function(resp){
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.targetSet);
@@ -18,7 +16,6 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.reset = function () {
-    $rootScope.cleanErrorMessages();
     $scope.query.geneProductId = '';
     $scope.query.targetSet = '';
     initgpIds();
@@ -26,7 +23,6 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.apply = function () {
-    $rootScope.cleanErrorMessages();
     if ($scope.gpIds.length > 0) {
       $scope.addToQuery('geneProductId', _.pluck(_.filter($scope.gpIds, 'checked'), 'id'));
     }
@@ -37,7 +33,6 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.addGPs = function() {
-    $rootScope.cleanErrorMessages();
     var gps = stringService.getTextareaItemsAsArray($scope.gpTextArea.toUpperCase());
     var validatedItems = filterService.validateItems(gps, validationService.validateGeneProduct, true);
     $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid gene product id');
@@ -46,7 +41,6 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.selectItem = function(term) {
-    $rootScope.cleanErrorMessages();
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.gpIds), $scope.uploadLimit)) {
       _.find($scope.gpIds, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));

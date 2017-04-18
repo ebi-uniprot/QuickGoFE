@@ -17,12 +17,10 @@ app.controller('MorePanel', function ($scope, $rootScope) {
   };
 
   $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
     $scope.$broadcast ('applyMoreFilters');
   };
 
   $scope.reset = function() {
-    $rootScope.cleanErrorMessages();
     $scope.$broadcast ('resetMoreFilters');
     $scope.updateQuery();
   };

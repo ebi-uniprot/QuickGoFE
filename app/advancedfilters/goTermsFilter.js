@@ -37,7 +37,6 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   var init = function() {
-    $rootScope.cleanErrorMessages();
     //Get terms from url
     $scope.goTerms = filterService.getQueryFilterItems($scope.query.goId);
     $scope.includeRootTerms = false;
@@ -57,7 +56,6 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.reset = function() {
-    $rootScope.cleanErrorMessages();
     $scope.$parent.query.goId = '';
     $scope.$parent.query.goUsage = '';
     $scope.$parent.query.goUsageRelationships = '';
@@ -66,7 +64,6 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.addGoTerms = function() {
-    $rootScope.cleanErrorMessages();
     var goterms = stringService.getTextareaItemsAsArray($scope.goTermsTextArea.toUpperCase());
     var validatedTerms = filterService.validateItems(goterms,validationService.validateGOTerm);
     $rootScope.stackErrors(validatedTerms.invalidItems, 'alert', 'is not a valid GO term id');
@@ -84,7 +81,6 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
     var selected = _.pluck(limitChecker.getAllChecked($scope.goTerms), 'id');
     $scope.$parent.addToQuery('goId', selected);
     if ($scope.goTermUse !== 'exact') {
@@ -94,7 +90,6 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.addPredefinedSet = function() {
-    $rootScope.cleanErrorMessages();
     if($scope.selectedPreDefinedSlimSet) {
       var slimSetItems = $scope.selectedPreDefinedSlimSet.associations;
       if(!$scope.includeRootTerms) {
@@ -108,7 +103,6 @@ app.controller('goTermsFilter', function($scope, basketService, stringService, h
   };
 
   $scope.selectTerm = function(term) {
-    $rootScope.cleanErrorMessages();
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.goTerms), $scope.uploadLimit)) {
       _.find($scope.goTerms, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));

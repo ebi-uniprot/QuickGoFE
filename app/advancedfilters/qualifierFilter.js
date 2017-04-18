@@ -5,7 +5,7 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
   $scope.showAllNotQualifiers = 0;
 
   var initQualifiers = function() {
-    $rootScope.cleanErrorMessages();
+    $scope.qualifiers = filterService.getQueryFilterItems($scope.query.qualifier);
     $scope.showAllNotQualifiers = 0;
 
     $scope.qualifiers = filterService.getQueryFilterItems($scope.query.qualifier);
@@ -21,8 +21,6 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
   };
 
   $scope.selectAllNotQualifiers = function () {
-    $rootScope.cleanErrorMessages();
-
     angular.forEach($scope.qualifiers, function(qualifier) {
       if(qualifier.item.name.toUpperCase().lastIndexOf('NOT', 0) === 0) {
         qualifier.checked = true;
@@ -36,12 +34,10 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
   };
 
   $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
     $scope.addToQueryAndUpdate('qualifier', getQuery());
   };
 
   $scope.reset = function () {
-    $rootScope.cleanErrorMessages();
     $scope.query.qualifier = '';
     initQualifiers();
   };
