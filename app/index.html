@@ -157,9 +157,9 @@
 
 
   <!-- WARNING message -->
-  <section class="row">
+  <section class="messages-container column small-4">
       <!-- Global error message -->
-    <alert class="column small-12" ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)" add-fading>
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)" add-fading>
       {{alert.msg}}
     </alert>
   </section>

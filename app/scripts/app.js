@@ -20,19 +20,11 @@ var app = angular
     'mm.foundation'
   ]);
 
-app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
+app.run(function ($rootScope, dbXrefService, $window) {
   $rootScope.followLinkToGeneric = function (database) {
     dbXrefService.getDbXrefs().then(function (xrefs) {
       $window.open(dbXrefService.getGenericLink(database, xrefs.data));
     });
-  };
-
-  $rootScope.cleanErrorMessages = function() {
-    var allAlerts = document.querySelectorAll('div.alert,div.warning');
-    angular.forEach(allAlerts, function(anAlert) {
-      clearTimeout($rootScope.fadeAlert(angular.element(anAlert)));
-    });
-    $rootScope.alerts = [];
   };
 
   $rootScope.stackErrors = function(elements, type, message, field) {
@@ -64,17 +56,8 @@ app.run(function ($rootScope, dbXrefService, $window, hardCodedDataService) {
   }];
 
   $rootScope.closeAlert = function (index) {
-  var allAlerts = document.querySelectorAll('div.alert,div.warning');
-  clearTimeout($rootScope.fadeAlert(angular.element(allAlerts[index])));
-  $rootScope.alerts.splice(index, 1);
+    $rootScope.alerts.splice(index, 1);
   };
-
-  $rootScope.fadeAlert = function(anAlert) {
-    setTimeout(function(){
-      anAlert.fadeOut('slow')
-    }, 5000);
-  };
-
 });
 
 app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileProvider) {

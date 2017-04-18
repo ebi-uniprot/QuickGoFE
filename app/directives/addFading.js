@@ -1,8 +1,10 @@
 'use strict';
 angular
   .module('quickGoFeApp')
-  .directive('addFading', ['$rootScope', function($rootScope) {
+  .directive('addFading', function() {
     return function(scope, element) {
-      $rootScope.fadeAlert(angular.element(element));
+      setTimeout(function(){
+        angular.element(element).fadeOut('slow');
+      }, 5000);
     };
-  }]);
+  });

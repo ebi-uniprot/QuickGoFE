@@ -4,8 +4,6 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
   $scope.gpTypes = [];
 
   var init = function() {
-    $rootScope.cleanErrorMessages();
-
     $scope.gpTypes = filterService.getQueryFilterItems($scope.query.geneProductType);
 
     presetsService.getPresetsGeneProductTypes().then(function(resp){
@@ -16,14 +14,12 @@ app.controller('productTypeFilter', function($scope, presetsService, filterServi
   };
 
   $scope.reset = function() {
-    $rootScope.cleanErrorMessages();
     $scope.query.geneProductType = '';
     init();
     $scope.updateQuery();
   };
 
   $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
     $scope.addToQueryAndUpdate('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
   };
 

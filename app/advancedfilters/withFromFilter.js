@@ -4,8 +4,6 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   $scope.withFrom = [];
 
   var init = function() {
-    $rootScope.cleanErrorMessages();
-
     $scope.withFrom = filterService.getQueryFilterItems($scope.query.withFrom);
 
     presetsService.getPresetsWithFrom().then(function(resp){
@@ -21,7 +19,6 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   };
 
   $scope.addWith = function() {
-    $rootScope.cleanErrorMessages();
     var withs = stringService.getTextareaItemsAsArray($scope.withTextArea);
     var allItems = filterService.validateItems(withs, validationService.validateOther);
     $rootScope.stackErrors(allItems.invalidItems, 'alert', 'is not a with/from value');
@@ -31,12 +28,10 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   };
 
   $scope.apply = function() {
-    $rootScope.cleanErrorMessages();
     $scope.addToQueryAndUpdate('withFrom', getQuery());
   };
 
   $scope.reset = function () {
-    $rootScope.cleanErrorMessages();
     $scope.query.withFrom = '';
     init();
   };
