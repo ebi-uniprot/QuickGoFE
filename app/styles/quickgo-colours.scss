@@ -1,4 +1,4 @@
-/* These style rules will over-ride the core EBI styles */
+#2980B9/* These style rules will over-ride the core EBI styles */
 
 /* Color
 ===================================================*/
@@ -54,7 +54,7 @@ a.button.icon-functional:before,
   font-size: 108%;
   color: $white;
 }
-.your-selection-container .icon-functional:before{
+.your-selection-container .icon-functional:before, .removedTerms .icon-functional:before{
   color: $primary1;
 }
 
