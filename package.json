@@ -4,6 +4,7 @@
   "scripts": {
     "test":"grunt test"
   },
+  "license": "Apache-2.0",
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^6.1.2",
