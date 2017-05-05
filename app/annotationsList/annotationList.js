@@ -149,9 +149,11 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
 
       _.forEach(annotation.extensions, function (d) {
         _.forEach(d.connectedXrefs, function (xref) {
-          olsService.getTermName(xref.db, xref.id).then(function (resp) {
-            $scope.olsxrefs[xref.db + ':' + xref.id] = resp.data.label;
-          });
+          if(xref.db !== 'ENSEMBL') {
+            olsService.getTermName(xref.db, xref.id).then(function (resp) {
+              $scope.olsxrefs[xref.db + ':' + xref.id] = resp.data.label;
+            });
+          }
         });
       });
     });
