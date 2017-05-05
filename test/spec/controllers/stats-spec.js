@@ -112,7 +112,7 @@ describe('Controller: StatisticsCtrl', function() {
       }]
     }];
     scope.processStatistics(statsMock);
-    expect(scope.totalNumberAnnotations).toBe(25);
+    expect(scope.totalNumberAnnotations).toBe(18);
     expect(scope.stats.reference.annotation.length).toBe(1);
     expect(scope.stats.reference.geneProduct.length).toBe(1);
     expect(scope.stats.goId.annotation.length).toBe(1);

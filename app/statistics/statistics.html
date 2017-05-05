@@ -4,14 +4,11 @@
   <tabset class="column small-12">
     <tab heading="Summary">
       <div class="row expanded">
-        <div class="column small-6">
+        <div class="column small-8">
           <p>
-            <strong>Number of annotations:</strong>
-            {{totalNumberAnnotations | number:0}}
+            Your current result set contains <strong>{{totalNumberAnnotations | number:0}}</strong> annotations to <strong>{{totalNumberGeneProducts | number:0}}</strong> distinct gene products.
           </p>
-        </div>
-        <div class="column small-6">
-          <p>Please note that the figures displayed on this, and the other pages in this dialog relate to the annotation set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed will alter accordingly.</p>
+          <p><strong>Note:</strong> Figures displayed on this, and the other pages in this dialog relate to the annotation set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed will alter accordingly.</p>
           <p>You can find full details of the datasets that comprise the full annotation set
             <a target="_blank" href="dataset">here</a>.</p>
         </div>
