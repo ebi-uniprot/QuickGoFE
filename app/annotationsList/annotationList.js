@@ -28,17 +28,22 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
       'visible': true,
       'tooltip': 'Defines the relationship between Gene product and GO term.'
     },
+    'slimmedTerm': {
+      'label': 'GO term',
+      'visible': false,
+      'tooltip': 'The GO term of the original annotation when annotations have been slimmed up to higher-level terms.'
+    },
+    'goIdentifierSlimmed': {
+      'label': 'Original GO Term',
+      'visible': false,
+      'tooltip': 'The unique, stable identifier of the GO term.'
+    },
     'goIdentifier': {
       'label': 'GO Term',
       'visible': true,
       'tooltip': 'The unique, stable identifier of the GO term.'
     },
-    'slimmedTerm': {
-      'label': 'Slimmed to',
-      'visible': false,
-      'tooltip': 'The GO term of the original annotation when annotations have been slimmed up to higher-level terms.'
-    },
-    'evidence': {
+      'evidence': {
       'label': 'Evidence',
       'visible': true,
       'tooltip': 'GO terms are assigned to proteins based on different evidence. This is represented by an evidence code.'
@@ -166,6 +171,8 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
   function getResultsPage() {
     var query = $routeParams;
     $scope.columns.slimmedTerm.visible = (query.goUsage && query.goUsage === 'slim');
+    $scope.columns.goIdentifierSlimmed.visible = (query.goUsage && query.goUsage === 'slim');
+    $scope.columns.goIdentifier.hide = (query.goUsage && query.goUsage === 'slim');
 
     $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.itemsPerPage,
       searchService.serializeQuery(query));
