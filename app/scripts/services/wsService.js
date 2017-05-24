@@ -179,7 +179,11 @@ wsService.factory('taxonomyService',
 wsService.factory('downloadService', ['$http', 'ENV', function($http, ENV){
     return {
         getAnnotationsData : function(accept, limit, filters) {
-            var url = ENV.apiEndpoint + '/annotation/downloadSearch';
+            if(accept === "tsv"){
+              var url = ENV.apiEndpoint + '/annotation/downloadSearch?includeFields=goName,taxonName';
+            }else{
+              var url = ENV.apiEndpoint + '/annotation/downloadSearch';
+            }
             var params = _.extend(filters, {downloadLimit: limit});
             return $http.get(url, {
               params: params,
