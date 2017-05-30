@@ -72,6 +72,10 @@ a, a:visited, #local-masthead #local-title .columns a{
   border-bottom: 0px;
 }
 
+a:hover{
+  opacity:inherit;
+}
+
 .tabs-title > a[aria-selected='true']{
   background-color: #999;
 }
@@ -225,6 +229,9 @@ span.has-tip{
     background: rgba(0, 0, 0, 0);
 }
 
+th.has-tip{
+  background: none;
+}
 
 .in-form-button {
   margin-top: 1.6em;
@@ -319,17 +326,15 @@ aspect-icon span.aspect-icon{
 }
 
 .overflow-pane{
-  height: 200px;
+  max-height: 200px;
   overflow: auto;
   -webkit-box-shadow: 0 2px 6px -2px rgba(0,0,0,0.2);
   -moz-box-shadow: 0 2px 6px -2px rgba(0,0,0,0.2);
   box-shadow: 0 2px 6px -2px rgba(0,0,0,0.2);
   margin-bottom:2em;
   padding: 10px;
-  &.y-scroll-400{
-    height: 400px;
-  }
 }
+
 
 
 
@@ -456,10 +461,7 @@ aspect-icon span.aspect-icon{
 .dropdown-pane{
   width: 550px;
 }
-.y-scroll-200 {
-  overflow-y: auto;
-  height: 200px;
-}
+
 
 /* FACET FILTER -----------------------------------------------------------------------------------------------*/
 .facet-filter {
@@ -545,25 +547,15 @@ div {
 }
 
 /* Alert boxes*/
-
-.alert {
-  &.ng-hide-add, &.ng-hide-remove {
-    -moz-transition: 0.5s linear all;
-    -o-transition: 0.5s linear all;
-    -webkit-transition: 0.5s linear all;
-    transition: 0.5s linear all;
-    display: block !important;
-    opacity: 1;
-  }
-  &.ng-hide {
-    opacity: 0;
+.messages-container {
+  z-index: 99999;
+  position: fixed;
+  top: 1rem;
+  right: .1rem;
+  .callout {
+    padding-right: 2rem !important;
   }
 }
-
-.alert-info-half{
-  width: 49%;
-}
-
 
 /*  BUTTONS */
 
@@ -624,7 +616,32 @@ h5.active-filter:before{
   }
 }
 
-.typeahead-box{
+.autocomplete-box {
+  background: #FFF;
+  position: absolute;
+  z-index: 1000;
+  float: left;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  background-clip: padding-box;
+  color: #333;
+  ul, li {
+    margin:0;
+  }
+  li{
+    padding: .2em 1em;
+    display: block;
+    text-align: left;
+    &:hover {
+      background-color: $yellow-highlight;
+      cursor: pointer;
+    }
+  }
+}
+
+.typeahead-box {
   width: 50%;
   background: #FFF;
   padding: 20px;
@@ -692,4 +709,24 @@ h5.active-filter:before{
 .annotations-link:hover, .typeahead-box a.annotations-link:hover {
   opacity: .7;
   color: $white;
+}
+
+section{
+  th {
+  vertical-align: top;
+  }
+  span.has-tip{
+      font-weight: bold;
+  }
+}
+
+#main-container .row{
+  margin-bottom: 2em;
+}
+#main-container .start-page .row{
+  margin-bottom: 0px;
+}
+h2 aspect-icon, h2 basket-button{
+  font-size: 1rem;
+
 }

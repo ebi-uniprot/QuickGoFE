@@ -2,6 +2,17 @@
 
 var wsService = angular.module('quickGoFeApp.wsService', ['ngResource']);
 
+wsService.factory('informationService', ['$http', 'ENV',
+  function ($http, ENV) {
+    return {
+        getGoReleaseInfo: function() {
+            return $http.get(ENV.apiEndpoint + '/ontology/go/about');
+        }, getAnnotationReleaseInfo: function() {
+            return $http.get(ENV.apiEndpoint + '/annotation/about');
+        }
+    };
+  }]);
+
 wsService.factory('presetsService', ['$http', 'ENV',
   function ($http, ENV) {
     return {
@@ -31,8 +42,17 @@ wsService.factory('presetsService', ['$http', 'ENV',
         },
         getPresetsGeneProductTypes: function() {
             return $http.get(ENV.apiEndpoint + '/internal/presets?fields=geneProductTypes');
+        },
+        getPresetsExtensionRelations: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=extRelations');
+        },
+        getPresetsExtensionDatabases: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=extDatabases');
+        },
+        getPresetsQualifiers: function() {
+            return $http.get(ENV.apiEndpoint + '/internal/presets?fields=qualifiers');
         }
-    }
+    };
   }]);
 
 wsService.factory('PreDefinedSlimSets', ['$resource', 'ENV', function($resource, ENV){
@@ -63,11 +83,11 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
           return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/complete');
       },
       getAllStats : function(termId, limit) {
-        return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId +
+        return $http.get(ENV.apiEndpoint + '/annotation/coterms/' + termId +
             (limit ? '?limit=' + limit : ''));
       },
       getManualStats : function(termId, limit) {
-          return $http.get(ENV.apiEndpoint + '/ontology/go/coterms/' + termId + '?source=MANUAL' +
+          return $http.get(ENV.apiEndpoint + '/annotation/coterms/' + termId + '?source=MANUAL' +
               (limit ? '&limit=' + limit : ''));
       },
       getBlacklist : function(termId) {
@@ -76,18 +96,90 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV){
   };
 }]);
 
-wsService.factory('taxonomyService', ['$http', function($http){
-    return {
-        getTaxa : function(ids) {
-            return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
-        }
+wsService.factory('taxonomyService',
+  ['$http', 'presetsService', 'filterService', 'stringService', 'validationService', '$rootScope', '$q', 'limitChecker',
+  function($http, presetsService, filterService, stringService, validationService, $rootScope, $q, limitChecker){
+    var removeTaxIds = function(idsToRemove, taxa) {
+      return _.filter(taxa, function(d){
+          return !_.contains(idsToRemove, parseInt(d.id));
+      });
     };
+    var redirectTaxa = function(taxaInfo, redirections) {
+      var redirectionMap = _.indexBy(redirections, 'requestedId');
+      var repeatedIds = [];
+      var taxaInfoWithRedirectedId = _.map(taxaInfo, function(d){
+          if(redirectionMap[d.id]) {
+              var updatedId = redirectionMap[d.id]
+                .redirectLocation.substring(redirectionMap[d.id].redirectLocation.lastIndexOf('/')+1);
+              $rootScope.alerts.push({
+                type: 'warning',
+                msg: 'Taxon ' + d.id + ' was updated to ' + updatedId
+              });
+              if (_.findWhere(taxaInfo, {id: updatedId})) {
+                  repeatedIds.push(parseInt(d.id));
+              } else {
+                  d.id = updatedId;
+              }
+          }
+          return d;
+      });
+      return removeTaxIds(repeatedIds, taxaInfoWithRedirectedId);
+    };
+    var updateTaxonInfo = function(self, defer, taxaArray) {
+      var idsToUpdate = _.pluck(_.filter(taxaArray, function(taxon) {
+          return taxon.checked && !taxon.hasOwnProperty('item');
+      }),'id');
+
+      if (idsToUpdate.length !== 0) {
+        self.getTaxa(idsToUpdate).then(function(data){
+          filterService.enrichFilterItemObject(taxaArray, data.data.taxonomies, 'taxonomyId');
+          if(data.data.errors) {
+            var obsoleteIds = _.pluck(data.data.errors, 'requestedId');
+            $rootScope.stackErrors(data.data.errors, 'warning', 'was not found', 'requestedId');
+            taxaArray = removeTaxIds(obsoleteIds, taxaArray);
+          }
+          if(data.data.redirects) {
+            taxaArray = redirectTaxa(taxaArray, data.data.redirects);
+            updateTaxonInfo(self, defer, taxaArray);
+          } else {
+            defer.resolve({taxa: taxaArray});
+          }
+        });
+      } else {
+        defer.resolve({taxa: taxaArray});
+      }
+    };
+    return {
+      getTaxa: function (ids) {
+        return $http.get('http://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
+      },
+      initTaxa: function (taxaArray) {
+        var self = this;
+        var defer = $q.defer();
+        presetsService.getPresetsTaxa().then(function (resp) {
+          var presetItems = filterService.getPresetFilterItems(resp.data.taxons, 'id');
+          taxaArray = filterService.mergeArrays(taxaArray, presetItems);
+          updateTaxonInfo(self, defer, taxaArray);
+        });
+        return defer.promise;
+      },
+      addNewTaxa: function(taxaArray, taxonTextArea, uploadLimit) {
+        var self = this;
+        var defer = $q.defer();
+        var taxons = stringService.getTextareaItemsAsArray(taxonTextArea.toUpperCase());
+        var validatedTaxons = filterService.validateItems(taxons, validationService.validateTaxon);
+        $rootScope.stackErrors(validatedTaxons.invalidItems, 'alert', 'is not a valid taxon id');
+        var merge = limitChecker.getMergedItems(taxaArray, validatedTaxons.validItems, uploadLimit);
+        updateTaxonInfo(self, defer, merge);
+        return defer.promise;
+      }
+    }
 }]);
 
-wsService.factory('downloadService', ['$http', function($http){
+wsService.factory('downloadService', ['$http', 'ENV', function($http, ENV){
     return {
         getAnnotationsData : function(accept, limit, filters) {
-            var url = 'http://wwwdev.ebi.ac.uk/QuickGO/services/annotation/downloadSearch';
+            var url = ENV.apiEndpoint + '/annotation/downloadSearch';
             var params = _.extend(filters, {downloadLimit: limit});
             return $http.get(url, {
               params: params,
@@ -120,15 +212,15 @@ wsService.factory('geneProductService', ['$http', 'ENV', function($http, ENV){
 wsService.factory('stringService', [function(){
   return {
     getTextareaItemsAsArray : function(str) {
-      return _.uniq(str.replace( /\n/g, " " ).split(/[\s,]+/));
+      return _.uniq(str.replace( /\n/g, ' ').split(/[\s,]+/));
     }
-  }
+  };
 }]);
 
 wsService.factory('ontoTypeService', [function(){
     return {
         isGoTerm : function(termId) {
-            return !(termId.indexOf('ECO') === 0);
+            return (termId.indexOf('ECO') !== 0);
         },
         ontoReadableText: function(ontoName) {
             switch(ontoName) {
@@ -138,45 +230,38 @@ wsService.factory('ontoTypeService', [function(){
                 default: return ontoName;
             }
         }
-    }
+    };
 }]);
 
 wsService.factory('searchService', ['$http', 'ENV', function($http, ENV){
   return {
       findTerms: function(searchTerm, limit, page, facet, filters) {
-        return $http.get(ENV.apiEndpoint + '/internal/search/ontology',
-          {
-            params: {
-              query : searchTerm,
-              limit : limit,
-              page : page ? page : 1,
-              facet : facet ? facet : '',
-              filterQuery : filters ? filters : ''
-            }
-          });
-      },
-      findGeneProducts: function(searchTerm, limit, page, facet, filters) {
-        var url = ENV.apiEndpoint + '/geneproduct/search?query=' + searchTerm + "&limit=" + limit +
+        var url = ENV.apiEndpoint + '/internal/search/ontology?query=' + searchTerm + '&limit=' + limit +
             '&page=' + (page ? page : 1) + '&facet=' + (facet ? facet : '') + '&' + (filters ? filters : '');
         return $http.get(url);
       },
-      findPublications: function(searchTerm, limit) {
-        //TODO
+      findGeneProducts: function(searchTerm, limit, page, facet, filters) {
+        var url = ENV.apiEndpoint + '/geneproduct/search?query=' + searchTerm + '&limit=' + limit +
+            '&page=' + (page ? page : 1) + '&facet=' + (facet ? facet : '') + '&' + (filters ? filters : '');
+        return $http.get(url);
       },
       findAnnotations: function(page, size, filters) {
-          return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + '&' + filters);
+          return $http.get(ENV.apiEndpoint+'/annotation/search?page=' + page + '&limit=' + size + filters);
       },
       findAnnotationStatistics: function(filters) {
           return $http.get(ENV.apiEndpoint+'/annotation/stats?' + filters);
       },
-      findAnnotationsForTerm: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint + '/annotation/search?goId=' + searchTerm);
+      getAnnotationsForTermUrl: function(searchTerm) {
+        return 'goUsage=descendants&goUsageRelationships=is_a,part_of,occurs_in&goId=' + searchTerm;
       },
-      findAnnotationsForECO: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint + '/annotation/search?ecoId=' + searchTerm);
+      getAnnotationsForECOUrl: function(searchTerm) {
+        return 'evidenceCodeUsage=descendants&evidenceCode=' + searchTerm;
       },
-      findAnnotationsForProduct: function(searchTerm) {
-          return $http.get(ENV.apiEndpoint+'/annotation/search?geneProductId=' + searchTerm);
+      getAnnotationsForProductUrl: function(searchTerm) {
+        return 'geneProductId=' + searchTerm;
+      },
+      findAnnotationsForFilterUrl: function(url) {
+        return $http.get(ENV.apiEndpoint + '/annotation/search?' + url);
       },
       serializeQuery: function(query) {
         var queryString = '';
@@ -291,6 +376,33 @@ wsService.factory('search', ['$resource', 'ENV', function($resource, ENV){
   return $resource(ENV.apiEndpoint+'/search', {query: '@query', format:'JSON'}, {
     query: {method:'GET'}
   });
+}]);
+
+wsService.factory('limitChecker', ['hardCodedDataService', 'filterService', '$rootScope',
+    function(hardCodedDataService, filterService, $rootScope){
+  return {
+    addAboveLimitError: function(uploadLimit) {
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(uploadLimit));
+    },
+    getAllChecked: function(collection) {
+        return _.where(collection, {checked: true});
+    },
+    isOverLimit: function(itemList, uploadLimit) {
+      return this.getAllChecked(itemList).length > uploadLimit;
+    },
+    getMergedItems: function(dest, items, limit) {
+      var merged = filterService.mergeArrays(dest, items);
+      if (this.isOverLimit(merged, limit)) {
+        $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg(limit));
+        return dest;
+      } else {
+        return merged;
+      }
+    },
+    getMergedAllItems: function(dest, items) {
+      return filterService.mergeArrays(dest, items);
+    }
+  };
 }]);
 
 //@deprecated

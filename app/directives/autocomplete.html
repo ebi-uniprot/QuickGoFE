@@ -1,0 +1,8 @@
+<input type="text" autocomplete="off" ng-model="searchTerm" placeholder="{{placeholder}}" ng-keyup="provideSuggestions($event.keyCode)" />
+<div class="autocomplete-box" ng-hide="!searchTerm.length">
+  <ul>
+    <li ng-repeat="item in items" class="no-bullet" ng-click="selectItem(item.name, $event)">
+      {{item.name}}
+    </li>
+  </ul>
+</div>

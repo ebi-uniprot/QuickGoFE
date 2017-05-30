@@ -1,5 +1,5 @@
 'use strict';
-app.controller('qualifierFilter', function($scope, hardCodedDataService, filterService){
+app.controller('qualifierFilter', function($scope, hardCodedDataService, filterService, $rootScope, presetsService){
 
   $scope.qualifiers = [];
   $scope.showAllNotQualifiers = 0;
@@ -8,8 +8,12 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
     $scope.qualifiers = filterService.getQueryFilterItems($scope.query.qualifier);
     $scope.showAllNotQualifiers = 0;
 
-    var allQualifiers = filterService.getPresetFilterItems(hardCodedDataService.getQualifiers(), 'qualifier');
-    $scope.qualifiers = filterService.mergeRightToLeft($scope.qualifiers, allQualifiers);
+    $scope.qualifiers = filterService.getQueryFilterItems($scope.query.qualifier);
+    presetsService.getPresetsQualifiers().then(function(resp){
+      var presetFilterItems = filterService.getPresetFilterItems(_.sortBy(resp.data.qualifiers, 'name'), 'name');
+      $scope.qualifiers = filterService.mergeArrays(presetFilterItems, $scope.qualifiers);
+      $scope.subscribedFilters.qualifier = $scope.getTotalChecked();
+    });
   };
 
   var getQuery = function() {
@@ -18,14 +22,19 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
 
   $scope.selectAllNotQualifiers = function () {
     angular.forEach($scope.qualifiers, function(qualifier) {
-      if(qualifier.item.name.lastIndexOf('NOT', 0) === 0) {
+      if(qualifier.item.name.toUpperCase().lastIndexOf('NOT', 0) === 0) {
         qualifier.checked = true;
       }
     });
+    $scope.subscribedFilters.qualifier = $scope.getTotalChecked();
+  };
+
+  $scope.selectItem = function() {
+    $scope.subscribedFilters.qualifier = $scope.getTotalChecked();
   };
 
   $scope.apply = function() {
-    $scope.addToQuery('qualifier', getQuery());
+    $scope.addToQueryAndUpdate('qualifier', getQuery());
   };
 
   $scope.reset = function () {
@@ -40,6 +49,11 @@ app.controller('qualifierFilter', function($scope, hardCodedDataService, filterS
   $scope.$on('resetMoreFilters', function() {
     $scope.reset();
   });
+
+
+  $scope.getTotalChecked = function(){
+    return _.filter($scope.qualifiers, 'checked').length;
+  };
 
   initQualifiers();
 

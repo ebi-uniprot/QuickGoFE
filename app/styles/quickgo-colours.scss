@@ -52,6 +52,9 @@ a.button.icon-functional:before,
 .icon-static:before,
 .icon-generic:before{
   font-size: 108%;
+  color: $white;
+}
+.your-selection-container .icon-functional:before, .removedTerms .icon-functional:before{
   color: $primary1;
 }
 

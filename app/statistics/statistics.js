@@ -11,20 +11,23 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService) {
   };
 
   $scope.totalNumberAnnotations = 0;
+  $scope.totalNumberGeneProducts = 0;
   var query = $routeParams;
 
   $scope.processStatistics = function(stats) {
+    $scope.totalNumberAnnotations = 0;
     angular.forEach(stats, function(item) {
       if (item.groupName === 'annotation') {
         angular.forEach(item.types, function(type) {
           $scope.stats[type.type].annotation = type.values;
+          $scope.totalNumberAnnotations = item.totalHits;
         });
       } else if (item.groupName === 'geneProduct') {
         angular.forEach(item.types, function(type) {
           $scope.stats[type.type].geneProduct = type.values;
+          $scope.totalNumberGeneProducts = item.totalHits;
         });
       }
-      $scope.totalNumberAnnotations += item.totalHits;
     });
   };
 

@@ -1,4 +1,5 @@
-app.controller('annotationExtensionFilterController', function($scope, presetsService, filterService, validationService){
+'use strict';
+app.controller('annotationExtensionFilterController', function($scope, $rootScope, presetsService){
 
   $scope.extension = '';
 
@@ -7,21 +8,43 @@ app.controller('annotationExtensionFilterController', function($scope, presetsSe
   };
 
   $scope.apply = function() {
-    $scope.$parent.addToQuery('extension', $scope.extension);
+    $scope.$parent.addToQueryAndUpdate('extension', $scope.extension);
   };
 
   $scope.reset = function () {
     $scope.$parent.query.extension = '';
     init();
     $scope.$parent.updateQuery();
+    $scope.relationship = '';
+    $scope.db = '';
+    $scope.id = '';
   };
 
   $scope.addComponent = function() {
-      var component = $scope.relationship + '(' + $scope.dbId + ')';
+      var component = $scope.relationship + '(' + $scope.db + ':' + $scope.id + ')';
       $scope.extension = $scope.extension + ($scope.extension ? ',' : '') + component;
       $scope.relationship = '';
-      $scope.dbId = '';
+      $scope.db = '';
+      $scope.id = '';
   };
+
+  presetsService.getPresetsExtensionRelations().then(function(d){
+    var data = d.data.extRelations;
+    $scope.relationshipData = _.map(data, function(item){
+      return {
+        'name':item.id
+      };
+    });
+  });
+
+  presetsService.getPresetsExtensionDatabases().then(function(d){
+    var data = d.data.extDatabases;
+    $scope.databaseData = _.map(data, function(item){
+      return {
+        'name':item.id
+      };
+    });
+  });
 
   $scope.$on('applyAEFilters', function() {
     $scope.apply();
@@ -30,6 +53,10 @@ app.controller('annotationExtensionFilterController', function($scope, presetsSe
   $scope.$on('resetAEFilters', function() {
     $scope.reset();
   });
+
+  $scope.getTotalChecked = function() {
+    return $scope.extension.length;
+  };
 
   init();
 });

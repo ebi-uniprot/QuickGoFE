@@ -1,9 +1,10 @@
 'use strict';
-app.controller('evidenceFilter', function ($scope, presetsService, stringService, validationService, filterService) {
+app.controller('evidenceFilter', function ($scope, presetsService, stringService, validationService, filterService,
+                                           hardCodedDataService, $rootScope, limitChecker) {
 
   $scope.ecos = {};
   $scope.evidenceCodeUsage = 'descendants';
-
+  $scope.uploadLimit = hardCodedDataService.getServiceLimits().eco;
 
   var init = function () {
     $scope.ecos = filterService.getQueryFilterItems($scope.query.evidenceCode);
@@ -11,7 +12,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
     presetsService.getPresetsEvidences().then(function (d) {
       var filterItems = filterService.getPresetFilterItems(d.data.evidences, 'id');
-      $scope.ecos = filterService.mergeRightToLeft($scope.ecos, filterItems);
+      $scope.ecos = filterService.mergeArrays(filterItems, $scope.ecos);
     });
   };
 
@@ -21,7 +22,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
 
   $scope.apply = function() {
     $scope.$parent.addToQuery('evidenceCode', getQuery());
-    $scope.$parent.addToQuery('evidenceCodeUsage', $scope.evidenceCodeUsage);
+    $scope.$parent.addToQueryAndUpdate('evidenceCodeUsage', $scope.evidenceCodeUsage);
   };
 
   $scope.reset = function () {
@@ -32,10 +33,22 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
   };
 
   $scope.addECOs = function () {
-    var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea);
-    var addedFilterItems = filterService.addFilterItems(ecos, validationService.validateECOTerm);
-    $scope.ecos = filterService.mergeRightToLeft(addedFilterItems, $scope.ecos);
+    var ecos = stringService.getTextareaItemsAsArray($scope.ecoTextArea.toUpperCase());
+    var validatedItems = filterService.validateItems(ecos, validationService.validateECOTerm);
+    $rootScope.stackErrors(validatedItems.invalidItems, 'alert', 'is not a valid evidence code');
+    $scope.ecos = limitChecker.getMergedItems($scope.ecos, validatedItems.validItems, $scope.uploadLimit);
     $scope.ecoTextArea = '';
+  };
+
+  $scope.selectTerm = function(term) {
+    if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.ecos), $scope.uploadLimit)) {
+      _.find($scope.ecos, term).checked = false;
+      $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
+    }
+  };
+
+  $scope.getTotalChecked = function() {
+    return limitChecker.getAllChecked($scope.ecos).length;
   };
 
   init();
