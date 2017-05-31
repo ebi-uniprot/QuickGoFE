@@ -351,10 +351,18 @@ aspect-icon span.aspect-icon{
 .search-align{
   display: inline-block;
 }
+
 .search-box{
-  width: 80%;
   vertical-align: top;
 }
+#search-area .search-box{
+  width: 80%;
+}
+#search-terms .search-box{
+  width: 90%;
+}
+
+
 #searchbox{
   margin-bottom: 0;
 }
