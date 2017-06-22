@@ -5,7 +5,7 @@
     <form>
       <div class="overflow-pane">
         <ul class="no-bullet">
-          <li ng-repeat="assigned in assignedBy" class="checkbox">
+          <li ng-repeat="assigned in assignedBy | orderBy:'id'" class="checkbox">
             <label>
               <input type="checkbox" ng-model="assigned.checked" ng-change="selectItem()">
               <strong>{{assigned.id}}</strong> {{assigned.item.description}}
