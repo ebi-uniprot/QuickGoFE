@@ -154,7 +154,12 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
 
       _.forEach(annotation.extensions, function (d) {
         _.forEach(d.connectedXrefs, function (xref) {
-          if(xref.db !== 'ENSEMBL') {
+          // UniProt, Intact, RNAcentral NOTE: will have to change to complext portal
+          if(xref.db === 'UniProtKB' || xref.db === 'Intact' || xref.db === 'RNAcentral') {
+            //TODO retrieve directly from cores
+          } else if(xref.db === 'ENSEMBL') {
+            //TODO use EnsEMBL API
+          } else {
             olsService.getTermName(xref.db, xref.id).then(function (resp) {
               $scope.olsxrefs[xref.db + ':' + xref.id] = resp.data.label;
             });
