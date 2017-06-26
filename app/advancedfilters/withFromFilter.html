@@ -4,7 +4,7 @@
     <form>
       <div class="overflow-pane">
         <ul class="no-bullet">
-          <li ng-repeat="(withID, obj) in withFrom" class="checkbox">
+          <li ng-repeat="(withID, obj) in withFrom | orderBy:'id'" class="checkbox">
             <label>
               <input type="checkbox" ng-model="obj.checked" ng-change="selectItem(obj)">
               <strong>{{obj.id}}</strong> {{obj.item.description}}
