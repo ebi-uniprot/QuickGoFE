@@ -73,6 +73,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
       templateUrl: 'main/start.html',
       controller: 'StartCtrl'
     })
+    .when('/GAnnotation', {
+      templateUrl: 'annotationsList/annotations.html',
+      controller: 'Annotations'
+    })
     .when('/annotations', {
       templateUrl: 'annotationsList/annotations.html',
       controller: 'Annotations'
@@ -154,6 +158,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
       templateUrl: 'faq/webservices.html'
     })
     .when('/term/:goId', {
+      templateUrl: 'term/term.html',
+      controller: 'TermCtrl'
+    })
+    .when('/GTerm', {
       templateUrl: 'term/term.html',
       controller: 'TermCtrl'
     })
