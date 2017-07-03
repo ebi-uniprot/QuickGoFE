@@ -7,7 +7,7 @@
       <h3>Choose columns</h3>
       <div class="column-selector__columns">
         <span ng-repeat="column in columns">
-          <label>
+          <label ng-show="column.customizable">
             <input type="checkbox" ng-model="column.visible"> {{column.label}}
           </label>
         </span>
