@@ -15,12 +15,12 @@ hardCodedModule.factory('hardCodedDataService', function() {
       format: 'Gene Product Association Data (GPAD)',
       ext: 'gpad',
       strMimeType: 'text/gpad;charset=utf-8;'
-    }/*,
+    },
     {
-      format: 'Tab-delimited',
+      format: 'Tab-delimited (TSV)',
       ext: 'tsv',
       strMimeType: 'text/tsv;charset=utf-8;'
-    },
+    }/*,
     {
       format: 'Gene2GO',
       ext: 'gene2go',
