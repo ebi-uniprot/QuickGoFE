@@ -7,7 +7,7 @@
       <h3>Choose columns</h3>
       <div class="column-selector__columns">
         <span ng-repeat="column in columns">
-          <label>
+          <label ng-show="column.customizable">
             <input type="checkbox" ng-model="column.visible"> {{column.label}}
           </label>
         </span>
@@ -56,7 +56,13 @@
           </td>
           <td ng-show="columns['withFrom'].visible">
             <div>
-              <span ng-if="item.withFrom.length === 1">{{item.withFrom[0].connectedXrefs[0].db}}:{{item.withFrom[0].connectedXrefs[0].id}}</span>
+              <span ng-if="item.withFrom.length === 1">
+                <a class="quickgo-link ellipsis"
+                   ng-click="followLinkToEntry(item.withFrom[0].connectedXrefs[0].id, item.withFrom[0].connectedXrefs[0].db)"
+                   target="_blank">
+                  {{item.withFrom[0].connectedXrefs[0].db}}:{{item.withFrom[0].connectedXrefs[0].id}}
+                </a>
+              </span>
               <a ng-if="item.withFrom.length > 1" class="quickgo-link" ng-click="openFromWith(item.withFrom)" target="_blank">{{item.withFrom[0].connectedXrefs[0].db}}:{{item.withFrom[0].connectedXrefs[0].id}} more...</a>
             </div>
           </td>
