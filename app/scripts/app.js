@@ -77,6 +77,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
       templateUrl: 'annotationsList/annotations.html',
       controller: 'Annotations'
     })
+    .when('/GProtein', {
+      templateUrl: 'annotationsList/annotations.html',
+      controller: 'Annotations'
+    })
     .when('/annotations', {
       templateUrl: 'annotationsList/annotations.html',
       controller: 'Annotations'
