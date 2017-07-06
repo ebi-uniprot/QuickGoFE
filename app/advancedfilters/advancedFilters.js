@@ -3,6 +3,13 @@ app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
   searchService, $rootScope) {
 
   $scope.query = $routeParams;
+  
+  // handle old style url
+  if($scope.query.ac) {
+    $scope.query.geneProductId = $scope.query.ac;
+    $scope.query.ac = null;
+  }
+
 
   $scope.addToQueryAndUpdate = function (type, values) {
     $scope.addToQuery(type, values);
