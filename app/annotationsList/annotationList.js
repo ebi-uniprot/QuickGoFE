@@ -194,7 +194,7 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
     var query = $routeParams;
     $scope.columns.slimmedTerm.visible = (query.goUsage && query.goUsage === 'slim');
     $scope.columns.goIdentifierSlimmed.visible = (query.goUsage && query.goUsage === 'slim');
-    $scope.columns.goIdentifier.hide = (query.goUsage && query.goUsage === 'slim');
+    $scope.columns.goIdentifier.visible = (query.goUsage && query.goUsage !== 'slim');
 
     $scope.resultsPromise = searchService.findAnnotations($scope.currentPage, $scope.itemsPerPage,
       searchService.serializeQuery(query));
