@@ -1,44 +1,45 @@
 <div id="content" class="medium-12 row" cg-busy="queryPromise">
-  <h2>Results for gene product "{{searchTerm}}"</h2>
+    <h2>Results for gene product "{{searchTerm}}"</h2>
 
-  <div class="medium-3 columns">
-      <facets  facet-names="facetNames" endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm" name-mapping="taxaMapping">
-      </facets>
-  </div>
+    <div class="medium-3 columns">
+        <facets facet-names="facetNames" endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm" name-mapping="taxaMapping">
+        </facets>
+    </div>
 
-  <!-- Main Content -->
-  <div id="searchResultsMainContent" class="medium-9 columns">
-    <div>
-      <p>
-        <strong>{{results.numberOfHits | number}}</strong> results</strong>
-      </p>
-      <table id="searchResults" class="two-colours">
-        <tr>
-          <th>Database</th>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Taxon</th>
-          <th>Annotations</th>
-        </tr>
-        <tr ng-repeat="searchResult in results.results">
-          <td><a ng-click="followLinkToGeneric(searchResult.database)" target="_blank">{{searchResult.database}}</a></td>
-          <td><a ng-click="followLinkToEntry(searchResult.id, searchResult.database)" target="_blank">
+    <!-- Main Content -->
+    <div id="searchResultsMainContent" class="medium-9 columns">
+        <div>
+            <p>
+                <strong>{{results.numberOfHits | number}}</strong> results</strong>
+            </p>
+            <table id="searchResults" class="two-colours">
+                <tr>
+                    <th>Database</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Taxon</th>
+                    <th>Annotations</th>
+                </tr>
+                <tr ng-repeat="searchResult in results.results">
+                    <td><a ng-click="followLinkToGeneric(searchResult.database)" target="_blank">{{searchResult.database}}</a></td>
+                    <td><a ng-click="followLinkToEntry(searchResult.id, searchResult.database)" target="_blank">
             {{searchResult.id}}</a></td>
-          <td ng-bind-html="highlight(searchResult.name)"></td>
-          <td>{{searchResult.type}}</td>
-          <td>
-            <a class="quickgo-link selectable" ng-click="followLinkToEntry(searchResult.taxonId, 'TAXON')" target="_blank">
+                    <td ng-bind-html="highlight(searchResult.name)"></td>
+                    <td>{{searchResult.type}}</td>
+                    <td>
+                        <a class="quickgo-link selectable" ng-click="followLinkToEntry(searchResult.taxonId, 'TAXON')" target="_blank">
               {{taxaMapping[searchResult.taxonId]}}
             </a>
-          </td>
-          <td><annotations-link
-                  product-id="searchResult.id"></annotations-link></a>
-          </td>
-        </tr>
-      </table>
-      <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+                    </td>
+                    <td>
+                        <annotations-link product-id="searchResult.id"></annotations-link>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" on-select-page="pageChanged()" page="currentPage"></pagination>
+        </div>
     </div>
-  </div>
-  <div class="clearfix"></div>
+    <div class="clearfix"></div>
 </div>

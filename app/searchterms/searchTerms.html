@@ -1,31 +1,33 @@
 <div id="content" class="row" cg-busy="queryPromise">
-  <h2>Results for term "{{searchTerm}}"</h2>
+    <h2>Results for term "{{searchTerm}}"</h2>
 
-  <div class="medium-3 columns">
-      <facets facet-names="facetNames" endpoint="searchterms" fields="results.facet.facetFields" filters="filters" search-term="searchTerm"></facets>
-  </div>
-
-  <!-- Main Content -->
-  <div id="searchResultsMainContent" class="medium-9 columns">
-    <div>
-      <p>
-        <strong>{{results.numberOfHits | number}}</strong> results</strong>
-      </p>
-      <table id="searchResults" class="two-colours">
-        <tr>
-          <th>Term</th>
-          <th>Annotations</th>
-        </tr>
-        <tr ng-repeat="searchResult in results.results">
-
-          <td class="text-nowrap" ng-class="{'inactive':searchResult.isObsolete==true}">
-            <term-line id="searchResult.id" aspect="searchResult.aspect" obsolete="searchResult.isObsolete" name="searchResult.name"></term-line>
-          </td>
-          <td><annotations-link term-id="searchResult.id"  ng-if="!searchResult.isObsolete"></annotations-link></td>
-        </tr>
-      </table>
-      <uib-pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" rotate="false" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
+    <div class="medium-3 columns">
+        <facets facet-names="facetNames" endpoint="searchterms" fields="results.facet.facetFields" filters="filters" search-term="searchTerm"></facets>
     </div>
-  </div>
-  <div class="clearfix"></div>
+
+    <!-- Main Content -->
+    <div id="searchResultsMainContent" class="medium-9 columns">
+        <div>
+            <p>
+                <strong>{{results.numberOfHits | number}}</strong> results</strong>
+            </p>
+            <table id="searchResults" class="two-colours">
+                <tr>
+                    <th>Term</th>
+                    <th>Annotations</th>
+                </tr>
+                <tr ng-repeat="searchResult in results.results">
+
+                    <td class="text-nowrap" ng-class="{'inactive':searchResult.isObsolete==true}">
+                        <term-line id="searchResult.id" aspect="searchResult.aspect" obsolete="searchResult.isObsolete" name="searchResult.name"></term-line>
+                    </td>
+                    <td>
+                        <annotations-link term-id="searchResult.id" ng-if="!searchResult.isObsolete"></annotations-link>
+                    </td>
+                </tr>
+            </table>
+            <pagination total-items="results.numberOfHits" max-size="5" items-per-page="maxSize" on-select-page="pageChanged()" page="currentPage"></pagination>
+        </div>
+    </div>
+    <div class="clearfix"></div>
 </div>
