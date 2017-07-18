@@ -1,17 +1,17 @@
 <div class="row expanded">
-  <h2 class="columns small-12">GO annotations</h2>
+    <h2 class="columns small-12">GO annotations</h2>
 </div>
 
 <div class="row expanded" ng-include="'advancedfilters/advancedFilters.html'"></div>
 
 <!-- Main Content -->
 <div class="main-content row expanded">
-  <tabset class="columns small-12">
-    <tab heading="Annotations">
-      <div ng-include="'annotationsList/annotationList.html'"></div>
-    </tab>
-    <tab heading="Statistics" select="loadStatistics()">
-      <div ng-include="'statistics/statistics.html'"></div>
-    </tab>
-  </tabset>
+    <tabset class="columns small-12">
+        <tab heading="Annotations">
+            <div ng-include="'annotationsList/annotationList.html'"></div>
+        </tab>
+        <tab heading="Statistics" select="loadStatistics()" ng-show="displayStats">
+            <div ng-include="'statistics/statistics.html'"></div>
+        </tab>
+    </tabset>
 </div>
