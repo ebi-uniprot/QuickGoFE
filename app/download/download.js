@@ -12,7 +12,13 @@ app.controller('DownloadCtrl', function($scope, $http, $routeParams, hardCodedDa
    */
   $scope.submit = function(format, limit) {
     limit = Math.min(limit, downloadService.getMaxLimit());
-    $scope.downloadPromise = downloadService.getAnnotationsData(format.ext, limit, $routeParams);
+    var selectedFields = [];
+    _.each($scope.columns, function(column) {
+      if ((column.visible === true) && (column.downloadLabel)) {
+        selectedFields.push(column.downloadLabel);
+      }
+    });
+    $scope.downloadPromise = downloadService.getAnnotationsData(format.ext, limit, $routeParams, selectedFields);
     $scope.downloadPromise.then(function(response) {
       var now = new Date();
       var filename = 'QuickGO-annotations-' + now.getTime() + '-' + now.toISOString().split('T')[0].replace(/-/g,'')
