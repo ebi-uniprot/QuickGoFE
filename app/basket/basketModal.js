@@ -50,10 +50,8 @@ angular
               // Add items to basket
               $scope.submit = function() {
                 var terms = $scope.form.inputTerms;
-                angular.forEach(terms.split(','), function(term) {
-                  if(validationService.validateGOTerm(term)) {
-                    basketService.addBasketItem(term);
-                  }
+                terms.replace(/GO:[0-9]{7}/g, function(term){
+                  basketService.addBasketItem(term);
                 });
                 $scope.loadBasketItems();
                 $rootScope.$emit('basketUpdate', basketService.basketQuantity());
