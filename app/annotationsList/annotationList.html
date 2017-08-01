@@ -85,7 +85,7 @@
                     <td ng-show="columns['sequence'].visible">{{item.sequence}}</td>
                     <td ng-if="colAnnotationExtension">
                         <span ng-if="annotation.extensions">
-              <a ng-click="openAnnoExtension(annotation.extensions)">{{annotation.extensions | shortenStringFilter}}</a>
+              <a ng-click="openAnnoExtension(annotation.extensions)">{{annotation.extensions}}</a>
             </span>
                     </td>
                 </tr>
