@@ -8,7 +8,8 @@
       </tr>
       <tr ng-repeat="item in items">
         <td>
-          <term-line id="item.key" ng-if="isTerm"></term-line>
+          <term-line ng-if="isTerm" id="item.key" aspect="mapping[item.key].aspect"
+            obsolete="mapping[item.key].obsolete" name="mapping[item.key].name"></term-line>
           <strong ng-if="!isTerm">{{item.key}}</strong>
         </td>
         <td>{{item.percentage * 100 | number:2}}</td>
