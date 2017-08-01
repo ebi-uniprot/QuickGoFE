@@ -166,7 +166,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
             _.forEach(annotation.extensions, function(d) {
                 _.forEach(d.connectedXrefs, function(xref) {
                     // UniProt, Intact, RNAcentral NOTE: will have to change to complext portal
-                    if (xref.db === 'UniProtKB' || xref.db === 'Intact' || xref.db === 'RNAcentral') {
+                    if (xref.db === 'UniProtKB' || xref.db === 'Intact' || xref.db === 'RNAcentral' || xref.db === 'NCBI_Gene') {
                         //TODO retrieve directly from cores
                     } else if (xref.db === 'ENSEMBL') {
                         //TODO use EnsEMBL API

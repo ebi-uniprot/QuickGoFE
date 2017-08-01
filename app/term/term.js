@@ -174,7 +174,9 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
     };
 
     window.onresize = function () {
-       makeMapFitImage();
+        if(document.getElementById('ontologyGraphImage')) {
+           makeMapFitImage();
+        }
     };
 
   /**

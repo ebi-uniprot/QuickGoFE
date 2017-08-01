@@ -1,7 +1,10 @@
+<div class="term-line-links">
   <a href="term/{{id}}">{{id}}</a>
   <aspect-icon aspect="aspect"></aspect-icon>
   <basket-button termid="{{id}}" icondisabled="{{obsolete}}" ng-if="! isECO"></basket-button>
   <chart-icon ids="{{id}}" ng-if="! obsolete"></chart-icon>
-
-  <span class="has-tip" tooltip="{{name}}" ng-if="!isECO">{{name | shortenStringFilter}}</span>
-  <a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{name}}" target="_blank" ng-if="isECO && name">({{name | shortenStringFilter}})</a>
+</div>
+<div class="term-line-description">
+  <span ng-if="!isECO">{{name}}</span>
+  <a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{name}}" target="_blank" ng-if="isECO && name">({{name}})</a>
+</div>
