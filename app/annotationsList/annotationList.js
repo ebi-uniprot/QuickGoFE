@@ -115,7 +115,7 @@ app.controller('AnnotationListCtrl', function ($rootScope, $scope, $http,$routeP
       'visible': false,
       'customizable': true,
       'tooltip': 'The synonyms or gene symbols associated with the protein.',
-      'downloadLabel': 'synonym'
+      'downloadLabel': 'synonyms'
     },
     'type': {
       'label': 'Type',
