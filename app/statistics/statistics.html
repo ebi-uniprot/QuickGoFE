@@ -17,8 +17,8 @@
             </tab>
             <tab heading="{{stats.goId.label}}">
                 <div class="row expanded">
-                    <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true"></stats-table>
-                    <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true"></stats-table>
+                    <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true" mapping="goTermMapping"></stats-table>
+                    <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true" mapping="goTermMapping"></stats-table>
                 </div>
             </tab>
             <tab heading="{{stats.aspect.label}}">

@@ -1,5 +1,5 @@
 'use strict';
-app.controller('StatisticsCtrl', function($scope, $routeParams, searchService) {
+app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, termService) {
 
     $scope.stats = {
         'reference': { label: 'Reference', selected: true },
@@ -13,6 +13,20 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService) {
     $scope.totalNumberAnnotations = 0;
     $scope.totalNumberGeneProducts = 0;
     var query = $routeParams;
+
+    function postProcessGoTerms() {
+        var goTermIds = [];
+        angular.forEach($scope.stats.goId.annotation, function(elem) {
+            goTermIds.push(elem.key);
+        });
+
+        $scope.goTermMapping = {};
+        termService.getGOTerms(goTermIds).then(function(resp) {
+            angular.forEach(resp.data.results, function(goTerm) {
+                $scope.goTermMapping[goTerm.id] = goTerm;
+            });
+        });
+    }
 
     $scope.processStatistics = function(stats) {
         $scope.totalNumberAnnotations = 0;
@@ -32,6 +46,7 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService) {
         if (stats.length <= 0) {
             $scope.noStatsFound = true;
         }
+        postProcessGoTerms();
     };
 
     function loadStatistics() {
