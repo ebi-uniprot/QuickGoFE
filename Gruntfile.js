@@ -329,7 +329,7 @@ module.exports = function (grunt) {
           patterns: [
             {
               match: / href=\"\/\"/g,
-              replacement: ' href="http://wwwdev.ebi.ac.uk/QuickGO/"'
+              replacement: ' href="http://www.ebi.ac.uk/QuickGO/"'
             }
           ]
         },
@@ -337,12 +337,12 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
         ]
       },
-      beta: {
+      dev: {
         options: {
           patterns: [
             {
               match: / href=\"\/\"/g,
-              replacement: ' href="http://www.ebi.ac.uk/QuickGO-Beta/"'
+              replacement: ' href="http://wwwdev.ebi.ac.uk/QuickGO/"'
             }
           ]
         },
@@ -528,7 +528,7 @@ module.exports = function (grunt) {
     'replace:prod'
   ]);
 
-  grunt.registerTask('build-beta', [
+  grunt.registerTask('build-dev', [
     'clean:dist',
     'wiredep',
     'useminPrepare',
@@ -544,7 +544,7 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'replace:beta'
+    'replace:dev'
   ]);
 
   grunt.registerTask('default', [

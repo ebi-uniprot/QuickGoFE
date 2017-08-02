@@ -160,7 +160,7 @@
   <section class="messages-container column small-4">
       <!-- Global error message -->
     <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)" add-fading>
-      {{alert.msg}}
+      <span data-ng-bind-html="alert.msg"></span>
     </alert>
   </section>
 
