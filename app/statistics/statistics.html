@@ -1,58 +1,59 @@
 <div cg-busy="statsPromise" ng-controller="StatisticsCtrl">
 
-<div class="row expanded" ng-show="totalNumberAnnotations > 0">
-  <tabset class="column small-12">
-    <tab heading="Summary">
-      <div class="row expanded">
-        <div class="column small-8">
-          <p>
-            Your current result set contains <strong>{{totalNumberAnnotations | number:0}}</strong> annotations to <strong>{{totalNumberGeneProducts | number:0}}</strong> distinct gene products.
-          </p>
-          <p><strong>Note:</strong> Figures displayed on this, and the other pages in this dialog relate to the annotation set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed will alter accordingly.</p>
-          <p>You can find full details of the datasets that comprise the full annotation set
-            <a target="_blank" href="dataset">here</a>.</p>
-        </div>
-      </div>
-    </tab>
-    <tab heading="{{stats.goId.label}}">
-      <div class="row expanded">
-        <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true"></stats-table>
-        <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true"></stats-table>
-      </div>
-    </tab>
-    <tab heading="{{stats.aspect.label}}">
-      <div class="row expanded">
-        <stats-table title="Annotations per Aspect" items="stats.aspect.annotation"></stats-table>
-        <stats-table title="Gene products per Aspect" items="stats.aspect.geneProduct"></stats-table>
-      </div>
-    </tab>
-    <tab heading="{{stats.evidenceCode.label}}">
-      <div class="row expanded">
-        <stats-table title="Annotations per Evidence" items="stats.evidenceCode.annotation" is-term="true"></stats-table>
-        <stats-table title="Gene products per Evidence" items="stats.evidenceCode.geneProduct" is-term="true"></stats-table>
-      </div>
-    </tab>
-    <tab heading="{{stats.reference.label}}">
-      <div class="row expanded">
-        <stats-table title="Annotations per Reference" items="stats.reference.annotation"></stats-table>
-        <stats-table title="Gene products per Reference" items="stats.reference.geneProduct"></stats-table>
-      </div>
-    </tab>
-    <tab heading="{{stats.taxonId.label}}">
-      <div class="row expanded">
-        <stats-table title="Annotations per Taxon" items="stats.taxonId.annotation"></stats-table>
-        <stats-table title="Gene products per Taxon" items="stats.taxonId.geneProduct"></stats-table>
-      </div>
-    </tab>
-    <tab heading="{{stats.assignedBy.label}}">
-      <div class="row expanded">
-        <stats-table title="Annotations per Assigned By" items="stats.assignedBy.annotation"></stats-table>
-        <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table>
-      </div>
-    </tab>
-  </tabset>
-</div>
-<div ng-show="totalNumberAnnotations == 0" class="callout alert row small-12">
-  <h5>No matching annotations have been found</h5>
-</div>
+    <div class="row expanded" ng-show="totalNumberAnnotations > 0">
+        <tabset class="column small-12">
+            <tab heading="Summary">
+                <div class="row expanded">
+                    <div class="column small-8">
+                        <p>
+                            Your current result set contains <strong>{{totalNumberAnnotations | number:0}}</strong> annotations to <strong>{{totalNumberGeneProducts | number:0}}</strong> distinct gene products.
+                        </p>
+                        <p><strong>Note:</strong> Figures displayed on this, and the other pages in this dialog relate to the annotation set that you have selected; if you perform any filtering or ID mapping operations, the statistics displayed will alter
+                            accordingly.</p>
+                        <p>You can find full details of the datasets that comprise the full annotation set
+                            <a target="_blank" href="dataset">here</a>.</p>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{stats.goId.label}}">
+                <div class="row expanded">
+                    <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true" mapping="goTermMapping"></stats-table>
+                    <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true" mapping="goTermMapping"></stats-table>
+                </div>
+            </tab>
+            <tab heading="{{stats.aspect.label}}">
+                <div class="row expanded">
+                    <stats-table title="Annotations per Aspect" items="stats.aspect.annotation"></stats-table>
+                    <stats-table title="Gene products per Aspect" items="stats.aspect.geneProduct"></stats-table>
+                </div>
+            </tab>
+            <tab heading="{{stats.evidenceCode.label}}">
+                <div class="row expanded">
+                    <stats-table title="Annotations per Evidence" items="stats.evidenceCode.annotation" is-term="true"></stats-table>
+                    <stats-table title="Gene products per Evidence" items="stats.evidenceCode.geneProduct" is-term="true"></stats-table>
+                </div>
+            </tab>
+            <tab heading="{{stats.reference.label}}">
+                <div class="row expanded">
+                    <stats-table title="Annotations per Reference" items="stats.reference.annotation"></stats-table>
+                    <stats-table title="Gene products per Reference" items="stats.reference.geneProduct"></stats-table>
+                </div>
+            </tab>
+            <tab heading="{{stats.taxonId.label}}">
+                <div class="row expanded">
+                    <stats-table title="Annotations per Taxon" items="stats.taxonId.annotation"></stats-table>
+                    <stats-table title="Gene products per Taxon" items="stats.taxonId.geneProduct"></stats-table>
+                </div>
+            </tab>
+            <tab heading="{{stats.assignedBy.label}}">
+                <div class="row expanded">
+                    <stats-table title="Annotations per Assigned By" items="stats.assignedBy.annotation"></stats-table>
+                    <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+    <div ng-show="noStatsFound" class="callout alert row small-12">
+        <h5>No matching annotations have been found</h5>
+    </div>
 </div>

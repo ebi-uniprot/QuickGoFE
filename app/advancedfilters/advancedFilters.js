@@ -1,29 +1,39 @@
 'use strict';
-app.controller('AdvancedFiltersCtrl', function ($scope, $routeParams, $location,
-  searchService, $rootScope) {
+app.controller('AdvancedFiltersCtrl', function($scope, $routeParams, $location,
+    searchService, $rootScope) {
 
-  $scope.query = $routeParams;
+    $scope.query = $routeParams;
 
-  $scope.addToQueryAndUpdate = function (type, values) {
-    $scope.addToQuery(type, values);
-    $scope.updateQuery();
-  };
-
-  $scope.addToQuery = function (type, values) {
-    if(values.length <= 0){
-      delete $scope.query[type];
-    } else {
-      $scope.query[type] = values;
+    // handle old style url
+    if ($scope.query.ac) {
+        $scope.query.geneProductId = $scope.query.ac;
+        $scope.query.ac = null;
+    } else if ($scope.query.ref) {
+        $scope.query.reference = $scope.query.ref;
+        $scope.query.ref = null;
     }
-  };
 
-  $scope.updateQuery = function () {
-    $location.path('/annotations').search(searchService.serializeQuery($scope.query));
-  };
 
-  $scope.clearFilters = function () {
-    $scope.query = {};
-    $scope.updateQuery();
-  };
+    $scope.addToQueryAndUpdate = function(type, values) {
+        $scope.addToQuery(type, values);
+        $scope.updateQuery();
+    };
+
+    $scope.addToQuery = function(type, values) {
+        if (values.length <= 0) {
+            delete $scope.query[type];
+        } else {
+            $scope.query[type] = values;
+        }
+    };
+
+    $scope.updateQuery = function() {
+        $location.path('/annotations').search(searchService.serializeQuery($scope.query));
+    };
+
+    $scope.clearFilters = function() {
+        $scope.query = {};
+        $scope.updateQuery();
+    };
 
 });

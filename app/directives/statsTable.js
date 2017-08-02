@@ -7,7 +7,8 @@ angular
       templateUrl: 'directives/statsTable.html',
       scope: {
         'title': '@',
-        'items' : '=',
+        'items': '=',
+        'mapping': '=',
         'isTerm' : '@?'
       }, link: function(scope) {
         scope.isTerm = scope.isTerm ? scope.isTerm : false;

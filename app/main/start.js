@@ -8,7 +8,6 @@ angular.module('quickGoFeApp').controller('StartCtrl', function ($scope, $rootSc
   });
 
   informationService.getAnnotationReleaseInfo().then(function(d){
-    console.log(d);
     $scope.annotationReleaseInfo = d.data.annotation;
   });
 
