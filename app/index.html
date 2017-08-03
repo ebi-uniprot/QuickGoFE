@@ -166,6 +166,8 @@
 
   <!-- MAIN CONTAINER -->
   <div ng-view="" role="main" id="main-container"></div>
+  
+  <div class="row small columns small-12 text-center">Take me back to the <a href="//www.ebi.ac.uk/QuickGO-Old">old QuickGO!</a></div>
 
   <footer>
     <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
@@ -206,7 +208,6 @@
 
   </footer>
 </div> <!--! end of #wrapper -->
-{{showFeedbackPanel}}
 <div id="feedback-widget" ng-class="{'active' : showFeedbackPanel}">
   <a class="feeback-trigger" ng-click="showFeedbackPanel = (showFeedbackPanel) ? false : true" class="pull-right">
     {{showFeedbackPanel ? 'Close' : 'Send feedback'}}
