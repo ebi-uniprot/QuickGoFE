@@ -153,7 +153,7 @@ wsService.factory('taxonomyService', ['$http', 'presetsService', 'filterService'
         };
         return {
             getTaxa: function(ids) {
-                return $http.get('https://www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
+                return $http.get('//www.ebi.ac.uk/proteins/api/taxonomy/ids/' + ids.join(',') + '/node');
             },
             initTaxa: function(taxaArray) {
                 var self = this;
@@ -324,7 +324,7 @@ wsService.factory('dbXrefService', ['$http', '$location', function($http, $locat
 wsService.factory('olsService', ['$http', function($http) {
     return {
         getTermName: function(db, id) {
-            return $http.get('https://www.ebi.ac.uk/ols/api/ontologies/' + db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + db + '_' + id);
+            return $http.get('//www.ebi.ac.uk/ols/api/ontologies/' + db.toLowerCase() + '/terms/' + 'http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252F' + db + '_' + id);
         }
     };
 }]);
