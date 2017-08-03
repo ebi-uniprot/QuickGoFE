@@ -1,4 +1,4 @@
 angular.module('config', [])
   .constant('ENV', {
-    apiEndpoint: 'http://www.ebi.ac.uk/QuickGO/services'
+    apiEndpoint: 'https://www.ebi.ac.uk/QuickGO/services'
   });
