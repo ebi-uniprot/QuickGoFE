@@ -11,7 +11,7 @@
       <th>Reference(s)</th>
     </tr>
     <tr ng-repeat="taxonConstraint in taxonConstraints">
-      <td class="text-nowrap">
+      <td>
          <term-line id="taxonConstraint.goId" aspect="taxonConstraint.aspect" obsolete="taxonConstraint.isObsolete" name="taxonConstraint.termName"></term-line>
       </td>
       <td class="lowercase">{{taxonConstraint.relationship}}</td>

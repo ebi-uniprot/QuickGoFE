@@ -43,16 +43,16 @@
     <th>Taxon Name</th>
   <tr>
   <tr ng-repeat="postProcessing in annotationPostProRules.content">
-    <td class="text-nowrap">
+    <td>
       <term-line id="postProcessing.originalGoId" aspect="postProcessing.aspect" obsolete="postProcessing.isObsolete" name="postProcessing.originalTerm"></term-line>
     </td>
     <td>{{postProcessing.cleanupAction}}</td>
     <td>{{postProcessing.affectedTaxGroup}}</td>
-    <td class="text-nowrap">
+    <td>
      <term-line id="postProcessing.substitutedGoId}}" aspect="postProcessing.aspect" obsolete="postProcessing.isObsolete" name="postProcessing.substitutedTerm"></term-line>
     </td>
     <td>{{postProcessing.curatorNotes}}</td>
-    <td class="text-nowrap">
+    <td>
      <term-line id="postProcessing.ancestorGoId}}" aspect="postProcessing.aspect" obsolete="postProcessing.isObsolete" name="postProcessing.ancestorTerm"></term-line>
     </td>
     <td>{{postProcessing.relationship}}</td>
