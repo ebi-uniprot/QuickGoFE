@@ -18,7 +18,7 @@
                 </tr>
                 <tr ng-repeat="searchResult in results.results">
 
-                    <td class="text-nowrap" ng-class="{'inactive':searchResult.isObsolete==true}">
+                    <td ng-class="{'inactive':searchResult.isObsolete==true}">
                         <term-line id="searchResult.id" aspect="searchResult.aspect" obsolete="searchResult.isObsolete" name="searchResult.name"></term-line>
                     </td>
                     <td>
