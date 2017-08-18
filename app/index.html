@@ -34,8 +34,8 @@
 <!-- START New CSS for Foundation -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.css" type="text/css" media="all">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css" />
-  <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/ebi-global.css" type="text/css" media="all">
-  <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Icon-fonts/v1.1/fonts.css" type="text/css" media="all">
+  <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.2/css/ebi-global.css" type="text/css" media="all">
+  <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Icon-fonts/v1.2/fonts.css" type="text/css" media="all">
 <!-- END New CSS for Foundation -->
 
 
@@ -63,85 +63,138 @@
 </div>
 <!-- <div id="wrapper" class="container_24"> -->
 
+<header id="masthead-black-bar" class="clearfix masthead-black-bar">
+  <nav class="row">
+    <ul id="global-nav" class="menu">
+      <!-- set active class as appropriate -->
+      <li class="home-mobile"><a href="//www.ebi.ac.uk"></a></li>
+      <li class="home active"><a href="//www.ebi.ac.uk">EMBL-EBI</a></li>
+      <li class="services"><a href="//www.ebi.ac.uk/services">Services</a></li>
+      <li class="research"><a href="//www.ebi.ac.uk/research">Research</a></li>
+      <li class="training"><a href="//www.ebi.ac.uk/training">Training</a></li>
+      <li class="about"><a href="//www.ebi.ac.uk/about">About us</a></li>
+      <li class="search">
+        <a href="#" data-toggle="search-global-dropdown"><span class="show-for-small-only">Search</span></a>
+        <div id="search-global-dropdown" class="dropdown-pane" data-dropdown data-options="closeOnClick:true;">
+        <!-- The dropdown menu will be programatically added by script.js -->
+        </div>
+      </li>
+      <li class="float-right show-for-medium embl-selector">
+        <button class="button float-right" type="button" data-toggle="embl-dropdown">Hinxton</button>
+        <!-- The dropdown menu will be programatically added by script.js -->
+      </li>
+    </ul>
+  </nav>
+</header>
 <div data-sticky-container>
-  <div id="local-masthead" data-sticky data-sticky-on="large" data-top-anchor="180" data-btm-anchor="300000">
+  <header id="masthead" ng-class="{'masthead columns compact-for-data': location.path() === '/', 'masthead' : location.path() !='/'}" data-sticky data-sticky-on="large" data-top-anchor="content:top" data-btm-anchor="content:bottom" >
+    <div class="masthead-inner row">
 
-  <header>
-     <div id="global-masthead" class="clearfix">
-      <!--This has to be one line and no newline characters-->
-      <!-- <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png" alt="EMBL European Bioinformatics Institute"></a> -->
-      <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><span class="ebi-logo"></span></a>
-      <nav>
-        <div class="row">
-             <ul id="global-nav" class="menu">
-              <!-- set active class as appropriate -->
-              <li id="home-mobile"><a href="//www.ebi.ac.uk"></a></li>
-              <li id="home" class="active"><a href="//www.ebi.ac.uk"><i class="icon icon-generic" data-icon="H"></i> EMBL-EBI</a></li>
-              <li id="services"><a href="//www.ebi.ac.uk/services"><i class="icon icon-generic" data-icon="("></i> Services</a></li>
-              <li id="research"><a href="//www.ebi.ac.uk/research"><i class="icon icon-generic" data-icon=")"></i> Research</a></li>
-              <li id="training"><a href="//www.ebi.ac.uk/training"><i class="icon icon-generic" data-icon="t"></i> Training</a></li>
-              <li id="about"><a href="//www.ebi.ac.uk/about"><i class="icon icon-generic" data-icon="i"></i> About us</a></li>
-
-              <li class="float-right show-for-medium embl-selector">
-                <button class="button float-right" type="button" data-toggle="embl-dropdown">Hinxton</button>
-                <!-- The dropdown menu will be programatically added by script.js -->
-              </li>
-            </ul>
-          </div>
-      </nav>
-
-    </div>
+      <div class="columns medium-3" id="local-title">
+        <span id="quickgo-logo">
+        <!-- <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}"> -->
+          <a href="/" accesskey="1" id="logo">
+            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
+          </a>
+          <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
+        </span>
+       </div>
+       <div class="columns medium-9 text-right" id="local-search">
 
 
 
-     <div id="local-header" ng-class="{'masthead row ': location.path()==='/', 'masthead row  sub-page ' : location.path()!=='/'}" ng-controller="LocationCtrl">
+           <span id="search-area" class="typeaheadsearch medium-9 columns" ng-show="location.path()!=='/'">
+             <form ng-submit="showSearchResults(searchText)">
+               <megasearch limit="5"></megasearch>
+             </form>
+           </span>
+
+           <!-- <form id="ebi_search" action="../../search">
+             <fieldset>
+               <div class="input-group margin-bottom-none margin-top-large">
+                 <input type="text" name="q" id="tipue_search_input" class="input-group-field" pattern=".{3,}" tabindex="1" title="At least 3 characters" placeholder="Search the Style Lab" required>
+                 <div class="input-group-button">
+                   <input id="search_submit" class="button icon icon-functional" tabindex="2" type="submit" name="submit1" value="1">
+                 </div>
+               </div>
+             </fieldset>
+           </form> -->
+
+           <!-- The EMBL-EBI Style Lab is in development and content is still being migrated and updated. <a class="readmore" href="https://github.com/ebiwd/EBI-Style-lab/issues">Please share feedback here</a> -->
+
+       </div>
+
 
       <!-- local-title -->
-      <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
-      <div id="local-title" ng-class="{'logo-title row': location.path()==='/', 'row ' : location.path()!=='/'}" ng-controller="LocationCtrl">
-
-          <!-- Logo -->
-          <span id="quickgo-logo" ng-class="{'medium-12 columns': location.path()==='/', 'medium-1 columns ' : location.path()!=='/'}" ng-controller="LocationCtrl">
-            <a href="/" accesskey="1" id="logo">
-              <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
-            </a>
-            <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'" ng-controller="LocationCtrl">Gene Ontology and GO Annotations</h1></span>
-          </span>
-
-          <!-- Search bar -->
-          <span id="search-area" class="typeaheadsearch medium-4 large-offset-3 columns" ng-show="location.path()!=='/'" ng-controller="LocationCtrl">
-            <form ng-submit="showSearchResults(searchText)">
-              <megasearch limit="5"></megasearch>
-            </form>
-          </span>
-
-      </div>
-
-
-      <!-- local-nav -->
-      <span id="local-nav-container" class="column" ng-class="{'medium-11': location.path()==='/', 'medium-11 large-offset-1' : location.path()!=='/'}" ng-controller="LocationCtrl">
-
-        <nav>
-          <ul class="dropdown menu float-left quickgo-nav" data-description="navigational" id="local-nav">
-            <li><a href="help">Help</a></li>
-            <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\"> Contact</a></li>
-            <li class="functional">
-              <a href="#">
-              <basket-modal></basket-modal>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-      </span>
-      <!-- /local-nav -->
-
+      <!-- <div class="columns medium-12" id="local-title">
+        <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}">
+          <a href="/" accesskey="1" id="logo">
+            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
+          </a>
+          <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
+        </span>
+        <span id="search-area" class="typeaheadsearch medium-9 columns" ng-show="location.path()!=='/'">
+          <form ng-submit="showSearchResults(searchText)">
+            <megasearch limit="5"></megasearch>
+          </form>
+        </span>
+      </div> -->
       <!-- /local-title -->
-
+      <!-- local-nav -->
+      <nav >
+        <ul id="local-nav" class="dropdown menu float-left" data-description="navigational">
+          <li><a href="help">Help</a></li>
+          <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\"> Contact</a></li>
+          <li class="functional">
+            <a href="#">
+            <basket-modal></basket-modal>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /local-nav -->
     </div>
   </header>
+</div>
 
-</div> <!-- /local-masthead -->
+
+<br />
+&nbsp;
+<br />
+<!--  OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD  -->
+
+  <!-- <div id="local-masthead" data-sticky data-sticky-on="large" data-top-anchor="180" data-btm-anchor="300000">
+  <header>
+     <div class="masthead row">
+      <div id="local-title" class="logo-title row" ng-controller="LocationCtrl">
+        <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}">
+          <a href="/" accesskey="1" id="logo">
+            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">-old
+          </a>
+          <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
+        </span>
+        <span id="search-area" class="typeaheadsearch medium-9 columns" ng-show="location.path()!=='/'">
+          <form ng-submit="showSearchResults(searchText)">
+            <megasearch limit="5"></megasearch>
+          </form>
+        </span>
+      </div>
+      <nav>
+        <ul class="dropdown menu float-left quickgo-nav" data-description="navigational" id="local-nav">
+          <li><a href="help">Help</a></li>
+          <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\"> Contact</a></li>
+          <li class="functional">
+            <a href="#">
+            <basket-modal></basket-modal>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+-->
+<!--  OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD  -->
 
 
   <!-- WARNING message -->
