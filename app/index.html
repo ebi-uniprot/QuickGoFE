@@ -87,7 +87,7 @@
   </nav>
 </header>
 <div data-sticky-container>
-  <header id="masthead" ng-class="{'masthead columns compact-for-data': location.path() === '/', 'masthead' : location.path() !='/'}" data-sticky data-sticky-on="large" data-top-anchor="content:top" data-btm-anchor="content:bottom" >
+  <header id="masthead" ng-class="{'masthead ': location.path() === '/', 'masthead columns compact-for-data' : location.path() !='/'}" ng-controller="LocationCtrl" data-sticky data-sticky-on="large" data-top-anchor="content:top" data-btm-anchor="content:bottom" >
     <div class="masthead-inner row">
 
       <div class="columns medium-3" id="local-title">
@@ -96,12 +96,12 @@
           <a href="/" accesskey="1" id="logo">
             <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
           </a>
-          <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
+
         </span>
        </div>
        <div class="columns medium-9 text-right" id="local-search">
 
-
+<span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
 
            <span id="search-area" class="typeaheadsearch medium-9 columns" ng-show="location.path()!=='/'">
              <form ng-submit="showSearchResults(searchText)">
