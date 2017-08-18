@@ -47,15 +47,19 @@ div#local-masthead, header#masthead {
   margin-bottom: 10px;
 }
 
-#local-masthead nav ul.menu li, #masthead nav ul.menu li { border-right-color: #EEE; }
-#local-masthead .masthead .menu > li > a, #masthead .masthead .menu > li > a  { background: #006f91; color: #fff; font-weight: bold; }
-#local-masthead .masthead .menu > li > a:hover, #masthead .masthead .menu > li > a:hover { color: #fff; background-color: #00a9de;}
+#masthead nav ul.menu li { border-right-color: #EEE; }
+#masthead .masthead .menu > li > a  { background: #006f91; color: #fff; font-weight: bold; }
+#masthead .masthead .menu > li > a:hover { color: #fff; background-color: #00a9de;}
 
+.reduced-logo{
+  height: 50px;
+}
 // 00a9de   006f91
 
 header .masthead{
   padding-top: 0px;
 }
+
 
 .menu>li>a{
   height: 40px;
