@@ -94,58 +94,46 @@
 
 
 
-     <div class="masthead row">
-
-
-
+     <div id="local-header" ng-class="{'masthead row ': location.path()==='/', 'masthead row  sub-page ' : location.path()!=='/'}" ng-controller="LocationCtrl">
 
       <!-- local-title -->
       <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
-      <div id="local-title" class="logo-title row" ng-controller="LocationCtrl">
-        <!-- Logo -->
-        <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}">
-          <a href="/" accesskey="1" id="logo">
-            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
-          </a>
-          <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
-        </span>
-        <!-- Title -->
-        <!-- local-search -->
-        <span id="search-area" class="typeaheadsearch medium-9 columns" ng-show="location.path()!=='/'">
-          <form ng-submit="showSearchResults(searchText)">
-            <megasearch limit="5"></megasearch>
-          </form>
-        </span>
-        <!--End local-title -->
+      <div id="local-title" ng-class="{'logo-title row': location.path()==='/', 'row ' : location.path()!=='/'}">
+
+          <!-- Logo -->
+          <span id="quickgo-logo" ng-class="{'medium-12 columns': location.path()==='/', 'medium-1 columns ' : location.path()!=='/'}">
+            <a href="/" accesskey="1" id="logo">
+              <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
+            </a>
+            <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
+          </span>
+
+          <!-- Search bar -->
+          <span id="search-area" class="typeaheadsearch medium-4 large-offset-3 columns" ng-show="location.path()!=='/'" >
+            <form ng-submit="showSearchResults(searchText)">
+              <megasearch limit="5"></megasearch>
+            </form>
+          </span>
+
       </div>
 
 
-
       <!-- local-nav -->
-          <!-- <nav >
-            <ul class="dropdown menu float-left" data-description="navigational">
-              <li class=""><a href="../../">Overview</a></li>
-              <li><a data-open="modal-download">Download</a></li>
-              <li><a href="#">Support <i class="icon icon-generic" data-icon="x"></i></a></li>
-            </ul>
-          </nav> -->
-      <!-- /local-nav -->
+      <span id="local-nav-container" class="column" ng-class="{'medium-11': location.path()==='/', 'medium-11 large-offset-1' : location.path()!=='/'}">
 
+        <nav>
+          <ul class="dropdown menu float-left quickgo-nav" data-description="navigational" id="local-nav">
+            <li><a href="help">Help</a></li>
+            <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\"> Contact</a></li>
+            <li class="functional">
+              <a href="#">
+              <basket-modal></basket-modal>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-
-      <!-- local-nav -->
-      <nav>
-        <ul class="dropdown menu float-left quickgo-nav" data-description="navigational" id="local-nav">
-          <li><a href="help">Help</a></li>
-          <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\"> Contact</a></li>
-          <li class="functional">
-            <a href="#">
-            <basket-modal></basket-modal>
-            </a>
-          </li>
-        </ul>
-      </nav>
-
+      </span>
       <!-- /local-nav -->
 
       <!-- /local-title -->
