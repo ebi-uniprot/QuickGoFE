@@ -5,7 +5,7 @@
 /* TITLE   -----------------------------------------------------------------------------------------------------------*/
 /* This section holds the our app title*/
 
-div#local-masthead {
+div#local-masthead, header#masthead {
   background-color: $white;
   background-position: top right;
   background-image: url(../images/bg5.png);
@@ -47,21 +47,28 @@ div#local-masthead {
   margin-bottom: 10px;
 }
 
-#local-masthead nav ul.menu li { border-right-color: #EEE; }
-#local-masthead .masthead .menu > li > a { background: #006f91; color: #fff; font-weight: bold; }
-#local-masthead .masthead .menu > li > a:hover { color: #fff; background-color: #00a9de;}
+#masthead nav ul.menu li { border-right-color: #EEE; }
+#masthead .masthead .menu > li > a  { background: #006f91; color: #fff; font-weight: bold; }
+#masthead .masthead .menu > li > a:hover { color: #fff; background-color: #00a9de;}
 
+.reduced-logo{
+  height: 50px;
+}
 // 00a9de   006f91
 
 header .masthead{
   padding-top: 0px;
 }
 
+#global-nav a{
+  color: white;  
+}
+
 .menu>li>a{
   height: 40px;
 }
 
-a, a:visited, #local-masthead #local-title .columns a{
+a, a:visited, #masthead #local-title .columns a{
   border-bottom: 0px;
 }
 
@@ -90,6 +97,32 @@ table th{
 }
 .input-group{
   margin-bottom: 0;
+}
+
+.masthead.compact-for-data {
+  .masthead-inner {
+    padding-top: .5rem;
+
+    div#local-title {
+      margin-bottom: 0;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0;
+      margin-top: -.5rem;
+    }
+    form {
+      margin-top: -1rem;
+    }
+    nav {
+      margin-top: .75rem;
+      clear: none;
+    }
+  }
+  &.compact-disabled .masthead-inner > nav.column {
+    width: 100%;
+    left: 0;
+  }
 }
 
 /* Homepage   ----------------------------------------------------------------------------------------------------------*/
@@ -345,7 +378,7 @@ aspect-icon span.aspect-icon{
   display: inline-block;
 }
 .search-box{
-  width: 90%;
+  width: 80%;
   vertical-align: top;
 }
 #searchbox{

@@ -46,6 +46,10 @@ a:active{
   border-bottom: 1px dotted $primary1;
 }
 
+#local-nav a{
+  color: $white;
+}
+
 .icon-conceptual:before,
 .icon-functional:before,
 a.button.icon-functional:before,
