@@ -22,20 +22,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <base href="/"></base>
 
-  <!-- Bootstrap CSS -->
-  <!-- <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" /> -->
-
-  <!-- ALREADY REMOVED <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css"> -->
-  <!-- <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen">
-  <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen">
-  <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen"> -->
-
-
 <!-- START New CSS for Foundation -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.css" type="text/css" media="all">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css" />
-  <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/ebi-global.css" type="text/css" media="all">
-  <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Icon-fonts/v1.1/fonts.css" type="text/css" media="all">
+  <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.2/css/ebi-global.css" type="text/css" media="all">
+  <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Icon-fonts/v1.2/fonts.css" type="text/css" media="all">
 <!-- END New CSS for Foundation -->
 
 
@@ -63,79 +54,55 @@
 </div>
 <!-- <div id="wrapper" class="container_24"> -->
 
+<header id="masthead-black-bar" class="clearfix masthead-black-bar">
+  <nav class="row">
+    <ul id="global-nav" class="menu">
+      <!-- set active class as appropriate -->
+      <li class="home-mobile"><a href="//www.ebi.ac.uk"></a></li>
+      <li class="home active"><a href="//www.ebi.ac.uk">EMBL-EBI</a></li>
+      <li class="services"><a href="//www.ebi.ac.uk/services">Services</a></li>
+      <li class="research"><a href="//www.ebi.ac.uk/research">Research</a></li>
+      <li class="training"><a href="//www.ebi.ac.uk/training">Training</a></li>
+      <li class="about"><a href="//www.ebi.ac.uk/about">About us</a></li>
+      <li class="search">
+        <a href="#" data-toggle="search-global-dropdown"><span class="show-for-small-only">Search</span></a>
+        <div id="search-global-dropdown" class="dropdown-pane" data-dropdown data-options="closeOnClick:true;">
+        <!-- The dropdown menu will be programatically added by script.js -->
+        </div>
+      </li>
+      <li class="float-right show-for-medium embl-selector">
+        <button class="button float-right" type="button" data-toggle="embl-dropdown">Hinxton</button>
+        <!-- The dropdown menu will be programatically added by script.js -->
+      </li>
+    </ul>
+  </nav>
+</header>
 <div data-sticky-container>
-  <div id="local-masthead" data-sticky data-sticky-on="large" data-top-anchor="180" data-btm-anchor="300000">
+  <header id="masthead" ng-class="{'masthead ': location.path() === '/', 'masthead columns compact-for-data' : location.path() !='/'}" ng-controller="LocationCtrl" data-sticky data-sticky-on="large" data-top-anchor="content:top" data-btm-anchor="content:bottom" >
+    <div class="masthead-inner row">
 
-  <header>
-     <div id="global-masthead" class="clearfix">
-      <!--This has to be one line and no newline characters-->
-      <!-- <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png" alt="EMBL European Bioinformatics Institute"></a> -->
-      <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><span class="ebi-logo"></span></a>
-      <nav>
-        <div class="row">
-             <ul id="global-nav" class="menu">
-              <!-- set active class as appropriate -->
-              <li id="home-mobile"><a href="//www.ebi.ac.uk"></a></li>
-              <li id="home" class="active"><a href="//www.ebi.ac.uk"><i class="icon icon-generic" data-icon="H"></i> EMBL-EBI</a></li>
-              <li id="services"><a href="//www.ebi.ac.uk/services"><i class="icon icon-generic" data-icon="("></i> Services</a></li>
-              <li id="research"><a href="//www.ebi.ac.uk/research"><i class="icon icon-generic" data-icon=")"></i> Research</a></li>
-              <li id="training"><a href="//www.ebi.ac.uk/training"><i class="icon icon-generic" data-icon="t"></i> Training</a></li>
-              <li id="about"><a href="//www.ebi.ac.uk/about"><i class="icon icon-generic" data-icon="i"></i> About us</a></li>
-
-              <li class="float-right show-for-medium embl-selector">
-                <button class="button float-right" type="button" data-toggle="embl-dropdown">Hinxton</button>
-                <!-- The dropdown menu will be programatically added by script.js -->
-              </li>
-            </ul>
-          </div>
-      </nav>
-
-    </div>
-
-
-
-     <div class="masthead row">
-
-
-
-
-      <!-- local-title -->
-      <!-- NB: for additional title style patterns, see frontier.ebi.ac.uk/web/style/patterns -->
-      <div id="local-title" class="logo-title row" ng-controller="LocationCtrl">
-        <!-- Logo -->
-        <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}">
+      <div class="columns medium-3" id="local-title">
+        <span id="quickgo-logo">
+        <!-- <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}"> -->
           <a href="/" accesskey="1" id="logo">
-            <img id="quickgo-local-logo" title="QuickGO home" src="images/quickgo-logo3.png">
+            <img id="quickgo-local-logo" ng-class="{'full-logo ': location.path() ==='/', 'reduced-logo ' : location.path() !='/'}" title="QuickGO home" src="images/quickgo-logo3.png">
           </a>
-          <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
+
         </span>
-        <!-- Title -->
-        <!-- local-search -->
-        <span id="search-area" class="typeaheadsearch medium-9 columns" ng-show="location.path()!=='/'">
-          <form ng-submit="showSearchResults(searchText)">
-            <megasearch limit="5"></megasearch>
-          </form>
-        </span>
-        <!--End local-title -->
-      </div>
+       </div>
+       <div class="columns medium-9" id="local-search">
 
+<span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
 
+           <span id="search-area" class="typeaheadsearch medium-9 columns" ng-show="location.path()!=='/'">
+             <form ng-submit="showSearchResults(searchText)">
+               <megasearch limit="5"></megasearch>
+             </form>
+           </span>
+       </div>
 
-      <!-- local-nav -->
-          <!-- <nav >
-            <ul class="dropdown menu float-left" data-description="navigational">
-              <li class=""><a href="../../">Overview</a></li>
-              <li><a data-open="modal-download">Download</a></li>
-              <li><a href="#">Support <i class="icon icon-generic" data-icon="x"></i></a></li>
-            </ul>
-          </nav> -->
-      <!-- /local-nav -->
-
-
-
-      <!-- local-nav -->
-      <nav>
-        <ul class="dropdown menu float-left quickgo-nav" data-description="navigational" id="local-nav">
+      <nav >
+        <ul id="local-nav" class="dropdown menu float-left" data-description="navigational">
           <li><a href="help">Help</a></li>
           <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\"> Contact</a></li>
           <li class="functional">
@@ -145,17 +112,12 @@
           </li>
         </ul>
       </nav>
-
       <!-- /local-nav -->
-
-      <!-- /local-title -->
-
     </div>
   </header>
+</div>
 
-</div> <!-- /local-masthead -->
-
-
+  <div id="content">
   <!-- WARNING message -->
   <section class="messages-container column small-4">
       <!-- Global error message -->
@@ -167,45 +129,20 @@
   <!-- MAIN CONTAINER -->
   <div ng-view="" role="main" id="main-container"></div>
 
-  <footer>
-    <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
-    <!--
-    <div id="local-footer" class=" clearfix">
-      <p>How to reference this page: ...</p>
-    </div>
-    -->
-    <!-- End optional local footer -->
 
-    <div id="global-footer" class="row">
+</div>
 
-      <nav id="global-nav-expanded">
 
-        <div class="medium-2 columns">
-          <h3 class="research"><a href="//www.ebi.ac.uk/research">Research</a></h3>
-        </div>
-
-        <div class="medium-2 columns">
-          <h3 class="training"><a href="//www.ebi.ac.uk/training">Training</a></h3>
-        </div>
-
-        <div class="medium-2 columns">
-          <h3 class="industry"><a href="//www.ebi.ac.uk/industry">Industry</a></h3>
-        </div>
-
-        <div class="medium-2 columns">
-          <h3 class="about"><a href="//www.ebi.ac.uk/about">About us</a></h3>
-        </div>
-
-      </nav>
-      <section id="ebi-footer-meta">
-        <p class="address">EMBL-EBI, Wellcome Trust Genome Campus, Hinxton, Cambridgeshire, CB10 1SD, UK &nbsp; &nbsp; +44 (0)1223 49 44 44</p>
-        <p class="legal">Copyright &copy; EMBL-EBI 2013 | EBI is an outstation of the <a href="www.embl.org">European Molecular Biology Laboratory</a> | <a href="about/privacy">Privacy</a> | <a href="about/cookies">Cookies</a> | <a href="about/terms-of-use">Terms of use</a></p>
-      </section>
-
-    </div>
-
-  </footer>
-
+  <footer class="columns medium-12">
+     <div id="global-footer" class="global-footer">
+       <nav id="global-nav-expanded" class="global-nav-expanded row">
+         <!-- Footer will be automatically inserted by footer.js -->
+       </nav>
+       <section id="ebi-footer-meta" class="ebi-footer-meta row">
+         <!-- Footer meta will be automatically inserted by footer.js -->
+       </section>
+     </div>
+   </footer>
 
 <!-- JavaScript at the bottom for fast page loading -->
 
