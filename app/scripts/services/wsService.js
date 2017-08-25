@@ -82,8 +82,14 @@ wsService.factory('termService', ['$http', 'ENV', function($http, ENV) {
         getGOCompleteTerms: function(ids) {
             return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/complete');
         },
+        getGOCompleteTermsLink: function(ids) {
+            return ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/complete';
+        },
         getECOCompleteTerms: function(ids) {
             return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/complete');
+        },
+        getECOCompleteTermsLink: function(ids) {
+            return ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/complete';
         },
         getAllStats: function(termId, limit) {
             return $http.get(ENV.apiEndpoint + '/annotation/coterms/' + termId +
