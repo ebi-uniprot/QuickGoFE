@@ -61,7 +61,7 @@ header .masthead{
 }
 
 #global-nav a{
-  color: white;  
+  color: white;
 }
 
 .menu>li>a{
@@ -674,6 +674,15 @@ h5.active-filter:before{
     color: #006f91;
   }
 }
+.json-link{
+  margin-left: 10px;
+  font-size: 40%;
+  font-weight: bold;
+
+}
+
+
+
 .annotations-link, #term-show-annotations {
   cursor: pointer;
   white-space: nowrap;
