@@ -186,9 +186,15 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
                     } else if (xref.db === 'ENSEMBL') {
                         //TODO use EnsEMBL API
                     } else {
-                        olsService.getTermName(xref.db, xref.id).then(function(resp) {
-                            $scope.olsxrefs[xref.db + ':' + xref.id] = resp.data.label;
-                        });
+                        olsService.getTermName(xref.db, xref.id)
+                          .then(
+                            function(resp) {
+                              $scope.olsxrefs[xref.db + ':' + xref.id] = resp.data.label;
+                            },
+                            function(reason) {
+                              console.log('ERROR (OLS):', reason)
+                            }
+                          );
                     }
                 });
             });
