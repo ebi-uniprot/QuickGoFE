@@ -37,9 +37,11 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
   if ($scope.termId.lastIndexOf('ECO', 0) === 0) {
     $scope.isGoTerm = false;
     $scope.termPromise = termService.getECOCompleteTerms($scope.termId);
+    $scope.jsonLink = termService.getECOCompleteTermsLink($scope.termId);
   } else {
     $scope.isGoTerm = true;
     $scope.termPromise = termService.getGOCompleteTerms($scope.termId);
+    $scope.jsonLink = termService.getGOCompleteTermsLink($scope.termId);
   }
 
   /**

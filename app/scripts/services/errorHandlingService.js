@@ -13,6 +13,9 @@ errorHandling.factory('httpErrorResponseInterceptor', ['$q', '$location', '$root
           case 400:
             break;
           case 404:
+            if (response.config.url.indexOf('www.ebi.ac.uk/ols/api/') !== -1) {
+              break;
+            }
             $location.path('/404');
             console.log('ERROR:', response);
             break;

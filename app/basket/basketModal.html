@@ -40,8 +40,9 @@
           <div class="float-right">
             <chart-icon ids="{{basketIds}}"></chart-icon>
             <button class="button" ng-click="filterUsingBasketTerms()">Filter With Terms</button>
+            <a class="button icon-generic" ng-href="{{getJsonBasket()}}" data-icon="L" target="_blank"> JSON</a>
+            <button class="button icon-functional" data-icon="=" ng-click="exportBasket()">Export</button>
             <button class="button" ng-click="emptyBasket()">Clear</button>
-            <button class="button" ng-click="exportBasket()">Export</button>
           </div>
         </div>
         <hr>

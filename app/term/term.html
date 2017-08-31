@@ -13,8 +13,11 @@
       {{termModel.id}}
       <aspect-icon aspect="termModel.aspect"></aspect-icon>
       <basket-button termid="{{termModel.id}}" icondisabled="{{termModel.isObsolete}}"></basket-button>
-
+      <a ng-href="{{jsonLink}}" target="_blank"><span class="icon-generic annotations-link json-link" data-icon="L"> JSON</span></a>
     </h2>
+
+
+
 
     <!-- Term name -->
     <h3>{{termModel.name}}</h3>
