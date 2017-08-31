@@ -76,6 +76,10 @@ a:hover{
   opacity:inherit;
 }
 
+a.button{
+  color: white;
+}
+
 .tabs-title > a[aria-selected='true']{
   background-color: #999;
 }
