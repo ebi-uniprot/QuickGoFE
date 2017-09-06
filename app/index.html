@@ -81,20 +81,16 @@
   <header id="masthead" ng-class="{'masthead ': location.path() === '/', 'masthead columns compact-for-data' : location.path() !='/'}" ng-controller="LocationCtrl" data-sticky data-sticky-on="large" data-top-anchor="content:top" data-btm-anchor="content:bottom" >
     <div class="masthead-inner row">
 
-      <div class="columns medium-3" id="local-title">
+      <div class="columns medium-2" id="local-title">
         <span id="quickgo-logo">
-        <!-- <span id="quickgo-logo" ng-class="{'medium-11 columns': location.path() ==='/', 'medium-3 columns' : location.path() !='/'}"> -->
           <a href="/" accesskey="1" id="logo">
             <img id="quickgo-local-logo" ng-class="{'full-logo ': location.path() ==='/', 'reduced-logo ' : location.path() !='/'}" title="QuickGO home" src="images/quickgo-logo3.png">
           </a>
-
         </span>
        </div>
-       <div class="columns medium-9" id="local-search">
-
-<span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
-
-           <span id="search-area" class="typeaheadsearch medium-9 columns" ng-show="location.path()!=='/'">
+       <div class="columns medium-10" id="local-search">
+         <span id="quickgo-header-subtext"><h1 ng-hide="location.path()!=='/'">Gene Ontology and GO Annotations</h1></span>
+           <span id="search-area" class="typeaheadsearch medium-11 columns" ng-show="location.path()!=='/'">
              <form ng-submit="showSearchResults(searchText)">
                <megasearch limit="5"></megasearch>
              </form>
@@ -129,7 +125,8 @@
   <!-- MAIN CONTAINER -->
   <div ng-view="" role="main" id="main-container"></div>
 
-  <div class="row small columns small-12 text-center">Take me back to the <a href="//www.ebi.ac.uk/QuickGO-Old">old QuickGO!</a></div>
+  <div id="quickgo-old" class=" small columns small-12 text-center">Take me back to the <a href="//www.ebi.ac.uk/QuickGO-Old">old QuickGO!</a></div>
+
 
 
 </div>
