@@ -193,7 +193,7 @@
           <th>Reference(s)</th>
         </tr>
         <tr ng-repeat="taxonconstraint in termModel.taxonConstraints | limitTo:taxonConstraintsPageSize">
-          <td><a class="quickgo-link" href="term/{{taxonconstraint.goId}}">{{taxonconstraint.ancestorId}}</a></td>
+          <td><a class="quickgo-link" href="term/{{taxonconstraint.ancestorId}}">{{taxonconstraint.ancestorId}}</a></td>
           <td>{{taxonconstraint.ancestorName}}</td>
           <td ng-if="taxonconstraint.relationship === 'only_in_taxon'">Only in Taxon</td>
           <td ng-if="taxonconstraint.relationship !== 'only_in_taxon'">Never in Taxon</td>
