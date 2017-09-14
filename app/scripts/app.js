@@ -209,6 +209,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
       templateUrl: 'other/other.html',
       controller: 'OtherCtrl'
     })
+    .when('/chart', {
+      templateUrl: 'term/chartPage.html',
+      controller: 'ChartPageCtrl'
+    })
     .when('/404', {
       templateUrl: 'errors/404.html'
     })
