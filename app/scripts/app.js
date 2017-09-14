@@ -17,7 +17,9 @@ var app = angular
     'quickGoFeApp.errorHandling',
     'duScroll',
     'config',
-    'mm.foundation'
+    'mm.foundation',
+    'angulartics',
+    'angulartics.google.analytics'
   ]);
 
 app.run(function ($rootScope, dbXrefService, $window) {
@@ -208,6 +210,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
     .when('/other', {
       templateUrl: 'other/other.html',
       controller: 'OtherCtrl'
+    })
+    .when('/chart', {
+      templateUrl: 'term/chartPage.html',
+      controller: 'ChartPageCtrl'
     })
     .when('/404', {
       templateUrl: 'errors/404.html'
