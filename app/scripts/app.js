@@ -17,7 +17,9 @@ var app = angular
     'quickGoFeApp.errorHandling',
     'duScroll',
     'config',
-    'mm.foundation'
+    'mm.foundation',
+    'angulartics',
+    'angulartics.google.analytics'
   ]);
 
 app.run(function ($rootScope, dbXrefService, $window) {
