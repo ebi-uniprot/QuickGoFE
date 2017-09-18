@@ -756,3 +756,8 @@ h2 aspect-icon, h2 basket-button{
 .term-line-links, .term-line-description {
   display: inline-block;
 }
+
+.term-section-header .chart-btn:before{
+  content: "Y";
+  font-size: 20px;
+}
