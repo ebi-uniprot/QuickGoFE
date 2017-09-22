@@ -611,7 +611,8 @@ h5.active-filter:before{
   border: 0px;
 }
 
-/* TERM page  */
+/* TERM page   --------------------------------------------------------------------------------------------------*/
+
 
 #term-section-nav, #removedTerms {
   line-height: 2em;
@@ -685,8 +686,6 @@ h5.active-filter:before{
 
 }
 
-
-
 .annotations-link, #term-show-annotations {
   cursor: pointer;
   white-space: nowrap;
@@ -755,4 +754,9 @@ h2 aspect-icon, h2 basket-button{
 }
 .term-line-links, .term-line-description {
   display: inline-block;
+}
+
+.term-section-header .chart-btn:before{
+  content: "Y";
+  font-size: 20px;
 }

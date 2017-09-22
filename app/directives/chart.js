@@ -22,6 +22,7 @@ angular
           scope.img = d.data;
         });
         imageMapPromise.then(function(d) {
+          scope.imageMapId = "theMap";
           scope.title = d.data.title;
           scope.graphImage = d.data;
           if(scope.full === true) {
