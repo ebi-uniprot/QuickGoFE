@@ -1,6 +1,6 @@
 <div ng-controller="annotationExtensionFilterController">
-  <div class="callout primary text-center">
-    <small>{{extension.length > 0 ? extension : 'Annotation extension query'}}</small>
+  <div class="callout primary lead text-center">
+    {{extension.length > 0 ? extension : 'Annotation extension query'}}
   </div>
   <div class="row">
     <div class="medium-4 columns">
@@ -22,10 +22,11 @@
       </label>
     </div>
     <div class="medium-2 columns">
-      <button type="button" class="hollow button in-form-button" ng-click="addComponent()" ng-disabled="!relationship || !db || !id ">Add</button>
+      <button type="button" class="hollow button in-form-button" ng-click="addComponent()" ng-disabled="addButtonEnabled()">Add</button>
     </div>
   </div>
   <hr>
+  <div class="float-left"><a href="annotations?extension=*">View all annotation with extensions</a></div>
   <div class="float-right">
     <filter-buttons></filter-buttons>
   </div>
