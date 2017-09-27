@@ -2,17 +2,19 @@
 
 describe('Testing annotation filters', function(){
 
-  beforeEach(module('quickGoFeApp'));
+  var AdvancedFiltersCtrl, scope;
 
-  var AdvancedFiltersCtrl, scope, rootScope;
+  beforeEach(function() {
+    module('quickGoFeApp');
+    
+    inject(function ($controller, $rootScope) {
+      scope = $rootScope.$new();
 
-  beforeEach(inject(function($controller, $rootScope) {
-    scope = $rootScope.$new();
-    rootScope = $rootScope;
-    AdvancedFiltersCtrl = $controller('AdvancedFiltersCtrl', {
-      $scope: scope
+      AdvancedFiltersCtrl = $controller('AdvancedFiltersCtrl', {
+        $scope: scope
+      });
     });
-  }));
+  });
 
   it('should add to query', function () {
     scope.addToQuery('test',['value 1', 'value2']);

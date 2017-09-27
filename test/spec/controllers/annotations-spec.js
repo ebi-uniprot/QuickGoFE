@@ -2,20 +2,20 @@
 
 describe('Controller: AnnotationListCtrl', function () {
 
-  // load the controller's module
-  beforeEach(module('quickGoFeApp'));
-
   var AnnotationListCtrl,
     scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-
-    AnnotationListCtrl = $controller('AnnotationListCtrl', {
-      $scope: scope
+  beforeEach(function() {
+    module('quickGoFeApp');
+    inject(function ($controller, $rootScope) {
+      scope = $rootScope.$new();
+      
+      AnnotationListCtrl = $controller('AnnotationListCtrl', {
+        $scope: scope
+      });
     });
-  }));
+  });
 
   it('should start on page 1', function () {
     expect(scope.currentPage).toBe(1);
