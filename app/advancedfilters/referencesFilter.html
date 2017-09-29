@@ -9,7 +9,7 @@
             <li ng-repeat="ref in references" class="checkbox">
               <label>
                 <input type="checkbox" ng-model="ref.checked" ng-change="selectTerm(ref)">
-                <strong>{{ref.id}}</strong> {{ref.item.description}}
+                <strong>{{ref.id}}{{isAll(ref.id) ? ':* ':''}}</strong> {{ref.item.description}}
               </label>
               </td>
             </li>

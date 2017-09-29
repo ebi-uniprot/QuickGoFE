@@ -25,6 +25,16 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       }
   });
 
+  var getBasketItems = function() {
+    $scope.basketPromise = basketService.getItems();
+    $scope.basketPromise.then(function(d) {
+      angular.forEach(d.data.results, function(term) {
+        term.selected = false;
+      });
+      $scope.basketList = d.data.results;
+    });
+  }
+
   var init = function() {
     angular.forEach($scope.aspects, function(aspect) {
       $scope.selection[aspect.id] = {
@@ -44,17 +54,12 @@ app.controller('GOSlimCtrl', function($scope, $location, $q,
       $scope.taxa = data.taxa;
     });
 
-    /**
-     * Get basket items
-     */
-    $scope.basketPromise = basketService.getItems();
-    $scope.basketPromise.then(function(d) {
-      angular.forEach(d.data.results, function(term) {
-        term.selected = false;
-      });
-      $scope.basketList = d.data.results;
-    });
+    getBasketItems();
   };
+
+  $rootScope.$on('basketUpdate', function() {
+    getBasketItems();
+  });
 
   var promises = [];
   promises.push(presetsService.getPresetsGeneProducts());

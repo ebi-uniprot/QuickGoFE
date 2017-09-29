@@ -21,12 +21,19 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
   };
 
   $scope.addComponent = function() {
-      var component = $scope.relationship + '(' + $scope.db + ':' + $scope.id + ')';
+    $scope.extension = ($scope.extension === '*') ? '' : $scope.extension;
+      var component = ($scope.relationship ? $scope.relationship : '') 
+          + ($scope.relationship && $scope.db ? '(' : '') + ($scope.db ? $scope.db : '')
+          + ($scope.id ? ':' + $scope.id : '') + ($scope.relationship && $scope.db ? ')' : '');
       $scope.extension = $scope.extension + ($scope.extension ? ',' : '') + component;
       $scope.relationship = '';
       $scope.db = '';
       $scope.id = '';
   };
+
+  $scope.addButtonEnabled = function() {
+    return !$scope.relationship && !$scope.db;
+  }
 
   presetsService.getPresetsExtensionRelations().then(function(d){
     var data = d.data.extRelations;

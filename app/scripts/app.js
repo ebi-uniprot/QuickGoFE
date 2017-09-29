@@ -171,6 +171,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
       templateUrl: 'term/term.html',
       controller: 'TermCtrl'
     })
+    .when('/GProteinSet', {
+      templateUrl: 'targetSet/targetSet.html',
+      controller: 'TargetSetCtrl'
+    })
     .when('/slimming', {
       templateUrl: 'slimming/slimming.html',
       controller: 'GOSlimCtrl'

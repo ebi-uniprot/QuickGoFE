@@ -2,7 +2,7 @@
 app.controller('TargetSetCtrl', function($scope, $routeParams, $location, $anchorScroll,
                                            presetsService, geneProductService, taxonomyService) {
 
-  $scope.gpSetName = $routeParams.gpSetName;
+  $scope.gpSetName = ($routeParams.gpSetName) ? $routeParams.gpSetName : $routeParams.id;
   $scope.location = $location.path();
 
   function init() {
