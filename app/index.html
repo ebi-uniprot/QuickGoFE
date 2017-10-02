@@ -104,7 +104,7 @@
         <ul id="local-nav" class="dropdown menu float-left" data-description="navigational">
           <li><a href="help">Help</a></li>
           <li class="functional"><a href="feedback" class="icon icon-generic" data-icon="\"> Contact</a></li>
-          <li class="functional"><a href="/QuickGO/api/index.html" target="_self"> API</a></li>
+          <li class="functional"><a href="/QuickGO/api/index.html" target="_blank"> API</a></li>
           <li class="functional">
             <a href="#">
             <basket-modal></basket-modal>
@@ -122,7 +122,7 @@
   <section class="messages-container column small-4">
       <!-- Global error message -->
     <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)" add-fading>
-      {{alert.msg}}
+      <span data-ng-bind-html="alert.msg"></span>
     </alert>
   </section>
 
@@ -132,8 +132,8 @@
   <div id="quickgo-old" class=" small columns small-12 text-center">Take me back to the <a href="//www.ebi.ac.uk/QuickGO-Old">old QuickGO!</a></div>
 
 
-</div>
 
+</div>
 
   <footer class="columns medium-12">
      <div id="global-footer" class="global-footer">
@@ -145,6 +145,7 @@
        </section>
      </div>
    </footer>
+
 
 <!-- JavaScript at the bottom for fast page loading -->
 
@@ -261,7 +262,16 @@
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script> -->
 <!-- end scripts-->
 <!-- custom build (lacks most of the "advanced" HTML5 support -->
-<!-- <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script> -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-76105428-1', 'auto');
+  // ga('send', 'pageview'); Removed for ANGULARTICS to work http://angulartics.github.io/
+
+</script>
 <!-- end scripts-->
 
 
