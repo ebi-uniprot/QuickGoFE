@@ -13,7 +13,6 @@ app.controller('referencesFilter', function($scope, presetsService, stringServic
     $scope.references = filterService.getQueryFilterItems($scope.query.reference);
     presetsService.getPresetsReferences().then(function(resp){
       var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
-      console.log(referencePresetItems);
       $scope.references = filterService.mergeArrays(referencePresetItems, $scope.references);
       $scope.subscribedFilters.reference = $scope.getTotalChecked();
     });
