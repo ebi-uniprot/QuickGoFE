@@ -1,5 +1,5 @@
 'use strict';
-app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, termService) {
+app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, termService, downloadService) {
 
     $scope.stats = {
         'reference': { label: 'Reference', selected: true },
@@ -60,5 +60,18 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
     $scope.$on('loadStatistics', function() {
         loadStatistics();
     });
+
+    /**
+     * process request and start download
+     */
+    $scope.submit = function() {
+        $scope.downloadPromise = downloadService.getStatisticsData('application/vnd.ms-excel', $routeParams, "blob");
+        $scope.downloadPromise.then(function(response) {
+            var now = new Date();
+            var filename = 'QuickGO-statistics-' + now.getTime() + '-' + now.toISOString().split('T')[0].replace(/-/g,'')
+                + '.xls';
+            saveAs(response.data, filename);
+        });
+    };
 
 });

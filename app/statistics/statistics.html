@@ -1,6 +1,10 @@
 <div cg-busy="statsPromise" ng-controller="StatisticsCtrl">
-
     <div class="row expanded" ng-show="totalNumberAnnotations > 0">
+        <div class="float-left">
+            <button class="button icon-functional" data-icon="=" ng-click="submit()">
+                Export
+            </button>
+        </div>
         <tabset class="column small-12">
             <tab heading="Summary">
                 <div class="row expanded">
