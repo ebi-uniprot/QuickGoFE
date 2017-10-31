@@ -71,6 +71,8 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
             var filename = 'QuickGO-statistics-' + now.getTime() + '-' + now.toISOString().split('T')[0].replace(/-/g,'')
                 + '.xls';
             saveAs(response.data, filename);
+        }, function(reason) {
+            console.log('ERROR (statistics download):', reason)
         });
     };
 
