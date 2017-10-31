@@ -1,10 +1,7 @@
-<div ng-controller="LocationCtrl">
-  <div>{{title}} <a ng-if="location.path() == '/chart'"  ng-click="$parent.fullChartView=true" class="selectable" >(View full size)</a></div>
+<div>{{title}}</div>
 <br />
-<img ng-class="{'fullChartView' : fullChartView == true}" ng-src="data:image/png;base64,{{img}}" alt="Ancestor chart" usemap="#{{imageMapId}}" width="{{imageWidth}}" height="{{imageHeight}}" style="{{style}}" cg-busy="chartPromise"/>
-
+<img id="ancestorChart" ng-src="data:image/png;base64,{{img}}" alt="Ancestor chart" usemap="#{{imageMapId}}" width="{{imageWidth}}" height="{{imageHeight}}" style="{{style}}" cg-busy="chartPromise"/>
 <map name="{{imageMapId}}">
   <area shape="rect" coords="{{node.left}},{{node.top}},{{node.right}},{{node.bottom}}" href="term/{{node.id}}" title="Term {{node.id}}" title="{{node.id}} - Click for more information" ng-repeat="node in graphImage.nodePositions">
   <area shape="rect" coords="{{node.left}},{{node.top}},{{node.right}},{{node.bottom}}" title="{{tooltip}}" ng-repeat="node in graphImage.legendPositions">
 </map>
-</div>
