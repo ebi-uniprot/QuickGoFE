@@ -18,6 +18,9 @@ app.controller('DownloadCtrl', function($scope, $http, $routeParams, hardCodedDa
         selectedFields.push(column.downloadLabel);
       }
     });
+    if(format.ext === "tsv"){
+      selectedFields.push("goaspect");
+    }
     $scope.downloadPromise = downloadService.getAnnotationsData(format.ext, limit, $routeParams, selectedFields);
     $scope.downloadPromise.then(function(response) {
       var now = new Date();

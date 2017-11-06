@@ -52,10 +52,7 @@ app.run(function ($rootScope, dbXrefService, $window) {
     });
   };
 
-  $rootScope.alerts = [{
-    type: 'warning',
-    msg: 'Welcome to the new QuickGO! <p>We hope you like it, but if you need to access the old one it\'s still available <a href="http://www.ebi.ac.uk/QuickGO-Old">here</a> for a bit</p>'
-  }];
+
 
   $rootScope.closeAlert = function (index) {
     $rootScope.alerts.splice(index, 1);
