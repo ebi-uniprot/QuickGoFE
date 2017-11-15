@@ -17,7 +17,7 @@
     <a ng-click="more = !more" ng-hide="more">Add more...</a>
     <div ng-show="more">
       <div class="form-group">
-        <p>...or enter taxon identifiers:</p>
+        <p>...or enter taxon identifiers: <span class="info-text">(Max 50)</span></p>
         <textarea ng-model="taxonTextArea" placeholder="9606,100090,10116,..." class="form-control"></textarea>
         <p class="pull-right"><small>
           Visit <a href="http://www.uniprot.org/taxonomy/" target="_blank">
