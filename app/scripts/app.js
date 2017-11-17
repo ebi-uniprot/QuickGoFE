@@ -1,44 +1,48 @@
 'use strict';
 
-var app = angular
-  .module('quickGoFeApp', [
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngAnimate',
-    'cgBusy',
-    'quickGoFeApp.wsService',
-    'app.quickGo.filters',
-    'quickGoFeApp.BasketModule',
-    'quickGoFeApp.HardCodedDataModule',
-    'quickGoFeApp.ValidationModule',
-    'quickGoFeApp.ServicesModule',
-    'quickGoFeApp.errorHandling',
-    'duScroll',
-    'config',
-    'mm.foundation',
-    'angulartics',
-    'angulartics.google.analytics'
-  ]);
+var app = angular.module('quickGoFeApp', [
+  'ngCookies',
+  'ngResource',
+  'ngRoute',
+  'ngSanitize',
+  'ngAnimate',
+  'cgBusy',
+  'quickGoFeApp.wsService',
+  'app.quickGo.filters',
+  'quickGoFeApp.BasketModule',
+  'quickGoFeApp.HardCodedDataModule',
+  'quickGoFeApp.ValidationModule',
+  'quickGoFeApp.ServicesModule',
+  'quickGoFeApp.errorHandling',
+  'duScroll',
+  'config',
+  'mm.foundation',
+  'angulartics',
+  'angulartics.google.analytics'
+]);
 
 app.run(function ($rootScope, dbXrefService, $window) {
   $rootScope.followLinkToGeneric = function (database) {
-    dbXrefService.getDbXrefs().then(function (xrefs) {
-      $window.open(dbXrefService.getGenericLink(database, xrefs.data));
-    });
+    dbXrefService
+      .getDbXrefs()
+      .then(function (xrefs) {
+        $window.open(dbXrefService.getGenericLink(database, xrefs.data));
+      });
   };
 
-  $rootScope.stackErrors = function(elements, type, message, field) {
-    $rootScope.alerts = $rootScope.alerts.concat(_.map(
-      elements,
-      function(elem){
+  $rootScope.alerts = [];
+
+  $rootScope.stackErrors = function (elements, type, message, field) {
+    $rootScope.alerts = $rootScope
+      .alerts
+      .concat(_.map(elements, function (elem) {
         return {
           type: type,
-          msg: (field ? elem[field] : elem) + ' ' + message
+          msg: (field
+            ? elem[field]
+            : elem) + ' ' + message
         };
-      })
-    );
+      }));
   };
 
   $rootScope.followLinkToEntry = function (id, database) {
@@ -47,18 +51,17 @@ app.run(function ($rootScope, dbXrefService, $window) {
       database = id.substring(0, pos);
       id = id.substring(pos + 1);
     }
-    dbXrefService.getDbXrefs().then(function (xrefs) {
-      $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
-    });
+    dbXrefService
+      .getDbXrefs()
+      .then(function (xrefs) {
+        $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
+      });
   };
 
-  $rootScope.alerts = [{
-    type: 'warning',
-    msg: 'This is the new QuickGO Beta site for testing purposes. Please note the data may not be completely up-to-date.'
-  }];
-
   $rootScope.closeAlert = function (index) {
-    $rootScope.alerts.splice(index, 1);
+    $rootScope
+      .alerts
+      .splice(index, 1);
   };
 });
 
@@ -66,15 +69,17 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
 
   $locationProvider.html5Mode(true);
 
-  $httpProvider.interceptors.push('httpErrorResponseInterceptor');
+  $httpProvider
+    .interceptors
+    .push('httpErrorResponseInterceptor');
 
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|blob):/);
 
   $routeProvider
     .when('/', {
-      templateUrl: 'main/start.html',
-      controller: 'StartCtrl'
-    })
+    templateUrl: 'main/start.html',
+    controller: 'StartCtrl'
+  })
     .when('/GAnnotation', {
       templateUrl: 'annotationsList/annotations.html',
       controller: 'Annotations'
@@ -127,42 +132,18 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
       templateUrl: 'help/doc.html',
       controller: 'HelpCtrl'
     })
-    .when('/faq/amigo', {
-      templateUrl: 'faq/amigo.html'
-    })
-    .when('/faq/gene_product_export', {
-      templateUrl: 'faq/gene_product_export.html'
-    })
-    .when('/faq/gp_list', {
-      templateUrl: 'faq/gp_list.html'
-    })
-    .when('/faq/export_limit', {
-      templateUrl: 'faq/export_limit.html'
-    })
-    .when('/faq/filter_limits', {
-      templateUrl: 'faq/filter_limits.html'
-    })
-    .when('/faq/human_proteome', {
-      templateUrl: 'faq/human_proteome.html'
-    })
-    .when('/faq/ids', {
-      templateUrl: 'faq/ids.html'
-    })
-    .when('/faq/manual_annotations', {
-      templateUrl: 'faq/manual_annotations.html'
-    })
-    .when('/faq/map_gp', {
-      templateUrl: 'faq/map_gp.html'
-    })
-    .when('/faq/pubmed_ref', {
-      templateUrl: 'faq/pubmed_ref.html'
-    })
-    .when('/faq/slims', {
-      templateUrl: 'faq/slims.html'
-    })
-    .when('/faq/webservices', {
-      templateUrl: 'faq/webservices.html'
-    })
+    .when('/faq/amigo', {templateUrl: 'faq/amigo.html'})
+    .when('/faq/gene_product_export', {templateUrl: 'faq/gene_product_export.html'})
+    .when('/faq/gp_list', {templateUrl: 'faq/gp_list.html'})
+    .when('/faq/export_limit', {templateUrl: 'faq/export_limit.html'})
+    .when('/faq/filter_limits', {templateUrl: 'faq/filter_limits.html'})
+    .when('/faq/human_proteome', {templateUrl: 'faq/human_proteome.html'})
+    .when('/faq/ids', {templateUrl: 'faq/ids.html'})
+    .when('/faq/manual_annotations', {templateUrl: 'faq/manual_annotations.html'})
+    .when('/faq/map_gp', {templateUrl: 'faq/map_gp.html'})
+    .when('/faq/pubmed_ref', {templateUrl: 'faq/pubmed_ref.html'})
+    .when('/faq/slims', {templateUrl: 'faq/slims.html'})
+    .when('/faq/webservices', {templateUrl: 'faq/webservices.html'})
     .when('/term/:goId', {
       templateUrl: 'term/term.html',
       controller: 'TermCtrl'
@@ -191,10 +172,9 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
       templateUrl: 'simplelist/cellularcomponent.html',
       controller: 'CellularComponentListCtrl'
     })
-    // .when('/annotationExtensionRelations', {
-    //   templateUrl: 'views/annotationExtensionRelations.html',
-    //   controller: 'AnnotationExtensionRelationsCtrl'
-    // })
+    // .when('/annotationExtensionRelations', {   templateUrl:
+    // 'views/annotationExtensionRelations.html',   controller:
+    // 'AnnotationExtensionRelationsCtrl' })
     .when('/feedback', {
       templateUrl: 'nav/feedback.html',
       controller: 'FeedbackCtrl'
@@ -219,14 +199,10 @@ app.config(function ($routeProvider, $locationProvider, $httpProvider, $compileP
       templateUrl: 'term/chartPage.html',
       controller: 'ChartPageCtrl'
     })
-    .when('/404', {
-      templateUrl: 'errors/404.html'
-    })
+    .when('/404', {templateUrl: 'errors/404.html'})
     .when('/targetset/:gpSetName', {
       templateUrl: 'targetSet/targetSet.html',
       controller: 'TargetSetCtrl'
     })
-    .otherwise({
-      redirectTo: '/'
-    });
+    .otherwise({redirectTo: '/'});
 });
