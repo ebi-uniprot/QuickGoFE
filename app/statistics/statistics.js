@@ -1,5 +1,5 @@
 'use strict';
-app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, termService) {
+app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, termService, downloadService) {
 
     $scope.stats = {
         'reference': { label: 'Reference', selected: true },
@@ -7,7 +7,8 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
         'assignedBy': { label: 'Assigned By', selected: true },
         'taxonId': { label: 'Taxon', selected: true },
         'evidenceCode': { label: 'Evidence', selected: true },
-        'aspect': { label: 'Aspect', selected: true }
+        'aspect': { label: 'Aspect', selected: true },
+        'annotationsForGoId': {label: 'Slim summary', selected: true}
     };
 
     $scope.totalNumberAnnotations = 0;
@@ -17,6 +18,9 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
     function postProcessGoTerms() {
         var goTermIds = [];
         angular.forEach($scope.stats.goId.annotation, function(elem) {
+            goTermIds.push(elem.key);
+        });
+        angular.forEach($scope.stats.annotationsForGoId.geneProduct, function(elem) {
             goTermIds.push(elem.key);
         });
 
@@ -41,6 +45,11 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
                     $scope.stats[type.type].geneProduct = type.values;
                     $scope.totalNumberGeneProducts = item.totalHits;
                 });
+            } else if (item.groupName === 'slimming') {
+                angular.forEach(item.types, function(type) {
+                    $scope.stats[type.type].geneProduct = type.values;
+                    $scope.totalNumberGeneProducts = item.totalHits;
+                });
             }
         });
         if (stats.length <= 0) {
@@ -60,5 +69,20 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
     $scope.$on('loadStatistics', function() {
         loadStatistics();
     });
+
+    /**
+     * process request and start download
+     */
+    $scope.submit = function() {
+        $scope.downloadPromise = downloadService.getStatisticsData('application/vnd.ms-excel', $routeParams, "blob");
+        $scope.downloadPromise.then(function(response) {
+            var now = new Date();
+            var filename = 'QuickGO-statistics-' + now.getTime() + '-' + now.toISOString().split('T')[0].replace(/-/g,'')
+                + '.xls';
+            saveAs(response.data, filename);
+        }, function(reason) {
+            console.log('ERROR (statistics download):', reason)
+        });
+    };
 
 });
