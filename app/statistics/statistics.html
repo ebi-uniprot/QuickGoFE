@@ -4,6 +4,7 @@
             <button cg-busy="downloadPromise" class="button icon-functional" data-icon="=" ng-click="submit()">
                 Export
             </button>
+            <span class="small" ng-show="stats.annotationsForGoId.geneProduct.length > 0">(all tabs except slim summary)</span>
         </div>
         <tabset class="column small-12">
             <tab heading="Summary">
@@ -17,6 +18,12 @@
                         <!-- <p>You can find full details of the datasets that comprise the full annotation set
                             <a target="_blank" href="dataset">here</a>.</p> -->
                     </div>
+                </div>
+            </tab>
+            <tab heading="{{stats.annotationsForGoId.label}}" ng-show="stats.annotationsForGoId.geneProduct.length > 0">
+                <div class="row expanded">
+                    <stats-table title="Annotations per slim term" items="stats.annotationsForGoId.geneProduct" is-term="true" mapping="goTermMapping"></stats-table>
+                    <!-- <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table> -->
                 </div>
             </tab>
             <tab heading="{{stats.goId.label}}">

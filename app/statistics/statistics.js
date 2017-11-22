@@ -7,7 +7,8 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
         'assignedBy': { label: 'Assigned By', selected: true },
         'taxonId': { label: 'Taxon', selected: true },
         'evidenceCode': { label: 'Evidence', selected: true },
-        'aspect': { label: 'Aspect', selected: true }
+        'aspect': { label: 'Aspect', selected: true },
+        'annotationsForGoId': {label: 'Slim summary', selected: true}
     };
 
     $scope.totalNumberAnnotations = 0;
@@ -17,6 +18,9 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
     function postProcessGoTerms() {
         var goTermIds = [];
         angular.forEach($scope.stats.goId.annotation, function(elem) {
+            goTermIds.push(elem.key);
+        });
+        angular.forEach($scope.stats.annotationsForGoId.geneProduct, function(elem) {
             goTermIds.push(elem.key);
         });
 
@@ -37,6 +41,11 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
                     $scope.totalNumberAnnotations = item.totalHits;
                 });
             } else if (item.groupName === 'geneProduct') {
+                angular.forEach(item.types, function(type) {
+                    $scope.stats[type.type].geneProduct = type.values;
+                    $scope.totalNumberGeneProducts = item.totalHits;
+                });
+            } else if (item.groupName === 'slimming') {
                 angular.forEach(item.types, function(type) {
                     $scope.stats[type.type].geneProduct = type.values;
                     $scope.totalNumberGeneProducts = item.totalHits;
