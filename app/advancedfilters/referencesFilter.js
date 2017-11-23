@@ -39,15 +39,8 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
   $scope.reset = function () {
     $scope.$parent.query.reference = '';
     initReference();
+    $scope.$parent.updateQuery();    
   };
-
-  $scope.$on('applyMoreFilters', function () {
-    $scope.apply();
-  });
-
-  $scope.$on('resetMoreFilters', function () {
-    $scope.reset();
-  });
 
   $scope.isAll = function (item) {
     return !(item.indexOf('GO_REF:') >= 0);
