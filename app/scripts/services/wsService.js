@@ -234,7 +234,7 @@ wsService.factory('downloadService', [
         return {
             getAnnotationsData: function (accept, limit, filters, selectedFields) {
                 if (accept === 'tsv') {
-                    var url = ENV.apiEndpoint + '/annotation/downloadSearch?includeFields=goName,taxonName';
+                    var url = ENV.apiEndpoint + '/annotation/downloadSearch?includeFields=name,goName,taxonName';
                     url += (selectedFields && (selectedFields.length !== 0))
                         ? '&selectedFields=' + selectedFields.join()
                         : '';
