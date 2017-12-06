@@ -403,9 +403,13 @@ wsService.factory('dbXrefService', [
                     var match = _.find(xrefs, function (xref) {
                         return xref.database === name || _.contains(xref.synonyms, name);
                     });
-                    return match
-                        .entity_types[0]
-                        .url_syntax
+                    var urlpath = match.entity_types[0].url_syntax;
+                    var urlPrefix = "http://";
+
+                    if (!urlpath.startsWith("http"))
+                      urlpath = urlPrefix.concat(urlpath);
+
+                    return urlpath
                         .replace('[example_id]', id);
                 }
             }
