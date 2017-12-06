@@ -404,10 +404,10 @@ wsService.factory('dbXrefService', [
                         return xref.database === name || _.contains(xref.synonyms, name);
                     });
                     var urlpath = match.entity_types[0].url_syntax;
-                    var correctBeginning = "http://";
+                    var urlPrefix = "http://";
 
                     if (!urlpath.startsWith("http"))
-                      urlpath = correctBeginning.concat(urlpath);
+                      urlpath = urlPrefix.concat(urlpath);
 
                     return urlpath
                         .replace('[example_id]', id);
