@@ -7,11 +7,12 @@
             <h3>Choose columns</h3>
             <div class="column-selector__columns">
                 <span ng-repeat="column in columns">
-          <label ng-show="column.customizable">
-            <input type="checkbox" ng-model="column.visible"> {{column.label}}
-          </label>
-        </span>
+                  <label ng-show="column.customizable">
+                    <input type="checkbox" ng-model="column.visible"> {{column.label}}
+                  </label>
+                </span>
             </div>
+            <button class="button hollow" ng-click="resetCustomisation()">Reset</button>
         </div>
 
         <dropdown-toggle close-on-click="true">
