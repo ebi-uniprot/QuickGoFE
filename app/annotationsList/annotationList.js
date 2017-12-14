@@ -126,6 +126,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
         }
     };
 
+    $scope.originalColumns = angular.copy($scope.columns);
+
+    $scope.resetCustomisation = function() {
+      $scope.columns = angular.copy($scope.originalColumns);
+    };
+
     function postProcessTaxa(taxaIds) {
         $scope.taxaMapping = {};
         if (taxaIds.length !== 0) {

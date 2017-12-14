@@ -10,26 +10,15 @@
         </pane>
       </dropdown-toggle>
     </li>
-    <!-- GENE PRODUCT IDs  -->
-    <li ng-class="{'inactive':query.geneProductId || query.targetSet}">
+
+    <!-- GENE PRODUCTS  -->
+    <li ng-class="{'inactive':query.geneProductId || query.targetSet || query.geneProductType}">
       <dropdown-toggle close-on-click="true">
         <toggle>
-          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['geneProductId'] ||  query['targetSet']}" data-icon="/">Gene Product ID</button>
+          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['geneProductId'] ||  query['targetSet'] ||  query['geneProductType']}" data-icon="/">Gene Products</button>
         </toggle>
         <pane>
           <div ng-include src="'advancedfilters/geneProductFilter.html'"></div>
-        </pane>
-      </dropdown-toggle>
-    </li>
-
-    <!-- GENE PRODUCT TYPE  -->
-    <li ng-class="{'inactive':query.geneProductType}">
-      <dropdown-toggle close-on-click="true">
-        <toggle>
-          <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['geneProductType']}" data-icon="/">Gene Product Type</button>
-        </toggle>
-        <pane>
-          <div ng-include src="'advancedfilters/productTypeFilter.html'"></div>
         </pane>
       </dropdown-toggle>
     </li>
@@ -45,6 +34,19 @@
         </pane>
       </dropdown-toggle>
     </li>
+
+    <!-- REFERENCE -->
+    <li ng-class="{'inactive':query.reference}">
+        <dropdown-toggle close-on-click="true">
+          <toggle>
+            <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['reference']}" data-icon="/">References</button>
+          </toggle>
+          <pane>
+            <div ng-include src="'advancedfilters/referencesFilter.html'"></div>
+          </pane>
+        </dropdown-toggle>
+      </li>
+    
 
     <!-- ASPECT  -->
     <li ng-class="{'inactive':query.aspect}" >
@@ -85,7 +87,7 @@
     <!-- MORE  -->
 
     <li>
-      <button class="button dropdown" ng-click="moreColumnsContainer = !moreColumnsContainer" ng-class="{'icon-functional active-filter' : query['qualifier'] ||  query['reference'] || query['withFrom'] || query['assignedBy']}" data-icon="/">More</button>
+      <button class="button dropdown" ng-click="moreColumnsContainer = !moreColumnsContainer" ng-class="{'icon-functional active-filter' : query['qualifier'] ||  query['withFrom'] || query['assignedBy']}" data-icon="/">More</button>
     </li>
 
 
@@ -101,13 +103,11 @@
     <span class="icon-functional column-selector__close" ng-click="moreColumnsContainer = !moreColumnsContainer" data-icon="x"></span>
       <div class="medium-12 expanded row">
       <!-- QUALIFIER -->
-        <div class="medium-3 column" ng-include src="'advancedfilters/qualifierFilter.html'"></div>
-      <!-- REFERENCE -->
-        <div class="medium-3 column" ng-include src="'advancedfilters/referencesFilter.html'"></div>
+        <div class="medium-4 column" ng-include src="'advancedfilters/qualifierFilter.html'"></div>
       <!-- WITH -->
-        <div class="medium-3 column " ng-include src="'advancedfilters/withFromFilter.html'"></div>
+        <div class="medium-4 column " ng-include src="'advancedfilters/withFromFilter.html'"></div>
       <!-- ASSIGNED BY -->
-        <div class="medium-3 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
+        <div class="medium-4 column" ng-include src="'advancedfilters/assignedByFilter.html'"></div>
         <div class="float-right">
           <filter-buttons></filter-buttons>
         </div>

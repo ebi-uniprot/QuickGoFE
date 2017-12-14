@@ -3,14 +3,10 @@
   <form>
     <label class="bold-label">Format:</label>
     <select ng-model="selectedFormat" ng-options="downloadFormat.format for downloadFormat in downloadFileFormats"></select>
-    <br/>
-    <br/>
     <label class="bold-label">
       Limit (<a href="faq/gene_product_export" target="_blank">maximum {{50000 | number}}</a>):
     </label>
     <input ng-model="selectedLimit">
-    <br/>
-    <br/>
     <!-- Version 1 -->
     <div class="float-right">
       <button class="button" ng-click="submit(selectedFormat, selectedLimit)">Go</button>
