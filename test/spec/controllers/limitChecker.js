@@ -32,12 +32,12 @@ describe('Testing annotation filters', function() {
   });
 
   it('should merge items and add error if too many', function() {
-    expect(rootScope.alerts.length).toEqual(1);
+    expect(rootScope.alerts.length).toEqual(0);
     var newItems = [{
       checked: true
     }];
     var merged = limitCheckerObj.getMergedItems(items, newItems, 1);
-    expect(rootScope.alerts.length).toEqual(2);
+    expect(rootScope.alerts.length).toEqual(1);
     expect(merged.length).toEqual(items.length);
     merged = limitCheckerObj.getMergedItems(items, newItems, 100);
   });

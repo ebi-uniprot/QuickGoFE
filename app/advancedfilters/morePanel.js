@@ -3,7 +3,6 @@ app.controller('MorePanel', function ($scope, $rootScope) {
 
   $scope.subscribedFilters = {
     qualifier:0,
-    reference:0,
     withFrom:0,
     assignedBy:0
   };

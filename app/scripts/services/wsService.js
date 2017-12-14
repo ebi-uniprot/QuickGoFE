@@ -234,7 +234,7 @@ wsService.factory('downloadService', [
         return {
             getAnnotationsData: function (accept, limit, filters, selectedFields) {
                 if (accept === 'tsv') {
-                    var url = ENV.apiEndpoint + '/annotation/downloadSearch?includeFields=goName,taxonName';
+                    var url = ENV.apiEndpoint + '/annotation/downloadSearch?includeFields=name,goName,taxonName';
                     url += (selectedFields && (selectedFields.length !== 0))
                         ? '&selectedFields=' + selectedFields.join()
                         : '';
@@ -251,6 +251,16 @@ wsService.factory('downloadService', [
             },
             getMaxLimit: function () {
                 return 50000;
+            },
+            getStatisticsData : function(accept, filters, responseType) {
+                var url = ENV.apiEndpoint + '/annotation/downloadStats';
+                return $http.get(url, {
+                    params: filters,
+                    headers: {
+                        accept: accept
+                    },
+                    responseType: responseType
+                });
             }
         };
     }
@@ -393,9 +403,13 @@ wsService.factory('dbXrefService', [
                     var match = _.find(xrefs, function (xref) {
                         return xref.database === name || _.contains(xref.synonyms, name);
                     });
-                    return match
-                        .entity_types[0]
-                        .url_syntax
+                    var urlpath = match.entity_types[0].url_syntax;
+                    var urlPrefix = "http://";
+
+                    if (!urlpath.startsWith("http"))
+                      urlpath = urlPrefix.concat(urlpath);
+
+                    return urlpath
                         .replace('[example_id]', id);
                 }
             }

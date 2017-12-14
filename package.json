@@ -1,8 +1,12 @@
 {
   "name": "quickgofe",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ebi-uniprot/QuickGoFE"
+  },
   "scripts": {
-    "test":"grunt test"
+    "test": "grunt test"
   },
   "license": "Apache-2.0",
   "dependencies": {},

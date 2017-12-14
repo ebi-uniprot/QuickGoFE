@@ -4,6 +4,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
 
   $scope.gpIds = [];
   $scope.geneProductSets = [];
+  $scope.gpTypes = [];  
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().geneProductId;
 
   var initgpIds = function () {
@@ -15,10 +16,25 @@ app.controller('geneProductFilter', function ($scope, stringService,
     });
   };
 
+  var initgpTypes = function() {
+    $scope.gpTypes = filterService.getQueryFilterItems($scope.query.geneProductType);
+    presetsService.getPresetsGeneProductTypes().then(function(resp){
+      var queryFilterItems = filterService.getQueryFilterItems($scope.query.geneProductType);
+      var presetFilterItems = filterService.getPresetFilterItems(resp.data.geneProductTypes, 'id');
+      $scope.gpTypes = _.sortBy(filterService.mergeArrays(presetFilterItems, queryFilterItems), 'name');
+    });    
+  }
+
+  var init = function() {
+    initgpIds();
+    initgpTypes();
+  }
+
   $scope.reset = function () {
     $scope.query.geneProductId = '';
     $scope.query.targetSet = '';
-    initgpIds();
+    $scope.query.geneProductType = '';    
+    init();
     $scope.updateQuery();
   };
 
@@ -29,6 +45,9 @@ app.controller('geneProductFilter', function ($scope, stringService,
     if ($scope.geneProductSets.length > 0) {
       $scope.addToQuery('targetSet', _.pluck(_.filter($scope.geneProductSets, 'checked'), 'id'));
     }
+    if ($scope.gpTypes.length > 0) {
+      $scope.addToQuery('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
+    }    
     $scope.updateQuery();
   };
 
@@ -48,7 +67,7 @@ app.controller('geneProductFilter', function ($scope, stringService,
   };
 
   $scope.getTotalChecked = function() {
-    return limitChecker.getAllChecked($scope.gpIds).length + limitChecker.getAllChecked($scope.geneProductSets).length;
+    return limitChecker.getAllChecked($scope.gpIds).length + limitChecker.getAllChecked($scope.geneProductSets).length + _.filter($scope.gpTypes, 'checked').length;
   };
 
   $scope.getCheckedIds = function() {
@@ -59,5 +78,5 @@ app.controller('geneProductFilter', function ($scope, stringService,
     return limitChecker.getAllChecked($scope.geneProductSets).length;
   };
 
-  initgpIds();
+  init();
 });
