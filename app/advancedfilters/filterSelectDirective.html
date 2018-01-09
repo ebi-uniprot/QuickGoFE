@@ -1,0 +1,23 @@
+<div class="form-group" ng-show="(items | filter:{checked:true}).length > 0">
+    <h6>Your selection</h6>
+    <ul class="no-bullet">
+        <li ng-repeat="item in items | filter:{checked:true}" class="checkbox">
+            <label>
+            <input type="checkbox" ng-model="item.checked">
+            {{item.id}} <strong>{{itemText({item: item})}}</strong>
+        </label>
+        </li>
+    </ul>
+</div>
+<hr/>
+<div class="form-group overflow-pane">
+    <ul class="no-bullet">
+        <li ng-repeat="item in items | filter:{checked:false}" class="checkbox">
+            <label>
+            <input type="checkbox" ng-model="item.checked">
+            {{item.id}} <strong>{{itemText({item: item})}}</strong>
+          </label>
+        </li>
+    </ul>
+</div>
+</div>

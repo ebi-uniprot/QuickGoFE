@@ -46,5 +46,9 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     return limitChecker.getAllChecked($scope.taxa).length;
   };
 
+  $scope.getTaxaDescription = function(taxon) {
+    return taxon.item.scientificName ? taxon.item.scientificName : taxon.item.name;
+  }
+
   initTaxons();
 });
