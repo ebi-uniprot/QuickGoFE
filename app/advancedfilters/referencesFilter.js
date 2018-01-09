@@ -61,5 +61,9 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
       .length;
   };
 
+  $scope.getReferenceDescription = function(reference) {
+    return `${(reference.id.indexOf('GO_REF:') >= 0) ? '':':* '} ${reference.item.description}`;
+  }
+
   initReference();
 });

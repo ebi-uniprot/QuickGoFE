@@ -8,9 +8,9 @@
         </label>
         </li>
     </ul>
+    <hr/>
 </div>
-<hr/>
-<div class="form-group overflow-pane">
+<div class="form-group overflow-pane" ng-show="items.length > 0">
     <ul class="no-bullet">
         <li ng-repeat="item in items | filter:{checked:false}" class="checkbox">
             <label>
@@ -19,5 +19,4 @@
           </label>
         </li>
     </ul>
-</div>
 </div>
