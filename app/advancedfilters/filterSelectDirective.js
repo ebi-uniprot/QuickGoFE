@@ -6,7 +6,8 @@ angular.module("quickGoFeApp").directive("filterSelect", [
       templateUrl: "advancedFilters/filterSelectDirective.html",
       scope: {
         items: '=',
-        itemText: '&'
+        itemText: '&',
+        isTerm: '@'
       },
       link: function($scope, $element) {
         $element.on('click', function($event, $element) {

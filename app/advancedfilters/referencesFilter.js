@@ -59,7 +59,9 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
   };
 
   $scope.getReferenceDescription = function(reference) {
-    return `${(reference.id.indexOf('GO_REF:') >= 0) ? '':':* '} ${reference.item.description}`;
+    if(reference.item) {
+      return (reference.id.indexOf('GO_REF:') >= 0) ? '':':* ' + reference.item.description;
+    }
   }
 
   initReference();

@@ -37,9 +37,9 @@ app.controller('withFromFilter', function($scope, $filter, presetsService, strin
     init();
   };
 
-  $scope.selectItem = function() {
+  $scope.$watch('withFrom', function() {
     $scope.subscribedFilters.withFrom = $scope.getTotalChecked();
-  };
+  }, true);
 
   $scope.$on('applyMoreFilters', function() {
     $scope.apply();
@@ -54,7 +54,9 @@ app.controller('withFromFilter', function($scope, $filter, presetsService, strin
   };
 
   $scope.getWithFromDescription = function(withFrom) {
-    return withFrom.item.description;
+    if(withFrom.item) {
+      return withFrom.item.description;
+    }
   }
 
   init();

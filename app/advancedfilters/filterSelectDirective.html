@@ -4,7 +4,8 @@
         <li ng-repeat="item in items | filter:{checked:true}" class="checkbox">
             <label>
             <input type="checkbox" ng-model="item.checked">
-            {{item.id}} <strong>{{itemText({item: item})}}</strong>
+            <span ng-if="!isTerm"><strong>{{item.id}}</strong> {{itemText({item: item})}}</span>
+            <span ng-if="isTerm"><term-line id="item.id" aspect="term.item.aspect" obsolete="term.item.isObsolete" name="item.item.name"></term-line> {{item.item.description}}</span>
         </label>
         </li>
     </ul>
@@ -15,7 +16,8 @@
         <li ng-repeat="item in items | filter:{checked:false}" class="checkbox">
             <label>
             <input type="checkbox" ng-model="item.checked">
-            {{item.id}} <strong>{{itemText({item: item})}}</strong>
+            <span ng-if="!isTerm"><strong>{{item.id}}</strong> {{itemText({item: item})}}</span>
+            <span ng-if="isTerm"><term-line id="item.id" name="item.item.name"></term-line> {{item.item.description}}</span>
           </label>
         </li>
     </ul>
