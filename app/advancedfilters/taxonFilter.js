@@ -35,19 +35,20 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     });
   };
 
-  $scope.selectTaxon = function(term) {
+  $scope.$watch('taxa', function() {
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.taxa), $scope.uploadLimit)) {
-      _.find($scope.taxa, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
-  };
+  }, true);
 
   $scope.getTotalChecked = function() {
     return limitChecker.getAllChecked($scope.taxa).length;
   };
 
   $scope.getTaxaDescription = function(taxon) {
-    return taxon.item.scientificName ? taxon.item.scientificName : taxon.item.name;
+    if(taxon.item) {
+      return taxon.item.scientificName ? taxon.item.scientificName : taxon.item.name;
+    }
   }
 
   initTaxons();
