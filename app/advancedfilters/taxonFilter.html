@@ -1,19 +1,7 @@
 <!-- TAXON -->
 <div ng-controller="taxonFilter">
   <form>
-    <div class="form-group overflow-pane">
-      <div>
-        Your selection: {{getTotalChecked()}} taxa
-      </div>
-      <ul class="no-bullet">
-        <li ng-repeat="taxon in taxa" class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="taxon.checked" ng-click="selectTaxon(taxon)">
-            {{taxon.id}} <strong>{{taxon.item.scientificName || taxon.item.name}}</strong>
-          </label>
-        </li>
-      </ul>
-    </div>
+    <filter-select items="taxa" item-text="getTaxaDescription(item)"></filter-select>
     <a ng-click="more = !more" ng-hide="more">Add more...</a>
     <div ng-show="more">
       <div class="form-group">
