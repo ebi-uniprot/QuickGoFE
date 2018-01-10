@@ -1,5 +1,5 @@
 'use strict';
-app.controller('withFromFilter', function($scope, $filter, presetsService, stringService, validationService, filterService, $rootScope) {
+app.controller('withFromFilter', function($scope, presetsService, stringService, validationService, filterService, $rootScope) {
 
   $scope.withFrom = [];
 
