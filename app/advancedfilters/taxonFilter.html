@@ -2,8 +2,7 @@
 <div ng-controller="taxonFilter">
   <form>
     <filter-select items="taxa" item-text="getTaxaDescription(item)"></filter-select>
-    <a ng-click="more = !more" ng-hide="more">Add more...</a>
-    <div ng-show="more">
+    <div>
       <div class="form-group">
         <p>...or enter taxon identifiers:</p>
         <textarea ng-model="taxonTextArea" placeholder="9606,100090,10116,..." class="form-control"></textarea>
