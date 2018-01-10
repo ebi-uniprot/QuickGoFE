@@ -1,10 +1,8 @@
 <div ng-controller="evidenceFilter">
   <form>
-    <p>A full description of evidence codes and their usage can be found <a href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
     <filter-select items="ecos" is-term="true"></filter-select>
     <a ng-click="more = !more" ng-hide="more">Add more...</a>
     <div ng-show="more">
-
       <hr>
       <div class="form-group">
         <textarea class="form-control" ng-model="ecoTextArea" placeholder="ECO:0000352,..."></textarea>
@@ -24,6 +22,7 @@
     </div>
   </form>
   <hr>
+  <div class="small">A full description of evidence codes and their usage can be found <a href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</div>
   <div class="float-right">
     <filter-buttons></filter-buttons>
   </div>

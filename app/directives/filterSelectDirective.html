@@ -1,5 +1,6 @@
 <div class="form-group" ng-show="(items | filter:{checked:true}).length > 0">
-    <h5>Your selection</h5>
+    <h6>{{(items | filter:{checked:true}).length}} selected</h6>
+    <div class="overflow-pane">
     <ul class="no-bullet">
         <li ng-repeat="item in items | filter:{checked:true}" class="checkbox">
             <label>
@@ -9,6 +10,7 @@
         </label>
         </li>
     </ul>
+    </div>
     <hr/>
 </div>
 <div class="form-group overflow-pane" ng-show="items.length > 0">
