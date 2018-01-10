@@ -8,7 +8,7 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
       presetsService.getPresetsAssignedBy().then(function(resp){
         var assignDBs = _.sortBy(resp.data.assignedBy, 'name');
         var filterItems = filterService.getPresetFilterItems(assignDBs, 'name');
-        $scope.assignedBy = filterService.mergeArrays(filterItems, $scope.assignedBy);
+        $scope.assignedBy = _.sortBy(filterService.mergeArrays(filterItems, $scope.assignedBy), 'id');
       });
   };
 
@@ -33,13 +33,17 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
     $scope.reset();
   });
 
-  $scope.selectItem = function() {
+  $scope.$watch('assignedBy', function() {
     $scope.subscribedFilters.assignedBy = $scope.getTotalChecked();
-  };
+  }, true);
 
   $scope.getTotalChecked = function(){
     return _.filter($scope.assignedBy, 'checked').length;
   };
+
+  $scope.getAssignedbyDescription = function(assignedBy) {
+    return assignedBy.item.description;
+  }
 
   init();
 });

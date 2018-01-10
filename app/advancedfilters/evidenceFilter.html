@@ -1,19 +1,7 @@
 <div ng-controller="evidenceFilter">
   <form>
     <p>A full description of evidence codes and their usage can be found <a href="http://www.geneontology.org/page/guide-go-evidence-codes" target="_blank">here</a>.</p>
-    <div>
-      Your selection: {{getTotalChecked()}} ECO terms
-    </div>
-    <div class="form-group overflow-pane">
-      <ul class="no-bullet">
-        <li ng-repeat="eco in ecos" class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="eco.checked" ng-change="selectTerm(eco)">
-            <term-line id="eco.id" name="eco.item.name"></term-line> {{eco.item.description}}
-          </label>
-        </li>
-      </ul>
-    </div>
+    <filter-select items="ecos" is-term="true"></filter-select>
     <a ng-click="more = !more" ng-hide="more">Add more...</a>
     <div ng-show="more">
 

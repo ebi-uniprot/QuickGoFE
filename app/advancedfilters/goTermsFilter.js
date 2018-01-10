@@ -123,16 +123,13 @@ app.controller('goTermsFilter', function ($scope, basketService, stringService, 
     }
   };
 
-  $scope.selectTerm = function (term) {
+  $scope.$watch('goTerms', function() {
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.goTerms), $scope.uploadLimit)) {
-      _
-        .find($scope.goTerms, term)
-        .checked = false;
       $rootScope
         .alerts
         .push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
-  };
+  }, true);
 
   init();
 });

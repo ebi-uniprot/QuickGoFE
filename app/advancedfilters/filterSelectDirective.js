@@ -1,0 +1,20 @@
+"use strict";
+angular.module("quickGoFeApp").directive("filterSelect", [
+  function() {
+    return {
+      restrict: 'E',
+      templateUrl: "advancedFilters/filterSelectDirective.html",
+      scope: {
+        items: '=',
+        itemText: '&',
+        isTerm: '@'
+      },
+      link: function($scope, $element) {
+        $element.on('click', function($event, $element) {
+            // Dropdown should not close
+            $event.stopPropagation();
+        });
+      }
+    };
+  }
+]);

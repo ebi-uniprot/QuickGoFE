@@ -44,22 +44,25 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
     return !(item.indexOf('GO_REF:') >= 0);
   }
 
-  $scope.selectTerm = function (term) {
+  $scope.$watch('references', function () {
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.references), $scope.uploadLimit)) {
-      _
-        .find($scope.references, term)
-        .checked = false;
       $rootScope
         .alerts
         .push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
-  };
+  }, true);
 
   $scope.getTotalChecked = function () {
     return _
       .filter($scope.references, 'checked')
       .length;
   };
+
+  $scope.getReferenceDescription = function(reference) {
+    if(reference.item) {
+      return (reference.id.indexOf('GO_REF:') >= 0) ? '':':* ' + reference.item.description;
+    }
+  }
 
   initReference();
 });
