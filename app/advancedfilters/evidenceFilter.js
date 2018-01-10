@@ -40,11 +40,12 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     $scope.ecoTextArea = '';
   };
 
-  $scope.$watch('ecos', function() {
+  $scope.selectTerm = function(term) {
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.ecos), $scope.uploadLimit)) {
+      _.find($scope.ecos, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
-  }, true);
+  };
 
   $scope.getTotalChecked = function() {
     return limitChecker.getAllChecked($scope.ecos).length;

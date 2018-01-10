@@ -1,5 +1,5 @@
 'use strict';
-app.controller('withFromFilter', function($scope, $filter, presetsService, stringService, validationService, filterService, $rootScope) {
+app.controller('withFromFilter', function($scope, presetsService, stringService, validationService, filterService, $rootScope) {
 
   $scope.withFrom = [];
 
@@ -10,8 +10,7 @@ app.controller('withFromFilter', function($scope, $filter, presetsService, strin
       var withDBs = _.sortBy(resp.data.withFrom, 'name');
       var withPresetItems = filterService.getPresetFilterItems(withDBs, 'name');
       $scope.withFrom = filterService.mergeArrays(withPresetItems, $scope.withFrom);
-      $scope.withFrom = _.sortBy($scope.withFrom, 'id');
-     });
+    });
     $scope.subscribedFilters.withFrom = $scope.getTotalChecked();
   };
 
@@ -37,9 +36,9 @@ app.controller('withFromFilter', function($scope, $filter, presetsService, strin
     init();
   };
 
-  $scope.$watch('withFrom', function() {
+  $scope.selectItem = function() {
     $scope.subscribedFilters.withFrom = $scope.getTotalChecked();
-  }, true);
+  };
 
   $scope.$on('applyMoreFilters', function() {
     $scope.apply();
@@ -52,12 +51,6 @@ app.controller('withFromFilter', function($scope, $filter, presetsService, strin
   $scope.getTotalChecked = function(){
     return _.filter($scope.withFrom, 'checked').length;
   };
-
-  $scope.getWithFromDescription = function(withFrom) {
-    if(withFrom.item) {
-      return withFrom.item.description;
-    }
-  }
 
   init();
 });

@@ -59,11 +59,12 @@ app.controller('geneProductFilter', function ($scope, stringService,
     $scope.gpTextArea = '';
   };
 
-  $scope.$watch('gpIds', function() {
+  $scope.selectItem = function(term) {
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.gpIds), $scope.uploadLimit)) {
+      _.find($scope.gpIds, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
-  }, true);
+  };
 
   $scope.getTotalChecked = function() {
     return limitChecker.getAllChecked($scope.gpIds).length + limitChecker.getAllChecked($scope.geneProductSets).length + _.filter($scope.gpTypes, 'checked').length;

@@ -3,7 +3,16 @@
   <!-- GO ID -->
   <div>
     <form>
-        <filter-select items="assignedBy" item-text="getAssignedbyDescription(item)"></filter-select>
+      <div class="overflow-pane">
+        <ul class="no-bullet">
+          <li ng-repeat="assigned in assignedBy | orderBy:'id'" class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="assigned.checked" ng-change="selectItem()">
+              <strong>{{assigned.id}}</strong> {{assigned.item.description}}
+            </label>
+          </li>
+        </ul>
+      </div>
     </form>
   </div>
 </div>
