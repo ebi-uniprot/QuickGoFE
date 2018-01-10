@@ -13,6 +13,9 @@ app.controller('taxonFilter', function($scope, $rootScope, $q, hardCodedDataServ
     $scope.taxonUsage = ($scope.query.taxonUsage) ? $scope.query.taxonUsage: 'descendants';
     taxonomyService.initTaxa($scope.taxa).then(function (data) {
       $scope.taxa = filterService.mergeArrays(data.taxa, filterService.getQueryFilterItems($scope.query.taxonId));
+      $scope.taxa = _.sortBy($scope.taxa, function(d){
+        return d.item.name;
+      });
     });
   };
 

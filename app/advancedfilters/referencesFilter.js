@@ -17,6 +17,9 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
       .then(function (resp) {
         var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
         $scope.references = filterService.mergeArrays(referencePresetItems, $scope.references);
+        $scope.references = _.chain($scope.references).sortBy('id').sortBy(function(d){
+          return d.id.indexOf('GO_REF:') >= 0;
+        }).value();
       });
   };
 
@@ -37,7 +40,7 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
   $scope.reset = function () {
     $scope.$parent.query.reference = '';
     initReference();
-    $scope.$parent.updateQuery();    
+    $scope.$parent.updateQuery();
   };
 
   $scope.isAll = function (item) {
@@ -58,9 +61,9 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
       .length;
   };
 
-  $scope.getReferenceDescription = function(reference) {
-    if(reference.item) {
-      return (reference.id.indexOf('GO_REF:') >= 0) ? '':':* ' + reference.item.description;
+  $scope.getReferenceDescription = function (reference) {
+    if (reference.item) {
+      return ((reference.id.indexOf('GO_REF:') >= 0) ? '' : ':* ') + reference.item.description;
     }
   }
 
