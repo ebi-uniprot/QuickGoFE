@@ -3,7 +3,7 @@ angular.module("quickGoFeApp").directive("filterSelect",
   ['$http', function () {
     return {
       restrict: 'E',
-      templateUrl: "advancedFilters/filterSelectDirective.html",
+      templateUrl: "directives/filterSelectDirective.html",
       scope: {
         items: '=',
         itemText: '&',
