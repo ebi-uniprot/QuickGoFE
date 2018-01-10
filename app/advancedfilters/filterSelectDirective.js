@@ -1,6 +1,6 @@
 "use strict";
 angular.module("quickGoFeApp").directive("filterSelect",
-  function () {
+  ['$http', function () {
     return {
       restrict: 'E',
       templateUrl: "advancedFilters/filterSelectDirective.html",
@@ -16,4 +16,4 @@ angular.module("quickGoFeApp").directive("filterSelect",
         });
       }
     };
-  });
+  }]);
