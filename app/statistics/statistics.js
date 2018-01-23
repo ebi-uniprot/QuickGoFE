@@ -48,7 +48,7 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
             } else if (item.groupName === 'slimming') {
                 angular.forEach(item.types, function(type) {
                     $scope.stats[type.type].geneProduct = type.values;
-                    $scope.totalNumberGeneProducts = item.totalHits;
+                    $scope.totalNumberAnnotations = item.totalHits;
                 });
             }
         });

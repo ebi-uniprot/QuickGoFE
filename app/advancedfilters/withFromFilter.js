@@ -10,7 +10,8 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
       var withDBs = _.sortBy(resp.data.withFrom, 'name');
       var withPresetItems = filterService.getPresetFilterItems(withDBs, 'name');
       $scope.withFrom = filterService.mergeArrays(withPresetItems, $scope.withFrom);
-    });
+      $scope.withFrom = _.sortBy($scope.withFrom, 'id');
+     });
     $scope.subscribedFilters.withFrom = $scope.getTotalChecked();
   };
 
@@ -36,9 +37,9 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
     init();
   };
 
-  $scope.selectItem = function() {
+  $scope.$watch('withFrom', function() {
     $scope.subscribedFilters.withFrom = $scope.getTotalChecked();
-  };
+  }, true);
 
   $scope.$on('applyMoreFilters', function() {
     $scope.apply();
@@ -51,6 +52,12 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
   $scope.getTotalChecked = function(){
     return _.filter($scope.withFrom, 'checked').length;
   };
+
+  $scope.getWithFromDescription = function(withFrom) {
+    if(withFrom.item) {
+      return withFrom.item.description;
+    }
+  }
 
   init();
 });

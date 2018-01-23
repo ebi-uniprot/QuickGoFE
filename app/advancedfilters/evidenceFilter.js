@@ -13,6 +13,7 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     presetsService.getPresetsEvidences().then(function (d) {
       var filterItems = filterService.getPresetFilterItems(d.data.evidences, 'id');
       $scope.ecos = filterService.mergeArrays(filterItems, $scope.ecos);
+      $scope.ecos = _.sortBy($scope.ecos, 'id');
     });
   };
 
@@ -40,12 +41,11 @@ app.controller('evidenceFilter', function ($scope, presetsService, stringService
     $scope.ecoTextArea = '';
   };
 
-  $scope.selectTerm = function(term) {
+  $scope.$watch('ecos', function() {
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.ecos), $scope.uploadLimit)) {
-      _.find($scope.ecos, term).checked = false;
       $rootScope.alerts.push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
-  };
+  }, true);
 
   $scope.getTotalChecked = function() {
     return limitChecker.getAllChecked($scope.ecos).length;

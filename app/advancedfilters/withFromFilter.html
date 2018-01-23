@@ -2,20 +2,9 @@
   <h5 ng-class="{'icon-functional active-filter' : query['withFrom']}" data-icon="/">With/From</h5>
   <div>
     <form>
-      <div class="overflow-pane">
-        <ul class="no-bullet">
-          <li ng-repeat="(withID, obj) in withFrom | orderBy:'id'" class="checkbox">
-            <label>
-              <input type="checkbox" ng-model="obj.checked" ng-change="selectItem(obj)">
-              <strong>{{obj.id}}</strong> {{obj.item.description}}
-            </label>
-          </li>
-        </ul>
-      </div>
-      <hr>
-      <p>* Any matches will be displayed</p>
-      <a ng-click="more = !more" ng-hide="more">Add more...</a>
-      <div ng-show="more">
+      <filter-select items="withFrom" item-text="getWithFromDescription(item)"></filter-select>
+      <p class="small">* Any matches will be displayed</p>
+      <div>
         <div class="form-group">
           <textarea class="form-control" ng-model="withTextArea" placeholder="CGD:CAL0002805, ..."></textarea>
         </div>

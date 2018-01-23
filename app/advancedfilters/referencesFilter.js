@@ -17,6 +17,9 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
       .then(function (resp) {
         var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
         $scope.references = filterService.mergeArrays(referencePresetItems, $scope.references);
+        $scope.references = _.chain($scope.references).sortBy('id').sortBy(function(d){
+          return d.id.indexOf('GO_REF:') >= 0;
+        }).value();
       });
   };
 
@@ -37,29 +40,32 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
   $scope.reset = function () {
     $scope.$parent.query.reference = '';
     initReference();
-    $scope.$parent.updateQuery();    
+    $scope.$parent.updateQuery();
   };
 
   $scope.isAll = function (item) {
     return !(item.indexOf('GO_REF:') >= 0);
   }
 
-  $scope.selectTerm = function (term) {
+  $scope.$watch('references', function () {
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.references), $scope.uploadLimit)) {
-      _
-        .find($scope.references, term)
-        .checked = false;
       $rootScope
         .alerts
         .push(hardCodedDataService.getTermsLimitMsg($scope.uploadLimit));
     }
-  };
+  }, true);
 
   $scope.getTotalChecked = function () {
     return _
       .filter($scope.references, 'checked')
       .length;
   };
+
+  $scope.getReferenceDescription = function (reference) {
+    if (reference.item) {
+      return ((reference.id.indexOf('GO_REF:') >= 0) ? '' : ':* ') + reference.item.description;
+    }
+  }
 
   initReference();
 });

@@ -1,20 +1,6 @@
 <div ng-controller="goTermsFilter">
   <!-- 3 choices -->
-  <div class="inset-panel overflow-pane row column small-12">
-    <div>
-      Your selection: {{getTotalChecked()}} GO terms
-    </div>
-    <ul class="no-bullet">
-      <li ng-repeat="term in goTerms" class="checkbox">
-        <label>
-          <input type="checkbox" ng-model="term.checked" ng-change="selectTerm(term)">
-          <term-line id="term.id" aspect="term.item.aspect" obsolete="term.item.isObsolete"
-             name="term.item.name"></term-line>
-        </label>
-      </li>
-
-    </ul>
-  </div>
+  <filter-select items="goTerms" is-term="true"></filter-select>
   <hr>
   <div class="row columns small-12">
     <label>

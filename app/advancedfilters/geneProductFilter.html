@@ -9,32 +9,21 @@
       </li>
     </ul>
     <hr/>
-    <h5>Gene product ids</h5>
-    <div>
-      Your selection: {{getCheckedIds()}} gene product IDs
-    </div>
-    <div class="form-group overflow-pane">
-      <ul class="no-bullet inline-list">
-        <li ng-repeat="gp in gpIds" class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="gp.checked" ng-change="selectItem(gp)"> {{gp.id}}
-          </label>
-        </li>
-      </ul>
-    </div>
+    <h5>And/Or Gene product ids</h5>
+    <filter-select items="gpIds"></filter-select>
     <div class="form-group">
       <textarea ng-model="gpTextArea" placeholder="A0A000, etc" class="form-control" rows="3"></textarea>
     </div>
     <div class="form-group">
       <button class="hollow button" ng-click="addGPs()">Add</button>
     </div>
-    <a ng-click="more = !more" ng-hide="more">Add more...</a>
+    <hr/>
+    <a ng-click="more = !more" ng-hide="more">And/Or select gene product sets...</a>
     <div ng-show="more || getCheckedSets() > 0">
-      <hr>
-      <div class="form-group">
+        <h5>Gene product sets</h5>
+        <div class="form-group">
         <!-- 4 choices -->
         Your selection: {{getCheckedSets()}} gene product sets
-        <p>List of gene product sets:</p>
         <ul class="no-bullet">
           <li ng-repeat="gpSet in geneProductSets" class="checkbox">
             <label>

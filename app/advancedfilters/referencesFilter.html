@@ -3,22 +3,10 @@
   <div>
     <form>
       <div class="inset-panel">
-        <div class="overflow-pane">
-          <ul class="no-bullet">
-            <li ng-repeat="ref in references" class="checkbox">
-              <label>
-                <input type="checkbox" ng-model="ref.checked" ng-change="selectTerm(ref)">
-                <strong>{{ref.id}}{{isAll(ref.id) ? ':* ':''}}</strong> {{ref.item.description}}
-              </label>
-              </td>
-            </li>
-          </ul>
-        </div>
+          <filter-select items="references" item-text="getReferenceDescription(item)"></filter-select>
       </div>
-      <p>*: Any matches will be displayed</p>
-      <a ng-click="more = !more" ng-hide="more">Add more...</a>
-      <div ng-show="more">
-        <hr>
+      <p class="small">*: Any matches will be displayed</p>
+      <div>
         <div class="form-group">
           <textarea class="form-control" ng-model="referenceTextArea" placeholder="PMID:25101996, 25101996, ..."></textarea>
         </div>
