@@ -23,7 +23,6 @@
             <tab heading="{{stats.geneProductId.label}}" ng-show="stats.geneProductId.annotation.length > 0">
                 <div class="row expanded">
                     <stats-table title="Annotations per Gene Product ID" items="stats.geneProductId.annotation" is-term="true" mapping="goTermMapping"></stats-table>
-                    <!-- <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table> -->
                 </div>
             </tab>
             <tab heading="{{stats.annotationsForGoId.label}}" ng-show="stats.annotationsForGoId.geneProduct.length > 0">
