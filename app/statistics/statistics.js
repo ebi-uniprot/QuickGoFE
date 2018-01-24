@@ -8,7 +8,8 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
         'taxonId': { label: 'Taxon', selected: true },
         'evidenceCode': { label: 'Evidence', selected: true },
         'aspect': { label: 'Aspect', selected: true },
-        'annotationsForGoId': {label: 'Slim summary', selected: true}
+        'annotationsForGoId': {label: 'Slim summary', selected: true},
+        'geneProductId': {label: 'Gene Product ID', selected: true}
     };
 
     $scope.totalNumberAnnotations = 0;
