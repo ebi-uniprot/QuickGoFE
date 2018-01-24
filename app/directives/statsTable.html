@@ -12,7 +12,7 @@
             obsolete="mapping[item.key].obsolete" name="mapping[item.key].name"></term-line>
           <strong ng-if="!isTerm">{{item.key}}</strong>
         </td>
-        <td>{{item.percentage * 100 | number:2}}</td>
+        <td>{{item.percentage | number:2}}</td>
         <td>{{item.hits | number:0}}</td>
       </tr>
     </table>
