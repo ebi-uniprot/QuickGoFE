@@ -22,47 +22,79 @@
             </tab>
             <tab heading="{{stats.geneProductId.label}}" ng-show="stats.geneProductId.annotation.length > 0">
                 <div class="row expanded">
+                    <p>
+                        Statistics for the top <strong>{{stats.geneProductId.annotation.length | number:0}}</strong> of
+                        <strong>{{stats.geneProductId.distinctValueCount | number:0}}</strong> distinct Gene Products.
+                    </p>
                     <stats-table title="Annotations per Gene Product ID" items="stats.geneProductId.annotation" is-term="true" mapping="goTermMapping"></stats-table>
                 </div>
             </tab>
             <tab heading="{{stats.annotationsForGoId.label}}" ng-show="stats.annotationsForGoId.geneProduct.length > 0">
                 <div class="row expanded">
+                    <p>
+                        Statistics for the top <strong>{{stats.annotationsForGoId.geneProduct.length | number:0}}</strong> of
+                        <strong>{{stats.annotationsForGoId.distinctValueCount | number:0}}</strong> distinct Slim GO ids.
+                    </p>
                     <stats-table title="Annotations per slim term" items="stats.annotationsForGoId.geneProduct" is-term="true" mapping="goTermMapping"></stats-table>
                     <!-- <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table> -->
                 </div>
             </tab>
             <tab heading="{{stats.goId.label}}">
                 <div class="row expanded">
+                    <p>
+                        Statistics for the top <strong>{{stats.goId.annotation.length | number:0}}</strong> of
+                        <strong>{{stats.goId.distinctValueCount | number:0}}</strong> distinct GO ids.
+                    </p>
                     <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true" mapping="goTermMapping"></stats-table>
                     <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true" mapping="goTermMapping"></stats-table>
                 </div>
             </tab>
             <tab heading="{{stats.aspect.label}}">
                 <div class="row expanded">
+                    <p>
+                        Statistics for the top <strong>{{stats.aspect.annotation.length | number:0}}</strong> of
+                        <strong>{{stats.aspect.distinctValueCount | number:0}}</strong> distinct Aspects.
+                    </p>
                     <stats-table title="Annotations per Aspect" items="stats.aspect.annotation"></stats-table>
                     <stats-table title="Gene products per Aspect" items="stats.aspect.geneProduct"></stats-table>
                 </div>
             </tab>
             <tab heading="{{stats.evidenceCode.label}}">
                 <div class="row expanded">
+                    <p>
+                        Statistics for the top <strong>{{stats.evidenceCode.annotation.length | number:0}}</strong> of
+                        <strong>{{stats.evidenceCode.distinctValueCount | number:0}}</strong> distinct Evidence Codes.
+                    </p>
                     <stats-table title="Annotations per Evidence" items="stats.evidenceCode.annotation" is-term="true"></stats-table>
                     <stats-table title="Gene products per Evidence" items="stats.evidenceCode.geneProduct" is-term="true"></stats-table>
                 </div>
             </tab>
             <tab heading="{{stats.reference.label}}">
                 <div class="row expanded">
+                    <p>
+                        Statistics for the top <strong>{{stats.reference.annotation.length | number:0}}</strong> of
+                        <strong>{{stats.reference.distinctValueCount | number:0}}</strong> distinct References.
+                    </p>
                     <stats-table title="Annotations per Reference" items="stats.reference.annotation"></stats-table>
                     <stats-table title="Gene products per Reference" items="stats.reference.geneProduct"></stats-table>
                 </div>
             </tab>
             <tab heading="{{stats.taxonId.label}}">
                 <div class="row expanded">
+                    <p>
+                        Statistics for the top <strong>{{stats.taxonId.annotation.length | number:0}}</strong> of
+                        <strong>{{stats.taxonId.distinctValueCount | number:0}}</strong> distinct Taxon Ids.
+                    </p>
                     <stats-table title="Annotations per Taxon" items="stats.taxonId.annotation"></stats-table>
                     <stats-table title="Gene products per Taxon" items="stats.taxonId.geneProduct"></stats-table>
                 </div>
             </tab>
             <tab heading="{{stats.assignedBy.label}}">
                 <div class="row expanded">
+                    <p>
+                      Statistics for the top <strong>{{stats.assignedBy.annotation.length | number:0}}</strong> of
+                      <strong>{{stats.assignedBy.distinctValueCount | number:0}}</strong> distinct Assigned by.
+                    </p>
                     <stats-table title="Annotations per Assigned By" items="stats.assignedBy.annotation"></stats-table>
                     <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table>
                 </div>
