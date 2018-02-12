@@ -9,8 +9,8 @@
       <tr ng-repeat="item in items">
         <td>
           <term-line ng-if="isTerm" id="item.key" aspect="mapping[item.key].aspect"
-            obsolete="mapping[item.key].obsolete" name="mapping[item.key].name"></term-line>
-          <strong ng-if="!isTerm">{{item.key}}</strong>
+            obsolete="mapping[item.key].obsolete" name="item.name ? item.name : mapping[item.key].name"></term-line>
+          <span ng-if="!isTerm"><strong>{{item.key}}</strong> {{item.name}}</span>
         </td>
         <td>{{item.percentage | number:2}}</td>
         <td>{{item.hits | number:0}}</td>
