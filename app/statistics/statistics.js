@@ -39,6 +39,7 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
             if (item.groupName === 'annotation') {
                 angular.forEach(item.types, function(type) {
                     $scope.stats[type.type].annotation = type.values;
+                    $scope.stats[type.type].approximateCount = type.approximateCount;
                     $scope.totalNumberAnnotations = item.totalHits;
                 });
             } else if (item.groupName === 'geneProduct') {
@@ -49,6 +50,7 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
             } else if (item.groupName === 'slimming') {
                 angular.forEach(item.types, function(type) {
                     $scope.stats[type.type].geneProduct = type.values;
+                    $scope.stats[type.type].approximateCount = type.approximateCount;
                     $scope.totalNumberAnnotations = item.totalHits;
                 });
             }
