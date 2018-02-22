@@ -14,16 +14,16 @@
 
 // ASPECT ICONS
 
-.aspect-biological_process:before, .aspect-Process:before {
+.aspect-biological_process:before, .aspect-Process:before, .aspect-Biological:before {
   @include action-icon(#FE9FA4, $white, #FE9FA4);
   content:'P';
 }
 
-.aspect-cellular_component:before, .aspect-Component:before{
+.aspect-cellular_component:before, .aspect-Component:before, .aspect-Cellular:before{
   @include action-icon(#B2AFFF, $white, #B2AFFF);
   content:'C';
 }
-.aspect-molecular_function:before, .aspect-Function:before{
+.aspect-molecular_function:before, .aspect-Function:before, .aspect-Molecular:before{
   @include action-icon(#59BB74, $white, #59BB74);
   content:'F';
 }
