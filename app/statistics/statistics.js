@@ -2,14 +2,14 @@
 app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, termService, downloadService) {
 
     $scope.stats = {
-        'reference': { label: 'Reference', selected: true },
-        'goId': { label: 'GO ID', selected: true },
-        'assignedBy': { label: 'Assigned By', selected: true },
-        'taxonId': { label: 'Taxon', selected: true },
-        'evidenceCode': { label: 'Evidence', selected: true },
-        'aspect': { label: 'Aspect', selected: true },
-        'annotationsForGoId': {label: 'Slim summary', selected: true},
-        'geneProductId': {label: 'Gene Product ID', selected: true}
+        'reference': { label: 'Reference', selected: true, about:'' },
+        'goId': { label: 'GO ID', selected: true, about:'' },
+        'assignedBy': { label: 'Assigned By', selected: true, about:'' },
+        'taxonId': { label: 'Taxon', selected: true, about:'' },
+        'evidenceCode': { label: 'Evidence', selected: true, about:'' },
+        'aspect': { label: 'Aspect', selected: true, about:'' },
+        'annotationsForGoId': {label: 'Slim summary', selected: true, about:'' },
+        'geneProductId': {label: 'Gene Product ID', selected: true, about:'' }
     };
 
     $scope.totalNumberAnnotations = 0;
@@ -40,6 +40,7 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
                 angular.forEach(item.types, function(type) {
                     $scope.stats[type.type].annotation = type.values;
                     $scope.stats[type.type].approximateCount = type.approximateCount;
+                    $scope.stats[type.type].about = type.values.length === type.approximateCount ? '' : ' about ';
                     $scope.totalNumberAnnotations = item.totalHits;
                 });
             } else if (item.groupName === 'geneProduct') {
@@ -51,6 +52,7 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
                 angular.forEach(item.types, function(type) {
                     $scope.stats[type.type].geneProduct = type.values;
                     $scope.stats[type.type].approximateCount = type.approximateCount;
+                    $scope.stats[type.type].about = type.values.length === type.approximateCount ? '' : ' about ';
                     $scope.totalNumberAnnotations = item.totalHits;
                 });
             }
