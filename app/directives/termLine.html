@@ -6,5 +6,5 @@
 </div>
 <div class="term-line-description">
   <span ng-if="!isECO">{{name}}</span>
-  <a class="quickgo-link" href="http://geneontology.org/page/guide-go-evidence-codes#{{name}}" target="_blank" ng-if="isECO && name">({{name}})</a>
+  <span ng-if="isECO">({{name}})</span>
 </div>
