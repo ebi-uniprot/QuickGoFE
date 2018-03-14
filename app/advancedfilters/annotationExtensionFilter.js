@@ -22,7 +22,7 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
 
   $scope.addComponent = function() {
     $scope.extension = ($scope.extension === '*') ? '' : $scope.extension;
-      var component = ($scope.relationship ? $scope.relationship : '') 
+      var component = ($scope.relationship ? $scope.relationship : '')
           + ($scope.relationship && $scope.db ? '(' : '') + ($scope.db ? $scope.db : '')
           + ($scope.id ? ':' + $scope.id : '') + ($scope.relationship && $scope.db ? ')' : '');
       $scope.extension = $scope.extension + ($scope.extension ? ',' : '') + component;
@@ -33,6 +33,11 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
 
   $scope.addButtonEnabled = function() {
     return !$scope.relationship && !$scope.db;
+  }
+
+  $scope.updateInputBox = function(textBoxId, source){
+    var inputBox = angular.element(document.getElementById(textBoxId).firstChild);
+    $scope[source] = inputBox[0].value;
   }
 
   presetsService.getPresetsExtensionRelations().then(function(d){
