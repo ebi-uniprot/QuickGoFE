@@ -556,6 +556,18 @@ div {
   }
 }
 
+.dropdown.menu>li.is-dropdown-submenu-parent>a:after {
+  border-color: #2199e8 transparent transparent;
+}
+
+.dropdown .is-dropdown-submenu label {
+  padding: 0.7rem 1rem;
+}
+
+.chart-title {
+  padding-top:.4rem;
+}
+
 #search-area {
   margin: 7px;
   padding: 3px;

@@ -433,19 +433,18 @@ wsService.factory('chartService', [
     'ENV',
     function ($http, ENV) {
         return {
-            getGOChart: function (ids) {
-                return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart?base64=true');
-            },
-            getGOImageMap: function (ids) {
-                return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids + '/chart/coords');
-            },
-            getECOChart: function (ids) {
-                return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/chart?base64=true');
-            },
-            getECOImageMap: function (ids) {
-                return $http.get(ENV.apiEndpoint + '/ontology/eco/terms/' + ids + '/chart/coords');
+            getChart: function (ids, showIds, showKey, termBoxWidth, termBoxHeight, showSlimColours, showChildren, map) {
+                var type = (ids.lastIndexOf('GO:') >= 0) ? 'go' : 'eco';
+                var mapUrl = map ? '/coords?' : '?base64=true';
+                return $http.get(ENV.apiEndpoint + '/ontology/' + type + '/terms/' + ids + '/chart' + mapUrl 
+                    + '&showIds=' + showIds
+                    + '&showKey=' + showKey
+                    + '&termBoxWidth=' + termBoxWidth
+                    + '&termBoxHeight=' + termBoxHeight
+                    + '&showSlimColours=' + showSlimColours
+                    + '&showChildren=' + showChildren
+                );
             }
-
         };
     }
 ]);
