@@ -1,43 +1,30 @@
 <div class="row">
   <div class="float-left chart-title">{{title}}</div>
   <div class="float-left">
-    <ul class="dropdown menu" dropdown-menu>
-      <li>
-        <a tabindex="0">Options</a>
-        <ul class="menu">
-          <li>
-            <label>
-              <input type="checkbox" ng-model="showKey"> Show Key
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" ng-model="showIds"> Show Ids
-            </label>
-          </li>
-          <li>
-            <label>Term box width
-              <input type="number" ng-model="termBoxWidth">
-            </label>
-          </li>
-          <li>
-            <label>Term box height
-              <input type="number" ng-model="termBoxHeight">
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" ng-model="showSlimColours"> Show slim colours
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="checkbox" ng-model="showChildren"> Show children
-            </label>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <dropdown-toggle close-on-click="true">
+        <toggle><a class="dropdown button small">Chart options</a></toggle>
+        <pane>
+              <label>
+                <input type="checkbox" ng-model="$parent.showKey"> Show Key
+              </label>
+              <label>
+                <input type="checkbox" ng-model="$parent.showIds"> Show Ids
+              </label>
+              <label>Term box width
+                <input type="number" ng-model="$parent.termBoxWidth">
+              </label>
+              <label>Term box height
+                <input type="number" ng-model="$parent.termBoxHeight">
+              </label>
+              <label>
+                <input type="checkbox" ng-model="$parent.showSlimColours"> Show slim colours
+              </label>
+              <label>
+                <input type="checkbox" ng-model="$parent.showChildren"> Show children
+              </label>
+              <a class="button small" ng-click="applyOptions();$close()">Apply</a>
+        </pane>
+    </dropdown-toggle>
   </div>
 </div>
 <div class="row columns medium-12">

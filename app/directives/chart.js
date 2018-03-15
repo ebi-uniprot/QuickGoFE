@@ -18,9 +18,9 @@ angular
         scope.showChildren = false;
 
         var that = this;
-        scope.$watchGroup(['showIds','showKey','termBoxWidth','termBoxHeight','showSlimColours','showChildren'], function(d){
+        scope.applyOptions = function(){
           that.drawChart(scope);
-        });
+        };
         this.drawChart(scope);
       },
       drawChart: function(scope) {
