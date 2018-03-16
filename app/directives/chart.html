@@ -2,28 +2,30 @@
   <div class="float-left chart-title">{{title}}</div>
   <div class="float-left">
     <dropdown-toggle close-on-click="true">
-        <toggle><a class="dropdown button small">Chart options</a></toggle>
-        <pane>
-              <label>
-                <input type="checkbox" ng-model="$parent.showKey"> Show Key
-              </label>
-              <label>
-                <input type="checkbox" ng-model="$parent.showIds"> Show Ids
-              </label>
-              <label>Term box width
-                <input type="number" ng-model="$parent.termBoxWidth">
-              </label>
-              <label>Term box height
-                <input type="number" ng-model="$parent.termBoxHeight">
-              </label>
-              <label>
-                <input type="checkbox" ng-model="$parent.showSlimColours"> Show slim colours
-              </label>
-              <label>
-                <input type="checkbox" ng-model="$parent.showChildren"> Show children
-              </label>
-              <a class="button small" ng-click="applyOptions();$close()">Apply</a>
-        </pane>
+      <toggle>
+        <a class="dropdown button small">Chart options</a>
+      </toggle>
+      <pane>
+        <label>
+          <input type="checkbox" ng-model="$parent.showKey"> Show Key
+        </label>
+        <label>
+          <input type="checkbox" ng-model="$parent.showIds"> Show Ids
+        </label>
+        <label>Term box width
+          <input type="number" ng-model="$parent.termBoxWidth">
+        </label>
+        <label>Term box height
+          <input type="number" ng-model="$parent.termBoxHeight">
+        </label>
+        <label>
+          <input type="checkbox" ng-model="$parent.showSlimColours"> Show slim colours
+        </label>
+        <label>
+          <input type="checkbox" ng-model="$parent.showChildren"> Show children
+        </label>
+        <a class="button small" ng-click="applyOptions();$close()">Apply</a>
+      </pane>
     </dropdown-toggle>
   </div>
 </div>
