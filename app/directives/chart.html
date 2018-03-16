@@ -1,7 +1,40 @@
-<div>{{title}}</div>
-<br />
-<img id="ancestorChart" ng-src="data:image/png;base64,{{img}}" alt="Ancestor chart" usemap="#{{imageMapId}}" width="{{imageWidth}}" height="{{imageHeight}}" style="{{style}}" cg-busy="chartPromise"/>
-<map name="{{imageMapId}}">
-  <area shape="rect" coords="{{node.left}},{{node.top}},{{node.right}},{{node.bottom}}" href="term/{{node.id}}" title="Term {{node.id}}" title="{{node.id}} - Click for more information" ng-repeat="node in graphImage.nodePositions">
-  <area shape="rect" coords="{{node.left}},{{node.top}},{{node.right}},{{node.bottom}}" title="{{tooltip}}" ng-repeat="node in graphImage.legendPositions">
-</map>
+<div class="row">
+  <div class="float-left chart-title">{{title}}</div>
+  <div class="float-left">
+    <dropdown-toggle close-on-click="true">
+      <toggle>
+        <a class="dropdown button small">Chart options</a>
+      </toggle>
+      <pane>
+        <label>
+          <input type="checkbox" ng-model="$parent.showKey"> Show Key
+        </label>
+        <label>
+          <input type="checkbox" ng-model="$parent.showIds"> Show Ids
+        </label>
+        <label>Term box width
+          <input type="number" ng-model="$parent.termBoxWidth">
+        </label>
+        <label>Term box height
+          <input type="number" ng-model="$parent.termBoxHeight">
+        </label>
+        <label>
+          <input type="checkbox" ng-model="$parent.showSlimColours"> Show slim colours
+        </label>
+        <label>
+          <input type="checkbox" ng-model="$parent.showChildren"> Show children
+        </label>
+        <a class="button small" ng-click="applyOptions();$close()">Apply</a>
+      </pane>
+    </dropdown-toggle>
+  </div>
+</div>
+<div class="row columns medium-12">
+  <img id="ancestorChart" ng-src="data:image/png;base64,{{img}}" alt="Ancestor chart" usemap="#{{imageMapId}}" width="{{imageWidth}}"
+    height="{{imageHeight}}" style="{{style}}" cg-busy="chartPromise" />
+  <map name="{{imageMapId}}">
+    <area shape="rect" coords="{{node.left}},{{node.top}},{{node.right}},{{node.bottom}}" href="term/{{node.id}}" title="Term {{node.id}}"
+      title="{{node.id}} - Click for more information" ng-repeat="node in graphImage.nodePositions">
+    <area shape="rect" coords="{{node.left}},{{node.top}},{{node.right}},{{node.bottom}}" title="{{tooltip}}" ng-repeat="node in graphImage.legendPositions">
+  </map>
+</div>

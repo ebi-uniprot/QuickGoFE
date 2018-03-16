@@ -24,7 +24,7 @@
                 <div class="row expanded">
                     <p>
                         Statistics for the top <strong>{{stats.geneProductId.annotation.length | number:0}}</strong> of
-                        about <strong>{{stats.geneProductId.approximateCount | number:0}}</strong> distinct Gene Products.
+                        {{stats.geneProductId.about}}<strong>{{stats.geneProductId.approximateCount | number:0}}</strong> distinct Gene Products.
                     </p>
                     <stats-table title="Annotations per Gene Product ID" items="stats.geneProductId.annotation" is-term="true" mapping="goTermMapping"></stats-table>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="row expanded">
                     <p>
                         Statistics for the top <strong>{{stats.annotationsForGoId.geneProduct.length | number:0}}</strong> of
-                        about <strong>{{stats.annotationsForGoId.approximateCount | number:0}}</strong> distinct Slim GO ids.
+                        {{stats.annotationsForGoId.about}}<strong>{{stats.annotationsForGoId.approximateCount | number:0}}</strong> distinct Slim GO ids.
                     </p>
                     <stats-table title="Annotations per slim term" items="stats.annotationsForGoId.geneProduct" is-term="true" mapping="goTermMapping"></stats-table>
                     <!-- <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table> -->
@@ -43,7 +43,7 @@
                 <div class="row expanded">
                     <p>
                         Statistics for the top <strong>{{stats.goId.annotation.length | number:0}}</strong> of
-                        about <strong>{{stats.goId.approximateCount | number:0}}</strong> distinct GO ids.
+                        {{stats.goId.about}}<strong>{{stats.goId.approximateCount | number:0}}</strong> distinct GO ids.
                     </p>
                     <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true" mapping="goTermMapping"></stats-table>
                     <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true" mapping="goTermMapping"></stats-table>
@@ -53,7 +53,7 @@
                 <div class="row expanded">
                     <p>
                         Statistics for the top <strong>{{stats.aspect.annotation.length | number:0}}</strong> of
-                        about <strong>{{stats.aspect.approximateCount | number:0}}</strong> distinct Aspects.
+                        {{stats.aspect.about}}<strong>{{stats.aspect.approximateCount | number:0}}</strong> distinct Aspects.
                     </p>
                     <stats-table title="Annotations per Aspect" items="stats.aspect.annotation"></stats-table>
                     <stats-table title="Gene products per Aspect" items="stats.aspect.geneProduct"></stats-table>
@@ -63,7 +63,7 @@
                 <div class="row expanded">
                     <p>
                         Statistics for the top <strong>{{stats.evidenceCode.annotation.length | number:0}}</strong> of
-                        about <strong>{{stats.evidenceCode.approximateCount | number:0}}</strong> distinct Evidence Codes.
+                        {{stats.evidenceCode.about}}<strong>{{stats.evidenceCode.approximateCount | number:0}}</strong> distinct Evidence Codes.
                     </p>
                     <stats-table title="Annotations per Evidence" items="stats.evidenceCode.annotation" is-term="true"></stats-table>
                     <stats-table title="Gene products per Evidence" items="stats.evidenceCode.geneProduct" is-term="true"></stats-table>
@@ -73,7 +73,7 @@
                 <div class="row expanded">
                     <p>
                         Statistics for the top <strong>{{stats.reference.annotation.length | number:0}}</strong> of
-                        about <strong>{{stats.reference.approximateCount | number:0}}</strong> distinct References.
+                        {{stats.reference.about}}<strong>{{stats.reference.approximateCount | number:0}}</strong> distinct References.
                     </p>
                     <stats-table title="Annotations per Reference" items="stats.reference.annotation"></stats-table>
                     <stats-table title="Gene products per Reference" items="stats.reference.geneProduct"></stats-table>
@@ -83,7 +83,7 @@
                 <div class="row expanded">
                     <p>
                         Statistics for the top <strong>{{stats.taxonId.annotation.length | number:0}}</strong> of
-                        about <strong>{{stats.taxonId.approximateCount | number:0}}</strong> distinct Taxon Ids.
+                        {{stats.taxonId.about}}<strong>{{stats.taxonId.approximateCount | number:0}}</strong> distinct Taxon Ids.
                     </p>
                     <stats-table title="Annotations per Taxon" items="stats.taxonId.annotation"></stats-table>
                     <stats-table title="Gene products per Taxon" items="stats.taxonId.geneProduct"></stats-table>
@@ -93,7 +93,7 @@
                 <div class="row expanded">
                     <p>
                       Statistics for the top <strong>{{stats.assignedBy.annotation.length | number:0}}</strong> of
-                      about <strong>{{stats.assignedBy.approximateCount | number:0}}</strong> distinct Assigned by.
+                      {{stats.assignedBy.about}}<strong>{{stats.assignedBy.approximateCount | number:0}}</strong> distinct Assigned by.
                     </p>
                     <stats-table title="Annotations per Assigned By" items="stats.assignedBy.annotation"></stats-table>
                     <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table>
