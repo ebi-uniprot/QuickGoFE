@@ -40,7 +40,6 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
                 angular.forEach(item.types, function(type) {
                     $scope.stats[type.type].annotation = type.values;
                     $scope.stats[type.type].approximateCount = type.approximateCount;
-                    $scope.stats[type.type].about = type.values.length === type.approximateCount ? '' : ' about ';
                     $scope.totalNumberAnnotations = item.totalHits;
                 });
             } else if (item.groupName === 'geneProduct') {
@@ -52,7 +51,6 @@ app.controller('StatisticsCtrl', function($scope, $routeParams, searchService, t
                 angular.forEach(item.types, function(type) {
                     $scope.stats[type.type].geneProduct = type.values;
                     $scope.stats[type.type].approximateCount = type.approximateCount;
-                    $scope.stats[type.type].about = type.values.length === type.approximateCount ? '' : ' about ';
                     $scope.totalNumberAnnotations = item.totalHits;
                 });
             }
