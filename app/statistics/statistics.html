@@ -23,8 +23,13 @@
             <tab heading="{{stats.geneProductId.label}}" ng-show="stats.geneProductId.annotation.length > 0">
                 <div class="row expanded">
                     <p>
+                      <span ng-show="stats.geneProductId.annotation.length === stats.geneProductId.approximateCount">
+                        Statistics for all <strong>{{stats.geneProductId.annotation.length | number:0}}</strong> distinct Gene Products.
+                      </span>
+                      <span ng-show="stats.geneProductId.annotation.length !== stats.geneProductId.approximateCount">
                         Statistics for the top <strong>{{stats.geneProductId.annotation.length | number:0}}</strong> of
-                        {{stats.geneProductId.about}}<strong>{{stats.geneProductId.approximateCount | number:0}}</strong> distinct Gene Products.
+                        about <strong>{{stats.geneProductId.approximateCount | number:0}}</strong> distinct Gene Products.
+                      </span>
                     </p>
                     <stats-table title="Annotations per Gene Product ID" items="stats.geneProductId.annotation" is-term="true" mapping="goTermMapping"></stats-table>
                 </div>
@@ -32,8 +37,13 @@
             <tab heading="{{stats.annotationsForGoId.label}}" ng-show="stats.annotationsForGoId.geneProduct.length > 0">
                 <div class="row expanded">
                     <p>
+                       <span ng-show="stats.annotationsForGoId.geneProduct.length === stats.annotationsForGoId.approximateCount">
+                        Statistics for all <strong>{{stats.annotationsForGoId.geneProduct.length | number:0}}</strong> distinct Slim GO ids.
+                      </span>
+                      <span ng-show="stats.annotationsForGoId.geneProduct.length !== stats.annotationsForGoId.approximateCount">
                         Statistics for the top <strong>{{stats.annotationsForGoId.geneProduct.length | number:0}}</strong> of
-                        {{stats.annotationsForGoId.about}}<strong>{{stats.annotationsForGoId.approximateCount | number:0}}</strong> distinct Slim GO ids.
+                        about <strong>{{stats.annotationsForGoId.approximateCount | number:0}}</strong> distinct Slim GO ids.
+                      </span>
                     </p>
                     <stats-table title="Annotations per slim term" items="stats.annotationsForGoId.geneProduct" is-term="true" mapping="goTermMapping"></stats-table>
                     <!-- <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table> -->
@@ -42,8 +52,13 @@
             <tab heading="{{stats.goId.label}}">
                 <div class="row expanded">
                     <p>
+                      <span ng-show="stats.goId.annotation.length === stats.goId.approximateCount">
+                        Statistics for all <strong>{{stats.goId.annotation.length | number:0}}</strong> distinct GO ids.
+                      </span>
+                      <span ng-show="stats.goId.annotation.length !== stats.goId.approximateCount">
                         Statistics for the top <strong>{{stats.goId.annotation.length | number:0}}</strong> of
-                        {{stats.goId.about}}<strong>{{stats.goId.approximateCount | number:0}}</strong> distinct GO ids.
+                        about <strong>{{stats.goId.approximateCount | number:0}}</strong> distinct GO ids.
+                      </span>
                     </p>
                     <stats-table title="Annotations per GO ID" items="stats.goId.annotation" is-term="true" mapping="goTermMapping"></stats-table>
                     <stats-table title="Gene products per GO ID" items="stats.goId.geneProduct" is-term="true" mapping="goTermMapping"></stats-table>
@@ -52,8 +67,13 @@
             <tab heading="{{stats.aspect.label}}">
                 <div class="row expanded">
                     <p>
+                      <span ng-show="stats.aspect.annotation.length === stats.aspect.approximateCount">
+                        Statistics for all <strong>{{stats.aspect.annotation.length | number:0}}</strong> distinct Aspects.
+                      </span>
+                      <span ng-show="stats.aspect.annotation.length !== stats.aspect.approximateCount">
                         Statistics for the top <strong>{{stats.aspect.annotation.length | number:0}}</strong> of
-                        {{stats.aspect.about}}<strong>{{stats.aspect.approximateCount | number:0}}</strong> distinct Aspects.
+                        about <strong>{{stats.aspect.approximateCount | number:0}}</strong> distinct Aspects.
+                      </span>
                     </p>
                     <stats-table title="Annotations per Aspect" items="stats.aspect.annotation"></stats-table>
                     <stats-table title="Gene products per Aspect" items="stats.aspect.geneProduct"></stats-table>
@@ -62,8 +82,13 @@
             <tab heading="{{stats.evidenceCode.label}}">
                 <div class="row expanded">
                     <p>
+                      <span ng-show="stats.evidenceCode.annotation.length === stats.evidenceCode.approximateCount">
+                        Statistics for all <strong>{{stats.evidenceCode.annotation.length | number:0}}</strong> distinct Evidence Codes.
+                      </span>
+                      <span ng-show="stats.evidenceCode.annotation.length !== stats.evidenceCode.approximateCount">
                         Statistics for the top <strong>{{stats.evidenceCode.annotation.length | number:0}}</strong> of
-                        {{stats.evidenceCode.about}}<strong>{{stats.evidenceCode.approximateCount | number:0}}</strong> distinct Evidence Codes.
+                        about <strong>{{stats.evidenceCode.approximateCount | number:0}}</strong> distinct Evidence Codes.
+                      </span>
                     </p>
                     <stats-table title="Annotations per Evidence" items="stats.evidenceCode.annotation" is-term="true"></stats-table>
                     <stats-table title="Gene products per Evidence" items="stats.evidenceCode.geneProduct" is-term="true"></stats-table>
@@ -72,8 +97,13 @@
             <tab heading="{{stats.reference.label}}">
                 <div class="row expanded">
                     <p>
+                      <span ng-show="stats.reference.annotation.length === stats.reference.approximateCount">
+                        Statistics for all <strong>{{stats.reference.annotation.length | number:0}}</strong> distinct References.
+                      </span>
+                      <span ng-show="stats.reference.annotation.length !== stats.reference.approximateCount">
                         Statistics for the top <strong>{{stats.reference.annotation.length | number:0}}</strong> of
-                        {{stats.reference.about}}<strong>{{stats.reference.approximateCount | number:0}}</strong> distinct References.
+                        about <strong>{{stats.reference.approximateCount | number:0}}</strong> distinct References.
+                      </span>
                     </p>
                     <stats-table title="Annotations per Reference" items="stats.reference.annotation"></stats-table>
                     <stats-table title="Gene products per Reference" items="stats.reference.geneProduct"></stats-table>
@@ -82,8 +112,13 @@
             <tab heading="{{stats.taxonId.label}}">
                 <div class="row expanded">
                     <p>
+                      <span ng-show="stats.taxonId.annotation.length === stats.taxonId.approximateCount">
+                        Statistics for all <strong>{{stats.taxonId.annotation.length | number:0}}</strong> distinct Taxon Ids.
+                      </span>
+                      <span ng-show="stats.taxonId.annotation.length !== stats.taxonId.approximateCount">
                         Statistics for the top <strong>{{stats.taxonId.annotation.length | number:0}}</strong> of
-                        {{stats.taxonId.about}}<strong>{{stats.taxonId.approximateCount | number:0}}</strong> distinct Taxon Ids.
+                        about <strong>{{stats.taxonId.approximateCount | number:0}}</strong> distinct Taxon Ids.
+                      </span>
                     </p>
                     <stats-table title="Annotations per Taxon" items="stats.taxonId.annotation"></stats-table>
                     <stats-table title="Gene products per Taxon" items="stats.taxonId.geneProduct"></stats-table>
@@ -92,8 +127,13 @@
             <tab heading="{{stats.assignedBy.label}}">
                 <div class="row expanded">
                     <p>
-                      Statistics for the top <strong>{{stats.assignedBy.annotation.length | number:0}}</strong> of
-                      {{stats.assignedBy.about}}<strong>{{stats.assignedBy.approximateCount | number:0}}</strong> distinct Assigned by.
+                      <span ng-show="stats.assignedBy.annotation.length === stats.assignedBy.approximateCount">
+                        Statistics for all <strong>{{stats.assignedBy.annotation.length | number:0}}</strong> distinct Assigned by.
+                      </span>
+                      <span ng-show="stats.assignedBy.annotation.length !== stats.assignedBy.approximateCount">
+                        Statistics for the top <strong>{{stats.assignedBy.annotation.length | number:0}}</strong> of
+                        about <strong>{{stats.assignedBy.approximateCount | number:0}}</strong> distinct Assigned by.
+                      </span>
                     </p>
                     <stats-table title="Annotations per Assigned By" items="stats.assignedBy.annotation"></stats-table>
                     <stats-table title="Gene products per Assigned By" items="stats.assignedBy.geneProduct"></stats-table>
