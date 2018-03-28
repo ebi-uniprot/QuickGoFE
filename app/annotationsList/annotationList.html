@@ -57,14 +57,15 @@
                     </td>
                     <td ng-show="columns['withFrom'].visible">
                         <div>
-                            <span ng-if="item.withFrom.length === 1">
-                <a class="quickgo-link ellipsis"
-                   ng-click="followLinkToEntry(item.withFrom[0].connectedXrefs[0].id, item.withFrom[0].connectedXrefs[0].db)"
-                   target="_blank">
-                  {{item.withFrom[0].connectedXrefs[0].db}}:{{item.withFrom[0].connectedXrefs[0].id}}
-                </a>
-              </span>
-                            <a ng-if="item.withFrom.length > 1" class="quickgo-link" ng-click="openFromWith(item.withFrom)" target="_blank">{{item.withFrom[0].connectedXrefs[0].db}}:{{item.withFrom[0].connectedXrefs[0].id}} more...</a>
+                            <span ng-if="item.withFrom.length === 1 && item.withFrom[0].connectedXrefs.length === 1">
+                              <a class="quickgo-link ellipsis"
+                                 ng-click="followLinkToEntry(item.withFrom[0].connectedXrefs[0].id, item.withFrom[0].connectedXrefs[0].db)"
+                                 target="_blank">
+                                {{item.withFrom[0].connectedXrefs[0].db}}:{{item.withFrom[0].connectedXrefs[0].id}}
+                              </a>
+                            </span>
+                            <a ng-if="item.withFrom.length > 1 || item.withFrom[0].connectedXrefs.length >1" class="quickgo-link" ng-click="openFromWith(item.withFrom)" target="_blank">
+                              {{item.withFrom[0].connectedXrefs[0].db}}:{{item.withFrom[0].connectedXrefs[0].id}} more...</a>
                         </div>
                     </td>
                     <td ng-show="columns['taxon'].visible">
