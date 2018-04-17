@@ -14,16 +14,27 @@ validationModule.factory('validationService', function() {
   };
 
   validationService.validateGeneProduct = function(id) {
-    return validationService.validateProtein(id) || validationService.validateComplexes(id) ||
-      validationService.validateRNA(id);
+    return (
+      validationService.validateProtein(id) ||
+      validationService.validateComplexes(id) ||
+      validationService.validateIntactComplexes(id) ||
+      validationService.validateRNA(id)
+    );
   };
 
   validationService.validateProtein = function(id) {
-    var matches = id.match(/^(uniprotkb:)?([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])((-[0-9]+)|:PRO_[0-9]{10}|:VAR_[0-9]{6}){0,1}$/i);
+    var matches = id.match(
+      /^(uniprotkb:)?([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z]([0-9][A-Z][A-Z0-9]{2}){1,2}[0-9])((-[0-9]+)|:PRO_[0-9]{10}|:VAR_[0-9]{6}){0,1}$/i
+    );
     return matches ? 'UniProtKB:' + matches[2] + (matches[4] ? matches[4] : '') : null;
   };
 
   validationService.validateComplexes = function(id) {
+    var matches = id.match(/^(ComplexPortal:)?(CPX-[0-9]+)$/i);
+    return matches ? 'ComplexPortal:' + matches[2] : null;
+  };
+
+  validationService.validateIntactComplexes = function(id) {
     var matches = id.match(/^(intact:)?(EBI-[0-9]+)$/i);
     return matches ? 'IntAct:' + matches[2] : null;
   };
@@ -33,11 +44,11 @@ validationModule.factory('validationService', function() {
     return matches ? 'RNAcentral:' + matches[2] : null;
   };
 
-  validationService.validateTaxon = function(taxon){
+  validationService.validateTaxon = function(taxon) {
     return taxon.match(/^[0-9]+$/);
   };
 
-  validationService.validateOther = function(other){
+  validationService.validateOther = function(other) {
     return other.match(/[A-Za-z0-9]+/);
   };
 
