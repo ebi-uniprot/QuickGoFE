@@ -21,15 +21,25 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
   };
 
   $scope.addComponent = function() {
-    $scope.extension = ($scope.extension === '*') ? '' : $scope.extension;
-      var component = ($scope.relationship ? $scope.relationship : '') 
+    if (!isOnlyOneWord()) {
+      $rootScope.alerts.push({type: 'alert', msg: 'Please ensure you have entered only one ID and try again.'});
+    } else {
+      $scope.extension = ($scope.extension === '*') ? '' : $scope.extension;
+      var component = ($scope.relationship ? $scope.relationship : '')
           + ($scope.relationship && $scope.db ? '(' : '') + ($scope.db ? $scope.db : '')
           + ($scope.id ? ':' + $scope.id : '') + ($scope.relationship && $scope.db ? ')' : '');
       $scope.extension = $scope.extension + ($scope.extension ? ',' : '') + component;
       $scope.relationship = '';
       $scope.db = '';
       $scope.id = '';
+    }
   };
+
+  var isOnlyOneWord = function() {
+    return $scope.id
+      ? $scope.id.match(/( |,)+/g) === null
+      : true;
+  }
 
   $scope.addButtonEnabled = function() {
     return !$scope.relationship && !$scope.db;

@@ -22,6 +22,10 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
     'name':'UniProtKB',
     'id':'dbSubset',
     'type':'gp'
+  }, {
+    'name':'Proteome status',
+    'id':'proteomeMembership',
+    'type':'gp'
   }];
 
   var getFacets = function(type) {
