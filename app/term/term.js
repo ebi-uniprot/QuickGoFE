@@ -51,7 +51,7 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
         $scope.termModel = data.data.results[0];
         //set secondary ids string
         $scope.termModel.secondaryIdsString = $scope.termModel.secondaryIds ?
-            $scope.termModel.secondaryIds.join() : '';
+            $scope.termModel.secondaryIds.join(', ') : '';
 
         //set function filters for history/change log
         $scope.termModel.historyDefSyn = _.filter($scope.termModel.history, function(hist) {
