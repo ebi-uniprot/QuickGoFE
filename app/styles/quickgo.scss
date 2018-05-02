@@ -60,6 +60,10 @@ div#local-masthead, header#masthead {
   display: inline-block;
 }
 
+.menu.advancedFilters li ul li{
+  display: inherit;
+}
+
 .reduced-logo{
   height: 50px;
 }
