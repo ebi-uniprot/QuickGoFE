@@ -1,4 +1,81 @@
 <div id="content"  class="rowz" role="main" cg-busy="termPromise" ng-if="termModel.id">
+
+  <!-- Sidebar: Controls what gets displayed on the main page.-->
+<div class="columns medium-3">
+<nav id="term-section-nav">
+  <ul>
+    <li du-scrollspy="overview">
+      <a class="term-section-view" du-smooth-scroll="overview">Overview</a>
+    </li>
+    <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length===0))}"
+        du-scrollspy="termSynonyms">
+      <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
+    </li>
+    <li du-scrollspy="ancestorChart" ng-hide="isObsolete">
+      <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
+    </li>
+    <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length===0))}" ng-hide="isObsolete"
+        du-scrollspy="childTerms">
+      <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
+    </li>
+    <li ng-hide="!isGoTerm"
+        ng-class="{'section-disabled':(!termModel.annotationGuidelines || (termModel.annotationGuidelines.length===0))}"
+        du-scrollspy="termAnnotationGuidance">
+      <a class="term-section-view" du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
+    </li>
+    <li ng-hide="!isGoTerm"
+        ng-class="{'section-disabled':(!termModel.goDiscussions || (termModel.plannedChanges.length===0))}"
+        du-scrollspy="goDiscussions">
+      <a class="term-section-view" du-smooth-scroll="goDiscussions" >GO Discussions</a>
+    </li>
+    <li ng-hide="!isGoTerm"
+        ng-class="{'section-disabled':(!termModel.taxonConstraints || (termModel.taxonConstraints.length===0))}"
+        du-scrollspy="termTaxonConstraints">
+      <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>
+    </li>
+    <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.blacklist || (termModel.blacklist.length===0))}"
+        du-scrollspy="blacklist">
+      <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
+    </li>
+    <li ng-class="{'section-disabled':(!termModel.xRefs || (termModel.xRefs.length===0))}"
+        du-scrollspy="termCrossReferences">
+      <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
+    </li>
+    <li ng-hide="!isGoTerm"
+        ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length===0))}"
+        du-scrollspy="termCrossOntologyRelations">
+      <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
+    </li>
+    <li ng-hide="!isGoTerm"
+        ng-class="{'section-disabled':(!termModel.proteinComplexes || (termModel.proteinComplexes.length===0))}"
+        du-scrollspy="termProteinComplexes">
+      <a class="term-section-view" du-smooth-scroll="termProteinComplexes" >Protein Complexes</a>
+    </li>
+    <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length===0))}"
+        du-scrollspy="termReplaces">
+      <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
+    </li>
+    <li ng-hide="!isGoTerm"
+        ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length===0))}"
+        du-scrollspy="termReplacedBy">
+      <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
+    </li>
+    <li ng-hide="!isGoTerm || isObsolete" du-scrollspy="coOcurring">
+      <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
+    </li>
+    <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length===0))}"
+        du-scrollspy="termGOSlims">
+      <a class="term-section-view" du-smooth-scroll="termGOSlims">GO Slims</a>
+    </li>
+    <li du-scrollspy="termHistory">
+      <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
+    </li>
+  </ul>
+</nav>
+</div>
+
+<!--End of side bar information-->
+
   <section class="columns medium-9" id="container">
   <!-- Title section -->
   <section class="panel" id="overview">
@@ -521,81 +598,7 @@
   </div>
   </section>
 
-    <!-- Sidebar: Controls what gets displayed on the main page.-->
-  <div class="columns medium-3">
-  <nav id="term-section-nav">
-    <ul>
-      <li du-scrollspy="overview">
-        <a class="term-section-view" du-smooth-scroll="overview">Overview</a>
-      </li>
-      <li ng-class="{'section-disabled':(!termModel.synonyms || (termModel.synonyms.length===0))}"
-          du-scrollspy="termSynonyms">
-        <a class="term-section-view" du-smooth-scroll="termSynonyms">Synonyms</a>
-      </li>
-      <li du-scrollspy="ancestorChart" ng-hide="isObsolete">
-        <a class="term-section-view" du-smooth-scroll="ancestorChart" >Ancestor Chart</a>
-      </li>
-      <li ng-class="{'section-disabled':(!termModel.children || (termModel.children.length===0))}" ng-hide="isObsolete"
-          du-scrollspy="childTerms">
-        <a span class="term-section-view" du-smooth-scroll="childTerms">Child Terms</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.annotationGuidelines || (termModel.annotationGuidelines.length===0))}"
-          du-scrollspy="termAnnotationGuidance">
-        <a class="term-section-view" du-smooth-scroll="termAnnotationGuidance">Annotation Guidance</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.goDiscussions || (termModel.plannedChanges.length===0))}"
-          du-scrollspy="goDiscussions">
-        <a class="term-section-view" du-smooth-scroll="goDiscussions" >GO Discussions</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.taxonConstraints || (termModel.taxonConstraints.length===0))}"
-          du-scrollspy="termTaxonConstraints">
-        <a class="term-section-view" du-smooth-scroll="termTaxonConstraints" >Taxon Constraints</a>
-      </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.blacklist || (termModel.blacklist.length===0))}"
-          du-scrollspy="blacklist">
-        <a class="term-section-view" du-smooth-scroll="blacklist">Blacklist</a>
-      </li>
-      <li ng-class="{'section-disabled':(!termModel.xRefs || (termModel.xRefs.length===0))}"
-          du-scrollspy="termCrossReferences">
-        <a class="term-section-view" du-smooth-scroll="termCrossReferences">Cross-References</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.xRelations || (termModel.xRelations.length===0))}"
-          du-scrollspy="termCrossOntologyRelations">
-        <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.proteinComplexes || (termModel.proteinComplexes.length===0))}"
-          du-scrollspy="termProteinComplexes">
-        <a class="term-section-view" du-smooth-scroll="termProteinComplexes" >Protein Complexes</a>
-      </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length===0))}"
-          du-scrollspy="termReplaces">
-        <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
-      </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.replacements || (termModel.replacements.length===0))}"
-          du-scrollspy="termReplacedBy">
-        <a class="term-section-view" du-smooth-scroll="termReplacedBy">Replaced By</a>
-      </li>
-      <li ng-hide="!isGoTerm || isObsolete" du-scrollspy="coOcurring">
-        <a class="term-section-view" du-smooth-scroll="coOcurring">Co-occurring Terms</a>
-      </li>
-      <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.subsets || (termModel.subsets.length===0))}"
-          du-scrollspy="termGOSlims">
-        <a class="term-section-view" du-smooth-scroll="termGOSlims">GO Slims</a>
-      </li>
-      <li du-scrollspy="termHistory">
-        <a class="term-section-view" du-smooth-scroll="termHistory">Change Log</a>
-      </li>
-    </ul>
-  </nav>
-</div>
 
-  <!--End of side bar information-->
 
 </div>
 <div id="containerNotFound"class="not-found row" role="main">

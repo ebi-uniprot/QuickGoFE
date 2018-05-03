@@ -658,7 +658,7 @@ h5.active-filter:before{
   background-color: $white;
   &.fixed {
     position: fixed;
-    top: 10px;
+    top: 25px;
   }
   li {
     display: block;
@@ -802,4 +802,8 @@ h2 aspect-icon, h2 basket-button{
 
 #ancestorChart{
   max-width: none;
+}
+
+#content .columns.medium-3{
+  margin-top: 25px;
 }
