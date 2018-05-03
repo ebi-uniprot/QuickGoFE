@@ -30,6 +30,7 @@ angular
               return d.name.toLowerCase().includes(scope.searchTerm.toLowerCase());
             }));
           }
+          scope.model = scope.searchTerm;
         };
 
         scope.selectItem = function(id, $event) {

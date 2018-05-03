@@ -33,13 +33,7 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
 
   $scope.addButtonEnabled = function() {
     return !$scope.relationship && !$scope.db;
-  }
-
-  $scope.updateInputBox = function(textBoxId, source){
-    var inputBox = angular.element(document.getElementById(textBoxId).firstChild);
-    $scope[source] = inputBox[0].value;
-  }
-  
+  }  
 
   presetsService.getPresetsExtensionRelations().then(function(d){
     var data = d.data.extRelations;
