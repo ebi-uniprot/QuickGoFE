@@ -17,7 +17,7 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
       .then(function (resp) {
         var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
         $scope.references = filterService.mergeArrays(referencePresetItems, $scope.references);
-        $scope.references = _.chain($scope.references).sortBy('id').sortBy(function(d){
+        $scope.references = _.chain($scope.references).reverse().sortBy(function(d){
           return d.id.indexOf('GO_REF:') >= 0;
         }).value();
       });
