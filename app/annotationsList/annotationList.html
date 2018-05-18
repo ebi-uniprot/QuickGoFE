@@ -73,10 +73,10 @@
                     </td>
                     <td ng-show="columns['assignedBy'].visible"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(item.assignedBy)">{{item.assignedBy}}</a></td>
                     <td ng-show="columns['annotationExtension'].visible">
-                        <a ng-if="item.extensions[0].connectedXrefs.length === 1" href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{item.extensions[0].connectedXrefs[0].qualifier}}.md" target="_blank">
-                {{item.extensions[0].connectedXrefs[0].qualifier}} <a tooltip="{{olsxrefs[item.extensions[0].connectedXrefs[0].db + ':' + item.extensions[0].connectedXrefs[0].id]}}" ng-if="item.extensions[0].connectedXrefs.length === 1" ng-click="followLinkToEntry(item.extensions[0].connectedXrefs[0].id, item.extensions[0].connectedXrefs[0].db)" target="_blank">
+                        <a ng-if="item.extensions[0].connectedXrefs.length === 1 && item.extensions.length === 1" href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{item.extensions[0].connectedXrefs[0].qualifier}}.md" target="_blank">
+                {{item.extensions[0].connectedXrefs[0].qualifier}} <a ng-if="item.extensions[0].connectedXrefs.length === 1 && item.extensions.length === 1" tooltip="{{olsxrefs[item.extensions[0].connectedXrefs[0].db + ':' + item.extensions[0].connectedXrefs[0].id]}}"  ng-click="followLinkToEntry(item.extensions[0].connectedXrefs[0].id, item.extensions[0].connectedXrefs[0].db)" target="_blank">
               ({{item.extensions[0].connectedXrefs[0].db}}:{{item.extensions[0].connectedXrefs[0].id}})</a></a>
-                        <a tooltip="{{olsxrefs[item.extensions[0].connectedXrefs[0].db + ':' + item.extensions[0].connectedXrefs[0].id]}} more..." ng-if="item.extensions[0].connectedXrefs.length > 1" class="quickgo-link" ng-click="openAnnoExtension(item.extensions)" target="_blank">
+                        <a ng-if="item.extensions[0].connectedXrefs.length > 1 || item.extensions.length > 1" tooltip="{{olsxrefs[item.extensions[0].connectedXrefs[0].db + ':' + item.extensions[0].connectedXrefs[0].id]}} more..." class="quickgo-link" ng-click="openAnnoExtension(item.extensions)" target="_blank">
               {{item.extensions[0].connectedXrefs[0].qualifier}} ({{item.extensions[0].connectedXrefs[0].db}}:{{item.extensions[0].connectedXrefs[0].id}}) more...</a>
                     </td>
                     <td ng-show="columns['date'].visible" class="">{{item.date}}</td>
