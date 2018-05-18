@@ -13,13 +13,11 @@ div#local-masthead, header#masthead {
 }
 
 .masthead #megasearchbox a:visited{
-  color: #2980b9;
+  color: $primary1;
 }
 
 #local-title.logo-title {
   h1 {
-    // color: $primary6;
-    // text-shadow: 2px 1px #fff;
     margin-left: 50px;
   }
   .typeahead-box span {
@@ -52,13 +50,23 @@ div#local-masthead, header#masthead {
 }
 
 #masthead nav ul.menu li { border-right-color: #EEE; }
-#masthead .masthead .menu > li > a  { background: #006f91; color: #fff; font-weight: bold; }
-#masthead .masthead .menu > li > a:hover { color: #fff; background-color: #00a9de;}
+#masthead .masthead .menu > li > a  { background: $primary7; color: $white; font-weight: bold; }
+#masthead .masthead .menu > li > a:hover { color: $white; background-color: $primary6;}
+
+.menu filter-select li{
+  display: inherit;
+}
+.menu filter-select a{
+  display: inline-block;
+}
+
+.menu.advancedFilters li ul li{
+  display: inherit;
+}
 
 .reduced-logo{
   height: 50px;
 }
-// 00a9de   006f91
 
 header .masthead{
   padding-top: 0px;
@@ -66,10 +74,6 @@ header .masthead{
 
 #global-nav a{
   color: white;
-}
-
-.menu>li>a{
-  height: 40px;
 }
 
 a, a:visited, #masthead #local-title .columns a{
@@ -82,6 +86,10 @@ a:hover{
 
 a.button{
   color: white;
+}
+
+.tabs-title > a{
+  color: $primary1;
 }
 
 .tabs-title > a[aria-selected='true']{
@@ -101,7 +109,7 @@ table th{
 
 
 #local-masthead .typeahead-box ul li a{
-   color: #2980B9;
+   color: $primary1;
 }
 .input-group{
   margin-bottom: 0;
@@ -139,7 +147,6 @@ table th{
   border-radius: 6px;
   padding-top: 1em;
   padding-bottom: 1em;
-  // background-color: $verylightgrey;
   h3 {
     border-bottom: none;
   }
@@ -201,6 +208,10 @@ table th{
 #go-annotations:hover, #investigate-go-slims:hover {
   cursor: pointer;
   background-color: $primary5;
+}
+
+.accordion-content ul li{
+  list-style-type: none;
 }
 
 .your-selection-container a.icon-functional{
@@ -291,7 +302,7 @@ li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
   text-decoration: none;
   border-bottom: none;
 }
-.not-found{
+.not-found, .notifications-js{
   display: none;
 }
 .show-not-found{
@@ -300,7 +311,7 @@ li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
 
 .object-table-module .object-table thead>tr th, table thead>tr th{
   padding: 0.5rem 0.625rem 0.625rem 0.5rem;
-  color: #000;
+  color: $black;
   line-height: 1.1;
   vertical-align: top;
 }
@@ -315,10 +326,10 @@ li.section-disabled a, li.section-disabled a:hover, li.section-disabled {
 }
 
 table tbody tr:nth-child(odd){
-  background-color: #defcfc;
+  background-color: $primary4;
 }
 table tbody tr:nth-child(even){
-  background-color: #fff;
+  background-color: $white;
 }
 table th{
   text-align: left;
@@ -330,6 +341,7 @@ table th{
 
 ul.menu button.button{
   margin-left: 5px;
+  display: inline;
 }
 
 aspect-icon span.aspect-icon{
@@ -345,7 +357,7 @@ aspect-icon span.aspect-icon{
 }
 
 #customiseColumns {
-    border: 1px solid #999;
+    border: 1px solid $midgrey;
     border-radius: 10px;
     padding: 5px;
     margin: 0 10px 10px;
@@ -379,7 +391,7 @@ aspect-icon span.aspect-icon{
 }
 
 .accordion-title{
-  color: #2980B9;
+  color: $primary1;
 }
 
 .search-align, #quickgo-old{
@@ -411,6 +423,7 @@ aspect-icon span.aspect-icon{
   padding: 6px 12px;
   border: 1px solid #ddd;
   margin-left: -2px;
+  background-color: $quickgo-button;
 }
 
 /* BASKET    ---------------------------------------------------------------------------------------------------------*/
@@ -437,7 +450,7 @@ aspect-icon span.aspect-icon{
 /* ANNOTATION LIST  --------------------------------------------------------------------------------------------------*/
 
 .advanced-filter-content {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid $lightgrey;
   font-size: 13px;
   padding-top:.5em;
   margin-bottom:2em;
@@ -488,7 +501,7 @@ aspect-icon span.aspect-icon{
 .more-panel{
   box-shadow: 0 2px 6px -2px rgba(0, 0, 0, .2);
   margin-bottom: 2em;
-  background-color: #fff;
+  background-color: $white;
   padding: 10px;
 }
 
@@ -537,7 +550,6 @@ aspect-icon span.aspect-icon{
   border-radius: 4px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
-  // padding-left: 10px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -580,31 +592,49 @@ div {
   }
 }
 
+.callout.primary{
+  background-color: #def0fc;
+}
+
 /*  BUTTONS */
 
 .button{
-  border: 1px solid #2980B9;
-  background-color: #329DE3;
-  color: #FFF;
+  border: 1px solid $primary1;
+  background-color: $quickgo-button;
+  color: $white;
   font-weight: bold;
   border-radius: 4px;
   &:before{
-    color: #fff;
+    color: $white;
     margin: 0 0.3em 0 0;
   }
   &:hover{
-    background-color: #2980B9;
-    color: #FFF
+    background-color: $primary1;
+    color: $white;
+  }
+  &[disabled]:hover{
+    background-color: $primary1;
   }
   &.hover{
-    background-color: #2980B9;
+    background-color: $primary1;
+  }
+  &.hollow{
+    color: $quickgo-button;
+    border: 1px solid $primary1;
   }
   &.active-filter {
     color: $white !important;
     background-color: $ebi-green !important;
     opacity: .6;
   }
+  &[disabled]{
+    background-color: $primary1;
+    color: $white;
+  }
 }
+
+
+
 h5.active-filter:before{
   color: $ebi-green !important;
   opacity: .6;
@@ -613,7 +643,7 @@ h5.active-filter:before{
 }
 
 .button:focus, .button:hover, .button.hover {
-    background-color: #2980B9;
+    background-color: $primary1;
 }
 
 .embl-selector .button{
@@ -625,7 +655,7 @@ h5.active-filter:before{
 
 #term-section-nav, #removedTerms {
   line-height: 2em;
-  background-color: #ffffff;
+  background-color: $white;
   &.fixed {
     position: fixed;
     top: 10px;
@@ -641,16 +671,16 @@ h5.active-filter:before{
 }
 
 .autocomplete-box {
-  background: #FFF;
+  background: $white;
   position: absolute;
   z-index: 1000;
   float: left;
-  border: 1px solid #ccc;
+  border: 1px solid $lightgrey;
   border: 1px solid rgba(0, 0, 0, .15);
   border-radius: 4px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
   background-clip: padding-box;
-  color: #333;
+  color: $darkgrey;
   ul, li {
     margin:0;
   }
@@ -667,25 +697,25 @@ h5.active-filter:before{
 
 .typeahead-box {
   width: 50%;
-  background: #FFF;
+  background: $white;
   padding: 20px;
   position: absolute;
   z-index: 1000;
   float: left;
-  border: 1px solid #ccc;
+  border: 1px solid $lightgrey;
   border: 1px solid rgba(0, 0, 0, .15);
   border-radius: 4px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
   background-clip: padding-box;
-  color: #333;
+  color: $darkgrey;
   ul li{
     text-align: left;
   }
   a{
-    color: #2980b9;
+    color: $primary1;
   }
   h2{
-    color: #006f91;
+    color: $primary7;
   }
 }
 .json-link{
