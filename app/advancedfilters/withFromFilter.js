@@ -57,7 +57,7 @@ app.controller('withFromFilter', function($scope, presetsService, stringService,
     if(withFrom.item) {
       return withFrom.item.description;
     }
-  }
+  };
 
   init();
 });
