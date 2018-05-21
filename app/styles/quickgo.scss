@@ -622,6 +622,9 @@ div {
     color: $quickgo-button;
     border: 1px solid $primary1;
   }
+  &.hollow[disabled]{
+    background-color: $quickgo-button;
+  }
   &.active-filter {
     color: $white !important;
     background-color: $ebi-green !important;
@@ -802,8 +805,4 @@ h2 aspect-icon, h2 basket-button{
 
 #ancestorChart{
   max-width: none;
-}
-
-#content .columns.medium-3{
-  margin-top: 25px;
 }
