@@ -189,11 +189,16 @@ app.controller('TermCtrl', function($rootScope, $scope, $http, $q, $location, $a
     if (container[0]) {
       if (container[0].getBoundingClientRect().top <= 10) {
         angular.element($document[0].querySelector('#term-section-nav')).addClass('fixed');
+        container.addClass('medium-push-3');
       } else {
         var nav = angular.element($document[0].querySelector('#term-section-nav'));
         if (nav.hasClass('fixed')) {
           nav.removeClass('fixed');
         }
+        if (container.hasClass('medium-push-3')) {
+          container.removeClass('medium-push-3');
+        }
+
       }
     }
   });
