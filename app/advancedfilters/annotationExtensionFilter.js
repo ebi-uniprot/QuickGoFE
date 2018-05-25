@@ -42,7 +42,7 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
   }
 
   $scope.addButtonEnabled = function() {
-    return !$scope.relationship && !$scope.db;
+    return !$scope.relationship || !$scope.db || !$scope.id;
   }
 
   presetsService.getPresetsExtensionRelations().then(function(d){
