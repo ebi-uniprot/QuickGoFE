@@ -56,12 +56,17 @@ div#local-masthead, header#masthead {
 .menu filter-select li{
   display: inherit;
 }
-.menu filter-select a{
+.menu filter-select a, .menu #gpSets a{
   display: inline-block;
+  padding: 0px;
 }
 
 .menu.advancedFilters li ul li{
   display: inherit;
+}
+
+#gpSets ul li {
+  padding-bottom: 1rem;
 }
 
 .reduced-logo{
