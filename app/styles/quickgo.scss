@@ -53,20 +53,18 @@ div#local-masthead, header#masthead {
 #masthead .masthead .menu > li > a  { background: $primary7; color: $white; font-weight: bold; }
 #masthead .masthead .menu > li > a:hover { color: $white; background-color: $primary6;}
 
-.menu filter-select li{
+filter-select li{
   display: inherit;
 }
-.menu filter-select a, .menu #gpSets a{
+filter-select a, .advancedFilters a{
   display: inline-block;
-  padding: 0px;
+  padding: 0;
+  margin: 0;
 }
 
-.menu.advancedFilters li ul li{
+.advancedFilters ul li{
   display: inherit;
-}
-
-#gpSets ul li {
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .reduced-logo{
