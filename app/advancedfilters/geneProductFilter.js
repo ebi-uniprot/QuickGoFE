@@ -42,8 +42,8 @@ app.controller('geneProductFilter', function(
     $scope.gpTypesProteomes = [
       {"id":"gcrpCan","item":{"associations":null,"name":"Reference Proteomes (Gene centric, canonical)","id":"gcrpCan"},"checked":true},
       {"id":"gcrpIso","item":{"associations":null,"name":"Reference Proteomes (Gene centric, other isoforms)","id":"gcrpIso"},"checked":true},
-      {"id":"Complete","item":{"associations":null,"name":"Complete Proteomes","id":"Complete"},"checked":true},
-      {"id":"None","item":{"associations":null,"name":"None","id":"None"},"checked":true}
+      {"id":"complete","item":{"associations":null,"name":"Complete Proteomes","id":"complete"},"checked":true},
+      {"id":"none","item":{"associations":null,"name":"None","id":"none"},"checked":true}
     ];
 
     // Looks to put a tick in the box of anything being filtered
