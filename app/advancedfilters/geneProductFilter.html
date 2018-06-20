@@ -2,11 +2,39 @@
   <form>
     <h5>Gene product type</h5>
     <ul class="no-bullet">
-      <li class="checkbox" ng-repeat="gpType in gpTypes">
-        <label>
-          <input type="checkbox" ng-model="gpType.checked">
-          {{gpType.item.name}}</label>
-      </li>
+
+        <li class="checkbox" ng-repeat="gpType in gpTypes">
+          <label>
+            <input type="checkbox" ng-model="gpType.checked">
+            {{gpType.item.name}}</label>
+        </li>
+
+        <li class="checkbox" >
+          <label>
+            <input type="checkbox" ng-model="gpTypesSubSetsList">
+            Proteins</label>
+        </li>
+
+        <ul ng-show="gpTypesSubSetsList">
+          <h5>UniProtKB</h5>
+          <span ng-repeat="gpType in gpTypesSubSets">
+            <li class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="gpType.checked">
+                {{gpType.item.name}}</label>
+            </li>
+          </span>
+          <br />
+          <h5>Proteomes</h5>
+          <span ng-repeat="gpType in gpTypesProteomes">
+            <li class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="gpType.checked">
+                {{gpType.item.name}}</label>
+            </li>
+          </span>
+        </ul>
+
     </ul>
     <hr/>
     <h5>And/Or Gene product ids</h5>
