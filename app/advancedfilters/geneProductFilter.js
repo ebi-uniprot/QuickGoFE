@@ -98,6 +98,9 @@ app.controller('geneProductFilter', function(
     $scope.query.geneProductId = '';
     $scope.query.targetSet = '';
     $scope.query.geneProductType = '';
+    $scope.query.geneProductSubset = '';
+    $scope.query.proteome = '';
+    $scope.gpTypesSubSetsList = false;
     init();
     $scope.updateQuery();
   };
