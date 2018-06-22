@@ -12,7 +12,7 @@
     </li>
 
     <!-- GENE PRODUCTS  -->
-    <li ng-class="{'inactive':query.geneProductId || query.targetSet || query.geneProductType}">
+    <li ng-class="{'inactive':query.geneProductId || query.targetSet || query.geneProductType || query.geneProductSubset || query.proteome}">
       <dropdown-toggle close-on-click="true">
         <toggle>
           <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['geneProductId'] ||  query['targetSet'] ||  query['geneProductType']}" data-icon="/">Gene Products</button>
