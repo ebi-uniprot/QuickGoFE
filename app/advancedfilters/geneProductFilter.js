@@ -160,12 +160,19 @@ app.controller('geneProductFilter', function(
   );
 
   $scope.getTotalChecked = function() {
-    return (
-      limitChecker.getAllChecked($scope.gpIds).length +
-      limitChecker.getAllChecked($scope.geneProductSets).length +
-      _.filter($scope.gpTypes, 'checked').length +
-      _.filter($scope.gpTypesSubSets, 'checked').length
-    );
+    var returnValue = 0;
+    var noBoxesChecked = _.filter($scope.gpTypesProteomes, 'checked').length;
+    if($scope.gpTypesSubSetsList == true && noBoxesChecked <= 0){
+      returnValue = 0
+    }else{
+      returnValue = (
+        limitChecker.getAllChecked($scope.gpIds).length +
+        limitChecker.getAllChecked($scope.geneProductSets).length +
+        _.filter($scope.gpTypes, 'checked').length +
+        _.filter($scope.gpTypesSubSets, 'checked').length
+      );
+    }
+    return returnValue;
   };
 
   $scope.getCheckedIds = function() {
