@@ -7,7 +7,7 @@
       <span ng-show="!$first">and</span>
 
       <a href="https://github.com/geneontology/annotation_extensions/blob/master/doc/{{resource.qualifier}}.md"
-         target="_blank"><strong><i>{{resource.qualifier}}</i></strong></a>
+         target="_blank"><strong><i>{{resource.relation}}</i></strong></a>
 
       <a ng-click="followLinkToEntry(resource.id, resource.db)" target="_blank">
           {{olsxrefs[resource.db + ':' + resource.id]}} ({{resource.db}}:{{resource.id}})</a>
