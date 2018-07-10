@@ -2,13 +2,12 @@
 angular
   .module('quickGoFeApp')
   .directive('basketModal',
-    ['$modal', 'basketService', '$rootScope', '$location', '$cookieStore', 'validationService', 'termService',
-    function($modal, basketService, $rootScope, $location, $cookieStore, validationService, termService) {
+    ['$modal', 'basketService', '$rootScope', '$location', '$cookies', 'validationService', 'termService',
+    function($modal, basketService, $rootScope, $location, $cookies, validationService, termService) {
       return {
         restrict: 'E',
         templateUrl: 'basket/basketModal.html',
         link: function(scope) {
-
           scope.countBasket = basketService.basketQuantity();
 
           $rootScope.$on('basketUpdate', function() {
@@ -28,16 +27,11 @@ angular
                 };
 
                 $scope.loadBasketItems = function() {
-                  var cookieItems = $cookieStore.get('uk.ac.ebi.quickgo.basket') || [] ;
-                  if (cookieItems.length === 0) {
-                    $scope.basketItems = [];
-                  } else {
                     $scope.basketPromise = basketService.getItems();
                     $scope.basketPromise.then(function(d){
                       $scope.basketItems = d.data.results;
                       $scope.basketIds = _.pluck($scope.basketItems, 'id').join(',');
                     });
-                  }
                 };
 
                 $scope.loadBasketItems();
