@@ -12,6 +12,9 @@ app.controller('geneProductFilter', function(
   $scope.gpIds = [];
   $scope.geneProductSets = [];
   $scope.gpTypes = [];
+  $scope.gpTypesSubSets = [];
+  $scope.gpTypesProteomes = [];
+  $scope.geneProductSubset = [];
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().geneProductId;
 
   var initgpIds = function() {
@@ -27,16 +30,64 @@ app.controller('geneProductFilter', function(
   };
 
   var initgpTypes = function() {
-    $scope.gpTypes = filterService.getQueryFilterItems($scope.query.geneProductType);
+    $scope.gpTypes = [
+      {"id":"miRNA","item":{"associations":null,"name":"RNA","id":"miRNA"},"checked":false},
+      {"id":"complex","item":{"associations":null,"name":"Complexes","id":"complex"},"checked":false}
+      //"protein" is not in this list as its hard coded separately to handle the sub sections below
+    ];
+    $scope.gpTypesSubSets = [
+      {"id":"Swiss-Prot","item":{"associations":null,"name":"Reviewed (Swiss-Prot)","id":"Swiss-Prot"},"checked":true},
+      {"id":"TrEMBL","item":{"associations":null,"name":"Unreviewed (TrEMBL)","id":"TrEMBL"},"checked":true}
+    ];
+    $scope.gpTypesProteomes = [
+      {"id":"gcrpCan","item":{"associations":null,"name":"Reference Proteomes (Gene centric, canonical)","id":"gcrpCan"},"checked":true},
+      {"id":"gcrpIso","item":{"associations":null,"name":"Reference Proteomes (Gene centric, other isoforms)","id":"gcrpIso"},"checked":true},
+      {"id":"complete","item":{"associations":null,"name":"Complete Proteomes","id":"complete"},"checked":true},
+      {"id":"none","item":{"associations":null,"name":"None","id":"none"},"checked":true}
+    ];
+
+    // Looks to put a tick in the box of anything being filtered
     presetsService.getPresetsGeneProductTypes().then(function(resp) {
+
       var queryFilterItems = filterService.getQueryFilterItems($scope.query.geneProductType);
       var presetFilterItems = filterService.getPresetFilterItems(resp.data.geneProductTypes, 'id');
-      $scope.gpTypes = _.sortBy(
-        filterService.mergeArrays(presetFilterItems, queryFilterItems),
-        'name'
-      );
+      var queryGeneProductSubset = filterService.getQueryFilterItems($scope.query.geneProductSubset);
+      var queryProteome = filterService.getQueryFilterItems($scope.query.proteome);
+
+      if (queryFilterItems.length > 0){
+          var inTheURL = _.pluck(queryFilterItems, 'id');
+          // Loop through and apply ticks to items in the filter
+          _.each(inTheURL, function(id) {
+              var match = _.find($scope.gpTypes, function(item) { return item.id === id })
+              if (match) {
+                  match.checked = true;
+              }
+          });
+          // if protein is active, then open up the Proteins tickbox expansion
+          if (_.contains(inTheURL, "protein")){
+              $scope.gpTypesSubSetsList = true;
+          }
+      };
+
+      var unTickProteins = function(arrayToEffect, items) {
+          if (items.length > 0){
+              var inTheURL = _.pluck(items, 'id');
+              var inTheArray = _.pluck(arrayToEffect, 'id');
+              var itemsToUncheck = _.difference(inTheArray, inTheURL );
+              _.each(itemsToUncheck, function(id) {
+                  var match = _.find(arrayToEffect, function(item) { return item.id === id })
+                  if (match) {
+                      match.checked = false;
+                  }
+              });
+          };
+      };
+      unTickProteins($scope.gpTypesProteomes, queryProteome);
+      unTickProteins($scope.gpTypesSubSets, queryGeneProductSubset);
     });
   };
+
+
 
   var init = function() {
     initgpIds();
@@ -47,6 +98,9 @@ app.controller('geneProductFilter', function(
     $scope.query.geneProductId = '';
     $scope.query.targetSet = '';
     $scope.query.geneProductType = '';
+    $scope.query.geneProductSubset = '';
+    $scope.query.proteome = '';
+    $scope.gpTypesSubSetsList = false;
     init();
     $scope.updateQuery();
   };
@@ -61,6 +115,24 @@ app.controller('geneProductFilter', function(
     if ($scope.gpTypes.length > 0) {
       $scope.addToQuery('geneProductType', _.pluck(_.filter($scope.gpTypes, 'checked'), 'id'));
     }
+
+    $scope.checkedGPTypesSubSetsList = _.pluck(_.filter($scope.gpTypesSubSets, 'checked'), 'id');
+    if ($scope.checkedGPTypesSubSetsList.length < 2) {
+      $scope.addToQuery('geneProductSubset', _.pluck(_.filter($scope.gpTypesSubSets, 'checked'), 'id'));
+    }
+
+    $scope.checkedProteomesList = _.pluck(_.filter($scope.gpTypesProteomes, 'checked'), 'id');
+    if ($scope.checkedProteomesList.length < 4) {
+      $scope.addToQuery('proteome', _.pluck(_.filter($scope.gpTypesProteomes, 'checked'), 'id'));
+    }
+
+    //if proteins is open $scope.gpTypesSubSetsList = true;   then add proteins to the geneProductType
+    if ($scope.gpTypesSubSetsList == true) {
+      $scope.gpTypesChecked = _.pluck(_.filter($scope.gpTypes, 'checked'), 'id');
+      $scope.mergedArrays = _.union($scope.gpTypesChecked, ['protein'])
+      $scope.addToQuery('geneProductType', $scope.mergedArrays);
+    }
+
     $scope.updateQuery();
   };
 
@@ -91,11 +163,19 @@ app.controller('geneProductFilter', function(
   );
 
   $scope.getTotalChecked = function() {
-    return (
-      limitChecker.getAllChecked($scope.gpIds).length +
-      limitChecker.getAllChecked($scope.geneProductSets).length +
-      _.filter($scope.gpTypes, 'checked').length
-    );
+    var returnValue = 0;
+    var noBoxesChecked = _.filter($scope.gpTypesProteomes, 'checked').length;
+    if($scope.gpTypesSubSetsList == true && noBoxesChecked <= 0){
+      returnValue = 0
+    }else{
+      returnValue = (
+        limitChecker.getAllChecked($scope.gpIds).length +
+        limitChecker.getAllChecked($scope.geneProductSets).length +
+        _.filter($scope.gpTypes, 'checked').length +
+        _.filter($scope.gpTypesSubSets, 'checked').length
+      );
+    }
+    return returnValue;
   };
 
   $scope.getCheckedIds = function() {

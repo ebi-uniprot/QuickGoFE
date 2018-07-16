@@ -17,7 +17,7 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
       .then(function (resp) {
         var referencePresetItems = filterService.getPresetFilterItems(resp.data.references, 'name');
         $scope.references = filterService.mergeArrays(referencePresetItems, $scope.references);
-        $scope.references = _.chain($scope.references).sortBy('id').sortBy(function(d){
+        $scope.references = _.chain($scope.references).reverse().sortBy(function(d){
           return d.id.indexOf('GO_REF:') >= 0;
         }).value();
       });
@@ -45,7 +45,7 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
 
   $scope.isAll = function (item) {
     return !(item.indexOf('GO_REF:') >= 0);
-  }
+  };
 
   $scope.$watch('references', function () {
     if (limitChecker.isOverLimit(limitChecker.getAllChecked($scope.references), $scope.uploadLimit)) {
@@ -63,9 +63,9 @@ app.controller('referencesFilter', function ($scope, presetsService, stringServi
 
   $scope.getReferenceDescription = function (reference) {
     if (reference.item) {
-      return ((reference.id.indexOf('GO_REF:') >= 0) ? '' : ':* ') + reference.item.description;
+      return ((reference.id.indexOf('GO_REF:') >= 0) ? '' : 'Any ') + reference.item.description;
     }
-  }
+  };
 
   initReference();
 });

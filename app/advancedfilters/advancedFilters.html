@@ -1,5 +1,5 @@
 <div ng-controller="AdvancedFiltersCtrl" class="columns small-12">
-  <ul class="menu">
+  <ul class="advancedFilters menu">
     <li>
       <dropdown-toggle close-on-click="true">
         <toggle>
@@ -12,7 +12,7 @@
     </li>
 
     <!-- GENE PRODUCTS  -->
-    <li ng-class="{'inactive':query.geneProductId || query.targetSet || query.geneProductType}">
+    <li ng-class="{'inactive':query.geneProductId || query.targetSet || query.geneProductType || query.geneProductSubset || query.proteome}">
       <dropdown-toggle close-on-click="true">
         <toggle>
           <button class="button icon dropdown" ng-class="{'icon-functional active-filter' : query['geneProductId'] ||  query['targetSet'] ||  query['geneProductType']}" data-icon="/">Gene Products</button>
@@ -46,7 +46,7 @@
           </pane>
         </dropdown-toggle>
       </li>
-    
+
 
     <!-- ASPECT  -->
     <li ng-class="{'inactive':query.aspect}" >
