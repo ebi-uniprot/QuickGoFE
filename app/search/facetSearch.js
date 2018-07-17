@@ -22,11 +22,13 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
     'name':'UniProtKB',
     'id':'dbSubset',
     'type':'gp'
-  }, {
-    'name':'Proteome status',
-    'id':'proteome',
-    'type':'gp'
-  }];
+  }
+  // , {
+  //   'name':'Proteome status',
+  //   'id':'proteome',
+  //   'type':'gp'
+  // }
+];
 
   var getFacets = function(type) {
     return _.filter(allFacets, function(d){
