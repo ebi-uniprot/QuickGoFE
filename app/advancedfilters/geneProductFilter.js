@@ -58,7 +58,7 @@ app.controller('geneProductFilter', function(
           var inTheURL = _.pluck(queryFilterItems, 'id');
           // Loop through and apply ticks to items in the filter
           _.each(inTheURL, function(id) {
-              var match = _.find($scope.gpTypes, function(item) { return item.id === id })
+              var match = _.find($scope.gpTypes, function(item) { return item.id === id });
               if (match) {
                   match.checked = true;
               }
@@ -67,7 +67,7 @@ app.controller('geneProductFilter', function(
           if (_.contains(inTheURL, "protein")){
               $scope.gpTypesSubSetsList = true;
           }
-      };
+      }
 
       var unTickProteins = function(arrayToEffect, items) {
           if (items.length > 0){
@@ -75,12 +75,12 @@ app.controller('geneProductFilter', function(
               var inTheArray = _.pluck(arrayToEffect, 'id');
               var itemsToUncheck = _.difference(inTheArray, inTheURL );
               _.each(itemsToUncheck, function(id) {
-                  var match = _.find(arrayToEffect, function(item) { return item.id === id })
+                  var match = _.find(arrayToEffect, function(item) { return item.id === id });
                   if (match) {
                       match.checked = false;
                   }
               });
-          };
+          }
       };
       unTickProteins($scope.gpTypesProteomes, queryProteome);
       unTickProteins($scope.gpTypesSubSets, queryGeneProductSubset);
@@ -129,7 +129,7 @@ app.controller('geneProductFilter', function(
     //if proteins is open $scope.gpTypesSubSetsList = true;   then add proteins to the geneProductType
     if ($scope.gpTypesSubSetsList == true) {
       $scope.gpTypesChecked = _.pluck(_.filter($scope.gpTypes, 'checked'), 'id');
-      $scope.mergedArrays = _.union($scope.gpTypesChecked, ['protein'])
+      $scope.mergedArrays = _.union($scope.gpTypesChecked, ['protein']);
       $scope.addToQuery('geneProductType', $scope.mergedArrays);
     }
 

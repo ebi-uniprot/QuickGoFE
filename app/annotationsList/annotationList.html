@@ -85,6 +85,7 @@
                     <td ng-show="columns['type'].visible">{{gpMapping[item.geneProductSimpleId].type}}</td>
                     <td ng-show="columns['taxonName'].visible">{{taxaMapping[item.taxonId].scientificName}}</td>
                     <td ng-show="columns['sequence'].visible">{{item.sequence}}</td>
+                    <td ng-show="columns['interactingTaxon'].visible && (item.interactingTaxonId !== 0)">{{item.interactingTaxonId}} {{taxaMapping[item.interactingTaxonId].scientificName}}</td>
                     <td ng-if="colAnnotationExtension">
                         <span ng-if="annotation.extensions">
               <a ng-click="openAnnoExtension(annotation.extensions)">{{annotation.extensions}}</a>

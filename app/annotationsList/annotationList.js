@@ -4,6 +4,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
     /**
      * Initialisation
      */
+
     $scope.itemsPerPage = 25;
     $scope.pageLimit = 25;
     $rootScope.header = 'QuickGO::Annotation List';
@@ -123,6 +124,13 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
             'customizable': true,
             'tooltip': 'The name of the species that matches the taxonomic identifier being annotated.',
             'downloadLabel': 'taxonName'
+        },
+        'interactingTaxon': {
+          'label': 'Interacting taxon',
+          'visible': false,
+          'customizable': true,
+          'tooltip': 'The identifier and name of the species interacting with the GO term.',
+          'downloadLabel': 'interactingTaxonId'
         }
     };
 
@@ -170,8 +178,12 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
         var taxaIds = [];
         var geneProductIds = [];
         var goTermIds = [];
+        var interTaxaIds = [];
 
         angular.forEach($scope.annotations, function(annotation) {
+            if (annotation.interactingTaxonId !== 0) {
+              interTaxaIds.push(annotation.interactingTaxonId);
+            }
             taxaIds.push(annotation.taxonId);
             goTermIds.push(annotation.goId);
             if (annotation.slimmedIds) {
@@ -207,6 +219,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
         });
 
         postProcessTaxa(_.unique(taxaIds));
+        postProcessTaxa(_.unique(interTaxaIds));
         postProcessGeneProds(_.unique(geneProductIds));
         postProcessGoTerms(_.unique(goTermIds));
     }
