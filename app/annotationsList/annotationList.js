@@ -118,13 +118,6 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
             'tooltip': 'The type of gene product that has been annotated.',
             'downloadLabel': 'type'
         },
-        'taxonName': {
-            'label': 'Taxon name',
-            'visible': false,
-            'customizable': true,
-            'tooltip': 'The name of the species that matches the taxonomic identifier being annotated.',
-            'downloadLabel': 'taxonName'
-        },
         'interactingTaxon': {
           'label': 'Interacting taxon',
           'visible': false,

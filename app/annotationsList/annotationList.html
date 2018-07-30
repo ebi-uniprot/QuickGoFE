@@ -69,7 +69,7 @@
                         </div>
                     </td>
                     <td ng-show="columns['taxon'].visible">
-                        <a class="quickgo-link selectable" ng-click="followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">{{item.taxonId}}</a>
+                        <a class="quickgo-link selectable" ng-click="followLinkToEntry(item.taxonId, 'TAXON')" target="_blank">{{item.taxonId}} {{taxaMapping[item.taxonId].scientificName}}</a>
                     </td>
                     <td ng-show="columns['assignedBy'].visible"><a class="quickgo-link selectable" ng-click="followLinkToGeneric(item.assignedBy)">{{item.assignedBy}}</a></td>
                     <td ng-show="columns['annotationExtension'].visible">
@@ -83,9 +83,12 @@
                     <td ng-show="columns['name'].visible">{{gpMapping[item.geneProductSimpleId].name}}</td>
                     <td ng-show="columns['synonym'].visible">{{gpMapping[item.geneProductSimpleId].synonyms.join()}}</td>
                     <td ng-show="columns['type'].visible">{{gpMapping[item.geneProductSimpleId].type}}</td>
-                    <td ng-show="columns['taxonName'].visible">{{taxaMapping[item.taxonId].scientificName}}</td>
                     <td ng-show="columns['sequence'].visible">{{item.sequence}}</td>
-                    <td ng-show="columns['interactingTaxon'].visible && (item.interactingTaxonId !== 0)">{{item.interactingTaxonId}} {{taxaMapping[item.interactingTaxonId].scientificName}}</td>
+                    <td ng-show="columns['interactingTaxon'].visible && (item.interactingTaxonId !== 0)">
+                      <a class="quickgo-link selectable" ng-click="followLinkToEntry(item.interactingTaxonId, 'TAXON')" target="_blank">
+                        {{item.interactingTaxonId}} {{taxaMapping[item.interactingTaxonId].scientificName}}
+                      </a>
+                    </td>
                     <td ng-if="colAnnotationExtension">
                         <span ng-if="annotation.extensions">
               <a ng-click="openAnnoExtension(annotation.extensions)">{{annotation.extensions}}</a>
