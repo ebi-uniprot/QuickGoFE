@@ -3,6 +3,12 @@
     {{extension.length > 0 ? extension : 'Annotation extension query'}}
   </div>
   <div class="row">
+    <div class="medium-2 columns" ng-show="andOrEnabled">
+      <label>
+        And/Or
+        <autocomplete placeholder="AND, OR" model="andOr" data="andOrData">
+      </label>
+    </div>
     <div class="medium-4 columns">
       <label>
         Relationship

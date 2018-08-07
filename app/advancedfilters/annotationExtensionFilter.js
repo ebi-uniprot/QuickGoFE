@@ -5,6 +5,8 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
 
   var init = function() {
     $scope.extension = $scope.$parent.query.extension ? $scope.$parent.query.extension : '';
+    $scope.andOrData = [{name: 'AND'}, {name: 'OR'}];
+    $scope.andOrEnabled = false;
   };
 
   $scope.apply = function() {
@@ -18,6 +20,7 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
     $scope.relationship = '';
     $scope.db = '';
     $scope.id = '';
+    $scope.andOr = '';
   };
 
   $scope.addComponent = function() {
@@ -28,10 +31,13 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
       var component = ($scope.relationship ? $scope.relationship : '')
           + ($scope.relationship && $scope.db ? '(' : '') + ($scope.db ? $scope.db : '')
           + ($scope.id ? ':' + $scope.id : '') + ($scope.relationship && $scope.db ? ')' : '');
-      $scope.extension = $scope.extension + ($scope.extension ? ',' : '') + component;
+      var andOrSpace = $scope.andOr !== '' ? ' ' + $scope.andOr + ' ' : '';
+      $scope.extension = $scope.extension + ($scope.extension ? andOrSpace : '') + component;
       $scope.relationship = '';
       $scope.db = '';
       $scope.id = '';
+      $scope.andOr = '';
+      $scope.andOrEnabled = true;
     }
   };
 
@@ -39,11 +45,15 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
     return $scope.id
       ? $scope.id.match(/( |,)+/g) === null
       : true;
-  }
+  };
 
   $scope.addButtonEnabled = function() {
     return !$scope.relationship || !$scope.db || !$scope.id;
-  }
+  };
+
+  $scope.addAndOrEnabled = function() {
+    return !$scope.relationship || !$scope.db || !$scope.id;
+  };
 
   presetsService.getPresetsExtensionRelations().then(function(d){
     var data = d.data.extRelations;
