@@ -48,11 +48,8 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
   };
 
   $scope.addButtonEnabled = function() {
-    return !$scope.relationship || !$scope.db || !$scope.id;
-  };
-
-  $scope.addAndOrEnabled = function() {
-    return !$scope.relationship || !$scope.db || !$scope.id;
+    var relDataInfo = !$scope.relationship || !$scope.db || !$scope.id;
+    return $scope.andOrEnabled ? !$scope.andOr || relDataInfo : relDataInfo;
   };
 
   presetsService.getPresetsExtensionRelations().then(function(d){
