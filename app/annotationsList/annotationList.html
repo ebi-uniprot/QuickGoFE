@@ -84,7 +84,7 @@
                     <td ng-show="columns['synonym'].visible">{{gpMapping[item.geneProductSimpleId].synonyms.join()}}</td>
                     <td ng-show="columns['type'].visible">{{gpMapping[item.geneProductSimpleId].type}}</td>
                     <td ng-show="columns['sequence'].visible">{{item.sequence}}</td>
-                    <td ng-show="columns['interactingTaxon'].visible && (item.interactingTaxonId !== 0)">
+                    <td ng-show="columns['interactingTaxon'].visible">
                       <a class="quickgo-link selectable" ng-click="followLinkToEntry(item.interactingTaxonId, 'TAXON')" target="_blank">
                         {{item.interactingTaxonId}} {{taxaMapping[item.interactingTaxonId].scientificName}}
                       </a>

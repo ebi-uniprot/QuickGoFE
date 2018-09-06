@@ -174,7 +174,8 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
         var interTaxaIds = [];
 
         angular.forEach($scope.annotations, function(annotation) {
-            if (annotation.interactingTaxonId !== 0) {
+          console.log(annotation);
+            if (annotation.interactingTaxonId) {
               interTaxaIds.push(annotation.interactingTaxonId);
             }
             taxaIds.push(annotation.taxonId);
