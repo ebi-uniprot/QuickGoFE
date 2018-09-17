@@ -6,7 +6,7 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
   var init = function() {
     $scope.extension = $scope.$parent.query.extension ? $scope.$parent.query.extension : '';
     $scope.andOrData = [{name: 'AND'}, {name: 'OR'}];
-    $scope.andOrEnabled = false;
+    $scope.andOrEnabled = $scope.extension.length > 0 ? true : false;
   };
 
   $scope.apply = function() {
