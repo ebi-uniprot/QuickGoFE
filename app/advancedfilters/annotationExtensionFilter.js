@@ -2,11 +2,13 @@
 app.controller('annotationExtensionFilterController', function($scope, $rootScope, presetsService){
 
   $scope.extension = '';
+  $scope.andOrOptions = ['AND', 'OR'];
+  $scope.selectedAndOrJoin = undefined;
 
   var init = function() {
     $scope.extension = $scope.$parent.query.extension ? $scope.$parent.query.extension : '';
-    $scope.andOrData = [{name: 'AND'}, {name: 'OR'}];
-    $scope.andOrEnabled = $scope.extension.length > 0 ? true : false;
+    $scope.andOrEnabled = ($scope.extension.length > 0) && ($scope.extension !== '*') ? true : false;
+    $scope.selectedAndOrJoin = undefined;
   };
 
   $scope.apply = function() {
@@ -20,7 +22,7 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
     $scope.relationship = '';
     $scope.db = '';
     $scope.id = '';
-    $scope.andOr = '';
+    $scope.selectedAndOrJoin = undefined;
   };
 
   $scope.addComponent = function() {
@@ -31,12 +33,12 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
       var component = ($scope.relationship ? $scope.relationship : '')
           + ($scope.relationship && $scope.db ? '(' : '') + ($scope.db ? $scope.db : '')
           + ($scope.id ? ':' + $scope.id : '') + ($scope.relationship && $scope.db ? ')' : '');
-      var andOrSpace = $scope.andOr !== '' ? ' ' + $scope.andOr + ' ' : '';
+      var andOrSpace = $scope.selectedAndOrJoin !== '' ? ' ' + $scope.selectedAndOrJoin + ' ' : '';
       $scope.extension = $scope.extension + ($scope.extension ? andOrSpace : '') + component;
       $scope.relationship = '';
       $scope.db = '';
       $scope.id = '';
-      $scope.andOr = '';
+      $scope.selectedAndOrJoin = undefined;
       $scope.andOrEnabled = true;
     }
   };
@@ -49,7 +51,7 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
 
   $scope.addButtonEnabled = function() {
     var relDataInfo = !$scope.relationship || !$scope.db || !$scope.id;
-    return $scope.andOrEnabled ? !$scope.andOr || relDataInfo : relDataInfo;
+    return $scope.andOrEnabled ? !$scope.selectedAndOrJoin || relDataInfo : relDataInfo;
   };
 
   presetsService.getPresetsExtensionRelations().then(function(d){

@@ -6,7 +6,7 @@
     <div class="medium-2 columns" ng-show="andOrEnabled">
       <label>
         And/Or
-        <autocomplete placeholder="AND, OR" model="andOr" data="andOrData">
+        <select ng-model="selectedAndOrJoin" ng-options="andOrOption for andOrOption in andOrOptions"></select>
       </label>
     </div>
     <div class="medium-4 columns">
