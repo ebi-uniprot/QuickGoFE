@@ -538,6 +538,9 @@ aspect-icon span.aspect-icon{
             content: 'x'
           }
         }
+        span{
+          text-transform: capitalize;
+        }
       }
     }
 }

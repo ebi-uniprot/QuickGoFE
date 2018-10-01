@@ -24,7 +24,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
     'type':'gp'
   }, {
     'name':'Proteome status',
-    'id':'proteomeMembership',
+    'id':'proteome',
     'type':'gp'
   }];
 
