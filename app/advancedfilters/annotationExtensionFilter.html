@@ -3,6 +3,12 @@
     {{extension.length > 0 ? extension : 'Annotation extension query'}}
   </div>
   <div class="row">
+    <div class="medium-2 columns" ng-show="andOrEnabled">
+      <label>
+        And/Or
+        <select ng-model="selectedAndOrJoin" ng-options="andOrOption for andOrOption in andOrOptions"></select>
+      </label>
+    </div>
     <div class="medium-4 columns">
       <label>
         Relationship
@@ -26,7 +32,7 @@
     </div>
   </div>
   <hr>
-  <div class="float-left"><a href="annotations?extension=*">View all annotations with extensions</a></div>
+  <div class="float-left"><a ng-click="addThemAll();" href="#">View all annotations with extensions</a></div>
   <div class="float-right">
     <filter-buttons></filter-buttons>
   </div>
