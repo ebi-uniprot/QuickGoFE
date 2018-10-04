@@ -25,6 +25,11 @@ app.controller('annotationExtensionFilterController', function($scope, $rootScop
     $scope.selectedAndOrJoin = undefined;
   };
 
+  $scope.addThemAll = function() {
+    $scope.extension='*';
+    $scope.apply();
+  };
+
   $scope.addComponent = function() {
     if (!isOnlyOneWord()) {
       $rootScope.alerts.push({type: 'alert', msg: 'Please ensure you have entered only one ID and try again.'});
