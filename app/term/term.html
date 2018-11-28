@@ -48,11 +48,6 @@
           du-scrollspy="termCrossOntologyRelations">
         <a class="term-section-view" du-smooth-scroll="termCrossOntologyRelations">Cross-Ontology Relations</a>
       </li>
-      <li ng-hide="!isGoTerm"
-          ng-class="{'section-disabled':(!termModel.proteinComplexes || (termModel.proteinComplexes.length===0))}"
-          du-scrollspy="termProteinComplexes">
-        <a class="term-section-view" du-smooth-scroll="termProteinComplexes" >Protein Complexes</a>
-      </li>
       <li ng-hide="!isGoTerm" ng-class="{'section-disabled':(!termModel.replaces || (termModel.replaces.length===0))}"
           du-scrollspy="termReplaces">
         <a class="term-section-view" du-smooth-scroll="termReplaces">Replaces</a>
@@ -353,33 +348,6 @@
       </table>
       <button ng-show="crossOntologyPageSize < termModel.xRelations.length" ng-click="crossOntologyPageSize = termModel.xRelations.length" class="button hollow">show all</button>
       <button ng-show="(crossOntologyPageSize === termModel.xRelations.length && termModel.xRelations.length > defaultPageSize)" ng-click="crossOntologyPageSize = defaultPageSize" class="button hollow">show less</button>
-    </section>
-
-    <!-- Protein complex -->
-    <section id="termProteinComplexes" ng-if="termModel.proteinComplexes.length > 0" class="column row">
-      <h3 class="term-section-header">Protein Complexes</h3>
-      <table id="proteinComplexesTable">
-        <tr>
-          <th>Database</th>
-          <th>ID</th>
-          <th>Name</th>
-        </tr>
-        <tr ng-repeat="complex in termModel.proteinComplexes | limitTo:proteinComplexesPageSize">
-          <td>
-            <a class="quickgo-link selectable" ng-click="followLinkToGeneric(complex.dbCode)" target="_blank">
-              {{complex.dbCode}}
-            </a>
-          </td>
-          <td>
-            <a class="quickgo-link" ng-click="followLinkToEntry(complex.dbId, complex.dbCode)" target="_blank">
-              {{complex.symbol}}
-            </a>
-          </td>
-          <td>{{complex.name}}</td>
-        </tr>
-      </table>
-      <button ng-show="proteinComplexesPageSize < termModel.proteinComplexes.length" ng-click="proteinComplexesPageSize = termModel.proteinComplexes.length" class="button hollow">show all</button>
-      <button ng-show="(proteinComplexesPageSize === termModel.proteinComplexes.length && termModel.proteinComplexes.length > defaultPageSize)" ng-click="proteinComplexesPageSize = defaultPageSize" class="button hollow">show less</button>
     </section>
 
     <!-- show Replaces-->
