@@ -194,5 +194,8 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, $compilePr
       templateUrl: 'targetSet/targetSet.html',
       controller: 'TargetSetCtrl'
     })
+    .when('/annotationExtensionRelations', {
+      templateUrl: 'views/annotationExtensionRelations.html'
+    })
     .otherwise({ redirectTo: '/' });
 });
