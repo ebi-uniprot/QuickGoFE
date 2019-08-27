@@ -59,7 +59,9 @@ app.service('filterService', function(){
   this.enrichFilterItemObject = function(filterItems, data, id) {
     var filterMap = _.indexBy(filterItems,'id');
     angular.forEach(data, function(item) {
-      filterMap[item[id]].item = item;
+      if (filterMap[item[id]]) {
+        filterMap[item[id]].item = item;
+      }
     });
   };
 
