@@ -21,10 +21,10 @@ angular
           if($scope.icondisabled === 'true') {
             return 'basket-disabled';
           } else if($scope.inBasket) {
-			return 'basket-added';
-		  } else {
-			return 'basket-default';
-		  }
+      			return 'basket-added';
+      		} else {
+      			return 'basket-default';
+      		}
         };
 
         $scope.className = getClass();
@@ -41,7 +41,8 @@ angular
 						$scope.$apply();
 				});
 
-        $rootScope.$on('basketUpdate', function(){
+        $rootScope
+        .$on('basketUpdate', function(){
 						$scope.inBasket = basketService.containsGoTerm($scope.termid);
             $scope.className = getClass();
         });
