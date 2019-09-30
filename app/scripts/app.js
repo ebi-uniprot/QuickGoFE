@@ -46,8 +46,12 @@ app.run(function($rootScope, dbXrefService, $window) {
     var pos = id.indexOf(':');
 
     if (!database) {
-      database = id.substring(0, pos);
-      id = id.substring(pos + 1);
+      if (pos > 0) {
+        database = id.substring(0, pos);
+        id = id.substring(pos + 1);
+      } else {
+        throw "The 'id' and/or 'database' value is invalid.";
+      }
     } else if (pos > 0) {
       id = id.substring(0, pos);
     }

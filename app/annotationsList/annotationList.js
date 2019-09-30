@@ -191,14 +191,11 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
                 .match(/(\w+):?(\w+)?:?(.*)?/i);
 
             if (idMatches[2]) {
-                if (idMatches[3]) {
-                    annotation.geneProductSimpleId = `${idMatches[2]}:${idMatches[3]}`;
-                    annotation.geneProductsMapKey = idMatches[2];
-                } else {
-                    annotation.geneProductSimpleId = idMatches[2];
-                    annotation.geneProductsMapKey = idMatches[2];
-                }
+                annotation.geneProductSimpleId = (idMatches[3])
+                    ? `${idMatches[2]}:${idMatches[3]}`
+                    : idMatches[2];
 
+                annotation.geneProductsMapKey = idMatches[2];
                 geneProductIds.push(annotation.geneProductSimpleId);
             }
 
