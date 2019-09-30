@@ -1,10 +1,10 @@
 'use strict';
+
 app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeParams,
     olsService, geneProductService, searchService, termService, taxonomyService, $modal) {
     /**
      * Initialisation
      */
-
     $scope.itemsPerPage = 25;
     $scope.pageLimit = 25;
     $rootScope.header = 'QuickGO::Annotation List';
@@ -183,9 +183,19 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
                 goTermIds = goTermIds.concat(annotation.slimmedIds);
             }
 
-            var pos = annotation.geneProductId.indexOf(':');
-            if (pos !== -1) {
-                annotation.geneProductSimpleId = annotation.geneProductId.substring(pos + 1);
+            // idMatches[0] = full matched string
+            // idMatches[1] = database name (item before first semi-colon)
+            // idMatches[2] = mapping key (item from second semi-colon to end or next semi-colon)
+            // idMatches[3] = simple id (item from second semi-colon to the end, including other semi-colons)
+            var idMatches = annotation.geneProductId
+                .match(/(\w+):?(\w+)?:?(.*)?/i);
+
+            if (idMatches[2]) {
+                annotation.geneProductSimpleId = (idMatches[3])
+                    ? idMatches[2] + ':' +idMatches[3]
+                    : idMatches[2];
+
+                annotation.geneProductsMapKey = idMatches[2];
                 geneProductIds.push(annotation.geneProductSimpleId);
             }
 
