@@ -183,17 +183,20 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
                 goTermIds = goTermIds.concat(annotation.slimmedIds);
             }
 
-            var firstSemicolonPosition = annotation.geneProductId.indexOf(':');
-            if (firstSemicolonPosition > -1) {
-                annotation.geneProductSimpleId = annotation.geneProductId
-                    .substring(firstSemicolonPosition + 1);
+            // idMatches[0] = full matched string
+            // idMatches[1] = database name (item before first semi-colon)
+            // idMatches[2] = mapping key (item from second semi-colon to end or next semi-colon)
+            // idMatches[3] = simple id (item from second semi-colon to the end, including other semi-colons)
+            var idMatches = annotation.geneProductId
+                .match(/(\w+):?(\w+)?:?(.*)?/i);
 
-                var secondSemicolonPosition = annotation.geneProductSimpleId.indexOf(':');
-                if (secondSemicolonPosition > -1) {
-                    annotation.geneProductsMapKey = annotation.geneProductSimpleId
-                        .substring(0, secondSemicolonPosition);
+            if (idMatches[2]) {
+                if (idMatches[3]) {
+                    annotation.geneProductSimpleId = `${idMatches[2]}:${idMatches[3]}`;
+                    annotation.geneProductsMapKey = idMatches[2];
                 } else {
-                    annotation.geneProductsMapKey = annotation.geneProductSimpleId;
+                    annotation.geneProductSimpleId = idMatches[2];
+                    annotation.geneProductsMapKey = idMatches[2];
                 }
 
                 geneProductIds.push(annotation.geneProductSimpleId);

@@ -48,7 +48,7 @@ app.run(function($rootScope, dbXrefService, $window) {
     if (!database) {
       database = id.substring(0, pos);
       id = id.substring(pos + 1);
-    } else if (pos > -1) {
+    } else if (pos > 0) {
       id = id.substring(0, pos);
     }
 
