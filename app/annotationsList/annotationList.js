@@ -192,7 +192,7 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
 
             if (idMatches[2]) {
                 annotation.geneProductSimpleId = (idMatches[3])
-                    ? `${idMatches[2]}:${idMatches[3]}`
+                    ? idMatches[2] + ':' +idMatches[3]
                     : idMatches[2];
 
                 annotation.geneProductsMapKey = idMatches[2];
