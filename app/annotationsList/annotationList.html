@@ -37,8 +37,10 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in annotations">
-                    <td ng-show="columns['geneProduct'].visible"><a ng-click="followLinkToEntry(item.geneProductSimpleId, gpMapping[item.geneProductSimpleId].database)" target="_blank">
-        {{item.geneProductId}}</a></td>
+                    <td ng-show="columns['geneProduct'].visible">
+                        <a ng-click="followLinkToEntry(item.geneProductsMapKey, gpMapping[item.geneProductsMapKey].database)" target="_blank">
+                            {{item.geneProductId}}
+                        </a></td>
                     <td ng-show="columns['symbol'].visible">{{item.symbol}}</td>
                     <td ng-show="columns['qualifier'].visible">{{item.qualifier}}</td>
                     <td class="" ng-show="item.slimmedIds">

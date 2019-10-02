@@ -26,7 +26,7 @@ app.controller('goTermsFilter', function ($scope, basketService, stringService, 
             var data = d.data.results;
             filterService.enrichFilterItemObject($scope.goTerms, data, 'id');
             angular.forEach($scope.goTerms, function (term) {
-              if (term.item.isObsolete) {
+              if (term.item && term.item.isObsolete) {
                 removeTerm(term.id);
                 $rootScope
                   .alerts

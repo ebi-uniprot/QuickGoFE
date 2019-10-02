@@ -43,11 +43,19 @@ app.run(function($rootScope, dbXrefService, $window) {
   };
 
   $rootScope.followLinkToEntry = function(id, database) {
+    var pos = id.indexOf(':');
+
     if (!database) {
-      var pos = id.indexOf(':');
-      database = id.substring(0, pos);
-      id = id.substring(pos + 1);
+      if (pos > 0) {
+        database = id.substring(0, pos);
+        id = id.substring(pos + 1);
+      } else {
+        throw "The 'id' and/or 'database' value is invalid.";
+      }
+    } else if (pos > 0) {
+      id = id.substring(0, pos);
     }
+
     dbXrefService.getDbXrefs().then(function(xrefs) {
       $window.open(dbXrefService.getLinkforId(database, id, xrefs.data));
     });
