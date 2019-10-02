@@ -15,7 +15,7 @@ basketModule.factory('basketService', function($cookies, termService, $q) {
     try {
       cookieValue = JSON.parse(cookieValue);
       cookieValue = Object.keys(cookieValue)
-        .map(k => k.substring(3))
+        .map(function(k) { return k.substring(3) })
         .join(',');
 
       $cookies.put(cookieName, cookieValue);
