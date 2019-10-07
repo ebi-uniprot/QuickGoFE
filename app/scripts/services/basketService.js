@@ -31,7 +31,12 @@ basketModule.factory('basketService', function($cookies, termService, $q) {
   }
 
   basketList.saveCookies = function(items) {
-    var cookieValue = items.join(',');
+    var cookieValue = items;
+
+    if (items instanceof Array) {
+      cookieValue = items.join(',');
+    }
+
     $cookies.put(cookieName, cookieValue);
   }
 
