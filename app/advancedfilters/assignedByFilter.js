@@ -42,7 +42,7 @@ app.controller('assignedByController', function($scope, presetsService, filterSe
   };
 
   $scope.getAssignedbyDescription = function(assignedBy) {
-    return assignedBy.item.description;
+    return assignedBy.item && assignedBy.item.description;
   }
 
   init();
