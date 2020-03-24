@@ -8,9 +8,17 @@ angular
 			scope: {
 				searchTerm: '=?',
 				noInput: '=?',
-				limit: '@'
+				limit: '@',
 			},
 			link: function(scope, elem) {
+				scope.advancedSearchVisible = false;
+				// this holds a default empty record, so the advanced search
+				// won't be empty once it's open
+				scope.advancedQueryDataset = [{
+					term: null,
+					condition: null  // condition can be null, since first row doesn't require any conditions
+				}];
+
 				scope.provideSuggestions = function(keyCode) {
 
 					// size the mega search box to match the input field
@@ -42,6 +50,63 @@ angular
 				scope.isGoTerm = function(termId) {
 					return ontoTypeService.isGoTerm(termId);
 				};
+
+				function advancedQueryLineBuilder(index) {
+					// adding an empty row. AND is selected by default.
+					scope.advancedQueryDataset
+						.push({
+							term: null,
+							condition: 'AND'
+						});
+				}
+
+				scope.toggleToAdvancedSearch = function() {
+					var box = angular.element($document[0].querySelector('#search-terms #advancedsearchbox'));
+					scope.advancedSearchVisible = !scope.advancedSearchVisible;
+				};
+
+				scope.addAdvancedQueryItem = function() {
+					var index = scope.advancedQueryDataset.length;
+					advancedQueryLineBuilder(index);
+				}
+
+				scope.removeAdvancedQueryItem = function(index) {
+					scope.advancedQueryDataset.splice(index, 1);
+				}
+
+				scope.performAdvancedSearch = function() {
+					var payload = {
+						"and": {
+					    "goTerms": [],
+					  },
+					  "not": {
+					    "goTerms": [],
+					  }
+					};
+
+					scope.advancedQueryDataset
+						.forEach(function (line, index) {
+							// first item goes to the AND clause.
+							if (index === 0) {
+								payload.and.goTerms.push(line.term);
+							} else if (line.condition === 'AND') {
+								payload.and.goTerms.push(line.term)
+							} else if (line.condition === 'NOT') {
+								payload.not.goTerms.push(line.term);
+							}
+						});
+
+					searchService.advancedSearch(payload)
+						.then(function(results) {
+							console.log("advanced search results:", results);
+							scope.goList = results.data;
+	            scope.annotations = results.data.results;
+	            scope.totalItems = results.data.numberOfHits;
+						})
+						.catch(function(err) {
+							console.log("advanced search failed:", err);
+						});
+				}
 
 				var loadData = function() {
 					//Look for matching GO terms

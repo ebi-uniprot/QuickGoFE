@@ -16,6 +16,39 @@ div#local-masthead, header#masthead {
   color: $primary1;
 }
 
+#advancedsearchbox {
+  width: 80%;
+  background-color: $white;
+  color: $black;
+  text-align: left;
+  padding: 10px;
+}
+
+.advanced-query-builder {
+
+}
+
+.advanced-query-builder .advanced-query-line {
+  display: flex;
+}
+
+.advanced-query-line div {
+  margin: 5px;
+  width: 150px;
+  display: flex;
+}
+
+#advancedsearchbox .round-button {
+  margin-right: 5px;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  line-height: 2rem;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
 #local-title.logo-title {
   h1 {
     margin-left: 50px;

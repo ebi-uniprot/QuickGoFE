@@ -2,7 +2,38 @@
   <div class="search-align search-box" ng-hide="noInput">
     <input id="searchbox" type="text" autocomplete="off" ng-model="searchTerm" placeholder="{{prompt}}" ng-keydown="provideSuggestions($event.keyCode)" />
   </div>
-  <div class="search-align" ng-hide="noInput"><button class="button search-button" type="submit" ng-click="submitSearch()">Search</button></div>
+  <div class="search-align" ng-hide="noInput">
+    <button class="button search-button" ng-click="toggleToAdvancedSearch()">Advanced</button>
+    <button class="button search-button" type="submit" ng-click="submitSearch()">Search</button>
+  </div>
+  <div id="advancedsearchbox" ng-show="advancedSearchVisible && !searchTerm" class="search-align">
+    <span>Find gene products with:</span>
+    <button ng-click="toggleToAdvancedSearch()" style="float: right;" class="button round-button">X</button>
+    <div ng-repeat="query in advancedQueryDataset track by $index" class="advanced-query-builder">
+      <div class="advanced-query-line">
+        <div class="cond-col">
+          <select ng-hide="$index == 0" ng-model="query.condition">
+            <option value="AND">AND</option>
+            <option value="NOT">NOT</option>
+          </select>
+        </div>
+        <div class="term-col">
+          <input type="text" name="term" ng-model="query.term">
+        </div>
+        <div class="actionsCol">
+          <button
+            ng-hide="(advancedQueryDataset.length == 1)"
+            ng-click="removeAdvancedQueryItem($index)"
+            class="button round-button">-</a>
+          <button
+            ng-show="$last"
+            ng-click="addAdvancedQueryItem()"
+            class="button round-button">+</button>
+        </div>
+      </div>
+    </div>
+    <button ng-click="performAdvancedSearch()" class="button">Search</button>
+  </div>
   <div id="megasearchbox" class="items" ng-hide="!searchTerm.length || searchTerm.length < 3" ng-class="{'typeahead-box' : !noInput}">
     <div cg-busy="goTermsPromise" class="callout">
       <h2>Terms</h2>

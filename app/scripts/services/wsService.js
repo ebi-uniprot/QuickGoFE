@@ -320,6 +320,10 @@ wsService.factory('searchService', [
     'ENV',
     function ($http, ENV) {
         return {
+            advancedSearch: function(queryObject) {
+                var url = ENV.apiEndpoint + '/annotation/search';
+                return $http.post(url, queryObject);
+            },
             findTerms: function (searchTerm, limit, page, facet, filters) {
                 var url = ENV.apiEndpoint + '/internal/search/ontology?query=' + searchTerm + '&limit=' + limit + '&page=' + (page
                     ? page
