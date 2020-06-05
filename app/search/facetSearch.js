@@ -10,6 +10,10 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
     'name':'Ontology Type',
     'id':'ontologyType',
     'type':'term'
+  },{
+    'name': 'Obsolete',
+    'id': 'isObsolete',
+    'type':'term',
   }, {
     'name':'Type',
     'id':'type',
@@ -44,7 +48,7 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
     $scope.facetNames[facet.id] = facet.name;
   });
 
-  $scope.maxSize = 25;
+  $scope.maxSize = 100;
   $scope.currentPage = 1;
 
   $scope.searchTerm = $routeParams.searchTerm;
