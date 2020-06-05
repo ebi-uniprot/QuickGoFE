@@ -10,6 +10,10 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
     'name':'Ontology Type',
     'id':'ontologyType',
     'type':'term'
+  },{
+    'name': 'Obsolete',
+    'id': 'isObsolete',
+    'type':'term',
   }, {
     'name':'Type',
     'id':'type',
