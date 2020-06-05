@@ -433,7 +433,7 @@ wsService.factory('chartService', [
     'ENV',
     function ($http, ENV) {
         return {
-            getChart: function (ids, showIds, showKey, termBoxWidth, termBoxHeight, showSlimColours, showChildren, map) {
+            getChart: function (ids, showIds, showKey, termBoxWidth, termBoxHeight, fontSize, showSlimColours, showChildren, map) {
                 var type = (ids.lastIndexOf('GO:') >= 0) ? 'go' : 'eco';
                 var mapUrl = map ? '/coords?' : '?base64=true';
                 return $http.get(ENV.apiEndpoint + '/ontology/' + type + '/terms/' + ids + '/chart' + mapUrl 
@@ -441,6 +441,7 @@ wsService.factory('chartService', [
                     + '&showKey=' + showKey
                     + '&termBoxWidth=' + termBoxWidth
                     + '&termBoxHeight=' + termBoxHeight
+                    + '&fontSize=' + fontSize
                     + '&showSlimColours=' + showSlimColours
                     + '&showChildren=' + showChildren
                 );

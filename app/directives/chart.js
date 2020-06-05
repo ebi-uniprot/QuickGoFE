@@ -14,6 +14,7 @@ angular
         scope.showIds = true;
         scope.termBoxWidth = 85;
         scope.termBoxHeight = 55;
+        scope.fontSize = 11;
         scope.showSlimColours = false;
         scope.showChildren = false;
 
@@ -28,8 +29,8 @@ angular
           return;
         if(!scope.termBoxWidth)
           return;
-        var chartPromise = chartService.getChart(scope.ids, scope.showIds, scope.showKey, scope.termBoxWidth, scope.termBoxHeight, scope.showSlimColours, scope.showChildren);
-        var imageMapPromise = chartService.getChart(scope.ids, scope.showIds, scope.showKey, scope.termBoxWidth, scope.termBoxHeight, scope.showSlimColours, scope.showChildren, true);
+        var chartPromise = chartService.getChart(scope.ids, scope.showIds, scope.showKey, scope.termBoxWidth, scope.termBoxHeight, scope.fontSize, scope.showSlimColours, scope.showChildren);
+        var imageMapPromise = chartService.getChart(scope.ids, scope.showIds, scope.showKey, scope.termBoxWidth, scope.termBoxHeight, scope.fontSize, scope.showSlimColours, scope.showChildren, true);
         chartPromise.then(function(d) {
           scope.img = d.data;
         });
