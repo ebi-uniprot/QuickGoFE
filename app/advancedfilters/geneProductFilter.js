@@ -15,6 +15,7 @@ app.controller('geneProductFilter', function(
   $scope.gpTypesSubSets = [];
   $scope.gpTypesProteomes = [];
   $scope.geneProductSubset = [];
+  $scope.gpTypesSubSetsList = true;
   $scope.uploadLimit = hardCodedDataService.getServiceLimits().geneProductId;
 
   var initgpIds = function() {
