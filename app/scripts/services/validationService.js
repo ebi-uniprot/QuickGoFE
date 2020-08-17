@@ -31,6 +31,7 @@ validationModule.factory('validationService', function() {
 
   validationService.validateComplexes = function(id) {
     var matches = id.match(/^(ComplexPortal:)?(CPX-[0-9]+)$/i);
+    console.log("cpx match:", matches);
     return matches ? 'ComplexPortal:' + matches[2] : null;
   };
 

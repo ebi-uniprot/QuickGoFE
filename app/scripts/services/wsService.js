@@ -272,14 +272,18 @@ wsService.factory('geneProductService', [
     function ($http, ENV) {
         return {
             getGeneProducts: function (ids) {
+console.log("gene ids:", ids);
                 if (typeof ids === Array) {
                     return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids.join(','));
+                    // return $http.get('//wp-p1m-c9.ebi.ac.uk:8081/QuickGO/services/geneproduct/' + ids.join(','));
                 } else {
                     return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids);
+                    // return $http.get('//wp-p1m-c9.ebi.ac.uk:8081/QuickGO/services/geneproduct/' + ids);
                 }
             },
             getTargetSet: function (id) {
                 return $http.get(ENV.apiEndpoint + '/geneproduct/targetset/' + id);
+                // return $http.get('//wp-p1m-c9.ebi.ac.uk:8081/QuickGO/services/geneproduct/targetset/' + id);
             }
         };
     }
@@ -342,6 +346,7 @@ wsService.factory('searchService', [
             },
             findAnnotations: function (page, size, filters) {
                 return $http.get(ENV.apiEndpoint + '/annotation/search?page=' + page + '&limit=' + size + filters);
+                // return $http.get('//wp-p1m-c9.ebi.ac.uk:8080/QuickGO/services/annotation/search?page=' + page + '&limit=' + size + filters);
             },
             findAnnotationStatistics: function (filters) {
                 var url = ENV.apiEndpoint + '/annotation/stats';

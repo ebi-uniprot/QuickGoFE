@@ -188,8 +188,9 @@ app.controller('AnnotationListCtrl', function($rootScope, $scope, $http, $routeP
             // idMatches[2] = mapping key (item from second semi-colon to end or next semi-colon, exludes isoforms)
             // idMatches[3] = simple id (item from second semi-colon to the end, including other semi-colons)
             var idMatches = annotation.geneProductId
-                .match(/(\w+):?(\w+)?(?:-\d+)?:?(.*)?/i);
-
+                .match(/([^:][a-z0-9-]+):?(.+[^:-])?(?:-\d+)?:?(.*)?/i);
+                // .match(/(\w+):?(\w+)?(?:-\d+)?:?(.*)?/i);
+// console.log("matches:", annotation.geneProductId, idMatches);
             if (idMatches[2]) {
                 annotation.geneProductSimpleId = (idMatches[3])
                     ? idMatches[2] + ':' +idMatches[3]
