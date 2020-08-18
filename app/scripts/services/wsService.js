@@ -250,7 +250,7 @@ wsService.factory('downloadService', [
                 });
             },
             getMaxLimit: function () {
-                return 50000;
+                return 2000000;
             },
             getStatisticsData : function(accept, filters, responseType) {
                 var url = ENV.apiEndpoint + '/annotation/downloadStats';
