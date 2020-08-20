@@ -272,7 +272,6 @@ wsService.factory('geneProductService', [
     function ($http, ENV) {
         return {
             getGeneProducts: function (ids) {
-console.log("gene ids:", ids);
                 if (typeof ids === Array) {
                     return $http.get(ENV.apiEndpoint + '/geneproduct/' + ids.join(','));
                     // return $http.get('//wp-p1m-c9.ebi.ac.uk:8081/QuickGO/services/geneproduct/' + ids.join(','));
