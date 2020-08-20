@@ -107,7 +107,10 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
     if (!text) {
       return text;
     }
-    return text.replace(new RegExp($scope.searchTerm, 'gi'), '<em>' + $scope.searchTerm + '</em>');
+    return text.replace(
+      new RegExp(searchService.escapeSearchTerm($scope.searchTerm), 'gi'),
+      '<em>' + $scope.searchTerm + '</em>'
+    );
   };
 
   getResultsPage(type);

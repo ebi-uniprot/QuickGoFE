@@ -319,9 +319,20 @@ wsService.factory('searchService', [
     '$http',
     'ENV',
     function ($http, ENV) {
+        // to escape special characters which aren't supported
+        // by the API end-point
+        function escapeSearchTerm(searchTerm) {
+            if (!searchTerm) {
+                return searchTerm;
+            }
+
+            return searchTerm
+                .replace(/\[(.*)\]/, "%5B$1%5D");    // [ and ]
+        };
+
         return {
             findTerms: function (searchTerm, limit, page, facet, filters) {
-                var url = ENV.apiEndpoint + '/internal/search/ontology?query=' + searchTerm + '&limit=' + limit + '&page=' + (page
+                var url = ENV.apiEndpoint + '/internal/search/ontology?query=' + escapeSearchTerm(searchTerm) + '&limit=' + limit + '&page=' + (page
                     ? page
                     : 1) + '&facet=' + (facet
                     ? facet
@@ -331,7 +342,7 @@ wsService.factory('searchService', [
                 return $http.get(url);
             },
             findGeneProducts: function (searchTerm, limit, page, facet, filters) {
-                var url = ENV.apiEndpoint + '/geneproduct/search?query=' + searchTerm + '&limit=' + limit + '&page=' + (page
+                var url = ENV.apiEndpoint + '/geneproduct/search?query=' + escapeSearchTerm(searchTerm) + '&limit=' + limit + '&page=' + (page
                     ? page
                     : 1) + '&facet=' + (facet
                     ? facet
@@ -351,13 +362,13 @@ wsService.factory('searchService', [
                 return $http.get(url);
             },
             getAnnotationsForTermUrl: function (searchTerm) {
-                return 'goUsage=descendants&goUsageRelationships=is_a,part_of,occurs_in&goId=' + searchTerm;
+                return 'goUsage=descendants&goUsageRelationships=is_a,part_of,occurs_in&goId=' + escapeSearchTerm(searchTerm);
             },
             getAnnotationsForECOUrl: function (searchTerm) {
-                return 'evidenceCodeUsage=descendants&evidenceCode=' + searchTerm;
+                return 'evidenceCodeUsage=descendants&evidenceCode=' + escapeSearchTerm(searchTerm);
             },
             getAnnotationsForProductUrl: function (searchTerm) {
-                return 'geneProductId=' + searchTerm;
+                return 'geneProductId=' + escapeSearchTerm(searchTerm);
             },
             findAnnotationsForFilterUrl: function (url) {
                 return $http.get(ENV.apiEndpoint + '/annotation/search?' + url);
@@ -370,7 +381,8 @@ wsService.factory('searchService', [
                     }
                 });
                 return queryString;
-            }
+            },
+            escapeSearchTerm: escapeSearchTerm,
         };
     }
 ]);
