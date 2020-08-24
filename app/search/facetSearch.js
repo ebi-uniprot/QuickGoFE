@@ -109,9 +109,18 @@ app.controller('FacetSearchCtrl', function($scope, $location, searchService, $ro
     }
     return text.replace(
       new RegExp(searchService.escapeSearchTerm($scope.searchTerm), 'gi'),
-      '<em>' + $scope.searchTerm + '</em>'
+      '<em>' + decodeURIComponent($scope.searchTerm) + '</em>'
     );
   };
 
   getResultsPage(type);
+
+  $scope.decode = function(string) {
+    var manuallyEscaped = string
+      .replace(/%25252F/i, '/')  // ??
+      .replace(/%252F/i, '/')    // double-slash
+      .replace(/%2F/i, '/');     // single-slash
+
+    return decodeURIComponent(manuallyEscaped);
+  }
 });
