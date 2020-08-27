@@ -22,6 +22,36 @@ angular
         scope.applyOptions = function(){
           that.drawChart(scope);
         };
+
+        scope.downloadChart = function() {
+          if (!scope.termBoxHeight) {
+            return;
+          }
+
+          if (!scope.termBoxWidth) {
+            return;
+          }
+
+          // Requesting a larger chart from the service
+          var chartPromise = chartService.getChart(
+            scope.ids,
+            scope.showIds,
+            scope.showKey,
+            Math.round(scope.termBoxWidth * 2.5),
+            Math.round(scope.termBoxHeight * 2.5),
+            Math.round(scope.fontSize * 2.5),
+            scope.showSlimColours,
+            scope.showChildren,
+          );
+
+          chartPromise.then(function(d) {
+            var a = document.createElement("a");
+            a.href = "data:image/png;base64," + d.data;
+            a.download = scope.title + ".png";
+            a.click();
+          });
+        }
+
         this.drawChart(scope);
       },
       drawChart: function(scope) {
