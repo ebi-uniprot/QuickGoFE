@@ -55,9 +55,9 @@ angular
             scope.fontSize = scope.originalChartSizeValues.font;
           }
 
-          scope.termBoxWidth *= size;
-          scope.termBoxHeight *= size;
-          scope.fontSize *= size;
+          scope.termBoxWidth = scope.originalChartSizeValues.width * size;
+            scope.termBoxHeight = scope.originalChartSizeValues.height * size;
+            scope.fontSize = scope.originalChartSizeValues.font * size;
         }
 
         this.drawChart(scope);
