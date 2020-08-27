@@ -19,9 +19,47 @@ angular
         scope.showChildren = false;
 
         var that = this;
-        scope.applyOptions = function(){
+
+        scope.applyOptions = function() {
+          scope.originalChartSizeValues = null;
           that.drawChart(scope);
         };
+
+        scope.multiplyChartSizeItems = [
+          { name: "Do not multiply", value: 1 },
+          { name: "Multiply by 2", value: 2 },
+          { name: "Multiply by 3", value: 3 },
+          { name: "Multiply by 4", value: 4 },
+        ];
+
+        scope.originalChartSizeValues = null;
+
+        scope.multiplyChartSize = function(selectedItem) {
+          var size = selectedItem.value;
+
+          if (!size) {
+            return;
+          }
+
+          if (!scope.originalChartSizeValues) {
+            scope.originalChartSizeValues = {
+              width: scope.termBoxWidth,
+              height: scope.termBoxHeight,
+              font: scope.fontSize,
+            };
+          }
+
+          if (size === 1) {
+            scope.termBoxWidth = scope.originalChartSizeValues.width;
+            scope.termBoxHeight = scope.originalChartSizeValues.height;
+            scope.fontSize = scope.originalChartSizeValues.font;
+          }
+
+          scope.termBoxWidth *= size;
+          scope.termBoxHeight *= size;
+          scope.fontSize *= size;
+        }
+
         this.drawChart(scope);
       },
       drawChart: function(scope) {
