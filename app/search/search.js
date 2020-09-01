@@ -1,4 +1,4 @@
 'use strict';
-app.controller('SearchCtrl', function($scope,  $location, $routeParams) {
-	$scope.searchTerm = $routeParams.searchTerm;
+app.controller('SearchCtrl', function($scope,  $location, $routeParams, searchService) {
+  $scope.searchTerm = $routeParams.searchTerm;
 });
