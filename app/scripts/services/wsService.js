@@ -330,7 +330,7 @@ wsService.factory('searchService', [
             }
 
             return searchTerm
-                .replace(/\[(.*)\]/, "%5B$1%5D");    // [ and ]
+                // .replace(/\[(.*)\]/, "%5B$1%5D");    // [ and ]
         };
 
         return {

@@ -41,7 +41,7 @@ angular
             Math.round(scope.termBoxHeight * 2.5),
             Math.round(scope.fontSize * 2.5),
             scope.showSlimColours,
-            scope.showChildren,
+            scope.showChildren
           );
 
           chartPromise.then(function(d) {
