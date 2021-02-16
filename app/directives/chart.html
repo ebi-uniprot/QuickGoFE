@@ -12,7 +12,7 @@
         <label>
           <input type="checkbox" ng-model="$parent.showIds"> Show Ids
         </label>
-        <label>Multiply chart size
+        <label>Chart size
           <select
             ng-options="item as item.name for item in multiplyChartSizeItems"
             ng-model="multiplyChartSizeSelected"
@@ -36,6 +36,7 @@
           <input type="checkbox" ng-model="$parent.showChildren"> Show children
         </label>
         <a class="button small" ng-click="applyOptions();$close()">Apply</a>
+        <a class="button small" ng-click="downloadChart();$close()">Download Chart</a>
       </pane>
     </dropdown-toggle>
   </div>

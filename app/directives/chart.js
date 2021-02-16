@@ -12,27 +12,27 @@ angular
       link: function(scope) {
         scope.showKey = true;
         scope.showIds = true;
-        scope.termBoxWidth = 85;
-        scope.termBoxHeight = 55;
-        scope.fontSize = 11;
+        scope.originalTermBoxWidth = 85;
+        scope.originalTermBoxHeight = 55;
+        scope.originalFontSize = 11;
+        scope.termBoxWidth = scope.originalTermBoxWidth;
+        scope.termBoxHeight = scope.originalTermBoxHeight;
+        scope.fontSize = scope.originalFontSize;
         scope.showSlimColours = false;
         scope.showChildren = false;
 
         var that = this;
 
         scope.applyOptions = function() {
-          scope.originalChartSizeValues = null;
           that.drawChart(scope);
         };
 
         scope.multiplyChartSizeItems = [
-          { name: "Do not multiply", value: 1 },
-          { name: "Multiply by 2", value: 2 },
-          { name: "Multiply by 3", value: 3 },
-          { name: "Multiply by 4", value: 4 },
+          { name: "Default - normal", value: 1 },
+          { name: "2X - double", value: 2 },
+          { name: "3X - triple", value: 3 },
+          { name: "4x - quadruple", value: 4 },
         ];
-
-        scope.originalChartSizeValues = null;
 
         scope.multiplyChartSize = function(selectedItem) {
           var size = selectedItem.value;
@@ -41,23 +41,38 @@ angular
             return;
           }
 
-          if (!scope.originalChartSizeValues) {
-            scope.originalChartSizeValues = {
-              width: scope.termBoxWidth,
-              height: scope.termBoxHeight,
-              font: scope.fontSize,
-            };
+          scope.termBoxWidth = scope.originalTermBoxWidth * size;
+          scope.termBoxHeight = scope.originalTermBoxHeight * size;
+          scope.fontSize = scope.originalFontSize * size;
+        }
+
+        scope.downloadChart = function() {
+          if (!scope.termBoxHeight) {
+            return;
           }
 
-          if (size === 1) {
-            scope.termBoxWidth = scope.originalChartSizeValues.width;
-            scope.termBoxHeight = scope.originalChartSizeValues.height;
-            scope.fontSize = scope.originalChartSizeValues.font;
+          if (!scope.termBoxWidth) {
+            return;
           }
 
-          scope.termBoxWidth = scope.originalChartSizeValues.width * size;
-            scope.termBoxHeight = scope.originalChartSizeValues.height * size;
-            scope.fontSize = scope.originalChartSizeValues.font * size;
+          // Requesting a larger chart from the service
+          var chartPromise = chartService.getChart(
+            scope.ids,
+            scope.showIds,
+            scope.showKey,
+            Math.round(scope.termBoxWidth * 2.5),
+            Math.round(scope.termBoxHeight * 2.5),
+            Math.round(scope.fontSize * 2.5),
+            scope.showSlimColours,
+            scope.showChildren
+          );
+
+          chartPromise.then(function(d) {
+            var a = document.createElement("a");
+            a.href = "data:image/png;base64," + d.data;
+            a.download = scope.title + ".png";
+            a.click();
+          });
         }
 
         this.drawChart(scope);
