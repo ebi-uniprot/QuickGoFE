@@ -95,7 +95,6 @@ wsService.factory('termService', [
     '$http',
     'ENV',
     function ($http, ENV) {
-        //var
         return {
             getGOTerms: function (ids) {
                 return $http.get(ENV.apiEndpoint + '/ontology/go/terms/' + ids);
