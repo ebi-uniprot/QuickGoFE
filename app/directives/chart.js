@@ -31,7 +31,7 @@ angular
           { name: "Default - normal", value: 1 },
           { name: "2X - double", value: 2 },
           { name: "3X - triple", value: 3 },
-          { name: "4x - quadruple", value: 4 },
+          { name: "4X - quadruple", value: 4 },
         ];
 
         scope.multiplyChartSize = function(selectedItem) {
