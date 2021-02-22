@@ -12,16 +12,39 @@ angular
       link: function(scope) {
         scope.showKey = true;
         scope.showIds = true;
-        scope.termBoxWidth = 85;
-        scope.termBoxHeight = 55;
-        scope.fontSize = 11;
+        scope.originalTermBoxWidth = 85;
+        scope.originalTermBoxHeight = 55;
+        scope.originalFontSize = 11;
+        scope.termBoxWidth = scope.originalTermBoxWidth;
+        scope.termBoxHeight = scope.originalTermBoxHeight;
+        scope.fontSize = scope.originalFontSize;
         scope.showSlimColours = false;
         scope.showChildren = false;
 
         var that = this;
-        scope.applyOptions = function(){
+
+        scope.applyOptions = function() {
           that.drawChart(scope);
         };
+
+        scope.multiplyChartSizeItems = [
+          { name: "Default - normal", value: 1 },
+          { name: "2X - double", value: 2 },
+          { name: "3X - triple", value: 3 },
+          { name: "4X - quadruple", value: 4 },
+        ];
+
+        scope.multiplyChartSize = function(selectedItem) {
+          var size = selectedItem.value;
+
+          if (!size) {
+            return;
+          }
+
+          scope.termBoxWidth = scope.originalTermBoxWidth * size;
+          scope.termBoxHeight = scope.originalTermBoxHeight * size;
+          scope.fontSize = scope.originalFontSize * size;
+        }
 
         scope.downloadChart = function() {
           if (!scope.termBoxHeight) {
