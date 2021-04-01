@@ -12,6 +12,14 @@
         <label>
           <input type="checkbox" ng-model="$parent.showIds"> Show Ids
         </label>
+        <label>Chart size
+          <select
+            ng-options="item as item.name for item in multiplyChartSizeItems"
+            ng-model="multiplyChartSizeSelected"
+            ng-change="multiplyChartSize(multiplyChartSizeSelected)"
+            ng-init="item=multiplyChartSizeItems[0]">
+          </select>
+        </label>
         <label>Term box width
           <input type="number" ng-model="$parent.termBoxWidth">
         </label>

@@ -8,21 +8,6 @@ basketModule.factory('basketService', function($cookies, termService, $q) {
 
   basketList.getCookies = function() {
     var cookieValue = $cookies.get(cookieName) || [];
-
-    // NOTE: remove the following try-catch block after a few days
-    // of production. This is only to deal with older cookie values.
-    // If cookie value is a JSON object, convert it to the newer string format.
-    try {
-      cookieValue = JSON.parse(cookieValue);
-      cookieValue = Object.keys(cookieValue)
-        .map(function(k) { return k.substring(3) })
-        .join(',');
-
-      $cookies.put(cookieName, cookieValue);
-    } catch(e) {
-      // do nothing...
-    }
-
     return (cookieValue.length > 0)
       ? cookieValue
           .split(',')
@@ -36,7 +21,6 @@ basketModule.factory('basketService', function($cookies, termService, $q) {
     if (items instanceof Array) {
       cookieValue = items.join(',');
     }
-
     $cookies.put(cookieName, cookieValue);
   }
 
