@@ -396,7 +396,9 @@ wsService.factory('dbXrefService', [
     function ($http, $location) {
         return {
             getDbXrefs: function () {
-                return $http.get('https://s3.amazonaws.com/go-public/metadata/db-xrefs.json', {cache: true});
+                // Note: this file is overwritten nightly on the servers by an updated version
+                // we keep an old version in the repo as a fallback.
+                return $http.get('../../../db-xrefs.json', {cache: true});
             },
             getGenericLink: function (name, xrefs) {
                 var match = _.find(xrefs, function (xref) {
