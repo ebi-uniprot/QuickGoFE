@@ -12,7 +12,7 @@
           <annotations-link term-id="term.id" ng-if="!term.isObsolete"></annotations-link>
         </li>
         <li>
-          <a ng-href="searchterms/{{searchTerm}}">Show all {{terms.numberOfHits | number}} results</a>
+          <a ng-href="searchterms/{{stripSlashes(searchTerm)}}">Show all {{terms.numberOfHits | number}} results</a>
         </li>
       </ul>
       <p ng-show="!terms || terms.length <= 0">
@@ -29,7 +29,7 @@
           <annotations-link product-id="prod.id"></annotations-link>
         </li>
         <li>
-          <a ng-href="searchproducts/{{searchTerm}}">Show all {{products.numberOfHits | number}} results</a>
+          <a ng-href="searchproducts/{{stripSlashes(searchTerm)}}">Show all {{products.numberOfHits | number}} results</a>
         </li>
       </ul>
       <p ng-show="!products || products.length <= 0">

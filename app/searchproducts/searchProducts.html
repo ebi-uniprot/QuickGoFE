@@ -1,5 +1,5 @@
 <div id="content" class="medium-12 row">
-    <h2>Results for gene product "{{searchTerm}}"</h2>
+    <h2>Results for gene product "{{decode(searchTerm)}}"</h2>
 
     <div class="medium-3 columns">
         <facets facet-names="facetNames" endpoint="searchproducts" fields="results.facet.facetFields" filters="filters" search-term="searchTerm" name-mapping="taxaMapping">

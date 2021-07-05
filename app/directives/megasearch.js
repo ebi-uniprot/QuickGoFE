@@ -11,6 +11,13 @@ angular
 				limit: '@'
 			},
 			link: function(scope, elem) {
+				scope.stripSlashes = function(searchTerm) {
+					if (!searchTerm) {
+						return;
+					}
+
+			    return searchTerm.replace('/', '%252F');
+			  }
 				scope.provideSuggestions = function(keyCode) {
 
 					// size the mega search box to match the input field
@@ -36,7 +43,7 @@ angular
 				};
 
 				scope.submitSearch = function() {
-				    $location.path('search/' + scope.searchTerm);
+				    $location.path('search/' + scope.searchTerm.replace(/\//g, '%252F'));
 				};
 
 				scope.isGoTerm = function(termId) {
