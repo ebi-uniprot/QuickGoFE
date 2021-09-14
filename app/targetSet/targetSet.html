@@ -36,7 +36,7 @@
              </th>
              <tr ng-repeat="item in elements">
                <td>{{item.symbol}}</td>
-               <td>{{item.id}}</td>
+               <td><a href="https://www.uniprot.org/uniprot/{{item.id}}" target="_blank">{{item.id}}</a></td>
                <td>{{item.name}}</td>
                <td>{{item.taxonId}}</td>
                <td>{{taxaMapping[item.taxonId].scientificName}}</td>
