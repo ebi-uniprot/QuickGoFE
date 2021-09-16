@@ -14,7 +14,7 @@ stages:
 build_static_assets:
   only:
     refs:
-      - master
+      - production
   extends: .js
   stage: build_static_assets
   script:
