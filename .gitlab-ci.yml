@@ -23,4 +23,4 @@ build_static_assets:
     - grunt build
   artifacts:
     paths:
-      - build/
+      - dist/
