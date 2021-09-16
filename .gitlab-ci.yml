@@ -1,0 +1,26 @@
+stages:
+  - build_static_assets
+
+.js:
+  image: starefossen/ruby-node
+  before_script:
+    - git --version
+    - node --version
+    - npm --version
+    - ruby --version
+    - gem install compass
+    - npm install -g grunt-cli bower
+
+build_static_assets:
+  only:
+    refs:
+      - master
+  extends: .js
+  stage: build_static_assets
+  script:
+    - npm install
+    - bower install
+    - grunt build
+  artifacts:
+    paths:
+      - build/
