@@ -17,8 +17,6 @@ build_static_assets:
     - node --version
     - npm --version
     - ruby --version
-    - gem install compass
-    - npm install -g grunt-cli bower
     - npm install
     - bower install
     - grunt build
