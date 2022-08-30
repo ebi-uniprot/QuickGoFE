@@ -496,7 +496,6 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'replace:prod'
   ]);
 
   grunt.registerTask('default', [
