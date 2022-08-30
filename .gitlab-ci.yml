@@ -11,10 +11,6 @@ test:
     - when: never
 
 build_static_assets:
-  only:
-    refs:
-      - main
-  stage: build_static_assets
   image: ${DOCKER_REPO}/ruby-node:${DOCKER_IMAGE_VERSION}
   script:
     - git --version
@@ -27,6 +23,3 @@ build_static_assets:
     - bower install
     - grunt build
     - mv dist build
-  artifacts:
-    paths:
-      - build/
