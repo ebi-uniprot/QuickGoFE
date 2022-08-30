@@ -6,10 +6,9 @@ variables:
   CHART_PROD: 'quickgofe-prod'
   CHART_FALLBACK: 'quickgofe-fallback'
 
-stages:
-  - build_static_assets
-  - build_docker_image
-  - deploy
+test:
+  rules:
+    - when: never
 
 build_static_assets:
   only:
