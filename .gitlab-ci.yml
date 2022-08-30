@@ -1,26 +1,33 @@
+include:
+  - project: 'uniprot/front-end/front-end-deploy'
+    file: 'templates/.gitlab-ci-template.yml'
+
+variables:
+  CHART_PROD: 'quickgofe-prod'
+  CHART_FALLBACK: 'quickgofe-fallback'
+
 stages:
   - build_static_assets
+  - build_docker_image
+  - deploy
 
-.js:
+build_static_assets:
+  only:
+    refs:
+      - main
+  stage: build_static_assets
   image: starefossen/ruby-node
-  before_script:
+  script:
     - git --version
     - node --version
     - npm --version
     - ruby --version
     - gem install compass
     - npm install -g grunt-cli bower
-
-build_static_assets:
-  only:
-    refs:
-      - production
-  extends: .js
-  stage: build_static_assets
-  script:
     - npm install
     - bower install
     - grunt build
+    - mv dist build
   artifacts:
     paths:
-      - dist/
+      - build/
