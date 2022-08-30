@@ -323,35 +323,6 @@ module.exports = function (grunt) {
       }
     },
 
-    replace: {
-      prod: {
-        options: {
-          patterns: [
-            {
-              match: / href=\"\/\"/g,
-              replacement: ' href="https://wwwdev.ebi.ac.uk/QuickGO/"'
-            }
-          ]
-        },
-        files: [
-          {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
-        ]
-      },
-      beta: {
-        options: {
-          patterns: [
-            {
-              match: / href=\"\/\"/g,
-              replacement: ' href="//wwwdev.ebi.ac.uk/QuickGO/"'
-            }
-          ]
-        },
-        files: [
-          {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
-        ]
-      }
-    },
-
     imagemin: {
       dist: {
         files: [{
