@@ -323,6 +323,48 @@ module.exports = function (grunt) {
       }
     },
 
+    replace: {
+      prodBase: {
+        options: {
+          patterns: [
+            {
+              match: /<base href=\"\/\">/g,
+              replacement: '<base href="https://www.ebi.ac.uk/QuickGO/">'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
+        ]
+      },
+      prodApiEndpoint: {
+        options: {
+          patterns: [
+            {
+              match: /wwwdev/g,
+              replacement: 'www'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['dist/**/*'], dest: 'dist'}
+        ]
+      },
+      devBase: {
+        options: {
+          patterns: [
+            {
+              match: /<base href=\"\/\">/g,
+              replacement: '<base href="https://wwwdev.ebi.ac.uk/QuickGO/">'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['dist/index.html'], dest: 'dist'}
+        ]
+      },
+    },
+
     imagemin: {
       dist: {
         files: [{
@@ -496,6 +538,17 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
+  ]);
+
+  grunt.registerTask('build:dev', [
+    'build',
+    'replace:devBase',
+  ]);
+
+  grunt.registerTask('build:prod', [
+    'build',
+    'replace:prodBase',
+    'replace:prodApiEndpoint'
   ]);
 
   grunt.registerTask('default', [
