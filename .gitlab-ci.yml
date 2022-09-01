@@ -40,5 +40,5 @@ merge_and_test:
 build_static_assets:
   extends: .ruby_node
   script:
-    - grunt build:prod
+    - grunt build:dev
     - mv dist build

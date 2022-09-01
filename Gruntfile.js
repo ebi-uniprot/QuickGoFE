@@ -542,7 +542,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build:dev', [
     'build',
-    'replace:devBase',
+    // 'replace:devBase',
   ]);
 
   grunt.registerTask('build:prod', [
