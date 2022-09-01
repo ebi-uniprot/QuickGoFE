@@ -4,7 +4,7 @@ QuickGO is a fast web-based browser of the Gene Ontology and Gene Ontology annot
 
 http://www.ebi.ac.uk/QuickGO
 
-# Building & Serving Locally
+## Building & Serving Locally
 
 |                    | `base`                            | `apiEndpoint`                             |
 |--------------------|-----------------------------------|-------------------------------------------|
@@ -13,6 +13,6 @@ http://www.ebi.ac.uk/QuickGO
 | `grunt serve`      | /                                 | https://wwwdev.ebi.ac.uk/QuickGO/services |
 
 
-# License
+## License
 
 Distributed under the Apache License 2.0
