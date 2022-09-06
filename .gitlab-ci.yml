@@ -1,6 +1,5 @@
 include:
   - project: 'uniprot/front-end/front-end-deploy'
-    ref: 'side-car'
     file: 'templates/.gitlab-ci-template.yml'
 
 variables:
