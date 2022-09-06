@@ -341,13 +341,13 @@ module.exports = function (grunt) {
         options: {
           patterns: [
             {
-              match: /wwwdev/g,
+              match: /wwwdev/gi,
               replacement: 'www'
             }
           ]
         },
         files: [
-          {expand: true, flatten: true, src: ['dist/**/*'], dest: 'dist'}
+          {expand: true, flatten: true, src: ['dist/scripts/*.js'], dest: 'dist/scripts'}
         ]
       },
       devBase: {
@@ -542,7 +542,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build:dev', [
     'build',
-    // 'replace:devBase',
+    'replace:devBase',
   ]);
 
   grunt.registerTask('build:prod', [
