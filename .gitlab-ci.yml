@@ -5,9 +5,10 @@ include:
 variables:
   CHART_PROD: 'quickgofe-prod'
   CHART_FALLBACK: 'quickgofe-fallback'
+  CHART_DEV: 'quickgofe-dev'
 
 .ruby_node:
-  image: ${DOCKER_REPO}/ruby-node:${DOCKER_IMAGE_VERSION}
+  image: ${DOCKER_REPO}/ruby-node:${DOCKER_IMAGES_VERSION}
   before_script:
     - git --version
     - node --version
