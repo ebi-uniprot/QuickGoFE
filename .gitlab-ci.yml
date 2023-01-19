@@ -49,4 +49,3 @@ build_static_assets:
       fi
     - git clone $DEPLOY_REPO_URL --single-branch --depth 1
     - mv dist build
-    - ./${DEPLOY_REPO}/scripts/compress.sh
