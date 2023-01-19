@@ -48,5 +48,5 @@ build_static_assets:
         grunt build:dev
       fi
     - git clone $DEPLOY_REPO_URL --single-branch --depth 1
-    - ./${DEPLOY_REPO}/scripts/compress.sh
     - mv dist build
+    - ./${DEPLOY_REPO}/scripts/compress.sh
