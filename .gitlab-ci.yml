@@ -41,5 +41,12 @@ merge_and_test:
 build_static_assets:
   extends: .ruby_node
   script:
-    - grunt build:dev
+    - |
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+        grunt build:prod
+      elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
+        grunt build:dev
+      fi
+    - git clone $DEPLOY_REPO_URL --single-branch --depth 1
+    - ./${DEPLOY_REPO}/scripts/compress.sh
     - mv dist build
