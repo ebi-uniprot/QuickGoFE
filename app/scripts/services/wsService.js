@@ -398,7 +398,7 @@ wsService.factory('dbXrefService', [
             getDbXrefs: function () {
                 // Note: this file is overwritten nightly on the servers by an updated version
                 // we keep an old version in the repo as a fallback.
-                return $http.get('http://snapshot.geneontology.org/metadata/db-xrefs.json', {cache: true});
+                return $http.get('//snapshot.geneontology.org/metadata/db-xrefs.json', {cache: true});
             },
             getGenericLink: function (name, xrefs) {
                 var match = _.find(xrefs, function (xref) {
