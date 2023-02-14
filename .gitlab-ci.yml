@@ -71,3 +71,6 @@ fetch_api_docs_static_assets:
     - curl -LOJR https://wwwint.ebi.ac.uk/uniprot/jenkins/job/quickgo-swagger-ui-wwwprod/lastBuild/artifact/quickgo-swagger-ui.tar.gz
     - tar zxvf quickgo-swagger-ui.tar.gz
     - mv dist build/api
+  artifacts:
+    paths:
+      - build/
