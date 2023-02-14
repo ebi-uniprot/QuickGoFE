@@ -7,6 +7,14 @@ variables:
   CHART_FALLBACK: 'quickgofe-fallback'
   CHART_DEV: 'quickgofe-dev'
 
+stages:
+  - test
+  - build_static_assets
+  - fetch_api_docs_static_assets
+  - build_docker_image
+  - deploy
+
+
 .ruby_node:
   image: ${DOCKER_IMAGES_REPO}/ruby-node:${DOCKER_IMAGES_VERSION}
   before_script:
@@ -49,3 +57,17 @@ build_static_assets:
       fi
     - git clone $DEPLOY_REPO_URL --single-branch --depth 1
     - mv dist build
+
+fetch_api_docs_static_assets:
+  extends: .js
+  only:
+    refs:
+      - main
+      - dev
+  except:
+    - external_pull_requests
+  stage: fetch_api_docs_static_assets
+  script:
+    - curl -LOJR https://wwwint.ebi.ac.uk/uniprot/jenkins/job/quickgo-swagger-ui-wwwprod/lastBuild/artifact/quickgo-swagger-ui.tar.gz
+    - tar zxvf quickgo-swagger-ui.tar.gz
+    - mv dist build/api
