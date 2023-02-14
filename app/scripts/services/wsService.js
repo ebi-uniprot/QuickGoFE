@@ -393,7 +393,8 @@ wsService.factory('searchService', [
 wsService.factory('dbXrefService', [
     '$http',
     '$location',
-    function ($http, $location) {
+    'ENV',
+    function ($http, $location, ENV) {
         return {
             getDbXrefs: function () {
                 return $http.get(ENV.apiEndpoint + '/internal/xrefMetaData', {cache: true});
