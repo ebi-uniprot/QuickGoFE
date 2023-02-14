@@ -68,7 +68,13 @@ fetch_api_docs_static_assets:
     - external_pull_requests
   stage: fetch_api_docs_static_assets
   script:
-    - curl -LOJR https://wwwint.ebi.ac.uk/uniprot/jenkins/job/quickgo-swagger-ui-wwwprod/lastBuild/artifact/quickgo-swagger-ui.tar.gz
+    - |
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+        URL=https://wwwint.ebi.ac.uk/uniprot/jenkins/job/quickgo-swagger-ui-wwwprod/lastBuild/artifact/quickgo-swagger-ui.tar.gz
+      elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
+        URL=https://wwwint.ebi.ac.uk/uniprot/jenkins/job/quickgo-swagger-ui-wwwdev/lastBuild/artifact/quickgo-swagger-ui.tar.gz
+      fi
+    - curl -LOJR $URL
     - tar zxvf quickgo-swagger-ui.tar.gz
     - mv dist build/api
   artifacts:
