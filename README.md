@@ -6,7 +6,7 @@ http://www.ebi.ac.uk/QuickGO
 
 ## Building & Serving
 
-Locally you can use any of the following commands build and serve. CI/CD automotically happens on pushes to the respective CI/CD branch within GitLab.
+Locally you can use any of the following commands to build or serve. CI/CD automatically happens on pushes to the respective CI/CD branch within GitLab.
 
 | Command            | `base`                            | `apiEndpoint`                             | CI/CD branch |
 |--------------------|-----------------------------------|-------------------------------------------|--------------|
