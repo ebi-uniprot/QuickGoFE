@@ -4,14 +4,15 @@ QuickGO is a fast web-based browser of the Gene Ontology and Gene Ontology annot
 
 http://www.ebi.ac.uk/QuickGO
 
-## Building & Serving Locally
+## Building & Serving
 
-|                    | `base`                            | `apiEndpoint`                             |
-|--------------------|-----------------------------------|-------------------------------------------|
-| `grunt build:prod` | https://www.ebi.ac.uk/QuickGO/    | https://www.ebi.ac.uk/QuickGO/services    |
-| `grunt build:dev`  | https://wwwdev.ebi.ac.uk/QuickGO/ | https://wwwdev.ebi.ac.uk/QuickGO/services |
-| `grunt serve`      | /                                 | https://wwwdev.ebi.ac.uk/QuickGO/services |
+Locally you can use any of the following commands build and serve. CI/CD automotically happens on pushes to the respective CI/CD branch within GitLab.
 
+| Command            | `base`                            | `apiEndpoint`                             | CI/CD branch |
+|--------------------|-----------------------------------|-------------------------------------------|--------------|
+| `grunt build:prod` | https://www.ebi.ac.uk/QuickGO/    | https://www.ebi.ac.uk/QuickGO/services    | `main`       |
+| `grunt build:dev`  | https://wwwdev.ebi.ac.uk/QuickGO/ | https://wwwdev.ebi.ac.uk/QuickGO/services | `dev`        |
+| `grunt serve`      | /                                 | https://wwwdev.ebi.ac.uk/QuickGO/services |              |
 
 ## License
 
