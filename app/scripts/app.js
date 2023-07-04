@@ -155,7 +155,7 @@ app.config(function($routeProvider, $locationProvider, $httpProvider, $compilePr
       controller: 'TargetSetCtrl'
     })
     .when('/slimming', {
-      templateUrl: 'slimming/slimming.html',
+      templateUrl: 'slims/slimming.html',
       controller: 'GOSlimCtrl'
     })
     .when('/terms/P', {
