@@ -11,6 +11,7 @@ stages:
   - test
   - build_static_assets
   - fetch_api_docs_static_assets
+  - compress_static_assets
   - build_docker_image
   - deploy
 
