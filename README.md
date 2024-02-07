@@ -14,6 +14,20 @@ Locally you can use any of the following commands to build or serve. CI/CD autom
 | `grunt build:dev`  | https://wwwdev.ebi.ac.uk/QuickGO/ | https://wwwdev.ebi.ac.uk/QuickGO/services | `dev`        |
 | `grunt serve`      | /                                 | https://wwwdev.ebi.ac.uk/QuickGO/services |              |
 
+
+### Serving locally with the ruby-node docker image
+
+The following will start a grunt server on port 9000 of your local machine.
+
+```
+docker run -p 9000:9000 --rm -it --entrypoint sh dockerhub.ebi.ac.uk/uniprot/front-end/front-end-docker/ruby-node:latest
+git clone https://github.com/ebi-uniprot/QuickGoFE.git
+cd QuickGoFE
+npm install
+bower install
+grunt serve
+```
+
 ## License
 
 Distributed under the Apache License 2.0
