@@ -12,8 +12,8 @@ angular
       link: function(scope) {
         scope.showKey = true;
         scope.showIds = true;
-        scope.originalTermBoxWidth = 85;
-        scope.originalTermBoxHeight = 55;
+        scope.originalTermBoxWidth = 120;
+        scope.originalTermBoxHeight = 65;
         scope.originalFontSize = 11;
         scope.termBoxWidth = scope.originalTermBoxWidth;
         scope.termBoxHeight = scope.originalTermBoxHeight;
