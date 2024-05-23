@@ -32,7 +32,7 @@ app.controller('geneProductFilter', function(
 
   var initgpTypes = function() {
     $scope.gpTypes = [
-      {"id":"miRNA","item":{"associations":null,"name":"RNA","id":"miRNA"},"checked":false},
+      {"id":"RNA","item":{"associations":null,"name":"RNA","id":"RNA"},"checked":false},
       {"id":"complex","item":{"associations":null,"name":"Complexes","id":"complex"},"checked":false}
       //"protein" is not in this list as its hard coded separately to handle the sub sections below
     ];
