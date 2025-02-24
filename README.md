@@ -28,6 +28,16 @@ bower install
 grunt serve
 ```
 
+to use your local copy of QuickGoFE:
+
+```
+docker run -p 9000:9000 --rm -it -v "$(pwd):/QuickGoFE" --entrypoint sh dockerhub.ebi.ac.uk/uniprot/front-end/front-end-docker/ruby-node:latest
+cd QuickGoFE
+npm install
+bower install
+grunt serve
+```
+
 ## License
 
 Distributed under the Apache License 2.0
