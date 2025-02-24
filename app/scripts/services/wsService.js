@@ -330,7 +330,7 @@ wsService.factory('searchService', [
 
             return searchTerm
                 .replace(/\[(.*)\]/, "%5B$1%5D")     // [ and ]
-                .replace(/\|/g, "%7C");              // |
+                .replace(/\|/, "%7C");               // |
         };
 
         return {
@@ -384,7 +384,7 @@ wsService.factory('searchService', [
                         queryString = queryString + '&' + key + '=' + values;
                     }
                 });
-                return queryString;
+                return escapeSearchTerm(queryString);
             },
             escapeSearchTerm: escapeSearchTerm,
         };
