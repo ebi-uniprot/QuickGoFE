@@ -25,6 +25,8 @@ stages:
     - ruby --version
     - npm install
     - bower install
+    - grunt --version
+    - gem list --local
 
 test:
   extends: .ruby_node
